@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_icon_settings" viewBox="0 0 64 64" width="64" height="64">
+<title>设置 · 旧钥匙（皮肤）</title>
+<g id="root">
+<!-- 钥匙柄（哥特三叶菱形环） -->
+    <polygon points="22,8 36,12 32,26 18,30 10,20" fill="#9A7B46" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="29,10 36,12 32,26 18,30" fill="#6E542B"/>
+    <circle cx="23" cy="19" r="4.5" fill="#0D111C" stroke="#1C1412" stroke-width="2.2"/>
+    <!-- 钥匙杆与齿 -->
+    <path d="M30,25 L54,49 L49,54 L44,49 L40,53 L36,49 L41,44 L26,29 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M14,18 L22,11" stroke="#C2A670" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="20" cy="14" r="2" fill="#E6DEC8"/>
+</g>
+</svg>

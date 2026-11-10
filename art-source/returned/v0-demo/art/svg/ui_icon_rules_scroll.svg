@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_icon_rules" viewBox="0 0 64 64" width="64" height="64">
+<title>规则 · 羊皮纸卷轴（皮肤）</title>
+<g id="root">
+<!-- 卷轴主体 -->
+    <path d="M16,12 H48 L52,50 H20 Z" fill="#C8B894" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M36,12 H48 L52,50 H38 Z" fill="#9A8968"/>
+    <!-- 上下卷筒轴 -->
+    <rect x="10" y="8" width="42" height="8" rx="4" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6"/>
+    <rect x="12" y="48" width="44" height="8" rx="4" fill="#6E542B" stroke="#1C1412" stroke-width="2.6"/>
+    <!-- 卷面粗符文线与火漆印高光 -->
+    <path d="M23,24 H41 M24,32 H38" stroke="#1C1412" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="35" cy="41" r="5.5" fill="#8C3B45" stroke="#1C1412" stroke-width="2"/>
+    <circle cx="33.5" cy="39.5" r="1.8" fill="#E6DEC8"/>
+</g>
+</svg>

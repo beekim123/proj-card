@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_hammer" viewBox="0 0 176 188" width="176" height="188">
+<title>额外牌原画 · 锤子</title>
+<style>
+.svg-card_art_hammer g { transform-box: view-box; }
+.svg-card_art_hammer #root { transform-origin: 88px 94px; }
+.svg-card_art_hammer #hammer { transform-origin: 124px 154px; }
+.svg-card_art_hammer #gem_glint { transform-origin: 92px 68px; }
+.svg-card_art_hammer #impact_lines { transform-origin: 58px 118px; opacity: 0; }
+
+/* 待机（2.8s 循环）：像被人握着轻轻晃，宝石微闪 */
+@keyframes svg-card_art_hammer-idle-sway {
+  0%, 100% { transform: rotate(0deg) translate(0px, 0px); }
+  32% { transform: rotate(-2.6deg) translate(-1px, -2px); }
+  68% { transform: rotate(1.8deg) translate(1px, 1px); }
+}
+@keyframes svg-card_art_hammer-idle-glint {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+.svg-card_art_hammer:not([data-anim]) #hammer,
+.svg-card_art_hammer[data-anim="idle"] #hammer {
+  animation: svg-card_art_hammer-idle-sway 2.8s steps(8, end) infinite;
+}
+.svg-card_art_hammer:not([data-anim]) #gem_glint,
+.svg-card_art_hammer[data-anim="idle"] #gem_glint {
+  animation: svg-card_art_hammer-idle-glint 2.8s ease-in-out infinite;
+}
+
+/* play（600ms）：往后一扬，重重砸下，带几道冲击线，播完回到待机 */
+@keyframes svg-card_art_hammer-play-swing {
+  0% { transform: rotate(0deg) translate(0px, 0px); }
+  26% { transform: rotate(14deg) translate(2px, -4px); }
+  46% { transform: rotate(-17deg) translate(-2px, 7px); }
+  64% { transform: rotate(-12deg) translate(-1px, 4px); }
+  84% { transform: rotate(3deg) translate(0px, -1px); }
+  100% { transform: rotate(0deg) translate(0px, 0px); }
+}
+@keyframes svg-card_art_hammer-play-impact {
+  0%, 38%, 92%, 100% { opacity: 0; transform: scale(0.65); }
+  46% { opacity: 1; transform: scale(1); }
+  72% { opacity: 0.88; transform: scale(1.08); }
+}
+.svg-card_art_hammer[data-anim="play"] #hammer {
+  animation: svg-card_art_hammer-play-swing 0.6s steps(8, end) both;
+}
+.svg-card_art_hammer[data-anim="play"] #impact_lines {
+  animation: svg-card_art_hammer-play-impact 0.6s steps(6, end) both;
+}
+</style>
+<defs>
+  <radialGradient id="card_art_hammer-gem-glow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#FF5C6E" stop-opacity="0.58"/>
+    <stop offset="65%" stop-color="#E3263A" stop-opacity="0.22"/>
+    <stop offset="100%" stop-color="#E3263A" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="card_art_hammer-ruby" x1="18%" y1="12%" x2="84%" y2="88%">
+    <stop offset="0%" stop-color="#FF5C6E"/>
+    <stop offset="52%" stop-color="#E3263A"/>
+    <stop offset="100%" stop-color="#9E1424"/>
+  </linearGradient>
+</defs>
+<g id="root">
+  <!-- pivot: 88,94 -->
+  <!-- 左上角 x:0..30, y:0..90 严格留空给卡牌左上角宝石小图标 -->
+  <g id="hammer">
+    <!-- pivot: 124,154 -->
+    <!-- 锤头红宝石背光光晕 -->
+    <circle cx="92" cy="68" r="34" fill="url(#card_art_hammer-gem-glow)"/>
+
+    <!-- 战锤长木柄（从锤头 (86,62) 斜向右下握把 (136,162)） -->
+    <polygon points="75,44 87,38 93,50 81,56" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="78,36 84,33 87,40 76,45" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- 主木杆 -->
+    <polygon points="88,74 100,68 138,150 124,157" fill="#704122" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <!-- 木杆背光暗面 -->
+    <polygon points="94,71 100,68 138,150 131,153.5" fill="#3D2212" opacity="0.82"/>
+    <!-- 木杆左侧冷受光边 -->
+    <path d="M90,76 L125,152" stroke="#9A8968" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <!-- 握把羊皮纸缠带与交叉缝线 -->
+    <polygon points="105,110 118,104 134,139 120,146" fill="#C8B894" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="112,107 118,104 134,139 127,142.5" fill="#9A8968" opacity="0.75"/>
+    <path d="M108,118 L121,112 M112,127 L125,121 M116,136 L130,130" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- 柄尾旧铜配重球 -->
+    <polygon points="122,154 140,145 145,157 137,166 125,164" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="131,150 140,145 145,157 137,166" fill="#3B2B14" opacity="0.75"/>
+    <circle cx="134" cy="156" r="2.5" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
+
+    <!-- 哥特战锤头主体（范围 x:42..150, y:26..108，完全避开左上角 x:0..30, y:0..90） -->
+    <!-- 右上鹤嘴反刺（羊角尖刺） -->
+    <polygon points="108,52 136,34 150,36 138,50 116,68" fill="#3B515C" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="116,60 136,34 150,36 138,50 116,68" fill="#1E2C33" opacity="0.82"/>
+    <path d="M110,50 L135,36 L146,37" fill="none" stroke="#8CAAB5" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- 锤头中央铁体与左下重击锤面 -->
+    <polygon points="48,74 72,46 112,44 122,64 102,94 64,104 44,90" fill="#3B515C" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <!-- 锤头右下背光暗面 -->
+    <polygon points="88,68 112,44 122,64 102,94 64,104 44,90 62,84" fill="#1E2C33" opacity="0.82"/>
+    <!-- 左下重击锤面厚铁板（带折角斜切面） -->
+    <polygon points="42,76 54,66 72,98 58,108 42,94" fill="#5A7682" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="48,86 72,98 58,108 42,94" fill="#1E2C33" opacity="0.85"/>
+    <!-- 锤头左上冷灰青轮廓光 -->
+    <path d="M44,76 L54,68 M54,68 L73,48 L109,46" fill="none" stroke="#8CAAB5" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- 锤面背光侧交叉排线 -->
+    <path d="M96,76 L108,84 M90,82 L102,90 M82,88 L94,96 M74,92 L84,100" stroke="#1C1412" stroke-width="1.2" opacity="0.55"/>
+    <path d="M106,74 L94,86 M98,80 L86,92 M90,86 L78,98" stroke="#1C1412" stroke-width="1" opacity="0.4"/>
+
+    <!-- 旧铜包边箍带与铆钉 -->
+    <polygon points="68,48 79,45 105,91 94,96" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="103,45 113,44 122,64 114,76" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M71,49 L96,93" stroke="#C2A670" stroke-width="1.4" opacity="0.75"/>
+    <circle cx="74" cy="54" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="97" cy="89" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+
+    <!-- 锤头正中旧铜八角宝石底座 (中心 92,68) -->
+    <polygon points="83,47 101,47 113,59 113,77 101,89 83,89 71,77 71,59" fill="#3B2B14" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="85,50 99,50 109,60 109,76 99,86 85,86 75,76 75,60" fill="#9A7B46" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+
+    <!-- 锤头正中镶嵌的鲜艳红圆宝石 (中心 92,68，半径 16) -->
+    <g id="gem_glint">
+      <!-- pivot: 92,68 -->
+      <polygon points="92,51 100,53 106,59 109,68 106,77 100,83 92,85 84,83 78,77 75,68 78,59 84,53" fill="url(#card_art_hammer-ruby)"/>
+      <!-- 冠部受光刻面 -->
+      <polygon points="92,51 100,53 96,59 88,59 84,53" fill="#FF5C6E"/>
+      <polygon points="84,53 88,59 82,65 78,59" fill="#FFD6DC"/>
+      <polygon points="78,59 82,65 82,72 75,68" fill="#FF5C6E"/>
+      <!-- 冠部背光暗刻面 -->
+      <polygon points="106,59 109,68 102,72 102,65" fill="#9E1424"/>
+      <polygon points="109,68 106,77 100,83 96,77 102,72" fill="#5C0A14"/>
+      <polygon points="96,77 100,83 92,85 84,83 88,77" fill="#9E1424"/>
+      <!-- 中央八角台面 -->
+      <polygon points="88,59 96,59 102,65 102,72 96,77 88,77 82,72 82,65" fill="#E3263A" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M88,59 L96,77 M96,59 L88,77 M82,65 L102,72 M82,72 L102,65" stroke="#FFD6DC" stroke-width="0.9" opacity="0.5"/>
+      <!-- 台面高光 -->
+      <polygon points="84,64 89,60 95,60 88,68" fill="#FFFFFF" opacity="0.92"/>
+      <circle cx="83" cy="57" r="2" fill="#FFFFFF" opacity="0.95"/>
+      <!-- 宝石外圈墨线 -->
+      <polygon points="92,51 100,53 106,59 109,68 106,77 100,83 92,85 84,83 78,77 75,68 78,59 84,53" fill="none" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    </g>
+
+    <!-- 固定红宝石的四枚哥特铜爪 -->
+    <polygon points="89,47 95,47 94,54 90,54" fill="#C2A670" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <polygon points="89,89 95,89 94,82 90,82" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <polygon points="71,65 71,71 78,70 78,66" fill="#C2A670" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <polygon points="113,65 113,71 106,70 106,66" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+  </g>
+
+  <!-- play 状态：砸下时的冲击线与迸散火星（平时 opacity="0"，范围 x:32..116, y:94..168） -->
+  <g id="impact_lines" opacity="0">
+    <!-- pivot: 58,118 -->
+    <!-- 冲击弧与放射折线 -->
+    <path d="M36,106 Q42,130 68,142" fill="none" stroke="#E6DEC8" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M36,106 Q42,130 68,142" fill="none" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round"/>
+    <polygon points="48,118 33,124 44,129" fill="#E6DEC8" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <polygon points="56,128 42,148 54,142" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <polygon points="68,132 64,156 75,146" fill="#E6DEC8" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <polygon points="80,126 94,144 88,130" fill="#C2A670" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M40,98 L34,94 M78,140 L90,152 M48,136 L38,142" stroke="#E6DEC8" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+</g>
+</svg>

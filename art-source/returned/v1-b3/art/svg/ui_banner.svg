@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_banner" viewBox="0 0 600 140" width="600" height="140">
+<title>横幅</title>
+<defs>
+  <linearGradient id="ui_banner-center" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#262036"/>
+    <stop offset="18%" stop-color="#161221"/>
+    <stop offset="82%" stop-color="#161221"/>
+    <stop offset="100%" stop-color="#0D111C"/>
+  </linearGradient>
+</defs>
+<g id="root">
+  <!-- 横幅底部暗影 -->
+  <polygon points="56,30 544,30 584,76 544,128 56,128 16,76" fill="#0D111C" opacity="0.62"/>
+
+  <!-- 左右两头破旧暗色燕尾绶带尾翼（酒红与暗紫交叠，微歪做旧缺口） -->
+  <g id="ribbon_tails">
+    <!-- 左燕尾 -->
+    <polygon points="10,34 86,28 86,112 14,108 34,74 18,58 26,52" fill="#262036" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <polygon points="24,42 82,36 82,104 26,100 42,74" fill="#5E242C" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M14,36 L80,31" stroke="#62577D" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- 左燕尾背光排线 -->
+    <path d="M36,86 L52,102 M48,84 L64,100 M60,84 L76,100" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+
+    <!-- 右燕尾 -->
+    <polygon points="590,36 514,28 514,112 586,106 566,72 582,56 574,50" fill="#161221" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <polygon points="576,44 518,36 518,104 574,98 558,72" fill="#381318" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M524,86 L540,102 M538,84 L554,100 M552,84 L568,100" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.65"/>
+  </g>
+
+  <!-- 中央主牌匾 / 绶带主体（x:58..542, y:14..126，中间 400×80 即 x:100..500, y:30..110 完全平整深暗供写 56 号大字） -->
+  <g id="main_plaque">
+    <!-- 外层暗色哥特折角牌匾底（边沿带两处小崩口，中间保持平直宽敞） -->
+    <polygon points="74,16 218,15 224,20 230,15 412,16 418,21 424,16 526,17 544,36 544,104 526,124 362,124 356,119 350,124 166,123 160,118 154,123 74,124 56,104 56,36" fill="url(#ui_banner-center)" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+
+    <!-- 牌匾左上与顶部冷灰紫轮廓光 -->
+    <polyline points="60,98 60,38 76,20 216,19" fill="none" stroke="#62577D" stroke-width="2" stroke-linecap="round"/>
+    <line x1="234" y1="19" x2="408" y2="20" stroke="#62577D" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/>
+
+    <!-- 旧古铜双线内镶框（严格环绕在 x:86..514, y:24..116 外围，保证中心 400×80 纯净深暗无干扰） -->
+    <polygon points="84,24 516,24 528,36 528,104 516,116 84,116 72,104 72,36" fill="#161221" stroke="#6E542B" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="92" y="28" width="416" height="84" rx="3" fill="#161221" stroke="#3A324D" stroke-width="1.2"/>
+  </g>
+
+  <!-- 两头厚重维多利亚旧铜端饰（x:46..98 与 x:502..554，不侵入中间 x:100..500 写字区） -->
+  <g id="brass_caps">
+    <!-- 左端铜饰 -->
+    <polygon points="52,22 96,18 90,34 78,36 78,104 90,106 96,122 52,118 44,70" fill="#9A7B46" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="52,70 78,70 78,104 90,106 96,122 52,118 44,70" fill="#6E542B"/>
+    <polyline points="48,68 54,25 91,22" fill="none" stroke="#C2A670" stroke-width="2" stroke-linecap="round"/>
+    <!-- 左端铜饰中心哥特尖菱浮雕与铆钉 -->
+    <polygon points="66,48 82,70 66,92 50,70" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="66,55 76,70 66,85 56,70" fill="#C2A670" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="62" cy="30" r="2.6" fill="#C2A670" stroke="#1C1412" stroke-width="1.3"/>
+    <circle cx="62" cy="110" r="2.6" fill="#9A7B46" stroke="#1C1412" stroke-width="1.3"/>
+
+    <!-- 右端铜饰 -->
+    <polygon points="548,22 504,18 510,34 522,36 522,104 510,106 504,122 548,118 556,70" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="548,70 522,70 522,104 510,106 504,122 548,118 556,70" fill="#3B2B14" opacity="0.85"/>
+    <polyline points="508,22 545,25 552,66" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- 右端铜饰中心哥特尖菱浮雕与铆钉 -->
+    <polygon points="534,48 550,70 534,92 518,70" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="534,55 544,70 534,85 524,70" fill="#9A7B46" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="538" cy="30" r="2.6" fill="#C2A670" stroke="#1C1412" stroke-width="1.3"/>
+    <circle cx="538" cy="110" r="2.6" fill="#6E542B" stroke="#1C1412" stroke-width="1.3"/>
+  </g>
+</g>
+</svg>

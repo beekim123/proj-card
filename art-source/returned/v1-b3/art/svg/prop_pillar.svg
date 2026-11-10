@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-prop_pillar" viewBox="0 0 120 240" width="120" height="240">
+<title>断石柱</title>
+<defs>
+  <filter id="prop_pillar-grunge" filterUnits="userSpaceOnUse" x="0" y="0" width="120" height="240" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="2" seed="31" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0.09 0" result="grain"/>
+    <feComposite in="grain" in2="SourceGraphic" operator="in" result="clippedGrain"/>
+    <feBlend mode="multiply" in="SourceGraphic" in2="clippedGrain"/>
+  </filter>
+</defs>
+<g id="root">
+  <!-- pivot: 60,240 -->
+  <!-- 落地排线暗影（与 prop_rack 落地位置 60,240 完全对齐） -->
+  <ellipse cx="60" cy="232" rx="48" ry="6" fill="#0D111C" opacity="0.65"/>
+  <path d="M20,235 L28,228 M30,236 L38,228 M40,236 L48,228 M50,237 L58,228 M60,237 L68,228 M70,236 L78,228 M80,236 L88,228 M90,235 L98,229" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+
+  <g filter="url(#prop_pillar-grunge)">
+    <!-- 底部宽石阶底座（y:206..232） -->
+    <polygon points="18,208 102,210 108,232 12,232" fill="#4A4742" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="62,209 102,210 108,232 60,232" fill="#2E2C28" opacity="0.82"/>
+    <polyline points="15,228 20,211 58,211" fill="none" stroke="#948F86" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- 二层八角收腰柱础（y:188..210） -->
+    <polygon points="26,188 94,190 100,210 20,208" fill="#5A7682" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="62,189 94,190 100,210 60,209" fill="#3B515C"/>
+    <line x1="28" y1="191" x2="60" y2="191" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round"/>
+
+    <!-- 石柱柱身（微歪哥特棱柱 y:86..190，带竖向石槽与断纹） -->
+    <polygon points="30,86 88,94 92,190 28,188" fill="#5A7682" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <!-- 柱身右侧背光暗面 -->
+    <polygon points="62,90 88,94 92,190 60,189" fill="#3B515C"/>
+    <polygon points="75,92 88,94 92,190 76,190" fill="#1E2C33" opacity="0.85"/>
+    <!-- 柱身左侧冷灰青受光轮廓光 -->
+    <line x1="33" y1="90" x2="31" y2="184" stroke="#8CAAB5" stroke-width="2.2" stroke-linecap="round"/>
+
+    <!-- 柱身竖向凹槽线与石面裂纹 -->
+    <path d="M45,92 L44,186 M60,94 L60,188 M75,96 L76,188" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M47,94 L46,184" stroke="#8CAAB5" stroke-width="1.1" stroke-linecap="round" opacity="0.65"/>
+    <!-- 横向石缝与崩裂纹 -->
+    <path d="M29,138 L52,142 L60,136 L90,141 M30,164 L44,160 L54,167" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 右下背光交叉排线 -->
+    <path d="M66,146 L86,166 M66,160 L88,182 M72,136 L88,152 M64,174 L78,188" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+    <path d="M86,148 L66,168 M88,162 L68,182" stroke="#1C1412" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+
+    <!-- 柱头哥特斜向断裂截面与外扩托盘（y:46..98，向正面偏左倾斜以清楚展示空宝石槽） -->
+    <polygon points="18,64 62,44 102,68 94,96 26,88" fill="#3B515C" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="60,72 102,68 94,96 60,92" fill="#1E2C33"/>
+    <!-- 柱头顶部断裂面（左高右低斜切面） -->
+    <polygon points="18,64 62,44 102,68 60,84" fill="#6E6A63" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="62,44 102,68 60,84" fill="#4A4742"/>
+    <polyline points="21,63 62,46.5 76,54" fill="none" stroke="#8CAAB5" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- 柱头正中：空的宝石镶槽（与 card_art_empty 呼应的八角旧铜底座 + 空凹坑 + 三只空弯爪，不发光） -->
+    <g id="empty_socket">
+      <!-- 八角旧铜底座 -->
+      <polygon points="44,53 74,53 86,63 74,77 44,77 32,63" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="60,53 74,53 86,63 74,77 60,77" fill="#3B2B14" opacity="0.8"/>
+      <!-- 中央深暗空凹槽（无宝石、无发光） -->
+      <ellipse cx="59" cy="65" rx="16" ry="9.5" fill="#0D111C" stroke="#1C1412" stroke-width="2.2"/>
+      <path d="M46,62 A15,8 0 0,1 72,62 A15,6 0 0,0 46,62 Z" fill="#161221"/>
+      <path d="M47,69 A14,7 0 0,0 71,69" fill="none" stroke="#9A7B46" stroke-width="1.2" opacity="0.65"/>
+      <!-- 空槽底部刮痕 -->
+      <path d="M53,63 L61,68 M59,62 L66,67" stroke="#4A4742" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+
+      <!-- 三只空着的旧铜弯爪（后上爪、左下爪、右下爪） -->
+      <polygon points="55,46 63,46 61,58 57,58" fill="#C2A670" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="31,66 38,74 49,68 47,63" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="87,66 80,74 69,68 71,63" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    </g>
+
+    <!-- 掉在柱脚右侧的一小块碎石块 -->
+    <polygon points="94,222 108,218 112,230 92,231" fill="#4A4742" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <line x1="96" y1="222" x2="106" y2="220" stroke="#8CAAB5" stroke-width="1.2" stroke-linecap="round"/>
+  </g>
+</g>
+</svg>

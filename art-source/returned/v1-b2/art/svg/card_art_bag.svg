@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_bag" viewBox="0 0 176 188" width="176" height="188">
+<title>额外牌原画 · 口袋</title>
+<style>
+.svg-card_art_bag g { transform-box: view-box; }
+.svg-card_art_bag #root { transform-origin: 96px 112px; }
+.svg-card_art_bag #bag_body { transform-origin: 96px 156px; }
+.svg-card_art_bag #flap { transform-origin: 96px 84px; }
+.svg-card_art_bag #strings { transform-origin: 96px 88px; }
+.svg-card_art_bag #cards_pop { transform-origin: 96px 88px; opacity: 0; }
+
+/* 待机（2.6s 循环）：袋盖一起一伏，抽绳轻晃 */
+@keyframes svg-card_art_bag-idle-flap {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  45% { transform: translateY(-3px) rotate(-2.5deg); }
+  75% { transform: translateY(1px) rotate(1.2deg); }
+}
+@keyframes svg-card_art_bag-idle-strings {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(4.5deg) translateY(-1px); }
+}
+.svg-card_art_bag:not([data-anim]) #flap,
+.svg-card_art_bag[data-anim="idle"] #flap {
+  animation: svg-card_art_bag-idle-flap 2.6s steps(8, end) infinite;
+}
+.svg-card_art_bag:not([data-anim]) #strings,
+.svg-card_art_bag[data-anim="idle"] #strings {
+  animation: svg-card_art_bag-idle-strings 2.6s steps(8, end) infinite;
+}
+
+/* play（600ms）：袋身一蹲一弹，袋盖大幅翻开，两张牌的影子从里面高高弹出来 */
+@keyframes svg-card_art_bag-play-body {
+  0%, 100% { transform: scale(1, 1) translateY(0px); }
+  16% { transform: scale(1.08, 0.9) translateY(5px); }
+  38% { transform: scale(0.94, 1.07) translateY(-6px); }
+  66% { transform: scale(1.03, 0.97) translateY(2px); }
+}
+@keyframes svg-card_art_bag-play-flap {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scaleY(1); }
+  16% { transform: translateY(4px) rotate(4deg) scaleY(0.95); }
+  36%, 58% { transform: translateY(-24px) rotate(-28deg) scaleY(0.75); }
+  80% { transform: translateY(3px) rotate(3deg) scaleY(1.02); }
+}
+@keyframes svg-card_art_bag-play-cards {
+  0%, 18%, 94%, 100% { opacity: 0; transform: translateY(14px) scale(0.45); }
+  36% { opacity: 1; transform: translateY(-8px) scale(1); }
+  56% { opacity: 1; transform: translateY(-10px) scale(1.02); }
+  78% { opacity: 0.75; transform: translateY(-6px) scale(0.96); }
+}
+.svg-card_art_bag[data-anim="play"] #bag_body {
+  animation: svg-card_art_bag-play-body 0.6s steps(8, end) both;
+}
+.svg-card_art_bag[data-anim="play"] #flap {
+  animation: svg-card_art_bag-play-flap 0.6s steps(8, end) both;
+}
+.svg-card_art_bag[data-anim="play"] #cards_pop {
+  animation: svg-card_art_bag-play-cards 0.6s steps(8, end) both;
+}
+</style>
+<defs>
+  <radialGradient id="card_art_bag-gem-glow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#5CE892" stop-opacity="0.55"/>
+    <stop offset="65%" stop-color="#1DBF5E" stop-opacity="0.2"/>
+    <stop offset="100%" stop-color="#1DBF5E" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<g id="root">
+  <!-- pivot: 96,112 -->
+  <!-- 左上角 x:0..30, y:0..90 严格留空 -->
+  <g id="bag_body">
+    <!-- pivot: 96,156 -->
+    <!-- 落地暗影 -->
+    <ellipse cx="96" cy="164" rx="48" ry="8" fill="#0D111C" opacity="0.6"/>
+
+    <!-- 袋口深暗内腔（袋盖翻开时露出） -->
+    <ellipse cx="96" cy="84" rx="34" ry="11" fill="#0D111C" stroke="#1C1412" stroke-width="2.6"/>
+
+    <!-- play 时从袋口弹出的两张哥特卡牌剪影（平时 opacity="0"，范围 x:48..148, y:38..96，弹出后 y>=14 绝不出框） -->
+    <g id="cards_pop" opacity="0">
+      <!-- pivot: 96,88 -->
+      <!-- 左牌影（微向左扇开） -->
+      <g transform="rotate(-14 82 78)">
+        <rect x="60" y="42" width="34" height="48" rx="4" fill="#262036" stroke="#1C1412" stroke-width="2.6"/>
+        <rect x="64" y="46" width="26" height="40" rx="2.5" fill="none" stroke="#C8B894" stroke-width="1.5"/>
+        <polygon points="77,56 83,66 77,76 71,66" fill="#5CE892" opacity="0.85"/>
+      </g>
+      <!-- 右牌影（微向右扇开） -->
+      <g transform="rotate(16 110 76)">
+        <rect x="94" y="40" width="34" height="48" rx="4" fill="#3B515C" stroke="#1C1412" stroke-width="2.6"/>
+        <rect x="98" y="44" width="26" height="40" rx="2.5" fill="none" stroke="#E2D6BA" stroke-width="1.5"/>
+        <polygon points="111,54 117,64 111,74 105,64" fill="#E6DEC8" opacity="0.9"/>
+      </g>
+      <!-- 弹出气流线 -->
+      <path d="M54,62 L46,50 M138,60 L146,48 M96,46 L96,38" stroke="#E6DEC8" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+
+    <!-- 旧皮口袋主袋身（饱满圆肚带折角，范围 x:42..150, y:76..162） -->
+    <path d="M60,78 L132,80 L148,118 L142,150 L118,162 L72,162 L46,148 L42,114 Z" fill="#704122" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <!-- 袋身右侧背光暗面 -->
+    <path d="M98,79 L132,80 L148,118 L142,150 L118,162 L92,162 Q108,124 98,79 Z" fill="#3D2212" opacity="0.82"/>
+    <!-- 袋身左侧冷受光边 -->
+    <path d="M62,82 L46,115 L50,145 L73,158" fill="none" stroke="#C48A5C" stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>
+    <!-- 左下旧羊皮纸补丁与手工缝线 -->
+    <polygon points="52,122 76,118 80,144 56,148" fill="#9A8968" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M50,126 L56,125 M51,134 L57,133 M53,142 L59,141 M73,122 L79,121 M75,131 L81,130 M76,139 L82,138" stroke="#1C1412" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- 右侧背光交叉排线与肚皮褶皱 -->
+    <path d="M114,116 L138,140 M108,126 L132,150 M102,136 L122,156 M122,112 L142,132" stroke="#1C1412" stroke-width="1.2" opacity="0.48"/>
+    <path d="M136,118 L112,142 M138,130 L116,152" stroke="#1C1412" stroke-width="1" opacity="0.35"/>
+
+    <!-- 袋口抽绳组 strings -->
+    <g id="strings">
+      <!-- pivot: 96,88 -->
+      <path d="M56,84 Q96,94 136,84" fill="none" stroke="#3D2212" stroke-width="5" stroke-linecap="round"/>
+      <path d="M56,84 Q96,94 136,84" fill="none" stroke="#C8B894" stroke-width="2.2" stroke-dasharray="6 4" stroke-linecap="round"/>
+      <!-- 两侧垂下的抽绳与旧铜绳坠 -->
+      <path d="M132,85 Q148,96 146,116" fill="none" stroke="#C8B894" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M132,85 Q148,96 146,116" fill="none" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round"/>
+      <polygon points="142,114 150,114 152,124 140,124" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    </g>
+
+    <!-- 翻折袋盖与绿方宝石搭扣 flap -->
+    <g id="flap">
+      <!-- pivot: 96,84 -->
+      <!-- 袋盖主体 -->
+      <path d="M54,78 L66,64 L126,66 L138,80 L124,112 L96,122 L68,110 Z" fill="#9E6238" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+      <!-- 袋盖右侧暗面 -->
+      <path d="M96,65 L126,66 L138,80 L124,112 L96,122 Z" fill="#704122" opacity="0.82"/>
+      <!-- 袋盖左上冷受光边与缝线 -->
+      <path d="M58,78 L68,67 L122,68" fill="none" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+      <path d="M64,84 L72,105 L96,115 L120,106 L128,84" fill="none" stroke="#1C1412" stroke-width="1.4" stroke-dasharray="4 3"/>
+
+      <!-- 绿宝石背光光晕 -->
+      <circle cx="96" cy="108" r="24" fill="url(#card_art_bag-gem-glow)"/>
+
+      <!-- 旧铜方形搭扣底座 -->
+      <polygon points="80,92 112,92 116,124 96,132 76,124" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="83,95 109,95 112,121 96,127 80,121" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+
+      <!-- 搭扣中央镶嵌的鲜艳绿色方宝石（口袋对应绿方宝石） -->
+      <rect x="84" y="96" width="24" height="24" rx="2.5" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2"/>
+      <!-- 阶梯刻面（左上亮，右下暗） -->
+      <polygon points="84,96 108,96 103,101 89,101" fill="#5CE892"/>
+      <polygon points="84,96 89,101 89,115 84,120" fill="#5CE892"/>
+      <polygon points="108,96 108,120 84,120 89,115 103,115 103,101" fill="#117A3B"/>
+      <rect x="89" y="101" width="14" height="14" rx="1" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.2"/>
+      <!-- 宝石高光 -->
+      <polygon points="91,103 99,103 95,109 91,109" fill="#FFFFFF" opacity="0.92"/>
+      <rect x="86" y="98" width="4" height="2" rx="0.5" fill="#FFFFFF" opacity="0.95"/>
+    </g>
+  </g>
+</g>
+</svg>

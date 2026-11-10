@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-gem_blue_rough" viewBox="0 0 100 100" width="100" height="100">
+<title>蓝宝石 · 原石</title>
+<defs>
+<linearGradient id="gem_blue_rough-stone" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#6E6A63"/>
+        <stop offset="60%" stop-color="#4A4742"/>
+        <stop offset="100%" stop-color="#524531"/>
+      </linearGradient>
+</defs>
+<g id="root">
+<!-- 三角石皮底 -->
+        <path d="M47,12 L53,12 L88,78 L84,84 L16,84 L12,78 Z" fill="url(#gem_blue_rough-stone)"/>
+        <!-- 背光暗部石皮 -->
+        <path d="M53,12 L88,78 L84,84 L16,84 L48,58 Z" fill="#2E2C28" opacity="0.78"/>
+        <!-- 左上冷受光边 -->
+        <path d="M14,74 L47,12 L53,12" fill="none" stroke="#948F86" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- 裂隙露出的三角蓝宝石原矿 -->
+        <polygon points="48,26 66,58 30,62" fill="#193D9E" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+        <polygon points="48,30 58,52 35,55" fill="#2E66F0"/>
+        <polygon points="47,34 53,46 40,48" fill="#6B9BFF" opacity="0.78"/>
+        <polygon points="56,66 76,68 68,79 48,77" fill="#193D9E" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+        <polygon points="58,68 72,70 66,76" fill="#2E66F0"/>
+        <!-- 石皮裂纹与排线 -->
+        <path d="M48,26 L50,12 M66,58 L82,64 M30,62 L14,76 M48,77 L42,84" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M22,82 L34,70 M30,82 L42,70 M64,46 L72,38 M68,52 L76,44" stroke="#1C1412" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+        <!-- 外轮廓手绘线 -->
+        <path d="M47,12 L53,12 L88,78 L84,84 L16,84 L12,78 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+        <path d="M46.6,11.6 L53.4,11.8 L88.4,78.2 L83.8,84.4 L16.2,84.2 L11.6,77.6 Z" fill="none" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round" opacity="0.65"/>
+</g>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-gem_blue_cut" viewBox="0 0 100 100" width="100" height="100">
+<title>蓝宝石 · 切好</title>
+<defs>
+<linearGradient id="gem_blue_cut-base" x1="15%" y1="10%" x2="85%" y2="90%">
+        <stop offset="0%" stop-color="#2E66F0"/>
+        <stop offset="55%" stop-color="#2E66F0"/>
+        <stop offset="100%" stop-color="#193D9E"/>
+      </linearGradient>
+</defs>
+<g id="root">
+<!-- 宝石底色 -->
+        <path d="M47,12 L53,12 L88,78 L84,84 L16,84 L12,78 Z" fill="url(#gem_blue_cut-base)"/>
+        <!-- 左侧受光斜刻面 -->
+        <polygon points="47,12 50,30 30,68 12,78" fill="#6B9BFF"/>
+        <polygon points="47,12 53,12 50,30" fill="#6B9BFF"/>
+        <!-- 右侧背光斜刻面 -->
+        <polygon points="53,12 88,78 70,68 50,30" fill="#193D9E"/>
+        <!-- 底部暗刻面 -->
+        <polygon points="30,68 70,68 84,84 16,84" fill="#0D2159"/>
+        <polygon points="12,78 30,68 16,84" fill="#193D9E"/>
+        <polygon points="88,78 84,84 70,68" fill="#0D2159"/>
+        <!-- 中央三角台面 -->
+        <path d="M50,30 L70,68 L30,68 Z" fill="#2E66F0"/>
+        
+        <!-- 亭部内部折射刻面线 -->
+        <path d="M50,30 L50,68 M30,68 L60,49 M70,68 L40,49" stroke="#193D9E" stroke-width="1.2" opacity="0.4"/>
+        <!-- 冠部刻面分界线 -->
+        <path d="M50,30 L70,68 L30,68 Z M47,12 L50,30 L53,12 M12,78 L30,68 L16,84 M88,78 L70,68 L84,84 M30,45 L40,49 M70,45 L60,49 M50,68 L50,84" fill="none" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+        <!-- 台面高光 -->
+        <polygon points="49,35 55,48 41,52" fill="#E6DEC8" opacity="0.92"/>
+        <circle cx="40" cy="34" r="2.5" fill="#FFFFFF" opacity="0.95"/>
+        <!-- 手绘双层哥特外框 -->
+        <path d="M47,12 L53,12 L88,78 L84,84 L16,84 L12,78 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+        <path d="M46.6,11.6 L53.4,11.8 L88.4,78.2 L83.8,84.4 L16.2,84.2 L11.6,77.6 Z" fill="none" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round" opacity="0.65"/>
+</g>
+</svg>

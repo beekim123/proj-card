@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_gem_bar" viewBox="0 0 132 34" width="132" height="34">
+<title>宝石栏</title>
+<g id="root">
+<!-- 旧铜横栏外框 -->
+    <path d="M10,2 H122 L130,10 V24 L122,32 H10 L2,24 V10 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M12,5 H120 L126,11 V23 L120,29 H12 L6,23 V11 Z" fill="#3B2B14" stroke="#9A7B46" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- 顶部受光亮边 -->
+    <path d="M11,4 H121" stroke="#C2A670" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+    <!-- 左右两颗柳钉 -->
+    <circle cx="11" cy="17" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
+    <circle cx="121" cy="17" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
+    <!-- 左槽：圆槽 中心 (30,17) -->
+    <circle cx="30" cy="17" r="11.5" fill="#0D111C" stroke="#1C1412" stroke-width="2"/>
+    <path d="M21,23 A11,11 0 0,0 39,23" fill="none" stroke="#9A7B46" stroke-width="1.2" opacity="0.7"/>
+    <!-- 中槽：方槽 中心 (66,17) -->
+    <rect x="55.5" y="6.5" width="21" height="21" rx="2" fill="#0D111C" stroke="#1C1412" stroke-width="2"/>
+    <path d="M57,26 H75" fill="none" stroke="#9A7B46" stroke-width="1.2" opacity="0.7"/>
+    <!-- 右槽：三角槽 中心 (102,17) -->
+    <polygon points="102,5.5 113.5,26.5 90.5,26.5" fill="#0D111C" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M92,25.5 H112" fill="none" stroke="#9A7B46" stroke-width="1.2" opacity="0.7"/>
+</g>
+</svg>

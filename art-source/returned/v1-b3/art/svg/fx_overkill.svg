@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_overkill" viewBox="0 0 480 240" width="480" height="240">
+<title>特效 · 超杀</title>
+<style>
+.svg-fx_overkill g { transform-box: view-box; }
+.svg-fx_overkill #burst_outer,
+.svg-fx_overkill #burst_inner,
+.svg-fx_overkill #gem_shards_a,
+.svg-fx_overkill #gem_shards_b {
+  opacity: 0;
+  transform-origin: 240px 120px;
+}
+
+/* play（1000ms）：巨大的哥特锯齿星爆 + 三色宝石碎片炸开，中间深暗留给「超杀 ×37」大字 */
+@keyframes svg-fx_overkill-outer {
+  0%, 100% { opacity: 0; transform: scale(0.32) rotate(-4deg); }
+  14% { opacity: 1; transform: scale(1.04) rotate(1deg); }
+  32% { opacity: 1; transform: scale(0.96) rotate(-1deg); }
+  62% { opacity: 0.95; transform: scale(1.02) rotate(0deg); }
+  84% { opacity: 0.65; transform: scale(1.04) rotate(1deg); }
+}
+@keyframes svg-fx_overkill-inner {
+  0%, 100% { opacity: 0; transform: scale(0.4); }
+  12% { opacity: 1; transform: scale(1.03); }
+  36% { opacity: 1; transform: scale(0.98); }
+  74% { opacity: 0.92; transform: scale(1.01); }
+  90% { opacity: 0.4; transform: scale(1.03); }
+}
+@keyframes svg-fx_overkill-shards-a {
+  0%, 6%, 100% { opacity: 0; transform: scale(0.45) rotate(-6deg); }
+  20% { opacity: 1; transform: scale(0.94) rotate(0deg); }
+  58% { opacity: 1; transform: scale(1.03) rotate(2deg); }
+  86% { opacity: 0.55; transform: scale(1.05) rotate(4deg); }
+}
+@keyframes svg-fx_overkill-shards-b {
+  0%, 12%, 100% { opacity: 0; transform: scale(0.5) rotate(6deg); }
+  28% { opacity: 1; transform: scale(0.96) rotate(0deg); }
+  68% { opacity: 0.92; transform: scale(1.04) rotate(-3deg); }
+  92% { opacity: 0.35; transform: scale(1.05) rotate(-5deg); }
+}
+.svg-fx_overkill[data-anim="play"] #burst_outer {
+  animation: svg-fx_overkill-outer 1s steps(10, end) both;
+}
+.svg-fx_overkill[data-anim="play"] #burst_inner {
+  animation: svg-fx_overkill-inner 1s steps(10, end) both;
+}
+.svg-fx_overkill[data-anim="play"] #gem_shards_a {
+  animation: svg-fx_overkill-shards-a 1s steps(10, end) both;
+}
+.svg-fx_overkill[data-anim="play"] #gem_shards_b {
+  animation: svg-fx_overkill-shards-b 1s steps(10, end) both;
+}
+</style>
+<g id="root">
+  <!-- pivot: 240,120 -->
+
+  <!-- 外层巨型哥特锯齿星爆（x:24..456, y:18..222，峰值放大 1.04 依然严格在 480×240 内） -->
+  <g id="burst_outer" opacity="0">
+    <!-- pivot: 240,120 -->
+    <!-- 暗酒红与焦茶粗线主锯齿芒 -->
+    <polygon points="240,18 266,64 318,24 312,72 396,34 358,84 454,68 386,108 458,124 384,142 448,182 356,162 392,212 310,174 316,220 264,178 240,222 216,178 164,220 170,174 88,212 124,162 32,182 96,142 22,124 94,108 26,68 122,84 84,34 168,72 162,24 214,64" fill="#8C3B45" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <!-- 次级旧古铜锋利折角芒 -->
+    <polygon points="240,34 258,72 298,44 296,80 368,54 342,92 422,84 368,114 426,136 364,148 410,186 336,164 354,202 292,172 284,208 248,176 216,208 188,172 126,202 144,164 70,186 116,148 54,136 112,114 58,84 138,92 112,54 184,80 182,44 222,72" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 内层深色哥特护字底盘（中间约 270×96 区域压暗为 #161221，确保上方「超杀 ×37」大字极度清晰醒目，绝不刺眼） -->
+  <g id="burst_inner" opacity="0">
+    <!-- pivot: 240,120 -->
+    <!-- 外围羊皮纸亮边短齿（仅在字区外围露尖） -->
+    <polygon points="240,48 256,74 288,56 286,80 344,64 328,92 388,88 352,114 394,130 348,144 378,172 322,158 330,188 282,168 266,194 240,172 214,194 198,168 150,188 158,158 102,172 132,144 86,130 128,114 92,88 152,92 136,64 194,80 192,56 224,74" fill="#C2A670" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- 中心深暗哥特锯齿衬底（垫在大字正后方） -->
+    <polygon points="240,62 272,72 316,66 334,86 376,96 362,120 376,144 334,154 316,174 272,168 240,178 208,168 164,174 146,154 104,144 118,120 104,96 146,86 164,66 208,72" fill="#161221" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="240,68 270,77 312,72 328,90 364,99 352,120 364,141 328,150 312,168 270,163 240,172 210,163 168,168 152,150 116,141 128,120 116,99 152,90 168,72 210,77" fill="#0D111C" stroke="#6E542B" stroke-width="1.4" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 第一波飞溅的三色宝石碎片（环绕在外圈，不遮挡中心大字） -->
+  <g id="gem_shards_a" opacity="0">
+    <!-- pivot: 240,120 -->
+    <!-- 红宝石碎片 -->
+    <polygon points="64,46 86,40 80,62 60,58" fill="#E3263A" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="67,47 82,43 76,54" fill="#FF5C6E"/>
+    <polygon points="402,48 422,58 408,72 394,60" fill="#E3263A" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="404,51 417,58 407,65" fill="#FF5C6E"/>
+    <polygon points="196,24 212,18 208,36 192,34" fill="#E3263A" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="274,204 290,198 294,216 276,218" fill="#E3263A" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+
+    <!-- 绿宝石碎片 -->
+    <polygon points="42,102 62,94 66,114 46,118" fill="#1DBF5E" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="46,102 59,97 60,108" fill="#5CE892"/>
+    <polygon points="418,144 438,138 442,158 422,162" fill="#1DBF5E" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="421,144 434,140 436,151" fill="#5CE892"/>
+    <polygon points="122,194 140,188 144,206 126,210" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="340,26 358,22 362,38 344,42" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+
+    <!-- 蓝宝石碎片 -->
+    <polygon points="132,22 152,36 126,42" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="134,26 146,35 130,38" fill="#6B9BFF"/>
+    <polygon points="424,92 446,104 422,114" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="426,96 440,104 425,110" fill="#6B9BFF"/>
+    <polygon points="56,156 78,166 58,178" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="350,192 372,202 352,214" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 第二波四角星芒与细碎晶粒 -->
+  <g id="gem_shards_b" opacity="0">
+    <!-- pivot: 240,120 -->
+    <path d="M98,64 L101.5,73.5 L111,77 L101.5,80.5 L98,90 L94.5,80.5 L85,77 L94.5,73.5 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M382,66 L385.5,75.5 L395,79 L385.5,82.5 L382,92 L378.5,82.5 L369,79 L378.5,75.5 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M92,150 L95,158 L103,161 L95,164 L92,172 L89,164 L81,161 L89,158 Z" fill="#FFD6DC" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M388,152 L391,160 L399,163 L391,166 L388,174 L385,166 L377,163 L385,160 Z" fill="#5CE892" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M240,22 L243,30 L251,33 L243,36 L240,44 L237,36 L229,33 L237,30 Z" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M204,196 L207,204 L215,207 L207,210 L204,218 L201,210 L193,207 L201,204 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

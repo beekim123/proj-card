@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_btn" viewBox="0 0 192 96" width="192" height="96">
+<title>普通按钮底</title>
+<g id="root">
+<!-- 按钮主底 -->
+    <rect x="3" y="3" width="186" height="90" rx="12" fill="#262036"/>
+    <!-- 底部暗面斜切立体厚度（顺着水平拉伸方向） -->
+    <path d="M6,78 H186 V84 A8,8 0 0,1 178,92 H14 A8,8 0 0,1 6,84 Z" fill="#161221" opacity="0.85"/>
+    <!-- 顶部受光亮边 -->
+    <path d="M12,7 H180" stroke="#62577D" stroke-width="2.4" stroke-linecap="round" opacity="0.88"/>
+    <!-- 内层平行线框 -->
+    <rect x="8" y="8" width="176" height="80" rx="8" fill="none" stroke="#6E542B" stroke-width="1.6" opacity="0.85"/>
+    <!-- 外层手绘粗框 -->
+    <rect x="3" y="3" width="186" height="90" rx="12" fill="none" stroke="#1C1412" stroke-width="3"/>
+    <!-- 四角包角（严格在 32×32 角区内） -->
+    <g>
+    <polygon points="4,4 28,4 23,10 10,10 10,23 4,28" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="14" cy="14" r="2" fill="#C2A670"/>
+  </g>
+    <g transform="translate(192, 0) scale(-1, 1)">
+    <polygon points="4,4 28,4 23,10 10,10 10,23 4,28" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="14" cy="14" r="2" fill="#C2A670"/>
+  </g>
+    <g transform="translate(0, 96) scale(1, -1)">
+    <polygon points="4,4 28,4 23,10 10,10 10,23 4,28" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="14" cy="14" r="2" fill="#C2A670"/>
+  </g>
+    <g transform="translate(192, 96) scale(-1, -1)">
+    <polygon points="4,4 28,4 23,10 10,10 10,23 4,28" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="14" cy="14" r="2" fill="#C2A670"/>
+  </g>
+</g>
+</svg>

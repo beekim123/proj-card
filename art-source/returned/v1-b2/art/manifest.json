@@ -1,0 +1,317 @@
+{
+ "game": "gemcard",
+ "title": "新卡牌",
+ "note": "第一版 第 2 批（素材清单 phase 1）+ 第 1 批宝箱怪、锤子返修",
+ "assets": [
+  {
+   "key": "gem_red_rough",
+   "cat": "宝石",
+   "kind": "sprite",
+   "size": [
+    100,
+    100
+   ],
+   "file": "png/gem_red_rough.png",
+   "desc": "红宝石 · 原石（圆）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3–6 秒一次，一次不超过 0.4 秒）",
+   "done": true
+  },
+  {
+   "key": "gem_green_rough",
+   "cat": "宝石",
+   "kind": "sprite",
+   "size": [
+    100,
+    100
+   ],
+   "file": "png/gem_green_rough.png",
+   "desc": "绿宝石 · 原石（方）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3–6 秒一次，一次不超过 0.4 秒）",
+   "done": true
+  },
+  {
+   "key": "gem_green_cut",
+   "cat": "宝石",
+   "kind": "sprite",
+   "size": [
+    100,
+    100
+   ],
+   "file": "png/gem_green_cut.png",
+   "desc": "绿宝石 · 切好（方）。这次重画成会动的：每 3–4 秒一道光从刻面上扫过，带一颗小星闪一下",
+   "done": true
+  },
+  {
+   "key": "gem_green_shine",
+   "cat": "宝石",
+   "kind": "sprite",
+   "size": [
+    100,
+    100
+   ],
+   "file": "png/gem_green_shine.png",
+   "desc": "绿宝石 · 闪光（方）。这次重画成会动的：两三颗四角星轮流闪，外面那圈淡光慢慢一呼一吸（一直在动，但很轻）",
+   "done": true
+  },
+  {
+   "key": "gem_blue_rough",
+   "cat": "宝石",
+   "kind": "sprite",
+   "size": [
+    100,
+    100
+   ],
+   "file": "png/gem_blue_rough.png",
+   "desc": "蓝宝石 · 原石（三角）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3–6 秒一次，一次不超过 0.4 秒）",
+   "done": true
+  },
+  {
+   "key": "gem_blue_cut",
+   "cat": "宝石",
+   "kind": "sprite",
+   "size": [
+    100,
+    100
+   ],
+   "file": "png/gem_blue_cut.png",
+   "desc": "蓝宝石 · 切好（三角）。这次重画成会动的：每 3–4 秒一道光从刻面上扫过，带一颗小星闪一下",
+   "done": true
+  },
+  {
+   "key": "gem_blue_shine",
+   "cat": "宝石",
+   "kind": "sprite",
+   "size": [
+    100,
+    100
+   ],
+   "file": "png/gem_blue_shine.png",
+   "desc": "蓝宝石 · 闪光（三角）。这次重画成会动的：两三颗四角星轮流闪，外面那圈淡光慢慢一呼一吸（一直在动，但很轻）",
+   "done": true
+  },
+  {
+   "key": "mon_soldier",
+   "cat": "怪",
+   "kind": "sprite",
+   "size": [
+    320,
+    400
+   ],
+   "file": "png/mon_soldier.png",
+   "desc": "发条兵（小怪）：一个铁皮玩具兵，圆筒身子、高帽子、大方下巴，背后插一把发条钥匙一直在转，手里一杆长枪。动作一顿一顿的。死的时候弹簧、齿轮崩出来，整个倒下",
+   "done": true,
+   "anchor": [
+    160,
+    400
+   ]
+  },
+  {
+   "key": "mon_bear",
+   "cat": "怪",
+   "kind": "sprite",
+   "size": [
+    320,
+    400
+   ],
+   "file": "png/mon_bear.png",
+   "desc": "布偶熊（小怪）：一只缝过很多次的旧布偶熊，掉了一只耳朵（剩缝线），眼睛是两种不一样的缝线，怀里死死抱着一颗切好的红宝石。被重击时缝线崩开、飞出棉花（不是血）",
+   "done": true,
+   "anchor": [
+    160,
+    400
+   ]
+  },
+  {
+   "key": "mon_clock",
+   "cat": "怪",
+   "kind": "sprite",
+   "size": [
+    320,
+    400
+   ],
+   "file": "png/mon_clock.png",
+   "desc": "老座钟（精英）：一座高高的落地钟，表盘就是脸（表盘上方两扇小窗是眼睛），肚子里的玻璃后面钟摆在晃。表盘中心必须在 (160,140)、半径约 56：代码把倒计时数字写在表盘正中（countdown_slot），所以表盘中间要空、要浅。tick = 倒计时少 1 时指针跳一下、钟身一震",
+   "done": true,
+   "anchor": [
+    160,
+    400
+   ]
+  },
+  {
+   "key": "mon_dragon",
+   "cat": "怪",
+   "kind": "sprite",
+   "size": [
+    520,
+    400
+   ],
+   "file": "png/mon_dragon.png",
+   "desc": "宝石龙（首领）：一条胖胖的龙趴在一堆宝石上，肚皮上嵌着三颗大宝石（红圆、绿方、蓝三角），小翅膀、卷尾巴、两只角、睡不醒的厚眼皮。只有宝石鲜艳发亮，龙身压暗。不喷火（不要火光），出手是扑上来咬、喷一团宝石碎屑",
+   "done": true,
+   "anchor": [
+    260,
+    400
+   ]
+  },
+  {
+   "key": "card_art_bag",
+   "cat": "额外牌原画",
+   "kind": "sprite",
+   "size": [
+    176,
+    188
+   ],
+   "file": "png/card_art_bag.png",
+   "desc": "口袋（摸 2 张）：一只旧皮口袋，袋口的扣子是一颗绿色方宝石。待机：袋盖一起一伏、抽绳轻晃。play：袋盖翻开，两张牌的影子从里面弹出来",
+   "done": true
+  },
+  {
+   "key": "card_art_lens",
+   "cat": "额外牌原画",
+   "kind": "sprite",
+   "size": [
+    176,
+    188
+   ],
+   "file": "png/card_art_lens.png",
+   "desc": "放大镜（倍率再 ×2）：一把旧铜框放大镜，手柄末端镶一颗蓝色三角宝石。待机：一道光从镜片上扫过。play：镜片鼓起来再落回，向外荡出两圈环",
+   "done": true
+  },
+  {
+   "key": "card_art_mirror",
+   "cat": "额外牌原画",
+   "kind": "sprite",
+   "size": [
+    176,
+    188
+   ],
+   "file": "png/card_art_mirror.png",
+   "desc": "镜子（变成上一张缺的宝石）：一面椭圆手镜，哥特镜框。镜面用 currentColor 画（代码按它变成的颜色染），上面一层淡淡的倒影。待机：倒影慢慢荡。play：镜面一闪白，再荡开成新颜色",
+   "done": true
+  },
+  {
+   "key": "card_art_stone",
+   "cat": "额外牌原画",
+   "kind": "sprite",
+   "size": [
+    176,
+    188
+   ],
+   "file": "png/card_art_stone.png",
+   "desc": "磨石（三颗宝石各长 5 次）：小木架上一只圆磨石轮，带摇把，轮边沾着红、绿、蓝三粒宝石碎屑。待机：轮子慢慢转。play：飞快地转，迸出三色火花",
+   "done": true
+  },
+  {
+   "key": "card_frame_tool",
+   "cat": "卡牌",
+   "kind": "sprite",
+   "size": [
+    200,
+    300
+   ],
+   "file": "png/card_frame_tool.png",
+   "desc": "额外牌的牌框：和 card_frame 同样的结构（原画窗是透明的洞、文字框平而暗），但一眼能看出是另一类牌：比如骨白 / 旧银色的边，角花换一种。不画字",
+   "done": true
+  },
+  {
+   "key": "card_art_bg_tool",
+   "cat": "卡牌",
+   "kind": "sprite",
+   "size": [
+    176,
+    188
+   ],
+   "file": "png/card_art_bg_tool.png",
+   "desc": "额外牌的原画窗底：比如旧皮革或旧羊皮纸，暗、平；左上角（约 x0–30、y0–90）要特别平，会叠小宝石图标",
+   "done": true
+  },
+  {
+   "key": "ui_heart_empty",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    64,
+    64
+   ],
+   "file": "png/ui_heart_empty.png",
+   "desc": "空的心形挂坠：和 ui_heart 同一个铜边，宝石没了，只剩暗的空槽",
+   "done": true
+  },
+  {
+   "key": "ui_countdown",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    96,
+    96
+   ],
+   "file": "png/ui_countdown.png",
+   "desc": "怪的出手倒计时：一枚旧铜圆章，边上一个小沙漏的样子，中间平、暗，代码在正中写数字（40 号）。待机：沙粒慢慢往下漏。tick：数字变小时整枚翻一下。warn：只剩 1 回合时一直轻轻抖",
+   "done": true
+  },
+  {
+   "key": "ui_hp_frame",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    256,
+    48
+   ],
+   "file": "png/ui_hp_frame.png",
+   "desc": "血条框：一条细长的铁 / 旧铜槽，九宫格。中间的槽是暗的空槽，代码往里画血（hpFill）和字。会被拉成约 460×40",
+   "done": true
+  },
+  {
+   "key": "fx_attack",
+   "cat": "特效",
+   "kind": "sprite",
+   "size": [
+    320,
+    320
+   ],
+   "file": "png/fx_attack.png",
+   "desc": "怪出手打到你：三道爪痕 / 划痕横扫过去，墨色带一点浅边，不要血、不要红",
+   "done": true
+  },
+  {
+   "key": "fx_kill",
+   "cat": "特效",
+   "kind": "sprite",
+   "size": [
+    320,
+    320
+   ],
+   "file": "png/fx_kill.png",
+   "desc": "血打空（打穿了）：一圈裂纹 + 一把三色宝石碎片炸开",
+   "done": true
+  },
+  {
+   "key": "mon_chest",
+   "cat": "怪",
+   "kind": "sprite",
+   "size": [
+    320,
+    400
+   ],
+   "file": "png/mon_chest.png",
+   "desc": "宝箱怪（小怪）：一只旧木箱，铁箍包边，箱盖就是嘴，里面一排尖牙和一条长舌头，箱缝里两只小眼睛。贪心、爱咬人。死的时候箱子散架，吐出几颗宝石",
+   "done": true,
+   "anchor": [
+    160,
+    400
+   ],
+   "from": "第 1 批样稿返修"
+  },
+  {
+   "key": "card_art_hammer",
+   "cat": "额外牌原画",
+   "kind": "sprite",
+   "size": [
+    176,
+    188
+   ],
+   "file": "png/card_art_hammer.png",
+   "desc": "锤子（这回合伤害 ×2）：一把战锤，锤头正中镶一颗红色圆宝石。待机：像被人握着轻轻晃。play：往后一扬，重重砸下，带几道冲击线",
+   "done": true,
+   "from": "第 1 批样稿返修"
+  }
+ ]
+}

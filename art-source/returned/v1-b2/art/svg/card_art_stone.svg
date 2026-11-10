@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_stone" viewBox="0 0 176 188" width="176" height="188">
+<title>额外牌原画 · 磨石</title>
+<style>
+.svg-card_art_stone g { transform-box: view-box; }
+.svg-card_art_stone #root { transform-origin: 96px 96px; }
+.svg-card_art_stone #stand { transform-origin: 96px 148px; }
+.svg-card_art_stone #wheel { transform-origin: 96px 84px; }
+.svg-card_art_stone #sparks_rgb { transform-origin: 96px 84px; opacity: 0; }
+
+/* 待机（3.6s 循环）：磨石轮带着三色宝石碎屑慢慢转动 */
+@keyframes svg-card_art_stone-idle-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.svg-card_art_stone:not([data-anim]) #wheel,
+.svg-card_art_stone[data-anim="idle"] #wheel {
+  animation: svg-card_art_stone-idle-spin 3.6s steps(16, end) infinite;
+}
+
+/* play（600ms）：木架轻震，磨石轮飞快旋转两圈，轮边迸出红、绿、蓝三色宝石火花 */
+@keyframes svg-card_art_stone-play-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  45% { transform: rotate(360deg) scale(1.06); }
+  100% { transform: rotate(720deg) scale(1); }
+}
+@keyframes svg-card_art_stone-play-stand {
+  0%, 100% { transform: translateY(0px) scale(1, 1); }
+  25% { transform: translateY(3px) scale(1.04, 0.95); }
+  55% { transform: translateY(-2px) scale(0.98, 1.03); }
+}
+@keyframes svg-card_art_stone-play-sparks {
+  0%, 10%, 94%, 100% { opacity: 0; transform: scale(0.55) rotate(-8deg); }
+  28% { opacity: 1; transform: scale(0.98) rotate(0deg); }
+  58% { opacity: 1; transform: scale(1.06) rotate(6deg); }
+  82% { opacity: 0.65; transform: scale(1.1) rotate(10deg); }
+}
+.svg-card_art_stone[data-anim="play"] #wheel {
+  animation: svg-card_art_stone-play-spin 0.6s steps(12, end) both;
+}
+.svg-card_art_stone[data-anim="play"] #stand {
+  animation: svg-card_art_stone-play-stand 0.6s steps(8, end) both;
+}
+.svg-card_art_stone[data-anim="play"] #sparks_rgb {
+  animation: svg-card_art_stone-play-sparks 0.6s steps(8, end) both;
+}
+</style>
+<g id="root">
+  <!-- pivot: 96,96 -->
+  <!-- 左上角 x:0..30, y:0..90 严格留空（磨石轮中心在 96,84，半径 40，左缘 x=56 > 30） -->
+  <g id="stand">
+    <!-- pivot: 96,148 -->
+    <!-- 落地暗影 -->
+    <ellipse cx="96" cy="164" rx="52" ry="8" fill="#0D111C" opacity="0.6"/>
+
+    <!-- 后侧木架支腿 -->
+    <polygon points="62,82 74,82 64,160 50,160" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="118,82 130,82 142,160 128,160" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+
+    <!-- 圆磨石轮 wheel（带摇把与轮边红、绿、蓝三粒宝石碎屑，中心 96,84，半径 40） -->
+    <g id="wheel">
+      <!-- pivot: 96,84 -->
+      <!-- 磨石轮主体 -->
+      <circle cx="96" cy="84" r="40" fill="#6E6A63" stroke="#1C1412" stroke-width="3"/>
+      <!-- 背光半圈暗面 -->
+      <path d="M124,56 A40,40 0 0,1 68,112 L96,84 Z" fill="#4A4742" opacity="0.82"/>
+      <!-- 石轮同心磨痕与砂纹 -->
+      <circle cx="96" cy="84" r="31" fill="none" stroke="#948F86" stroke-width="1.6" stroke-dasharray="14 8"/>
+      <circle cx="96" cy="84" r="21" fill="none" stroke="#2E2C28" stroke-width="1.4" stroke-dasharray="8 6"/>
+      <path d="M64,66 L76,74 M128,102 L116,94 M114,52 L106,64 M78,116 L86,104" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
+
+      <!-- 轮边沾着的红、绿、蓝三粒鲜艳宝石碎屑（均在木槽上方清晰可见） -->
+      <!-- 1. 红圆宝石碎屑 (左上弧边) -->
+      <circle cx="76" cy="50" r="6.8" fill="#E3263A" stroke="#1C1412" stroke-width="1.8"/>
+      <circle cx="74.5" cy="48.5" r="2.4" fill="#FF5C6E"/>
+      <circle cx="86" cy="46" r="3.2" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.2"/>
+      <!-- 2. 绿方宝石碎屑 (右上弧边) -->
+      <rect x="122" y="64" width="11.5" height="11.5" rx="1.5" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8" transform="rotate(18 127.5 69.5)"/>
+      <rect x="124" y="66" width="5" height="5" fill="#5CE892" transform="rotate(18 127.5 69.5)"/>
+      <rect x="116" y="54" width="6" height="6" fill="#5CE892" stroke="#1C1412" stroke-width="1.2"/>
+      <!-- 3. 蓝三角宝石碎屑 (左侧弧边，高于木槽 y=104) -->
+      <polygon points="58,72 70,82 54,86" fill="#2E66F0" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <polygon points="60,75 66,80 57,82" fill="#6B9BFF"/>
+      <polygon points="62,62 69,67 60,69" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.2"/>
+
+      <!-- 中央铁轴座与弯曲铁摇把（随轮子一起转，长度控制在 r<=34 内） -->
+      <circle cx="96" cy="84" r="10" fill="#3B515C" stroke="#1C1412" stroke-width="2.4"/>
+      <path d="M96,84 L116,72 L122,82" fill="none" stroke="#1C1412" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M96,84 L116,72 L122,82" fill="none" stroke="#9A7B46" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="96" cy="84" r="4" fill="#C2A670" stroke="#1C1412" stroke-width="1.4"/>
+      <ellipse cx="123" cy="84" rx="6.5" ry="4.5" fill="#704122" stroke="#1C1412" stroke-width="2"/>
+    </g>
+
+    <!-- 前侧木架水槽横梁与前支腿（压在石轮下半部前面，营造立体感） -->
+    <polygon points="44,104 148,106 142,130 50,128" fill="#704122" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="96,105 148,106 142,130 96,129" fill="#3D2212" opacity="0.75"/>
+    <path d="M48,108 L142,110" stroke="#C48A5C" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+    <!-- 前侧左右木腿与铁铆钉 -->
+    <polygon points="52,102 65,102 58,164 44,164" fill="#704122" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="127,102 140,102 148,164 134,164" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <circle cx="58" cy="116" r="2.8" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.3"/>
+    <circle cx="134" cy="116" r="2.8" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.3"/>
+  </g>
+
+  <!-- play 状态：飞快旋转时向四周迸出的红、绿、蓝三色宝石火花（平时 opacity="0"，严格避开左上角 x:0..30, y:0..90 且在 176×188 内） -->
+  <g id="sparks_rgb" opacity="0">
+    <!-- pivot: 96,84 -->
+    <!-- 红色宝石火花（右上与上方 x>=64） -->
+    <path d="M76,36 L68,24 M90,32 L88,18" stroke="#FF5C6E" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="76,26 80,33 87,36 80,39 76,46 72,39 65,36 72,33" fill="#E3263A" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <circle cx="98" cy="26" r="4.5" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.4"/>
+
+    <!-- 绿色宝石火花（右侧与右下 x<=154） -->
+    <path d="M134,56 L148,46 M140,78 L154,74" stroke="#5CE892" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="144,54 148,61 155,64 148,67 144,74 140,67 133,64 140,61" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <rect x="142" y="84" width="9" height="9" rx="1.5" fill="#5CE892" stroke="#1C1412" stroke-width="1.4" transform="rotate(22 146.5 88.5)"/>
+
+    <!-- 蓝色宝石火花（左下 y>=112 与正上右） -->
+    <path d="M56,118 L44,128 M116,36 L128,24" stroke="#6B9BFF" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="122,26 126,33 133,36 126,39 122,46 118,39 111,36 118,33" fill="#2E66F0" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <polygon points="52,112 62,120 50,124" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

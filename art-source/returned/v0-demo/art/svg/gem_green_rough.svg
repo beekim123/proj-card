@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-gem_green_rough" viewBox="0 0 100 100" width="100" height="100">
+<title>绿宝石 · 原石</title>
+<defs>
+<linearGradient id="gem_green_rough-stone" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#6E6A63"/>
+        <stop offset="60%" stop-color="#4A4742"/>
+        <stop offset="100%" stop-color="#524531"/>
+      </linearGradient>
+</defs>
+<g id="root">
+<!-- 方形石皮底 -->
+        <path d="M22,14 L78,14 L86,22 L86,78 L78,86 L22,86 L14,78 L14,22 Z" fill="url(#gem_green_rough-stone)"/>
+        <!-- 背光暗部石皮 -->
+        <path d="M86,22 L86,78 L78,86 L22,86 L14,78 L46,56 L68,32 Z" fill="#2E2C28" opacity="0.78"/>
+        <!-- 左上冷受光边 -->
+        <path d="M14,68 L14,22 L22,14 L72,14" fill="none" stroke="#948F86" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- 裂隙露出的方形阶梯绿宝石原矿 -->
+        <polygon points="24,26 62,24 64,58 26,62" fill="#117A3B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+        <polygon points="28,30 56,28 52,50 30,52" fill="#1DBF5E"/>
+        <polygon points="32,33 48,32 45,42 33,43" fill="#5CE892" opacity="0.75"/>
+        <polygon points="56,64 76,58 76,76 54,76" fill="#117A3B" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+        <polygon points="59,66 72,62 71,72 58,72" fill="#1DBF5E"/>
+        <!-- 石皮裂纹与排线 -->
+        <path d="M62,24 L78,14 M26,62 L14,74 M64,58 L86,52 M54,76 L46,86" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M26,82 L38,70 M34,84 L46,72 M42,84 L52,74 M72,48 L84,36 M74,54 L84,44" stroke="#1C1412" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+        <!-- 外轮廓手绘线 -->
+        <path d="M22,14 L78,14 L86,22 L86,78 L78,86 L22,86 L14,78 L14,22 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+        <path d="M21.5,13.6 L78.4,14.3 L86.4,22.3 L85.7,78.2 L77.7,86.4 L22.2,85.7 L13.6,77.7 L14.3,21.8 Z" fill="none" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round" opacity="0.65"/>
+</g>
+</svg>

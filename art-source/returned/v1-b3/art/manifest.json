@@ -1,0 +1,151 @@
+{
+ "game": "gemcard",
+ "title": "新卡牌",
+ "note": "第一版 第 3 批（素材清单 phase 2）",
+ "assets": [
+  {
+   "key": "card_back",
+   "cat": "卡牌",
+   "kind": "sprite",
+   "size": [
+    200,
+    300
+   ],
+   "file": "png/card_back.png",
+   "desc": "牌背：暗色哥特花纹，正中三颗宝石（红圆、绿方、蓝三角）的徽记。待机：中间的宝石每 5 秒左右轮流闪一下",
+   "done": true
+  },
+  {
+   "key": "ui_node_fight",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    64,
+    64
+   ],
+   "file": "png/ui_node_fight.png",
+   "desc": "一局进度上的一格：普通一仗（一把小剑）",
+   "done": true
+  },
+  {
+   "key": "ui_node_elite",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    64,
+    64
+   ],
+   "file": "png/ui_node_elite.png",
+   "desc": "一局进度上的一格：精英（一个钟面）",
+   "done": true
+  },
+  {
+   "key": "ui_node_boss",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    64,
+    64
+   ],
+   "file": "png/ui_node_boss.png",
+   "desc": "一局进度上的一格：首领（龙头剪影）。打过的、正在打的、还没打的由代码压暗、加圈",
+   "done": true
+  },
+  {
+   "key": "ui_banner",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    600,
+    140
+   ],
+   "file": "png/ui_banner.png",
+   "desc": "横幅：一条破旧的暗色绶带 / 牌匾，两头铜饰。中间平、暗，代码写大字（「第 3 仗」「战利品」「胜利」「失败」，56 号）。不拉伸",
+   "done": true
+  },
+  {
+   "key": "loot_chest",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    240,
+    200
+   ],
+   "file": "png/loot_chest.png",
+   "desc": "战利品宝箱：小一号的精致宝箱，铜包角，锁扣上三颗小宝石（和宝箱怪要一眼分开：这个是死的、干净的）。待机：偶尔轻轻一颠。drop：从上面掉下来弹一下。open：箱盖打开，冒出一小团三色碎光，然后停在打开的样子",
+   "done": true,
+   "anchor": [
+    120,
+    200
+   ]
+  },
+  {
+   "key": "title_emblem",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    400,
+    340
+   ],
+   "file": "png/title_emblem.png",
+   "desc": "首页徽记：一块立着的哥特纹章 / 牌匾，嵌着红圆、绿方、蓝三角三颗宝石。待机：三颗宝石轮流闪。不写字（游戏名由代码写）",
+   "done": true,
+   "anchor": [
+    200,
+    340
+   ]
+  },
+  {
+   "key": "prop_pillar",
+   "cat": "场景",
+   "kind": "sprite",
+   "size": [
+    120,
+    240
+   ],
+   "file": "png/prop_pillar.png",
+   "desc": "古堡里的一截断石柱，柱头上一个空的宝石槽。战斗时放在兵器架的位置（练习时还是兵器架）。不发光",
+   "done": true,
+   "anchor": [
+    60,
+    240
+   ]
+  },
+  {
+   "key": "fx_overkill",
+   "cat": "特效",
+   "kind": "sprite",
+   "size": [
+    480,
+    240
+   ],
+   "file": "png/fx_overkill.png",
+   "desc": "超杀：一个很大的锯齿星爆，带三色宝石碎片，垫在「超杀 ×37」大字后面",
+   "done": true
+  },
+  {
+   "key": "fx_slam",
+   "cat": "特效",
+   "kind": "sprite",
+   "size": [
+    400,
+    160
+   ],
+   "file": "png/fx_slam.png",
+   "desc": "锤子砸下：贴着桌面的一圈冲击波 + 尘土，颜色用 currentColor",
+   "done": true
+  },
+  {
+   "key": "fx_heal",
+   "cat": "特效",
+   "kind": "sprite",
+   "size": [
+    160,
+    160
+   ],
+   "file": "png/fx_heal.png",
+   "desc": "回 1 颗心：一小股红色碎光往上旋，收进心里",
+   "done": true
+  }
+ ]
+}

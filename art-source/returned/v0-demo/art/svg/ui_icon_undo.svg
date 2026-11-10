@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_icon_undo" viewBox="0 0 64 64" width="64" height="64">
+<title>撤回</title>
+<g id="root">
+<path d="M26,12 L8,26 L26,40 L26,31 C40,31 46,37 44,49 C43,53 40,56 36,57 C48,56 56,46 56,33 C56,20 44,17 26,19 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M8,26 L26,40 L26,31 C40,31 46,37 44,49 C51,46 55,39 55,32 L24,26 Z" fill="#6E542B"/>
+    <path d="M12,25 L24,15" stroke="#C2A670" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="22" cy="23" r="2.2" fill="#E6DEC8"/>
+</g>
+</svg>

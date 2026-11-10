@@ -1,0 +1,512 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-mon_dragon" viewBox="0 0 520 400" width="520" height="400">
+<title>宝石龙</title>
+<style>
+.svg-mon_dragon g { transform-box: view-box; }
+@keyframes svg-mon_dragon-boil-a { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes svg-mon_dragon-boil-b { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+.svg-mon_dragon .boil-a { animation: svg-mon_dragon-boil-a 0.4s steps(2, end) infinite; }
+.svg-mon_dragon .boil-b { opacity: 0; animation: svg-mon_dragon-boil-b 0.4s steps(2, end) infinite; }
+
+.svg-mon_dragon #root { transform-origin: 260px 400px; }
+.svg-mon_dragon #shadow { transform-origin: 260px 388px; }
+.svg-mon_dragon #pile { transform-origin: 260px 360px; }
+.svg-mon_dragon #tail { transform-origin: 368px 278px; }
+.svg-mon_dragon #body { transform-origin: 260px 320px; }
+.svg-mon_dragon #belly_gems { transform-origin: 260px 236px; }
+.svg-mon_dragon .belly-red { transform-origin: 214px 232px; }
+.svg-mon_dragon .belly-green { transform-origin: 262px 248px; }
+.svg-mon_dragon .belly-blue { transform-origin: 310px 230px; }
+.svg-mon_dragon #wings { transform-origin: 260px 156px; }
+.svg-mon_dragon #head { transform-origin: 224px 142px; }
+.svg-mon_dragon #jaw { transform-origin: 218px 158px; }
+.svg-mon_dragon #eyes { transform-origin: 212px 112px; }
+.svg-mon_dragon #face_hurt { transform-origin: 212px 112px; opacity: 0; }
+.svg-mon_dragon #face_daze { transform-origin: 212px 96px; opacity: 0; }
+.svg-mon_dragon .daze-stars { transform-origin: 212px 38px; }
+.svg-mon_dragon .daze-swirl-l { transform-origin: 182px 110px; }
+.svg-mon_dragon .daze-swirl-r { transform-origin: 238px 114px; }
+.svg-mon_dragon .breath-shards { transform-origin: 180px 180px; opacity: 0; }
+.svg-mon_dragon .pile-roll { transform-origin: 260px 340px; opacity: 0; }
+
+/* 待机 idle（2.8s 循环）：肚子慢慢一呼一吸，尾巴尖一甩，肚子上的红绿蓝三颗大宝石轮流微微一闪 */
+@keyframes svg-mon_dragon-idle-body {
+  0%, 100% { transform: scale(1, 1) translateY(0px); }
+  45% { transform: scale(1.022, 0.98) translateY(3px); }
+}
+@keyframes svg-mon_dragon-idle-head {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  45% { transform: translateY(4px) rotate(-1.8deg); }
+}
+@keyframes svg-mon_dragon-idle-wings {
+  0%, 100% { transform: scaleY(1) translateY(0px); }
+  45% { transform: scaleY(1.05) translateY(-3px); }
+}
+@keyframes svg-mon_dragon-idle-tail {
+  0%, 55%, 100% { transform: rotate(0deg); }
+  72% { transform: rotate(9deg) translateY(-4px); }
+  86% { transform: rotate(-4deg) translateY(2px); }
+}
+@keyframes svg-mon_dragon-idle-gem1 {
+  0%, 35%, 100% { transform: scale(1); filter: brightness(1); }
+  16% { transform: scale(1.12); }
+}
+@keyframes svg-mon_dragon-idle-gem2 {
+  0%, 28%, 68%, 100% { transform: scale(1); }
+  48% { transform: scale(1.12); }
+}
+@keyframes svg-mon_dragon-idle-gem3 {
+  0%, 60%, 100% { transform: scale(1); }
+  80% { transform: scale(1.12); }
+}
+.svg-mon_dragon:not([data-anim]) #body,
+.svg-mon_dragon[data-anim="idle"] #body {
+  animation: svg-mon_dragon-idle-body 2.8s steps(8, end) infinite;
+}
+.svg-mon_dragon:not([data-anim]) #head,
+.svg-mon_dragon[data-anim="idle"] #head {
+  animation: svg-mon_dragon-idle-head 2.8s steps(8, end) infinite;
+}
+.svg-mon_dragon:not([data-anim]) #wings,
+.svg-mon_dragon[data-anim="idle"] #wings {
+  animation: svg-mon_dragon-idle-wings 2.8s steps(8, end) infinite;
+}
+.svg-mon_dragon:not([data-anim]) #tail,
+.svg-mon_dragon[data-anim="idle"] #tail {
+  animation: svg-mon_dragon-idle-tail 2.8s steps(8, end) infinite;
+}
+.svg-mon_dragon:not([data-anim]) .belly-red,
+.svg-mon_dragon[data-anim="idle"] .belly-red {
+  animation: svg-mon_dragon-idle-gem1 2.8s steps(6, end) infinite;
+}
+.svg-mon_dragon:not([data-anim]) .belly-green,
+.svg-mon_dragon[data-anim="idle"] .belly-green {
+  animation: svg-mon_dragon-idle-gem2 2.8s steps(6, end) infinite;
+}
+.svg-mon_dragon:not([data-anim]) .belly-blue,
+.svg-mon_dragon[data-anim="idle"] .belly-blue {
+  animation: svg-mon_dragon-idle-gem3 2.8s steps(6, end) infinite;
+}
+
+/* 轻击 hit（400ms）：往后一缩（6°）再弹回，从待机或 daze 切入均自然 */
+@keyframes svg-mon_dragon-hit-body {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+  28% { transform: translate(10px, -2px) rotate(5.8deg); }
+  68% { transform: translate(-3px, 0px) rotate(-1.8deg); }
+}
+@keyframes svg-mon_dragon-hit-head {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(7deg); }
+}
+.svg-mon_dragon[data-anim="hit"] #body {
+  animation: svg-mon_dragon-hit-body 0.4s steps(6, end) both;
+}
+.svg-mon_dragon[data-anim="hit"] #head {
+  animation: svg-mon_dragon-hit-head 0.4s steps(6, end) both;
+}
+
+/* 重击 hit_big（700ms）：后仰 12.5°，仰头张嘴吼一声，换 face_hurt，宝石堆里滚下几颗鲜艳宝石，再晃回 */
+@keyframes svg-mon_dragon-hitbig-body {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+  18%, 38% { transform: translate(-18px, -18px) rotate(12.5deg) scale(1.01, 0.94); }
+  62% { transform: translate(4px, -2px) rotate(-3deg) scale(0.98, 1.02); }
+  82% { transform: translate(-2px, 0px) rotate(1.2deg) scale(1, 1); }
+}
+@keyframes svg-mon_dragon-hitbig-head {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+  16%, 44% { transform: translate(8px, -10px) rotate(14deg); }
+  70% { transform: translate(-2px, 2px) rotate(-3deg); }
+}
+@keyframes svg-mon_dragon-hitbig-jaw {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  14%, 48% { transform: translateY(16px) rotate(-14deg); }
+}
+@keyframes svg-mon_dragon-hitbig-eyes {
+  0%, 6%, 84%, 100% { opacity: 1; }
+  10%, 80% { opacity: 0; }
+}
+@keyframes svg-mon_dragon-hitbig-hurt {
+  0%, 6%, 84%, 100% { opacity: 0; }
+  10%, 80% { opacity: 1; }
+}
+@keyframes svg-mon_dragon-hitbig-roll {
+  0%, 8%, 92%, 100% { opacity: 0; transform: translateY(-18px) scale(0.7); }
+  22% { opacity: 1; transform: translateY(0px) scale(1.04); }
+  64% { opacity: 1; transform: translateY(18px) scale(1); }
+  88% { opacity: 0.4; transform: translateY(22px) scale(0.95); }
+}
+.svg-mon_dragon[data-anim="hit_big"] #body {
+  animation: svg-mon_dragon-hitbig-body 0.7s steps(8, end) both;
+}
+.svg-mon_dragon[data-anim="hit_big"] #head {
+  animation: svg-mon_dragon-hitbig-head 0.7s steps(8, end) both;
+}
+.svg-mon_dragon[data-anim="hit_big"] #jaw {
+  animation: svg-mon_dragon-hitbig-jaw 0.7s steps(8, end) both;
+}
+.svg-mon_dragon[data-anim="hit_big"] #eyes {
+  animation: svg-mon_dragon-hitbig-eyes 0.7s linear both;
+}
+.svg-mon_dragon[data-anim="hit_big"] #face_hurt {
+  animation: svg-mon_dragon-hitbig-hurt 0.7s linear both;
+}
+.svg-mon_dragon[data-anim="hit_big"] .pile-roll {
+  animation: svg-mon_dragon-hitbig-roll 0.7s steps(8, end) both;
+}
+
+/* 出手 attack（800ms）：往前扑上来一咬（第 400ms 咬中），喷出一团红绿蓝宝石碎屑（绝不喷火），再退回 */
+@keyframes svg-mon_dragon-attack-body {
+  0%, 100% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); }
+  20% { transform: translate(6px, -6px) scale(0.96, 1.03) rotate(3deg); }
+  44% { transform: translate(0px, 5px) scale(1.05, 1.04) rotate(-2deg); }
+  50% { transform: translate(0px, 7px) scale(1.07, 1.04) rotate(-2.5deg); }
+  70% { transform: translate(0px, 2px) scale(1.02, 0.99) rotate(1deg); }
+}
+@keyframes svg-mon_dragon-attack-jaw {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  20%, 42% { transform: translateY(20px) rotate(-18deg); }
+  50%, 60% { transform: translateY(-2px) rotate(4deg); }
+}
+@keyframes svg-mon_dragon-attack-shards {
+  0%, 36%, 92%, 100% { opacity: 0; transform: translate(24px, -12px) scale(0.45); }
+  48% { opacity: 1; transform: translate(0px, 0px) scale(1.02); }
+  72% { opacity: 0.9; transform: translate(-10px, 12px) scale(1.06); }
+  90% { opacity: 0; transform: translate(-14px, 16px) scale(1.08); }
+}
+.svg-mon_dragon[data-anim="attack"] #body {
+  animation: svg-mon_dragon-attack-body 0.8s steps(10, end) both;
+}
+.svg-mon_dragon[data-anim="attack"] #jaw {
+  animation: svg-mon_dragon-attack-jaw 0.8s steps(10, end) both;
+}
+.svg-mon_dragon[data-anim="attack"] .breath-shards {
+  animation: svg-mon_dragon-attack-shards 0.8s steps(8, end) both;
+}
+
+/* 发晕 daze（600ms 进场 + 无限循环）：龙身明显瘫塌在宝石堆上歪斜（6°）慢慢晃，换 face_daze */
+@keyframes svg-mon_dragon-daze-in {
+  0% { opacity: 0; transform: translateY(8px) scale(0.88); }
+  100% { opacity: 1; transform: translateY(0px) scale(1); }
+}
+@keyframes svg-mon_dragon-daze-eyes-hide {
+  0% { opacity: 1; }
+  15%, 100% { opacity: 0; }
+}
+@keyframes svg-mon_dragon-daze-body {
+  0%, 100% { transform: translate(-8px, 14px) rotate(-5.5deg) scale(1.04, 0.91); }
+  50% { transform: translate(8px, 16px) rotate(5.8deg) scale(1.04, 0.9); }
+}
+@keyframes svg-mon_dragon-daze-head {
+  0%, 100% { transform: translateY(12px) rotate(-6deg); }
+  50% { transform: translateY(14px) rotate(6deg); }
+}
+@keyframes svg-mon_dragon-daze-jaw {
+  0%, 100% { transform: translateY(12px) rotate(-10deg); }
+  50% { transform: translateY(14px) rotate(-6deg); }
+}
+@keyframes svg-mon_dragon-daze-swirl {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.svg-mon_dragon[data-anim="daze"] #eyes {
+  animation: svg-mon_dragon-daze-eyes-hide 0.6s linear forwards;
+}
+.svg-mon_dragon[data-anim="daze"] #face_daze {
+  animation: svg-mon_dragon-daze-in 0.6s steps(6, end) forwards;
+}
+.svg-mon_dragon[data-anim="daze"] #body {
+  animation: svg-mon_dragon-daze-body 2.2s steps(8, end) infinite;
+  animation-iteration-count: infinite;
+}
+.svg-mon_dragon[data-anim="daze"] #head {
+  animation: svg-mon_dragon-daze-head 2.2s steps(8, end) infinite;
+  animation-iteration-count: infinite;
+}
+.svg-mon_dragon[data-anim="daze"] #jaw {
+  animation: svg-mon_dragon-daze-jaw 2.2s steps(8, end) infinite;
+  animation-iteration-count: infinite;
+}
+.svg-mon_dragon[data-anim="daze"] .daze-swirl-l,
+.svg-mon_dragon[data-anim="daze"] .daze-swirl-r {
+  animation: svg-mon_dragon-daze-swirl 1.2s steps(6, end) infinite;
+  animation-iteration-count: infinite;
+}
+
+/* 死亡 die（1000ms）：胖龙瘫倒在宝石堆上，肚皮上的三颗大宝石掉出来滚落堆前，最后全透明 */
+@keyframes svg-mon_dragon-die-root {
+  0%, 64% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes svg-mon_dragon-die-body {
+  0% { transform: translate(0px, 0px) scale(1, 1); }
+  16% { transform: translate(-4px, -4px) scale(1.04, 0.94); }
+  48%, 100% { transform: translate(0px, 34px) scale(1.06, 0.68); }
+}
+@keyframes svg-mon_dragon-die-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  45%, 100% { transform: translate(-18px, 38px) rotate(-18deg); }
+}
+@keyframes svg-mon_dragon-die-gem1 {
+  0%, 12% { transform: translate(0px, 0px) rotate(0deg); }
+  32% { transform: translate(-18px, -22px) rotate(-15deg); }
+  56%, 100% { transform: translate(-36px, 86px) rotate(-32deg); }
+}
+@keyframes svg-mon_dragon-die-gem2 {
+  0%, 14% { transform: translate(0px, 0px) rotate(0deg); }
+  34% { transform: translate(0px, -26px) rotate(12deg); }
+  58%, 100% { transform: translate(-4px, 78px) rotate(24deg); }
+}
+@keyframes svg-mon_dragon-die-gem3 {
+  0%, 16% { transform: translate(0px, 0px) rotate(0deg); }
+  36% { transform: translate(20px, -20px) rotate(18deg); }
+  60%, 100% { transform: translate(38px, 88px) rotate(35deg); }
+}
+.svg-mon_dragon[data-anim="die"] #root {
+  animation: svg-mon_dragon-die-root 1s linear both;
+}
+.svg-mon_dragon[data-anim="die"] #body {
+  animation: svg-mon_dragon-die-body 1s steps(10, end) both;
+}
+.svg-mon_dragon[data-anim="die"] #head {
+  animation: svg-mon_dragon-die-head 1s steps(10, end) both;
+}
+.svg-mon_dragon[data-anim="die"] .belly-red {
+  animation: svg-mon_dragon-die-gem1 1s steps(10, end) both;
+}
+.svg-mon_dragon[data-anim="die"] .belly-green {
+  animation: svg-mon_dragon-die-gem2 1s steps(10, end) both;
+}
+.svg-mon_dragon[data-anim="die"] .belly-blue {
+  animation: svg-mon_dragon-die-gem3 1s steps(10, end) both;
+}
+</style>
+<defs>
+  <filter id="mon_dragon-grunge" filterUnits="userSpaceOnUse" x="20" y="20" width="480" height="380" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="41" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0.08 0" result="grain"/>
+    <feComposite in="grain" in2="SourceGraphic" operator="in" result="clippedGrain"/>
+    <feBlend mode="multiply" in="SourceGraphic" in2="clippedGrain"/>
+  </filter>
+</defs>
+<g id="root">
+  <!-- pivot: 260,400 -->
+  <!-- 落地暗影 shadow（底边中点 260,400 为落地点） -->
+  <g id="shadow">
+    <!-- pivot: 260,388 -->
+    <ellipse cx="260" cy="388" rx="220" ry="12" fill="#0D111C" opacity="0.68"/>
+    <ellipse cx="260" cy="388" rx="176" ry="7" fill="#1C1412" opacity="0.52"/>
+    <path d="M72,392 L88,380 M104,393 L120,379 M136,394 L152,379 M168,395 L184,378 M200,395 L216,378 M232,395 L248,378 M264,395 L280,378 M296,395 L312,378 M328,395 L344,378 M360,394 L376,379 M392,393 L408,380 M424,392 L440,381" stroke="#1C1412" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+  </g>
+
+  <!-- 垫在胖龙身下的宝藏与宝石堆 pile（x:28..492, y:286..388，压暗旧铜底座中点缀鲜艳红圆、绿方、蓝三角小宝石） -->
+  <g id="pile" filter="url(#mon_dragon-grunge)">
+    <!-- pivot: 260,360 -->
+    <!-- 暗沉旧金铜底座山丘 -->
+    <path d="M28,376 L58,328 L128,296 L260,286 L396,298 L464,332 L492,378 L442,388 L76,388 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M46,374 L84,334 L164,308 L268,304 L374,316 L448,346 L474,378 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M58,332 L128,300 L248,290" fill="none" stroke="#9A7B46" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/>
+
+    <!-- 宝石堆里镶嵌的鲜艳红圆、绿方、蓝三角小宝石 -->
+    <!-- 红圆小宝石 -->
+    <circle cx="94" cy="356" r="11" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="91" cy="353" r="4" fill="#FF5C6E"/>
+    <circle cx="212" cy="368" r="10" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="209" cy="365" r="3.5" fill="#FF5C6E"/>
+    <circle cx="384" cy="354" r="11.5" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="381" cy="351" r="4.2" fill="#FF5C6E"/>
+    <!-- 绿方小宝石 -->
+    <rect x="134" y="346" width="20" height="20" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2" transform="rotate(-14 144 356)"/>
+    <rect x="138" y="350" width="9" height="9" fill="#5CE892" transform="rotate(-14 144 356)"/>
+    <rect x="316" y="356" width="21" height="21" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2" transform="rotate(16 326.5 366.5)"/>
+    <rect x="320" y="360" width="9.5" height="9.5" fill="#5CE892" transform="rotate(16 326.5 366.5)"/>
+    <rect x="426" y="352" width="18" height="18" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2"/>
+    <!-- 蓝三角小宝石 -->
+    <polygon points="68,342 82,366 54,366" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="68,348 75,362 61,362" fill="#6B9BFF"/>
+    <polygon points="272,350 288,376 256,376" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="272,357 280,372 264,372" fill="#6B9BFF"/>
+    <polygon points="454,344 468,368 440,368" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+
+    <!-- hit_big 时从宝石堆上滚下来的几颗宝石 .pile-roll（平时 opacity="0"） -->
+    <g class="pile-roll" opacity="0">
+      <!-- pivot: 260,340 -->
+      <circle cx="118" cy="348" r="10" fill="#FF5C6E" stroke="#1C1412" stroke-width="2"/>
+      <rect x="234" y="344" width="18" height="18" rx="2" fill="#5CE892" stroke="#1C1412" stroke-width="2" transform="rotate(22 243 353)"/>
+      <polygon points="356,338 370,362 342,362" fill="#6B9BFF" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- 胖龙主躯干组 body（龙身压暗采用冷灰铁 slate 与暗夜紫 plum，只有肚皮三颗大宝石鲜艳发亮；涵盖 hitPoint 260,230） -->
+  <g id="body" filter="url(#mon_dragon-grunge)">
+    <!-- pivot: 260,320 -->
+
+    <!-- 右侧卷尾巴 tail（x:356..488, y:194..326） -->
+    <g id="tail">
+      <!-- pivot: 368,278 -->
+      <path d="M356,256 Q436,246 474,204 Q492,226 476,268 Q452,318 368,316 Z" fill="#262036" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="M368,282 Q442,286 476,268 Q452,318 368,316 Z" fill="#161221" opacity="0.82"/>
+      <!-- 尾背棘刺与卷尾尖蓝宝石刺 -->
+      <polygon points="402,248 414,228 424,244" fill="#3B515C" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="434,236 448,214 456,230" fill="#3B515C" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="474,204 490,186 484,218" fill="#5A7682" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    </g>
+
+    <!-- 背部一对哥特小蝠翼 wings（x:126..406, y:68..186） -->
+    <g id="wings">
+      <!-- pivot: 260,156 -->
+      <!-- 左小翅膀 -->
+      <path d="M196,144 L132,76 L116,118 L142,132 L126,158 L184,174 Z" fill="#262036" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M192,140 L135,80" stroke="#8CAAB5" stroke-width="2.4" stroke-linecap="round"/>
+      <!-- 右小翅膀 -->
+      <path d="M316,144 L388,74 L406,118 L378,132 L394,160 L330,176 Z" fill="#161221" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M320,140 L384,78" stroke="#5A7682" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+
+    <!-- 胖滚滚的暗色龙身与大肚皮（x:114..404, y:128..346） -->
+    <path d="M156,136 L346,140 L398,218 L384,322 L260,344 L132,320 L116,222 Z" fill="#3B515C" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <!-- 龙身右侧背光深暗面 -->
+    <path d="M268,138 L346,140 L398,218 L384,322 L260,344 Q284,240 268,138 Z" fill="#1E2C33" opacity="0.82"/>
+    <!-- 龙身左上冷轮廓光 -->
+    <path d="M158,142 L122,222 L136,314" fill="none" stroke="#8CAAB5" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+
+    <!-- 宽阔的暗灰羊皮纸龙肚皮（x:156..364, y:176..336，涵盖 hitPoint 260,230） -->
+    <path d="M178,182 L342,184 L362,258 L338,328 L260,338 L182,326 L158,256 Z" fill="#4A4742" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M260,183 L342,184 L362,258 L338,328 L260,338 Z" fill="#2E2C28" opacity="0.72"/>
+    <!-- 肚皮横向腹鳞折线与交叉排线 -->
+    <path d="M168,216 Q260,228 352,218 M164,262 Q260,276 356,264 M176,302 Q260,314 344,304" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+    <path d="M316,196 L354,234 M312,216 L356,260 M308,242 L348,282" stroke="#1C1412" stroke-width="1.2" opacity="0.48"/>
+
+    <!-- 趴在宝堆上的四只粗短龙爪 -->
+    <polygon points="96,284 148,278 156,334 88,332" fill="#3B515C" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="84,320 98,334 106,320" fill="#C8B894" stroke="#1C1412" stroke-width="2"/>
+    <polygon points="106,322 120,336 128,322" fill="#C8B894" stroke="#1C1412" stroke-width="2"/>
+    <polygon points="362,282 414,288 422,336 356,334" fill="#1E2C33" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="384,324 398,338 406,324" fill="#9A8968" stroke="#1C1412" stroke-width="2"/>
+    <polygon points="406,322 420,336 428,322" fill="#9A8968" stroke="#1C1412" stroke-width="2"/>
+
+    <!-- 肚皮上嵌着的三颗鲜艳大宝石 belly_gems（红圆、绿方、蓝三角，中心在 hitPoint 260,236 附近） -->
+    <g id="belly_gems">
+      <!-- pivot: 260,236 -->
+      <!-- 左：大红圆宝石 (中心 212,236, r=22) -->
+      <g class="belly-red">
+        <!-- pivot: 212,236 -->
+        <circle cx="212" cy="236" r="22" fill="#E3263A" stroke="#1C1412" stroke-width="2.8"/>
+        <path d="M228,220 A22,22 0 0,1 196,252 L212,236 Z" fill="#9E1424"/>
+        <circle cx="212" cy="236" r="13" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.4"/>
+        <polygon points="202,228 210,222 218,226 207,236" fill="#FFFFFF" opacity="0.92"/>
+      </g>
+
+      <!-- 中：大绿方宝石 (中心 262,250, 38×38) -->
+      <g class="belly-green">
+        <!-- pivot: 262,250 -->
+        <rect x="243" y="231" width="38" height="38" rx="4" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.8"/>
+        <polygon points="281,231 281,269 243,269 251,261 273,261 273,239" fill="#117A3B"/>
+        <rect x="251" y="239" width="22" height="22" rx="2" fill="#5CE892" stroke="#1C1412" stroke-width="1.4"/>
+        <polygon points="254,242 266,242 260,250 254,250" fill="#FFFFFF" opacity="0.92"/>
+      </g>
+
+      <!-- 右：大蓝三角宝石 (中心 312,236) -->
+      <g class="belly-blue">
+        <!-- pivot: 312,236 -->
+        <polygon points="312,212 334,254 290,254" fill="#2E66F0" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+        <polygon points="312,212 334,254 312,254" fill="#193D9E"/>
+        <polygon points="312,224 324,248 300,248" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+        <polygon points="310,227 316,239 306,241" fill="#FFFFFF" opacity="0.92"/>
+      </g>
+    </g>
+
+    <!-- 龙身双层沸腾墨线外框 -->
+    <g class="boil-a"><path d="M156,136 L346,140 L398,218 L384,322 L260,344 L132,320 L116,222 Z" fill="none" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/></g>
+    <g class="boil-b"><path d="M155.5,136.5 L346.5,139.5 L397.5,218.5 L384.5,321.5 L260,344.5 L131.5,320.5 L116.5,221.5 Z" fill="none" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/></g>
+
+    <!-- 龙头与下颌组 head（两只弯角、睡不醒的厚眼皮，顶 y=32 留足 32px 顶部空间） -->
+    <g id="head">
+      <!-- pivot: 224,142 -->
+
+      <!-- 下颌与大嘴 jaw（attack 与 hit_big 时张开露出利齿） -->
+      <g id="jaw">
+        <!-- pivot: 218,158 -->
+        <polygon points="146,142 266,146 258,188 152,184" fill="#161221" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+        <polygon points="142,158 268,162 256,194 150,190" fill="#262036" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+        <!-- 下排参差龙牙 -->
+        <polygon points="156,160 166,144 176,160" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+        <polygon points="196,161 206,146 216,161" fill="#C8B894" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+        <polygon points="234,162 244,146 254,162" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      </g>
+
+      <!-- 两只哥特弯角（y:32..82） -->
+      <path d="M168,78 Q138,48 152,32 Q174,38 188,72 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M248,80 Q282,50 268,34 Q244,40 228,74 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M164,70 L178,66 M158,54 L172,52 M242,70 L256,66 M248,54 L262,52" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+
+      <!-- 宽扁胖龙头与上颌尖牙（x:138..276, y:68..164） -->
+      <path d="M156,72 L256,76 L276,124 L268,160 L138,156 L134,118 Z" fill="#3B515C" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="M212,74 L256,76 L276,124 L268,160 L212,158 Z" fill="#1E2C33" opacity="0.8"/>
+      <path d="M158,76 L138,118 L142,152" fill="none" stroke="#8CAAB5" stroke-width="2.6" stroke-linecap="round"/>
+      <!-- 鼻孔与上排尖牙 -->
+      <circle cx="158" cy="136" r="4" fill="#1C1412"/>
+      <circle cx="182" cy="138" r="4" fill="#1C1412"/>
+      <polygon points="146,156 155,172 164,156" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="222,158 231,174 240,158" fill="#C8B894" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+
+      <!-- 睡不醒的厚眼皮与龙眼 eyes（半耷拉厚重上眼睑，不发光） -->
+      <g id="eyes">
+        <!-- pivot: 212,112 -->
+        <!-- 左眼 -->
+        <ellipse cx="182" cy="110" rx="16" ry="12" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6"/>
+        <circle cx="182" cy="112" r="5.5" fill="#1C1412"/>
+        <circle cx="180" cy="110" r="2" fill="#E6DEC8"/>
+        <!-- 睡不醒的半耷拉厚眼皮 -->
+        <path d="M164,108 Q182,94 200,108 L198,112 L166,112 Z" fill="#262036" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+
+        <!-- 右眼 -->
+        <ellipse cx="238" cy="114" rx="15" ry="11" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6"/>
+        <circle cx="238" cy="116" r="5" fill="#1C1412"/>
+        <circle cx="236" cy="114" r="1.8" fill="#E6DEC8"/>
+        <path d="M221,112 Q238,98 255,112 L253,116 L223,116 Z" fill="#161221" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      </g>
+
+      <!-- 重击表情 face_hurt（平时 opacity="0"，紧闭 > < 痛感眼） -->
+      <g id="face_hurt" opacity="0">
+        <!-- pivot: 212,112 -->
+        <path d="M166,102 L194,112 L166,120 M254,104 L226,114 L254,122" fill="none" stroke="#E2D6BA" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M166,102 L194,112 L166,120 M254,104 L226,114 L254,122" fill="none" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <!-- 眩晕表情 face_daze（平时 opacity="0"，蚊香转圈眼 + 角顶浅色不发光小星） -->
+      <g id="face_daze" opacity="0">
+        <!-- pivot: 212,96 -->
+        <g class="daze-swirl-l">
+          <!-- pivot: 182,110 -->
+          <circle cx="182" cy="110" r="13" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.4"/>
+          <path d="M182,110 m-2,0 a2,2 0 1,0 4,0 a4.5,4.5 0 1,0 -9,0 a7,7 0 1,0 14,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <g class="daze-swirl-r">
+          <!-- pivot: 238,114 -->
+          <circle cx="238" cy="114" r="12" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.4"/>
+          <path d="M238,114 m-2,0 a2,2 0 1,0 4,0 a4.5,4.5 0 1,0 -9,0 a7,7 0 1,0 14,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <g class="daze-stars">
+          <!-- pivot: 212,38 -->
+          <path d="M132,36 L135,42 L141,45 L135,48 L132,54 L129,48 L123,45 L129,42 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M210,28 L213,34 L219,37 L213,40 L210,46 L207,40 L201,37 L207,34 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M288,38 L291,44 L297,47 L291,50 L288,56 L285,50 L279,47 L285,44 Z" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+        </g>
+      </g>
+
+      <!-- attack 状态：扑上来咬时从嘴里喷出的一团鲜艳三色宝石碎屑 .breath-shards（平时 opacity="0"，不喷火、无火光） -->
+      <g class="breath-shards" opacity="0">
+        <!-- pivot: 180,180 -->
+        <!-- 喷射气流冷线 -->
+        <path d="M156,168 L84,204 M168,178 L96,232 M186,182 L134,246" stroke="#8CAAB5" stroke-width="3.2" stroke-linecap="round"/>
+        <!-- 迸射的红、绿、蓝宝石碎晶 -->
+        <circle cx="96" cy="192" r="9" fill="#E3263A" stroke="#1C1412" stroke-width="2"/>
+        <circle cx="93" cy="189" r="3.5" fill="#FF5C6E"/>
+        <rect x="108" y="216" width="16" height="16" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2" transform="rotate(-22 116 224)"/>
+        <polygon points="74,214 90,236 62,234" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="142" cy="236" r="7.5" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.8"/>
+        <rect x="64" y="182" width="13" height="13" rx="1.5" fill="#5CE892" stroke="#1C1412" stroke-width="1.8" transform="rotate(18 70.5 188.5)"/>
+      </g>
+    </g>
+  </g>
+</g>
+</svg>

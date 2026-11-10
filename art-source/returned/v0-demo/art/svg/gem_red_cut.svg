@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-gem_red_cut" viewBox="0 0 100 100" width="100" height="100">
+<title>红宝石 · 切好</title>
+<defs>
+<linearGradient id="gem_red_cut-base" x1="15%" y1="10%" x2="85%" y2="90%">
+        <stop offset="0%" stop-color="#E3263A"/>
+        <stop offset="55%" stop-color="#E3263A"/>
+        <stop offset="100%" stop-color="#9E1424"/>
+      </linearGradient>
+</defs>
+<g id="root">
+<!-- 宝石底色 -->
+        <path d="M50,12 L69,16 L83,30 L88,50 L83,70 L69,84 L50,88 L31,84 L17,70 L12,50 L17,30 L31,16 Z" fill="url(#gem_red_cut-base)"/>
+        <!-- 左上冠部受光刻面 -->
+        <polygon points="50,12 69,16 59,28 41,28 31,16" fill="#FF5C6E"/>
+        <polygon points="31,16 41,28 28,41 17,30" fill="#FF5C6E"/>
+        <polygon points="17,30 28,41 28,59 12,50" fill="#E3263A"/>
+        <!-- 右下冠部背光暗刻面 -->
+        <polygon points="69,16 83,30 72,41 59,28" fill="#E3263A"/>
+        <polygon points="83,30 88,50 72,59 72,41" fill="#9E1424"/>
+        <polygon points="88,50 83,70 69,84 59,72 72,59" fill="#5C0A14"/>
+        <polygon points="59,72 69,84 50,88 31,84 41,72" fill="#9E1424"/>
+        <polygon points="31,84 17,70 12,50 28,59 41,72" fill="#9E1424" opacity="0.85"/>
+        <!-- 中央八角台面 -->
+        <path d="M41,28 L59,28 L72,41 L72,59 L59,72 L41,72 L28,59 L28,41 Z" fill="#E3263A"/>
+        
+        <!-- 内部亭部折射折线（闪光态更亮透） -->
+        <path d="M41,28 L59,72 M59,28 L41,72 M28,41 L72,59 M28,59 L72,41" stroke="#9E1424" stroke-width="1.1" opacity="0.35"/>
+        <!-- 刻面分界线 -->
+        <path d="M41,28 L59,28 L72,41 L72,59 L59,72 L41,72 L28,59 L28,41 Z M50,12 L50,28 M69,16 L59,28 M83,30 L72,41 M88,50 L72,50 M83,70 L72,59 M69,84 L59,72 M50,88 L50,72 M31,84 L41,72 M17,70 L28,59 M12,50 L28,50 M17,30 L28,41 M31,16 L41,28" fill="none" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+        <!-- 台面高光 -->
+        <polygon points="34,39 43,31 55,31 41,47" fill="#E6DEC8" opacity="0.92"/>
+        <circle cx="33" cy="27" r="2.6" fill="#FFFFFF" opacity="0.95"/>
+        <!-- 手绘双层哥特外框 -->
+        <path d="M50,12 L69,16 L83,30 L88,50 L83,70 L69,84 L50,88 L31,84 L17,70 L12,50 L17,30 L31,16 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+        <path d="M50,11.5 L69.5,16.5 L83.5,30.5 L88.5,50 L82.5,69.5 L68.5,84.5 L50,88.5 L30.5,83.5 L16.5,69.5 L11.5,50 L16.5,29.5 L31.5,15.5 Z" fill="none" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round" opacity="0.65"/>
+</g>
+</svg>

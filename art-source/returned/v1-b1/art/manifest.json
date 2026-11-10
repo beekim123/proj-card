@@ -1,0 +1,73 @@
+{
+ "game": "gemcard",
+ "title": "新卡牌",
+ "note": "第一版 第 1 批样稿（素材清单 phase 0）。key、尺寸以 新卡牌/第一版内容/共用/素材清单.json 为准",
+ "assets": [
+  {
+   "key": "gem_red_cut",
+   "cat": "宝石",
+   "kind": "sprite",
+   "size": [
+    100,
+    100
+   ],
+   "file": "png/gem_red_cut.png",
+   "desc": "红宝石 · 切好（圆）。这次重画成会动的：每 3–4 秒一道光从刻面上扫过，带一颗小星闪一下",
+   "done": true
+  },
+  {
+   "key": "gem_red_shine",
+   "cat": "宝石",
+   "kind": "sprite",
+   "size": [
+    100,
+    100
+   ],
+   "file": "png/gem_red_shine.png",
+   "desc": "红宝石 · 闪光（圆）。这次重画成会动的：两三颗四角星轮流闪，外面那圈淡光慢慢一呼一吸（一直在动，但很轻）",
+   "done": true
+  },
+  {
+   "key": "mon_chest",
+   "cat": "怪",
+   "kind": "sprite",
+   "size": [
+    320,
+    400
+   ],
+   "file": "png/mon_chest.png",
+   "desc": "宝箱怪（小怪）：一只旧木箱，铁箍包边，箱盖就是嘴，里面一排尖牙和一条长舌头，箱缝里两只小眼睛。贪心、爱咬人。死的时候箱子散架，吐出几颗宝石",
+   "done": true,
+   "anchor": [
+    160,
+    400
+   ],
+   "redo": "已在第 2 批返修（gemcard-v1-b2 里是新版），这里是第 1 批原样"
+  },
+  {
+   "key": "card_art_hammer",
+   "cat": "额外牌原画",
+   "kind": "sprite",
+   "size": [
+    176,
+    188
+   ],
+   "file": "png/card_art_hammer.png",
+   "desc": "锤子（这回合伤害 ×2）：一把战锤，锤头正中镶一颗红色圆宝石。待机：像被人握着轻轻晃。play：往后一扬，重重砸下，带几道冲击线",
+   "done": true,
+   "redo": "已在第 2 批返修（gemcard-v1-b2 里是新版），这里是第 1 批原样"
+  },
+  {
+   "key": "ui_heart",
+   "cat": "界面",
+   "kind": "sprite",
+   "size": [
+    64,
+    64
+   ],
+   "file": "png/ui_heart.png",
+   "desc": "心（一局 3 颗）：一个心形挂坠，铜边，里面嵌一颗心形红宝石。待机：很轻的心跳。lose：宝石裂开、碎片掉下、整个暗掉，最后全透明（代码随后换成 ui_heart_empty）。gain：从小弹出来，闪一下",
+   "done": true
+  }
+ ]
+}
