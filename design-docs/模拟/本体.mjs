@@ -192,13 +192,19 @@ function pickByPri(opts, pri, r) {
   return best;
 }
 const MONO = [1, 2, 4];
-function doWorkshop(cards, S, V, r) {
+function doWorkshop(cards, S, V, r, force) {
   const P = V.policy;
-  const op = P.shop === 'random' ? ['drop', 'copy', 'recolor'][Math.floor(r() * 3)] : P.shop;
+  const ops = V.shopOps ?? ['drop', 'copy', 'recolor'];
   const base = cards.filter(c => !c.type);
   const tools = cards.filter(c => c.type);
+  let op = force ?? (P.shop === 'random' ? ops[Math.floor(r() * ops.length)] : P.shop);
+  if (op === 'auto') { // 有还没带满的好牌就抄，没有就扔
+    const good = (P.lootPri || []).slice(0, P.copyTop ?? 5);
+    op = tools.some(t => good.includes(t.type) && (V.toolCap == null || cards.filter(c => c.type === t.type).length < V.toolCap)) ? 'copy' : 'drop';
+  }
   if (op === 'drop') {
     for (let n = 0; n < (V.dropCount ?? 2); n++) {
+      if (cards.length <= (V.deckMin ?? 0)) break;
       let idx = -1;
       if (P.shopTarget === 'random') { const cand = cards.map((c, i) => i).filter(i => !cards[i].type); idx = cand[Math.floor(r() * cand.length)] ?? -1; }
       else { // 先扔空托，再把单颗牌里最多的那种扔掉
@@ -210,8 +216,8 @@ function doWorkshop(cards, S, V, r) {
     }
   } else if (op === 'copy') {
     let src;
-    if (P.shopTarget === 'random' || !tools.length) src = cards[Math.floor(r() * cards.length)];
-    else { const pri = P.lootPri || []; src = tools.slice().sort((a, b) => ((pri.indexOf(a.type) + 1) || 999) - ((pri.indexOf(b.type) + 1) || 999))[0]; }
+    if (P.shopTarget === 'random' || !tools.length) { const ok = cards.filter(t => !t.type || V.toolCap == null || cards.filter(c => c.type === t.type).length < V.toolCap); src = ok[Math.floor(r() * ok.length)]; }
+    else { const pri = P.lootPri || []; const ok = tools.filter(t => V.toolCap == null || cards.filter(c => c.type === t.type).length < V.toolCap); src = (ok.length ? ok : base).slice().sort((a, b) => ((pri.indexOf(a.type) + 1) || 999) - ((pri.indexOf(b.type) + 1) || 999))[0]; }
     if (P.shopTarget !== 'random' && !tools.length) src = cards.find(c => c.v === 7) || src;
     cards.push({ id: ++S.id, v: src.v, ...(src.type ? { type: src.type } : {}) });
   } else if (op === 'recolor') {
@@ -252,6 +258,10 @@ export function runOne(seed, V) {
   for (let a = 0; a < V.acts.length; a++) {
     const A = V.acts[a];
     let guardLeft = RL.guard ? 1 : 0;
+    for (const B of (V.bonus || []).filter(x => x.act === a)) {
+      if (B.kind === 'tool') { const opts = shuffle(V.toolPool.slice(), r).slice(0, 3); const pick = pickByPri(opts, P.loot === 'random' ? null : P.lootPri, r); cards.push({ id: ++S.id, v: TOOLS[pick].v, type: pick }); }
+      else doWorkshop(cards, S, V, r, B.kind);
+    }
     let actHits = 0, actTurns = 0, prevN = null, pendingReward = null, hpMul = 1;
     for (let f = 0; f < A.rooms.length; f++) {
       const F = A.rooms[f];
@@ -271,7 +281,10 @@ export function runOne(seed, V) {
         let pick;
         if (P.door === 'random') pick = doors[Math.floor(r() * 2)];
         else { // 按奖励的喜好挑；缺心到 healAt 就先回心
-          const pri = (hearts <= (P.healAt ?? 0) && hearts < maxHearts) ? ['heal', ...P.doorPri] : P.doorPri;
+          // 手里的额外牌够多了（shopAfter 张），就改成先进工坊
+          const nTools = cards.filter(c => c.type).length;
+          const basePri = (P.shopAfter != null && nTools >= P.shopAfter) ? ['shop', ...P.doorPri.filter(x => x !== 'shop')] : P.doorPri;
+          const pri = (hearts <= (P.healAt ?? 0) && hearts < maxHearts) ? ['heal', ...basePri] : basePri;
           const avoid = P.avoid || [];
           const score = d => { let p = pri.indexOf(d.reward); if (p < 0) p = 99; return p * 10 + (avoid.includes(d.mon) ? 1 : 0); };
           pick = score(doors[0]) <= score(doors[1]) ? doors[0] : doors[1];
@@ -285,8 +298,8 @@ export function runOne(seed, V) {
       const mon = { key, rule: MD.rule ?? null, layers: F.layers ?? null, maxHp: hp0, maxCd: cd0 };
       const M = { hp: hp0, cd: cd0, wind: MD.wind ?? 0 };
       let deck = shuffle(cards.map(c => ({ ...c })), r), disc = [], H = [];
-      const draw = n => { for (let i = 0; i < n; i++) { if (!deck.length) { if (!disc.length) break; deck = shuffle(disc, r); disc = []; } H.push(deck.pop()); } };
-      const drawTool = n => { for (let i = 0; i < n; i++) { let ix = -1; for (let j = deck.length - 1; j >= 0; j--) if (deck[j].type) { ix = j; break; } if (ix < 0) break; H.push(deck.splice(ix, 1)[0]); } };
+      const draw = n => { for (let i = 0; i < n; i++) { if (H.length >= (V.handHardMax ?? 99)) break; if (!deck.length) { if (!disc.length) break; deck = shuffle(disc, r); disc = []; } H.push(deck.pop()); } };
+      const drawTool = n => { for (let i = 0; i < n; i++) { if (H.length >= (V.handHardMax ?? 99)) break; let ix = -1; for (let j = deck.length - 1; j >= 0; j--) if (deck[j].type) { ix = j; break; } if (ix < 0) break; H.push(deck.splice(ix, 1)[0]); } };
       draw(hand + (RL.first2 ? 2 : RL.first1 ? 1 : 0));
       let turn = 0, overkill = 0, woundDownPrev = false, bestHere = 0, fightHits = 0;
       while (true) {
@@ -325,7 +338,7 @@ export function runOne(seed, V) {
         st.best = Math.max(st.best, T.turnDmg); bestHere = Math.max(bestHere, T.turnDmg);
         disc.push(...row.map(c => ({ ...c })));
         if (T.broken) { overkill = T.turnDmg / turnStartHp; break; }
-        if (mon.rule === 'regrow' || (mon.layers && mon.layers[layerOf(M.hp, mon.maxHp)] === 'regrow')) M.hp += Math.floor((turnStartHp - M.hp) * (V.regrow ?? 0.5));
+        if (!T.muted && (mon.rule === 'regrow' || (mon.layers && mon.layers[layerOf(M.hp, mon.maxHp)] === 'regrow'))) M.hp += Math.floor((turnStartHp - M.hp) * (V.regrow ?? 0.5));
         M.cd -= 1;
         if (M.cd <= 0) {
           M.cd = mon.maxCd; st.hits++; actHits++; fightHits++;
@@ -346,8 +359,9 @@ export function runOne(seed, V) {
       if (RL.heart && maxHearts === V.hearts) { maxHearts = V.hearts + 1; hearts++; }
       if (reward === 'card') {
         const n = overkill >= 10 ? 4 : 3;
-        const opts = shuffle(V.toolPool.slice(), r).slice(0, n);
-        if (P.loot !== 'none') { const pick = pickByPri(opts, P.loot === 'random' ? null : P.lootPri, r); cards.push({ id: ++S.id, v: TOOLS[pick].v, type: pick }); st.picks.push(pick); }
+        const full = k => V.toolCap != null && cards.filter(c => c.type === k).length >= V.toolCap;
+        const opts = shuffle(V.toolPool.filter(k => !full(k)), r).slice(0, n);
+        if (P.loot !== 'none' && opts.length) { const pick = pickByPri(opts, P.loot === 'random' ? null : P.lootPri, r); cards.push({ id: ++S.id, v: TOOLS[pick].v, type: pick }); st.picks.push(pick); }
       } else if (reward === 'shop') doWorkshop(cards, S, V, r);
       else if (reward === 'heal') { const g = Math.min(V.healAmount ?? 1, maxHearts - hearts); hearts += g; st.heals += g; }
     }
