@@ -37,7 +37,7 @@ const newRects = (l: Layout): Rect[] => [
   heartBounds(l), progressBounds(l), l.hpBar, l.ruleSign, l.rainbowReady,
   { x:l.rainbow.x,y:l.rainbow.y,w:l.rainbow.slot*6+l.rainbow.gap*5,h:l.rainbow.slot },
   { x: l.countdown.x - l.countdown.size / 2, y: l.countdown.y - l.countdown.size / 2, w: l.countdown.size, h: l.countdown.size },
-  l.banner, l.loot.hint, l.loot.skip, chestBounds(l), ...Object.values(l.result),
+  l.banner, l.loot.hint, l.loot.skip, l.loot.take, chestBounds(l), ...Object.values(l.result),
   l.title.name, l.title.start, l.title.resume, l.title.practice, l.title.record,
   { x: l.title.emblem.x - 200 * l.title.emblemScale, y: l.title.emblem.y - 340 * l.title.emblemScale, w: 400 * l.title.emblemScale, h: 340 * l.title.emblemScale },
   ...[...l.loot.three, ...l.loot.four].map(p => ({ ...p, w: 200 * l.loot.scale, h: 300 * l.loot.scale })),
@@ -49,6 +49,16 @@ function assertAdventureLayout(l: Layout) {
   expect(overlaps(progressBounds(l), l.rules)).toBe(false);
   expect(overlaps(l.hpBar, l.damage)).toBe(false);
   expect(overlaps(l.hpBar, l.ruleSign)).toBe(false);
+  // 规矩牌子不压怪：小怪 320×400，龙 520×400，脚踩 dummyAnchor
+  for (const [w, scale] of [[320, l.monsterScale.normal], [520, l.monsterScale.boss]] as const) {
+    const monster = { x: l.dummyAnchor.x - w / 2 * scale, y: l.dummyAnchor.y - 400 * scale, w: w * scale, h: 400 * scale };
+    expect(overlaps(l.ruleSign, monster), `${l.name} 规矩牌子压到 ${w} 宽的怪`).toBe(false);
+  }
+  expect(overlaps(l.loot.skip, l.loot.take)).toBe(false);
+  expect(overlaps(heartBounds(l), l.loot.skip)).toBe(false);
+  expect(overlaps(heartBounds(l), l.loot.take)).toBe(false);
+  expect(overlaps(l.doors.enter, l.doors.detail)).toBe(false);
+  expect(overlaps(l.doors.enter, l.doors.hint)).toBe(false);
   expect(l.inspect.bottom).toBeLessThanOrEqual(l.hand.top);
   expect(l.inspect.bottom - 300 * l.inspect.scale).toBeGreaterThanOrEqual(0);
   expect(overlaps(l.banner, chestBounds(l))).toBe(false);
@@ -59,6 +69,7 @@ function assertAdventureLayout(l: Layout) {
     for (const [i, r] of rects.entries()) {
       expect(overlaps(r, l.loot.hint)).toBe(false);
       expect(overlaps(r, l.loot.skip)).toBe(false);
+      expect(overlaps(r, l.loot.take)).toBe(false);
       expect(overlaps(r, heartBounds(l))).toBe(false);
       for (const following of rects.slice(i + 1)) expect(overlaps(r, following)).toBe(false);
     }

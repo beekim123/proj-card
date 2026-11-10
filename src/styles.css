@@ -262,3 +262,9 @@ body.art-page #app { height: auto; }
 .shop-grid { pointer-events:auto; }
 
 .twice-badge { position:absolute; top:0; left:0; z-index:3; border-radius:10px; padding:6px 12px; background:var(--accent); color:var(--ink); font-size:30px; font-weight:800; pointer-events:none; }
+/* 排牌：血条上会掉的那段（虚线斜纹）；点桌上的牌收回 */
+.hp-ghost { position:absolute;top:0;bottom:0;border-radius:inherit;background:repeating-linear-gradient(-45deg,rgba(226,214,186,.55) 0 6px,rgba(226,214,186,.18) 6px 12px);box-shadow:inset 0 0 0 2px rgba(226,214,186,.5);animation:hp-ghost 900ms ease-in-out infinite;pointer-events:none; }
+@keyframes hp-ghost { 50% { opacity:.55; } }
+.row-card:not(.row-preview) { pointer-events:auto;cursor:pointer; }
+.striking .row-card, .striking .hand-card { pointer-events:none; }
+@media (prefers-reduced-motion: reduce) { .hp-ghost { animation:none; } }

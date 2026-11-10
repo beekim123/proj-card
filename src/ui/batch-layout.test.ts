@@ -19,7 +19,7 @@ describe('first-act dense hands and new screens', () => {
       });
     });
     it(`${base.name}+${extra}: door and shop controls fit`, () => {
-      for (const rect of [layout.doors.detail, layout.doors.hint, ...layout.shop.ops, layout.shop.grid, layout.shop.back, layout.shop.confirm]) {
+      for (const rect of [layout.doors.detail, layout.doors.hint, layout.doors.enter, ...layout.shop.ops, layout.shop.grid, layout.shop.back, layout.shop.confirm]) {
         expect(rect.x).toBeGreaterThanOrEqual(0); expect(rect.y).toBeGreaterThanOrEqual(0);
         expect(rect.x + rect.w).toBeLessThanOrEqual(layout.width); expect(rect.y + rect.h).toBeLessThanOrEqual(layout.height);
       }

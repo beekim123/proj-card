@@ -27,7 +27,8 @@ export const landscape: Layout = {
   progress: { x: 520, y: 54, w: 340, node: 48 },
   monsterScale: { normal: 1.0, boss: 0.95 },
   hpBar: { x: 710, y: 92, w: 500, h: 44 }, hpBorder: 16,
-  ruleSign: { x: 800, y: 142, w: 320, h: 100 },
+  // 规矩牌子挂在怪左上方的墙上（血条左边是“门厅 · 第几间”），不压怪（2026-11-10 试玩反馈）
+  ruleSign: { x: 480, y: 136, w: 232, h: 72 },
   relics: { x: 48, y: 88, size: 72, gap: 12 },
   rainbow: { x: 1500, y: 132, slot: 36, gap: 6 },
   rainbowReady: { x: 700, y: 738, w: 400, h: 48 },
@@ -40,11 +41,11 @@ export const landscape: Layout = {
     three: [{ x: 580, y: 580 }, { x: 860, y: 580 }, { x: 1140, y: 580 }],
     four: [{ x: 500, y: 580 }, { x: 740, y: 580 }, { x: 980, y: 580 }, { x: 1220, y: 580 }],
     hint: { x: 560, y: 900, w: 800, h: 44 },
-    skip: { x: 1420, y: 940, w: 480, h: 112 },
+    skip: { x: 1180, y: 944, w: 220, h: 112 }, take: { x: 1420, y: 940, w: 480, h: 112 },
     chest: { x: 960, y: 530 },
   },
   result: { panel: { x: 460, y: 200, w: 1000, h: 560 }, home: { x: 1420, y: 904, w: 244, h: 112 }, again: { x: 1684, y: 900, w: 216, h: 120 } },
-  doors: { points: [{ x: 700, y: 800 }, { x: 1220, y: 800 }], scale: 0.8, monsterScale: 0.55, reward: { dy: -474, w: 256, h: 80 }, ruleSign: { dy: -310, w: 256, h: 80 }, detail: { x: 460, y: 830, w: 1000, h: 200 }, hint: { x: 560, y: 1036, w: 800, h: 40 } },
+  doors: { points: [{ x: 700, y: 800 }, { x: 1220, y: 800 }], scale: 0.8, monsterScale: 0.55, reward: { dy: -474, w: 256, h: 80 }, ruleSign: { dy: -310, w: 256, h: 80 }, detail: { x: 460, y: 830, w: 1000, h: 200 }, hint: { x: 560, y: 1036, w: 800, h: 40 }, enter: { x: 1480, y: 940, w: 420, h: 112 } },
   shop: { ops: [{ x: 500, y: 330, w: 440, h: 440 }, { x: 980, y: 330, w: 440, h: 440 }], grid: { x: 160, y: 330, w: 1600, h: 560 }, gridScale: 0.75, back: { x: 20, y: 940, w: 300, h: 112 }, confirm: { x: 1420, y: 940, w: 480, h: 112 } },
   knocker: { x: 560, y: 380, scale: 0.6 }, knockerSay: { x: 660, y: 330, w: 860, h: 100 }, actLabel: { x: 520, y: 86, w: 340, h: 32 }, handMinStep: 72,
   title: {

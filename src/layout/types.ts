@@ -49,9 +49,10 @@ export interface Layout {
   /** 倒计时圆章的中心与直径。 */
   countdown: { x: number; y: number; size: number };
   banner: Rect;
-  loot: { scale: number; three: Point[]; four: Point[]; hint: Rect; skip: Rect; chest: Point };
+  /** take：选中后点它拿走（战利品“拿”、宝物“拿这件”）；skip：战利品“不拿” */
+  loot: { scale: number; three: Point[]; four: Point[]; hint: Rect; skip: Rect; take: Rect; chest: Point };
   result: { panel: Rect; home: Rect; again: Rect };
-  doors: { points: Point[]; scale: number; monsterScale: number; reward: { dy: number; w: number; h: number }; ruleSign: { dy: number; w: number; h: number }; detail: Rect; hint: Rect };
+  doors: { points: Point[]; scale: number; monsterScale: number; reward: { dy: number; w: number; h: number }; ruleSign: { dy: number; w: number; h: number }; detail: Rect; hint: Rect; enter: Rect };
   shop: { ops: Rect[]; grid: Rect; gridScale: number; back: Rect; confirm: Rect };
   knocker: Point & { scale: number }; knockerSay: Rect; actLabel: Rect; handMinStep: number;
   title: { name: Rect; emblem: Point; emblemScale: number; start: Rect; resume: Rect; practice: Rect; record: Rect };

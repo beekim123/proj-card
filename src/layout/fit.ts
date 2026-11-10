@@ -23,10 +23,10 @@ export function fitLayout(base: Layout, extra: number): Layout {
     const rowScale = Math.min(0.95, base.rowScale + table / 1400);
     return {
       ...base, height: base.height + e,
-      doors: { ...base.doors, points: base.doors.points.map(p => dy(p, e / 2)), detail: ry(base.doors.detail, e / 2), hint: ry(base.doors.hint, e / 2) },
+      doors: { ...base.doors, points: base.doors.points.map(p => dy(p, e / 2)), detail: ry(base.doors.detail, e / 2), hint: ry(base.doors.hint, e / 2), enter: ry(base.doors.enter, e / 2) },
       shop: { ...base.shop, ops: base.shop.ops.map(p => ry(p, e / 2)), grid: { ...base.shop.grid, h: base.shop.grid.h + e / 2 }, back: ry(base.shop.back, e), confirm: ry(base.shop.confirm, e) },
 
-      hpBar: ry(base.hpBar, scene / 2), ruleSign: ry(base.ruleSign, scene), countdown: { ...base.countdown, y: base.countdown.y + scene / 2 },
+      hpBar: ry(base.hpBar, scene / 2), ruleSign: ry(base.ruleSign, scene / 2), countdown: { ...base.countdown, y: base.countdown.y + scene / 2 },
       inspect: { ...base.inspect, bottom: base.inspect.bottom + rest },
       dummyAnchor: dy(base.dummyAnchor, scene), rackAnchor: dy(base.rackAnchor, scene),
       floating: dy(base.floating, scene), toast: dy(base.toast, scene), banner: ry(base.banner, scene),
@@ -46,7 +46,7 @@ export function fitLayout(base: Layout, extra: number): Layout {
         ...base.loot,
         three: base.loot.three.map(p => dy(p, scene + table / 2)),
         four: base.loot.four.map(p => dy(p, scene + table / 2)),
-        hint: ry(base.loot.hint, scene + table / 2), skip: ry(base.loot.skip, rest),
+        hint: ry(base.loot.hint, scene + table / 2), skip: ry(base.loot.skip, rest), take: ry(base.loot.take, rest),
         chest: dy(base.loot.chest, scene),
       },
       result: {
@@ -64,7 +64,7 @@ export function fitLayout(base: Layout, extra: number): Layout {
   const half = e / 2;
   return {
     ...base, width: base.width + e,
-    doors: { ...base.doors, points: base.doors.points.map(p => dx(p, half)), detail: rx(base.doors.detail, half), hint: rx(base.doors.hint, half) },
+    doors: { ...base.doors, points: base.doors.points.map(p => dx(p, half)), detail: rx(base.doors.detail, half), hint: rx(base.doors.hint, half), enter: rx(base.doors.enter, e) },
     shop: { ...base.shop, ops: base.shop.ops.map(p => rx(p, half)), grid: rx(base.shop.grid, half), back: rx(base.shop.back, half), confirm: rx(base.shop.confirm, half) },
     knocker: { ...base.knocker, x: base.knocker.x + half }, knockerSay: rx(base.knockerSay, half), actLabel: rx(base.actLabel, half),
 
@@ -86,7 +86,7 @@ export function fitLayout(base: Layout, extra: number): Layout {
     loot: {
       ...base.loot,
       three: base.loot.three.map(p => dx(p, half)), four: base.loot.four.map(p => dx(p, half)),
-      hint: rx(base.loot.hint, half), skip: rx(base.loot.skip, e), chest: dx(base.loot.chest, half),
+      hint: rx(base.loot.hint, half), skip: rx(base.loot.skip, e), take: rx(base.loot.take, e), chest: dx(base.loot.chest, half),
     },
     result: {
       panel: rx(base.result.panel, half),

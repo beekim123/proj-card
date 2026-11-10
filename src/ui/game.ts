@@ -24,6 +24,10 @@ const TOOL_HELP: Record<ToolType, string> = {
 };
 /** 多层血条每层的颜色（第 1 层是最后打的那层） */
 const HP_LAYER_COLORS = ['', '#C7742B', '#8A4FC4'];
+/** 按“打出去”后的连打节奏（毫秒）：第一张间隔 firstGap，之后每张乘 decay，最快 minGap；所有间隔加起来最多 maxTotal */
+/** 摸牌动画（毫秒）：每张间隔、飞行、翻面，弧线抬高多少设计像素 */
+const DRAW = { interval: 90, fly: 380, flip: 180, arc: 140 };
+const STRIKE = { lead: 80, firstGap: 230, decay: 0.86, minGap: 110, maxTotal: 2600, hold: 520, breakHold: 700, lift: 36 };
 const DEBUG_SEQUENCES: Record<number, (number | ToolType)[]> = { 1: [1,'lens'], 2: [3,'lens'], 3: [1,3,'hammer'], 4: [1,3,2,6,4,5,'hammer'], 5: [1,3,2,6,'lens',5], 6: [1,'mirror'], 7: [0,'mirror'], 8: ['mirror'], 9: [7,'mirror'], 10: [1,'mirror',1], 11: ['stone',1], 12: ['hammer','hammer'], 13: [1,'bag'], 14: [1,3,2,6,4,'mirror'] };
 const GAME_TITLE = { name: '新卡牌', suffix: '（暂名）' }; 
 type LayoutChoice = 'auto' | 'portrait' | 'landscape';
@@ -83,6 +87,8 @@ export class GameUI {
   private countdownNode = el('div', 'countdown');
   private endButton!: HTMLButtonElement;
   private lootCards: HTMLElement[] = [];
+  /** 选中以后才能按的“拿 / 拿这件” */
+  private takeButton: HTMLButtonElement | null = null;
   private lootHint = el('div', 'loot-hint');
   private saveWarningShown = false;
   private pendingSettlements: RunState[] = [];
@@ -91,6 +97,11 @@ export class GameUI {
   private healingHearts: number | null = null;
   private attacking = false;
   private pendingDrawIds = new Set<number>();
+  /** 排牌阶段不打怪；按“打出去”后按顺序一张张打。strikeHp 是演出中血条显示的血 */
+  private striking = false;
+  private strikeHp: number | null = null;
+  private arrangeHintShown = false;
+  private hpGhost = el('div', 'hp-ghost');
   private state: GameState;
   private prefs: Preferences;
   private layout: Layout = portrait;
@@ -151,6 +162,7 @@ export class GameUI {
     this.formulaToggle.type = 'button'; this.formulaToggle.addEventListener('click', () => { this.prefs.formula = !this.prefs.formula; this.savePreferences(); this.renderFormula(); });
     this.handLayer.addEventListener('pointerover', e => { if (e.pointerType !== 'mouse' || this.drag || this.modal || this.previewSticky) return; const node = (e.target as Element).closest<HTMLElement>('.hand-card'); const card = this.state.hand.find(c => c.id === Number(node?.dataset.cardId)); if (node && card) this.showCardPreview(card, node, false); });
     this.handLayer.addEventListener('pointerout', e => { if (e.pointerType !== 'mouse' || this.previewSticky) return; const from = (e.target as Element).closest('.hand-card'); const to = (e.relatedTarget as Element | null)?.closest?.('.hand-card'); if (from && from !== to) this.hideCardPreview(); });
+    this.rowLayer.addEventListener('click', e => { if (!this.playing || this.drag) return; const node = (e.target as Element).closest<HTMLElement>('.row-card:not(.row-preview)'); const index = this.state.row.findIndex(c => c.id === Number(node?.dataset.cardId)); if (index >= 0) this.rewindTo(index); });
     this.stage.addEventListener('pointermove', this.onPointerMove);
     this.stage.addEventListener('pointerup', this.onPointerUp);
     this.stage.addEventListener('pointercancel', this.onPointerCancel);
@@ -172,7 +184,7 @@ export class GameUI {
   }
 
   private get debugEnabled() { return new URLSearchParams(location.search).get('debug') === '1'; }
-  private get playing() { return this.screen === 'practice' || (this.screen === 'adventure' && this.run?.phase === 'battle' && !this.transition); }
+  private get playing() { return !this.striking && (this.screen === 'practice' || (this.screen === 'adventure' && this.run?.phase === 'battle' && !this.transition)); }
   private seed() { const requested = new URLSearchParams(location.search).get('seed'); return requested !== null && Number.isFinite(Number(requested)) ? Number(requested) >>> 0 : Date.now() >>> 0; }
   private ruleOptions() { const { hint, hand, grow, tools } = this.prefs; return { hint, hand, grow, tools }; }
   private savePreferences() { this.sound.configure(this.prefs); this.feel.configure(this.prefs); if (!saveSettings(this.prefs)) this.storageWarning(); }
@@ -208,7 +220,7 @@ export class GameUI {
     this.shownRainbow = new Set(this.state.row.filter(card => card.rb).map(card => card.id));
   }
   private resetEffects() {
-    this.losingHeart = -1; this.healingHearts = null; this.attacking = false; this.pendingDrawIds.clear();
+    this.losingHeart = -1; this.healingHearts = null; this.attacking = false; this.pendingDrawIds.clear(); this.striking = false; this.strikeHp = null;
     this.epoch++; this.timers.forEach(clearTimeout); this.timers.clear(); cancelAnimationFrame(this.scoreAnimation);
     this.stage.querySelectorAll('.temporary-mirror,.dealing-card-back,.loot-card-back').forEach(node => node.remove()); this.stage.querySelectorAll<HTMLElement>('.gem-card').forEach(node => { node.style.visibility = ''; });
     this.fxLayer.replaceChildren(); this.dragLayer.replaceChildren(); this.activeToast = null; this.feel.reset();
@@ -315,6 +327,7 @@ export class GameUI {
     this.setScore(this.displayScore);
     this.score.dataset.value = String(this.state.turnDmg);
     this.undoButton.disabled = this.state.hist.length === 0;
+    if (this.screen === 'practice') this.setEndLabel(this.state.row.length ? '打出去' : '结束回合');
     this.deckCount.textContent = String(this.state.deck.length); this.deckButton.setAttribute('aria-label', `牌库 ${this.state.deck.length} 张`);
     this.renderGrowth(); this.renderRow(); this.renderHand(); this.renderFormula(); this.renderRainbow();
   }
@@ -377,7 +390,7 @@ export class GameUI {
       }
     });
   }
-  private renderHand(newIds: number[] = [], drawInterval = 60) {
+  private renderHand(newIds: number[] = [], drawInterval: number = DRAW.interval) {
     if (!this.playing) return;
     const cards = this.state.hand.filter(card => !this.pendingDrawIds.has(card.id) && !(this.drag?.dragging && this.drag.id === card.id));
     const keep = new Set(cards.map(card => card.id));
@@ -404,10 +417,22 @@ export class GameUI {
       if(this.run && canDoubleTool(this.run,card))node.append(el('span','twice-badge','×2'));
       node.append(tags);
       if (newIds.includes(card.id)) {
-        const delay = newIds.indexOf(card.id) * drawInterval;
+        // 摸牌：牌背从牌库按钮飞出来，划一道弧落到手里，落下后翻面
+        const delay = newIds.indexOf(card.id) * drawInterval; const target = node;
         const back = this.store.create('card_back'); back.classList.add('dealing-card-back'); Object.assign(back.style, { width: `${size.w}px`, height: `${size.h}px` }); face.style.visibility = 'hidden'; node.append(back);
-        this.later(() => { back.remove(); face.style.visibility = ''; }, delay + 220);
-        node.animate([{ transform: `translate(${this.layout.deck.x + this.layout.deck.w / 2 - p.x - size.w / 2}px, ${this.layout.deck.y + this.layout.deck.h / 2 - p.y - size.h}px) rotate(0deg) scale(0.3)`, opacity: 0 }, { transform: `rotate(${p.rotation}deg)`, opacity: 1 }], { duration: 220, delay, fill: 'backwards', easing: 'ease-out' });
+        const from = { x: this.layout.deck.x + this.layout.deck.w / 2 - p.x - size.w / 2, y: this.layout.deck.y + this.layout.deck.h / 2 - p.y - size.h / 2 };
+        const startScale = Math.min(1, this.layout.deck.w * 0.9 / size.w);
+        target.animate([
+          { transform: `translate(${from.x}px, ${from.y}px) rotate(-8deg) scale(${startScale})` },
+          { transform: `translate(${from.x * .45}px, ${from.y * .45 - DRAW.arc}px) rotate(${p.rotation - 4}deg) scale(${(startScale + 1) / 2 + .06})`, offset: .55 },
+          { transform: `rotate(${p.rotation}deg)` },
+        ], { duration: DRAW.fly, delay, fill: 'backwards', easing: 'cubic-bezier(.25,.7,.35,1)' });
+        this.later(() => { if (!this.deckButton?.isConnected) return; this.deckButton.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.12)' }, { transform: 'scale(1)' }], { duration: 140 }); this.sound.draw(); }, delay);
+        this.later(() => {
+          if (!target.isConnected) return;
+          target.animate([{ transform: `rotate(${p.rotation}deg) scaleX(1)` }, { transform: `rotate(${p.rotation}deg) scaleX(0)` }, { transform: `rotate(${p.rotation}deg) scaleX(1)` }], { duration: DRAW.flip, easing: 'ease-in-out' });
+          this.later(() => { back.remove(); face.style.visibility = ''; }, DRAW.flip / 2);
+        }, delay + DRAW.fly);
       }
     });
   }
@@ -427,6 +452,7 @@ export class GameUI {
     return ![this.layout.undo, this.layout.deck, this.layout.end, this.layout.rules, this.layout.settings, ...growthRects(this.layout)].some(box => contains(box, point));
   }
   private onPointerDown = (event: PointerEvent) => {
+    if (this.striking) { event.preventDefault(); this.skipStrike(); return; }
     if (!this.playing || this.modal || this.drag || event.button !== 0) return;
     const target = (event.target as Element).closest<HTMLElement>('.hand-card'); if (!target) { this.hideCardPreview(); return; }
     if (event.pointerType !== 'mouse') { const card = this.state.hand.find(c => c.id === Number(target.dataset.cardId)); clearTimeout(this.holdTimer); this.holdTimer = setTimeout(() => { const node = this.handNodes.get(Number(target.dataset.cardId)); if (card && node && this.drag && !this.drag.dragging) this.showCardPreview(card, node, false); }, MOTION.holdMs); }
@@ -507,18 +533,13 @@ export class GameUI {
       this.later(() => { before.remove(); resolved.style.visibility = ''; resolved.animate([{opacity:0},{opacity:1}],{duration:200}); },200);
     }
     this.animateScore(this.displayScore, this.state.turnDmg);
-    const hit = this.monsterHitPoint();
-    const big = this.run ? entry.damage >= this.run.monster.maxHp * .1 || entry.k === 'white' || entry.rainbow > 0 || entry.type === 'hammer' : entry.damage >= 20000 || entry.k === 'white' || entry.rainbow > 0 || entry.type === 'hammer';
+    // 排牌阶段只在桌上演：牌落桌、倍率、反应。怪要等按“打出去”才挨打
     if(entry.type==='shadow')this.sound.shadow(Math.max(0,this.state.row.length-2));else this.sound.playCard(this.state.row.length - 1);
-    this.store.play(this.dummy, big ? 'hit_big' : 'hit');
-    this.sound.hit(big); if (brokeNow) this.sound.pierce();
     if (row) this.feel.cardDrop(row);
     const doubled = entry.m2 >= entry.m * 2 && (entry.k === 'shun' || entry.k === 'white' || entry.type === 'lens' || entry.effects?.some(effect => effect.id === 'same'));
     this.store.play(this.badge, doubled ? 'double' : 'up'); this.feel.multiplier(this.mult, doubled);
     if (doubled) this.sound.double(this.state.row.length - 1);
-    this.float(formatFull(entry.damage), big, false, hit, '', entry.damage);
     const color = this.store.manifest.palette.mix[String(entry.v)] || this.store.manifest.palette.text;
-    this.effect('fx_hit', hit, color);
     if (entry.k !== 'plain') {
       const positions = rowPositions(this.state.row, this.layout); const p = positions[this.state.row.findIndex(c => c.id === entry.id)];
       if (p) this.effect(`fx_${entry.k}`, { x: p.x, y: p.y + rowSize(this.layout).h / 2 }, color, entry.k === 'white' ? 1.3 : 1);
@@ -526,9 +547,9 @@ export class GameUI {
     }
     this.presentEffects(entry, countdownBefore, oldRule);
     if (brokeNow && this.run?.monster.broken) {
-      this.store.setStay(this.dummy, 'daze'); this.effect('fx_kill', hit, undefined, 1.5);
-      if (!this.brokenHintShown) { this.brokenHintShown = true; this.toast(this.run.fight === RUN.fights.length ? '打穿了！打完点“打赢了！”' : '打穿了！接着出牌刷超杀，打完点“拿战利品”'); }
-    }
+      this.hpBar.animate([{ filter: 'brightness(1)' }, { filter: 'brightness(1.6)' }, { filter: 'brightness(1)' }], { duration: 400 });
+      if (!this.brokenHintShown) { this.brokenHintShown = true; this.toast('这些牌能打穿它了！还能接着加牌刷超杀'); }
+    } else if (!this.arrangeHintShown && this.state.row.length === 1) { this.arrangeHintShown = true; this.toast('排好了点“打出去”。点桌上的牌能收回'); }
     if (entry.rainbow) {
       this.sound.rainbow();
       this.feel.rainbow(this.state.row.filter(c => c.rb).map(c => this.rowNodes.get(c.id)!).filter(Boolean), () => {
@@ -537,14 +558,47 @@ export class GameUI {
       });
     }
     if (entry.type === 'hammer') { this.effect('fx_slam', { x: (this.layout.rowStart.x + this.layout.rowRight) / 2, y: this.layout.rowStart.y + rowSize(this.layout).h }, color, 1.5); }
-    if (entry.type === 'bag' || entry.type === 'whistle') this.later(() => { drawnIds.forEach(id => this.pendingDrawIds.delete(id)); this.renderHand(drawnIds, 120); }, 300);
+    if (entry.type === 'bag' || entry.type === 'whistle') this.later(() => { drawnIds.forEach(id => this.pendingDrawIds.delete(id)); this.renderHand(drawnIds, 140); }, 300);
     entry.grown.forEach(i => {
       this.effect('fx_grow', this.layout.growth.centers[i], this.store.manifest.palette.gem[COLORS[i]].mid);
       const label = el('span', 'growth-upgrade', `变成${FORMS[gemForm(this.state, i)]}`); this.growth[i]?.append(label); this.later(() => label.remove(), 900);
     });
+  }
+  private isBigHit(entry: RowEntry) {
+    return this.run ? entry.damage >= this.run.monster.maxHp * .1 || entry.k === 'white' || entry.rainbow > 0 || entry.type === 'hammer' : entry.damage >= 20000 || entry.k === 'white' || entry.rainbow > 0 || entry.type === 'hammer';
+  }
+  private setEndLabel(label: string) { this.endButton.lastElementChild!.textContent = label; this.endButton.setAttribute('aria-label', label); }
+  /** 按“打出去”：桌上的牌按顺序一张张打到怪身上，越打越快，满手也不超过 3 秒。点屏幕跳过。 */
+  private strike() {
+    const entries = [...this.state.row]; if (!entries.length) { this.settleTurn(); return; }
+    this.hideCardPreview(); this.cancelDrag(); this.closeModal(); this.resetEffects(); this.syncPresentation();
+    this.striking = true; this.strikeHp = this.run ? this.run.monster.turnStartHp : null;
+    this.endButton.disabled = true; this.undoButton.disabled = true; this.stage.classList.add('striking');
+    const gaps = entries.map((_, i) => Math.max(STRIKE.minGap, STRIKE.firstGap * STRIKE.decay ** i));
+    const total = gaps.reduce((sum, gap) => sum + gap, 0); const fit = Math.min(1, STRIKE.maxTotal / total);
+    let at = STRIKE.lead;
+    entries.forEach((entry, i) => { this.later(() => this.strikeOne(entry, i), at); at += gaps[i]! * fit; });
+    const last = entries.at(-1)!; const broke = Boolean(this.run?.monster.broken);
+    this.later(() => this.endStrike(), at + (broke ? STRIKE.breakHold : STRIKE.hold) + (this.isBigHit(last) ? 120 : 0));
+  }
+  private strikeOne(entry: RowEntry, index: number) {
+    const row = this.rowNodes.get(entry.id); const hit = this.monsterHitPoint(); const big = this.isBigHit(entry);
+    if (row) { row.animate([{ transform: 'translateY(0) scale(1)', filter: 'brightness(1)' }, { transform: `translateY(${-STRIKE.lift}px) scale(1.08)`, filter: 'brightness(1.5)', offset: .35 }, { transform: 'translateY(0) scale(1)', filter: 'brightness(1)' }], { duration: 220, easing: 'ease-out' }); }
+    const before = this.strikeHp; if (before !== null) this.strikeHp = before - entry.damage;
+    const brokeNow = before !== null && before > 0 && this.strikeHp! <= 0;
+    this.store.play(this.dummy, big ? 'hit_big' : 'hit'); this.sound.hit(big); this.sound.playCard(index);
+    if (brokeNow) this.sound.pierce();
+    this.float(formatFull(entry.damage), big, false, hit, '', entry.damage);
+    if (entry.rainbow) this.float(`彩虹 +${formatFull(entry.rainbow)}`, true, true, this.layout.floating, '', entry.rainbow);
+    const color = this.store.manifest.palette.mix[String(entry.v)] || this.store.manifest.palette.text;
+    this.effect('fx_hit', hit, color, big ? 1.25 : 1);
+    if (brokeNow) { this.store.setStay(this.dummy, 'daze'); this.effect('fx_kill', hit, undefined, 1.5); }
     this.feel.hit({ monster: this.monsterMotion, damage: entry.damage, big, pierce: brokeNow, roots: [this.monsterMotion, ...this.fxLayer.querySelectorAll('svg')] });
     if (brokeNow) this.feel.slow([this.monsterMotion, this.fxLayer, this.rowLayer, this.mult]);
+    if (this.run) this.renderBattleStatus();
   }
+  private endStrike() { this.striking = false; this.strikeHp = null; this.stage.classList.remove('striking'); this.endButton.disabled = false; this.settleTurn(); }
+  private skipStrike() { if (!this.striking) return; this.resetEffects(); this.stage.classList.remove('striking'); this.endButton.disabled = false; this.settleTurn(); }
 
   private animateScore(from: number, to: number) {
     cancelAnimationFrame(this.scoreAnimation); from = Math.max(0, this.displayScore); to = Math.max(0, to); const start = performance.now();
@@ -580,6 +634,10 @@ export class GameUI {
   }
   private finishTurn() {
     if (!this.playing) return;
+    if (this.state.row.length) this.strike(); else this.settleTurn();
+  }
+  private settleTurn() {
+    if (!this.playing) return;
     this.hideCardPreview();
     this.cancelDrag(); this.closeModal(); this.resetEffects();
     const previousIds = new Set(this.state.hand.map(c => c.id));
@@ -602,7 +660,12 @@ export class GameUI {
       this.later(() => { this.transition = false; this.attacking = false; this.monsterMotion.style.zIndex = ''; this.losingHeart = -1; this.syncPresentation(); if (this.run?.result) { this.store.play(this.dummy, 'hit_big'); this.later(() => { this.buildScene(); }, 700); } else { this.renderHearts(); this.updateCountdown(this.run!.monster.countdown, true); this.render(); this.renderHand(this.state.hand.filter(c => !previousIds.has(c.id)).map(c => c.id)); } }, 1100);
     } else { this.syncPresentation(); this.render(); if (countdown !== this.run.monster.countdown) this.updateCountdown(this.run.monster.countdown, true); this.renderHand(this.state.hand.filter(c => !previousIds.has(c.id)).map(c => c.id)); }
   }
-  private rewind() { if (!this.playing) return; this.cancelDrag(); if (!(this.screen === 'adventure' && this.run ? undoRun(this.run) : undo(this.state))) return; const visible = this.displayScore; this.resetEffects(); this.syncPresentation(); this.displayScore = visible; this.render(); this.animateScore(visible, this.state.turnDmg); this.persist(); }
+  private rewind() { this.rewindTo(this.state.row.length - 1); }
+  /** 收回桌上第 index 张和它后面的所有牌（撤回到打它之前） */
+  private rewindTo(index: number) {
+    if (!this.playing || index < 0) return; this.cancelDrag(); let undone = 0;
+    while (this.state.row.length > index && (this.screen === 'adventure' && this.run ? undoRun(this.run) : undo(this.state))) undone++;
+    if (!undone) return; const visible = this.displayScore; this.resetEffects(); this.syncPresentation(); this.displayScore = visible; this.render(); this.animateScore(visible, this.state.turnDmg); this.persist(); }
   private onKeyDown = (event: KeyboardEvent) => {
     if (this.modal) {
       if (event.key === 'Escape') { event.preventDefault(); this.closeModal(); return; }
@@ -625,11 +688,12 @@ export class GameUI {
       return;
     }
     if (this.screen === 'adventure' && this.run?.phase === 'loot' && !this.transition) {
-      if (/^[1-4]$/.test(event.key)) { event.preventDefault(); this.selectLoot(Number(event.key) - 1, false); }
+      if (/^[1-4]$/.test(event.key)) { event.preventDefault(); this.selectLoot(Number(event.key) - 1); }
       else if (event.key === 'Enter' && this.selectedLoot >= 0) { event.preventDefault(); this.takeLoot(this.selectedLoot); }
       else if (event.key === '0') { event.preventDefault(); this.takeLoot(-1); }
       return;
     }
+    if (this.striking && (event.code === 'Space' || event.key === 'Enter')) { event.preventDefault(); this.skipStrike(); return; }
     if (!this.playing) return;
     if (/^[1-9]$/.test(event.key)) { event.preventDefault(); this.playById(this.state.hand[Number(event.key) - 1]?.id); }
     else if (event.code === 'Space') { event.preventDefault(); this.finishTurn(); }
@@ -682,16 +746,17 @@ export class GameUI {
     const gems = el('div', 'rule-gems'); COLORS.forEach(color => gems.append(this.store.create(`gem_icon_${color}`))); panel.append(gems);
     const rules = [
       '宝石：红是圆的，绿是方的，蓝是三角的。',
-      '把手牌拖到桌上就打出去，接在这一排最右边。',
+      '把手牌拖到桌上排成一排，新的接在最右边。排的时候怪还没挨打，血条上的斜纹是打出去以后会掉的血。',
       '伤害 = 宝石底数 × 倍率 × 反应。倍率从 ×1 开始，每出一张 +1。',
       '和上一张比宝石：一样 → 同色 ×2；差一颗 → 顺色 ×2，倍率翻倍；三颗全不一样 → 凑白 ×5，倍率翻倍；差两颗 → 没反应。',
       '彩虹：顺色一路连出红、黄、绿、青、蓝、品红六种颜色，这回合 ×10，每回合一次。',
       '宝石越用越值钱：用 15 次变"切好"，底数 150；用 45 次变"闪光"，底数 200。',
-      '结束回合：桌上的牌收走，倍率回到 ×1，手牌补满。',
+      '排好了点“打出去”：桌上的牌从左到右一张张打到怪身上。点桌上的某张牌，它和它后面的牌都收回手里；撤回按钮收回最后一张。',
+      '打完这回合就结束：桌上的牌收走，倍率回到 ×1，手牌补满。一张都没排时按钮是“结束回合”。',
     ];
     const list = el('ul', 'rules-list'); rules.forEach(rule => list.append(el('li', '', rule))); panel.append(list);
     const sections = [
-      ['一局怎么打', '每一间：打赢小怪拿额外牌。到了门前，两扇门各写着打谁、赢了拿什么，挑一扇。打赢精英回满心，再挑一件宝物。', '怪头顶是它的血，旁边的数字是它还有几回合出手。数到 0 它就打你一下，你少 1 颗心；3 颗心都没了就输了。', '把怪的血打空就算打穿了。打穿以后这回合还能接着出牌，打得越多超杀越高。点“拿战利品”结束这一仗。'],
+      ['一局怎么打', '每一间：打赢小怪拿额外牌。到了门前，两扇门各写着打谁、赢了拿什么，挑一扇。打赢精英回满心，再挑一件宝物。', '怪头顶是它的血，旁边的数字是它还有几回合出手。数到 0 它就打你一下，你少 1 颗心；3 颗心都没了就输了。', '排的牌够把怪的血打空，血条上会写“能打穿”。这时还能接着加牌，打得越多超杀越高。点“打出去”打穿它，这一仗就赢了。'],
       ['额外牌', '每种额外牌最多带 2 张。手里最多拿 12 张。', '额外牌也带宝石，宝石照常算伤害、照常起反应，效果是另外加的。', '口袋（绿）：摸 2 张。', '放大镜（蓝）：倍率再 ×2。', '锤子（红）：这回合到这里的伤害 ×3，最后打最划算。', '镜子（没宝石）：变成上一张缺的宝石，一定凑白。', '磨石（没宝石）：三颗宝石各长 5 次。', '沙漏：怪出手推后 1 回合。', '封条：这回合怪的规矩不算。', '影子：跟上一张一模一样。', '哨子：叫来 1 张额外牌。'],
       ['战利品', '奖励是额外牌时，从几张额外牌里选一张放进牌组，也可以不拿。超杀到 10 倍多一张可选。工坊里扔牌或者抄牌；回心门打赢回一颗心。打赢精英，手牌上限 +1，心回满，再挑一件宝物。'],
     ];
@@ -778,13 +843,14 @@ export class GameUI {
       const reward = this.store.createInline('ui_rule_sign'); place(reward, { x: point.x - layout.reward.w / 2, y: point.y + layout.reward.dy, w: layout.reward.w, h: layout.reward.h });
       this.store.setSlotText(reward, 'rule_text', {card:'额外牌',shop:'工坊',heal:'回一颗心'}[option.reward]); this.store.setSlotIcon(reward, 'icon_slot', `ui_reward_${option.reward}`); group.append(reward);
       const rule = this.store.createInline('ui_rule_sign'); place(rule, { x: point.x - layout.ruleSign.w / 2, y: point.y + layout.ruleSign.dy, w: layout.ruleSign.w, h: layout.ruleSign.h }); this.store.setSlotText(rule, 'rule_text', RULES[option.rule].name); this.store.setSlotIcon(rule, 'icon_slot', `rule_${option.rule}`); group.append(rule);
-      group.addEventListener('click', () => this.selectDoor(i)); this.scene.append(group);
+      group.addEventListener('click', () => this.selectDoor(i, false)); this.scene.append(group);
     });
     const detail = el('div', 'door-detail'); place(detail, layout.detail); this.store.nineSlice(detail, 'ui_panel', 24);
     const option = doorOptions(this.run)[this.selectedDoor];
     if (option) detail.append(el('p','',`${MONSTERS[option.monster].name} · ${MONSTERS[option.monster].line}`), el('p','',`${RULES[option.rule].name} · ${RULES[option.rule].text}`), el('p','',`打赢拿：${{card:'额外牌，三张里挑一张。',shop:'进一次工坊，扔牌或者抄牌。',heal:'回一颗心。'}[option.reward]}`));
     else detail.hidden = true;
-    const hint = el('div', 'loot-hint', '点一下看，再点一下进去'); place(hint, layout.hint); this.scene.append(detail, hint);
+    const hint = el('div', 'loot-hint', option ? '' : '点门看看打谁、赢了拿什么'); place(hint, layout.hint); this.scene.append(detail, hint);
+    const enter = this.button('进这扇门', layout.enter, () => { if (this.selectedDoor >= 0) this.selectDoor(this.selectedDoor); }, undefined, true); enter.disabled = !option; enter.dataset.action = 'enter-door';
   }
   private selectDoor(index: number, confirm = true) {
     if (this.transition || this.run?.phase !== 'doors' || !doorOptions(this.run)[index]) return;
@@ -874,13 +940,19 @@ export class GameUI {
       const name = el('strong', '', RELICS[id].name); name.style.fontSize = `${layout.nameSize}px`;
       const detail = el('span', '', RELICS[id].text); detail.style.fontSize = `${layout.textSize}px`;
       node.append(icon, name, detail); node.addEventListener('click', () => this.selectRelic(i));
-      node.setAttribute('aria-label', `${i + 1} ${RELICS[id].name}：${RELICS[id].text}。点一下看看，再点一下带走`);
+      node.setAttribute('aria-label', `${i + 1} ${RELICS[id].name}：${RELICS[id].text}。点一下选中，再点“拿这件”`);
       this.scene.append(node); this.lootCards.push(node);
     });
-    place(this.lootHint, this.layout.loot.hint); this.lootHint.textContent = '点一下看看，再点一下带走'; this.scene.append(this.lootHint); this.updateRelicSelection();
+    place(this.lootHint, this.layout.loot.hint); this.scene.append(this.lootHint);
+    this.takeButton = this.button('拿这件', this.layout.loot.take, () => { if (this.selectedRelic >= 0) this.takeRelic(this.selectedRelic); }, undefined, true); this.takeButton.dataset.action = 'take-relic';
+    this.updateRelicSelection();
   }
-  private updateRelicSelection() { this.lootCards.forEach((node, i) => { node.classList.toggle('selected', i === this.selectedRelic); node.setAttribute('aria-pressed', String(i === this.selectedRelic)); }); }
-  private selectRelic(index: number) { if (this.transition || this.run?.phase !== 'relic' || !this.run.relicOptions[index]) return; if (this.selectedRelic === index) this.takeRelic(index); else { this.selectedRelic = index; this.updateRelicSelection(); } }
+  private updateRelicSelection() {
+    this.lootCards.forEach((node, i) => { node.classList.toggle('selected', i === this.selectedRelic); node.setAttribute('aria-pressed', String(i === this.selectedRelic)); });
+    const id = this.run?.relicOptions[this.selectedRelic]; this.lootHint.textContent = id ? `选了「${RELICS[id].name}」，点“拿这件”带走` : '选一件，再点“拿这件”'; if (this.takeButton) this.takeButton.disabled = !id;
+  }
+  /** 只选中；带走要按“拿这件” */
+  private selectRelic(index: number) { if (this.transition || this.run?.phase !== 'relic' || !this.run.relicOptions[index]) return; this.selectedRelic = index; this.updateRelicSelection(); }
   private takeRelic(index: number) {
     if (this.transition || this.run?.phase !== 'relic' || !this.run.relicOptions[index]) return;
     const id = this.run.relicOptions[index]; const card = this.lootCards[index]; this.transition = true;
@@ -975,7 +1047,7 @@ export class GameUI {
     if (this.run.phase !== 'battle') return;
     place(this.hpBar, this.layout.hpBar); this.hpBar.replaceChildren(); this.store.nineSlice(this.hpBar, 'ui_hp_frame', this.layout.hpBorder);
     const inner = this.store.get('ui_hp_frame').definition.inner ?? [8,8,8,8];
-    const slot = el('div', 'hp-slot'); Object.assign(slot.style, { top:`${inner[0]}px`,right:`${inner[1]}px`,bottom:`${inner[2]}px`,left:`${inner[3]}px` }); slot.append(this.hpUnder,this.hpChip,this.hpFill); this.hpBar.append(slot,this.hpText); this.scene.append(this.hpBar); delete this.hpBar.dataset.layer;
+    const slot = el('div', 'hp-slot'); Object.assign(slot.style, { top:`${inner[0]}px`,right:`${inner[1]}px`,bottom:`${inner[2]}px`,left:`${inner[3]}px` }); slot.append(this.hpUnder,this.hpChip,this.hpFill,this.hpGhost); this.hpBar.append(slot,this.hpText); this.scene.append(this.hpBar); delete this.hpBar.dataset.layer;
     place(this.ruleButton, this.layout.ruleSign); this.ruleButton.replaceChildren(this.ruleSign); this.scene.append(this.ruleButton);
     const c = this.layout.countdown; const hb = this.layout.hpBar; const coversBar = c.x - c.size/2 < hb.x + hb.w/2 && c.x + c.size/2 > hb.x; this.hpText.style.paddingLeft = this.run.monster.key === 'clock' || !coversBar ? '' : `${Math.max(0, c.x+c.size/2-hb.x)}px`; place(this.countdownNode, { x:c.x-c.size/2,y:c.y-c.size/2,w:c.size,h:c.size });
     this.countdownNode.replaceChildren(this.countdownArt,this.countdownText,this.countdownPreview); this.scene.append(this.countdownNode);
@@ -994,18 +1066,26 @@ export class GameUI {
     this.renderHearts(); const m = this.run.monster;
     // 血条不写数字：按层显示（小怪 1 层、精英 2、首领 3），每层一种颜色，当前层下面垫着下一层
     const fightType = RUN.fights[this.run.fight - 1]!.type; const layers = RUN.hpLayers[fightType === 'doors' ? 'normal' : fightType]; const per = m.maxHp / layers;
-    const layer = m.hp > 0 ? Math.min(layers, Math.ceil(m.hp / per - 1e-9)) : 0; const fraction = layer ? (m.hp - (layer - 1) * per) / per : 0;
+    // 排牌时血条还停在回合开始的血，虚线段是“打出去以后会掉的”；连打时 strikeHp 一下下往下掉
+    const shown = Math.max(0, Math.min(m.maxHp, this.strikeHp ?? (this.state.row.length ? m.turnStartHp : m.hp))); const predicted = Math.max(0, m.hp);
+    const layerOf = (hp: number) => hp > 0 ? Math.min(layers, Math.ceil(hp / per - 1e-9)) : 0;
+    const layer = layerOf(shown); const fraction = layer ? (shown - (layer - 1) * per) / per : 0;
+    const predictedLayer = layerOf(predicted); const ghostFrom = predicted < shown ? predictedLayer === layer ? (predicted - (layer - 1) * per) / per : 0 : fraction;
+    const shownBroken = this.strikeHp !== null ? this.strikeHp <= 0 : this.state.row.length ? false : m.broken;
+    const willBreak = !shownBroken && m.broken;
     const colorOf = (n: number) => n <= 1 ? 'var(--hpFill)' : HP_LAYER_COLORS[n - 1]!;
     this.hpFill.style.background = colorOf(layer); this.hpUnder.style.background = layer > 1 ? colorOf(layer - 1) : 'transparent';
     if (this.hpBar.dataset.layer !== String(layer)) { this.hpChip.style.transition = 'none'; this.hpFill.style.transition = 'none'; this.hpChip.style.transform = this.hpFill.style.transform = `scaleX(${fraction})`; void this.hpChip.offsetWidth; this.hpChip.style.transition = ''; this.hpFill.style.transition = ''; this.hpBar.dataset.layer = String(layer); }
     this.hpFill.style.transform = `scaleX(${fraction})`; this.hpChip.style.transform = `scaleX(${fraction})`;
-    this.hpText.classList.toggle('broken',m.broken); this.hpText.replaceChildren();
-    if (m.broken) this.hpText.textContent = `打穿了！超杀 ${formatOverkill(m.overkill)}`;
-    else this.hpText.append(el('span','',MONSTERS[m.key].name), el('span','hp-layers', layers > 1 ? `×${layer}` : ''));
-    this.hpBar.dataset.hp = String(m.hp); this.hpBar.setAttribute('aria-label', m.broken ? this.hpText.textContent ?? '' : `${MONSTERS[m.key].name}，还剩 ${Math.ceil(m.hp / m.maxHp * 100)}% 血${layers > 1 ? `，${layer} 层` : ''}`);
+    Object.assign(this.hpGhost.style, { left: `${ghostFrom * 100}%`, width: `${Math.max(0, fraction - ghostFrom) * 100}%` }); this.hpGhost.hidden = this.strikeHp !== null || ghostFrom >= fraction;
+    this.hpText.classList.toggle('broken', shownBroken || willBreak); this.hpText.replaceChildren();
+    if (shownBroken) this.hpText.textContent = `打穿了！超杀 ${formatOverkill(m.overkill)}`;
+    else if (willBreak) this.hpText.textContent = `能打穿！超杀 ${formatOverkill(m.overkill)}`;
+    else this.hpText.append(el('span','',MONSTERS[m.key].name), el('span','hp-layers', layers > 1 ? predictedLayer < layer && this.strikeHp === null ? `×${layer} → ×${predictedLayer}` : `×${layer}` : ''));
+    this.hpBar.dataset.hp = String(m.hp); this.hpBar.dataset.shownHp = String(shown); this.hpBar.setAttribute('aria-label', shownBroken || willBreak ? this.hpText.textContent ?? '' : `${MONSTERS[m.key].name}，还剩 ${Math.ceil(shown / m.maxHp * 100)}% 血${predicted < shown ? `，打出去以后剩 ${Math.ceil(predicted / m.maxHp * 100)}%` : ''}${layers > 1 ? `，${layer} 层` : ''}`);
     this.renderRuleSign();
-    const label = m.broken ? this.run.fight === RUN.fights.length ? '打赢了！' : '拿战利品' : '结束回合'; this.endButton.lastElementChild!.textContent = label; this.endButton.setAttribute('aria-label',label); this.endButton.classList.toggle('claim-ready',m.broken);
-    this.store.setStay(this.dummy,m.broken?'daze':m.woundDown?'wound_down':null); this.updateCountdown(this.attacking ? 0 : m.countdown);
+    const label = !this.state.row.length ? '结束回合' : '打出去'; this.setEndLabel(label); this.endButton.classList.toggle('claim-ready', m.broken);
+    this.store.setStay(this.dummy,shownBroken?'daze':m.woundDown?'wound_down':null); this.updateCountdown(this.attacking ? 0 : m.countdown);
   }
   private updateCountdown(value: number, tick = false) {
     if (!this.run) return;
@@ -1046,12 +1126,14 @@ export class GameUI {
     const chest=this.store.createInline('loot_chest');this.placeAnchored(chest,'loot_chest',this.layout.loot.chest,this.layout.monsterScale.normal);this.scene.append(chest);this.store.setStay(chest,'open');
     const points=this.run.loot.length===4?this.layout.loot.four:this.layout.loot.three;
     this.run.loot.forEach((type,i)=>{
-      const card=el('button','loot-card') as HTMLButtonElement;card.type='button';card.dataset.lootIndex=String(i);card.setAttribute('aria-label',`${i+1} ${TOOLS[type].name}，点一下选中，再点一下拿走`);
+      const card=el('button','loot-card') as HTMLButtonElement;card.type='button';card.dataset.lootIndex=String(i);card.setAttribute('aria-label',`${i+1} ${TOOLS[type].name}，点一下选中，再点“拿”`);
       place(card,{...points[i],w:MOTION.cardW*this.layout.loot.scale,h:MOTION.cardH*this.layout.loot.scale});
       const face=createCard(this.store,createToolCard(type,-i-1),this.state.xp,true,{ thresholds: growthThresholds(this.run ?? this.state) });face.style.transform=`scale(${this.layout.loot.scale})`;card.append(face);card.addEventListener('click',()=>this.selectLoot(i));this.scene.append(card);this.lootCards.push(card);
     });
-    place(this.lootHint,this.layout.loot.hint);this.scene.append(this.lootHint);this.updateLootSelection();
+    place(this.lootHint,this.layout.loot.hint);this.scene.append(this.lootHint);
     this.button('不拿',this.layout.loot.skip,()=>this.takeLoot(-1)).dataset.action='skip-loot';
+    this.takeButton=this.button('拿',this.layout.loot.take,()=>{if(this.selectedLoot>=0)this.takeLoot(this.selectedLoot);},undefined,true);this.takeButton.dataset.action='take-loot';
+    this.updateLootSelection();
   }
   private animateLoot() {
     const chest=this.scene.querySelector<SVGSVGElement>('[data-art-id="loot_chest"]');if (chest) {this.store.stop(chest);this.store.play(chest,'drop');this.later(()=>this.store.setStay(chest,'open'),500);}
@@ -1064,9 +1146,12 @@ export class GameUI {
   private updateLootSelection() {
     if (!this.run) return;
     this.lootCards.forEach((node,i)=>{node.classList.toggle('selected',i===this.selectedLoot);node.setAttribute('aria-pressed',String(i===this.selectedLoot));});
-    this.lootHint.textContent=this.selectedLoot>=0?'再点一下拿走':this.run.monster.overkill>=RUN.lootBonusOverkill?`超杀 ${formatOverkill(this.run.monster.overkill)}！多一张可选`:'选一张放进牌组';
+    const picked=this.run.loot[this.selectedLoot];
+    this.lootHint.textContent=picked?`选了「${TOOLS[picked].name}」，点“拿”放进牌组`:this.run.monster.overkill>=RUN.lootBonusOverkill?`超杀 ${formatOverkill(this.run.monster.overkill)}！多一张可选`:'选一张，再点“拿”';
+    if(this.takeButton)this.takeButton.disabled=!picked;
   }
-  private selectLoot(index: number, confirm = true) { if (this.transition || this.run?.phase!=='loot' || !this.run.loot[index]) return;if (this.selectedLoot===index&&confirm) this.takeLoot(index);else {this.selectedLoot=index;this.updateLootSelection();} }
+  /** 只选中；拿走要按“拿” */
+  private selectLoot(index: number) { if (this.transition || this.run?.phase!=='loot' || !this.run.loot[index]) return; this.selectedLoot=index;this.updateLootSelection(); }
   private takeLoot(index: number) {
     if (this.transition||this.run?.phase!=='loot') return;
     const node=this.lootCards[index];this.resetEffects();this.transition=true;

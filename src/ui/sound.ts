@@ -233,6 +233,8 @@ export class SoundSystem {
   /** The copied card's index, not the shadow card's current position. */
   shadow(previousTurnCardIndex: number): void { this.tone(cardFrequency(previousTurnCardIndex) / 2, SOUND.cardMs / 1000, 0.12); }
   whistle(): void { this.tone(880, 0.16, 0.12, 'sine', 0, 1760); }
+  /** 摸一张牌：很轻的“唰” */
+  draw(): void { this.noise(0.07, 0.07, 2600, 'bandpass', 0, 5200); }
   slowBeat(): void { this.tone(165, 0.055, 0.16, 'square', 0, 90); }
   shopRemove(): void { this.tone(75, 0.12, 0.24, 'sine', 0, 35); }
   shopCopy(): void { this.tone(1046.5, 0.25, 0.13, 'sine', 0, undefined, true); }
