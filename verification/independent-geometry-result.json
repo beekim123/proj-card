@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "layouts": 2,
+  "handCounts": "0–30",
+  "rowCounts": "0–30",
+  "reactionGapTypes": 4,
+  "assertions": 6674,
+  "note": "Pure layout math, not browser rendering or touch interaction."
+}

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="1520" height="800" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+<title>卡面结构：牌面单位 200×300（数值和 素材清单.json 的 cardLayout 一致）</title>
+<rect width="760" height="400" fill="#f6f4ef"/>
+<text x="20" y="22" font-size="13" font-weight="700" fill="#222">一张牌 200×300（牌面单位）· 黄宝石（红切好 + 绿原石）</text>
+<g transform="translate(20 40)">
+  <!-- card_frame 底 -->
+  <rect x="0" y="0" width="200" height="300" rx="12" fill="#2b2733" stroke="#1C1412" stroke-width="3"/>
+  <!-- 原画窗：card_art_bg -->
+  <rect x="12" y="12" width="176" height="188" rx="8" fill="#262036"/>
+  <!-- 混色光 -->
+  <defs><radialGradient id="g"><stop offset="0" stop-color="#FFD84A" stop-opacity=".5"/><stop offset="1" stop-color="#FFD84A" stop-opacity="0"/></radialGradient></defs>
+  <circle cx="100" cy="108" r="84" fill="url(#g)"/>
+  <!-- 两颗宝石（窗坐标 66,104 和 118,90，边长 80） -->
+  <circle cx="78" cy="116" r="34" fill="#E3263A" stroke="#1C1412" stroke-width="2.5"/>
+  <rect x="96" y="68" width="68" height="68" fill="#4d6f58" stroke="#1C1412" stroke-width="2.5"/>
+  <rect x="112" y="84" width="36" height="36" fill="#1DBF5E" opacity=".6"/>
+  <!-- 窗边框（card_frame 压住窗边） -->
+  <rect x="12" y="12" width="176" height="188" rx="8" fill="none" stroke="#C2A670" stroke-width="2"/>
+  <!-- 左上角 -->
+  <circle cx="28" cy="32" r="11" fill="#E3263A" stroke="#1C1412" stroke-width="2"/>
+  <rect x="17" y="49" width="22" height="22" fill="#1DBF5E" stroke="#1C1412" stroke-width="2"/>
+  <!-- 宝石栏 -->
+  <rect x="34" y="186" width="132" height="34" rx="9" fill="#6E542B" stroke="#1C1412" stroke-width="2"/>
+  <circle cx="64" cy="203" r="11" fill="#E3263A" stroke="#1C1412" stroke-width="2"/>
+  <rect x="89" y="192" width="22" height="22" fill="#1DBF5E" stroke="#1C1412" stroke-width="2"/>
+  <polygon points="136,191 148,214 124,214" fill="#3b2b14" stroke="#1C1412" stroke-width="1.5"/>
+  <!-- 字 -->
+  <text x="18" y="250" font-size="24" font-weight="700" fill="#E6DEC8">黄宝石</text>
+  <text x="182" y="250" font-size="24" font-weight="700" fill="#C2A670" text-anchor="end">250</text>
+  <text x="18" y="278" font-size="20" fill="#9A8968">红 150 + 绿 100</text>
+</g>
+
+<g transform="translate(250 40)">
+  <text x="0" y="0" font-size="13" font-weight="700" fill="#222">拆开：从下往上叠</text>
+  <g font-size="11" fill="#222">
+    <text x="0" y="22">1  card_art_bg　原画窗底，铺在窗 (12,12) 176×188</text>
+    <text x="0" y="40">2  混色光　代码画：窗中心 (88,96)，半径 84，混色，透明度 0.5；黑牌没有</text>
+    <text x="0" y="58">3  宝石 gem_&lt;色&gt;_&lt;形态&gt;（100×100）或 card_art_empty（黑牌）</text>
+    <text x="0" y="76">4  card_frame　整张牌框，原画窗是透明的洞，框压住窗边</text>
+    <text x="0" y="94">5  card_gem_bar　宝石栏 (34,186) 132×34，三个空槽：圆 / 方 / 三角</text>
+    <text x="0" y="112">6  宝石栏里的 gem_icon　有哪颗放哪颗，24×24，中心 (64,203) (100,203) (136,203)</text>
+    <text x="0" y="130">7  左上角 gem_icon　只放有的，固定格：红 (28,32) 绿 (28,60) 蓝 (28,88)</text>
+    <text x="0" y="148">8  字（代码写）：牌名 24 粗 · 底数 24 粗靠右 · 底数组成 20（放不下缩到 16）</text>
+  </g>
+  <text x="0" y="186" font-size="13" font-weight="700" fill="#222">原画窗里的宝石（窗坐标，[中心, 边长]）</text>
+  <g font-size="11" fill="#222">
+    <text x="0" y="206">1 颗：(88,96) 边长 100</text>
+    <text x="0" y="224">2 颗：(66,104) 和 (118,90)，边长 80，稍微叠一点；左边放红 → 绿 → 蓝里靠前的</text>
+    <text x="0" y="242">3 颗：品字形，绿 (88,58) 在上，红 (52,128) 左下，蓝 (124,128) 右下，边长 72</text>
+    <text x="0" y="260">0 颗：card_art_empty（空托）</text>
+    <text x="0" y="278">每颗宝石按它自己现在的形态显示（红切好、绿原石就一颗切好一颗原石）</text>
+  </g>
+  <text x="0" y="314" font-size="13" font-weight="700" fill="#222">显示大小</text>
+  <g font-size="11" fill="#222">
+    <text x="0" y="334">桌面 0.75 倍（150×225）· 手牌 1.4 倍（280×420）· 点开看 2 倍（400×600）</text>
+    <text x="0" y="352">素材都是 SVG，缩放不糊；字由代码按倍数写，不画进素材</text>
+  </g>
+</g>
+</svg>

@@ -1,0 +1,9 @@
+/* Tool artwork is allowed to finish its play event before settling on the table. */
+.gem-card.card-paused:not(.card-playing) .card-tool-art,
+.gem-card.card-paused:not(.card-playing) .card-tool-art * {
+  animation-play-state: paused !important;
+}
+.gem-card.card-playing .card-tool-art,
+.gem-card.card-playing .card-tool-art * {
+  animation-play-state: running !important;
+}

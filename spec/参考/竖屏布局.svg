@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="540" height="960" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+<title>竖屏布局（设计尺寸 1080×1920）</title>
+<defs>
+  <g id="mini"><rect width="150" height="225" rx="9" fill="#3a3348" stroke="#c9b27a" stroke-width="3"/><rect x="9" y="9" width="132" height="141" rx="6" fill="#262036"/></g>
+  <g id="hand"><rect width="280" height="420" rx="16" fill="#3a3348" stroke="#c9b27a" stroke-width="4"/><rect x="17" y="17" width="246" height="263" rx="10" fill="#262036"/><rect x="48" y="260" width="185" height="48" rx="10" fill="#4a3f2c"/><text x="25" y="350" font-size="34" font-weight="700" fill="#E6DEC8">黄宝石</text><text x="255" y="350" font-size="34" font-weight="700" fill="#C2A670" text-anchor="end">250</text><text x="25" y="389" font-size="28" fill="#9A8968">红 150 + 绿 100</text></g>
+</defs>
+<rect width="1080" height="1920" fill="#0D111C"/>
+<rect x="0" y="0" width="1080" height="80" fill="#07090f"/>
+<text x="540" y="50" font-size="24" fill="#556" text-anchor="middle">顶部安全区 0–80（刘海、状态栏）</text>
+
+<!-- A 顶栏 -->
+<rect x="24" y="80" width="1032" height="88" rx="14" fill="#161221" stroke="#8a93a6" stroke-width="2" stroke-dasharray="10 6"/>
+<text x="48" y="137" font-size="34" font-weight="700" fill="#E6DEC8">第 3 回合</text>
+<text x="500" y="116" font-size="26" fill="#9A8968" text-anchor="middle">最高一回合 26.71万</text>
+<text x="500" y="152" font-size="26" fill="#9A8968" text-anchor="middle">累计 58.2万</text>
+<rect x="860" y="84" width="80" height="80" rx="12" fill="#262036"/><text x="900" y="138" font-size="36" fill="#E6DEC8" text-anchor="middle">?</text>
+<rect x="960" y="84" width="80" height="80" rx="12" fill="#262036"/><text x="1000" y="138" font-size="36" fill="#E6DEC8" text-anchor="middle">≡</text>
+<text x="1052" y="76" font-size="18" fill="#667" text-anchor="end">A 顶栏 y80 h88 · 按钮 80×80（规则 / 设置）</text>
+
+<!-- B 宝石成长 -->
+<g font-size="28" fill="#E6DEC8">
+  <rect x="24" y="184" width="328" height="72" rx="36" fill="#161221" stroke="#6E542B" stroke-width="2"/>
+  <circle cx="64" cy="220" r="24" fill="#E3263A" stroke="#1C1412" stroke-width="3"/><text x="104" y="230">切好 150</text>
+  <rect x="236" y="214" width="100" height="12" rx="6" fill="#262036"/><rect x="236" y="214" width="40" height="12" rx="6" fill="#C2A670"/>
+  <rect x="376" y="184" width="328" height="72" rx="36" fill="#161221" stroke="#6E542B" stroke-width="2"/>
+  <rect x="394" y="198" width="44" height="44" fill="#1DBF5E" stroke="#1C1412" stroke-width="3"/><text x="456" y="230">原石 100</text>
+  <rect x="588" y="214" width="100" height="12" rx="6" fill="#262036"/><rect x="588" y="214" width="73" height="12" rx="6" fill="#C2A670"/>
+  <rect x="728" y="184" width="328" height="72" rx="36" fill="#161221" stroke="#6E542B" stroke-width="2"/>
+  <polygon points="768,194 794,244 742,244" fill="#2E66F0" stroke="#1C1412" stroke-width="3"/><text x="808" y="230">闪光 200</text>
+  <rect x="940" y="214" width="100" height="12" rx="6" fill="#262036"/><rect x="940" y="214" width="100" height="12" rx="6" fill="#C2A670"/>
+</g>
+<text x="540" y="180" font-size="18" fill="#667" text-anchor="middle">B 宝石成长 y184 h72 · 三条各 328 宽（宝石 56 + 形态和底数 + 进度条 100）· 点一条弹出详情</text>
+
+<!-- C 敌人区 -->
+<rect x="24" y="272" width="1032" height="444" rx="14" fill="none" stroke="#8a93a6" stroke-width="2" stroke-dasharray="10 6"/>
+<text x="44" y="310" font-size="22" fill="#9aa">C 敌人区 y272–716</text>
+<ellipse cx="540" cy="696" rx="120" ry="14" fill="#000" opacity=".35"/>
+<rect x="390" y="316" width="300" height="384" rx="18" fill="#3a2c22" stroke="#6e4b28" stroke-width="4"/>
+<text x="540" y="500" font-size="38" fill="#c9a77a" text-anchor="middle">dummy</text>
+<text x="540" y="540" font-size="22" fill="#9b8466" text-anchor="middle">300×384，底边中点对齐 (540, 700)</text>
+<rect x="110" y="460" width="120" height="240" rx="10" fill="#2e2620" stroke="#5b4630" stroke-width="3"/>
+<text x="170" y="585" font-size="22" fill="#9b8466" text-anchor="middle">prop_rack</text>
+<text x="170" y="613" font-size="18" fill="#7a6a55" text-anchor="middle">对齐 (170, 700)</text>
+<text x="540" y="424" font-size="72" font-weight="800" fill="#E6DEC8" stroke="#1C1412" stroke-width="3" text-anchor="middle" opacity=".55">-3,200</text>
+<text x="830" y="400" font-size="20" fill="#889">伤害数字从 (540, 420) 附近</text>
+<text x="830" y="426" font-size="20" fill="#889">随机左右 ±80 出现，往上飘</text>
+
+<!-- D HUD -->
+<rect x="100" y="716" width="220" height="100" rx="18" fill="#3b2b14" stroke="#C2A670" stroke-width="3"/>
+<text x="210" y="786" font-size="52" font-weight="800" fill="#C2A670" text-anchor="middle">×48</text>
+<text x="720" y="744" font-size="26" fill="#9A8968" text-anchor="middle">本回合</text>
+<text x="720" y="806" font-size="64" font-weight="800" fill="#E6DEC8" text-anchor="middle">26.71万</text>
+<text x="1052" y="812" font-size="18" fill="#667" text-anchor="end">D y716–816</text>
+<text x="210" y="840" font-size="18" fill="#667" text-anchor="middle">ui_mult_badge 220×100</text>
+
+<!-- E 桌面排 -->
+<rect x="24" y="828" width="1032" height="330" rx="24" fill="#261c2a" stroke="#8a93a6" stroke-width="2" stroke-dasharray="10 6"/>
+<text x="1040" y="1150" font-size="18" fill="#667" text-anchor="end">E table_cloth x24 y828 1032×330</text>
+<use href="#mini" x="56" y="880"/><use href="#mini" x="112" y="880"/><use href="#mini" x="168" y="880"/>
+<use href="#mini" x="248" y="880"/>
+<use href="#mini" x="402" y="880"/>
+<use href="#mini" x="582" y="880"/>
+<use href="#mini" x="672" y="880"/>
+<rect x="352" y="846" width="100" height="32" rx="16" fill="#E2D6BA"/><text x="402" y="870" font-size="22" fill="#1C1412" text-anchor="middle">顺色</text>
+<rect x="622" y="846" width="100" height="32" rx="16" fill="#E2D6BA"/><text x="672" y="870" font-size="22" fill="#1C1412" text-anchor="middle">同色</text>
+<text x="747" y="1140" font-size="28" font-weight="700" fill="#E6DEC8" text-anchor="middle">3,200</text>
+<text x="477" y="1140" font-size="28" fill="#9A8968" text-anchor="middle">800</text>
+<text x="140" y="1140" font-size="20" fill="#889" text-anchor="middle">放不下时旧牌压到只露 56</text>
+<text x="880" y="960" font-size="20" fill="#889">牌 150×225，顶 y880</text>
+<text x="880" y="988" font-size="20" fill="#889">从 x56 往右排，右边界 1024</text>
+<text x="880" y="1016" font-size="20" fill="#889">间距看反应（见 02）</text>
+<text x="880" y="1044" font-size="20" fill="#889">反应标签在牌上方 y846</text>
+<text x="880" y="1072" font-size="20" fill="#889">每张的伤害在牌下方</text>
+
+<!-- F 算式 -->
+<text x="540" y="1206" font-size="30" fill="#E2D6BA" text-anchor="middle">黄：红 150 + 绿 100 = 250 × 倍率 4 × 顺色 2 = 2,000</text>
+<text x="1052" y="1226" font-size="16" fill="#667" text-anchor="end">F 算式行 y1170–1220</text>
+
+<!-- H 操作栏 -->
+<rect x="24" y="1232" width="200" height="100" rx="18" fill="#262036" stroke="#6E542B" stroke-width="2"/><text x="124" y="1294" font-size="32" fill="#E6DEC8" text-anchor="middle">撤回</text>
+<rect x="244" y="1232" width="200" height="100" rx="18" fill="#262036" stroke="#6E542B" stroke-width="2"/><text x="344" y="1294" font-size="30" fill="#E6DEC8" text-anchor="middle">牌库 18</text>
+<rect x="696" y="1232" width="360" height="100" rx="22" fill="#9A7B46" stroke="#C2A670" stroke-width="3"/><text x="876" y="1296" font-size="40" font-weight="700" fill="#1C1412" text-anchor="middle">结束回合</text>
+<text x="570" y="1290" font-size="18" fill="#667" text-anchor="middle">H 操作栏 y1232 h100</text>
+
+<!-- G 手牌 -->
+<rect x="24" y="1348" width="1032" height="560" rx="14" fill="none" stroke="#8a93a6" stroke-width="2" stroke-dasharray="10 6"/>
+<g transform="rotate(-10 165 1853)"><use href="#hand" x="25" y="1433"/></g>
+<g transform="rotate(-6 315 1829)"><use href="#hand" x="175" y="1409"/></g>
+<g transform="rotate(-2 465 1817)"><use href="#hand" x="325" y="1397"/></g>
+<g transform="translate(0 -80) scale(1.1) translate(-55.9 -165)"><use href="#hand" x="475" y="1397"/></g>
+<g transform="rotate(6 765 1829)"><use href="#hand" x="625" y="1409"/></g>
+<g transform="rotate(10 915 1853)"><use href="#hand" x="775" y="1433"/></g>
+<text x="44" y="1384" font-size="20" fill="#9aa">G 手牌区 y1348 起 · 牌 280×420 · 6 张间距 150（8 张 107）</text>
+<text x="540" y="1906" font-size="18" fill="#667" text-anchor="middle">按住的牌：抬高 80、放大 1.1、不转 · 松手时手指离开手牌区和按钮 = 打出</text>
+</svg>

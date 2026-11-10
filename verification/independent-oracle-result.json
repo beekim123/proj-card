@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "seededFullDeckSequences": 500,
+  "cardTransitions": 15000,
+  "growthBoundaryCases": 40,
+  "assertions": 30080,
+  "independentOracle": true
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_icon_settings" viewBox="0 0 64 64" width="64" height="64">
+<title>设置 · 齿轮</title>
+<g id="root">
+<g transform="translate(32,32) scale(0.88) translate(-32,-34)">
+      <path d="M28,6 H36 L38,13 L45,16 L51,11 L57,17 L52,23 L55,30 L62,32 V40 L55,42 L52,49 L57,55 L51,61 L45,56 L38,59 L36,62 H28 L26,55 L19,52 L13,57 L7,51 L12,45 L9,38 L2,36 V28 L9,26 L12,19 L7,13 L13,7 L19,12 L26,9 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="M32,14 A20,20 0 1,1 14,44 L32,34 Z" fill="#6E542B"/>
+      <circle cx="32" cy="34" r="14" fill="#6E542B" stroke="#1C1412" stroke-width="2.6"/>
+      <circle cx="32" cy="34" r="7" fill="#0D111C" stroke="#1C1412" stroke-width="2.4"/>
+      <path d="M20,22 A16,16 0 0,1 42,20" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="24" cy="24" r="2.4" fill="#E6DEC8"/>
+    </g>
+</g>
+</svg>

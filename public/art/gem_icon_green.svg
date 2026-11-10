@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-gem_icon_green" viewBox="0 0 32 32" width="32" height="32">
+<title>绿宝石小图标</title>
+<g id="root">
+<rect x="4" y="4" width="24" height="24" rx="2.5" fill="#1DBF5E"/>
+      <polygon points="28,4 28,28 4,28 10,22 22,22 22,10" fill="#117A3B"/>
+      <rect x="9.5" y="9.5" width="13" height="13" rx="1" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.2"/>
+      <polygon points="11,11 18,11 14,16 11,16" fill="#FFFFFF" opacity="0.92"/>
+      <rect x="4" y="4" width="24" height="24" rx="2.5" fill="none" stroke="#1C1412" stroke-width="2.6"/>
+</g>
+</svg>

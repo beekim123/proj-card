@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_same" viewBox="0 0 120 120" width="120" height="120">
+<title>特效 · 同色</title>
+<style>
+.svg-fx_same g { transform-box: view-box; }
+.svg-fx_same #ding_star, .svg-fx_same #ding_sparks { opacity: 0; transform-origin: 60px 60px; }
+@keyframes svg-fx_same-star {
+  0%, 100% { opacity: 0; transform: scale(0.2) rotate(-15deg); }
+  20% { opacity: 1; transform: scale(1.08) rotate(0deg); }
+  55% { opacity: 0.95; transform: scale(0.86) rotate(8deg); }
+  90% { opacity: 0; transform: scale(0.3) rotate(15deg); }
+}
+@keyframes svg-fx_same-sparks {
+  0%, 12% { opacity: 0; transform: scale(0.4); }
+  30% { opacity: 1; transform: scale(0.95); }
+  75% { opacity: 0.85; transform: scale(1.14); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+.svg-fx_same[data-anim="play"] #ding_star { animation: svg-fx_same-star 0.5s steps(7, end) both; }
+.svg-fx_same[data-anim="play"] #ding_sparks { animation: svg-fx_same-sparks 0.5s steps(7, end) both; }
+</style>
+<g id="root">
+<!-- pivot: 60,60 -->
+    <g id="ding_sparks" opacity="0"><!-- pivot: 60,60 -->
+      <polygon points="26,28 38,32 32,40 22,34" fill="currentColor" stroke="#1C1412" stroke-width="1.5"/>
+      <polygon points="94,26 88,38 80,32 88,22" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.5"/>
+      <polygon points="96,90 82,86 86,78 98,82" fill="currentColor" stroke="#1C1412" stroke-width="1.5"/>
+      <polygon points="24,92 32,80 40,86 30,96" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.5"/>
+      <path d="M60,11 L62,16 L67,18 L62,20 L60,25 L58,20 L53,18 L58,16 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.2"/>
+      <path d="M60,96 L61.8,100.2 L66,102 L61.8,103.8 L60,108 L58.2,103.8 L54,102 L58.2,100.2 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.2"/>
+    </g>
+    <g id="ding_star" opacity="0"><!-- pivot: 60,60 -->
+      <path d="M60,22 L70,50 L98,60 L70,70 L60,98 L50,70 L22,60 L50,50 Z" fill="currentColor" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M60,38 L66,54 L82,60 L66,66 L60,82 L54,66 L38,60 L54,54 Z" fill="#FFFFFF"/>
+    </g>
+</g>
+</svg>

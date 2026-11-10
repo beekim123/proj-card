@@ -1,0 +1,235 @@
+{
+  "checks": [
+    {
+      "name": "Manifest contains exactly 63 unique assets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Runtime has only specified development dependencies",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Relative Vite build base",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Accepted rules directory is byte-identical",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "No Math.random outside the accepted rules",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Only the three specified persistence keys",
+      "status": "PASS",
+      "detail": "gemcard.records, gemcard.run, gemcard.settings"
+    },
+    {
+      "name": "Built index exists",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Built page references local relative existing assets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Built manifest matches source",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: card_frame",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: card_art_bg",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: card_art_empty",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: card_gem_bar",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_red_rough",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_red_cut",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_red_shine",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_green_rough",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_green_cut",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_green_shine",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_blue_rough",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_blue_cut",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_blue_shine",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_icon_red",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_icon_green",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: gem_icon_blue",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: dummy",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: table_cloth",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: bg_tile",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: prop_rack",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: ui_panel",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: ui_btn",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: ui_btn_primary",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: ui_mult_badge",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: ui_icon_rules",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: ui_icon_settings",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: ui_icon_undo",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: ui_icon_deck",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: fx_hit",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: fx_same",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: fx_shun",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: fx_white",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: fx_rainbow",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: fx_grow",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: mon_chest",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: card_art_hammer",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "External-replaceable real art: ui_heart",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "pass": true
+}

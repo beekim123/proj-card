@@ -1,0 +1,14 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> gemcard-demo@1.0.0 test
+> vitest run
+
+
+ RUN  v4.1.12 /workspace/scratch/e4cad742399c/package_work_20261109/gemcard-demo
+
+
+ Test Files  3 passed (3)
+      Tests  80 passed (80)
+   Start at  03:04:34
+   Duration  757ms (transform 313ms, setup 0ms, import 389ms, tests 507ms, environment 0ms)
+

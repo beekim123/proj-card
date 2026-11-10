@@ -1,0 +1,33 @@
+{
+  "environment": "Happy DOM using the unchanged dist JavaScript bundle",
+  "realBrowser": false,
+  "rebuild": false,
+  "testColor": "#13F17D",
+  "bundle": "assets/index-Ce3f0CMw.js",
+  "originalArtSha256": "34e3427b62998304696f6a53b6139a35b851605e0f6e21ed84092403945f42a6",
+  "bundleSha256": "4392890f2e993743a43be0c2b833ff766c7bef4f07f4b6b5998e10706f43eaed",
+  "checks": [
+    {
+      "name": "GameUI loaded changed deployed chest artwork",
+      "status": "PASS",
+      "matchingColorElements": 3
+    },
+    {
+      "name": "Inspector loaded changed deployed artwork in every scale preview",
+      "status": "PASS",
+      "matchingPreviews": 5
+    },
+    {
+      "name": "Deployed assets reread with cache:no-store",
+      "status": "PASS",
+      "gameFetchCount": 64,
+      "inspectorFetchCount": 64
+    },
+    {
+      "name": "No rebuild or public/source artwork changes",
+      "status": "PASS"
+    }
+  ],
+  "restored": true,
+  "restoredArtSha256": "34e3427b62998304696f6a53b6139a35b851605e0f6e21ed84092403945f42a6"
+}

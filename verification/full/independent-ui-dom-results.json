@@ -1,0 +1,58 @@
+{
+  "scope": "Independent Happy DOM checks with virtual JS time and mocked geometry/WAAPI. Verifies DOM/state/callback contracts, not rendered frames, actual browser events, performance or phone behavior.",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Cancel new adventure retains exact saved state and confirmation causes no record",
+      "status": "PASS"
+    },
+    {
+      "name": "Abandon is confirmed once, clears save and cannot double-settle",
+      "status": "PASS"
+    },
+    {
+      "name": "Rapid plays trigger exactly one first-break effect",
+      "status": "PASS"
+    },
+    {
+      "name": "Monster is removed at die completion rather than returning to idle",
+      "status": "PASS"
+    },
+    {
+      "name": "Nonfatal attack permits cards and survives orientation change",
+      "status": "PASS"
+    },
+    {
+      "name": "Rotate during loot death transition retains the choices and future progress",
+      "status": "PASS"
+    },
+    {
+      "name": "Rotate after loot choice does not duplicate reward or enter another battle",
+      "status": "PASS"
+    },
+    {
+      "name": "Rotating fatal attack and repeated pagehide preserves single settlement",
+      "status": "PASS"
+    },
+    {
+      "name": "Storage write failure during outcome retries after leaving result without stale Continue",
+      "status": "PASS"
+    },
+    {
+      "name": "Stable loot and result relayout keep one persistent banner",
+      "status": "PASS"
+    },
+    {
+      "name": "Pending older settlement can finish after a new adventure without deleting it",
+      "status": "PASS"
+    },
+    {
+      "name": "Undo during mirror transition never leaves an unresolved overlay or hidden resolved card",
+      "status": "PASS"
+    },
+    {
+      "name": "All 37 supplied SVGs load as art including the five new references",
+      "status": "PASS"
+    }
+  ]
+}

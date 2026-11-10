@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "scope": "HTTP bytes only, not browser execution",
+  "results": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "./assets/index-DF5KxOVB.js",
+      "status": 200,
+      "bytes": 58485
+    },
+    {
+      "path": "./assets/index-CIPnC4VE.css",
+      "status": 200,
+      "bytes": 10809
+    },
+    {
+      "path": "art-manifest.json",
+      "status": 200,
+      "bytes": 11889
+    },
+    {
+      "path": "art/dummy.svg",
+      "status": 404,
+      "expected": 404
+    }
+  ]
+}

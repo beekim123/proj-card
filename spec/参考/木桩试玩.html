@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>新卡牌 · 木桩试玩（基础牌）</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:#14171d;color:#e6e8ee;font:14px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden;user-select:none;-webkit-user-select:none}
+#app{display:grid;grid-template-columns:270px 1fr;height:100vh}
+/* 左栏 */
+#side{background:#1b1f27;border-right:1px solid #2a303c;padding:14px 14px 20px;overflow:auto;font-size:13px}
+#side h1{font-size:17px;margin:0 0 4px}
+#side h2{font-size:14px;margin:16px 0 6px;color:#ffe08a}
+#side p{margin:4px 0}
+.dim{color:#8a91a1}
+.gemrow{display:flex;align-items:center;gap:8px;margin:7px 0}
+.gemrow svg{width:30px;height:30px;flex:none}
+.gemrow .gi{flex:1}
+.gemrow .gn{font-weight:600}
+.bar{height:6px;background:#2c3240;border-radius:3px;overflow:hidden;margin-top:3px}
+.bar i{display:block;height:100%;background:#ffe08a;transition:width .25s}
+#side table{border-collapse:collapse;width:100%;font-size:12px}
+#side td,#side th{border:1px solid #333a47;padding:3px 5px;text-align:center}
+#side th{background:#262b36;font-weight:500}
+#side label{display:block;margin:4px 0;cursor:pointer}
+#side select,#side button{background:#2c3342;color:#eee;border:1px solid #485166;padding:3px 9px;border-radius:6px;font-size:12px;cursor:pointer}
+#deckList{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px}
+/* 牌桌 */
+#table{position:relative;display:flex;flex-direction:column;min-width:0;padding:10px 18px 8px;
+  background:radial-gradient(ellipse at 50% 38%,#2d4233 0%,#1b261f 72%);box-shadow:inset 0 0 60px #000a}
+#top{display:flex;align-items:center;justify-content:center;gap:30px;height:140px;flex:none}
+#top .col{display:flex;flex-direction:column;gap:10px}
+@media (max-width:1000px){#app{grid-template-columns:220px 1fr}}
+#dummyWrap{position:relative;width:110px;height:150px;flex:none}
+#dummy{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:96px;height:146px;transform-origin:50% 100%}
+#dummy .head{position:absolute;left:24px;top:0;width:48px;height:48px;border-radius:50%;background:#b98a55;border:3px solid #6e4b28}
+#dummy .body{position:absolute;left:30px;top:42px;width:36px;height:84px;background:#a4743f;border:3px solid #6e4b28;border-radius:6px}
+#dummy .arm{position:absolute;left:4px;top:62px;width:88px;height:14px;background:#a4743f;border:3px solid #6e4b28;border-radius:5px}
+#dummy .base{position:absolute;left:14px;bottom:0;width:68px;height:14px;background:#5b3d21;border-radius:4px}
+#dummy .tag{position:absolute;left:0;right:0;top:15px;text-align:center;font-size:13px;font-weight:700;color:#4a3015}
+#dummy.hit{animation:hit .32s}
+#dummy.hit2{animation:hit2 .5s}
+@keyframes hit{0%,100%{transform:translateX(-50%) rotate(0)}30%{transform:translateX(-50%) rotate(-7deg)}65%{transform:translateX(-50%) rotate(4deg)}}
+@keyframes hit2{0%,100%{transform:translateX(-50%) rotate(0) scale(1)}20%{transform:translateX(-50%) rotate(-14deg) scale(1.05,.92)}50%{transform:translateX(-50%) rotate(9deg)}75%{transform:translateX(-50%) rotate(-4deg)}}
+.stat{text-align:center;min-width:92px}
+.stat small{display:block;color:#a9b2c3;font-size:12px}
+.stat b{font-size:19px}
+#hud{display:flex;justify-content:center;gap:34px;align-items:baseline;margin-top:6px;flex:none}
+#hud small{color:#a9b2c3;font-size:12px;margin-right:5px}
+#hud .big{font-size:30px;font-weight:800}
+#hud .mult{color:#ffe08a}
+#rowArea{flex:1;min-height:180px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:14px;border:2px dashed transparent;transition:border-color .15s,background .15s;margin:6px 0}
+#rowArea.hot{border-color:#ffe08a88;background:#ffffff08}
+#rowInner{display:flex;align-items:flex-start;transform-origin:center center;flex:none;padding-top:28px}
+.empty{color:#b4bccb;text-align:center;line-height:1.8}
+.rc{position:relative;flex:none;transition:margin .2s}
+.rc.k-plain{margin-left:26px}
+.rc.k-shun{margin-left:2px}
+.rc.k-white{margin-left:0}
+.rc.k-same{margin-left:-64px;margin-top:12px}
+.rc.rb{transform:translateY(var(--lift))}
+.rc.rb .card{box-shadow:0 0 0 2px #fff,0 0 18px #ffffffaa}
+.rc.new{animation:drop .25s ease-out}
+.rc.flash .card{animation:flash .6s}
+.rc.pv{opacity:.55}
+@keyframes drop{0%{transform:translateY(40px) scale(.85);opacity:0}100%{opacity:1}}
+@keyframes flash{0%{box-shadow:0 0 0 0 #fff}30%{box-shadow:0 0 30px 12px #fff;filter:brightness(1.8)}100%{box-shadow:0 4px 10px #0008}}
+.rc .dmg{text-align:center;font-size:12px;margin-top:4px;color:#dfe5f0;line-height:1.3;white-space:nowrap}
+.rc .dmg b{color:#ffe08a}
+.rl{position:absolute;top:-24px;left:-14px;font-size:12px;font-weight:700;white-space:nowrap;padding:0 6px;border-radius:8px;z-index:3}
+.rl.shun{background:#8ef0a0;color:#123}.rl.white{background:#fff;color:#222}.rl.same{background:#ffd27a;color:#322}
+#cap{text-align:center;min-height:22px;color:#cfe9d5;font-size:13px;flex:none}
+#hand{display:flex;justify-content:center;align-items:flex-start;height:206px;flex:none;padding-top:18px}
+.hc{margin:0 -4px;position:relative;cursor:grab;transition:transform .15s}
+.hc:hover{transform:translateY(-14px)!important}
+.hc.lifted{opacity:.25}
+.hc.hint .card{box-shadow:0 0 0 2px #ffe08a,0 0 18px #ffe08a99}
+.badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:11px;padding:0 7px;border-radius:8px;font-weight:700;white-space:nowrap;z-index:2}
+.badge.shun{background:#8ef0a0;color:#123}.badge.white{background:#fff;color:#222}.badge.same{background:#ffd27a;color:#322}
+#ctrl{display:flex;gap:8px;justify-content:center;align-items:center;flex:none;margin-top:4px}
+#ctrl button{background:#2c3342;color:#eee;border:1px solid #485166;padding:5px 14px;border-radius:6px;font-size:13px;cursor:pointer}
+#ctrl button.main{background:#ffe08a;color:#222;border-color:#ffe08a;font-weight:700}
+#ctrl .k{color:#8a91a1;font-size:11px;margin-left:4px}
+/* 牌（色块占位） */
+/* 卡面：上面原画，中间卡牌类型，下面文案 + 三个宝石托 */
+.card{width:108px;height:162px;border-radius:9px;position:relative;flex:none;background:#1c212c;border:3px solid var(--c);box-shadow:0 4px 10px #0008;color:#eef;overflow:hidden}
+.card.k0{border-color:#8a8f99}
+.card .art{position:absolute;left:0;right:0;top:0;height:92px;background:radial-gradient(circle at 50% 55%,var(--c2) 0%,#151922 75%)}
+.card .art svg{width:100%;height:100%;display:block}
+.card .type{position:absolute;left:50%;top:84px;transform:translateX(-50%);background:var(--c);color:var(--t);font-size:10px;font-weight:700;padding:0 9px;border-radius:4px;white-space:nowrap;z-index:2;line-height:16px;box-shadow:0 1px 3px #000a}
+.card.k0 .type{background:#8a8f99;color:#111}
+.card .box{position:absolute;left:4px;right:4px;bottom:4px;top:96px;background:#0f131b;border-radius:5px;padding:7px 5px 0;line-height:1.3}
+.card .nm{display:flex;justify-content:space-between;font-weight:700;font-size:11px}
+.card .tx{color:#aeb6c6;font-size:9.5px;white-space:nowrap;overflow:hidden}
+.card .sk{position:absolute;left:0;right:0;bottom:4px;height:17px}
+.card .sk svg{height:100%;width:100%;display:block}
+.ghost{position:fixed;z-index:50;pointer-events:none;transform:rotate(-4deg) scale(1.06);box-shadow:0 14px 26px #000c}
+/* 飘字与提示 */
+.float{position:fixed;font-weight:800;color:#fff;text-shadow:0 2px 6px #000;pointer-events:none;z-index:40;animation:fl 1.1s ease-out forwards;transform:translateX(-50%)}
+@keyframes fl{0%{opacity:0;margin-top:0}15%{opacity:1}100%{opacity:0;margin-top:-70px}}
+#toast{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-size:40px;font-weight:900;pointer-events:none;opacity:0;z-index:30;white-space:nowrap;text-shadow:0 0 18px #000}
+#toast.go{animation:tst 1s ease-out}
+#toast.shun{color:#8ef0a0}#toast.white{color:#fff;text-shadow:0 0 30px #fff,0 0 8px #000}#toast.same{color:#ffd27a}#toast.up{color:#ffe08a;font-size:28px}
+#toast.rainbow{background:linear-gradient(90deg,#ff3b3b,#ffd43b,#34cc56,#2fd9e6,#3d6bff,#e64ad9);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:46px}
+@keyframes tst{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-80%) scale(1)}}
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="side"></aside>
+  <section id="table">
+    <div id="top">
+      <div class="col"><div class="stat"><small>第几回合</small><b id="sTurn">1</b></div><div class="stat"><small>最高一回合</small><b id="sBest">0</b></div></div>
+      <div id="dummyWrap"><div id="dummy"><div class="head"></div><div class="tag">木桩</div><div class="arm"></div><div class="body"></div><div class="base"></div></div></div>
+      <div class="col"><div class="stat"><small>上回合</small><b id="sLast">0</b></div><div class="stat"><small>累计伤害</small><b id="sTotal">0</b></div></div>
+    </div>
+    <div id="hud"></div>
+    <div id="rowArea"><div id="rowInner"></div></div>
+    <div id="cap"></div>
+    <div id="hand"></div>
+    <div id="ctrl">
+      <button class="main" id="end">结束回合<span class="k">空格</span></button>
+      <button id="undo">撤回一张<span class="k">Z</span></button>
+      <button id="restart">重新开始</button>
+    </div>
+    <div id="toast"></div>
+  </section>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+/* ---------- 牌和宝石 ---------- */
+// 颜色用三位二进制：红 1、绿 2、蓝 4
+const NM={0:'黑',1:'红',2:'绿',4:'蓝',3:'黄',6:'青',5:'品红',7:'白'};
+const CC={0:'#2b2d33',1:'#b9434c',2:'#3f9a58',4:'#4062bf',3:'#d4b13c',6:'#3fb0bd',5:'#a64aa0',7:'#e6e3d8'}; // 色块占位，故意压低饱和度
+const TC=v=>[3,6,7].includes(v)?'#1d1d1d':'#fff';
+const GEM=[
+  {bit:1,name:'红宝石',shape:'circle',col:'#ff5363',rough:'#7d4a50'},
+  {bit:2,name:'绿宝石',shape:'square',col:'#41e07d',rough:'#4d6f58'},
+  {bit:4,name:'蓝宝石',shape:'tri',col:'#5b8dff',rough:'#4f5d82'}];
+const FORMS=['原石','切好','闪光'];
+// ---- 成长数值（先定，见 README / 聊天里的模拟）----
+const VAL=[100,150,200];   // 每颗宝石三个形态的底数
+const NEED=[0,15,45];      // 用多少次进到这个形态（打出带这颗宝石的牌算一次）
+const dots=x=>(x&1)+(x>>1&1)+(x>>2&1);
+const LIST=()=>{const d=[];[1,2,4].forEach(c=>{for(let i=0;i<5;i++)d.push(c)});[3,6,5].forEach(c=>{for(let i=0;i<4;i++)d.push(c)});d.push(7,7,0);return d};
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let uid=0;const mk=v=>({id:++uid,v});
+const clone=x=>JSON.parse(JSON.stringify(x));
+
+/* ---------- 大数字：万 / 亿 / 兆，保留 4 位有效数字 ---------- */
+function fmt(n){n=Math.round(n);
+  const U=[[1e16,'京'],[1e12,'兆'],[1e8,'亿'],[1e4,'万']];
+  for(const [b,u] of U)if(n>=b){const x=n/b;const s=x>=1000?x.toFixed(0):x>=100?x.toFixed(1):x>=10?x.toFixed(2):x.toFixed(3);return (s.includes('.')?s.replace(/\.?0+$/,''):s)+u}
+  return n.toLocaleString()}
+
+/* ---------- 状态 ---------- */
+const S={deck:[],hand:[],row:[],m:1,turnDmg:0,total:0,turn:1,best:0,last:0,chain:[],chainIdx:[],rainbow:false,xp:[0,0,0],
+  hist:[],newId:0,opts:{hint:true,hand:6,grow:true}};
+const KEYS=['deck','hand','row','m','turnDmg','total','turn','best','last','chain','chainIdx','rainbow','xp'];
+const snap=()=>{const o={};KEYS.forEach(k=>o[k]=clone(S[k]));return o};
+const load=o=>KEYS.forEach(k=>S[k]=clone(o[k]));
+const form=i=>S.opts.grow?(S.xp[i]>=NEED[2]?2:S.xp[i]>=NEED[1]?1:0):0;
+const gemVal=i=>VAL[form(i)];
+const base=v=>GEM.reduce((s,g,i)=>s+(v&g.bit?gemVal(i):0),0);
+
+/* ---------- 规则（和底层方案一样） ---------- */
+const KN={plain:'普通',same:'同色',shun:'顺色',white:'凑白'};
+const KL={plain:'',same:'同色 ×2',shun:'顺色 ×2',white:'凑白 ×5'};
+function react(prev,v){if(prev===null)return'plain';const d=dots(prev^v);return d===0?'same':d===1?'shun':d===3?'white':'plain'}
+function resolve(prev,v,m){const k=react(prev,v),cm={same:2,shun:2,white:5}[k]||1,b=base(v);
+  return {k,cm,b,dmg:b*m*cm,m2:(k==='shun'||k==='white')?m*2:m+1}}
+const lastV=()=>S.row.length?S.row[S.row.length-1].v:null;
+function refill(){while(S.hand.length<S.opts.hand){if(!S.deck.length)S.deck=shuffle(LIST().map(mk));S.hand.push(S.deck.pop())}}
+
+function play(hi){
+  S.hist.push(snap());
+  const c=S.hand.splice(hi,1)[0],r=resolve(lastV(),c.v,S.m),i=S.row.length;
+  const e={id:c.id,v:c.v,k:r.k,cm:r.cm,b:r.b,m:S.m,dmg:r.dmg,rainbow:0};
+  S.row.push(e);S.m=r.m2;S.turnDmg+=r.dmg;S.total+=r.dmg;S.newId=c.id;
+  // 彩虹：顺色一路连出六种颜色
+  const chrom=c.v!==0&&c.v!==7;
+  if(r.k==='shun'){if(chrom&&!S.chain.includes(c.v))S.chain.push(c.v);S.chainIdx.push(i)}
+  else{S.chain=chrom?[c.v]:[];S.chainIdx=[i]}
+  if(!S.rainbow&&S.chain.length===6){S.rainbow=true;e.rainbow=S.turnDmg*9;S.turnDmg+=e.rainbow;S.total+=e.rainbow;
+    const n=S.chainIdx.length;S.chainIdx.forEach((ri,j)=>{S.row[ri].rb=1;S.row[ri].lift=-Math.round(Math.sin(Math.PI*(j+.5)/n)*34)})}
+  // 宝石成长：这张牌带哪几颗宝石，哪几颗就用了一次
+  const ups=[];
+  GEM.forEach((g,gi)=>{if(c.v&g.bit){const f0=form(gi);S.xp[gi]++;const f1=form(gi);if(f1>f0)ups.push(`${g.name}变成「${FORMS[f1]}」，底数 ${VAL[f0]} → ${VAL[f1]}`)}});
+  render();fx(e,ups);
+}
+function endTurn(){
+  S.last=S.turnDmg;S.best=Math.max(S.best,S.turnDmg);if(S.row.length)S.turn++;
+  S.row=[];S.m=1;S.turnDmg=0;S.chain=[];S.chainIdx=[];S.rainbow=false;S.hist=[];refill();render();
+}
+function restart(keepGrow){
+  const xp=keepGrow?S.xp:[0,0,0];
+  Object.assign(S,{deck:shuffle(LIST().map(mk)),hand:[],row:[],m:1,turnDmg:0,total:0,turn:1,best:0,last:0,chain:[],chainIdx:[],rainbow:false,xp,hist:[]});
+  refill();render();
+}
+
+/* ---------- 画牌（色块占位） ---------- */
+function shapeSVG(gi,x,y,f){
+  const g=GEM[gi];let fill,stroke,sw=1.4,dash='',st='';
+  if(f<0){fill='none';stroke='#ffffff45';dash=' stroke-dasharray="2.5 2"'}
+  else if(f===0){fill=g.rough;stroke='#000000aa'}
+  else if(f===1){fill=g.col;stroke='#ffffffb0'}
+  else{fill=g.col;stroke='#fff';sw=2;st=` style="filter:drop-shadow(0 0 4px ${g.col})"`}
+  const a=` fill="${fill}" stroke="${stroke}" stroke-width="${sw}"${dash}${st}`;
+  let s=g.shape==='circle'?`<circle cx="${x}" cy="${y}" r="11"${a}/>`
+    :g.shape==='square'?`<rect x="${x-10}" y="${y-10}" width="20" height="20" rx="1.5"${a}/>`
+    :`<polygon points="${x},${y-12} ${x+12},${y+9} ${x-12},${y+9}"${a}/>`;
+  if(f>=1)s+=`<circle cx="${x-4}" cy="${y-4}" r="2.2" fill="#ffffffaa"/>`;
+  if(f===2)s+=`<text x="${x+6}" y="${y-7}" font-size="10" fill="#fff">✦</text>`;
+  return s}
+// 文案框底部的三个宝石托：左红（圆）、中绿（方）、右蓝（三角）
+function socketsSVG(v){let s='<svg viewBox="0 0 90 26">';GEM.forEach((g,i)=>{s+=shapeSVG(i,24+i*21,14,v&g.bit?form(i):-1)});return s+'</svg>'}
+// 原画区：一颗大宝石（色块占位）。组合牌的形态取它几颗宝石里最低的那个
+const CN={1:'红宝石',2:'绿宝石',4:'蓝宝石',3:'黄宝石',6:'青宝石',5:'品红宝石',7:'白宝石',0:'空托'};
+const GC={1:'#ff4f5e',2:'#3fe07a',4:'#5b8dff',3:'#ffd23f',6:'#3fe0e8',5:'#f35bd8',7:'#f2f4ff'};
+function mix(a,b,t){const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const A=p(a),B=p(b);
+  return '#'+A.map((x,i)=>Math.round(x+(B[i]-x)*t).toString(16).padStart(2,'0')).join('')}
+const cardForm=v=>v===0?-1:Math.min(...GEM.map((g,i)=>v&g.bit?form(i):9));
+function bigGemSVG(v){
+  let s='<svg viewBox="0 0 100 92">';
+  if(v===0){ // 空托：一圈托爪，中间什么都没有
+    s+=`<polygon points="32,24 68,24 86,42 50,82 14,42" fill="#0b0e14" stroke="#7d8594" stroke-width="2" stroke-dasharray="4 3"/>`;
+    [[32,24],[68,24],[86,42],[14,42],[50,82]].forEach(([x,y])=>s+=`<circle cx="${x}" cy="${y}" r="3.2" fill="#9aa2b0"/>`);
+    return s+'</svg>'}
+  const f=cardForm(v),c=GC[v];
+  if(f===0){ // 原石：不规则、暗淡、没有切面
+    const d=mix(c,'#4a4a4a',.55);
+    s+=`<polygon points="28,28 46,20 70,25 84,44 75,70 52,82 29,75 16,52" fill="${d}" stroke="${mix(d,'#000000',.45)}" stroke-width="2"/>`;
+    s+=`<polygon points="46,20 70,25 60,42 37,39" fill="${mix(d,'#ffffff',.12)}"/><polygon points="29,75 52,82 50,64 34,60" fill="${mix(d,'#000000',.2)}"/>`;
+  }else{ // 切好 / 闪光：上面梯形冠部，下面倒三角亭部
+    const dk=mix(c,'#000000',.35),lt=mix(c,'#ffffff',.35);
+    if(f===2)s+=`<g stroke="${lt}" stroke-width="3" stroke-linecap="round"><line x1="27" y1="5" x2="31" y2="15"/><line x1="50" y1="2" x2="50" y2="13"/><line x1="73" y1="5" x2="69" y2="15"/></g>`;
+    s+=`<g${f===2?` style="filter:drop-shadow(0 0 6px ${c})"`:''}>
+      <polygon points="32,20 68,20 86,40 14,40" fill="${lt}"/>
+      <polygon points="14,40 86,40 50,86" fill="${c}"/>
+      <polygon points="50,86 14,40 37,40" fill="${dk}"/>
+      <polygon points="50,86 63,40 86,40" fill="${mix(c,'#000000',.18)}"/>
+      <polyline points="32,20 38,40 50,20 62,40 68,20" fill="none" stroke="${mix(c,'#ffffff',.6)}" stroke-width="1.2"/>
+      <polygon points="40,23 53,23 47,30" fill="#ffffffcc"/></g>`;
+    if(f===2)s+=`<text x="76" y="30" font-size="13" fill="#fff">✦</text><text x="15" y="62" font-size="9" fill="#fff">✦</text>`;
+  }
+  return s+'</svg>'}
+function cardText(v){if(v===0)return'没有宝石，倍率照样 +1';
+  return GEM.map((g,i)=>v&g.bit?`${g.name[0]} ${gemVal(i)}`:null).filter(Boolean).join(' + ')}
+function cardHTML(v){
+  return `<div class="card k${v}" style="--c:${CC[v]};--c2:${GC[v]||'#555555'}44;--t:${TC(v)}">
+  <div class="art">${bigGemSVG(v)}</div><div class="type">宝石牌</div>
+  <div class="box"><div class="nm"><span>${CN[v]}</span><span>${base(v)}</span></div><div class="tx">${cardText(v)}</div><div class="sk">${socketsSVG(v)}</div></div></div>`}
+
+/* ---------- 画面 ---------- */
+function renderRow(pv){
+  let h='';
+  const items=S.row.slice();if(pv)items.push(pv);
+  items.forEach((e,i)=>{
+    const cls=[i===0?'first':'k-'+e.k];
+    if(e.rb)cls.push('rb');if(e.pv)cls.push('pv');
+    if(!e.pv&&e.id===S.newId){cls.push('new');if(e.k==='white')cls.push('flash')}
+    if(!e.pv&&e.k==='white'&&S.row[i+1]&&S.row[i+1].id===S.newId)cls.push('flash');
+    const lab=i>0&&e.k!=='plain'?`<span class="rl ${e.k}">${KL[e.k]}</span>`:'';
+    const d=e.pv?`预计 ${fmt(e.dmg)}`:`${fmt(e.dmg)}${e.rainbow?`<br><b>彩虹 +${fmt(e.rainbow)}</b>`:''}`;
+    h+=`<div class="${'rc '+cls.join(' ')}" style="${e.rb?`--lift:${e.lift}px`:''}">${lab}${cardHTML(e.v)}<div class="dmg">${d}</div></div>`;
+  });
+  if(!items.length)h=`<div class="empty">把下面的手牌<b>拖到桌上</b>就打出去，打在木桩上。<br>和上一张比宝石：差 1 颗是顺色，三颗全不同是凑白，一样是同色。</div>`;
+  $('#rowInner').innerHTML=h;S.newId=pv?S.newId:S.newId;fitRow();
+}
+function fitRow(){const a=$('#rowArea'),r=$('#rowInner');r.style.transform='';
+  const k=Math.min(1,(a.clientWidth-30)/r.scrollWidth,(a.clientHeight-10)/r.scrollHeight);r.style.transform=`scale(${k})`}
+window.addEventListener('resize',fitRow);
+function renderHand(){
+  const last=lastV(),n=S.hand.length,mid=(n-1)/2;
+  const mg=n?Math.min(-4,(($('#hand').clientWidth||800)-30-n*108)/(2*n)):0; // 放不下就叠得更紧
+  $('#hand').innerHTML=S.hand.map((c,i)=>{const k=react(last,c.v),hint=S.opts.hint&&last!==null&&k!=='plain';
+    return `<div class="hc ${hint?'hint':''}" data-h="${i}" style="margin:0 ${mg}px;transform:rotate(${(i-mid)*4}deg) translateY(${Math.abs(i-mid)*5}px)">${hint?`<span class="badge ${k}">${KN[k]}</span>`:''}${cardHTML(c.v)}</div>`}).join('')
+    ||'<div class="empty">手牌打完了，按"结束回合"补牌。</div>';
+}
+function formula(v){
+  const r=resolve(lastV(),v,S.m);
+  const parts=GEM.map((g,i)=>v&g.bit?`${g.name[0]} ${gemVal(i)}`:null).filter(Boolean);
+  const b=parts.length?(parts.length>1?`${parts.join(' + ')} = ${r.b}`:parts[0]):'没有宝石 0';
+  return `打出${NM[v]}：${b} × 倍率 ${fmt(S.m)}${r.cm>1?` × ${KN[r.k]} ${r.cm}`:''} = ${fmt(r.dmg)}　倍率 ×${fmt(S.m)} → ×${fmt(r.m2)}`}
+function renderSide(){
+  const rows=GEM.map((g,i)=>{const f=form(i),nx=f<2?NEED[f+1]:null,pf=f<2?(S.xp[i]-NEED[f])/(NEED[f+1]-NEED[f]):1;
+    return `<div class="gemrow"><svg viewBox="0 0 30 30">${shapeSVG(i,15,16,f)}</svg><div class="gi"><span class="gn">${g.name}</span>　${FORMS[f]}　底数 <b>${gemVal(i)}</b>
+    <div class="bar"><i style="width:${Math.min(100,pf*100)}%"></i></div><span class="dim">${nx?`用了 ${S.xp[i]} 次，${nx} 次变「${FORMS[f+1]}」`:`用了 ${S.xp[i]} 次，已经最高`}</span></div></div>`}).join('');
+  const cnt={};S.deck.forEach(c=>cnt[c.v]=(cnt[c.v]||0)+1);
+  $('#side').innerHTML=`<h1>木桩试玩 · 基础牌</h1>
+  <p class="dim">美术全是色块占位。规则和底层方案一样，只是光点换成了宝石，宝石会成长。</p>
+  <h2>宝石成长</h2>${rows}
+  <p class="dim">打出带这颗宝石的牌，它就用了一次。黄牌同时算红和绿各一次。</p>
+  <label><input type="checkbox" id="oGrow" ${S.opts.grow?'checked':''}> 宝石成长（关掉 = 全部按原石 100 算）</label>
+  <button id="oReset">清空成长</button>
+  <h2>伤害</h2><p>这张牌的宝石底数加起来 × 倍率。每打一张，倍率 +1。</p>
+  <h2>反应：只看和上一张差几颗宝石</h2>
+  <table><tr><th>和上一张比</th><th>反应</th><th>效果</th><th>摆法</th></tr>
+  <tr><td>完全一样</td><td>同色</td><td>这张 ×2</td><td>叠上去</td></tr>
+  <tr><td>差 1 颗</td><td>顺色</td><td>这张 ×2，倍率翻倍</td><td>挨紧</td></tr>
+  <tr><td>三颗全不同</td><td>凑白</td><td>这张 ×5，倍率翻倍</td><td>撞上闪白</td></tr>
+  <tr><td>差 2 颗</td><td>普通</td><td>倍率 +1</td><td>留一道缝</td></tr></table>
+  <p><b>彩虹</b>：顺色一路连出红、黄、绿、青、蓝、品红六种，这回合 ×10（每回合一次），那一串牌拱成一道弧。</p>
+  <h2>设置</h2>
+  <label><input type="checkbox" id="oHint" ${S.opts.hint?'checked':''}> 提示（能起反应的手牌发光）</label>
+  <label>手牌 <select id="oHand"><option value="6" ${S.opts.hand===6?'selected':''}>6 张</option><option value="8" ${S.opts.hand===8?'selected':''}>8 张</option></select></label>
+  <h2>牌库还剩 ${S.deck.length} 张</h2>
+  <div id="deckList">${[1,3,2,6,4,5,7,0].map(v=>`<span>${NM[v]} ${cnt[v]||0}</span>`).join('')}</div>
+  <p class="dim">整副 30 张：红绿蓝各 5，黄青品红各 4，白 2，黑 1。</p>`;
+  $('#oGrow').onchange=e=>{S.opts.grow=e.target.checked;render()};
+  $('#oReset').onclick=()=>{S.xp=[0,0,0];render()};
+  $('#oHint').onchange=e=>{S.opts.hint=e.target.checked;render()};
+  $('#oHand').onchange=e=>{S.opts.hand=+e.target.value;refill();render()};
+}
+function render(){
+  $('#hud').innerHTML=`<span><small>倍率</small><span class="big mult">×${fmt(S.m)}</span></span><span><small>本回合</small><span class="big">${fmt(S.turnDmg)}</span></span>`;
+  $('#sTurn').textContent=S.turn;$('#sBest').textContent=fmt(Math.max(S.best,S.turnDmg));$('#sLast').textContent=fmt(S.last);$('#sTotal').textContent=fmt(S.total);
+  renderRow();renderHand();renderSide();$('#cap').textContent='';
+}
+
+/* ---------- 表现 ---------- */
+let tq=Promise.resolve();
+function toast(t,cls,ms=750){tq=tq.then(()=>new Promise(res=>{const el=$('#toast');el.className='';el.textContent=t;void el.offsetWidth;el.className=cls+' go';setTimeout(res,ms)}))}
+function floatAt(x,y,t,size){const f=document.createElement('div');f.className='float';f.textContent=t;f.style.left=x+'px';f.style.top=y+'px';f.style.fontSize=size+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),1200)}
+function fx(e,ups){
+  const d=$('#dummy');d.className='';void d.offsetWidth;d.className=e.dmg+e.rainbow>=20000?'hit2':'hit';
+  const r=$('#dummyWrap').getBoundingClientRect();
+  floatAt(r.left+r.width/2,r.top+20,'-'+fmt(e.dmg),e.dmg>=10000?34:e.dmg>=2000?28:22);
+  if(e.k!=='plain')toast(KL[e.k]+'！',e.k);
+  if(e.rainbow){toast('彩虹！这回合 ×10','rainbow',1000);setTimeout(()=>floatAt(r.left+r.width/2,r.top+50,'-'+fmt(e.rainbow),40),300)}
+  ups.forEach(u=>toast(u,'up',1000));
+}
+
+/* ---------- 拖拽出牌 ---------- */
+let D=null;
+$('#hand').addEventListener('pointerdown',e=>{
+  const el=e.target.closest('.hc');if(!el||e.button!==0)return;e.preventDefault();
+  const cardEl=el.querySelector('.card'),r=cardEl.getBoundingClientRect(),g=cardEl.cloneNode(true);
+  g.classList.add('ghost');document.body.appendChild(g);
+  D={i:+el.dataset.h,el,g,ox:e.clientX-r.left,oy:e.clientY-r.top,over:false};
+  el.classList.add('lifted');dragMove(e);
+});
+function overTable(e){const h=$('#hand').getBoundingClientRect(),t=$('#table').getBoundingClientRect();
+  return e.clientY<h.top-4&&e.clientX>t.left&&e.clientX<t.right&&e.clientY>t.top}
+function dragMove(e){
+  D.g.style.left=(e.clientX-D.ox)+'px';D.g.style.top=(e.clientY-D.oy)+'px';
+  const over=overTable(e);if(over===D.over)return;D.over=over;
+  $('#rowArea').classList.toggle('hot',over);
+  const v=S.hand[D.i].v;
+  if(over){const r=resolve(lastV(),v,S.m);renderRow({v,k:S.row.length?r.k:'plain',dmg:r.dmg,pv:1});$('#cap').textContent=formula(v)}
+  else{renderRow();$('#cap').textContent=''}
+}
+window.addEventListener('pointermove',e=>{if(D)dragMove(e)});
+function dragEnd(e,cancel){if(!D)return;const d=D;D=null;d.g.remove();d.el.classList.remove('lifted');$('#rowArea').classList.remove('hot');
+  if(!cancel&&d.over)play(d.i);else{renderRow();$('#cap').textContent=''}}
+window.addEventListener('pointerup',e=>dragEnd(e,false));
+window.addEventListener('pointercancel',e=>dragEnd(e,true));
+// 鼠标停在手牌上：显示这张打出去会怎样
+$('#hand').addEventListener('mouseover',e=>{if(D)return;const el=e.target.closest('.hc');if(el)$('#cap').textContent=formula(S.hand[+el.dataset.h].v)});
+$('#hand').addEventListener('mouseleave',()=>{if(!D)$('#cap').textContent=''});
+
+/* ---------- 按钮 ---------- */
+$('#end').onclick=endTurn;
+$('#undo').onclick=()=>{const h=S.hist.pop();if(!h)return;load(h);S.newId=0;render()};
+$('#restart').onclick=()=>restart(false);
+window.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();endTurn()}else if(e.key==='z'||e.key==='Z')$('#undo').click()});
+
+restart(false);
+</script>
+</body>
+</html>

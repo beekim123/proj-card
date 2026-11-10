@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_back" viewBox="0 0 200 300" width="200" height="300">
+<title>牌背</title>
+<style>
+.svg-card_back g { transform-box: view-box; }
+.svg-card_back #root { transform-origin: 100px 150px; }
+.svg-card_back #glint_red { transform-origin: 100px 104px; opacity: 0; }
+.svg-card_back #glint_green { transform-origin: 73px 168px; opacity: 0; }
+.svg-card_back #glint_blue { transform-origin: 127px 168px; opacity: 0; }
+
+/* 待机（5.4s 循环）：中间三颗宝石轮流闪一下（只动光，动画关闭时元素本身 opacity="0" 不影响静态画面） */
+@keyframes svg-card_back-glint-red {
+  0%, 6%, 24%, 100% { opacity: 0; transform: scale(0.45) rotate(-12deg); }
+  12% { opacity: 1; transform: scale(1.06) rotate(0deg); }
+  18% { opacity: 0.85; transform: scale(0.95) rotate(8deg); }
+}
+@keyframes svg-card_back-glint-green {
+  0%, 38%, 56%, 100% { opacity: 0; transform: scale(0.45) rotate(-12deg); }
+  44% { opacity: 1; transform: scale(1.06) rotate(0deg); }
+  50% { opacity: 0.85; transform: scale(0.95) rotate(8deg); }
+}
+@keyframes svg-card_back-glint-blue {
+  0%, 70%, 88%, 100% { opacity: 0; transform: scale(0.45) rotate(-12deg); }
+  76% { opacity: 1; transform: scale(1.06) rotate(0deg); }
+  82% { opacity: 0.85; transform: scale(0.95) rotate(8deg); }
+}
+.svg-card_back:not([data-anim]) #glint_red,
+.svg-card_back[data-anim="idle"] #glint_red {
+  animation: svg-card_back-glint-red 5.4s steps(8, end) infinite;
+}
+.svg-card_back:not([data-anim]) #glint_green,
+.svg-card_back[data-anim="idle"] #glint_green {
+  animation: svg-card_back-glint-green 5.4s steps(8, end) infinite;
+}
+.svg-card_back:not([data-anim]) #glint_blue,
+.svg-card_back[data-anim="idle"] #glint_blue {
+  animation: svg-card_back-glint-blue 5.4s steps(8, end) infinite;
+}
+</style>
+<defs>
+  <linearGradient id="card_back-body" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#3A324D"/>
+    <stop offset="55%" stop-color="#262036"/>
+    <stop offset="100%" stop-color="#161221"/>
+  </linearGradient>
+  <linearGradient id="card_back-inner" x1="15%" y1="10%" x2="85%" y2="90%">
+    <stop offset="0%" stop-color="#262036"/>
+    <stop offset="100%" stop-color="#161221"/>
+  </linearGradient>
+</defs>
+<g id="root">
+  <!-- pivot: 100,150 -->
+  <!-- 牌身底板（与 card_frame 完全一致的外形与圆角） -->
+  <path d="M12,2 H188 A10,10 0 0,1 198,12 V288 A10,10 0 0,1 188,298 H12 A10,10 0 0,1 2,288 V12 A10,10 0 0,1 12,2 Z" fill="url(#card_back-body)"/>
+  <!-- 左上冷灰紫轮廓受光边 -->
+  <path d="M4,280 V13 A9,9 0 0,1 13,4 H184" fill="none" stroke="#62577D" stroke-width="2" opacity="0.75"/>
+  <!-- 旧古铜外双线框 -->
+  <rect x="6" y="6" width="188" height="288" rx="8" fill="none" stroke="#6E542B" stroke-width="1.6"/>
+
+  <!-- 内部深色暗绒底板 -->
+  <rect x="14" y="14" width="172" height="272" rx="6" fill="url(#card_back-inner)" stroke="#1C1412" stroke-width="2.4"/>
+  <rect x="18" y="18" width="164" height="264" rx="4" fill="none" stroke="#6E542B" stroke-width="1.2" opacity="0.8"/>
+
+  <!-- 哥特暗色几何底纹（尖拱折线与菱格暗纹，压暗不抢戏） -->
+  <g stroke="#3A324D" stroke-width="1.2" fill="none" opacity="0.65">
+    <!-- 上下对称哥特尖拱暗线 -->
+    <path d="M24,56 L100,24 L176,56 M24,244 L100,276 L176,244"/>
+    <path d="M24,84 L100,40 L176,84 M24,216 L100,260 L176,216"/>
+    <!-- 菱形暗格与竖骨线 -->
+    <polygon points="100,28 164,150 100,272 36,150" fill="#161221" fill-opacity="0.45" stroke="#3A324D" stroke-width="1.4"/>
+    <polygon points="100,44 152,150 100,256 48,150" stroke="#6E542B" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="100" y1="22" x2="100" y2="278"/>
+    <line x1="22" y1="150" x2="178" y2="150"/>
+  </g>
+
+  <!-- 背光侧轻量交叉排线 -->
+  <path d="M148,236 L174,262 M156,228 L178,250 M138,246 L166,274 M24,244 L52,272 M22,256 L40,274" stroke="#1C1412" stroke-width="1.1" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- 四角维多利亚折线铜角花與上下对称边饰 -->
+  <g fill="#9A7B46" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round">
+    <!-- 左上角花 -->
+    <polygon points="10,10 34,10 29,17 17,17 17,29 10,34"/>
+    <!-- 右上角花 -->
+    <polygon points="190,10 166,10 171,17 183,17 183,29 190,34"/>
+    <!-- 左下角花 -->
+    <polygon points="10,290 34,290 29,283 17,283 17,271 10,266"/>
+    <!-- 右下角花 -->
+    <polygon points="190,290 166,290 171,283 183,283 183,271 190,266"/>
+    <!-- 上下尖冠铜饰 -->
+    <polygon points="100,15 112,25 100,35 88,25"/>
+    <polygon points="100,285 112,275 100,265 88,275"/>
+    <!-- 左右侧翼铜饰 -->
+    <polygon points="15,150 25,138 33,150 25,162"/>
+    <polygon points="185,150 175,138 167,150 175,162"/>
+  </g>
+  <!-- 角花冷高光 -->
+  <path d="M12,30 V12 H30 M170,12 H188 M12,270 V288 M91,25 L100,18 L109,25 M91,275 L100,282 L109,275" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- 正中哥特三宝石纹章徽记座 -->
+  <g id="emblem">
+    <!-- 徽记底层暗影 -->
+    <polygon points="100,60 156,96 164,154 140,208 100,226 60,208 36,154 44,96" fill="#0D111C" opacity="0.65"/>
+    <!-- 外层八角尖盾旧铜底盘 -->
+    <polygon points="100,56 152,92 160,150 138,202 100,220 62,202 40,150 48,92" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <!-- 右下背光铜暗面 -->
+    <polygon points="100,56 152,92 160,150 138,202 100,220 100,142" fill="#3B2B14" opacity="0.72"/>
+    <!-- 左上铜盘受光亮边 -->
+    <path d="M43,148 L50,94 L100,59" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- 内层冷灰铁与暗紫凹盘 -->
+    <polygon points="100,66 144,97 151,148 131,194 100,210 69,194 49,148 56,97" fill="#1E2C33" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="100,72 138,100 144,147 126,188 100,202 74,188 56,147 62,100" fill="#161221" stroke="#9A7B46" stroke-width="1.3" stroke-linejoin="round"/>
+
+    <!-- 中心三叉铜骨连线与铆钉 -->
+    <path d="M100,144 L100,104 M100,144 L73,168 M100,144 L127,168" stroke="#6E542B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M100,144 L100,104 M100,144 L73,168 M100,144 L127,168" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round"/>
+    <polygon points="100,136 108,144 100,152 92,144" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="100" cy="144" r="2.2" fill="#C2A670"/>
+    <!-- 纹章四周铜铆钉 -->
+    <circle cx="100" cy="63" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="147" cy="95" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="53" cy="95" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="154" cy="149" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="46" cy="149" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="100" cy="213" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.1"/>
+
+    <!-- 1. 上方：红宝石 · 圆形 (中心 100,104, 半径 20) -->
+    <g id="gem_red">
+      <!-- 铜镶座 -->
+      <circle cx="100" cy="104" r="23" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2"/>
+      <circle cx="100" cy="104" r="20" fill="#E3263A"/>
+      <!-- 左上受光亮刻面 -->
+      <path d="M100,84 A20,20 0 0,0 80,104 L89,104 L92,92 Z" fill="#FF5C6E"/>
+      <!-- 右下背光暗刻面 -->
+      <path d="M114,90 A20,20 0 0,1 86,118 L100,104 Z" fill="#9E1424"/>
+      <path d="M120,104 A20,20 0 0,1 100,124 L100,114 L111,104 Z" fill="#5C0A14"/>
+      <!-- 中央八角台面 -->
+      <polygon points="94,93 106,93 111,98 111,110 106,115 94,115 89,110 89,98" fill="#E3263A" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M100,84 V93 M114,90 L106,93 M120,104 H111 M114,118 L106,115 M100,124 V115 M86,118 L94,115 M80,104 H89 M86,90 L94,93" stroke="#1C1412" stroke-width="1.1"/>
+      <!-- 常驻高光 -->
+      <polygon points="92,96 101,94 98,102 91,101" fill="#FFFFFF" opacity="0.92"/>
+      <circle cx="88" cy="92" r="2" fill="#FFFFFF" opacity="0.95"/>
+      <circle cx="100" cy="104" r="20" fill="none" stroke="#1C1412" stroke-width="2.4"/>
+      <!-- 四个铜爪 -->
+      <polygon points="98,81 102,81 101,86 99,86" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="98,127 102,127 101,122 99,122" fill="#9A7B46" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="77,102 77,106 82,105 82,103" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="123,102 123,106 118,105 118,103" fill="#9A7B46" stroke="#1C1412" stroke-width="1.1"/>
+    </g>
+
+    <!-- 2. 左下：绿宝石 · 方形 (中心 73,168, 边长 36) -->
+    <g id="gem_green">
+      <rect x="52" y="147" width="42" height="42" rx="4" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2"/>
+      <rect x="55" y="150" width="36" height="36" rx="3" fill="#1DBF5E"/>
+      <!-- 左上受光阶梯面 -->
+      <polygon points="55,150 91,150 84,157 62,157 62,179 55,186" fill="#5CE892"/>
+      <!-- 右下背光阶梯面 -->
+      <polygon points="91,150 91,186 55,186 62,179 84,179 84,157" fill="#117A3B"/>
+      <polygon points="62,179 84,179 91,186 55,186" fill="#094722"/>
+      <!-- 中央方台面 -->
+      <rect x="62" y="157" width="22" height="22" rx="1.5" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.3"/>
+      <path d="M55,150 L62,157 M91,150 L84,157 M91,186 L84,179 M55,186 L62,179" stroke="#1C1412" stroke-width="1.2"/>
+      <!-- 常驻高光 -->
+      <polygon points="64,159 75,159 70,167 64,167" fill="#FFFFFF" opacity="0.92"/>
+      <rect x="58" y="152" width="5" height="2.5" rx="0.8" fill="#FFFFFF" opacity="0.92"/>
+      <rect x="55" y="150" width="36" height="36" rx="3" fill="none" stroke="#1C1412" stroke-width="2.4"/>
+      <!-- 四角包爪 -->
+      <polygon points="53,148 59,148 55,154 53,152" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="93,148 87,148 91,154 93,152" fill="#9A7B46" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="53,188 59,188 55,182 53,184" fill="#9A7B46" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="93,188 87,188 91,182 93,184" fill="#9A7B46" stroke="#1C1412" stroke-width="1.1"/>
+    </g>
+
+    <!-- 3. 右下：蓝宝石 · 三角形 (中心 127,168) -->
+    <g id="gem_blue">
+      <polygon points="127,142 151,186 103,186" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="127,146 148,184 106,184" fill="#2E66F0" stroke-linejoin="round"/>
+      <!-- 左侧受光面 -->
+      <polygon points="127,146 127,160 116,178 106,184" fill="#6B9BFF"/>
+      <!-- 右侧与底部背光暗面 -->
+      <polygon points="127,146 148,184 138,178 127,160" fill="#193D9E"/>
+      <polygon points="116,178 138,178 148,184 106,184" fill="#0D2159"/>
+      <!-- 中央三角台面 -->
+      <polygon points="127,158 138,178 116,178" fill="#2E66F0" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M127,146 V158 M106,184 L116,178 M148,184 L138,178" stroke="#1C1412" stroke-width="1.2"/>
+      <!-- 常驻高光 -->
+      <polygon points="126,161 131,170 121,172" fill="#FFFFFF" opacity="0.92"/>
+      <circle cx="121" cy="158" r="1.8" fill="#FFFFFF" opacity="0.95"/>
+      <polygon points="127,146 148,184 106,184" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <!-- 三角铜爪 -->
+      <polygon points="125,143 129,143 128,148 126,148" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="103,185 107,181 109,185" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="151,185 147,181 145,185" fill="#9A7B46" stroke="#1C1412" stroke-width="1.1"/>
+    </g>
+
+    <!-- 待机轮流闪烁的 3 个光效组（默认 opacity="0" 写在元素上） -->
+    <g id="glint_red" opacity="0"><!-- pivot: 100,104 -->
+      <circle cx="100" cy="104" r="16" fill="#FFD6DC" opacity="0.55"/>
+      <path d="M108,85 L110.5,92.5 L118,95 L110.5,97.5 L108,105 L105.5,97.5 L98,95 L105.5,92.5 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+    </g>
+    <g id="glint_green" opacity="0"><!-- pivot: 73,168 -->
+      <rect x="60" y="155" width="26" height="26" rx="2" fill="#5CE892" opacity="0.5"/>
+      <path d="M83,149 L85.5,156.5 L93,159 L85.5,161.5 L83,169 L80.5,161.5 L73,159 L80.5,156.5 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+    </g>
+    <g id="glint_blue" opacity="0"><!-- pivot: 127,168 -->
+      <polygon points="127,151 143,181 111,181" fill="#6B9BFF" opacity="0.55"/>
+      <path d="M136,151 L138.5,158.5 L146,161 L138.5,163.5 L136,171 L133.5,163.5 L126,161 L133.5,158.5 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- 牌身手绘粗外框（与 card_frame 完全对齐） -->
+  <path d="M12,2 H188 A10,10 0 0,1 198,12 V288 A10,10 0 0,1 188,298 H12 A10,10 0 0,1 2,288 V12 A10,10 0 0,1 12,2 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+</g>
+</svg>

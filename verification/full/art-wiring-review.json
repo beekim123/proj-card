@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-11-09T14:31:42.041651+00:00",
+  "scope": "Read-only integration review and 11 Happy DOM virtual-timer checks. No UI source files edited by art reviewer. Not a rendered-browser, FPS, or device verification.",
+  "reviewed_sources": {
+    "src/ui/game.ts": "2fc912e04571d587db30e6127fe6022f38575b6e1987b130b8f28ad3cce54748",
+    "src/ui/card.ts": "333b6725ced1b4e3ef803c9d13ff929d651d565491fb44d145232adfae95fce2",
+    "src/ui/card.css": "af6cc47069f0f187d237d7b45daf5edafaac01d1c5468bf9efe6da8285c48489",
+    "src/styles.css": "c5a68e56973cf0158be282ce7e1b674237249e087fbe80b53181ebde66888273"
+  },
+  "passed": true,
+  "results_file": "art-wiring-results.json",
+  "verified": [
+    "Scaled anchor/hitPoint coordinates for effects and damage text",
+    "Clock slot text uses namespaced group; no external countdown badge",
+    "daze persists and returns after temporary hits; warn returns after tick and clears above one",
+    "All 11 FX use fresh inline instances, configured dimensions and removal durations; required 2x/1.5x scales and tint supported",
+    "Heart lose starts at attack impact and swaps at completion; gain and heal present",
+    "Hand/drag/inspection/loot use moving artwork; row and growth use static URLs; tools finish play then pause",
+    "Monster, hearts and countdown reused during plays, not rebuilt every frame",
+    "Drag movement now writes only transform after dimensions are set at construction",
+    "Mirror changes at 200 ms and reveals resolved artwork with 200 ms opacity animation",
+    "Stone crossing form threshold uses 600 ms segmented fill/reset keyframes on retained ring",
+    "Healing transition waits through the full 700 ms fx_heal duration"
+  ],
+  "resolved_during_review": [
+    "Stone phase-relative ring percentage would interpolate backward at a threshold; UI owner added segmented keyframes",
+    "Healing effect was cut at 600 ms; UI owner waits for its 700 ms manifest duration",
+    "Drag move rewrote fixed width and height; UI owner moved them to creation"
+  ],
+  "visual_followup": [
+    "Mirror currently fades in the whole resolved card, rather than crossfading only mirror/gem-bar/corner/glow layers. Actual appearance needs rendered-browser inspection.",
+    "Actual browser rendering, CPU 4x performance and phone behavior remain outside this audit."
+  ]
+}

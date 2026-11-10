@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "specifiedRuleCases": 23,
+  "formatCases": 11,
+  "seededStressGames": 100,
+  "stressRounds": 10000,
+  "stressPlays": 80000,
+  "assertions": 411459,
+  "note": "Independent Node-level acceptance; no browser or physical-device coverage."
+}

@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-dummy" viewBox="0 0 300 384" width="300" height="384">
+<title>练习木桩</title>
+<style>
+.svg-dummy g { transform-box: view-box; }
+@keyframes svg-dummy-boil-a { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes svg-dummy-boil-b { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+.svg-dummy .boil-a { animation: svg-dummy-boil-a 0.4s steps(2, end) infinite; }
+.svg-dummy .boil-b { opacity: 0; animation: svg-dummy-boil-b 0.4s steps(2, end) infinite; }
+
+.svg-dummy #root { transform-origin: 150px 384px; }
+.svg-dummy #shadow { transform-origin: 150px 370px; }
+.svg-dummy #post { transform-origin: 150px 368px; }
+.svg-dummy #body { transform-origin: 150px 265px; }
+.svg-dummy #target { transform-origin: 150px 214px; }
+.svg-dummy #head { transform-origin: 150px 144px; }
+.svg-dummy #face { transform-origin: 150px 104px; }
+.svg-dummy #face_hurt { transform-origin: 150px 104px; opacity: 0; }
+.svg-dummy #straw_fly { transform-origin: 150px 150px; opacity: 0; }
+
+/* 待机 idle：被吊线牵引轻轻晃动，偶尔顿一下 */
+@keyframes svg-dummy-idle-post {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(0.4deg); }
+  75% { transform: rotate(1.4deg); }
+}
+@keyframes svg-dummy-idle-body {
+  0%, 100% { transform: rotate(0deg) translateY(0px); }
+  25% { transform: rotate(-2.2deg) translateY(-1.5px); }
+  55% { transform: rotate(0.8deg) translateY(0.5px); }
+  80% { transform: rotate(2.4deg) translateY(-1px); }
+}
+@keyframes svg-dummy-idle-head {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(-3.2deg); }
+  62% { transform: rotate(2.8deg); }
+  85% { transform: rotate(-1.2deg); }
+}
+.svg-dummy:not([data-anim]) #post, .svg-dummy[data-anim="idle"] #post { animation: svg-dummy-idle-post 2.4s steps(8, end) infinite; }
+.svg-dummy:not([data-anim]) #body, .svg-dummy[data-anim="idle"] #body { animation: svg-dummy-idle-body 2.4s steps(8, end) infinite; }
+.svg-dummy:not([data-anim]) #head, .svg-dummy[data-anim="idle"] #head { animation: svg-dummy-idle-head 2.4s steps(8, end) infinite; }
+
+/* 轻击 hit (400ms)：往后歪 6~7° 再弹回来，脑袋晚一拍跟上 */
+@keyframes svg-dummy-hit-post {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  65% { transform: rotate(-2deg); }
+}
+@keyframes svg-dummy-hit-body {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(7deg); }
+  65% { transform: rotate(-3deg); }
+}
+@keyframes svg-dummy-hit-head {
+  0%, 100% { transform: rotate(0deg); }
+  18% { transform: rotate(-5deg); }
+  45% { transform: rotate(10deg); }
+  78% { transform: rotate(-4deg); }
+}
+.svg-dummy[data-anim="hit"] #post { animation: svg-dummy-hit-post 0.4s steps(6, end) both; }
+.svg-dummy[data-anim="hit"] #body { animation: svg-dummy-hit-body 0.4s steps(6, end) both; }
+.svg-dummy[data-anim="hit"] #head { animation: svg-dummy-hit-head 0.4s steps(6, end) both; }
+
+/* 重击 hit_big (700ms)：歪 14°，换 face_hurt，草屑 straw_fly 飞出 */
+@keyframes svg-dummy-hitbig-post {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(9deg); }
+  52% { transform: rotate(-4deg); }
+  78% { transform: rotate(2deg); }
+}
+@keyframes svg-dummy-hitbig-body {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(14deg); }
+  52% { transform: rotate(-6deg); }
+  78% { transform: rotate(3deg); }
+}
+@keyframes svg-dummy-hitbig-head {
+  0%, 100% { transform: rotate(0deg); }
+  14% { transform: rotate(-8deg); }
+  36% { transform: rotate(16deg); }
+  68% { transform: rotate(-7deg); }
+  86% { transform: rotate(3deg); }
+}
+@keyframes svg-dummy-hitbig-face {
+  0%, 6%, 86%, 100% { opacity: 1; }
+  8%, 84% { opacity: 0; }
+}
+@keyframes svg-dummy-hitbig-hurt {
+  0%, 6%, 86%, 100% { opacity: 0; }
+  8%, 84% { opacity: 1; }
+}
+@keyframes svg-dummy-hitbig-straw {
+  0%, 5% { opacity: 0; transform: translate(0px, 0px) scale(0.5); }
+  18% { opacity: 1; transform: translate(12px, -10px) scale(1); }
+  65% { opacity: 0.85; transform: translate(24px, 6px) scale(1.06); }
+  100% { opacity: 0; transform: translate(28px, 14px) scale(0.9); }
+}
+.svg-dummy[data-anim="hit_big"] #post { animation: svg-dummy-hitbig-post 0.7s steps(8, end) both; }
+.svg-dummy[data-anim="hit_big"] #body { animation: svg-dummy-hitbig-body 0.7s steps(8, end) both; }
+.svg-dummy[data-anim="hit_big"] #head { animation: svg-dummy-hitbig-head 0.7s steps(8, end) both; }
+.svg-dummy[data-anim="hit_big"] #face { animation: svg-dummy-hitbig-face 0.7s linear both; }
+.svg-dummy[data-anim="hit_big"] #face_hurt { animation: svg-dummy-hitbig-hurt 0.7s linear both; }
+.svg-dummy[data-anim="hit_big"] #straw_fly { animation: svg-dummy-hitbig-straw 0.7s ease-out both; }
+</style>
+<defs>
+<filter id="dummy-grunge" filterUnits="userSpaceOnUse" x="0" y="0" width="300" height="384" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="2" seed="17" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0.09 0" result="grain"/>
+    <feComposite in="grain" in2="SourceGraphic" operator="in" result="clippedGrain"/>
+    <feBlend mode="multiply" in="SourceGraphic" in2="clippedGrain"/>
+  </filter>
+</defs>
+<g id="root">
+<!-- pivot: 150,384 -->
+    <g id="shadow"><!-- pivot: 150,370 -->
+      <ellipse cx="150" cy="370" rx="64" ry="8" fill="#0D111C" opacity="0.65"/>
+      <ellipse cx="150" cy="370" rx="46" ry="5" fill="#1C1412" opacity="0.5"/>
+      <path d="M92,373 L100,366 M102,375 L112,365 M114,376 L124,364 M126,376 L136,364 M138,377 L148,364 M150,377 L160,364 M162,376 L172,364 M174,376 L184,365 M186,375 L196,366 M198,373 L206,367" stroke="#1C1412" stroke-width="1.3" stroke-linecap="round" opacity="0.65"/>
+    </g>
+
+    <g id="post" filter="url(#dummy-grunge)"><!-- pivot: 150,368 -->
+      <!-- 底部固定斜撑木块 -->
+      <polygon points="118,368 138,334 144,368" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <polygon points="182,368 162,334 156,368" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <!-- 主木桩柱 (x136..164, y240..370) -->
+      <path d="M137,240 L163,240 L165,368 L135,368 Z" fill="#704122"/>
+      <path d="M151,240 L163,240 L165,368 L150,368 Z" fill="#3D2212" opacity="0.75"/>
+      <!-- 木桩左侧冷受光边与木纹排线 -->
+      <path d="M138,244 L137,364" stroke="#9A8968" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/>
+      <path d="M146,260 L145,356 M155,274 L156,348" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+      <path d="M152,300 L162,312 M152,310 L162,322 M152,320 L162,332 M152,330 L162,342 M152,340 L162,352" stroke="#1C1412" stroke-width="1" opacity="0.5"/>
+      <g class="boil-a"><path d="M137,240 L163,240 L165,368 L135,368 Z" fill="none" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/></g>
+      <g class="boil-b"><path d="M136.5,240.5 L163.5,239.5 L164.5,368.5 L135.5,367.5 Z" fill="none" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/></g>
+
+      <g id="body"><!-- pivot: 150,265 -->
+        <!-- 吊线（哥特提线木偶感，从上方垂下连到横木两端与头顶） -->
+        <path d="M96,18 L96,182 M204,18 L204,186 M150,12 L150,52" stroke="#8CAAB5" stroke-width="1.1" stroke-dasharray="6 4" opacity="0.45"/>
+
+        <!-- 横木手臂 (x78..222, y176..198，总宽 144 < 160) -->
+        <path d="M78,180 L222,184 L220,198 L76,194 Z" fill="#704122"/>
+        <path d="M78,189 L221,193 L220,198 L76,194 Z" fill="#3D2212"/>
+        <path d="M80,182 L218,186" stroke="#9A8968" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+        <path d="M78,180 L222,184 L220,198 L76,194 Z" fill="none" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+        <!-- 肩部溢出的干草簇 -->
+        <path d="M78,182 L68,176 M76,188 L66,188 M78,192 L70,200 M222,185 L231,179 M222,191 L232,192 M220,196 L229,203" stroke="#C8B894" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M78,182 L68,176 M76,188 L66,188 M222,185 L231,179 M222,191 L232,192" stroke="#1C1412" stroke-width="1" stroke-linecap="round"/>
+
+        <!-- 麻布袋躯干 (x106..194, y148..274) -->
+        <path d="M114,150 L186,152 L194,210 L184,272 L150,278 L116,270 L106,210 Z" fill="#9A8968"/>
+        <!-- 躯干右侧背光暗面 -->
+        <path d="M154,151 L186,152 L194,210 L184,272 L150,278 Q160,215 154,151 Z" fill="#704122" opacity="0.65"/>
+        <!-- 躯干左侧冷轮廓光 -->
+        <path d="M115,153 L108,210 L117,267" fill="none" stroke="#E2D6BA" stroke-width="2.4" stroke-linecap="round" opacity="0.88"/>
+        <!-- 躯干交叉排线与补丁缝线 -->
+        <path d="M168,168 L188,188 M166,180 L190,204 M166,192 L190,216 M166,204 L188,226 M164,218 L186,240 M162,232 L182,252 M160,246 L178,264" stroke="#1C1412" stroke-width="1" opacity="0.45"/>
+        <path d="M186,174 L168,192 M188,188 L168,208 M188,202 L166,224 M186,218 L164,240 M184,234 L162,256" stroke="#1C1412" stroke-width="0.9" opacity="0.32"/>
+        <!-- 左下角旧布补丁与针脚 -->
+        <polygon points="114,232 134,228 138,254 118,258" fill="#9E6238" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M111,236 L117,235 M112,244 L118,243 M114,252 L120,251 M131,232 L137,231 M133,242 L139,241 M134,250 L140,249" stroke="#1C1412" stroke-width="1.3" stroke-linecap="round"/>
+        <!-- 腰部麻绳捆绑 -->
+        <path d="M114,264 Q150,274 186,266" fill="none" stroke="#3D2212" stroke-width="5" stroke-linecap="round"/>
+        <path d="M114,264 Q150,274 186,266" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- 躯干双层沸腾墨线外框 -->
+        <g class="boil-a"><path d="M114,150 L186,152 L194,210 L184,272 L150,278 L116,270 L106,210 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/></g>
+        <g class="boil-b"><path d="M113.5,150.5 L186.5,151.5 L193.5,210.5 L184.5,271.5 L150,278.5 L115.5,270.5 L106.5,209.5 Z" fill="none" stroke="#1C1412" stroke-width="2.9" stroke-linejoin="round"/></g>
+
+        <!-- 胸口手绘靶子 target -->
+        <g id="target"><!-- pivot: 150,214 -->
+          <circle cx="150" cy="214" r="28" fill="#C8B894" stroke="#1C1412" stroke-width="2.4"/>
+          <circle cx="150" cy="214" r="19" fill="#8C3B45" stroke="#1C1412" stroke-width="2"/>
+          <circle cx="150" cy="214" r="10" fill="#C8B894" stroke="#1C1412" stroke-width="1.8"/>
+          <circle cx="150" cy="214" r="4" fill="#5E242C" stroke="#1C1412" stroke-width="1.4"/>
+          <!-- 靶心刀痕裂口 -->
+          <path d="M136,202 L162,224" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
+        </g>
+
+        <!-- 麻布袋脑袋 head (关节在脖子 150,144) -->
+        <g id="head"><!-- pivot: 150,144 -->
+          <!-- 脖子束口折皱 -->
+          <polygon points="134,142 166,144 174,158 126,156" fill="#9E6238" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+          <!-- 歪斜麻布袋头（左上耸起尖角，右下略鼓） -->
+          <path d="M116,60 L146,52 L182,58 L192,98 L184,136 L158,146 L132,144 L110,128 L108,88 Z" fill="#C8B894"/>
+          <!-- 头部右侧暗面 -->
+          <path d="M154,54 L182,58 L192,98 L184,136 L158,146 Q164,102 154,54 Z" fill="#9A8968" opacity="0.88"/>
+          <!-- 头部左侧冷受光轮廓线 -->
+          <path d="M144,54 L118,61 L110,88 L112,125" fill="none" stroke="#E2D6BA" stroke-width="2.6" stroke-linecap="round"/>
+          <!-- 头顶麻袋缝合线与右侧排线 -->
+          <path d="M122,60 L126,68 M134,57 L137,65 M146,54 L148,63 M158,56 L159,64 M170,58 L170,66" stroke="#1C1412" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M168,74 L186,92 M166,86 L188,108 M166,98 L186,118 M164,110 L182,128" stroke="#1C1412" stroke-width="1" opacity="0.42"/>
+          <!-- 脖子麻绳结 -->
+          <path d="M128,143 Q150,151 172,144" fill="none" stroke="#5E242C" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M128,143 Q150,151 172,144" fill="none" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+
+          <!-- 头部沸腾外框 -->
+          <g class="boil-a"><path d="M116,60 L146,52 L182,58 L192,98 L184,136 L158,146 L132,144 L110,128 L108,88 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/></g>
+          <g class="boil-b"><path d="M115.5,60.5 L146,51.5 L182.5,58.5 L191.5,98 L184.5,135.5 L158,146.5 L131.5,143.5 L110.5,127.5 L107.5,88 Z" fill="none" stroke="#1C1412" stroke-width="2.9" stroke-linejoin="round"/></g>
+
+          <!-- 平时的脸 face：缝线画的歪眼睛（不用纽扣眼）+ 缝线歪嘴 -->
+          <g id="face"><!-- pivot: 150,104 -->
+            <!-- 左眼：较大偏高，深凹布窝 + 粗缝线交叉歪眼 -->
+            <ellipse cx="132" cy="94" rx="11" ry="9" fill="#524531" opacity="0.55" transform="rotate(-8 132 94)"/>
+            <path d="M121,93 Q132,87 143,95" fill="none" stroke="#1C1412" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M124,87 L128,99 M132,86 L133,100 M140,88 L138,100" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="131" cy="91" r="1.6" fill="#E6DEC8"/>
+            <!-- 右眼：略小偏低，歪斜米字缝线眼 -->
+            <ellipse cx="166" cy="99" rx="9.5" ry="8" fill="#524531" opacity="0.55" transform="rotate(10 166 99)"/>
+            <path d="M156,98 Q166,93 176,101" fill="none" stroke="#1C1412" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M159,92 L173,105 M172,92 L160,105" stroke="#5E242C" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M159,92 L173,105 M172,92 L160,105" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="165" cy="96" r="1.4" fill="#E6DEC8"/>
+            <!-- 暗酒红诡萌腮红斑 -->
+            <ellipse cx="120" cy="108" rx="5.5" ry="3.2" fill="#8C3B45" opacity="0.55"/>
+            <ellipse cx="176" cy="112" rx="5" ry="3" fill="#8C3B45" opacity="0.55"/>
+            <!-- 缝线歪嘴 -->
+            <path d="M126,120 Q148,131 172,118" fill="none" stroke="#1C1412" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M132,117 L130,126 M141,120 L140,129 M150,121 L150,130 M160,119 L161,128 M168,116 L170,124" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+          </g>
+
+          <!-- 被重击的吃惊脸 face_hurt（平时 opacity: 0） -->
+          <g id="face_hurt" opacity="0"><!-- pivot: 150,104 -->
+            <!-- 绷开的吃惊大缝线眼 -->
+            <circle cx="132" cy="93" r="11" fill="#524531" stroke="#1C1412" stroke-width="2.4"/>
+            <path d="M124,85 L140,101 M140,85 L124,101 M132,81 L132,105 M120,93 L144,93" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="132" cy="93" r="3" fill="#E6DEC8"/>
+            <circle cx="166" cy="98" r="10" fill="#524531" stroke="#1C1412" stroke-width="2.4"/>
+            <path d="M159,91 L173,105 M173,91 L159,105 M166,87 L166,109 M155,98 L177,98" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="166" cy="98" r="2.6" fill="#E6DEC8"/>
+            <!-- 撑开的 O 型缝线嘴 -->
+            <ellipse cx="150" cy="123" rx="14" ry="10" fill="#524531" stroke="#1C1412" stroke-width="2.4"/>
+            <path d="M140,114 L142,120 M150,112 L150,119 M160,114 L158,120 M140,132 L142,126 M150,134 L150,127 M160,132 L158,126" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- 重击飞出的草屑 straw_fly（平时 opacity: 0，范围严格在画框内） -->
+      <g id="straw_fly" opacity="0"><!-- pivot: 150,150 -->
+        <path d="M102,118 L84,106 M96,142 L76,140 M108,162 L88,172 M196,112 L216,100 M204,138 L224,134 M198,162 L218,174 M144,44 L136,28 M168,46 L180,30" stroke="#E2D6BA" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M102,118 L84,106 M96,142 L76,140 M108,162 L88,172 M196,112 L216,100 M204,138 L224,134 M198,162 L218,174 M144,44 L136,28 M168,46 L180,30" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round"/>
+        <polygon points="82,122 90,118 86,126" fill="#C8B894" stroke="#1C1412" stroke-width="1"/>
+        <polygon points="214,118 222,114 218,123" fill="#C8B894" stroke="#1C1412" stroke-width="1"/>
+        <polygon points="192,82 200,76 197,86" fill="#C8B894" stroke="#1C1412" stroke-width="1"/>
+      </g>
+    </g>
+</g>
+</svg>

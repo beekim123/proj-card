@@ -1,0 +1,71 @@
+.art-inspector {
+  --art-pageBg: #0D111C; --art-panelBg: #161221; --art-text: #E6DEC8; --art-textDim: #9A8968; --art-accent: #C2A670; --art-accentDark: #6E542B;
+  position: relative; min-height: 100vh; width: 100%; padding: 32px; box-sizing: border-box; overflow-x: hidden;
+  background: var(--art-pageBg); color: var(--art-text); font: 16px/1.5 "PingFang SC", "Microsoft YaHei", sans-serif;
+  touch-action: auto; user-select: text;
+}
+body:has(.art-inspector) { overflow: auto; touch-action: auto; }
+.art-inspector[data-theme="light"] { background: var(--art-text); color: var(--art-panelBg); }
+.art-inspector * { box-sizing: border-box; }
+.art-inspector h1 { font-size: 32px; margin: 4px 0 8px; }
+.art-inspector h2 { font-size: 24px; margin: 30px 0 16px; }
+.art-inspector h3 { font-size: 16px; margin: 0; overflow-wrap: anywhere; }
+.art-header { display: flex; gap: 20px; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--art-accentDark); padding-bottom: 20px; }
+.art-eyebrow { margin: 0; color: var(--art-accent); font-size: 12px; letter-spacing: .18em; }
+.art-summary, .art-description, .art-explainer, .art-meta { margin: 8px 0; }
+.art-explainer { max-width: 1000px; }
+.art-meta { font-size: 12px; color: var(--art-textDim); overflow-wrap: anywhere; }
+.art-inspector[data-theme="light"] .art-meta, .art-inspector[data-theme="light"] .art-eyebrow { color: var(--art-accentDark); }
+.art-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,300px),1fr)); gap: 16px; }
+.art-item { min-width: 0; border: 1px solid var(--art-accentDark); border-radius: 12px; padding: 16px; }
+.art-item-wide { grid-column: 1/-1; }
+.art-item-title { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.art-source { flex-shrink: 0; border: 1px solid var(--art-textDim); color: var(--art-textDim); border-radius: 20px; padding: 2px 9px; font-size: 12px; }
+.art-source-art { color: var(--art-accent); border-color: var(--art-accent); }
+.art-inspector[data-theme="light"] .art-source { color: var(--art-accentDark); }
+.art-scroll { overflow: auto; max-width: 100%; padding: 4px 0 12px; touch-action: pan-x pan-y; }
+.art-preview { position: relative; flex: 0 0 auto; margin: 0; outline: 1px dashed var(--art-accentDark); }
+.art-actual { display: block; max-width: none; max-height: none; }
+.art-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.art-action, .art-inspector select { font: inherit; font-size: 14px; border: 1px solid var(--art-accentDark); color: var(--art-text); background: var(--art-panelBg); border-radius: 7px; padding: 8px 12px; text-decoration: none; cursor: pointer; }
+.art-action:hover { border-color: var(--art-accent); }
+.art-action:focus-visible, .art-inspector select:focus-visible { outline: 2px solid var(--art-accent); outline-offset: 3px; }
+.art-description { font-size: 13px; }
+.art-warning { font-size: 13px; color: var(--art-accent); }
+.art-slice-sample { margin: 16px 0 0; }
+.art-slice { flex: 0 0 auto; }
+.art-tint { font-size: 14px; }
+.art-cards { display: flex; flex-wrap: wrap; gap: 24px; overflow-x: auto; padding: 10px 2px 20px; }
+.art-card-frame { position: relative; flex: 0 0 auto; }
+.art-scale-title { margin: 24px 0 10px !important; }
+@media (max-width: 640px) { .art-inspector { padding: 16px; } .art-header { align-items: flex-start; flex-direction: column; } }
+.art-inspector [hidden] { display: none !important; }
+.art-navigation { margin: 20px 0; }
+.art-badges { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+.art-status { border: 1px solid var(--art-accentDark); border-radius: 20px; padding: 2px 9px; font-size: 12px; white-space: nowrap; }
+.art-status-新画, .art-status-重画 { background: var(--art-panelBg); color: var(--art-accent); }
+.art-action[aria-pressed="true"] { background: var(--art-accent); color: var(--art-pageBg); border-color: var(--art-accent); }
+.art-previews { display: flex; gap: 18px; flex-wrap: wrap; }
+.art-variant, .art-tool-variant { margin: 0; min-width: 0; max-width: 100%; }
+.art-previews > .art-variant { flex: 0 1 auto; }
+.art-previews .art-scroll { padding: 5px 18px 28px 8px; }
+.art-cross { position: absolute; width: 16px; height: 16px; transform: translate(-50%, -50%); z-index: 5; pointer-events: none; color: var(--art-accent); }
+.art-cross::before, .art-cross::after { content: ''; position: absolute; background: currentColor; box-shadow: 0 0 2px var(--art-ink); }
+.art-cross::before { left: 7px; top: 0; width: 2px; height: 16px; }
+.art-cross::after { left: 0; top: 7px; width: 16px; height: 2px; }
+.art-cross span { position: absolute; left: 20px; top: 1px; font-size: 10px; background: var(--art-pageBg); color: var(--art-text); padding: 0 3px; }
+.art-cross-hitPoint { color: var(--art-hpFill); }
+.art-slot-controls { margin-top: 10px; }
+.art-tool-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,450px),1fr)); gap: 24px; margin-top: 16px; }
+.art-tool-pair { padding: 16px; border: 1px solid var(--art-accentDark); border-radius: 12px; min-width: 0; }
+.art-tool-pair .art-cards { gap: 16px; }
+.art-tool-variant { flex: 0 0 auto; }
+.art-banner { position: relative; width: 600px; height: 140px; }
+.art-banner > img { position: absolute; inset: 0; }
+.art-banner > span { position: absolute; inset: 0; display: grid; place-items: center; color: var(--art-text); font-size: 56px; font-weight: 700; -webkit-text-stroke: 1px var(--art-ink); paint-order: stroke fill; }
+.art-hp { position: relative; width: 440px; height: 40px; }
+.art-hp-track { position: absolute; overflow: hidden; border-radius: 999px; }
+.art-hp-chip, .art-hp-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: inherit; }
+.art-hp-text { position: absolute; inset: 0; display: grid; place-items: center; color: var(--art-text); font-size: 26px; line-height: 1; font-weight: 700; -webkit-text-stroke: 1px var(--art-ink); paint-order: stroke fill; }
+.art-hearts { display: flex; gap: 8px; margin-top: 16px; }
+@media (max-width: 640px) { .art-item-title { align-items: flex-start; } .art-tool-pair .art-cards { flex-wrap: nowrap; } }

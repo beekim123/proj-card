@@ -1,0 +1,122 @@
+[
+  {
+    "path": "04-验收清单.md",
+    "status": "added",
+    "sha256": "f30ad0d553f06d06917df90c585767a1cb0a905b2ae11acb296185cf77513b7f"
+  },
+  {
+    "path": "ACCEPTANCE.md",
+    "status": "modified",
+    "sha256": "907932e6e1b6fba66e041673789e739f183a7507b0903d6fdcb949ff9cb2571b"
+  },
+  {
+    "path": "HANDOFF.md",
+    "status": "modified",
+    "sha256": "66b5ed567aec54288f324d55916fed81d4ae024999a1487122e9b6dfc95d3bd5"
+  },
+  {
+    "path": "README.md",
+    "status": "modified",
+    "sha256": "e070f4a2d3a08f1fd0c39780e39c8fd34b706f40e6d4672bc5abc31e9c4e5ee1"
+  },
+  {
+    "path": "public/art-manifest.json",
+    "status": "modified",
+    "sha256": "6d107eac46b50c2f6bd6b6c617e6997f200b44e601cab13073aec5df1015af61"
+  },
+  {
+    "path": "src/art/art.test.ts",
+    "status": "modified",
+    "sha256": "32b9d27c28dad2b39db0957dd8f8b1873d322178848b9bd50f383e21b16b9784"
+  },
+  {
+    "path": "src/art/inspector.css",
+    "status": "modified",
+    "sha256": "92b85b5465134c466190bcc9145914c72d1181aa4ba69d4f62b23424c6ad6080"
+  },
+  {
+    "path": "src/art/inspector.ts",
+    "status": "modified",
+    "sha256": "ec9a6b9a557a68977673c65d73e153f0b7365280e5f721dbef045e344060792f"
+  },
+  {
+    "path": "src/art/placeholders.ts",
+    "status": "modified",
+    "sha256": "998e8bf7239070569121b3b50adbf5906064b10001414dc5824c2d97e92774e2"
+  },
+  {
+    "path": "src/art/store.ts",
+    "status": "modified",
+    "sha256": "403066bd0d2f17a3d2a2f5173328bc0b86860df08cc89deaf7470f0560432cfb"
+  },
+  {
+    "path": "src/art/types.ts",
+    "status": "modified",
+    "sha256": "b30a59d9ee2760efe0dad24f5821c1db466fe827cfbeb62d79deb42db676281c"
+  },
+  {
+    "path": "src/layout/fit.test.ts",
+    "status": "modified",
+    "sha256": "611eb141c40b2642d22b8042accb421312989eb7643782c70dc17f5c98aa5b3b"
+  },
+  {
+    "path": "src/layout/fit.ts",
+    "status": "modified",
+    "sha256": "abb2ac787c23d2502820a2921a1ccba03f9e258969c842111fa2effbb8f2a437"
+  },
+  {
+    "path": "src/layout/landscape.ts",
+    "status": "modified",
+    "sha256": "64782ba30d44f72dfccaf06bb18781817c74a28efbf86338b68b7087392304cc"
+  },
+  {
+    "path": "src/layout/portrait.ts",
+    "status": "modified",
+    "sha256": "a05431528cd186179215734969849cec2164e217c17b3df438f70200c65a84f2"
+  },
+  {
+    "path": "src/layout/types.ts",
+    "status": "modified",
+    "sha256": "5dd82a1ada8b600fec974fbb745e596b204e25a1875d9455a33933c8193d2d1b"
+  },
+  {
+    "path": "src/main.ts",
+    "status": "modified",
+    "sha256": "a401a520b6f85bb6e76716a2d66090fb274b3eabb72a010b1b1d8d1d1f46cea1"
+  },
+  {
+    "path": "src/save.test.ts",
+    "status": "added",
+    "sha256": "60a0eb61ba93bfe9ee4f643fb85312b4f0539613cffcec9d531ef46ec397d54e"
+  },
+  {
+    "path": "src/save.ts",
+    "status": "added",
+    "sha256": "6a1b4eba52d17a3772b361f3dc23336aea1968f689f1f4080a2b11e99748fc2e"
+  },
+  {
+    "path": "src/styles.css",
+    "status": "modified",
+    "sha256": "c5a68e56973cf0158be282ce7e1b674237249e087fbe80b53181ebde66888273"
+  },
+  {
+    "path": "src/ui/README.md",
+    "status": "modified",
+    "sha256": "0b5c9ff7e4d31c584373d8e91271aadc63ff89249c4935a989f5d624f887f66d"
+  },
+  {
+    "path": "src/ui/card.css",
+    "status": "added",
+    "sha256": "af6cc47069f0f187d237d7b45daf5edafaac01d1c5468bf9efe6da8285c48489"
+  },
+  {
+    "path": "src/ui/card.ts",
+    "status": "modified",
+    "sha256": "333b6725ced1b4e3ef803c9d13ff929d651d565491fb44d145232adfae95fce2"
+  },
+  {
+    "path": "src/ui/game.ts",
+    "status": "modified",
+    "sha256": "2fc912e04571d587db30e6127fe6022f38575b6e1987b130b8f28ad3cce54748"
+  }
+]

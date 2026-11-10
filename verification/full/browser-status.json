@@ -1,0 +1,10 @@
+{
+  "status": "NOT_RUN_BLOCKED",
+  "requested": ["7 viewport sizes × 9 screens", "real pointer and animation checks", "Chrome CPU ×4 performance recording and FPS screenshot"],
+  "attempts": 2,
+  "error": "FATAL:chrome/browser/process_singleton_posix.cc:297 Check failed: . socket() failed: Operation not permitted (1)",
+  "stage": "Chromium launch failed before opening the game",
+  "screenshots_produced": 0,
+  "real_device_tests": "NOT_RUN",
+  "alternative_evidence": "Pure tests, source review, compiled static build and Happy DOM integration are separate evidence, not browser acceptance."
+}

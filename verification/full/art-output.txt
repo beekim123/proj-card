@@ -1,0 +1,18 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> gemcard-demo@1.0.0 test
+> vitest run --run src/art/art.test.ts
+
+
+ RUN  v4.1.12 /workspace/scratch/e4cad742399c/gemcard-demo-full-20261109
+
+
+ Test Files  1 passed (1)
+      Tests  25 passed (25)
+   Start at  06:27:37
+   Duration  1.24s (transform 171ms, setup 0ms, import 259ms, tests 277ms, environment 0ms)
+
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+Art-only strict TypeScript check exit: 0
