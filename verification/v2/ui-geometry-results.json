@@ -1,0 +1,5 @@
+{
+  "scope": "Pure geometry and score interpolation only; no browser or rendering.",
+  "passed": true,
+  "checks": 1534
+}

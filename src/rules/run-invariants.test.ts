@@ -1,14 +1,22 @@
 import { describe, expect, it } from 'vitest';
 import {
-  abandonRun, chooseLoot, cloneRun, createRecords, createRun, endRunTurn,
+  abandonRun, chooseLoot, cloneRun, createRecords, createRun as createUnselectedRun, chooseRelic, endRunTurn,
   playRunCard, skipLoot, undoRun, updateRecords,
 } from './run';
 import type { RunState } from './run-types';
 
+/** Existing battle scenarios explicitly choose a non-numeric-changing relic. */
+function createRun(seed: number): RunState {
+  const run = createUnselectedRun(seed);
+  run.relicOptions = ['same', 'once', 'white'];
+  chooseRelic(run, 0);
+  return run;
+}
+
 function breakMonster(run: RunState): void {
   run.monster.hp = 1;
   run.monster.turnStartHp = 1;
-  playRunCard(run, run.game.hand.findIndex((card) => card.v > 0));
+  while (!run.monster.broken && run.game.hand.length) playRunCard(run, 0);
 }
 
 function inventory(run: RunState): void {

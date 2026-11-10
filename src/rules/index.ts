@@ -1,6 +1,9 @@
+import { applyEffects, effectIds, growthThresholds, type EffectContext } from './effects';
+import type { MonsterState } from './run-types';
+export { EFFECTS, growthThresholds } from './effects';
 import { CARD_NAMES, CONFIG, GEMS, REACTION_NAMES, TOOLS, TOOL_TYPES } from './config';
 import type {
-  Card, GameOptions, GameSnapshot, GameState, GemForm, GemValues,
+  Card, GameOptions, GameSnapshot, GameState, GemForm,
   RandomSource, RandomState, StatefulRandomSource, Reaction, RowEntry, ToolType, HandLimit,
 } from './types';
 
@@ -95,7 +98,7 @@ export function copyCard(card: Card): Card {
 }
 
 function copyRow(entry: RowEntry): RowEntry {
-  return { ...entry, gemValues: [...entry.gemValues], grown: [...entry.grown] };
+  return { ...entry, gemValues: [...entry.gemValues], grown: [...entry.grown], effects: entry.effects.map(effect => ({ ...effect })) };
 }
 
 /** Clone every gameplay field, including settings, without recursive undo stacks. */
@@ -107,7 +110,9 @@ export function snapshot(state: GameSnapshot): GameSnapshot {
     best: state.best, last: state.last,
     chain: [...state.chain], chainIdx: [...state.chainIdx],
     rainbow: state.rainbow, xp: [...state.xp], opts: { ...state.opts },
-    rngState: state.rngState,
+    rngState: state.rngState, onceUsed: state.onceUsed,
+    ...(state.relic ? { relic: state.relic } : {}),
+    ...(state.relics ? { relics: [...state.relics] } : {}),
   };
 }
 
@@ -144,27 +149,28 @@ export function createGame(rng: number | RandomSource, options: Partial<GameOpti
     deck: createDeck(Boolean(opts.tools)), discard: [], hand: [], row: [],
     m: CONFIG.multiplierStart, turnDmg: 0, total: 0, turn: 1, best: 0, last: 0,
     chain: [], chainIdx: [], rainbow: false, xp: [0, 0, 0], opts, hist: [],
-    rngState: initialRandomState(rng),
+    rngState: initialRandomState(rng), onceUsed: false,
   };
   shuffle(state.deck, randomFromState(state));
   refillHand(state);
   return state;
 }
 
-export function gemForm(state: Pick<GameSnapshot, 'xp' | 'opts'>, index: number): GemForm {
+export function gemForm(state: Pick<GameSnapshot, 'xp' | 'opts'> & Partial<Pick<GameSnapshot, 'relic' | 'relics'>>, index: number): GemForm {
   if (!Number.isInteger(index) || index < 0 || index >= GEMS.length) {
     throw new RangeError('宝石索引必须是 0、1 或 2');
   }
   if (!state.opts.grow) return 0;
   const count = state.xp[index]!;
-  return count >= CONFIG.formAt[2] ? 2 : count >= CONFIG.formAt[1] ? 1 : 0;
+  const thresholds = growthThresholds(state);
+  return count >= thresholds[2] ? 2 : count >= thresholds[1] ? 1 : 0;
 }
 
-export function gemValue(state: Pick<GameSnapshot, 'xp' | 'opts'>, index: number): number {
+export function gemValue(state: Pick<GameSnapshot, 'xp' | 'opts'> & Partial<Pick<GameSnapshot, 'relic' | 'relics'>>, index: number): number {
   return CONFIG.gemValue[gemForm(state, index)];
 }
 
-export function baseValue(state: Pick<GameSnapshot, 'xp' | 'opts'>, v: number): number {
+export function baseValue(state: Pick<GameSnapshot, 'xp' | 'opts'> & Partial<Pick<GameSnapshot, 'relic' | 'relics'>>, v: number): number {
   assertMask(v);
   return GEMS.reduce((sum, gem, index) => sum + ((v & gem.bit) ? gemValue(state, index) : 0), 0);
 }
@@ -186,53 +192,70 @@ function nextChain(state: GameSnapshot, v: number, k: Reaction): { colors: numbe
   return { colors, indices };
 }
 
-/** Resolve a mirror without changing the actual hand card. */
+/** Resolve effective gems using the same hook as play and preview. */
 export function resolvedMask(state: Pick<GameSnapshot, 'row'>, card: Card): number {
   assertMask(card.v);
   if (card.type && !TOOL_TYPES.includes(card.type)) throw new RangeError('未知的额外牌类型');
-  const previous = state.row.at(-1);
-  return card.type === 'mirror' ? (previous ? 7 - previous.v : TOOLS.mirror.v) : card.v;
+  const context = { state, card, entry: { ...card, effects: [] } } as unknown as EffectContext;
+  applyEffects(card.type ? [card.type] : [], 'mask', context);
+  return context.entry.v;
 }
 
-/** Predict all damage/effects but never draw cards or advance the random stream. */
-export function previewCard(state: GameSnapshot, cardOrMask: Card | number): RowEntry {
-  const original = typeof cardOrMask === 'number' ? { id: -1, v: cardOrMask } : cardOrMask;
-  const card = { ...original, v: resolvedMask(state, original) };
-  const k = reaction(state.row.at(-1)?.v ?? null, card.v);
-  const cm = CONFIG.reactionMultiplier[k];
-  const gemValues: GemValues = [gemValue(state, 0), gemValue(state, 1), gemValue(state, 2)];
-  const b = baseValue(state, card.v);
-  const dmg = b * state.m * cm;
-  let m2 = k === 'shun' || k === 'white'
-    ? state.m * CONFIG.multiplierDouble : state.m + CONFIG.multiplierIncrement;
-  const chain = nextChain(state, card.v, k);
-  const rainbow = !state.rainbow && chain.colors.length === CONFIG.rainbowColors.length
-    ? (state.turnDmg + dmg) * (CONFIG.rainbowMultiplier - 1) : 0;
-  const hammer = card.type === 'hammer'
-    ? (state.turnDmg + dmg + rainbow) * (TOOLS.hammer.turnMultiplier - 1) : 0;
-  if (card.type === 'lens') m2 *= TOOLS.lens.multiplier;
-  const grown: number[] = [];
-  GEMS.forEach((gem, index) => {
-    const extra = (card.v & gem.bit ? 1 : 0) + (card.type === 'stone' ? TOOLS.stone.xp : 0);
-    if (extra > 0 && state.opts.grow) {
-      const before = gemForm(state, index);
-      const countAfter = state.xp[index]! + extra;
-      if (before < 2 && countAfter >= CONFIG.formAt[before + 1]!) grown.push(index);
-    }
-  });
-  return {
-    ...card, k, cm, b, m: state.m, m2, dmg, rainbow, hammer,
-    damage: dmg + rainbow + hammer, gemValues, grown, rb: rainbow > 0,
+function evaluateCard(state: GameSnapshot, original: Card, monster?: MonsterState): EffectContext {
+  const entry: RowEntry = {
+    ...original, v: original.v, k: 'plain', cm: 1, b: 0,
+    m: state.m, m2: state.m, dmg: 0, rainbow: 0, hammer: 0, damage: 0,
+    gemValues: [gemValue(state, 0), gemValue(state, 1), gemValue(state, 2)],
+    grown: [], rb: false, effects: [],
   };
+  const context: EffectContext = { state, card: original, entry, xp: [...state.xp], thresholds: CONFIG.formAt, need: CONFIG.rainbowColors.length, draw: 0, onceUsed: state.onceUsed, monster: monster ? { ...monster } : undefined, monsterWasBroken: monster?.broken };
+  const ids = effectIds(state, original, monster);
+  assertMask(original.v);
+  if (original.type && !TOOL_TYPES.includes(original.type)) throw new RangeError('未知的额外牌类型');
+  applyEffects(ids, 'mask', context);
+  entry.k = reaction(state.row.at(-1)?.v ?? null, entry.v);
+  applyEffects(ids, 'reaction', context);
+  applyEffects(ids, 'gemValues', context);
+  entry.b = GEMS.reduce((sum, gem, index) => sum + ((entry.v & gem.bit) ? entry.gemValues[index]! : 0), 0);
+  entry.cm = CONFIG.reactionMultiplier[entry.k];
+  applyEffects(ids, 'reactionMultiplier', context);
+  entry.dmg = entry.b * state.m * entry.cm;
+  entry.m2 = entry.k === 'shun' || entry.k === 'white' ? state.m * CONFIG.multiplierDouble : state.m + CONFIG.multiplierIncrement;
+  applyEffects(ids, 'multiplier', context);
+  applyEffects(ids, 'rainbowNeed', context);
+  const chain = nextChain(state, entry.v, entry.k);
+  entry.rb = !state.rainbow && chain.colors.length >= context.need;
+  entry.rainbow = entry.rb ? (state.turnDmg + entry.dmg) * (CONFIG.rainbowMultiplier - 1) : 0;
+  applyEffects(ids, 'rainbow', context);
+  applyEffects(ids, 'hammer', context);
+  entry.damage = entry.dmg + entry.rainbow + entry.hammer;
+  if (context.monster) {
+    context.monster.hp = Math.max(0, context.monster.hp - entry.damage);
+    context.monster.broken = context.monster.hp === 0;
+  }
+  applyEffects(ids, 'afterMonster', context);
+  applyEffects(ids, 'growthThresholds', context);
+  GEMS.forEach((gem, index) => { context.xp[index] = context.xp[index]! + ((entry.v & gem.bit) ? 1 : 0); });
+  applyEffects(ids, 'afterCard', context);
+  GEMS.forEach((_gem, index) => {
+    const before = gemForm(state, index);
+    if (state.opts.grow && before < 2 && context.xp[index]! >= context.thresholds[before + 1]!) entry.grown.push(index);
+  });
+  applyEffects(ids, 'afterGrowth', context);
+  applyEffects(ids, 'afterLayer', context);
+  return context;
+}
+
+/** Preview shares the complete settlement path and never changes source state. */
+export function previewCard(state: GameSnapshot, cardOrMask: Card | number): RowEntry {
+  return evaluateCard(state, typeof cardOrMask === 'number' ? { id: -1, v: cardOrMask } : cardOrMask).entry;
 }
 
 /** Mutable command: return the row entry inserted into the supplied state. */
-export function playCard(state: GameState, handIndex: number): RowEntry {
-  if (!Number.isInteger(handIndex) || handIndex < 0 || handIndex >= state.hand.length) {
-    throw new RangeError('手牌索引超出范围');
-  }
-  const card = state.hand[handIndex]!;
-  const entry = previewCard(state, card);
+export function playCard(state: GameState, handIndex: number, monster?: MonsterState): RowEntry {
+  if (!Number.isInteger(handIndex) || handIndex < 0 || handIndex >= state.hand.length) throw new RangeError('手牌索引超出范围');
+  const context = evaluateCard(state, state.hand[handIndex]!, monster);
+  const entry = context.entry;
   const chain = nextChain(state, entry.v, entry.k);
   state.hist.push(snapshot(state));
   state.hand.splice(handIndex, 1);
@@ -242,15 +265,14 @@ export function playCard(state: GameState, handIndex: number): RowEntry {
   state.total += entry.damage;
   state.chain = chain.colors;
   state.chainIdx = chain.indices;
-  if (!state.rainbow && chain.colors.length === CONFIG.rainbowColors.length) {
+  if (entry.rb) {
     state.rainbow = true;
     for (const index of state.chainIdx) state.row[index]!.rb = true;
   }
-  GEMS.forEach((gem, index) => {
-    const added = (entry.v & gem.bit ? 1 : 0) + (card.type === 'stone' ? TOOLS.stone.xp : 0);
-    state.xp[index] = state.xp[index]! + added;
-  });
-  if (card.type === 'bag') drawCards(state, TOOLS.bag.draw);
+  state.xp = context.xp;
+  state.onceUsed = context.onceUsed;
+  if (monster && context.monster) Object.assign(monster, context.monster);
+  drawCards(state, context.draw);
   return entry;
 }
 
@@ -266,6 +288,7 @@ export function endTurn(state: GameState, _rng?: RandomSource): GameState {
   state.chain = [];
   state.chainIdx = [];
   state.rainbow = false;
+  state.onceUsed = false;
   state.hist = [];
   refillHand(state);
   return state;
@@ -359,11 +382,11 @@ export function formatFull(value: number): string {
 /** Uses the captured, pre-growth values, so old formulae never change afterwards. */
 export function formatFormula(entry: RowEntry, preview = false, formatNumber: (value: number) => string = formatChinese): string {
   const pieces = GEMS.flatMap((gem, index) => (entry.v & gem.bit)
-    ? [`${gem.shortName} ${formatNumber(entry.gemValues[index]!)}`] : []);
+    ? [`${gem.shortName} ${formatNumber(entry.gemValues[index]!)}${index === 0 && entry.effects.some(effect => effect.id === 'hug') ? '（抱红）' : ''}`] : []);
   const base = formatNumber(entry.b);
   const composition = pieces.length > 1 ? `${pieces.join(' + ')} = ${base}`
-    : entry.type && pieces.length === 1 ? pieces[0]! : base;
-  const reactionTerm = entry.k === 'plain' ? '' : ` × ${REACTION_NAMES[entry.k]} ${formatNumber(entry.cm)}`;
+    : (entry.type || entry.effects.some(effect => effect.id === 'hug')) && pieces.length === 1 ? pieces[0]! : base;
+  const reactionTerm = entry.k === 'plain' ? '' : ` × ${REACTION_NAMES[entry.k]} ${formatNumber(entry.cm)}${entry.effects.some(effect => effect.id === 'once') ? '（断一次不算）' : ''}`;
   const rainbowTerm = entry.rainbow > 0
     ? `　彩虹！这回合 ×${CONFIG.rainbowMultiplier}　+${formatNumber(entry.rainbow)}` : '';
   const name = entry.type === 'mirror'
@@ -374,8 +397,7 @@ export function formatFormula(entry: RowEntry, preview = false, formatNumber: (v
   if (entry.type === 'lens') effect = `　倍率再 ×${TOOLS.lens.multiplier} → ${formatNumber(entry.m2)}`;
   if (entry.type === 'hammer') effect = `　锤子！这回合 ×${TOOLS.hammer.turnMultiplier}　+${formatNumber(entry.hammer)}`;
   if (entry.type === 'stone') effect = `　三颗宝石各 +${TOOLS.stone.xp} 次`;
-  const guardTerm = entry.guard ? `　破防 ×1.5　+${formatNumber(entry.guard)}` : '';
-  return `${preview ? '预计 ' : ''}${name}：${composition} × 倍率 ${formatNumber(entry.m)}${reactionTerm} = ${formatNumber(entry.dmg)}${rainbowTerm}${effect}${guardTerm}`;
+  return `${preview ? '预计 ' : ''}${name}：${composition} × 倍率 ${formatNumber(entry.m)}${reactionTerm} = ${formatNumber(entry.dmg)}${rainbowTerm}${effect}`;
 }
 
 const formatChinese = (value: number) => formatNumber(value);

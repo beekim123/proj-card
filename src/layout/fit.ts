@@ -23,7 +23,7 @@ export function fitLayout(base: Layout, extra: number): Layout {
     const rowScale = Math.min(0.95, base.rowScale + table / 1400);
     return {
       ...base, height: base.height + e,
-      hpBar: ry(base.hpBar, scene / 2), toughBar: ry(base.toughBar, scene / 2), countdown: { ...base.countdown, y: base.countdown.y + scene / 2 },
+      hpBar: ry(base.hpBar, scene / 2), ruleSign: ry(base.ruleSign, scene), countdown: { ...base.countdown, y: base.countdown.y + scene / 2 },
       inspect: { ...base.inspect, bottom: base.inspect.bottom + rest },
       dummyAnchor: dy(base.dummyAnchor, scene), rackAnchor: dy(base.rackAnchor, scene),
       floating: dy(base.floating, scene), toast: dy(base.toast, scene), banner: ry(base.banner, scene),
@@ -32,6 +32,9 @@ export function fitLayout(base: Layout, extra: number): Layout {
       table: { ...base.table, y: base.table.y + scene, h: base.table.h + table },
       rowStart: dy(base.rowStart, scene), rowScale,
       formula: ry(base.formula, scene), turnLabel: ry(base.turnLabel, scene), damage: ry(base.damage, scene),
+      rainbow: { ...base.rainbow, y: base.rainbow.y + scene },
+      rainbowReady: ry(base.rainbowReady, rest),
+      relicPick: { ...base.relicPick, points: base.relicPick.points.map(p => dy(p, scene + table / 2)) },
       hearts: { ...base.hearts, y: base.hearts.y + rest },
       growth: { ...base.growth, centers: base.growth.centers.map(c => dy(c, rest)) },
       hand: { ...base.hand, region: { ...base.hand.region, y: base.hand.region.y + rest, h: base.hand.region.h + grow }, top: base.hand.top + rest, scale: handScale },
@@ -60,7 +63,7 @@ export function fitLayout(base: Layout, extra: number): Layout {
     ...base, width: base.width + e,
     rules: rx(base.rules, e), settings: rx(base.settings, e),
     progress: { ...base.progress, x: base.progress.x + half },
-    hpBar: rx(base.hpBar, half), toughBar: rx(base.toughBar, half), countdown: { ...base.countdown, x: base.countdown.x + half },
+    hpBar: rx(base.hpBar, half), ruleSign: rx(base.ruleSign, half), countdown: { ...base.countdown, x: base.countdown.x + half },
     dummyAnchor: dx(base.dummyAnchor, half), rackAnchor: dx(base.rackAnchor, half),
     floating: dx(base.floating, half), toast: dx(base.toast, half), banner: rx(base.banner, half),
     light: { ...base.light, x: base.light.x + half, rx: base.light.rx + half },
@@ -68,6 +71,9 @@ export function fitLayout(base: Layout, extra: number): Layout {
     table: { ...base.table, w: base.table.w + e },
     rowStart: dx(base.rowStart, half), rowRight: base.rowRight + e,
     formula: rx(base.formula, e), turnLabel: rx(base.turnLabel, e), damage: rx(base.damage, e),
+    rainbow: { ...base.rainbow, x: base.rainbow.x + e },
+    rainbowReady: rx(base.rainbowReady, half),
+    relicPick: { ...base.relicPick, points: base.relicPick.points.map(p => dx(p, half)) },
     hand: { ...base.hand, region: { ...base.hand.region, x: base.hand.region.x + half / 2, w: base.hand.region.w + half }, center: base.hand.center + half, width: base.hand.width + half },
     undo: rx(base.undo, e), deck: rx(base.deck, e), end: rx(base.end, e),
     loot: {

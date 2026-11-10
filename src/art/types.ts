@@ -4,12 +4,13 @@ export type Point = [number, number];
 
 export interface ArtDefinition {
   id: string;
-  phase: number;
+  phase?: number;
+  v2?: '第1批' | '第2批';
   group: string;
   viewBox: string;
   load: 'img' | 'inline';
   desc: string;
-  status?: '已有' | '重画' | '新画';
+  status?: '已有' | '返修' | '重画' | '新画';
   idle?: boolean;
   stay?: string[];
   slots?: Record<string, [number, number, number]>;

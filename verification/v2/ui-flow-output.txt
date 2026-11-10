@@ -1,0 +1,15 @@
+PASS Mandatory relic options persist and two clicks choose then enter battle
+PASS Legacy save has exact update notice
+PASS One best hint only, always-visible warnings, countdown preview and undo
+PASS Eight rapid cards accepted; all per-card total damage sums to turn total
+PASS Fresh toast replaces previous immediately; score and undo never go negative
+PASS Boss breakthrough action is 打赢了！ and four-heart relic renders all hearts
+PASS Relic selection survives refresh without reroll
+PASS All seven viewports expose new UI; hints and rainbow-ready draw from rules
+PASS Dragon switches at boundary, flips once, and inherited rules never request unsupported monster events
+PASS Elite heals missing hearts at 150ms intervals; skip loot does not heal
+PASS Attack impact is at 330ms, losing heart stays in place, next turn clears wound-down
+PASS Relic transition interrupted by settings cannot fire a stale entrance or duplicate relic
+PASS Debug return to relic selection resets game reference and remains v3-loadable
+PASS Unchanged countdown still flashes green for wound-down and red for a zero-count bite
+{"passed":true,"checks":14}

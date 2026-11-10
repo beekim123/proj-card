@@ -34,7 +34,8 @@ const heartBounds = (l: Layout): Rect => ({ x: l.hearts.x, y: l.hearts.y, w: l.h
 const progressBounds = (l: Layout): Rect => ({ x: l.progress.x - l.progress.node * .625, y: l.progress.y - l.progress.node * .625, w: l.progress.w + l.progress.node * 1.25, h: l.progress.node * 1.25 });
 const chestBounds = (l: Layout): Rect => ({ x: l.loot.chest.x - 120, y: l.loot.chest.y - 200, w: 240, h: 200 });
 const newRects = (l: Layout): Rect[] => [
-  heartBounds(l), progressBounds(l), l.hpBar, l.toughBar,
+  heartBounds(l), progressBounds(l), l.hpBar, l.ruleSign, l.rainbowReady,
+  { x:l.rainbow.x,y:l.rainbow.y,w:l.rainbow.slot*6+l.rainbow.gap*5,h:l.rainbow.slot },
   { x: l.countdown.x - l.countdown.size / 2, y: l.countdown.y - l.countdown.size / 2, w: l.countdown.size, h: l.countdown.size },
   l.banner, l.loot.hint, l.loot.skip, chestBounds(l), ...Object.values(l.result),
   l.title.name, l.title.start, l.title.resume, l.title.practice, l.title.record,
@@ -47,7 +48,7 @@ function assertAdventureLayout(l: Layout) {
   expect(overlaps(heartBounds(l), progressBounds(l))).toBe(false);
   expect(overlaps(progressBounds(l), l.rules)).toBe(false);
   expect(overlaps(l.hpBar, l.damage)).toBe(false);
-  expect(overlaps(l.hpBar, l.toughBar)).toBe(false);
+  expect(overlaps(l.hpBar, l.ruleSign)).toBe(false);
   expect(l.inspect.bottom).toBeLessThanOrEqual(l.hand.top);
   expect(l.inspect.bottom - 300 * l.inspect.scale).toBeGreaterThanOrEqual(0);
   expect(overlaps(l.banner, chestBounds(l))).toBe(false);

@@ -10,7 +10,7 @@ const tall = fitLayout(portrait, 300);
 for (const layout of [portrait, tall, landscape]) {
   describe(`${layout.name} ${layout.height} geometry`, () => {
     const W = rowSize(layout).w;
-    for (const count of [0, 1, 6, 8]) {
+    for (const count of [0, 1, 6, 7, 8, 9]) {
       it(`centers a ${count}-card hand without NaN`, () => {
         const cards = handPositions(count, layout);
         expect(cards).toHaveLength(count);
@@ -79,5 +79,18 @@ for (const layout of [portrait, tall, landscape]) {
       expect(layout.formula.y + layout.formula.h).toBeLessThanOrEqual(layout.rowStart.y);
       expect(layout.formula.y + layout.formula.h).toBeLessThanOrEqual(Math.min(layout.undo.y, layout.end.y, layout.hand.region.y) + 1);
     });
+  });
+}
+
+for (const base of [portrait, landscape]) for (const extra of [0, 120, 417, 640]) {
+  for (const count of [7, 8, 9]) it(`${base.name}+${extra}: full rotated ${count}-card fan stays inside stage`, () => {
+    const layout = fitLayout(base, extra); const { w, h } = handSize(layout);
+    for (const card of handPositions(count, layout)) {
+      const angle = card.rotation * Math.PI / 180;
+      for (const x of [0, w]) for (const y of [0, h]) {
+        const px = card.x + w / 2 + (x - w / 2) * Math.cos(angle) - (y - h) * Math.sin(angle);
+        expect(px).toBeGreaterThanOrEqual(-1e-8); expect(px).toBeLessThanOrEqual(layout.width + 1e-8);
+      }
+    }
   });
 }

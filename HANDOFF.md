@@ -1,72 +1,87 @@
-# 新卡牌完整冒险交接 · 2026-11-09
+# 新卡牌 · 第二版第 1 批交接
 
-## 做了什么
+## 交付结论
 
-在附件现有工程上续做剩余三批内容，没有重写项目。`src/rules/` 的 17 个文件保持与已验收版本字节一致，`package.json` 和 lockfile 不变，仍只有 Vite、TypeScript、Vitest 三项开发依赖。
+本批源码实现和可复查的辅助验证已完成，**正式验收未完成**。交付的是源码与验证证据，不是声称通过 `npm run build` 的正式运行包。
 
-- 首页、新开确认、继续、完整 6 仗、3 心与倒计时、打穿后继续刷超杀、3/4 选 1 战利品、精英手牌上限 7→8、胜败/放弃/再来一局/本机纪录。
-- 保留练习与 Pointer Events，手牌 6/7/8、成长和每种工具一张可切换。战利品二次确认，1–4/Enter/0、Space、Z 键盘输入。
-- `save.ts` 处理三个 localStorage key。有效局刷新自动进入原战斗或战利品；正常新打开仍先显示首页与继续入口。坏档提示后清除。终局写纪录成功才退休活跃存档，写失败允许同页重试，避免重复计数及误清新局。
-- 02 指定的新布局字段全部加入两张表和 fit；保留附件现有长屏、2:1 竖屏和桌面两行逻辑。界面不另算伤害或洗牌，没有 UI `Math.random`。
-- 63 项清单完整接线，37 份真实文件保留，缺失 26 项使用完整占位。动态/静止双地址、stay、slots、命名空间、怪物打击点、9宫格、镜子染色、工具牌和 11 项特效均已接线。
-- 素材检查页含状态筛选、idle双格、stay开关、怪物多倍数/锚点/打击点/老钟数字、5工具动态与暂停、镜子颜色、牌背/横幅/血条/三心组合。
-- 规则同步结算，表现层按事件安排。连续出牌不等待动画；转屏、撤回、换场会清除过期表现。补齐镜子200ms变色、磨石600ms跨阶段圆环、口袋300ms后120ms间隔飞牌、逐行结算数字。
+两项环境阻塞：
 
-## 如何使用交付包
+1. 官方 npm 源获取锁定开发依赖 `why-is-node-running@2.3.0` 返回 HTTP 403，离线缓存也不完整。没有更改依赖版本来规避。`npm test`、`npm run typecheck`、`npm run build` 都在缺少命令时退出，未进入实际测试或编译阶段。
+2. 本地 Chromium 启动报 `socket() failed: Operation not permitted`；受支持云浏览器能建立空白页，但无法打开本地游戏服务。因此没有真实游戏画面截图、CPU 4 倍降速性能截图和10秒录像，没有验证实际音色、帧率、触摸或浏览器控制台。
 
-交付一个总 ZIP：
+根 `04-验收清单.md` 保留未通过项目，逐项说明“已实现、辅助检查通过、未测”的边界。
 
-- `gemcard-demo/index.html`、`assets/`、`art/`、`art-manifest.json`：可直接放静态服务器。
-- `gemcard-demo/project/`：完整源码与本轮验证脚本/日志，不含 node_modules。
-- `gemcard-demo/gemcard-demo-runtime.zip`：单独的运行包，最外层同样为 `gemcard-demo/`，里面直接有 index.html，可用于 TapTap H5 上传准备。
-- 顶层 `HANDOFF.md`、`04-验收清单.md`：交接及逐项验收状态。
+## 使用的基线与范围
 
-源码开发进入 `project/` 后运行 `npm ci`、`npm run dev`。构建执行 `npm run build`。不能直接用 file:// 打开，需要静态 HTTP 服务。
+- 唯一基线是本次附件 `代码包(3).zip` 的 `现有项目/gemcard-demo/`，不是上一轮手头代码。
+- 保持 Vite、TypeScript、原生 DOM/CSS；`package.json`、`package-lock.json` 和 `启动.command` 字节未改。
+- 保留用户已有布局、血条、手牌大图和美术，在其上续做。
+- 没有加入商店、金币、删改牌、局外成长、第二幕、新怪、新牌、分享、排行、广告或联网功能。
+- 现行生产代码移除了韧性/破防。验证归档中的旧规则仅作为迁移差分夹具，不参与应用构建。
 
-替换美术：直接把相同 ID 的 SVG 放入运行目录 `art/`，刷新即可；开发目录对应 `public/art/`。不需要重打包。已对真实 dist 包做不重build改色再重读的 DOM 验证，游戏与检查页均读取新文件，测试后恢复原美术。
+## 已实现
 
-## 已执行的验证
+### 规则与存档
 
-最终统计：11个Vitest文件、376项测试通过；类型检查与构建通过；52组DOM/契约集成检查通过。以下均有记录，不能和浏览器/真机结果混为一谈：
+- 五张额外牌、五条怪物规矩、六个宝物登记于效果表，按固定结算挂钩运行。预览和真实出牌使用同一管线。
+- 咬手、抱红、发条、敲钟和龙的三层规矩；打穿后规矩停用；倒计时最多在回合末扣一心。
+- 开局必须三选一宝物，选项固定且可存档恢复；练习不带宝物。精英胜利回满心，跳战利品不回心。
+- 存档 v3，保存宝物、上限、怪物层/发条和撤回状态；旧档清理并用指定中文提示，纪录仍沿用原键和格式。
+- `cardWarnings`、`bestHintCard`、`rainbowStatus`、`currentRule`、预览倒计时及成长门槛均由规则层提供。
+- 用户最终更正的提示用例已执行：61安全场景选青；62排除危险青后选品红；63所有反应牌都危险时不提示。
 
-- 完整 Vitest、TypeScript strict、生产构建：`verification/full/vitest-output.txt`、`typecheck-output.txt`、`build-output.txt`。
-- 规则独立编译、10,000回合/80,000次出牌压力、411,004断言、独立评分30,080断言：`portable-output.txt`、`stress-output.txt`、`oracle-output.txt`。
-- 63项清单、37真实SVG及63生成占位的XML/尺寸/parts/slots/events/currentColor/唯一ID；25项素材测试：`art-contract.json`、`art-output.txt`。
-- 主流程 Happy DOM：6仗到胜利、失败、14指定用例与算式渲染、出牌/撤回、刷新battle/loot、键盘选牌、练习选项、7尺寸横竖状态保持、clock数字、debug隔离。见 `dom-game-results.json`。
-- 独立中断/重复输入/存储失败 Happy DOM：新开取消、放弃幂等、首次打穿只播一次、攻击中出牌/转屏、loot换向、奖励不重复、死亡与pagehide、结算写失败恢复、跨门槛圆环、heal完整时长、镜子过渡中撤回等。见 `independent-ui-dom-results.json`。
-- 卡牌与检查页9组DOM，以及生产包美术替换4组DOM：`verification/art-inspector/dom-results.json`、`replacement-dom-results.json`。
-- 艺术接线11组虚拟时钟/DOM：hitPoint、clock、stay、11特效、lose/gain、镜子200ms、stone跨14→19、heal700ms；见 `art-wiring-results.json`。
-- `delivery-check.json`：规则基线SHA256、三项依赖、三个存储key、63项清单、相对路径、构建资源与外置美术完整性。
+### 界面与手感
 
-Happy DOM 使用模拟几何、加速或虚拟计时、动画API替身，只证明 DOM/状态/事件契约，不证明实际动画帧、字体、遮挡、视觉或性能。它是工程外测试工具，未添加到项目依赖。
+- 选宝物、宝物栏、规矩牌子、发条圈数、龙翻面、彩虹六格和就绪提示；提示开关不隐藏危险标签。
+- 七项修复：提示直接替换、牌下总伤害、滚分不出现负数、首领“打赢了！”、7/8/9张手牌完整边界、只提示最佳牌、彩虹渐变不被金色覆盖。
+- 顿帧、闪白、外层打退、三档震屏、数字弹跳、倍率翻面、打穿慢放、彩虹依次亮和怪物330ms打中/压暗边。
+- WebAudio现场合成全部要求声音；首次手势解锁、后台暂停、音量三档、静音、震屏和快动画设置持久化。
+- 无动作排队或八连发输入锁。素材结束等待有限动画完成，不截断顿帧/慢放尾部。
+- 修正独立检查发现的两处边界：发条2→2松完也绿闪；咬手0→0也红闪。
 
-## 没做什么
+### 素材
 
-没有添加怪物技能、商店、金币、删牌/升级牌、局外成长、解锁、多路线地图、音效、账号、联网、排行榜、分享或广告。未发布站点、未上传 TapTap、未操作用户电脑，也未替换美术团队尚未交付的26份定稿。
+- 第3版清单75项；新增12项契约一致占位图，63份已有真图SHA256未改。
+- 缺失新事件按清单时长结束，保持stay、slots、tint和九宫格；检查页支持v2批次筛选、规矩图标槽和六色彩虹预览。
+- 替换夹具 `verification/v2-art/mon_chest.with-bite.svg` 已准备，实际 `dist/art/` 替换刷新尚未验收。
+- 美术替换应使用可信作者提供且符合契约的SVG。现有校验不是处理任意不可信SVG的安全沙箱。
 
-## 没测什么与剩余交付缺口
+## 辅助验证结果
 
-云端 Chromium 在启动时失败：`socket() failed: Operation not permitted`，尚未进入游戏页面。两次启动尝试均失败，记录见 `browser-status.json`。
+这些结果来自Node内置执行器、严格断言、虚拟DOM/时间和API模型，**不等同于Vitest、类型检查、Vite或真浏览器通过**。
 
-因此下列项目**没有测，也没有相应截图**：
+| 验证 | 结果 | 证据 |
+|---|---|---|
+| 五张额外牌迁移阶段旧测试源码 | 268通过 | `verification/v2/rules/migration-stage/` |
+| 迁移完整状态差分 | 250种子×80回合，168,084次出牌一致 | 同上 |
+| 最终规则与存档测试源码 | 335通过，0失败 | `verification/v2/rules/integration-rerun-output.json` |
+| 新规则精确用例 | 31通过，覆盖实际定义11–63 | `verification/v2/rules/integration-native-output.txt` |
+| 界面流程虚拟DOM | 14组通过 | `verification/v2/ui-flow-results.json` |
+| 几何和滚分 | 1,534断言通过，含七尺寸7/8/9张牌 | `verification/v2/ui-geometry-results.json` |
+| 素材契约 | 11组通过 | `verification/v2-art/contract-result.json` |
+| 手感与声音API | 16组通过 | `verification/feel-sound-check.json` |
+| 独立UI回归 | 12项通过，含61/62/63和两个闪色边界 | `verification/v2/independent/` |
+| 独立规则随机检查 | 240种子，10,573出牌、63,502预览、11,723撤回、14,954存读档一致 | 同上 |
+| 生产规则机器人 | hint 300局9.33%；planner 60局93.33% | `verification/v2/simulation/` |
 
-- 7种尺寸×9类场景的63张真实画面、实际字体可读性与遮挡。
-- 真实浏览器Pointer拖放、动画外观、帧率、连续出牌的真实手感。
-- Chrome性能面板CPU×4录屏和FPS截图。
-- 中档安卓、iPhone Safari、手机切App/锁屏恢复、真实转屏。
-- TapTap上传及平台内运行。
+参考模拟器配对结果为12%和93%，差2.67和0.33个百分点，符合10个百分点以内的要求，未为对齐统计而改数值。跟提示机器人按参考策略选择可安全的普通牌，并不等同于UI的“无反应不提示”。
 
-交付内附 `verification/full/browser_acceptance.py`，语法检查通过但本轮未运行。它用于可启动Chromium的环境采集63张画面、刷新/键盘检查和CPU×4 trace；trace仍需在Chrome DevTools打开检查并截取FPS面板。素材专项浏览器脚本在 `verification/art-inspector/browser_checks.py`。没有用设计图或DOM模拟图伪装浏览器截图。
+## 加一个新效果改哪几处
 
-浏览器拒绝localStorage时无法保证关闭页面后仍保存内存中的进度或未写成的纪录；界面会提示，恢复写权限时可重试。已测试同页临时失败后的恢复，不能保证浏览器彻底禁用存储时跨页面恢复。
+1. 在 `src/rules/effects.ts` 的 `EFFECTS` 增加一个表项，写清id、名字、文案、数值与挂钩。数值/文案遵循 `config.ts` 或 `run-config.ts` 的集中配置。
+2. 在相应配置池和类型中登记牌、怪物规矩或宝物；若引入持久化字段，扩展存档验证与迁移规则。
+3. 新增对应精确测试，逐张比较预览/真实结果、撤回与存读档。若有新图标/事件，再更新素材清单和布局。
 
-## 维护入口
+不应在结算管线增加 `if (type === '某效果')` 分支。详细接口和示例见 `src/rules/README.md`；界面接线见 `src/ui/README.md`；手感声音见 `src/ui/FEEL_SOUND.md`。
 
-- `src/ui/game.ts`：完整流程和表现。
-- `src/save.ts`：读写/校验/结算事务。
-- `src/ui/card.ts`、`card.css`：基础牌和工具牌。
-- `src/layout/`：所有舞台位置及长屏适配。
-- `src/art/`：素材载入、静止版、stay、slots、占位及检查页。
-- `src/rules/README.md`：原已验收规则API，保持原样。
+## 下一步正式验收
 
-`verification/step1/` 及原有 verification 根日志是历史证据；本轮结果以 full 和 art-inspector 文件夹为准。`04-验收清单.md` 未勾的视觉/真机条目不是已通过。
+在允许获取锁定依赖且可打开本地浏览器的环境中：
+
+1. `npm ci`，然后逐一运行 `npm test`、`npm run typecheck`、`npm run build`，保存真实输出。
+2. 启动本地服务，完成 `04-验收清单.md` 的真实交互、声音和控制台检查。
+3. 截取5尺寸×7场景、七项修复截图；录CPU4倍降速帧率截图和10秒视频。
+4. 用提供的假新版宝箱图替换 `dist/art/mon_chest.svg`，验证游戏和素材检查页刷新后换图，再恢复正常图。
+5. 正式运行包仅从成功的 `dist/` 构建，最外层 `gemcard-demo/index.html`，与源码包分别标识。
+
+`启动.command` 和 README的“怎么启动”原段落已保留。当前源码zip中的 `index.html` 是Vite开发入口，不能当成已编译的双击运行页。

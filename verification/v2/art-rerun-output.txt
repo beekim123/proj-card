@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-11-10T07:58:05.892Z",
+  "method": "Node 24 native TypeScript stripping + assertions + Python XML parser; not typecheck, Vitest, or browser validation",
+  "checks": [
+    {
+      "name": "Manifest v3: 75 unique assets; batch 1 = 3; batch 2 = 16",
+      "status": "passed"
+    },
+    {
+      "name": "Every placeholder satisfies dimensions, parts, slots, events, durations and tint",
+      "status": "passed"
+    },
+    {
+      "name": "All generated placeholder SVGs are well-formed XML",
+      "status": "passed"
+    },
+    {
+      "name": "Rules use first character and relics first two characters of provided names",
+      "status": "passed"
+    },
+    {
+      "name": "Batch filters combine with changed-only without losing untagged assets",
+      "status": "passed"
+    },
+    {
+      "name": "Missing artwork resolves every asset and reports all 75 progress steps",
+      "status": "passed"
+    },
+    {
+      "name": "Rule sign icon uses current instance, contract bounds, current loaded URL, and one reusable image",
+      "status": "passed"
+    },
+    {
+      "name": "Existing chest without bite finishes at precisely 300ms without animationend",
+      "status": "passed"
+    },
+    {
+      "name": "Finite animation tails survive hit-stop; infinite idle is ignored; newer events are protected",
+      "status": "passed"
+    },
+    {
+      "name": "Wound-down persists/restores; clearing light before out leaves rainbow unlit",
+      "status": "passed"
+    },
+    {
+      "name": "All 63 delivered artwork files retain their baseline SHA-256",
+      "status": "passed"
+    }
+  ]
+}

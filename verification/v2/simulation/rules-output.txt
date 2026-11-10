@@ -1,0 +1,56 @@
+hint: 10/300
+hint: 20/300
+hint: 30/300
+hint: 40/300
+hint: 50/300
+hint: 60/300
+hint: 70/300
+hint: 80/300
+hint: 90/300
+hint: 100/300
+hint: 110/300
+hint: 120/300
+hint: 130/300
+hint: 140/300
+hint: 150/300
+hint: 160/300
+hint: 170/300
+hint: 180/300
+hint: 190/300
+hint: 200/300
+hint: 210/300
+hint: 220/300
+hint: 230/300
+hint: 240/300
+hint: 250/300
+hint: 260/300
+hint: 270/300
+hint: 280/300
+hint: 290/300
+hint: 300/300
+plan: 10/60
+plan: 20/60
+plan: 30/60
+plan: 40/60
+plan: 50/60
+plan: 60/60
+[
+  {
+    "bot": "hint",
+    "count": 300,
+    "wins": 28,
+    "winPercent": 9.333333333333334,
+    "meanHits": 3.8266666666666667,
+    "timeouts": 0
+  },
+  {
+    "bot": "plan",
+    "count": 60,
+    "wins": 56,
+    "winPercent": 93.33333333333333,
+    "meanHits": 1.2,
+    "timeouts": 0
+  }
+]
+(node:5) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

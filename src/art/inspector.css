@@ -69,3 +69,10 @@ body:has(.art-inspector) { overflow: auto; touch-action: auto; }
 .art-hp-text { position: absolute; inset: 0; display: grid; place-items: center; color: var(--art-text); font-size: 26px; line-height: 1; font-weight: 700; -webkit-text-stroke: 1px var(--art-ink); paint-order: stroke fill; }
 .art-hearts { display: flex; gap: 8px; margin-top: 16px; }
 @media (max-width: 640px) { .art-item-title { align-items: flex-start; } .art-tool-pair .art-cards { flex-wrap: nowrap; } }
+
+.art-status-返修 { background: var(--art-panelBg); color: var(--art-accent); }
+.art-batch { border: 1px dashed var(--art-accentDark); border-radius: 20px; padding: 2px 9px; color: var(--art-textDim); font-size: 12px; white-space: nowrap; }
+.art-batch-filter { display: flex; align-items: center; gap: 6px; }
+.art-filter-summary { color: var(--art-textDim); font-size: 13px; }
+.art-rainbow-previews { gap: 8px; }
+.art-rainbow-previews .art-scroll { padding: 5px 4px 12px; }

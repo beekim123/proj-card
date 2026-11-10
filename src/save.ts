@@ -16,9 +16,14 @@ export interface Settings {
   layout: LayoutChoice;
   /** 伤害面板里的算式展开着吗（默认收起） */
   formula: boolean;
+  sound: boolean;
+  volume: 1 | 2 | 3;
+  shake: boolean;
+  animationSpeed: 'normal' | 'fast';
 }
 export const DEFAULT_SETTINGS: Readonly<Settings> = {
   hint: true, hand: 6, grow: true, tools: false, layout: 'auto', formula: false,
+  sound: true, volume: 2, shake: true, animationSpeed: 'normal',
 };
 export type SaveStorage = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
 export type RunReadResult = RunLoadResult & { error?: string };
@@ -51,6 +56,10 @@ function settingsOf(value: unknown): Settings {
     tools: typeof saved.tools === 'boolean' ? saved.tools : DEFAULT_SETTINGS.tools,
     layout: saved.layout === 'portrait' || saved.layout === 'landscape' ? saved.layout : 'auto',
     formula: typeof saved.formula === 'boolean' ? saved.formula : DEFAULT_SETTINGS.formula,
+    sound: typeof saved.sound === 'boolean' ? saved.sound : DEFAULT_SETTINGS.sound,
+    volume: saved.volume === 1 || saved.volume === 2 || saved.volume === 3 ? saved.volume : DEFAULT_SETTINGS.volume,
+    shake: typeof saved.shake === 'boolean' ? saved.shake : DEFAULT_SETTINGS.shake,
+    animationSpeed: saved.animationSpeed === 'fast' ? 'fast' : DEFAULT_SETTINGS.animationSpeed,
   };
 }
 function isRecords(value: unknown): value is RunRecords {

@@ -1,0 +1,5 @@
+4a2a9cb1ed41d8fcf840e57981aa6cb0d4fa164ba387250b5344ccba1afe5ed1  src/rules/index.ts
+d835019d59bcee59b281a4d68bf57a005b18f9e707e6042d1c59d540876b5787  src/rules/run.ts
+ac5575728dc37a713db404f17ec7be4c5807682ef0dc9e6afb7db46502ac6a09  src/rules/effects.ts
+4cc8066d58ea883c0c3b79a3a6b2cc450070de2ef3c466529cb9d973559ee1cb  src/rules/save-state.ts
+729f8f2243260f133ea6ca6a9591306307cb184f7fade9934e5c46af0af5dd0c  src/ui/game.ts

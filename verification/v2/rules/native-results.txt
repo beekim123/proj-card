@@ -1,0 +1,41 @@
+▶ v2 01 §9 exact rule scenarios (preview equals play and is immutable)
+  ✔ 11,26 bite sequence and full undo restore countdown (5.844323ms)
+  ✔ 12 countdown clamps at zero and attacks only once (0.754615ms)
+  ✔ 13 killing green does not bite; broken rules stay disabled (0.776699ms)
+  ✔ 14 hug preserves reaction, multiplier, growth and formula (1.119494ms)
+  ✔ 15 hugged red still upgrades at 15 uses (0.25874ms)
+  ✔ 16 red recovers its full value after the monster breaks (0.387112ms)
+  ✔ 17,18,20,27 unwind, ignored later blue, undo and next-turn refill (0.903429ms)
+  ✔ 19 normal soldier attacks do not refill partial winding (0.255193ms)
+  ✔ 21 clock only advances on white reactions (0.56501ms)
+  ✔ 22 mirror effective gems trigger clock, bite and winding (1.291864ms)
+  ✔ white card contains all gems, mirror after white resolves blank (1.022909ms)
+  ✔ 23,24 dragon boundary uses old rule for crossing card (0.541885ms)
+  ✔ 25 one card crosses two layers, emits once, undo restores everything (0.433592ms)
+  ✔ 31 same relic doubles multiplier, damage unchanged (0.975198ms)
+  ✔ 32,33 once excludes first card, consumes once, restores on undo and resets (1.331954ms)
+  ✔ 34 white relic changes reaction damage to eight (0.349296ms)
+  ✔ 35,36 five-color rainbow exactly once with undo restoration (0.857771ms)
+  ✔ 38 grow upgrades before next card, including threshold 24 (0.531169ms)
+  ✔ 41,42,43 fixed selection, mandatory choice and deterministic run (2.81121ms)
+  ✔ 37,44,45 elite heals to cap, skip never heals, next hand has eight (0.318479ms)
+  ✔ 46 soldier has fixed starting countdown and wind (1.398754ms)
+  ✔ 47 older envelopes request deletion and outdated notice (0.234062ms)
+  ✔ 48 save/reload before each of twenty actions matches uninterrupted state, including undo/draw/RNG (25.564537ms)
+  ✔ 48 saves preserve exhausted wind and crossed layers with paired undo snapshots (1.640899ms)
+  ✔ 51–54 attack warning distinguishes newly caused attacks and killing blows (0.400353ms)
+  ✔ 55 unwind warning uses current resolved blue and ignores wound-down turns (0.198028ms)
+  ✔ 56,57 ready colors and lit order exclude white and mirror (0.566052ms)
+  ✔ 58,59 five-color readiness and no second rainbow (0.532832ms)
+  ✔ 60,61 hints skip ordinary cards and prioritize white over shun (0.572131ms)
+  ✔ 62 corrected: exclude dangerous cyan and recommend safe magenta (0.287353ms)
+  ✔ 63 corrected: all reacting cards attack, ordinary alternatives are not hints (0.386932ms)
+✔ v2 01 §9 exact rule scenarios (preview equals play and is immutable) (55.254ms)
+ℹ tests 31
+ℹ suites 1
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 200.233142

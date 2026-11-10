@@ -1,3 +1,4 @@
+import type { RelicId } from './run-types';
 export type RandomSource = () => number;
 /** Callable like the original RNG, with explicit state for save/restore. */
 export interface StatefulRandomSource extends RandomSource {
@@ -40,8 +41,8 @@ export interface RowEntry extends Card {
   dmg: number;
   rainbow: number;
   hammer: number;
-  /** 冒险：怪破防时这张多打的伤害（已算进 damage）。 */
-  guard?: number;
+  /** Triggered effects, in settlement order. */
+  effects: { id: string; text: string }[];
   /** All damage added by this play: dmg + rainbow + hammer. */
   damage: number;
   /** Values at the time of damage calculation, before growth. */
@@ -53,6 +54,9 @@ export interface RowEntry extends Card {
 }
 
 export interface GameSnapshot extends RandomState {
+  relic?: RelicId;
+  relics?: RelicId[];
+  onceUsed: boolean;
   deck: Card[];
   discard: Card[];
   hand: Card[];

@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "scope": "Independent deterministic property audit using Node TypeScript transform. Not Vitest/typecheck/build, and not a balance benchmark.",
+  "counts": {
+    "runs": 240,
+    "plays": 10573,
+    "previews": 63502,
+    "undo": 11723,
+    "end": 2548,
+    "saveRoundTrips": 14954,
+    "loot": 443,
+    "hints": 14271,
+    "victory": 0,
+    "defeat": 240
+  },
+  "coverage": {
+    "relic": [
+      "grow",
+      "heart",
+      "once",
+      "rainbow",
+      "same",
+      "white"
+    ],
+    "rule": [
+      "bell",
+      "bite",
+      "hug",
+      "wind"
+    ],
+    "effect": [
+      "bag",
+      "bell",
+      "bite",
+      "grow",
+      "hammer",
+      "hug",
+      "lens",
+      "mirror",
+      "once",
+      "same",
+      "stone",
+      "white",
+      "wind"
+    ]
+  }
+}
+(node:15) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

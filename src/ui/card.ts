@@ -11,6 +11,8 @@ let textMeasure: CanvasRenderingContext2D | null | undefined;
 const NS = 'http://www.w3.org/2000/svg';
 
 export interface CardOptions {
+  /** Rule-provided growth thresholds for the current run (including relics). */
+  thresholds?: readonly [number, number, number];
   /** Static image URLs and paused inline artwork for rows, decks and other still views. */
   static?: boolean;
   /** A mirror on the table has its resolved gem mask, rather than an unknown hand value. */
@@ -94,7 +96,8 @@ export function createCard(store: ArtStore, source: number | Card, growth: [numb
     art.append(glow);
   }
   const active = BITS.map((bit, i) => mask & bit ? i : -1).filter(i => i >= 0);
-  const forms = growth.map(xp => !growthEnabled ? 0 : xp >= CONFIG.formAt[2] ? 2 : xp >= CONFIG.formAt[1] ? 1 : 0);
+  const thresholds = options.thresholds ?? CONFIG.formAt;
+  const forms = growth.map(xp => !growthEnabled ? 0 : xp >= thresholds[2] ? 2 : xp >= thresholds[1] ? 1 : 0);
   let toolArtwork: SVGSVGElement | null = null;
   if (toolType) {
     toolArtwork = put(art, `card_art_${toolType}`, 0, 0, layout.artWindow.w, layout.artWindow.h) as SVGSVGElement;

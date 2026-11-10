@@ -6,6 +6,8 @@ import { dimensions } from './types';
 import type { ArtDefinition } from './types';
 import type { ArtStore } from './store';
 import './inspector.css';
+import { matchesAssetFilter } from './filters';
+
 
 const element = <K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] => {
   const node = document.createElement(tag);
@@ -40,17 +42,19 @@ function assetItem(store: ArtStore, definition: ArtDefinition): HTMLElement {
   const item = element('article', `art-item${definition.nineSlice || definition.monster ? ' art-item-wide' : ''}`);
   item.dataset.assetId = definition.id;
   item.dataset.status = definition.status ?? '已有';
+  item.dataset.v2 = definition.v2 ?? '';
   const title = element('div', 'art-item-title');
   const badges = element('div', 'art-badges');
   const source = element('span', `art-source art-source-${loaded.source}`, loaded.source === 'art' ? '美术' : '占位');
   source.dataset.source = loaded.source;
   badges.append(element('span', `art-status art-status-${definition.status ?? '已有'}`, definition.status ?? '已有'), source);
+  if (definition.v2) badges.append(element('span','art-batch',`第二版 · ${definition.v2}`));
   title.append(element('h3', undefined, definition.id), badges);
   item.append(title, element('p', 'art-meta', `viewBox="${definition.viewBox}" · ${definition.load}${definition.tint ? ' · currentColor' : ''}${definition.idle ? ' · idle' : ''}`));
   const [width,height] = dimensions(definition);
   const previews = element('div', 'art-previews');
   const artworks: (HTMLImageElement | SVGSVGElement)[] = [];
-  const createPreview = (label: string, scale = 1, isStatic = false) => {
+  const createPreview = (label: string, scale = 1, isStatic = false, color = palette.gem.red.mid) => {
     const figure = element('figure', 'art-variant');
     if (label) figure.append(element('figcaption', 'art-meta', label));
     const scroll = element('div', 'art-scroll');
@@ -62,7 +66,11 @@ function assetItem(store: ArtStore, definition: ArtDefinition): HTMLElement {
     artwork.classList.add('art-actual');
     artwork.style.width = `${width*scale}px`;
     artwork.style.height = `${height*scale}px`;
-    if (definition.tint) artwork.style.color = palette.gem.red.mid;
+    if (definition.tint) artwork.style.color = color;
+    if (definition.id === 'ui_rule_sign') {
+      store.setSlotText(artwork as SVGSVGElement,'rule_text','咬手');
+      store.setSlotIcon(artwork as SVGSVGElement,'icon_slot','rule_bite');
+    }
     stage.append(artwork);
     if (definition.monster) {
       if (definition.anchor) cross(stage,definition.anchor,scale,'anchor');
@@ -75,7 +83,13 @@ function assetItem(store: ArtStore, definition: ArtDefinition): HTMLElement {
     artworks.push(artwork);
     return stage;
   };
-  const stage = createPreview(definition.idle ? '会动 · 1 倍' : '原始尺寸 · 1 倍');
+  const rainbowColors = [['红','1'],['黄','3'],['绿','2'],['青','6'],['蓝','4'],['品红','5']] as const;
+  const stage = createPreview(definition.id === 'ui_rainbow_slot' ? '红 · 1 倍' : definition.idle ? '会动 · 1 倍' : '原始尺寸 · 1 倍');
+  if (definition.id === 'ui_rainbow_slot') {
+    previews.classList.add('art-rainbow-previews');
+    for (const [label,key] of rainbowColors.slice(1)) createPreview(`${label} · 1 倍`,1,false,palette.mix[key]!);
+    artworks.forEach(artwork => store.setStay(artwork as SVGSVGElement,'light'));
+  }
   if (definition.idle) createPreview('静止 · 1 倍',1,true);
   if (definition.monster) {
     const variants = [
@@ -92,7 +106,7 @@ function assetItem(store: ArtStore, definition: ArtDefinition): HTMLElement {
   if (definition.events) {
     const events = element('div', 'art-controls');
     let tint = palette.gem.red.mid;
-    if (definition.tint) {
+    if (definition.tint && definition.id !== 'ui_rainbow_slot') {
       const label = element('label', 'art-tint', '染色 ');
       const select = element('select');
       select.setAttribute('aria-label',`${definition.id} 染色`);
@@ -109,10 +123,19 @@ function assetItem(store: ArtStore, definition: ArtDefinition): HTMLElement {
           const enabled = button.getAttribute('aria-pressed') !== 'true';
           artworks.forEach(art => store.setStay(art as SVGSVGElement, enabled ? name : null));
           button.setAttribute('aria-pressed',String(enabled));
-        } else artworks.forEach(art => store.play(art as SVGSVGElement,name));
+        } else {
+          if (definition.id === 'ui_rainbow_slot' && name === 'out') {
+            artworks.forEach(art => store.setStay(art as SVGSVGElement,null));
+            events.querySelectorAll('[aria-pressed]').forEach(control => control.setAttribute('aria-pressed','false'));
+          }
+          artworks.forEach(art => store.play(art as SVGSVGElement,name));
+        }
+        events.querySelectorAll<HTMLButtonElement>('[data-event][aria-pressed]').forEach(control => {
+          control.setAttribute('aria-pressed',String(artworks.every(art => store.getStay(art as SVGSVGElement) === control.dataset.event)));
+        });
       });
       button.dataset.event = name;
-      if (stay) button.setAttribute('aria-pressed','false');
+      if (stay) button.setAttribute('aria-pressed',String(artworks.every(art => store.getStay(art as SVGSVGElement) === name)));
       events.append(button);
     }
     if (definition.stay?.length) events.append(action('回到待机', () => {
@@ -125,7 +148,7 @@ function assetItem(store: ArtStore, definition: ArtDefinition): HTMLElement {
     }));
     item.append(events);
   }
-  if (definition.slots) {
+  if (definition.slots?.countdown_slot) {
     const controls = element('div','art-controls art-slot-controls');
     controls.append(element('span',undefined,'表盘倒计时'));
     for (const value of [1,2,3]) {
@@ -141,6 +164,9 @@ function assetItem(store: ArtStore, definition: ArtDefinition): HTMLElement {
       controls.append(button);
     }
     item.append(controls);
+  }
+  if (definition.id === 'ui_rule_sign') {
+    item.append(element('p','art-meta','rule_text：咬手 · (140, 52) · 30 号；icon_slot：rule_bite · (20, 16) · 56 × 56。'));
   }
   if (definition.nineSlice) {
     item.append(element('p', 'art-meta', `九宫格切线：[${definition.nineSlice.join(', ')}]；下方三种尺寸均按实际像素显示。`));
@@ -278,16 +304,33 @@ export function renderArtGallery(root: HTMLElement, store: ArtStore): void {
   const back = element('a','art-action','返回游戏'); back.href = './'; controls.append(theme,back); header.append(copy,controls); root.append(header);
   root.append(element('p','art-explainer','把同名 SVG 放入 art/ 后刷新即可替换。会动 / 静止可对照；stay 按钮保持事件，挂着 daze 再点 hit 可检验恢复状态。十字标出对齐点与打击点。'));
   const toolbar = element('nav','art-controls art-navigation'); toolbar.setAttribute('aria-label','素材检查导航');
-  const filter = action('只看重画 + 新画', () => {
-    const enabled = filter.getAttribute('aria-pressed') !== 'true'; filter.setAttribute('aria-pressed',String(enabled));
-    filter.textContent = enabled ? '显示全部素材' : '只看重画 + 新画';
-    root.dataset.filter = enabled ? 'changed' : 'all';
+  const batchLabel = element('label','art-batch-filter','第二版批次 ');
+  const batch = element('select'); batch.setAttribute('aria-label','第二版素材批次');
+  for (const [value,label] of [['all','全部'],['第1批','第 1 批'],['第2批','第 2 批']]) {
+    const option = element('option',undefined,label); option.value = value; batch.append(option);
+  }
+  const filterSummary = element('span','art-filter-summary'); filterSummary.setAttribute('aria-live','polite');
+  let changedOnly = false;
+  const applyFilters = () => {
+    root.dataset.filter = changedOnly ? 'changed' : 'all'; root.dataset.v2 = batch.value;
+    let visible = 0;
     root.querySelectorAll<HTMLElement>('.art-asset-group').forEach(group => {
-      group.querySelectorAll<HTMLElement>('.art-item').forEach(item => item.hidden = enabled && item.dataset.status === '已有');
+      group.querySelectorAll<HTMLElement>('.art-item').forEach(item => {
+        const definition = store.get(item.dataset.assetId!).definition;
+        item.hidden = !matchesAssetFilter(definition,changedOnly,batch.value);
+        if (!item.hidden) visible++;
+      });
       group.hidden = !group.querySelector('.art-item:not([hidden])');
     });
+    filterSummary.textContent = `显示 ${visible} / ${store.assets.size} 项`;
+  };
+  const filter = action('只看返修 / 重画 / 新画', () => {
+    changedOnly = !changedOnly; filter.setAttribute('aria-pressed',String(changedOnly));
+    filter.textContent = changedOnly ? '显示全部状态' : '只看返修 / 重画 / 新画';
+    applyFilters();
   });
-  filter.setAttribute('aria-pressed','false'); filter.dataset.action = 'filter-changed'; toolbar.append(filter);
+  filter.setAttribute('aria-pressed','false'); filter.dataset.action = 'filter-changed';
+  batch.addEventListener('change',applyFilters); batchLabel.append(batch); toolbar.append(filter,batchLabel,filterSummary);
   for (const [target,label] of [['base-cards','基础牌拼装'],['tool-cards','额外牌拼装'],['composed-ui','界面组合']]) { const link = element('a','art-action',label); link.href = `#${target}`; toolbar.append(link); }
   root.append(toolbar);
   const groups = new Map<string,ArtDefinition[]>();
@@ -298,4 +341,5 @@ export function renderArtGallery(root: HTMLElement, store: ArtStore): void {
     definitions.forEach(definition => grid.append(assetItem(store,definition))); section.append(grid); root.append(section);
   }
   root.append(baseCards(store),toolCards(store),composedUi(store));
+  applyFilters();
 }

@@ -1,7 +1,0 @@
-Serving HTTP on 127.0.0.1 port 8088 (http://127.0.0.1:8088/) ...
-127.0.0.1 - - [09/Nov/2026 03:05:57] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [09/Nov/2026 03:05:57] "GET /assets/index-DF5KxOVB.js HTTP/1.1" 200 -
-127.0.0.1 - - [09/Nov/2026 03:05:57] "GET /assets/index-CIPnC4VE.css HTTP/1.1" 200 -
-127.0.0.1 - - [09/Nov/2026 03:05:57] "GET /art-manifest.json HTTP/1.1" 200 -
-127.0.0.1 - - [09/Nov/2026 03:05:57] code 404, message File not found
-127.0.0.1 - - [09/Nov/2026 03:05:57] "GET /art/dummy.svg HTTP/1.1" 404 -

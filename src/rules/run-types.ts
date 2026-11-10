@@ -1,18 +1,19 @@
-import type { Card, GameState, GemForm, GemIndex, ToolType } from './types';
+import type { Card, GameState, GemForm, ToolType } from './types';
 
 export type NormalMonster = 'chest' | 'soldier' | 'bear';
 export type MonsterKey = NormalMonster | 'clock' | 'dragon';
 export type FightType = 'normal' | 'elite' | 'boss';
 export type AdventureHandLimit = 7 | 8;
-export type RunPhase = 'battle' | 'loot' | 'victory' | 'defeat';
+export type RuleId = 'bite' | 'hug' | 'wind' | 'bell';
+export type RelicId = 'same' | 'once' | 'white' | 'rainbow' | 'heart' | 'grow';
+export type RunPhase = 'relic' | 'battle' | 'loot' | 'victory' | 'defeat';
 
 export interface FightConfig {
   type: FightType;
   monster?: MonsterKey;
   hp: number;
   countdown: number;
-  /** 韧性：打出带弱点宝石的牌各 −1，到 0 破防。0 = 这一仗没有韧性。 */
-  toughness: number;
+  healFull?: boolean;
   handUp?: number;
 }
 
@@ -27,12 +28,11 @@ export interface MonsterState {
   turnStartHp: number;
   /** The raw ratio, not its rounded display value. Zero until broken. */
   overkill: number;
-  /** 弱点宝石：0 红、1 绿、2 蓝。 */
-  weak: GemIndex;
-  toughness: number;
-  maxToughness: number;
-  /** 破防中：这回合剩下的出牌伤害 ×guardDamage；下回合开始时韧性回满。 */
-  guardDown: boolean;
+  rule: RuleId | 'layers';
+  layer: 1 | 2 | 3;
+  wind: number;
+  maxWind: number;
+  woundDown: boolean;
 }
 
 export interface FightSummary {
@@ -96,6 +96,10 @@ export interface RunUndo {
 export interface RunState {
   cards: Card[];
   hearts: number;
+  maxHearts: number;
+  relicOptions: RelicId[];
+  relic: RelicId | null;
+  relics: RelicId[];
   handLimit: AdventureHandLimit;
   /** One-based fight number. */
   fight: number;

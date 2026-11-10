@@ -1,14 +1,15 @@
+import { activeMonsterRule, applyLifecycle, monsterLayer, rainbowNeed } from './effects';
 import {
   cloneGame, copyCard, createDeck, createGame, createToolCard, endTurn,
-  formatNumber, gemForm, playCard, randomFromState, refillHand, shuffle, undo,
+  formatNumber, gemForm, playCard, previewCard, randomFromState, refillHand, shuffle, undo,
 } from './index';
 import { CONFIG, TOOL_TYPES } from './config';
-import type { Card } from './types';
-import { MONSTERS, RUN } from './run-config';
+import type { Card, GameState } from './types';
+import { MONSTERS, RELIC_IDS, RUN } from './run-config';
 import type { RowEntry } from './types';
 import type {
   AdventureHandLimit, MonsterKey, MonsterState, NormalMonster, RunRecords,
-  RunResult, RunState, RunStats,
+  RunResult, RunState, RunStats, RelicId, RuleId,
 } from './run-types';
 
 export * from './run-config';
@@ -24,6 +25,7 @@ export function cloneRun(run: RunState): RunState {
     ...run,
     cards: run.cards.map(copyCard),
     monsters: [...run.monsters],
+    relicOptions: [...run.relicOptions], relics: [...run.relics],
     monster: { ...run.monster },
     game: cloneGame(run.game),
     loot: [...run.loot],
@@ -45,7 +47,7 @@ function makeMonster(key: MonsterKey, fight: number): MonsterState {
     key, hp: config.hp, maxHp: config.hp,
     countdown: config.countdown, maxCountdown: config.countdown,
     broken: false, turnStartHp: config.hp, overkill: 0,
-    weak: MONSTERS[key].weak, toughness: config.toughness, maxToughness: config.toughness, guardDown: false,
+    rule: MONSTERS[key].rule, layer: 1, wind: 0, maxWind: 0, woundDown: false,
   };
 }
 
@@ -61,12 +63,29 @@ export function createRun(seed: number): RunState {
     previousNormal = selected;
     return selected;
   });
-  return {
-    cards: createDeck(), hearts: RUN.hearts, handLimit: RUN.handStart,
+  const run: RunState = {
+    cards: createDeck(), hearts: RUN.hearts, maxHearts: RUN.hearts, handLimit: RUN.handStart,
+    relicOptions: shuffle([...RELIC_IDS], rng).slice(0, RUN.relicOptions), relic: null, relics: [],
     fight: 1, monsters, monster: makeMonster(monsters[0]!, 1), game,
-    phase: 'battle', loot: [], hist: [], result: null,
+    phase: 'relic', loot: [], hist: [], result: null,
     stats: { turns: 0, bestTurn: 0, bestFight: 1, maxOverkill: 0, totalDamage: 0, fights: [] },
   };
+  applyLifecycle(run, 'fightStart');
+  return run;
+}
+
+export function chooseRelic(run: RunState, optionIndex: number): RunState {
+  if (run.phase !== 'relic') throw new Error('当前不在选宝物阶段');
+  if (!Number.isInteger(optionIndex) || optionIndex < 0 || optionIndex >= run.relicOptions.length) throw new RangeError('宝物索引超出范围');
+  run.relic = run.relicOptions[optionIndex]!;
+  run.relics = [run.relic];
+  run.game.relic = run.relic;
+  run.game.relics = [...run.relics];
+  run.relicOptions = [];
+  applyLifecycle(run, 'runStart');
+  run.phase = 'battle';
+  clearUndo(run);
+  return run;
 }
 
 function requireBattle(run: RunState): void {
@@ -81,21 +100,8 @@ function requireLoot(run: RunState): void {
 export function playRunCard(run: RunState, handIndex: number): RowEntry {
   requireBattle(run);
   const before = { monster: { ...run.monster }, stats: copyStats(run.stats) };
-  const guardDown = run.monster.guardDown;
-  const entry = playCard(run.game, handIndex);
+  const entry = playCard(run.game, handIndex, run.monster);
   run.hist.push(before);
-  if (guardDown && entry.damage > 0) {
-    const bonus = Math.round(entry.damage * (RUN.guardDamage - 1));
-    entry.guard = bonus; entry.damage += bonus;
-    run.game.turnDmg += bonus; run.game.total += bonus;
-  }
-  run.monster.hp = Math.max(0, run.monster.hp - entry.damage);
-  if (run.monster.hp === 0) run.monster.broken = true;
-  const m = run.monster;
-  if (!m.broken && !m.guardDown && m.maxToughness > 0 && (entry.v & (1 << m.weak))) {
-    m.toughness -= 1;
-    if (m.toughness === 0) { m.guardDown = true; m.countdown += RUN.guardDelay; }
-  }
   if (run.monster.broken) {
     run.monster.overkill = run.game.turnDmg / run.monster.turnStartHp;
     run.stats.maxOverkill = Math.max(run.stats.maxOverkill, run.monster.overkill);
@@ -166,6 +172,7 @@ export function endRunTurn(run: RunState): RunState {
       settle(run, 'victory', 'boss');
       return run;
     }
+    applyLifecycle(run, 'fightWon');
     const config = RUN.fights[run.fight - 1]!;
     run.handLimit = Math.min(RUN.handMax, run.handLimit + (config.handUp ?? 0)) as AdventureHandLimit;
     const count = run.monster.overkill >= RUN.lootBonusOverkill ? RUN.lootBonusCount : RUN.lootCount;
@@ -174,12 +181,7 @@ export function endRunTurn(run: RunState): RunState {
     return run;
   }
 
-  run.monster.countdown -= 1;
-  if (run.monster.countdown === 0) {
-    run.hearts = Math.max(0, run.hearts - 1);
-    run.monster.countdown = run.monster.maxCountdown;
-  }
-  if (run.monster.guardDown) { run.monster.guardDown = false; run.monster.toughness = run.monster.maxToughness; }
+  applyLifecycle(run, 'turnEnd');
   if (run.hearts === 0) {
     // The fatal turn ends, but no next turn is started and no cards are drawn.
     recordFight(run, false);
@@ -196,6 +198,7 @@ export function endRunTurn(run: RunState): RunState {
   // Practice skips empty turns; adventure time always advances.
   run.game.turn = previousTurn + 1;
   run.monster.turnStartHp = run.monster.hp;
+  applyLifecycle(run, 'turnStart');
   return run;
 }
 
@@ -209,11 +212,13 @@ function nextFight(run: RunState): void {
     turn: 1, best: previous.best, last: 0,
     chain: [], chainIdx: [], rainbow: false, xp: [...previous.xp],
     opts: { ...previous.opts, grow: true, hand: run.handLimit, tools: false },
-    rngState: previous.rngState, hist: [],
+    rngState: previous.rngState, hist: [], onceUsed: false,
+    ...(run.relic ? { relic: run.relic } : {}), relics: [...run.relics],
   };
   shuffle(run.game.deck, randomFromState(run.game));
   refillHand(run.game);
   run.monster = makeMonster(run.monsters[run.fight - 1]!, run.fight);
+  applyLifecycle(run, 'fightStart');
   run.phase = 'battle';
   run.loot = [];
   clearUndo(run);
@@ -233,7 +238,6 @@ export function chooseLoot(run: RunState, optionIndex: number): RunState {
 
 export function skipLoot(run: RunState): RunState {
   requireLoot(run);
-  run.hearts = Math.min(RUN.hearts, run.hearts + RUN.skipHeal);
   nextFight(run);
   return run;
 }
@@ -273,7 +277,7 @@ export function updateRecords(records: RunRecords, run: RunState): RunRecords {
   return records;
 }
 
-/** Exact result of playing this hand card now (adventure rules, including break bonus), without changing the run. */
+/** Exact result of playing this hand card now (adventure rules, including all effect hooks), without changing the run. */
 export function previewRunCard(run: RunState, card: Card): RowEntry | null {
   if (run.phase !== 'battle') return null;
   const index = run.game.hand.findIndex((item) => item.id === card.id);
@@ -282,10 +286,79 @@ export function previewRunCard(run: RunState, card: Card): RowEntry | null {
   return playRunCard(copy, index);
 }
 
-/** Would playing this card wear down the monster's toughness? */
-export function hitsWeakness(run: RunState, mask: number): boolean {
-  const m = run.monster;
-  return !m.broken && !m.guardDown && m.maxToughness > 0 && (mask & (1 << m.weak)) !== 0;
+/** Active rule only; a broken monster has no rule. */
+export function currentRule(run: RunState): RuleId | undefined { return activeMonsterRule(run.monster); }
+
+export function cardWarnings(run: RunState, card: Card): { attack: boolean; unwind: boolean } {
+  if (run.phase !== 'battle' || run.monster.broken) return { attack: false, unwind: false };
+  const index = run.game.hand.findIndex(c => c.id === card.id);
+  if (index < 0) return { attack: false, unwind: false };
+  const copy = cloneRun(run);
+  const entry = playRunCard(copy, index);
+  return {
+    attack: !copy.monster.broken && run.monster.countdown - 1 > 0 && copy.monster.countdown - 1 <= 0,
+    unwind: run.monster.maxWind > 0 && run.monster.wind > 0 && !run.monster.woundDown && (entry.v & 4) !== 0,
+  };
+}
+export function previewCountdown(run: RunState, card: Card): number {
+  if (run.phase !== 'battle') return run.monster.countdown;
+  const index = run.game.hand.findIndex(c => c.id === card.id);
+  if (index < 0) return run.monster.countdown;
+  const copy = cloneRun(run); playRunCard(copy, index); return copy.monster.countdown;
+}
+
+export function bestHintCard(source: RunState | GameState): number | undefined {
+  const run = 'game' in source ? source : undefined;
+  const game = run ? run.game : source as GameState;
+  const rank = { plain: 0, same: 1, shun: 2, white: 3 };
+  let best: RowEntry | undefined;
+  for (const card of game.hand) {
+    if (run && cardWarnings(run, card).attack) continue;
+    const entry = run ? previewRunCard(run, card) : previewCard(game, card);
+    if (!entry || !rank[entry.k]) continue;
+    if (!best || rank[entry.k] > rank[best.k] || (rank[entry.k] === rank[best.k] && (entry.m2 > best.m2 || (entry.m2 === best.m2 && entry.damage > best.damage)))) best = entry;
+  }
+  return best?.id;
+}
+
+export function rainbowStatus(source: RunState | GameState): { need: 5 | 6; lit: number[]; ready: boolean; readyIds: number[] } {
+  const game = 'game' in source ? source.game : source;
+  const need = rainbowNeed(game);
+  const lit = CONFIG.rainbowColors.filter(v => game.rainbow || game.chain.includes(v));
+  const chromatic = game.hand.filter(c => c.type !== 'mirror' && CONFIG.rainbowColors.includes(c.v));
+  const available = new Set([...game.chain, ...chromatic.map(c => c.v)]);
+  const ready = !game.rainbow && CONFIG.rainbowColors.filter(v => available.has(v)).length >= need;
+  const readyIds = ready ? chromatic.filter(c => !game.chain.includes(c.v)).map(c => c.id) : [];
+  return { need, lit, ready, readyIds };
+}
+
+/** Debug commands keep related rule fields in sync and clear paired undo stacks. */
+export function debugGiveRelic(run: RunState, relic: RelicId): void {
+  if (!RELIC_IDS.includes(relic)) throw new RangeError('未知的宝物');
+  if (run.phase === 'relic') { run.relicOptions[0] = relic; chooseRelic(run, 0); return; }
+  if (!run.relics.includes(relic)) run.relics.push(relic);
+  if (!run.relic) run.relic = relic;
+  run.game.relic = run.relic; run.game.relics = [...run.relics];
+  const hearts = run.hearts; run.maxHearts = RUN.hearts;
+  applyLifecycle(run, 'runStart'); run.hearts = Math.min(run.maxHearts, hearts);
+  clearUndo(run);
+}
+export function debugSetMonsterHp(run: RunState, hp: number): void {
+  if (!Number.isFinite(hp) || hp < 0 || hp > run.monster.maxHp) throw new RangeError('怪物血量超出范围');
+  run.monster.hp = hp; if (hp > 0) run.monster.turnStartHp = hp; run.monster.broken = hp === 0;
+  if (MONSTERS[run.monster.key].rule === 'layers') run.monster.layer = monsterLayer(run.monster);
+  clearUndo(run);
+}
+export function debugSetCountdown(run: RunState, countdown: number): void {
+  if (!Number.isInteger(countdown) || countdown < 0 || countdown > run.monster.maxCountdown) throw new RangeError('倒计时必须在0与满值之间');
+  run.monster.countdown = countdown; clearUndo(run);
+}
+export function debugSetWind(run: RunState, wind: number): void {
+  if (!Number.isInteger(wind) || wind < 0 || wind > run.monster.maxWind) throw new RangeError('发条超出范围');
+  run.monster.wind = wind; run.monster.woundDown = wind === 0 && run.monster.maxWind > 0; clearUndo(run);
+}
+export function debugRelicSelection(run: RunState): void {
+  Object.assign(run, createRun(run.game.rngState));
 }
 
 /** First floor the raw ratio, then use the existing rounded large-number format. */

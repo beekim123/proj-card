@@ -1,0 +1,54 @@
+{
+  "scope": "Independent scenario assertions on actual GameUI and rules, using borrowed minimal fake DOM/ArtStore/WAAPI only. Not real browser, audio, render, performance or video.",
+  "passed": true,
+  "checks": [
+    {
+      "name": "61: safe cyan white reaction beats yellow shun in actual UI",
+      "status": "PASS"
+    },
+    {
+      "name": "62: cyan attack is excluded before ranking; magenta is sole hint",
+      "status": "PASS"
+    },
+    {
+      "name": "63: if all reacting cards attack, UI has no hint",
+      "status": "PASS"
+    },
+    {
+      "name": "Bite only changes countdown mid-turn, at zero heart stays; end-turn attacks once",
+      "status": "PASS"
+    },
+    {
+      "name": "Undo restores countdown, heart, hints and removes obsolete effects",
+      "status": "PASS"
+    },
+    {
+      "name": "Unwind completion flashes green even when countdown stays full at 2",
+      "status": "PASS"
+    },
+    {
+      "name": "Bite at countdown 0 still flashes red on a fresh rule trigger",
+      "status": "PASS"
+    },
+    {
+      "name": "Bite countdown reaches zero and retains warn stay, without lost heart before turn end",
+      "status": "PASS"
+    },
+    {
+      "name": "Warnings remain when hints are disabled and killing green is safe",
+      "status": "PASS"
+    },
+    {
+      "name": "Dragon crossing card uses old rule, next card uses bite, undo restores layer",
+      "status": "PASS"
+    },
+    {
+      "name": "Rapid eight plays remain accepted and replay after undo keeps correct total",
+      "status": "PASS"
+    },
+    {
+      "name": "Relic cannot be skipped and repeated selection only creates one chosen relic",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,9 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import {
-  chooseLoot, createRun, decodeRunSave, encodeRunSave, endRunTurn,
+  chooseLoot, createRun as createUnselectedRun, chooseRelic, decodeRunSave, encodeRunSave, endRunTurn,
   playRunCard, previewCard, skipLoot, undoRun,
 } from './index';
 import type { RunState } from './run-types';
+
+/** Existing battle scenarios explicitly choose a non-numeric-changing relic. */
+function createRun(seed: number): RunState {
+  const run = createUnselectedRun(seed);
+  run.relicOptions = ['same', 'once', 'white'];
+  chooseRelic(run, 0);
+  return run;
+}
 
 function inventory(run: RunState): void {
   const cards = [...run.game.deck, ...run.game.hand, ...run.game.row, ...run.game.discard];

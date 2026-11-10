@@ -4,10 +4,16 @@ export interface HandPosition extends Point { rotation: number }
 export interface RowPosition extends Point { line: number; showLabel: boolean; showDamage: boolean }
 
 export function handPositions(count: number, layout: Layout): HandPosition[] {
-  const w = handSize(layout).w;
-  const step = count <= 1 ? 0 : Math.min(MOTION.handStep, (layout.hand.width - w) / (count - 1));
+  const { w, h } = handSize(layout);
+  const radius = Math.max(0, (count - 1) / 2);
+  const angle = radius * MOTION.handRotation * Math.PI / 180;
+  // Cards rotate around bottom center. Reserve their full rotated upper corners,
+  // rather than merely clamping the unrotated boxes (7/8/9 cards all stay inside).
+  const rotatedHalfWidth = w / 2 * Math.cos(angle) + h * Math.sin(angle);
+  const room = Math.min(layout.hand.width / 2, layout.hand.center, layout.width - layout.hand.center);
+  const step = count <= 1 ? 0 : Math.max(0, Math.min(MOTION.handStep, (room - rotatedHalfWidth) / radius));
   return Array.from({ length: count }, (_, i) => {
-    const d = i - (count - 1) / 2;
+    const d = i - radius;
     return { x: layout.hand.center + d * step - w / 2, y: layout.hand.top + d * d * MOTION.handCurve, rotation: d * MOTION.handRotation };
   });
 }

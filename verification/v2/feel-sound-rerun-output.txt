@@ -1,0 +1,26 @@
+(node:41) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": 16,
+  "checks": [
+    "damage font boundaries and fast hitstop timing",
+    "eight card drops start immediately with additive transforms",
+    "three shake levels and shake-off",
+    "attack impacts exactly at 330ms and fades vignette by 830ms",
+    "reset cancels interrupted attack callbacks and own animations",
+    "hitstop preserves owner-paused animations and overlaps without queue",
+    "canceled artwork is not resurrected",
+    "repeat slow motion does not compound, restores original speed",
+    "number scale/font, multiplier flip, and ordered rainbow feedback",
+    "audio is lazy and unlocks once from gesture",
+    "card pentatonic pitch rises then caps, resets with turn index",
+    "eight card sounds are immediate and doubling is an octave",
+    "all synthesized cues have valid scheduled frequencies and times",
+    "three volume levels, mute and background suspend discard voices",
+    "extreme repeated audio is bounded with no waiting queue",
+    "dispose releases audio and gesture listeners"
+  ],
+  "limits": [
+    "Node API mocks only; Vitest, browser rendering, audible sound quality, video and performance not covered."
+  ]
+}

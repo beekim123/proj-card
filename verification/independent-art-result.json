@@ -1,6 +1,0 @@
-{
-  "status": "PASS",
-  "assets": 34,
-  "namespaceCases": "ids, url, href, xlink:href, style ID boundary, shared class/keyframes",
-  "note": "String/XML-level checks; does not verify browser animation/rendering."
-}

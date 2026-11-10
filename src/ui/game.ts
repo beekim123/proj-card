@@ -1,12 +1,15 @@
 import { dimensions, type ArtStore } from '../art';
-import { CONFIG, createGame, playCard, previewCard, undo, endTurn, updateSettings, resetGrowth, gemForm, formatFormula, formatNumber, formatFull, formatCardHint, previewRunCard, hitsWeakness, createRun, playRunCard, undoRun, endRunTurn, chooseLoot, skipLoot, abandonRun, createToolCard, formatOverkill, MONSTERS, RUN, TOOLS, TOOL_TYPES, type Card, type RowEntry, type GameState, type RunState, type RunRecords, type ToolType } from '../rules';
-import { loadRun, saveRun, loadRecords, recordResult, loadSettings, saveSettings } from '../save';
+import { CONFIG, createGame, playCard, previewCard, undo, endTurn, updateSettings, resetGrowth, gemForm, formatFormula, formatNumber, formatFull, formatCardHint, previewRunCard, cardWarnings, bestHintCard, rainbowStatus, currentRule, previewCountdown, growthThresholds, chooseRelic, debugGiveRelic, debugSetMonsterHp, debugSetCountdown, debugSetWind, debugRelicSelection, RELICS, RULES, createRun, playRunCard, undoRun, endRunTurn, chooseLoot, skipLoot, abandonRun, createToolCard, formatOverkill, MONSTERS, RUN, TOOLS, TOOL_TYPES, type Card, type RowEntry, type GameState, type RunState, type RunRecords, type ToolType, type RelicId } from '../rules';
+import { loadRun, saveRun, loadRecords, recordResult, loadSettings, saveSettings, type Settings } from '../save';
 import { portrait } from '../layout/portrait';
 import { landscape } from '../layout/landscape';
 import { fitLayout } from '../layout/fit';
 import { MOTION, ROW, handSize, rowSize, growthRects, type Layout, type Point, type Rect } from '../layout/types';
 import { CARD_NAMES, createCard, playCardArt } from './card';
 import { handPositions, rowPositions } from './geometry';
+import { SoundSystem } from './sound';
+import { FeelSystem } from './feel';
+import { scoreAt } from './presentation';
 
 const COLORS = ['red', 'green', 'blue'] as const;
 const NAMES = ['红宝石', '绿宝石', '蓝宝石'];
@@ -23,7 +26,7 @@ const HP_LAYER_COLORS = ['', '#C7742B', '#8A4FC4'];
 const DEBUG_SEQUENCES: Record<number, (number | ToolType)[]> = { 1: [1,'lens'], 2: [3,'lens'], 3: [1,3,'hammer'], 4: [1,3,2,6,4,5,'hammer'], 5: [1,3,2,6,'lens',5], 6: [1,'mirror'], 7: [0,'mirror'], 8: ['mirror'], 9: [7,'mirror'], 10: [1,'mirror',1], 11: ['stone',1], 12: ['hammer','hammer'], 13: [1,'bag'], 14: [1,3,2,6,4,'mirror'] };
 const GAME_TITLE = { name: '新卡牌', suffix: '（暂名）' }; 
 type LayoutChoice = 'auto' | 'portrait' | 'landscape';
-interface Preferences { hint: boolean; hand: 6 | 7 | 8; grow: boolean; tools: boolean; layout: LayoutChoice; formula: boolean }
+type Preferences = Settings;
 interface Drag { id: number; pointer: number; start: Point; last: Point; touch: boolean; offset: Point; dragging: boolean; node: HTMLElement; origin: Point }
 const el = (tag = 'div', className = '', text = '') => { const node = document.createElement(tag); node.className = className; node.textContent = text; return node; };
 const place = (node: HTMLElement | SVGElement, box: Rect) => Object.assign(node.style, { position: 'absolute', left: `${box.x}px`, top: `${box.y}px`, width: `${box.w}px`, height: `${box.h}px` });
@@ -55,7 +58,19 @@ export class GameUI {
   private hpText = el('div', 'hp-text');
   private hpBar = el('div', 'hp-bar');
   private hpUnder = el('div', 'hp-under');
-  private toughNode = el('div', 'tough-bar');
+  private ruleSign!: SVGSVGElement;
+  private ruleButton = el('button', 'rule-sign') as HTMLButtonElement;
+  private monsterMotion = el('div', 'monster-motion');
+  private relicNodes = new Map<string, HTMLElement>();
+  private rainbowSlots: SVGSVGElement[] = [];
+  private rainbowReady = el('div', 'rainbow-ready', '这手能出彩虹');
+  private countdownPreview = el('span', 'countdown-preview');
+  private rainbowLit = new Set<number>();
+  private rainbowTriggered = false;
+  private selectedRelic = -1;
+  private countdownFlashId = 0;
+  private readonly sound: SoundSystem;
+  private readonly feel: FeelSystem;
   private cardPreview: HTMLElement | null = null;
   private previewSticky = false;
   private countdownArt: SVGSVGElement;
@@ -68,6 +83,7 @@ export class GameUI {
   private pendingSettlements: RunState[] = [];
   private floatIndex = 0;
   private losingHeart = -1;
+  private healingHearts: number | null = null;
   private attacking = false;
   private pendingDrawIds = new Set<number>();
   private state: GameState;
@@ -99,13 +115,20 @@ export class GameUI {
   private displayTotal = 0;
   private displayXp: [number, number, number] = [0, 0, 0];
   private shownRainbow = new Set<number>();
-  private toasts: string[] = [];
-  private toastActive = false;
+  private activeToast: HTMLElement | null = null;
   private epoch = 0;
 
   constructor(root: HTMLElement, store: ArtStore) {
     this.store = store;
+    this.stage.style.setProperty('--rainbow-colors', [1,3,2,6,4,5].map(mask => store.manifest.palette.mix[String(mask)]).join(','));
+    this.stage.style.setProperty('--gem-red', store.manifest.palette.gem.red.mid);
+    this.stage.style.setProperty('--gem-green', store.manifest.palette.gem.green.mid);
+    this.stage.style.setProperty('--gem-blue', store.manifest.palette.gem.blue.mid);
+    this.stage.style.setProperty('--gem-white', store.manifest.palette.mix['7'] ?? store.manifest.palette.text);
     this.prefs = loadSettings();
+    this.sound = new SoundSystem(this.prefs); this.sound.bindUnlock(document);
+    this.feel = new FeelSystem({ stage: this.stage, fxLayer: this.fxLayer }, this.prefs);
+    this.stage.addEventListener('click', e => { if ((e.target as Element).closest('button')) this.sound.button(); });
     const restored = loadRun(); this.savedRun = restored.state;
     this.localRecords = loadRecords();
     this.state = createGame(this.seed(), this.ruleOptions());
@@ -113,6 +136,7 @@ export class GameUI {
     this.dummy = store.createInline('dummy');
     this.badge = store.createInline('ui_mult_badge');
     this.countdownArt = store.createInline('ui_countdown');
+    this.ruleSign = store.createInline('ui_rule_sign'); this.ruleButton.type = 'button'; this.ruleButton.addEventListener('click', () => this.showMonster());
     this.viewport.append(this.stage);
     this.stage.id = 'stage'; this.stage.setAttribute('aria-label', '宝石卡牌冒险');
     this.stage.append(this.scene, this.rowLayer, this.handLayer, this.fxLayer, this.dragLayer, this.overlayLayer);
@@ -135,7 +159,7 @@ export class GameUI {
     const navigation = performance.getEntriesByType?.('navigation')[0] as PerformanceNavigationTiming | undefined;
     if (this.savedRun && navigation?.type === 'reload') this.resumeAdventure();
     if (restored.error) this.toast(restored.error);
-    else if (restored.clear) this.toast('上次的进度读不出来，已经清掉了');
+    else if (restored.clear) this.toast(restored.reason === 'outdated' ? '游戏更新了，上次那局没法接着打，已经清掉了' : '上次的进度读不出来，已经清掉了');
     window.addEventListener('pagehide', () => this.persist());
     document.addEventListener('visibilitychange', () => { if (document.hidden) { this.cancelDrag(); this.persist(); } });
     if (this.debugEnabled) this.installDebug();
@@ -146,7 +170,7 @@ export class GameUI {
   private get playing() { return this.screen === 'practice' || (this.screen === 'adventure' && this.run?.phase === 'battle' && !this.transition); }
   private seed() { const requested = new URLSearchParams(location.search).get('seed'); return requested !== null && Number.isFinite(Number(requested)) ? Number(requested) >>> 0 : Date.now() >>> 0; }
   private ruleOptions() { const { hint, hand, grow, tools } = this.prefs; return { hint, hand, grow, tools }; }
-  private savePreferences() { if (!saveSettings(this.prefs)) this.storageWarning(); }
+  private savePreferences() { this.sound.configure(this.prefs); this.feel.configure(this.prefs); if (!saveSettings(this.prefs)) this.storageWarning(); }
   private storageWarning() { if (!this.saveWarningShown) { this.saveWarningShown = true; this.toast('浏览器未允许保存，本次游戏仍可继续'); } }
   private persist() {
     if (this.run?.result) this.settleRecords();
@@ -179,11 +203,11 @@ export class GameUI {
     this.shownRainbow = new Set(this.state.row.filter(card => card.rb).map(card => card.id));
   }
   private resetEffects() {
-    this.losingHeart = -1; this.attacking = false; this.pendingDrawIds.clear();
+    this.losingHeart = -1; this.healingHearts = null; this.attacking = false; this.pendingDrawIds.clear();
     this.epoch++; this.timers.forEach(clearTimeout); this.timers.clear(); cancelAnimationFrame(this.scoreAnimation);
     this.stage.querySelectorAll('.temporary-mirror,.dealing-card-back,.loot-card-back').forEach(node => node.remove()); this.stage.querySelectorAll<HTMLElement>('.gem-card').forEach(node => { node.style.visibility = ''; });
-    this.fxLayer.replaceChildren(); this.dragLayer.replaceChildren(); this.toasts = []; this.toastActive = false;
-    this.store.stop(this.dummy); this.store.stop(this.badge); this.store.stop(this.countdownArt);
+    this.fxLayer.replaceChildren(); this.dragLayer.replaceChildren(); this.activeToast = null; this.feel.reset();
+    this.store.stop(this.dummy); this.store.stop(this.badge); this.store.stop(this.countdownArt); this.store.stop(this.ruleSign); this.monsterMotion.style.zIndex = ''; this.countdownNode.classList.remove('countdown-red','countdown-green');
   }
   private resize(force = false) {
     const rect = this.viewport.getBoundingClientRect();
@@ -230,6 +254,7 @@ export class GameUI {
     const settings = this.roundButton('设置', l.settings, () => this.showSettings(), 'ui_icon_settings'); settings.dataset.action = 'settings';
     for (const b of [rules, settings]) b.style.setProperty('--icon-size', `${l.toolbarIcon}px`);
     if (this.screen === 'home') { this.buildHome(); return; }
+    if (this.screen === 'adventure' && this.run?.phase === 'relic') { this.buildAdventureTop(); this.buildRelicPick(); return; }
     if (this.screen === 'adventure' && this.run?.phase === 'loot') { this.buildAdventureTop(); this.buildLoot(); return; }
     if (this.screen === 'adventure' && this.run?.result) { this.buildResult(); return; }
     const artId = this.screen === 'adventure' && this.run ? `mon_${this.run.monster.key}` : 'dummy';
@@ -244,8 +269,11 @@ export class GameUI {
     }
     this.placeAnchored(this.dummy, artId, l.dummyAnchor, this.monsterScale()); this.dummy.classList.add('scene-dummy');
     this.dummy.classList.toggle('scene-monster', this.screen === 'adventure'); this.dummy.tabIndex = this.screen === 'adventure' ? 0 : -1;
-    this.scene.insertBefore(this.dummy, table);
+    place(this.monsterMotion, { x: 0, y: 0, w: l.width, h: l.height });
+    this.monsterMotion.style.transformOrigin = `${l.dummyAnchor.x}px ${l.dummyAnchor.y}px`;
+    this.monsterMotion.replaceChildren(this.dummy); this.scene.insertBefore(this.monsterMotion, table);
     if (this.screen === 'adventure') this.buildAdventureTop();
+    this.buildRainbow();
     // 倍率牌钉在桌子上沿
     this.mult.replaceChildren(this.badge, this.multText); place(this.mult, l.multiplier); this.badge.style.width = '100%'; this.badge.style.height = '100%'; this.scene.append(this.mult);
     // 文字信息直接浮在场景上，不加底板
@@ -281,14 +309,15 @@ export class GameUI {
     this.score.dataset.value = String(this.state.turnDmg);
     this.undoButton.disabled = this.state.hist.length === 0;
     this.deckCount.textContent = String(this.state.deck.length); this.deckButton.setAttribute('aria-label', `牌库 ${this.state.deck.length} 张`);
-    this.renderGrowth(); this.renderRow(); this.renderHand(); this.renderFormula();
+    this.renderGrowth(); this.renderRow(); this.renderHand(); this.renderFormula(); this.renderRainbow();
   }
   private renderGrowth() {
     const NS = 'http://www.w3.org/2000/svg';
+    const thresholds = growthThresholds(this.run ?? this.state);
     this.growth.forEach((socket, i) => {
-      const l = this.layout.growth; const form = !this.state.opts.grow ? 0 : this.displayXp[i] >= CONFIG.formAt[2] ? 2 : this.displayXp[i] >= CONFIG.formAt[1] ? 1 : 0;
+      const l = this.layout.growth; const form = !this.state.opts.grow ? 0 : this.displayXp[i] >= thresholds[2] ? 2 : this.displayXp[i] >= thresholds[1] ? 1 : 0;
       const xp = this.displayXp[i];
-      const progress = xp >= CONFIG.formAt[2] ? 100 : xp >= CONFIG.formAt[1] ? (xp - CONFIG.formAt[1]) / (CONFIG.formAt[2] - CONFIG.formAt[1]) * 100 : xp / CONFIG.formAt[1] * 100;
+      const progress = xp >= thresholds[2] ? 100 : xp >= thresholds[1] ? (xp - thresholds[1]) / (thresholds[2] - thresholds[1]) * 100 : xp / thresholds[1] * 100;
       // 外圈进度：一圈细的旧铜色弧
       const ring = document.createElementNS(NS, 'svg'); ring.setAttribute('viewBox', '0 0 100 100'); ring.classList.add('growth-ring');
       const track = document.createElementNS(NS, 'circle'); const arc = document.createElementNS(NS, 'circle');
@@ -302,12 +331,7 @@ export class GameUI {
       if (existingRing) {
         const fill = existingRing.querySelector<SVGCircleElement>('.ring-fill'); const oldXp = Number(socket.dataset.growthXp ?? xp);
         fill?.setAttribute('stroke-dasharray', `${progress} 100`);
-        if (fill && socket.classList.contains('stone-growth') && xp > oldXp) {
-          const percent = (count:number) => count >= CONFIG.formAt[2] ? 100 : count >= CONFIG.formAt[1] ? (count-CONFIG.formAt[1])/(CONFIG.formAt[2]-CONFIG.formAt[1])*100 : count/CONFIG.formAt[1]*100;
-          const keyframes: Keyframe[] = [{strokeDasharray:`${percent(oldXp)} 100`,offset:0}];
-          for (const threshold of [CONFIG.formAt[1],CONFIG.formAt[2]]) if (oldXp < threshold && xp >= threshold) { const offset=(threshold-oldXp)/(xp-oldXp);keyframes.push({strokeDasharray:'100 100',offset});if(threshold<CONFIG.formAt[2])keyframes.push({strokeDasharray:'0 100',offset}); }
-          keyframes.push({strokeDasharray:`${progress} 100`,offset:1}); fill.animate(keyframes,{duration:600,easing:'linear'});
-        }
+        if (fill && socket.classList.contains('stone-growth') && xp > oldXp) socket.animate([{filter:'brightness(1)'},{filter:'brightness(1.5)'},{filter:'brightness(1)'}],{duration:600});
         socket.querySelector('.growth-gem')?.remove(); socket.querySelector('.growth-label')?.remove(); socket.append(image, text); } else socket.replaceChildren(ring, image, text); socket.dataset.growthXp = String(xp); socket.setAttribute('aria-label', `${NAMES[i]}，${FORMS[form]}，用了 ${xp} 次。查看成长详情`);
     });
   }
@@ -328,14 +352,21 @@ export class GameUI {
       let node = preview ? undefined : this.rowNodes.get(entry.id);
       if (!node) { node = el('div', `row-card${preview ? ' row-preview' : ''}`); if (!preview) this.rowNodes.set(entry.id, node); this.rowLayer.append(node); }
       const p = positions[i]; place(node, { x: p.x, y: p.y, w: size.w, h: size.h }); node.style.zIndex = String(i + 1);
-      const key = `${entry.v}:${entry.type}:${this.displayXp.map(xp => !this.state.opts.grow ? 0 : xp >= CONFIG.formAt[2] ? 2 : xp >= CONFIG.formAt[1] ? 1 : 0).join(',')}:${this.state.opts.grow}`;
-      if (node.dataset.faceKey !== key) { const card = createCard(this.store, entry, this.displayXp, this.state.opts.grow, { static: true, resolved: true }); card.style.transform = `scale(${this.layout.rowScale})`; node.replaceChildren(card); node.dataset.faceKey = key; }
-      node.querySelectorAll('.reaction-label,.card-damage').forEach(n => n.remove()); node.dataset.cardId = String(entry.id);
+      const key = `${entry.v}:${entry.type}:${this.displayXp.map((_, i) => gemForm(this.state, i)).join(',')}:${this.state.opts.grow}`;
+      if (node.dataset.faceKey !== key) { const card = createCard(this.store, entry, this.displayXp, this.state.opts.grow, { static: true, resolved: true, thresholds: growthThresholds(this.run ?? this.state) }); card.style.transform = `scale(${this.layout.rowScale})`; node.replaceChildren(card); node.dataset.faceKey = key; }
+      node.querySelectorAll('.reaction-label,.card-damage,.card-details').forEach(n => n.remove()); node.dataset.cardId = String(entry.id);
       if ((!preview || this.state.opts.hint) && entry.k !== 'plain' && p.showLabel) {
         const label = el('div', 'reaction-label', REACTION[entry.k]); label.style.top = `${-ROW.labelOffset}px`; node.append(label);
       }
-      if ((!preview || this.state.opts.hint) && p.showDamage) {
-        const damage = el('div', 'card-damage', `${preview ? '预计 ' : ''}${formatFull(preview ? entry.damage : entry.dmg)}`); damage.style.top = `${size.h + ROW.damageGap}px`; node.append(damage);
+      if (!preview || this.state.opts.hint) {
+        const damage = el('div', 'card-damage', `${preview ? '预计 ' : ''}${formatFull(entry.damage)}`); damage.dataset.damage = String(entry.damage); damage.style.top = `${size.h + ROW.damageGap}px`; node.append(damage);
+        const details = el('div', 'card-details');
+        details.style.top = `${size.h + ROW.damageGap + 32}px`;
+        if (entry.rainbow) details.append(el('div', 'card-bonus rainbow-text', `彩虹 +${formatFull(entry.rainbow)}`));
+        if (entry.hammer) details.append(el('div', 'card-bonus', `锤子 +${formatFull(entry.hammer)}`));
+        const effects = el('div', 'card-effects');
+        entry.effects?.filter(effect => effect.id in RULES || effect.id === 'layers' || effect.id in RELICS).forEach(effect => effects.append(el('span', `effect-label ${effect.id in RELICS ? 'relic-effect' : 'rule-effect'}`, effect.text)));
+        details.append(effects); node.append(details);
       }
     });
   }
@@ -344,6 +375,7 @@ export class GameUI {
     const cards = this.state.hand.filter(card => !this.pendingDrawIds.has(card.id) && !(this.drag?.dragging && this.drag.id === card.id));
     const keep = new Set(cards.map(card => card.id));
     for (const [id, node] of this.handNodes) if (!keep.has(id)) { node.remove(); this.handNodes.delete(id); }
+    const best = bestHintCard(this.run ?? this.state); const rainbow = rainbowStatus(this.run ?? this.state);
     const positions = handPositions(cards.length, this.layout); const size = handSize(this.layout);
     cards.forEach((card, i) => {
       let node = this.handNodes.get(card.id);
@@ -351,12 +383,17 @@ export class GameUI {
       const p = positions[i]; place(node, { x: p.x, y: p.y, w: size.w, h: size.h }); node.style.transform = `rotate(${p.rotation}deg)`; node.style.zIndex = String(i + 1); node.dataset.cardId = String(card.id); node.dataset.mask = String(card.v);
       node.classList.toggle('picked', this.drag?.id === card.id && !this.drag.dragging);
       if (this.drag?.id === card.id && !this.drag.dragging) { node.style.zIndex = '200'; node.style.transform = `translateY(${-MOTION.handLift}px) scale(${MOTION.handPickScale})`; }
-      const face = createCard(this.store, card, this.displayXp, this.state.opts.grow); face.style.transform = `scale(${this.layout.hand.scale})`; node.replaceChildren(face); node.setAttribute('aria-label', `${face.getAttribute('aria-label')}。拖到桌面出牌，点按查看。`);
-      const hintEntry = previewCard(this.state, card); const reaction = hintEntry.k;
-      node.classList.toggle('has-hint', this.state.opts.hint && reaction !== 'plain');
-      const weakHit = this.screen === 'adventure' && this.run ? hitsWeakness(this.run, hintEntry.v) : false; node.classList.toggle('hits-weak', weakHit);
-      const hintText = [formatCardHint(hintEntry), weakHit ? '削韧' : ''].filter(Boolean).join(' · ');
-      if (this.state.opts.hint && hintText) { const hint = el('span', 'hand-hint', hintText); hint.style.top = `${-MOTION.hintOffset}px`; node.append(hint); }
+      const face = createCard(this.store, card, this.displayXp, this.state.opts.grow, { thresholds: growthThresholds(this.run ?? this.state) }); face.style.transform = `scale(${this.layout.hand.scale})`; node.replaceChildren(face); node.setAttribute('aria-label', `${face.getAttribute('aria-label')}。拖到桌面出牌，点按查看。`);
+      const hintEntry = this.predict(card);
+      const chosen = this.state.opts.hint && best === card.id;
+      node.classList.toggle('has-hint', chosen);
+      node.classList.toggle('rainbow-candidate', rainbow.ready && rainbow.readyIds.includes(card.id));
+      const warnings = this.run ? cardWarnings(this.run, card) : { attack: false, unwind: false };
+      const tags = el('div', 'hand-tags'); tags.style.bottom = `calc(100% + ${MOTION.hintOffset / 4}px)`;
+      if (chosen) tags.append(el('span', 'hand-hint', formatCardHint(hintEntry)));
+      if (warnings.attack) tags.append(el('span', 'hand-warning attack-warning', '会挨打'));
+      if (warnings.unwind) tags.append(el('span', 'hand-warning unwind-warning', '松发条'));
+      node.append(tags);
       if (newIds.includes(card.id)) {
         const delay = newIds.indexOf(card.id) * drawInterval;
         const back = this.store.create('card_back'); back.classList.add('dealing-card-back'); Object.assign(back.style, { width: `${size.w}px`, height: `${size.h}px` }); face.style.visibility = 'hidden'; node.append(back);
@@ -394,7 +431,7 @@ export class GameUI {
     event.preventDefault(); const p = this.point(event); drag.last = p;
     if (!drag.dragging && Math.hypot(p.x - drag.start.x, p.y - drag.start.y) > MOTION.dragThreshold) {
       drag.dragging = true; clearTimeout(this.holdTimer); this.hideCardPreview(); const card = this.state.hand.find(c => c.id === drag.id); if (!card) return this.cancelDrag();
-      const node = el('div', 'drag-card'); const dragSize = handSize(this.layout); Object.assign(node.style, { width: `${dragSize.w}px`, height: `${dragSize.h}px` }); const face = createCard(this.store, card, this.displayXp, this.state.opts.grow); face.style.transform = `scale(${this.layout.hand.scale})`; node.append(face); drag.node = node; this.dragLayer.append(node); this.renderHand();
+      const node = el('div', 'drag-card'); const dragSize = handSize(this.layout); Object.assign(node.style, { width: `${dragSize.w}px`, height: `${dragSize.h}px` }); const face = createCard(this.store, card, this.displayXp, this.state.opts.grow, { thresholds: growthThresholds(this.run ?? this.state) }); face.style.transform = `scale(${this.layout.hand.scale})`; node.append(face); drag.node = node; this.dragLayer.append(node); this.renderHand();
     }
     if (!drag.dragging) return;
     const size = handSize(this.layout);
@@ -405,12 +442,12 @@ export class GameUI {
     const valid = Boolean(card && this.canDrop(p));
     if (valid !== Boolean(this.preview)) {
       this.preview = valid && card ? this.predict(card) : null;
-      this.renderRow(); this.renderFormula(); this.stage.classList.toggle('drop-ready', valid);
+      this.renderRow(); this.renderFormula(); this.renderDragWarnings(card ?? undefined); this.stage.classList.toggle('drop-ready', valid);
     }
   };
   private onPointerUp = (event: PointerEvent) => {
     const drag = this.drag; if (!drag || drag.pointer !== event.pointerId) return;
-    const p = this.point(event); this.drag = null; this.preview = null; this.stage.classList.remove('drop-ready');
+    const p = this.point(event); this.drag = null; this.preview = null; this.stage.classList.remove('drop-ready'); this.renderDragWarnings();
     if (this.stage.hasPointerCapture(event.pointerId)) this.stage.releasePointerCapture(event.pointerId);
     clearTimeout(this.holdTimer);
     // 电脑：松手不弹东西（停在牌上就有大图）；手机：按住看大图，松手收起
@@ -424,7 +461,7 @@ export class GameUI {
   private cancelDrag() {
     clearTimeout(this.holdTimer); const drag = this.drag; if (!drag) return; if (drag.touch) this.hideCardPreview(); this.drag = null; this.preview = null;
     if (this.stage.hasPointerCapture(drag.pointer)) this.stage.releasePointerCapture(drag.pointer);
-    this.stage.classList.remove('drop-ready'); if (drag.dragging) this.returnCard(drag); else this.renderHand(); this.renderRow(); this.renderFormula();
+    this.stage.classList.remove('drop-ready'); this.renderDragWarnings(); if (drag.dragging) this.returnCard(drag); else this.renderHand(); this.renderRow(); this.renderFormula();
   }
   private returnCard(drag: Drag) {
     this.renderHand(); const target = this.handNodes.get(drag.id); if (!target) { drag.node.remove(); return; }
@@ -436,10 +473,10 @@ export class GameUI {
   private playById(id: number | undefined, origin?: Point) {
     if (!this.playing) return;
     const index = this.state.hand.findIndex(card => card.id === id); if (index < 0) return;
-    this.hideCardPreview(); const wasBroken = this.run?.monster.broken; const guardWas = this.run?.monster.guardDown; const beforeIds = new Set(this.state.hand.map(c => c.id));
+    this.hideCardPreview(); const wasBroken = this.run?.monster.broken; const countdownBefore = this.run?.monster.countdown; const oldRule = this.run ? currentRule(this.run) : undefined; const beforeIds = new Set(this.state.hand.map(c => c.id));
     const entry = this.screen === 'adventure' && this.run ? playRunCard(this.run, index) : playCard(this.state, index);
     const drawnIds = entry.type === 'bag' ? this.state.hand.filter(c => !beforeIds.has(c.id)).map(c => c.id) : []; drawnIds.forEach(id => this.pendingDrawIds.add(id));
-    this.preview = null; const brokeNow = !wasBroken && Boolean(this.run?.monster.broken); const guardNow = !guardWas && Boolean(this.run?.monster.guardDown); this.persist();
+    this.preview = null; const brokeNow = !wasBroken && Boolean(this.run?.monster.broken); this.persist();
     this.growth.forEach(socket => socket.classList.toggle('stone-growth', entry.type === 'stone'));
     this.displayXp = [...this.state.xp]; this.displayMultiplier = this.state.m; this.displayTotal = this.state.total;
     this.shownRainbow = new Set(this.state.row.filter(c => c.rb).map(c => c.id));
@@ -448,67 +485,77 @@ export class GameUI {
     if (entry.type && row) playCardArt(row.querySelector<HTMLElement>('.gem-card')!);
     if (entry.type === 'mirror' && row) {
       const resolved = row.querySelector<HTMLElement>('.gem-card')!;
-      const before = createCard(this.store, createToolCard('mirror', entry.id), this.displayXp, this.state.opts.grow, { static: true }); before.classList.add('temporary-mirror'); before.style.transform = `scale(${this.layout.rowScale})`;
+      const before = createCard(this.store, createToolCard('mirror', entry.id), this.displayXp, this.state.opts.grow, { static: true, thresholds: growthThresholds(this.run ?? this.state) }); before.classList.add('temporary-mirror'); before.style.transform = `scale(${this.layout.rowScale})`;
       resolved.style.visibility = 'hidden'; row.prepend(before); playCardArt(before);
       this.later(() => { before.remove(); resolved.style.visibility = ''; resolved.animate([{opacity:0},{opacity:1}],{duration:200}); },200);
     }
     this.animateScore(this.displayScore, this.state.turnDmg);
     const hit = this.monsterHitPoint();
-    this.later(() => {
-      if (!this.state.row.some(c => c.id === entry.id)) return;
-      const big = this.screen === 'adventure' && this.run ? entry.damage >= this.run.monster.maxHp * .2 || entry.rainbow > 0 || entry.type === 'hammer' : entry.damage >= 20000 || entry.k === 'white';
-      this.store.play(this.dummy, big ? 'hit_big' : 'hit');
-      this.store.play(this.badge, entry.type === 'lens' || entry.k === 'white' || entry.k === 'shun' ? 'double' : 'up');
-      this.mult.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { duration: 200 });
-      this.float(formatFull(entry.damage), big || Boolean(entry.guard), false, hit, entry.guard ? 'guard' : '');
-      if (guardNow) { this.effect('fx_kill', hit, '#E8E2D6', 1.2); this.shake(false); this.toughNode.animate([{ scale: 1 }, { scale: 1.15 }, { scale: 1 }], { duration: 300 }); this.toast(`破防！这回合接下来的牌伤害 ×${RUN.guardDamage}`); }
-      const color = this.store.manifest.palette.mix[String(entry.v)] || this.store.manifest.palette.text;
-      this.effect('fx_hit', hit, color);
-      if (entry.k !== 'plain') { const positions = rowPositions(this.state.row, this.layout); const p = positions[this.state.row.findIndex(c => c.id === entry.id)]; if (p) this.effect(`fx_${entry.k}`, { x: p.x, y: p.y + rowSize(this.layout).h / 2 }, color); }
-      if (brokeNow && this.run?.monster.broken) {
-        this.store.setStay(this.dummy, 'daze'); this.effect('fx_kill', hit, undefined, 1.5);
-        if (!this.brokenHintShown) { this.brokenHintShown = true; this.toast('打穿了！接着出牌刷超杀，打完点"拿战利品"'); }
-      }
-    }, 180);
-    if (entry.rainbow) this.later(() => { this.effect('fx_rainbow', { x: (this.layout.rowStart.x + this.layout.rowRight) / 2, y: this.layout.rowStart.y - ROW.labelOffset - MOTION.rainbowLift }); this.float(`彩虹 +${formatFull(entry.rainbow)}`, true, true); this.toast('彩虹！这回合 ×10'); }, 380);
-    if (entry.type === 'hammer') this.later(() => {
-      this.effect('fx_slam', { x: (this.layout.rowStart.x + this.layout.rowRight) / 2, y: this.layout.rowStart.y + rowSize(this.layout).h }, this.store.manifest.palette.mix['1'] ?? undefined, 1.5);
-      this.score.animate([{ scale: 1 }, { scale: 1.25 }, { scale: 1 }], { duration: 300 }); this.shake(false);
-    }, 300);
-    if (entry.type === 'lens') this.float('倍率 ×2', true);
+    const big = this.run ? entry.damage >= this.run.monster.maxHp * .1 || entry.k === 'white' || entry.rainbow > 0 || entry.type === 'hammer' : entry.damage >= 20000 || entry.k === 'white' || entry.rainbow > 0 || entry.type === 'hammer';
+    this.sound.playCard(this.state.row.length - 1);
+    this.store.play(this.dummy, big ? 'hit_big' : 'hit');
+    this.sound.hit(big); if (brokeNow) this.sound.pierce();
+    if (row) this.feel.cardDrop(row);
+    const doubled = entry.m2 >= entry.m * 2 && (entry.k === 'shun' || entry.k === 'white' || entry.type === 'lens' || entry.effects?.some(effect => effect.id === 'same'));
+    this.store.play(this.badge, doubled ? 'double' : 'up'); this.feel.multiplier(this.mult, doubled);
+    if (doubled) this.sound.double(this.state.row.length - 1);
+    this.float(formatFull(entry.damage), big, false, hit, '', entry.damage);
+    const color = this.store.manifest.palette.mix[String(entry.v)] || this.store.manifest.palette.text;
+    this.effect('fx_hit', hit, color);
+    if (entry.k !== 'plain') {
+      const positions = rowPositions(this.state.row, this.layout); const p = positions[this.state.row.findIndex(c => c.id === entry.id)];
+      if (p) this.effect(`fx_${entry.k}`, { x: p.x, y: p.y + rowSize(this.layout).h / 2 }, color, entry.k === 'white' ? 1.3 : 1);
+      if (entry.k === 'white') this.sound.white();
+    }
+    this.presentEffects(entry, countdownBefore, oldRule);
+    if (brokeNow && this.run?.monster.broken) {
+      this.store.setStay(this.dummy, 'daze'); this.effect('fx_kill', hit, undefined, 1.5);
+      if (!this.brokenHintShown) { this.brokenHintShown = true; this.toast(this.run.fight === RUN.fights.length ? '打穿了！打完点“打赢了！”' : '打穿了！接着出牌刷超杀，打完点“拿战利品”'); }
+    }
+    if (entry.rainbow) {
+      this.sound.rainbow();
+      this.feel.rainbow(this.state.row.filter(c => c.rb).map(c => this.rowNodes.get(c.id)!).filter(Boolean), () => {
+        this.effect('fx_rainbow', { x: this.layout.width / 2, y: this.layout.height / 2 }, undefined, 2);
+        this.float(`彩虹 +${formatFull(entry.rainbow)}`, true, true, this.layout.floating, '', entry.rainbow);
+      });
+    }
+    if (entry.type === 'hammer') { this.effect('fx_slam', { x: (this.layout.rowStart.x + this.layout.rowRight) / 2, y: this.layout.rowStart.y + rowSize(this.layout).h }, color, 1.5); }
     if (entry.type === 'bag') this.later(() => { drawnIds.forEach(id => this.pendingDrawIds.delete(id)); this.renderHand(drawnIds, 120); }, 300);
-    entry.grown.forEach(i => this.later(() => {
+    entry.grown.forEach(i => {
       this.effect('fx_grow', this.layout.growth.centers[i], this.store.manifest.palette.gem[COLORS[i]].mid);
-      const form = gemForm(this.state, i); this.toast(`${NAMES[i]}变成${FORMS[form]}，底数 ${entry.gemValues[i]} → ${CONFIG.gemValue[form]}`);
-    }, 580));
+      const label = el('span', 'growth-upgrade', `变成${FORMS[gemForm(this.state, i)]}`); this.growth[i]?.append(label); this.later(() => label.remove(), 900);
+    });
+    this.feel.hit({ monster: this.monsterMotion, damage: entry.damage, big, pierce: brokeNow, roots: [this.monsterMotion, ...this.fxLayer.querySelectorAll('svg')] });
+    if (brokeNow) this.feel.slow([this.monsterMotion, this.fxLayer, this.rowLayer, this.mult]);
   }
+
   private animateScore(from: number, to: number) {
-    cancelAnimationFrame(this.scoreAnimation); const start = performance.now();
-    const step = (now: number) => { const progress = Math.min(1, (now - start) / 300); this.displayScore = Math.round(from + (to - from) * (1 - (1 - progress) ** 3)); this.setScore(this.displayScore); if (progress < 1) this.scoreAnimation = requestAnimationFrame(step); };
+    cancelAnimationFrame(this.scoreAnimation); from = Math.max(0, this.displayScore); to = Math.max(0, to); const start = performance.now();
+    const step = (now: number) => { const progress = Math.max(0, Math.min(1, (now - start) / 300)); this.displayScore = scoreAt(from, to, now - start); this.setScore(this.displayScore); if (progress < 1) this.scoreAnimation = requestAnimationFrame(step); };
     this.scoreAnimation = requestAnimationFrame(step);
   }
   private effect(id: string, at: Point, color?: string, scale = 1) {
-    const svg = this.store.createInline(id); const [w, h] = dimensions(this.store.get(id).definition);
-    place(svg, { x: at.x - w * scale / 2, y: at.y - h * scale / 2, w: w * scale, h: h * scale }); if (color) svg.style.color = color; this.fxLayer.append(svg);
-    const duration = this.store.play(svg, 'play'); this.later(() => svg.remove(), duration);
+    const svg = this.store.effect(id, this.fxLayer, at.x, at.y, color); const [w, h] = dimensions(this.store.get(id).definition);
+    place(svg, { x: at.x - w * scale / 2, y: at.y - h * scale / 2, w: w * scale, h: h * scale });
+    return svg;
   }
   private setScore(value: number) {
     const text = formatFull(value); this.score.textContent = text;
     this.score.style.fontSize = `${Math.min(Math.round(this.layout.damage.h * 0.9), Math.floor(this.layout.damage.w / Math.max(1, [...text].reduce((s, ch) => s + (ch === ',' ? 0.3 : 0.6), 0))))}px`;
   }
-  private float(text: string, big = false, rainbow = false, at = this.layout.floating, extra = '') {
-    const node = el('div', `damage-float${big ? ' big' : ''}${rainbow ? ' rainbow' : ''}${extra ? ` ${extra}` : ''}`, text);
+  private float(text: string, big = false, rainbow = false, at = this.layout.floating, extra = '', damage = 0) {
+    const node = el('div', `damage-float${big ? ' big' : ''}${rainbow ? ' rainbow' : ''}${extra ? ` ${extra}` : ''}`);
+    const value = el('span', rainbow ? 'rainbow-text' : '', text); node.append(value);
     Object.assign(node.style, { left: `${at.x + (++this.floatIndex % 3 - 1) * 32}px`, top: `${at.y - (rainbow ? 80 : 0)}px` });
-    if (rainbow) node.style.backgroundImage = `linear-gradient(90deg, ${[1,3,2,6,4,5].map(mask => this.store.manifest.palette.mix[String(mask)]).join(',')})`;
-    this.fxLayer.append(node); this.later(() => node.remove(), 900);
+    if (rainbow) value.style.backgroundImage = `linear-gradient(90deg, ${[1,3,2,6,4,5].map(mask => this.store.manifest.palette.mix[String(mask)]).join(',')})`;
+    this.fxLayer.append(node); this.feel.number(value, damage); this.later(() => node.remove(), 900);
   }
   private toast(message: string) {
-    this.toasts.push(message); if (this.toastActive) return;
-    const show = () => {
-      const next = this.toasts.shift(); if (!next) { this.toastActive = false; return; } this.toastActive = true;
-      const node = el('div', 'toast', next); node.style.maxWidth = `${Math.min(940, 2 * Math.min(this.layout.toast.x, this.layout.width - this.layout.toast.x))}px`; this.store.nineSlice(node, 'ui_panel', 24); node.style.left = `${this.layout.toast.x}px`; node.style.top = `${this.layout.toast.y}px`; this.fxLayer.append(node);
-      this.later(() => { node.remove(); show(); }, 1200);
-    }; show();
+    this.activeToast?.remove();
+    const node = el('div', 'toast', message); this.activeToast = node;
+    node.style.maxWidth = `${Math.min(940, 2 * Math.min(this.layout.toast.x, this.layout.width - this.layout.toast.x))}px`;
+    this.store.nineSlice(node, 'ui_panel', 24); node.style.left = `${this.layout.toast.x}px`; node.style.top = `${this.layout.banner.y}px`;
+    this.fxLayer.append(node); this.later(() => { node.remove(); if (this.activeToast === node) this.activeToast = null; }, 1200);
   }
   private flyCards(nodes: HTMLElement[], interval = 30) {
     nodes.forEach((source, i) => { const node = source.cloneNode(true) as HTMLElement; this.fxLayer.append(node); const x = parseFloat(node.style.left); const y = parseFloat(node.style.top);
@@ -526,14 +573,17 @@ export class GameUI {
     const oldHearts = this.run.hearts; const countdown = this.run.monster.countdown;
     endRunTurn(this.run); this.state = this.run.game; this.persist();
     if (this.run.result) this.settleRecords();
-    if (broken) { this.deathTransition(); return; }
+    if (broken) { this.deathTransition(oldHearts); return; }
     if (oldHearts !== this.run.hearts) {
       this.transition = Boolean(this.run.result); this.attacking = true; this.losingHeart = oldHearts - 1; this.syncPresentation(); if (!this.transition) this.render(); else { this.rowLayer.replaceChildren(); this.rowNodes.clear(); } this.updateCountdown(0); this.store.play(this.dummy, 'attack');
-      this.later(() => { this.effect('fx_attack', { x: this.layout.width / 2, y: this.layout.height / 2 }, undefined, 2); this.shake(true); const heart = this.heartNodes[oldHearts - 1]; if (heart instanceof SVGSVGElement) { const duration = this.store.play(heart, 'lose'); this.later(() => { this.losingHeart = -1; this.renderHearts(); }, duration); } }, 400);
-      this.later(() => { this.transition = false; this.attacking = false; this.losingHeart = -1; this.syncPresentation(); if (this.run?.result) { this.store.play(this.dummy, 'hit_big'); this.later(() => { this.buildScene(); }, 700); } else { this.renderHearts(); this.updateCountdown(this.run!.monster.countdown, true); this.render(); this.renderHand(this.state.hand.filter(c => !previousIds.has(c.id)).map(c => c.id)); } }, 1100);
+      this.monsterMotion.style.zIndex = '2'; this.feel.attack(this.monsterMotion, () => {
+        this.effect('fx_attack', { x: this.layout.width / 2, y: this.layout.height / 2 }, undefined, 2); this.sound.heartLose();
+        const heart = this.heartNodes[oldHearts - 1]; if (heart instanceof SVGSVGElement) { const duration = this.store.play(heart, 'lose'); this.later(() => { this.losingHeart = -1; this.renderHearts(); }, duration); }
+      });
+      this.later(() => { this.transition = false; this.attacking = false; this.monsterMotion.style.zIndex = ''; this.losingHeart = -1; this.syncPresentation(); if (this.run?.result) { this.store.play(this.dummy, 'hit_big'); this.later(() => { this.buildScene(); }, 700); } else { this.renderHearts(); this.updateCountdown(this.run!.monster.countdown, true); this.render(); this.renderHand(this.state.hand.filter(c => !previousIds.has(c.id)).map(c => c.id)); } }, 1100);
     } else { this.syncPresentation(); this.render(); if (countdown !== this.run.monster.countdown) this.updateCountdown(this.run.monster.countdown, true); this.renderHand(this.state.hand.filter(c => !previousIds.has(c.id)).map(c => c.id)); }
   }
-  private rewind() { if (!this.playing) return; this.cancelDrag(); if (!(this.screen === 'adventure' && this.run ? undoRun(this.run) : undo(this.state))) return; this.resetEffects(); this.syncPresentation(); this.render(); this.persist(); }
+  private rewind() { if (!this.playing) return; this.cancelDrag(); if (!(this.screen === 'adventure' && this.run ? undoRun(this.run) : undo(this.state))) return; const visible = this.displayScore; this.resetEffects(); this.syncPresentation(); this.displayScore = visible; this.render(); this.animateScore(visible, this.state.turnDmg); this.persist(); }
   private onKeyDown = (event: KeyboardEvent) => {
     if (this.modal) {
       if (event.key === 'Escape') { event.preventDefault(); this.closeModal(); return; }
@@ -545,6 +595,11 @@ export class GameUI {
       return;
     }
     if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || /INPUT|TEXTAREA|SELECT/.test((event.target as Element).tagName)) return;
+    if (this.screen === 'adventure' && this.run?.phase === 'relic' && !this.transition) {
+      if (/^[1-3]$/.test(event.key)) { event.preventDefault(); this.selectRelic(Number(event.key) - 1); }
+      else if (event.key === 'Enter' && this.selectedRelic >= 0) { event.preventDefault(); this.takeRelic(this.selectedRelic); }
+      return;
+    }
     if (this.screen === 'adventure' && this.run?.phase === 'loot' && !this.transition) {
       if (/^[1-4]$/.test(event.key)) { event.preventDefault(); this.selectLoot(Number(event.key) - 1, false); }
       else if (event.key === 'Enter' && this.selectedLoot >= 0) { event.preventDefault(); this.takeLoot(this.selectedLoot); }
@@ -564,7 +619,7 @@ export class GameUI {
     panel.append(el('h2', '', title), close); overlay.append(panel); overlay.addEventListener('click', e => { if (e.target === overlay) this.closeModal(); }); this.overlayLayer.append(overlay); this.modal = panel; this.viewport.classList.add('modal-open'); this.scene.inert = true; this.handLayer.inert = true; close.focus(); return panel;
   }
   private closeModal() { if (!this.modal) return; this.overlayLayer.replaceChildren(); this.modal = null; this.viewport.classList.remove('modal-open'); this.scene.inert = false; this.handLayer.inert = false; this.modalReturn?.focus(); this.modalReturn = null; }
-  /** 打出这张牌会怎样（冒险里含破防加成），不改动局面 */
+  /** 所有预览与警告均来自规则层，不改变局面。 */
   private predict(card: Card): RowEntry {
     return (this.screen === 'adventure' && this.run && previewRunCard(this.run, card)) || previewCard(this.state, card);
   }
@@ -575,13 +630,16 @@ export class GameUI {
     const box = el('div', 'card-preview'); box.dataset.cardId = String(card.id);
     const cx = parseFloat(anchor.style.left) + handSize(this.layout).w / 2;
     place(box, { x: Math.max(8, Math.min(this.layout.width - w - 8, cx - w / 2)), y: this.layout.inspect.bottom - h, w, h });
-    const face = createCard(this.store, card, this.displayXp, this.state.opts.grow); face.style.transform = `scale(${s})`; box.append(face);
+    const face = createCard(this.store, card, this.displayXp, this.state.opts.grow, { thresholds: growthThresholds(this.run ?? this.state) }); face.style.transform = `scale(${s})`; box.append(face);
     const info = el('div', 'card-preview-info');
     if (card.type) info.append(el('div', 'help', TOOL_HELP[card.type]));
     if (this.playing) {
-      const entry = this.predict(card); const weak = this.screen === 'adventure' && this.run ? hitsWeakness(this.run, entry.v) : false;
-      const parts = [`现在打出：${REACTION[entry.k]}`, `预计 ${formatFull(entry.damage)}`]; if (weak) parts.push('削韧 1'); if (entry.guard) parts.push(`含破防 ×${RUN.guardDamage}`);
-      info.append(el('div', 'predict', parts.join(' · ')));
+      const entry = this.predict(card);
+      info.append(el('div', 'predict', `现在打出：${REACTION[entry.k]} · 预计 ${formatFull(entry.damage)}`));
+      entry.effects?.filter(effect => effect.id in RULES).forEach(effect => {
+        const text = effect.id === 'bite' || effect.id === 'bell' ? '出手提前 1 回合' : effect.id === 'hug' ? '红宝石算 0' : effect.text;
+        info.append(el('div', 'rule-impact', `${RULES[effect.id as keyof typeof RULES].name}：${text}`));
+      });
     }
     if (info.childElementCount) box.append(info);
     this.dragLayer.append(box); this.cardPreview = box;
@@ -590,7 +648,7 @@ export class GameUI {
   private inspectCard(card: Card) {
     const panel = this.openModal(card.type ? TOOLS[card.type].name : CARD_NAMES[card.v]); panel.classList.add('card-inspection');
     const wrap = el('div', 'inspection-card'); wrap.style.width = `${MOTION.cardW * MOTION.inspectScale}px`; wrap.style.height = `${MOTION.cardH * MOTION.inspectScale}px`;
-    const face = createCard(this.store, card, this.displayXp, this.state.opts.grow); face.style.transform = `scale(${MOTION.inspectScale})`; wrap.append(face); panel.append(wrap);
+    const face = createCard(this.store, card, this.displayXp, this.state.opts.grow, { thresholds: growthThresholds(this.run ?? this.state) }); face.style.transform = `scale(${MOTION.inspectScale})`; wrap.append(face); panel.append(wrap);
     panel.addEventListener('click', () => this.closeModal());
   }
   private showRules() {
@@ -609,14 +667,16 @@ export class GameUI {
     const sections = [
       ['一局怎么打', '一局 6 仗：小怪、小怪、精英、小怪、小怪、首领。宝石的成长整局都在。', '怪头顶是它的血，旁边的数字是它还有几回合出手。数到 0 它就打你一下，你少 1 颗心；3 颗心都没了就输了。', '把怪的血打空就算打穿了。打穿以后这回合还能接着出牌，打得越多超杀越高。点“拿战利品”结束这一仗。'],
       ['额外牌', '额外牌也带宝石，宝石照常算伤害、照常起反应，效果是另外加的。', '口袋（绿）：摸 2 张。', '放大镜（蓝）：倍率再 ×2。', '锤子（红）：这回合到这里的伤害 ×2，最后打最划算。', '镜子（没宝石）：变成上一张缺的宝石，一定凑白。', '磨石（没宝石）：三颗宝石各长 5 次。'],
-      ['战利品', '每打赢一仗，从几张额外牌里选一张放进牌组，也可以不拿、回 1 颗心。超杀到 10 倍多一张可选。打赢精英，手牌上限 +1。'],
+      ['战利品', '每打赢一仗，从几张额外牌里选一张放进牌组，也可以不拿。超杀到 10 倍多一张可选。打赢精英，手牌上限 +1，心回满。'],
     ];
+    sections.push(['怪的规矩', ...Object.values(RULES).map(rule => `${rule.name}：${rule.text}`)]);
+    if (this.run?.relics.length) sections.push(['宝物', ...this.run.relics.map(id => `${RELICS[id].name}：${RELICS[id].text}`)]);
     sections.forEach(([title,...paragraphs]) => { panel.append(el('h3','',title)); paragraphs.forEach(text=>panel.append(el('p','',text))); });
   }
   private showGrowth(i: number) {
-    const f = gemForm(this.state, i); const xp = this.state.xp[i]; const panel = this.openModal(NAMES[i]);
+    const thresholds = growthThresholds(this.run ?? this.state); const f = gemForm(this.state, i); const xp = this.state.xp[i]; const panel = this.openModal(NAMES[i]);
     const image = this.store.create(`gem_${COLORS[i]}_${FORM_IDS[f]}`); image.classList.add('growth-detail-gem'); panel.append(image);
-    const next = xp >= CONFIG.formAt[2] ? '已经是闪光' : xp >= CONFIG.formAt[1] ? `再用 ${CONFIG.formAt[2] - xp} 次变闪光（底数 ${CONFIG.gemValue[2]}）` : `再用 ${CONFIG.formAt[1] - xp} 次变切好（底数 ${CONFIG.gemValue[1]}）`;
+    const next = xp >= thresholds[2] ? '已经是闪光' : xp >= thresholds[1] ? `再用 ${thresholds[2] - xp} 次变闪光（底数 ${CONFIG.gemValue[2]}）` : `再用 ${thresholds[1] - xp} 次变切好（底数 ${CONFIG.gemValue[1]}）`;
     panel.append(el('p', 'growth-detail', `${NAMES[i]} · ${FORMS[f]} · 底数 ${CONFIG.gemValue[f]} · 用了 ${xp} 次 · ${next}`));
     if (!this.state.opts.grow) panel.append(el('p', 'dim', '成长已关闭，当前按原石计算，使用次数继续记录。'));
   }
@@ -654,7 +714,7 @@ export class GameUI {
     if (this.run?.result) this.settleRecords(); this.flushSettlements();
     this.cancelDrag(); this.closeModal(); this.resetEffects(); this.transition = false;
     this.run = createRun(this.seed()); this.run.game.opts.hint = this.prefs.hint; this.state = this.run.game; this.savedRun = this.run;
-    this.screen = 'adventure'; this.selectedLoot = -1; this.brokenHintShown = false; this.persist(); this.syncPresentation(); this.buildScene(); this.render(); this.enterFight();
+    this.screen = 'adventure'; this.selectedLoot = -1; this.selectedRelic = -1; this.brokenHintShown = false; this.persist(); this.syncPresentation(); this.buildScene(); this.render();
   }
   private resumeAdventure() {
     if (!this.savedRun) return;
@@ -673,10 +733,105 @@ export class GameUI {
     if (this.screen === 'adventure' && this.run && !this.run.result) { this.persist(); this.savedRun = this.run; }
     this.screen = 'home'; this.run = null; this.buildScene();
   }
+  private buildRelicBar() {
+    this.relicNodes.clear(); if (!this.run) return;
+    const l = this.layout.relics;
+    this.run.relics.forEach((id, i) => {
+      const button = el('button', 'relic-icon') as HTMLButtonElement; button.type = 'button'; button.dataset.relic = id;
+      place(button, { x: l.x + i * (l.size + l.gap), y: l.y, w: l.size, h: l.size }); button.append(this.store.create(`relic_${id}`));
+      button.setAttribute('aria-label', RELICS[id].name); button.addEventListener('click', () => { const panel = this.openModal(RELICS[id].name); panel.append(el('p', '', RELICS[id].text)); });
+      this.scene.append(button); this.relicNodes.set(id, button);
+    });
+  }
+  private buildRelicPick() {
+    if (!this.run) return; this.banner('选一个宝物带进古堡', true); this.lootCards = [];
+    const layout = this.layout.relicPick;
+    this.run.relicOptions.forEach((id, i) => {
+      const node = el('button', 'relic-pick loot-card') as HTMLButtonElement; node.type = 'button'; node.dataset.relicIndex = String(i);
+      place(node, { ...layout.points[i], w: MOTION.cardW * layout.scale, h: MOTION.cardH * layout.scale }); this.store.nineSlice(node, 'ui_panel', 24);
+      const icon = this.store.create(`relic_${id}`); Object.assign(icon.style, { width: `${layout.icon}px`, height: `${layout.icon}px` });
+      const name = el('strong', '', RELICS[id].name); name.style.fontSize = `${layout.nameSize}px`;
+      const detail = el('span', '', RELICS[id].text); detail.style.fontSize = `${layout.textSize}px`;
+      node.append(icon, name, detail); node.addEventListener('click', () => this.selectRelic(i));
+      node.setAttribute('aria-label', `${i + 1} ${RELICS[id].name}：${RELICS[id].text}。点一下看看，再点一下带走`);
+      this.scene.append(node); this.lootCards.push(node);
+    });
+    place(this.lootHint, this.layout.loot.hint); this.lootHint.textContent = '点一下看看，再点一下带走'; this.scene.append(this.lootHint); this.updateRelicSelection();
+  }
+  private updateRelicSelection() { this.lootCards.forEach((node, i) => { node.classList.toggle('selected', i === this.selectedRelic); node.setAttribute('aria-pressed', String(i === this.selectedRelic)); }); }
+  private selectRelic(index: number) { if (this.transition || this.run?.phase !== 'relic' || !this.run.relicOptions[index]) return; if (this.selectedRelic === index) this.takeRelic(index); else { this.selectedRelic = index; this.updateRelicSelection(); } }
+  private takeRelic(index: number) {
+    if (this.transition || this.run?.phase !== 'relic' || !this.run.relicOptions[index]) return;
+    const id = this.run.relicOptions[index]; const card = this.lootCards[index]; this.transition = true;
+    chooseRelic(this.run, index); this.state = this.run.game; this.persist();
+    const icon = this.store.create(`relic_${id}`); const point = this.layout.relicPick.points[index]; const l = this.layout.relics;
+    place(icon, { x: point.x, y: point.y, w: this.layout.relicPick.icon, h: this.layout.relicPick.icon }); this.fxLayer.append(icon);
+    icon.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: `translate(${l.x - point.x}px,${l.y - point.y}px) scale(${l.size / this.layout.relicPick.icon})`, opacity: 1 }], { duration: 500, fill: 'forwards', easing: 'ease-in-out' });
+    this.lootCards.forEach(node => node.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' })); card?.setAttribute('aria-pressed', 'true');
+    this.later(() => { this.transition = false; this.selectedRelic = -1; this.resetEffects(); this.syncPresentation(); this.buildScene(); this.render(); this.enterFight(); }, 500);
+  }
+  private renderRuleSign(override?: keyof typeof RULES) {
+    if (!this.run) return; const id = override ?? currentRule(this.run); this.ruleButton.hidden = !id; if (!id) return;
+    const m = this.run.monster; const text = id === 'wind' ? m.woundDown ? '发条松完' : `${RULES[id].name} ${'●'.repeat(m.wind)}${'○'.repeat(Math.max(0, m.maxWind - m.wind))}` : RULES[id].name;
+    this.ruleButton.dataset.rule = id; this.ruleButton.setAttribute('aria-label', `${text}，查看规矩`);
+    const label = this.store.setSlotText(this.ruleSign, 'rule_text', text); if (id === 'wind') label.setAttribute('font-size', '24'); this.store.setSlotIcon(this.ruleSign, 'icon_slot', `rule_${id}`);
+  }
+  private buildRainbow() {
+    this.rainbowSlots = []; this.rainbowLit.clear(); this.rainbowTriggered = false;
+    const r = this.layout.rainbow; const group = el('div', 'rainbow-progress');
+    place(group, { x: r.x, y: r.y, w: r.slot * 6 + r.gap * 5, h: r.slot });
+    [1, 3, 2, 6, 4, 5].forEach((mask, i) => {
+      const slot = this.store.createInline('ui_rainbow_slot'); place(slot, { x: i * (r.slot + r.gap), y: 0, w: r.slot, h: r.slot });
+      slot.style.color = this.store.manifest.palette.mix[String(mask)] ?? ''; slot.dataset.color = String(mask); group.append(slot); this.rainbowSlots.push(slot);
+    });
+    const note = el('span', 'rainbow-need'); note.textContent = rainbowStatus(this.run ?? this.state).need === 5 ? '5 种就够' : ''; group.append(note);
+    this.scene.append(group); place(this.rainbowReady, this.layout.rainbowReady); this.scene.append(this.rainbowReady);
+  }
+  private renderRainbow() {
+    if (!this.playing) return; const status = rainbowStatus(this.run ?? this.state); const lit = new Set(this.state.rainbow ? [1,3,2,6,4,5] : status.lit);
+    this.rainbowReady.hidden = !status.ready;
+    this.rainbowSlots.forEach(slot => {
+      const color = Number(slot.dataset.color); const on = lit.has(color); const before = this.rainbowLit.has(color);
+      slot.dataset.lit = String(on); slot.setAttribute('aria-label', `${CARD_NAMES[color]} ${on ? '已亮' : '未亮'}`);
+      if (on && !before) this.store.setStay(slot, 'light');
+      if (!on && before) { this.store.setStay(slot, null); this.store.play(slot, 'out'); }
+      if (this.state.rainbow && !this.rainbowTriggered) slot.animate([{ opacity: 1, filter: 'brightness(1)' }, { opacity: .3, filter: 'brightness(2.2)' }, { opacity: 1, filter: 'brightness(1)' }], { duration: 240, iterations: 2 });
+    });
+    this.rainbowLit = lit; this.rainbowTriggered = this.state.rainbow;
+  }
+  private renderDragWarnings(card?: Card) {
+    this.countdownPreview.textContent = ''; this.countdownNode.classList.remove('attack-preview'); this.monsterMotion.classList.remove('warning-shiver');
+    if (!this.preview || !card || !this.run) return;
+    const after = previewCountdown(this.run, card); if (after !== this.run.monster.countdown) this.countdownPreview.textContent = `${this.run.monster.countdown} → ${after}`;
+    const warning = cardWarnings(this.run, card); this.countdownNode.classList.toggle('attack-preview', warning.attack); this.monsterMotion.classList.toggle('warning-shiver', warning.attack);
+  }
+  private presentEffects(entry: RowEntry, countdownBefore?: number, oldRule?: keyof typeof RULES) {
+    if (!this.run) return;
+    entry.effects?.forEach(effect => {
+      const relic = this.relicNodes.get(effect.id); if (relic) this.feel.relic(relic);
+      if (effect.id === 'layers') {
+        this.store.play(this.dummy, 'layer'); this.store.play(this.ruleSign, 'flip'); this.sound.rule('layer');
+        if (oldRule) this.renderRuleSign(oldRule); this.later(() => this.renderRuleSign(), (this.store.get('ui_rule_sign').definition.events?.flip ?? 400) / 2);
+      } else if (effect.id === 'bite' || effect.id === 'hug' || effect.id === 'bell') {
+        this.feel.rule(this.ruleButton, effect.id); this.sound.rule(effect.id);
+        if (effect.id !== 'hug') { const event = effect.id === 'bite' ? 'bite' : 'ring'; if (this.store.get(this.dummy.dataset.artId!).definition.events?.[event] !== undefined) this.store.play(this.dummy, event); }
+      } else if (effect.id === 'wind') {
+        const woundDown = effect.text === '发条松完'; this.store.play(this.dummy, 'unwind'); this.sound.rule(woundDown ? 'wound_down' : 'unwind');
+        if (woundDown) this.store.setStay(this.dummy, 'wound_down');
+      }
+    });
+    const woundDown = entry.effects?.some(effect => effect.id === 'wind' && effect.text === '发条松完');
+    const hastened = entry.effects?.some(effect => effect.id === 'bite' || effect.id === 'bell');
+    if (woundDown || hastened || (countdownBefore !== undefined && countdownBefore !== this.run.monster.countdown)) {
+      this.updateCountdown(this.run.monster.countdown, true); this.countdownNode.classList.remove('countdown-red', 'countdown-green');
+      const flash = woundDown || (countdownBefore !== undefined && this.run.monster.countdown > countdownBefore) ? 'countdown-green' : 'countdown-red'; this.countdownNode.classList.add(flash); const version = ++this.countdownFlashId; this.later(() => { if (version === this.countdownFlashId) this.countdownNode.classList.remove(flash); }, 300);
+    }
+  }
+
   private buildAdventureTop() {
     if (!this.run) return;
     place(this.turn, this.layout.turn); this.turn.textContent = `第 ${this.run.fight} 仗 · 第 ${this.state.turn} 回合`; this.scene.append(this.turn);
-    this.renderHearts();
+    this.renderHearts(); this.buildRelicBar();
     const p = this.layout.progress; const progress = el('div', 'fight-progress'); place(progress, { x:p.x, y:p.y-p.node/2, w:p.w, h:p.node });
     const line = el('div', 'progress-line'); progress.append(line);
     RUN.fights.forEach((fight,i) => {
@@ -688,16 +843,15 @@ export class GameUI {
     place(this.hpBar, this.layout.hpBar); this.hpBar.replaceChildren(); this.store.nineSlice(this.hpBar, 'ui_hp_frame', this.layout.hpBorder);
     const inner = this.store.get('ui_hp_frame').definition.inner ?? [8,8,8,8];
     const slot = el('div', 'hp-slot'); Object.assign(slot.style, { top:`${inner[0]}px`,right:`${inner[1]}px`,bottom:`${inner[2]}px`,left:`${inner[3]}px` }); slot.append(this.hpUnder,this.hpChip,this.hpFill); this.hpBar.append(slot,this.hpText); this.scene.append(this.hpBar); delete this.hpBar.dataset.layer;
-    const m = this.run.monster;
-    if (m.maxToughness > 0) { place(this.toughNode, this.layout.toughBar); const tb = this.layout.toughBar; const icon = this.store.create(`gem_icon_${COLORS[m.weak]}`); icon.classList.add('tough-weak'); Object.assign(icon.style, { width: `${tb.h}px`, height: `${tb.h}px` }); const pips = el('div', 'tough-pips'); pips.style.left = `${tb.h + 8}px`; this.toughNode.replaceChildren(icon, pips); this.toughNode.dataset.count = ''; this.scene.append(this.toughNode); }
+    place(this.ruleButton, this.layout.ruleSign); this.ruleButton.replaceChildren(this.ruleSign); this.scene.append(this.ruleButton);
     const c = this.layout.countdown; const hb = this.layout.hpBar; const coversBar = c.x - c.size/2 < hb.x + hb.w/2 && c.x + c.size/2 > hb.x; this.hpText.style.paddingLeft = this.run.monster.key === 'clock' || !coversBar ? '' : `${Math.max(0, c.x+c.size/2-hb.x)}px`; place(this.countdownNode, { x:c.x-c.size/2,y:c.y-c.size/2,w:c.size,h:c.size });
-    this.countdownNode.replaceChildren(this.countdownArt,this.countdownText); if (this.run.monster.key !== 'clock') this.scene.append(this.countdownNode);
+    this.countdownNode.replaceChildren(this.countdownArt,this.countdownText,this.countdownPreview); this.scene.append(this.countdownNode);
   }
   private renderHearts() {
     if (!this.run) return;
     const h = this.layout.hearts;
-    for (let i=0;i<RUN.hearts;i++) {
-      const id = i < this.run.hearts || i === this.losingHeart ? 'ui_heart' : 'ui_heart_empty'; let heart = this.heartNodes[i];
+    for (let i=0;i<this.run.maxHearts;i++) {
+      const id = i < (this.healingHearts ?? this.run.hearts) || i === this.losingHeart ? 'ui_heart' : 'ui_heart_empty'; let heart = this.heartNodes[i];
       if (!heart || heart.dataset.artId !== id) { if (heart instanceof SVGSVGElement) this.store.stop(heart); heart?.remove(); heart = this.store.create(id); this.heartNodes[i] = heart; this.scene.append(heart); }
       place(heart,{x:h.x+i*(h.size+h.gap),y:h.y,w:h.size,h:h.size}); heart.classList.add('adventure-heart'); heart.setAttribute('aria-label', i<this.run.hearts?'心':'空心');
     }
@@ -716,21 +870,16 @@ export class GameUI {
     if (m.broken) this.hpText.textContent = `打穿了！超杀 ${formatOverkill(m.overkill)}`;
     else this.hpText.append(el('span','',MONSTERS[m.key].name), el('span','hp-layers', layers > 1 ? `×${layer}` : ''));
     this.hpBar.dataset.hp = String(m.hp); this.hpBar.setAttribute('aria-label', m.broken ? this.hpText.textContent ?? '' : `${MONSTERS[m.key].name}，还剩 ${Math.ceil(m.hp / m.maxHp * 100)}% 血${layers > 1 ? `，${layer} 层` : ''}`);
-    if (m.maxToughness > 0) {
-      this.toughNode.hidden = m.broken; this.toughNode.classList.toggle('guard-down', m.guardDown);
-      const pips = this.toughNode.querySelector('.tough-pips'); const key = `${m.toughness}/${m.guardDown}`;
-      if (pips && this.toughNode.dataset.count !== key) { this.toughNode.dataset.count = key; pips.replaceChildren(...(m.guardDown ? [el('span', 'tough-label', `破防！伤害 ×${RUN.guardDamage}`)] : Array.from({ length: m.maxToughness }, (_, i) => el('i', i < m.toughness ? 'on' : '')))); }
-      this.toughNode.setAttribute('aria-label', m.guardDown ? '破防' : `弱点${NAMES[m.weak]}，韧性 ${m.toughness} / ${m.maxToughness}`);
-    }
-    const label = m.broken ? '拿战利品' : '结束回合'; this.endButton.lastElementChild!.textContent = label; this.endButton.setAttribute('aria-label',label); this.endButton.classList.toggle('claim-ready',m.broken);
-    this.store.setStay(this.dummy,m.broken?'daze':null); this.updateCountdown(this.attacking ? 0 : m.countdown);
+    this.renderRuleSign();
+    const label = m.broken ? this.run.fight === RUN.fights.length ? '打赢了！' : '拿战利品' : '结束回合'; this.endButton.lastElementChild!.textContent = label; this.endButton.setAttribute('aria-label',label); this.endButton.classList.toggle('claim-ready',m.broken);
+    this.store.setStay(this.dummy,m.broken?'daze':m.woundDown?'wound_down':null); this.updateCountdown(this.attacking ? 0 : m.countdown);
   }
   private updateCountdown(value: number, tick = false) {
     if (!this.run) return;
-    if (this.run.monster.key === 'clock') { this.store.setSlotText(this.dummy,'countdown_slot',value); if (tick || value === 0) this.store.play(this.dummy,'tick'); return; }
+    if (this.run.monster.key === 'clock') { this.store.setSlotText(this.dummy,'countdown_slot',value); if (tick) this.store.play(this.dummy,'tick'); }
     this.countdownText.textContent=String(value); this.countdownNode.setAttribute('aria-label',`还有 ${value} 回合出手`);
-    this.store.setStay(this.countdownArt,value===1&&!this.run.monster.broken?'warn':null);
-    if (tick || value===0) { this.store.play(this.countdownArt,'tick'); this.countdownText.animate([{scale:1.3},{scale:1}],{duration:300}); }
+    this.store.setStay(this.countdownArt,value<=1&&!this.run.monster.broken?'warn':null);
+    if (tick) { this.store.play(this.countdownArt,'tick'); this.countdownText.animate([{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:300}); }
   }
   private banner(text: string, persistent = false) {
     const node=el('div','adventure-banner'); place(node,this.layout.banner); node.append(this.store.create('ui_banner'),el('strong','',text)); this.fxLayer.append(node);
@@ -739,20 +888,19 @@ export class GameUI {
     return node;
   }
   private enterFight() {
-    if (!this.run) return;
-    this.dummy.animate([{transform:'translateY(40px)',opacity:0},{transform:'translateY(0)',opacity:1}],{duration:500});
+    if (!this.run || this.run.phase !== 'battle') return;
+    this.monsterMotion.animate([{transform:'translateY(40px)',opacity:0},{transform:'translateY(0)',opacity:1}],{duration:500});
     this.banner(`第 ${this.run.fight} 仗`); this.toast(`${MONSTERS[this.run.monster.key].name}：${MONSTERS[this.run.monster.key].line}`);
     this.renderHand(this.state.hand.map(c=>c.id));
   }
-  private shake(big: boolean) { const x=big?8:4,y=big?4:2; this.stage.animate([{translate:'0 0'},{translate:`${x}px ${-y}px`},{translate:`${-x}px ${y}px`},{translate:`${x}px ${y}px`},{translate:'0 0'}],{duration:big?300:200}); }
-  private deathTransition() {
+  private deathTransition(oldHearts: number) {
     if (!this.run) return;
     this.transition=true; this.rowLayer.replaceChildren(); this.handLayer.replaceChildren(); this.rowNodes.clear(); this.handNodes.clear();
     this.mult.style.opacity='0'; this.formula.style.opacity='0'; this.undoButton.hidden=true; this.deckButton.hidden=true; this.endButton.hidden=true; this.growth.forEach(g=>g.hidden=true);
     this.store.setStay(this.dummy,null); const defeated = this.dummy; const deathDuration = this.store.play(defeated,'die'); this.later(() => defeated.remove(), deathDuration);
     this.later(()=>{ this.effect('fx_overkill',this.layout.floating,undefined,1.5); const text=el('div','overkill-announcement',`超杀 ${formatOverkill(this.run!.monster.overkill)}`); text.style.left=`${this.layout.floating.x}px`;text.style.top=`${this.layout.floating.y}px`;this.fxLayer.append(text);this.later(()=>text.remove(),1300); },300);
     const finish=()=> { this.transition=false; this.resetEffects(); this.mult.style.opacity='';this.formula.style.opacity='';this.buildScene(); if (this.run?.phase==='loot') this.animateLoot(); };
-    if (this.run.phase==='loot' && this.run.fight===3) this.later(()=>{ this.banner('背包变大');this.toast('手牌上限 7 → 8');this.later(finish,1200);},1800);
+    if (this.run.phase==='loot' && this.run.fight===3) this.later(()=>{ this.banner('背包变大 · 心回满');this.toast('手牌上限 7 → 8，心回满了');this.healingHearts=oldHearts;this.renderHearts();for(let i=oldHearts;i<this.run!.hearts;i++)this.later(()=>{this.healingHearts=i+1;this.renderHearts();const heart=this.heartNodes[i];if(heart instanceof SVGSVGElement)this.store.play(heart,'gain');const h=this.layout.hearts;this.effect('fx_heal',{x:h.x+i*(h.size+h.gap)+h.size/2,y:h.y+h.size/2});if(heart instanceof HTMLElement || heart instanceof SVGElement)this.feel.heal(heart);this.sound.heal();},(i-oldHearts)*150);this.later(finish,1200);},1800);
     else this.later(finish,1800);
   }
   private buildLoot() {
@@ -763,17 +911,17 @@ export class GameUI {
     this.run.loot.forEach((type,i)=>{
       const card=el('button','loot-card') as HTMLButtonElement;card.type='button';card.dataset.lootIndex=String(i);card.setAttribute('aria-label',`${i+1} ${TOOLS[type].name}，点一下选中，再点一下拿走`);
       place(card,{...points[i],w:MOTION.cardW*this.layout.loot.scale,h:MOTION.cardH*this.layout.loot.scale});
-      const face=createCard(this.store,createToolCard(type,-i-1),this.state.xp,true);face.style.transform=`scale(${this.layout.loot.scale})`;card.append(face);card.addEventListener('click',()=>this.selectLoot(i));this.scene.append(card);this.lootCards.push(card);
+      const face=createCard(this.store,createToolCard(type,-i-1),this.state.xp,true,{ thresholds: growthThresholds(this.run ?? this.state) });face.style.transform=`scale(${this.layout.loot.scale})`;card.append(face);card.addEventListener('click',()=>this.selectLoot(i));this.scene.append(card);this.lootCards.push(card);
     });
     place(this.lootHint,this.layout.loot.hint);this.scene.append(this.lootHint);this.updateLootSelection();
-    this.button(this.run.hearts<RUN.hearts?'不拿，回 1 颗心':'不拿',this.layout.loot.skip,()=>this.takeLoot(-1),this.run.hearts<RUN.hearts?'ui_heart':undefined).dataset.action='skip-loot';
+    this.button('不拿',this.layout.loot.skip,()=>this.takeLoot(-1)).dataset.action='skip-loot';
   }
   private animateLoot() {
     const chest=this.scene.querySelector<SVGSVGElement>('[data-art-id="loot_chest"]');if (chest) {this.store.stop(chest);this.store.play(chest,'drop');this.later(()=>this.store.setStay(chest,'open'),500);}
     this.lootCards.forEach((node,i)=>{
       const face=node.firstElementChild as HTMLElement;const back=this.store.create('card_back');back.classList.add('loot-card-back');node.append(back);face.style.visibility='hidden';
       node.animate([{transform:`translate(${this.layout.loot.chest.x-parseFloat(node.style.left)}px,${this.layout.loot.chest.y-parseFloat(node.style.top)}px) scale(.3)`,opacity:0},{transform:'translate(0,0) scale(1)',opacity:1}],{duration:400,delay:700+i*120,fill:'backwards'});
-      this.later(()=>{node.animate([{scale:'1 1'},{scale:'0 1'},{scale:'1 1'}],{duration:300});this.later(()=>{back.remove();face.style.visibility='';},150);},1100+i*120);
+      this.later(()=>{node.animate([{transform:'scaleX(1)'},{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:300});this.later(()=>{back.remove();face.style.visibility='';},150);},1100+i*120);
     });
   }
   private updateLootSelection() {
@@ -784,13 +932,13 @@ export class GameUI {
   private selectLoot(index: number, confirm = true) { if (this.transition || this.run?.phase!=='loot' || !this.run.loot[index]) return;if (this.selectedLoot===index&&confirm) this.takeLoot(index);else {this.selectedLoot=index;this.updateLootSelection();} }
   private takeLoot(index: number) {
     if (this.transition||this.run?.phase!=='loot') return;
-    const beforeHearts=this.run.hearts;const node=this.lootCards[index];this.resetEffects();this.transition=true;
+    const node=this.lootCards[index];this.resetEffects();this.transition=true;
     if (index<0) skipLoot(this.run);else chooseLoot(this.run,index);
     this.state=this.run.game;this.persist();
     this.lootCards.forEach((card,i)=>{ if (i===index) {card.animate([{transform:'translateY(-40px) scale(1.15)'},{transform:`translate(${this.layout.deck.x-parseFloat(card.style.left)}px,${this.layout.deck.y-parseFloat(card.style.top)}px) scale(.3)`,opacity:0}],{duration:500,fill:'forwards'});}else card.animate([{opacity:1},{opacity:0}],{duration:300,fill:'forwards'});});
-    if (this.run.hearts>beforeHearts) {this.renderHearts();const heart=this.heartNodes[beforeHearts];if (heart instanceof SVGSVGElement)this.store.play(heart,'gain');const h=this.layout.hearts;this.effect('fx_heal',{x:h.x+beforeHearts*(h.size+h.gap)+h.size/2,y:h.y+h.size/2});}
-    if (node) {const count=this.roundButton('牌库',this.layout.deck,()=>{},'ui_icon_deck');count.disabled=true;const n=el('span','count-bubble',String(this.run.cards.length));count.append(n);n.animate([{scale:1.4},{scale:1}],{duration:300});}
-    this.later(()=>{this.transition=false;this.selectedLoot=-1;this.resetEffects();this.syncPresentation();this.buildScene();this.render();this.enterFight();},index<0?Math.max(600,this.store.get('fx_heal').definition.events?.play ?? 700):500);
+
+    if (node) {const count=this.roundButton('牌库',this.layout.deck,()=>{},'ui_icon_deck');count.disabled=true;const n=el('span','count-bubble',String(this.run.cards.length));count.append(n);n.animate([{transform:'scale(1.4)'},{transform:'scale(1)'}],{duration:300});}
+    this.later(()=>{this.transition=false;this.selectedLoot=-1;this.resetEffects();this.syncPresentation();this.buildScene();this.render();this.enterFight();},500);
   }
   private buildResult() {
     const result=this.run?.result;if(!result)return;
@@ -808,38 +956,49 @@ export class GameUI {
     countRows.forEach((count,i)=>{for(let step=0;step<=10;step++)this.later(()=>{count.node.textContent=count.format(count.value*step/10);},(i+1)*300+step*30);});
     this.button('回首页',this.layout.result.home,()=>this.goHome()).dataset.action='home';this.button('再来一局',this.layout.result.again,()=>this.startAdventure(),undefined,true).dataset.action='again';
   }
-  private showMonster() { if(!this.run)return;const m=this.run.monster;const panel=this.openModal('怪的介绍');panel.append(el('h3','',MONSTERS[m.key].name),el('p','',MONSTERS[m.key].line),el('p','',`血量 ${formatFull(m.hp)} / ${formatFull(m.maxHp)} · 每 ${m.maxCountdown} 回合出手一次`),el('p','',m.maxToughness?`弱点：${NAMES[m.weak]}。打出带${NAMES[m.weak]}的牌，韧性 −1；韧性打空就破防，这回合剩下的牌伤害 ×${RUN.guardDamage}，下回合韧性回满。`:'')); }
-  private debugRefresh() {this.cancelDrag();this.closeModal();this.resetEffects();this.transition=false;this.syncPresentation();this.buildScene();this.render();this.persist();}
+  private showMonster() {
+    if (!this.run) return;
+    const m = this.run.monster; const panel = this.openModal('怪的介绍');
+    panel.append(el('h3', '', MONSTERS[m.key].name), el('p', '', MONSTERS[m.key].line), el('p', '', `血量 ${formatFull(m.hp)} / ${formatFull(m.maxHp)} · 每 ${m.maxCountdown} 回合出手一次`));
+    const active = currentRule(this.run); const ids = m.key === 'dragon' ? ['hug', 'bite', 'bell'] as const : active ? [active] : [];
+    ids.forEach(id => panel.append(el('h3', '', `${RULES[id].name}${active === id ? ' · 现在' : ''}`), el('p', '', RULES[id].text)));
+    if (m.broken) panel.append(el('p', '', '打穿了，这回合规矩不再起作用。'));
+  }
+  private debugRefresh() {if(this.screen==='adventure'&&this.run)this.state=this.run.game;this.cancelDrag();this.closeModal();this.resetEffects();this.transition=false;this.syncPresentation();this.buildScene();this.render();this.persist();}
   private debugJumpFight(fight:number) {
     if(!this.debugEnabled||!Number.isInteger(fight)||fight<1||fight>6)return;
-    this.startAdventure();
+    this.startAdventure(); chooseRelic(this.run!, 0);
     while(this.run!.fight<fight){this.run!.monster.broken=true;this.run!.monster.hp=0;endRunTurn(this.run!);skipLoot(this.run!);}
     this.state=this.run!.game;this.debugRefresh();
   }
-  private debugHp(value:number) {if(!this.debugEnabled||!this.run||this.run.phase!=='battle'||!Number.isFinite(value)||value<1)return;this.run.monster.hp=value;this.run.monster.maxHp=Math.max(value,this.run.monster.maxHp);this.run.monster.turnStartHp=value;this.run.monster.broken=false;this.run.monster.overkill=0;this.run.hist=[];this.state.hist=[];this.debugRefresh();}
-  private debugToughness(value:number) {const m=this.run?.monster;if(!this.debugEnabled||!m||!Number.isInteger(value)||value<1||value>m.maxToughness)return;m.toughness=value;m.guardDown=false;this.debugRefresh();}
-  private debugHearts(value:number) {if(!this.debugEnabled||!this.run||!Number.isInteger(value)||value<1||value>3)return;this.run.hearts=value;this.debugRefresh();}
+  private debugHp(value:number) { if (!this.debugEnabled || !this.run) return; debugSetMonsterHp(this.run, value); this.debugRefresh(); }
+  private debugCountdown(value:number) { if (!this.debugEnabled || !this.run) return; debugSetCountdown(this.run, value); this.debugRefresh(); }
+  private debugWind(value:number) { if (!this.debugEnabled || !this.run) return; debugSetWind(this.run, value); this.debugRefresh(); }
+  private debugRelic(id:RelicId) { if (!this.debugEnabled || !this.run) return; debugGiveRelic(this.run, id); this.debugRefresh(); }
+  private debugHearts(value:number) {if(!this.debugEnabled||!this.run||!Number.isInteger(value)||value<1||value>this.run.maxHearts)return;this.run.hearts=value;this.debugRefresh();}
   private debugGiveTool(type:ToolType) {if(!this.debugEnabled||!TOOL_TYPES.includes(type))return;if(!this.playing)this.startPractice();const cards=this.run?.cards??[...this.state.deck,...this.state.hand,...this.state.row,...this.state.discard];const card=createToolCard(type,Math.max(0,...cards.map(c=>c.id))+1);if(this.run)this.run.cards.push({...card});this.state.hand.push(card);this.state.hist=[];if(this.run)this.run.hist=[];this.debugRefresh();}
   private debugDeal(sequence: readonly (number|ToolType)[], test?:number) {
     if(!this.debugEnabled)return;if(!this.playing)this.startPractice();
     const original=this.run?.cards??[...this.state.deck,...this.state.hand,...this.state.row,...this.state.discard].map(c=>c.type?createToolCard(c.type,c.id):{...c});const pool=original.map(c=>({...c}));const hand:Card[]=[];let id=Math.max(0,...pool.map(c=>c.id));
     for(const value of sequence){if(typeof value==='number'&&(!Number.isInteger(value)||value<0||value>7))throw new Error('宝石位必须是 0–7');if(typeof value==='string'&&!TOOL_TYPES.includes(value))throw new Error('未知额外牌');const at=pool.findIndex(c=>typeof value==='number'?!c.type&&c.v===value:c.type===value);if(at>=0)hand.push(pool.splice(at,1)[0]);else{const card=typeof value==='number'?{id:++id,v:value}:createToolCard(value,++id);hand.push(card);if(this.run)this.run.cards.push({...card});}}
     this.state.hand=hand;this.state.deck=pool;this.state.row=[];this.state.discard=[];this.state.hist=[];this.state.m=1;this.state.turnDmg=0;this.state.rainbow=false;this.state.chain=[];this.state.chainIdx=[];this.state.xp=test===11?[10,0,0]:[0,0,0];
-    if(this.run){this.run.hist=[];this.run.monster.broken=false;this.run.monster.hp=this.run.monster.maxHp;this.run.monster.turnStartHp=this.run.monster.hp;this.run.monster.overkill=0;}
+    if(this.run){this.run.hist=[];this.run.monster.broken=false;this.run.monster.hp=this.run.monster.maxHp;this.run.monster.turnStartHp=this.run.monster.hp;this.run.monster.overkill=0;debugSetMonsterHp(this.run,this.run.monster.maxHp);}
     this.debugRefresh();if(test)this.toast(`用例 ${test}：按手牌从左到右出牌`);
   }
   private buildDebug(panel:HTMLElement) {
     panel.append(el('h3','','测试入口（仅 debug=1）'));
     const fights=el('div','debug-actions');for(let n=1;n<=6;n++){const button=el('button','',`第 ${n} 仗`);button.dataset.debugFight=String(n);button.addEventListener('click',()=>this.debugJumpFight(n));fights.append(button);}panel.append(fights);
     const inputRow=(label:string,value:string,apply:(v:string)=>void)=>{const row=el('div','setting-row debug-input');const input=document.createElement('input');input.value=value;input.setAttribute('aria-label',label);const button=el('button','',label);button.addEventListener('click',()=>{try{apply(input.value);}catch(error){this.toast(error instanceof Error?error.message:'输入不正确');}});row.append(input,button);panel.append(row);};
-    if(this.run?.phase==='battle'){inputRow('设怪的血',String(this.run.monster.hp),v=>this.debugHp(Number(v)));inputRow('设心（1–3）',String(this.run.hearts),v=>this.debugHearts(Number(v)));if(this.run.monster.maxToughness)inputRow('设韧性',String(this.run.monster.toughness),v=>this.debugToughness(Number(v)));}
+    if(this.run?.phase==='battle'){inputRow('设怪的血',String(this.run.monster.hp),v=>this.debugHp(Number(v)));inputRow(`设心（1–${this.run.maxHearts}）`,String(this.run.hearts),v=>this.debugHearts(Number(v)));inputRow('设倒计时',String(this.run.monster.countdown),v=>this.debugCountdown(Number(v)));if(this.run.monster.maxWind)inputRow('设发条',String(this.run.monster.wind),v=>this.debugWind(Number(v)));}
+    const relics=el('div','debug-actions'); (Object.keys(RELICS) as RelicId[]).forEach(id => { const button=el('button','',`给宝物：${RELICS[id].name}`);button.addEventListener('click',()=>this.debugRelic(id));relics.append(button); }); panel.append(relics);
+    this.modalAction(panel,'跳到选宝物画面',()=>{if(this.run) {debugRelicSelection(this.run);this.selectedRelic=-1;this.debugRefresh();}else this.startAdventure();});
     const tools=el('div','debug-actions');TOOL_TYPES.forEach(type=>{const button=el('button','',`给一张${TOOLS[type].name}`);button.addEventListener('click',()=>this.debugGiveTool(type));tools.append(button);});panel.append(tools);
     inputRow('发指定的牌','1,3,2,6,4,5,hammer',v=>this.debugDeal(v.split(/[\s,，]+/).filter(Boolean).map(v=>/^\d+$/.test(v)?Number(v):v as ToolType)));
     const cases=el('div','debug-actions');Object.keys(DEBUG_SEQUENCES).forEach(key=>{const button=el('button','',`用例 ${key} 发牌`);button.dataset.debugCase=key;button.addEventListener('click',()=>this.debugDeal(DEBUG_SEQUENCES[Number(key)],Number(key)));cases.append(button);});panel.append(cases);
   }
   private installDebug() {
     const api={snapshot:()=>JSON.parse(JSON.stringify(this.state)) as GameState,runSnapshot:()=>this.run?JSON.parse(JSON.stringify(this.run)) as RunState:null,screen:()=>this.screen,
-      startAdventure:()=>this.startAdventure(),practice:()=>this.startPractice(),goHome:()=>this.goHome(),resume:()=>this.resumeAdventure(),debugJumpFight:(n:number)=>this.debugJumpFight(n),setMonsterHp:(n:number)=>this.debugHp(n),setHearts:(n:number)=>this.debugHearts(n),giveTool:(type:ToolType)=>this.debugGiveTool(type),dealCards:(sequence:(number|ToolType)[])=>this.debugDeal(sequence),scenario:(n:number)=>this.debugDeal(DEBUG_SEQUENCES[n],n),
+      startAdventure:()=>this.startAdventure(),practice:()=>this.startPractice(),goHome:()=>this.goHome(),resume:()=>this.resumeAdventure(),debugJumpFight:(n:number)=>this.debugJumpFight(n),setMonsterHp:(n:number)=>this.debugHp(n),setCountdown:(n:number)=>this.debugCountdown(n),setWind:(n:number)=>this.debugWind(n),giveRelic:(id:RelicId)=>this.debugRelic(id),selectRelic:(n:number)=>this.selectRelic(n),chooseRelic:(n:number)=>this.takeRelic(n),setHearts:(n:number)=>this.debugHearts(n),giveTool:(type:ToolType)=>this.debugGiveTool(type),dealCards:(sequence:(number|ToolType)[])=>this.debugDeal(sequence),scenario:(n:number)=>this.debugDeal(DEBUG_SEQUENCES[n],n),
       deal:(n:number)=>this.debugDeal(DEBUG_SEQUENCES[n],n),endTurn:()=>this.finishTurn(),play:(index=0)=>this.playById(this.state.hand[index]?.id),undo:()=>this.rewind(),end:()=>this.finishTurn(),chooseLoot:(index:number)=>this.takeLoot(index),selectLoot:(index:number)=>this.selectLoot(index),skipLoot:()=>this.takeLoot(-1),records:()=>({...this.localRecords})};
     Object.assign(window,{__gemcard:api});
   }
@@ -849,6 +1008,10 @@ export class GameUI {
       const row = el('div', 'setting-row'); row.append(el('span', '', title)); const group = el('div', 'choice-group');
       choices.forEach(choice => { const button = document.createElement('button'); button.textContent = choice.label; button.className = choice.value === current ? 'selected' : ''; button.setAttribute('aria-pressed', String(choice.value === current)); button.addEventListener('click', () => { this.resetEffects(); this.transition = false; select(choice.value); this.savePreferences(); this.persist(); this.syncPresentation(); this.buildScene(); this.render(); this.showSettings(); }); group.append(button); }); row.append(group); panel.append(row);
     };
+    addChoice('声音', [{label:'开',value:true},{label:'关',value:false}],this.prefs.sound,value=>{this.prefs.sound=Boolean(value);});
+    addChoice('音量', [{label:'低',value:1},{label:'中',value:2},{label:'高',value:3}],this.prefs.volume,value=>{this.prefs.volume=Number(value) as 1|2|3;});
+    addChoice('震屏', [{label:'开',value:true},{label:'关',value:false}],this.prefs.shake,value=>{this.prefs.shake=Boolean(value);});
+    addChoice('动画速度', [{label:'正常',value:'normal'},{label:'快',value:'fast'}],this.prefs.animationSpeed,value=>{this.prefs.animationSpeed=value as 'normal'|'fast';});
     addChoice('提示', [{ label: '开', value: true }, { label: '关', value: false }], this.prefs.hint, value => { this.prefs.hint = Boolean(value); updateSettings(this.state, { hint: this.prefs.hint }); });
     addChoice('布局', [{ label: '自动', value: 'auto' }, { label: '竖屏', value: 'portrait' }, { label: '横屏', value: 'landscape' }], this.prefs.layout, value => { this.prefs.layout = value as LayoutChoice; this.resize(); });
     if (new URLSearchParams(location.search).has('layout')) panel.append(el('p', 'dim', '网址的 layout 参数优先于布局设置。'));

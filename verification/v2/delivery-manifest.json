@@ -1,0 +1,1168 @@
+{
+  "kind": "source-and-verification-only",
+  "formal_vite_build": false,
+  "real_browser_verified": false,
+  "node_modules_included": false,
+  "files": [
+    {
+      "path": "gemcard-demo/.gitignore",
+      "bytes": 36,
+      "sha256": "bfa5f8365a7772ac194672c136ef9187d729bc5008ae858106307be49d390578"
+    },
+    {
+      "path": "gemcard-demo/04-验收清单.md",
+      "bytes": 8937,
+      "sha256": "25f58cf86c98c5b86989ae6abb59bca4424529fbd886568e8cd046881c6b7b1d"
+    },
+    {
+      "path": "gemcard-demo/ACCEPTANCE.md",
+      "bytes": 785,
+      "sha256": "cc1f2b00e8d5f717c8b3698678b712e6c9e2347677debcc4cb9eae2b1a2ae7ec"
+    },
+    {
+      "path": "gemcard-demo/HANDOFF.md",
+      "bytes": 6835,
+      "sha256": "57052c5d3f1f08c63e4568bfba560df7afdb3a540eca80e83b7c4315c0ac8a51"
+    },
+    {
+      "path": "gemcard-demo/README.md",
+      "bytes": 3583,
+      "sha256": "9ed28211d0c528d9b270794225406808df9b8ce5c80c8daf1f8a0290a506f6e1"
+    },
+    {
+      "path": "gemcard-demo/index.html",
+      "bytes": 434,
+      "sha256": "0b97faa92fba33ce05aafda19bbf21ce3170458b5723162d45b6a6861d1d3345"
+    },
+    {
+      "path": "gemcard-demo/package-lock.json",
+      "bytes": 48858,
+      "sha256": "c963da6cc0e83f259989218988b7f6db9a78dfe75b3a67e6f6794b83adb54e9f"
+    },
+    {
+      "path": "gemcard-demo/package.json",
+      "bytes": 640,
+      "sha256": "d2a54625ab8c36b089a4cb5b45c055f0266e33db70173faca20417a23c94d00f"
+    },
+    {
+      "path": "gemcard-demo/public/art/.gitkeep",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "gemcard-demo/public/art/bg_tile.svg",
+      "bytes": 4974,
+      "sha256": "0c9feaa269bdd3bdc0f9894018cec015392148b53c12921b597867f4548c997e"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_art_bag.svg",
+      "bytes": 8383,
+      "sha256": "23bcde4f109a40c3104e6e4c8f0e86c0e0c3ddfb5bf154f4e0e5c1daf158b425"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_art_bg.svg",
+      "bytes": 859,
+      "sha256": "0a413702696d7bf48f122b891395e156453e84ba246bf9d76d84c41263cde763"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_art_bg_tool.svg",
+      "bytes": 1163,
+      "sha256": "e8cc6aebbb281f1a5a4c93afa80441e150d2850eeb851585fe974daac9392239"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_art_empty.svg",
+      "bytes": 1726,
+      "sha256": "88e615f7d4ec555d2ea97f638c5f1b96f91201e9b90bd8aa2e0329553713c5cc"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_art_hammer.svg",
+      "bytes": 10805,
+      "sha256": "7e116bafef0cd44e55d457d138aa3569df8fc99ad089a0727adac4cb8883f248"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_art_lens.svg",
+      "bytes": 6814,
+      "sha256": "70cf84cf3c5f804a8a059685107b4aaa2d096283ca7e1da2110f425a05335fcd"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_art_mirror.svg",
+      "bytes": 6715,
+      "sha256": "dc9b94c2a0a3528af52850c8036bf1898ea66197365f8d0438df8ce0eb5673fb"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_art_stone.svg",
+      "bytes": 7700,
+      "sha256": "b23e587e9b1566feba272027d53bc4816253d407337b6ca28c07d365187082bf"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_back.svg",
+      "bytes": 13255,
+      "sha256": "92d86b6c539f8baa29e4f8d389a4404a4ca2f22d75b21ce246a05d55cc8acbb0"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_frame.svg",
+      "bytes": 2668,
+      "sha256": "be52f9f826230302ce4f077b00aa97add5b92563e419107c9174d42f36705ac4"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_frame_tool.svg",
+      "bytes": 3345,
+      "sha256": "e1587e0e34036070a8fe910390fdc60a13db6902effdb2423cdfc62fde26f7d0"
+    },
+    {
+      "path": "gemcard-demo/public/art/card_gem_bar.svg",
+      "bytes": 1552,
+      "sha256": "428450b5df1ffc70d8e125f2a3c10334c5fa7a29b5a3937bd52b37bd3f9d01cd"
+    },
+    {
+      "path": "gemcard-demo/public/art/dummy.svg",
+      "bytes": 16601,
+      "sha256": "b7a8134f636617deb310e50be8325cc420dddd04943621566574a7bf6af76500"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_attack.svg",
+      "bytes": 4629,
+      "sha256": "c5acaf66e0177b8dba9b729d64376f5b420d15e5a93ce3fa8a2ac679d717face"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_grow.svg",
+      "bytes": 2757,
+      "sha256": "e4a5a4f4744043d297fb0f71af6cfb3b195a7a9c8194576092a9b58b187bc042"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_heal.svg",
+      "bytes": 4578,
+      "sha256": "18fbef27eef6dc8b794305a878d5f0d4de30c5e96f113ff241ca09464e0f30bb"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_hit.svg",
+      "bytes": 2612,
+      "sha256": "92a3dd9ea6d64bb0130ada228c3085fc46224a2d2e914d0619db5d5fe473346a"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_kill.svg",
+      "bytes": 6199,
+      "sha256": "d67bf8d5913f128aa2b8d9451708ce4b5be5ddbef205789af6ac916c3f69dbbc"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_overkill.svg",
+      "bytes": 7565,
+      "sha256": "5e9aca98f7fd6ddee1c4656229cac9c091887e34a15438efd77acf9ddfcc433d"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_rainbow.svg",
+      "bytes": 4528,
+      "sha256": "15e9e5c9b693b7a907c19b7e68a037636ab8619cd155384c65faafb43256a019"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_same.svg",
+      "bytes": 2128,
+      "sha256": "0d11df9c06e9313940fd6ace103d01f7ddffa8bc0c194c665e50cfe9e9ad5097"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_shun.svg",
+      "bytes": 2427,
+      "sha256": "dc16af2a31ef3fc034b219b70d6f814afcf419474b87546a84fd6870ba839ce8"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_slam.svg",
+      "bytes": 6663,
+      "sha256": "8a59d1e8a370e5788262418ea16acda64417cd6fb340a712dbdc2ff052f55371"
+    },
+    {
+      "path": "gemcard-demo/public/art/fx_white.svg",
+      "bytes": 2911,
+      "sha256": "32f6a0d76851f07f6b0718092ff43a7d21af28d0244bcd1c181a21e94dc57e14"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_blue_cut.svg",
+      "bytes": 4367,
+      "sha256": "71445130b82bb793f33bce4f6bf057f390c6288d1acf77d78d2843abd2837f35"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_blue_rough.svg",
+      "bytes": 3352,
+      "sha256": "802cb6d2b679b5e35ff15916f9c13341404d840070e596458106d00cb89c4893"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_blue_shine.svg",
+      "bytes": 5782,
+      "sha256": "574e3366e96e1195f35c8141184afb0e4714b84b7ea27635f07cb7618a0690cf"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_green_cut.svg",
+      "bytes": 4682,
+      "sha256": "965d43fc027ab104519797d737293d6c6a165b8920fb842cd0aa1385224a8e96"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_green_rough.svg",
+      "bytes": 3483,
+      "sha256": "0ba1b7fd7056728ef0c6567e8a2c3d4c9365da3e6e4d65fa64a76749bad360fc"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_green_shine.svg",
+      "bytes": 6129,
+      "sha256": "6997583b09ebe5cc1fafd9863d150ada5eb9e57d4f76f8df9c150b8be9614aad"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_icon_blue.svg",
+      "bytes": 643,
+      "sha256": "f9998491388ea302298e409a7838c774294ceeb78ac4cfa4419fae77478d451c"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_icon_green.svg",
+      "bytes": 610,
+      "sha256": "a80aa36fa44e80b072a86cfb2c29ad8a8c2f8e04968a943789a486bc04107c54"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_icon_red.svg",
+      "bytes": 547,
+      "sha256": "db415177d45aec01b773ac9b7c5d9546e767967c7e087d544b27f58d5f407778"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_red_cut.svg",
+      "bytes": 4683,
+      "sha256": "9f4bc6016bb90d6c848ab83d2b4aa06dda57dd80ed78e6203b10136c191f7fae"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_red_rough.svg",
+      "bytes": 3634,
+      "sha256": "595d7921656e3d44e7178fadd2bbebe2b593fb229ddb85c85905849c4424d19c"
+    },
+    {
+      "path": "gemcard-demo/public/art/gem_red_shine.svg",
+      "bytes": 6061,
+      "sha256": "af5cbc7d30cb7f91376b861675ea899d8fd5fb271747cefdfb319294cf531c25"
+    },
+    {
+      "path": "gemcard-demo/public/art/loot_chest.svg",
+      "bytes": 16091,
+      "sha256": "4344a6e01dd798c1f7465115f68b1e263e03cec3246b740dc82861f9b16aa0a4"
+    },
+    {
+      "path": "gemcard-demo/public/art/mon_bear.svg",
+      "bytes": 22615,
+      "sha256": "21106bba0ac397fcc0562b98c796fd972dd3d8e12b6ff35a32e3e2cd79753ce7"
+    },
+    {
+      "path": "gemcard-demo/public/art/mon_chest.svg",
+      "bytes": 33343,
+      "sha256": "d1c76b6f1511d9a4ae8d28922a889d7ed5c0dafe42b5263454e71b80130bd437"
+    },
+    {
+      "path": "gemcard-demo/public/art/mon_clock.svg",
+      "bytes": 22865,
+      "sha256": "7e51d19ef9e5416ff2bfa53d2567509b2b336b8bd2a175e3d3e563bb06b106ab"
+    },
+    {
+      "path": "gemcard-demo/public/art/mon_dragon.svg",
+      "bytes": 28382,
+      "sha256": "cc03ee2e196050dd6d9f100ecdb3ce210b54093b3b8423a7442cebc174e2c1d6"
+    },
+    {
+      "path": "gemcard-demo/public/art/mon_soldier.svg",
+      "bytes": 24778,
+      "sha256": "b973ecbf5c12ffe3e7e35c8ee09b792ee9d0ed2788206378195d474708b72824"
+    },
+    {
+      "path": "gemcard-demo/public/art/prop_pillar.svg",
+      "bytes": 5578,
+      "sha256": "9659157182dab722e94889201df89a1247fd128e21791103339e821e41b05414"
+    },
+    {
+      "path": "gemcard-demo/public/art/prop_rack.svg",
+      "bytes": 3949,
+      "sha256": "88eda86b630c2e1fd2b503ea6acc6fcc8c2f3e0e2ec62161b8a4f87174c40aa3"
+    },
+    {
+      "path": "gemcard-demo/public/art/table_cloth.svg",
+      "bytes": 4203,
+      "sha256": "4228ca5fd7ac918ca356e791aa478c6fd3077510eca6837f3495f64c9dbbdc04"
+    },
+    {
+      "path": "gemcard-demo/public/art/title_emblem.svg",
+      "bytes": 16562,
+      "sha256": "89a6281443dbfbb9d9ac714ea450b709502e80c98290b192bd6c260ab1b93c3d"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_banner.svg",
+      "bytes": 4858,
+      "sha256": "a6d9e00d94d9fcae316047cc854c1c82ef01b8c8e1f8c8eef867069a296883d8"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_btn.svg",
+      "bytes": 1823,
+      "sha256": "652d6792888aebc217fd7a598278c898a9c23e3927c4ebbea491d5be619fea21"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_btn_primary.svg",
+      "bytes": 1828,
+      "sha256": "28936d347a59a6e2c0a7a36c7de7f744dec1df54979da2d65a17ef6e9040ff84"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_countdown.svg",
+      "bytes": 4703,
+      "sha256": "c761e0684d3445cc7c9a5002a15664bca8b3e652f3f8260ba9b5b93ba6d5bc20"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_heart.svg",
+      "bytes": 8369,
+      "sha256": "984b3a09104dec1e3582ac4d15ca7c41b3aada4e838fccda4856b1b29c7577e2"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_heart_empty.svg",
+      "bytes": 2532,
+      "sha256": "252554ef0f97843d5397c3698e188d52bbc1f23e443c71af8bd9089269dc19b3"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_hp_frame.svg",
+      "bytes": 2532,
+      "sha256": "989c56bb3b1ab69826c69fd7f74666eca432d1172d20f135cb4758627c483aec"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_icon_deck.svg",
+      "bytes": 1101,
+      "sha256": "ff1203a5ca66f1d0856c7ef8cb5aeae79365dad0af21d9ac303b886ad9bc57b2"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_icon_rules.svg",
+      "bytes": 1145,
+      "sha256": "a93d253cf96aa92fdcfd4c5d8b43fdcf8725985ee7e6bdeaee14a7e7e254b857"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_icon_settings.svg",
+      "bytes": 960,
+      "sha256": "e8fa7ed07259df00c9ac3877e24555348e27c3942b73e700b39b4e684a359f3c"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_icon_undo.svg",
+      "bytes": 587,
+      "sha256": "e185fd837408007d060284199ef756128e3e891d4d20bcddb4bc51ca6ad3016f"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_mult_badge.svg",
+      "bytes": 6190,
+      "sha256": "0020d8e634d586ade8d3818f02dfdf53986bb5fe278ec80e82144746e0ff2901"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_node_boss.svg",
+      "bytes": 3108,
+      "sha256": "0d737744ebf4d4f93fd64953a05e3b67c51131e322efc7b8d36cb42b4afeb67e"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_node_elite.svg",
+      "bytes": 2667,
+      "sha256": "af49f3ccad14e823e0cb6f2f90678c9d4fac9a496f8b06c4fc26fe3d559fada2"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_node_fight.svg",
+      "bytes": 2778,
+      "sha256": "a26fa01b3e788c9675246f66e9537bbf135828ba11e690020c34bb337d3a0143"
+    },
+    {
+      "path": "gemcard-demo/public/art/ui_panel.svg",
+      "bytes": 1660,
+      "sha256": "c4acb1ea15bafbcd2de7dac4292a639313b21f64015cf3f144c18f474d550f09"
+    },
+    {
+      "path": "gemcard-demo/public/art-manifest.json",
+      "bytes": 36790,
+      "sha256": "0895e9d409ec3f37feffca0d1ce400bfdf83951b469c058d54d6f836f8d56556"
+    },
+    {
+      "path": "gemcard-demo/src/art/art.test.ts",
+      "bytes": 17878,
+      "sha256": "e3df242d971dc737be58a3bfb19cf27cefc38c47aa634582d77d607a574544ef"
+    },
+    {
+      "path": "gemcard-demo/src/art/filters.ts",
+      "bytes": 304,
+      "sha256": "6fceca8c161ab403c9b9ea25b290efbd2f427a28a9843beb3dea4b5b069cae46"
+    },
+    {
+      "path": "gemcard-demo/src/art/index.ts",
+      "bytes": 410,
+      "sha256": "16b2aaa9f45638e42049dbd7d3f2c6cd677b76e32ea62554071a8a2b46af209c"
+    },
+    {
+      "path": "gemcard-demo/src/art/inspector.css",
+      "bytes": 6630,
+      "sha256": "2cc49b222df098b06e37f94916bd9faf2b2466c5f9b20211bb7cb3dc54743f07"
+    },
+    {
+      "path": "gemcard-demo/src/art/inspector.ts",
+      "bytes": 21737,
+      "sha256": "6383cc2d197d0b95dcc9b65ab8f62142987138b48b34fb818cf09707642b151a"
+    },
+    {
+      "path": "gemcard-demo/src/art/namespace.ts",
+      "bytes": 1992,
+      "sha256": "4fc3bb57477d7be2f31234d8966463670e86b7c80f19e15e352b20759e6a9b96"
+    },
+    {
+      "path": "gemcard-demo/src/art/placeholders.ts",
+      "bytes": 26577,
+      "sha256": "6e0554e479bc3fde2ddb7cfc995272e3c42a6b312bea43bb864ed0e5e771ed64"
+    },
+    {
+      "path": "gemcard-demo/src/art/store.ts",
+      "bytes": 17081,
+      "sha256": "f42a1bdef2bf9a5a11be1f51ae9adc5ab3a6b962e39556251bf9e68fa7b7a10f"
+    },
+    {
+      "path": "gemcard-demo/src/art/types.ts",
+      "bytes": 2647,
+      "sha256": "a11fa1453f0e82375f76b7effa03005633fdb0b96b3b9f9b086b25e99de1e948"
+    },
+    {
+      "path": "gemcard-demo/src/art/v2-art.test.ts",
+      "bytes": 8507,
+      "sha256": "63df8029dbec2ab7a68aaa64a7ac960aaad9256d05a1f8ae2a31e21c9470034d"
+    },
+    {
+      "path": "gemcard-demo/src/layout/fit.test.ts",
+      "bytes": 8850,
+      "sha256": "7a335150ea02db5cad000b8b3a4acc89f403de5a958ea48a623593463f934f28"
+    },
+    {
+      "path": "gemcard-demo/src/layout/fit.ts",
+      "bytes": 5815,
+      "sha256": "fbacc06f268d58e10ce320fb2142b26ef4139c7dc6301a9f30d59368b9becf4d"
+    },
+    {
+      "path": "gemcard-demo/src/layout/landscape.ts",
+      "bytes": 3126,
+      "sha256": "521339a0b14b4ee3508b3d486b710f839b7da974f3a48b99246a4d71626785fc"
+    },
+    {
+      "path": "gemcard-demo/src/layout/portrait.ts",
+      "bytes": 3161,
+      "sha256": "2b94a5ef2dc4860c5cb7021bd962edbbe41a2854586fb9ddd46679fca09104b2"
+    },
+    {
+      "path": "gemcard-demo/src/layout/types.ts",
+      "bytes": 4778,
+      "sha256": "ecdfa3d8dfd3082f820fe4cd6473a0163d3a7ed51f407c11726869edf72ff9b6"
+    },
+    {
+      "path": "gemcard-demo/src/main.ts",
+      "bytes": 1260,
+      "sha256": "a401a520b6f85bb6e76716a2d66090fb274b3eabb72a010b1b1d8d1d1f46cea1"
+    },
+    {
+      "path": "gemcard-demo/src/rules/README.md",
+      "bytes": 4170,
+      "sha256": "4490051d8dd01da79f78d86e860826884a73e1799ce1ba7d2cc33998ea28125f"
+    },
+    {
+      "path": "gemcard-demo/src/rules/config.ts",
+      "bytes": 1934,
+      "sha256": "470b78c947cdfb47e83f8a3d06e69ba74e5c1d68e5892698543d0bff201d8ae8"
+    },
+    {
+      "path": "gemcard-demo/src/rules/effects.ts",
+      "bytes": 7689,
+      "sha256": "ac5575728dc37a713db404f17ec7be4c5807682ef0dc9e6afb7db46502ac6a09"
+    },
+    {
+      "path": "gemcard-demo/src/rules/extra-cards.test.ts",
+      "bytes": 14203,
+      "sha256": "15b35776cd7d98b86b1c4ef6b2348d5287e1a19d86a81faa7cad08d96c18df69"
+    },
+    {
+      "path": "gemcard-demo/src/rules/index.ts",
+      "bytes": 19160,
+      "sha256": "4a2a9cb1ed41d8fcf840e57981aa6cb0d4fa164ba387250b5344ccba1afe5ed1"
+    },
+    {
+      "path": "gemcard-demo/src/rules/integration.test.ts",
+      "bytes": 2834,
+      "sha256": "07df36d5860b0ece50fbc7d30edc173ddd2985b1b27b582207775625d33c9934"
+    },
+    {
+      "path": "gemcard-demo/src/rules/number-rounding.test.ts",
+      "bytes": 554,
+      "sha256": "0c6246e8bef2a2ca53e764a96498e5c0f5a413233eadfb10a87d2d3e43b86f2e"
+    },
+    {
+      "path": "gemcard-demo/src/rules/rules.test.ts",
+      "bytes": 17048,
+      "sha256": "9f71310beb2038f8fb66f6cee3b952fb98e20de471b6776a6bfd7f71ea19d159"
+    },
+    {
+      "path": "gemcard-demo/src/rules/run-config.ts",
+      "bytes": 2663,
+      "sha256": "486b882fcc1413659e92056247b342864dba3da019eb518aec7f86990a8f66bd"
+    },
+    {
+      "path": "gemcard-demo/src/rules/run-invariants.test.ts",
+      "bytes": 6323,
+      "sha256": "7d01bb4ce2c56dc3755d6da357ccebd515a05917dac3137e1eea774b9d547ee0"
+    },
+    {
+      "path": "gemcard-demo/src/rules/run-types.ts",
+      "bytes": 3057,
+      "sha256": "9a345996a65cb5bd20c3cca356475ab06c5dd28443a8d17ab4155b4cc2cb5097"
+    },
+    {
+      "path": "gemcard-demo/src/rules/run.test.ts",
+      "bytes": 21038,
+      "sha256": "a2ea5a04ddb34cf18d0c1eae174c03c127cbbf3b8608295fc71fd16034513651"
+    },
+    {
+      "path": "gemcard-demo/src/rules/run.ts",
+      "bytes": 16019,
+      "sha256": "d835019d59bcee59b281a4d68bf57a005b18f9e707e6042d1c59d540876b5787"
+    },
+    {
+      "path": "gemcard-demo/src/rules/save-state.test.ts",
+      "bytes": 5872,
+      "sha256": "393f9b5ec3d64e77f6241e1b437019238993728d9b6f196bdb61dc1e5793452b"
+    },
+    {
+      "path": "gemcard-demo/src/rules/save-state.ts",
+      "bytes": 10704,
+      "sha256": "4cc8066d58ea883c0c3b79a3a6b2cc450070de2ef3c466529cb9d973559ee1cb"
+    },
+    {
+      "path": "gemcard-demo/src/rules/tsconfig.portable.json",
+      "bytes": 157,
+      "sha256": "fe7689cc79c9515415ef5b666a8b86223391d994e89bfb30d0516dbd8eed3a32"
+    },
+    {
+      "path": "gemcard-demo/src/rules/types.ts",
+      "bytes": 2528,
+      "sha256": "f7b703d20420930bab98f3a0c7e5f31d6b809bb7865337471304c29906a631f4"
+    },
+    {
+      "path": "gemcard-demo/src/rules/v2-rules.test.ts",
+      "bytes": 16289,
+      "sha256": "d1b07f6ac75919034b4846cd6f243fe4b6e50275bc22bd407c02ef9d77d135a8"
+    },
+    {
+      "path": "gemcard-demo/src/rules/verification.txt",
+      "bytes": 546,
+      "sha256": "d713dbf892d09bdf06e7b14e707c7a28cbce1b54189f92acc5475218d6f1914f"
+    },
+    {
+      "path": "gemcard-demo/src/save.test.ts",
+      "bytes": 13444,
+      "sha256": "6030ac6c13ed3c2d71c4a61fd94fb45f516a3407d9219e3c1a0f1eca4e245fdb"
+    },
+    {
+      "path": "gemcard-demo/src/save.ts",
+      "bytes": 8668,
+      "sha256": "584c57040464ca3fffad3bb39d52fdf80140794381ad37b4e63af2acc8fdf7e0"
+    },
+    {
+      "path": "gemcard-demo/src/styles.css",
+      "bytes": 22850,
+      "sha256": "f7d1ca7b65760b4b5d2e08f039adba5885134d8e502a49f96abde32318ea7a71"
+    },
+    {
+      "path": "gemcard-demo/src/ui/FEEL_SOUND.md",
+      "bytes": 3816,
+      "sha256": "e749c757a4556c0bb7f1b5532af12d3671b4f0aa8dc0b574030afd24221d123a"
+    },
+    {
+      "path": "gemcard-demo/src/ui/README.md",
+      "bytes": 3982,
+      "sha256": "5c9394eae75f61f4e1df50d88ff29d1934573366135cf02ebd765eb9f842d77a"
+    },
+    {
+      "path": "gemcard-demo/src/ui/card.css",
+      "bytes": 374,
+      "sha256": "af6cc47069f0f187d237d7b45daf5edafaac01d1c5468bf9efe6da8285c48489"
+    },
+    {
+      "path": "gemcard-demo/src/ui/card.ts",
+      "bytes": 9475,
+      "sha256": "1245b4b625fd90a745e9ef36fed0fe8fbd4fbd865436ab3ca5e5dc614186c646"
+    },
+    {
+      "path": "gemcard-demo/src/ui/feel.css",
+      "bytes": 890,
+      "sha256": "bc8271bc568038292d2090be2c44d3c94a10f776718319cf76bafaa9594b3e78"
+    },
+    {
+      "path": "gemcard-demo/src/ui/feel.test.ts",
+      "bytes": 8493,
+      "sha256": "a7f2d09c2bede51655dfeef36f6181e90d25c32e651c55652eb19cd74344faeb"
+    },
+    {
+      "path": "gemcard-demo/src/ui/feel.ts",
+      "bytes": 12777,
+      "sha256": "737d4cdc457508d80ec5365ef3adb6239b70810299a361e15ccdd519aae4ca5a"
+    },
+    {
+      "path": "gemcard-demo/src/ui/game.ts",
+      "bytes": 100230,
+      "sha256": "729f8f2243260f133ea6ca6a9591306307cb184f7fade9934e5c46af0af5dd0c"
+    },
+    {
+      "path": "gemcard-demo/src/ui/geometry.test.ts",
+      "bytes": 6043,
+      "sha256": "f3073ca02b3b3c9d83440066625a89ce60ce66fd49a62e57004e13a523fab0ac"
+    },
+    {
+      "path": "gemcard-demo/src/ui/geometry.ts",
+      "bytes": 4209,
+      "sha256": "97af65ef1ef9705ff83910f9e769abe6b43c726f02822db17d82f1c446bbbb2f"
+    },
+    {
+      "path": "gemcard-demo/src/ui/presentation.test.ts",
+      "bytes": 925,
+      "sha256": "f8f937c8ae48c6099400e60a577866938767d91fc8c8080fc9e8e1db70a52fc2"
+    },
+    {
+      "path": "gemcard-demo/src/ui/presentation.ts",
+      "bytes": 473,
+      "sha256": "5c1bad2788a636b2861da943d7bdf21c31ec54be8303bdfdd1f424680078b2df"
+    },
+    {
+      "path": "gemcard-demo/src/ui/sound.test.ts",
+      "bytes": 7531,
+      "sha256": "4fcbce79ab95279d004da3f174bbdcbd1feb473c0f020e68e3a689276e5134ee"
+    },
+    {
+      "path": "gemcard-demo/src/ui/sound.ts",
+      "bytes": 11868,
+      "sha256": "a72745f73f40525251e3bd99223c6e10460af490435eb692e45e7d46934206df"
+    },
+    {
+      "path": "gemcard-demo/tsconfig.json",
+      "bytes": 540,
+      "sha256": "a672bd67378f764467cb3b52b8cc915a0aa0f91e3746fe5299becf40a8c52a22"
+    },
+    {
+      "path": "gemcard-demo/verification/feel-sound-check.json",
+      "bytes": 1167,
+      "sha256": "4f90881b299ed682c121b757a04f8893a138f7ae5a8f59adf2ea8c4504537dd0"
+    },
+    {
+      "path": "gemcard-demo/verification/feel-sound-check.mjs",
+      "bytes": 10344,
+      "sha256": "69a8972b8599030550c428dcacae6659528a2df5c2d20de2c3c8eb15fb87f7d6"
+    },
+    {
+      "path": "gemcard-demo/verification/independent-oracle.cjs",
+      "bytes": 2087,
+      "sha256": "a12cc937b15ad41d3ce2ff82d0ea4c2f399364fe1209c3edc5640af9c218f22a"
+    },
+    {
+      "path": "gemcard-demo/verification/independent-rules.cjs",
+      "bytes": 4268,
+      "sha256": "b74b32e88d53bf40a843dd6c89b4d4fb81c61dbbaa3f1d6b139fedeaf7916eb6"
+    },
+    {
+      "path": "gemcard-demo/verification/run-independent.mjs",
+      "bytes": 1757,
+      "sha256": "f803d53311d48f3c610f8fc8e874c403e4e49c9238a0865beb78d539d6000695"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/README.md",
+      "bytes": 1210,
+      "sha256": "ce6fc5b5d63176235c6f476637b1a852fdd636a70633706bbf179c3ac07543c0"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/art-rerun-output.txt",
+      "bytes": 1613,
+      "sha256": "5fe8f0423977221a362184d75b568c494ccd390d49cb41d1307e38fe41130a79"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/baseline-sha256.json",
+      "bytes": 19668,
+      "sha256": "412da82ed560dd8758e2fe58c19b86a63164747dfe2be56bbd2eec389e698784"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/build-output.txt",
+      "bytes": 179,
+      "sha256": "fcbc299992d776d301758f875f8f15fd4ac251e2e71b0dcdf96d131be7d102cb"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/feel-sound-rerun-output.txt",
+      "bytes": 1347,
+      "sha256": "6893e55b166d9fd0aa5a6a56fc77e98242dbf7585bdf6fd9e8ea05ab97103988"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/independent/README.md",
+      "bytes": 2126,
+      "sha256": "71453b7b5e86eba506ceff6dc80e62c8d772c202c359ab518900c74e3a2715fa"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/independent/reviewed-source-sha256.txt",
+      "bytes": 426,
+      "sha256": "8ca67db21843f1f8c7c3710adae3d3e84df2b8401c028a4c92825311361b6380"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/independent/rules-audit-output.txt",
+      "bytes": 976,
+      "sha256": "fcc8a6a3604a6e6460455c98e86cf51b1c222ebb5d21020c81605cc9c0a7e80f"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/independent/rules-audit-results.json",
+      "bytes": 796,
+      "sha256": "e55b5497529a3a8de868d35236360e434be076acf167f362d97c72e358d791ed"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/independent/rules-audit.mjs",
+      "bytes": 3291,
+      "sha256": "78e0f9daee7bd1f36aeca88cd30ef3f04581275e710d1c82bdf6d30228b0ae2d"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/independent/ui-audit-output.txt",
+      "bytes": 929,
+      "sha256": "6ee52f19cefe9c479fe08c8cedd0d0a6f33b1798564925352c8245b1c634854e"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/independent/ui-audit-results.json",
+      "bytes": 1691,
+      "sha256": "a90f8fac69fa54acbe6e69a8fd291be9850896172cc92d1d05d21015d78920f9"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/independent/ui-audit.mjs",
+      "bytes": 13683,
+      "sha256": "245f1b44f8d2323f9bcba911d273030df712e0e060d17279a4996f449846af75"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/npm-test-output.txt",
+      "bytes": 165,
+      "sha256": "391bda65857bedfcf80870b00404971b4059318fccf3bd2be1e9c8bdc789f5c9"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/required-checks.json",
+      "bytes": 395,
+      "sha256": "3eb655a36eff474fa56ffe67b25aa7f4f31cd1fec5973aef13310d39f85756d6"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/README.md",
+      "bytes": 2890,
+      "sha256": "7cf5ea2667be5418c4c003899a956784ff7c0718abcf76b3e0d68f58f0fb55c4"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/assert-current-output.json",
+      "bytes": 127,
+      "sha256": "641001ea4b52ccd1469b76127f5961255a8384fa4feec840a1c73fcfa4adbc4f"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/assert-final-output.json",
+      "bytes": 127,
+      "sha256": "c67eb762f886e7ddfdb7c592e1faf44349d5c5d6165d0e404e46a5ef68870195"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/assert-harness.mjs",
+      "bytes": 3127,
+      "sha256": "7a3fc8ccdea784e977394fc5a4fc56267c0c054374cc4680a54792165d00510a"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/assert-loader.mjs",
+      "bytes": 340,
+      "sha256": "865c28472a5e1ac4f6cf067c3f7f340bd43e6f9f5e63a8f01547d050f1eb262e"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/assert-v2-output.json",
+      "bytes": 126,
+      "sha256": "0b6b0af4b68ff46983a247744eb489a2b59348dbd99d0b3715435358a0b84bd6"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/integration-native-output.txt",
+      "bytes": 2757,
+      "sha256": "12223b7d420382e9dfef4117ab937c4963ece6db8601fe92a6e318ee849ab756"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/integration-rerun-output.json",
+      "bytes": 127,
+      "sha256": "c67eb762f886e7ddfdb7c592e1faf44349d5c5d6165d0e404e46a5ef68870195"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/integration-rerun-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/config.ts",
+      "bytes": 1934,
+      "sha256": "470b78c947cdfb47e83f8a3d06e69ba74e5c1d68e5892698543d0bff201d8ae8"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/extra-cards.test.ts",
+      "bytes": 14203,
+      "sha256": "15b35776cd7d98b86b1c4ef6b2348d5287e1a19d86a81faa7cad08d96c18df69"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/index.ts",
+      "bytes": 17243,
+      "sha256": "dc1c1569c54160b6854f55167e831cfe694d3598833e243a0f27d4cb4be261ce"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/integration.test.ts",
+      "bytes": 2543,
+      "sha256": "940d8e2ec3430032d32d5be074c8ceca4387cd7422dc2cbf97e8e8566f40bf0c"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/number-rounding.test.ts",
+      "bytes": 554,
+      "sha256": "0c6246e8bef2a2ca53e764a96498e5c0f5a413233eadfb10a87d2d3e43b86f2e"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/rules.test.ts",
+      "bytes": 17048,
+      "sha256": "9f71310beb2038f8fb66f6cee3b952fb98e20de471b6776a6bfd7f71ea19d159"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/run-config.ts",
+      "bytes": 1747,
+      "sha256": "ee81f8904928ca529f7f5e34beae72a41f12371a384f11edf07c5f0f0b122a9e"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/run-invariants.test.ts",
+      "bytes": 6024,
+      "sha256": "89882b0aa9a4c54c8c0da1152ad129a6a5e1a5e6818a041b2e31b09b24f27e32"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/run-types.ts",
+      "bytes": 3059,
+      "sha256": "5e7b4863f9c2d186b60c79ef9e7c50471281f50c30540b5696364a1bb66d47c8"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/run.test.ts",
+      "bytes": 20690,
+      "sha256": "18d6f98d2d1c3bb223f982bb0cce10482bff88dd236ae169987d9f81ff841fd9"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/run.ts",
+      "bytes": 11786,
+      "sha256": "fff3d3391d4efd3c8906514d0d3344b31a89cee849a784bead1f4f5d5bb75e1d"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/save-state.test.ts",
+      "bytes": 4053,
+      "sha256": "8aa29256d237cb97b471a5218db560c85b60deb828457e1da2b8e356ee109a06"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/save-state.ts",
+      "bytes": 8932,
+      "sha256": "2df86c55b064884d843e588ce73ab3c1f7175cc6a801bb1ec4657182da3d8033"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/toughness.test.ts",
+      "bytes": 5287,
+      "sha256": "a8e40e2ca81bcc6d9e00777c0bf02ea55a82ddd82fa3b93a5d05120bc9340dd5"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/baseline/types.ts",
+      "bytes": 2425,
+      "sha256": "5c61416b67afce6335258766ec2ef009a14f60c4f175c74a247f347184bdc7cf"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/differential-output.txt",
+      "bytes": 139,
+      "sha256": "38e9f194e8332031349db3db5dc60f38bfcb4900555a49b91f2e48b0cc5c5192"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/differential.mjs",
+      "bytes": 995,
+      "sha256": "5d6a5b3ca65a237bad3c6c9fdf499253a9a839753bd23fec345106bfdcf17a29"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/effects.ts",
+      "bytes": 2003,
+      "sha256": "c49b8fadb7420ec2601482ca57a89e2f89e2008667e97f4c25f3903730ab7c0a"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/index.ts",
+      "bytes": 17860,
+      "sha256": "04e636af722f3631fc901c4f15b925c4fd0511850d85ddb0b44d8e7e64412499"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/loader.mjs",
+      "bytes": 221,
+      "sha256": "aef8933c78d68aa861dd3dfae507de32ec00251bd107c079de7d73adf070104f"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/migration-source-tests.json",
+      "bytes": 127,
+      "sha256": "ad0fd303fa3958b284aaaaf2241b4429a01390def0c71629a13ef5d4e2297418"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/config.ts",
+      "bytes": 1934,
+      "sha256": "470b78c947cdfb47e83f8a3d06e69ba74e5c1d68e5892698543d0bff201d8ae8"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/effects.ts",
+      "bytes": 2003,
+      "sha256": "c49b8fadb7420ec2601482ca57a89e2f89e2008667e97f4c25f3903730ab7c0a"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/extra-cards.test.ts",
+      "bytes": 14203,
+      "sha256": "15b35776cd7d98b86b1c4ef6b2348d5287e1a19d86a81faa7cad08d96c18df69"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/index.ts",
+      "bytes": 17860,
+      "sha256": "04e636af722f3631fc901c4f15b925c4fd0511850d85ddb0b44d8e7e64412499"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/integration.test.ts",
+      "bytes": 2543,
+      "sha256": "940d8e2ec3430032d32d5be074c8ceca4387cd7422dc2cbf97e8e8566f40bf0c"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/number-rounding.test.ts",
+      "bytes": 554,
+      "sha256": "0c6246e8bef2a2ca53e764a96498e5c0f5a413233eadfb10a87d2d3e43b86f2e"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/rules.test.ts",
+      "bytes": 17048,
+      "sha256": "9f71310beb2038f8fb66f6cee3b952fb98e20de471b6776a6bfd7f71ea19d159"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/run-config.ts",
+      "bytes": 1747,
+      "sha256": "ee81f8904928ca529f7f5e34beae72a41f12371a384f11edf07c5f0f0b122a9e"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/run-invariants.test.ts",
+      "bytes": 6024,
+      "sha256": "89882b0aa9a4c54c8c0da1152ad129a6a5e1a5e6818a041b2e31b09b24f27e32"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/run-types.ts",
+      "bytes": 3059,
+      "sha256": "5e7b4863f9c2d186b60c79ef9e7c50471281f50c30540b5696364a1bb66d47c8"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/run.test.ts",
+      "bytes": 20690,
+      "sha256": "18d6f98d2d1c3bb223f982bb0cce10482bff88dd236ae169987d9f81ff841fd9"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/run.ts",
+      "bytes": 11786,
+      "sha256": "fff3d3391d4efd3c8906514d0d3344b31a89cee849a784bead1f4f5d5bb75e1d"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/save-state.test.ts",
+      "bytes": 4053,
+      "sha256": "8aa29256d237cb97b471a5218db560c85b60deb828457e1da2b8e356ee109a06"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/save-state.ts",
+      "bytes": 8932,
+      "sha256": "2df86c55b064884d843e588ce73ab3c1f7175cc6a801bb1ec4657182da3d8033"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/toughness.test.ts",
+      "bytes": 5287,
+      "sha256": "a8e40e2ca81bcc6d9e00777c0bf02ea55a82ddd82fa3b93a5d05120bc9340dd5"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/rules/types.ts",
+      "bytes": 2440,
+      "sha256": "a67106d8987c0945de04dc8376c485ba36ee6f5b4282f471221e8b0b33ee220c"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/migration-stage/types.ts",
+      "bytes": 2440,
+      "sha256": "a67106d8987c0945de04dc8376c485ba36ee6f5b4282f471221e8b0b33ee220c"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/native-loader.mjs",
+      "bytes": 359,
+      "sha256": "7fe07cb1463443f621936984abe6acbeadf83c94c157287027e99959a0ad54aa"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/native-results.txt",
+      "bytes": 2753,
+      "sha256": "6cad60c5bcaf118b71a483bbee13ed3d6a010d870b8e85dd3ebf587088ffaa19"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/run-assert-sources.mjs",
+      "bytes": 171,
+      "sha256": "9c8c0ecfcb216cb82a7488855b0f90a92272d342bbb586da89b10f86cdfb4300"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/rules/vitest-native.mjs",
+      "bytes": 458,
+      "sha256": "514377f69bed21505cb543ddc569b36b302dc3f1cbd8ec979d9d7d9eeb244f6f"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/README.md",
+      "bytes": 2298,
+      "sha256": "6b4e96ffbe146c424f50480a80254fbe4d7de49250369f45dad96a1ef6a97156"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/reference/sim.mjs",
+      "bytes": 13989,
+      "sha256": "63e342e9f0df01a8f7fd9ce4c598f0cdb181c9270a769970237124f3015b1287"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/reference/跑第二版.mjs",
+      "bytes": 1791,
+      "sha256": "641275de6c0471457bcebb62bbd5c7155ecb6f39bdead07e618e4ce444792bcf"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/reference-output.txt",
+      "bytes": 4468,
+      "sha256": "f05bc3842bbf35529c88f6366d7fa434be63146d42a4c1a392c6c0f098cbe05b"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/reference-paired-output.txt",
+      "bytes": 1514,
+      "sha256": "ddb8ab2aa481205d7bf283722bbc1afb6d99fa91990683dbda9aa2c941818cb3"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/reference-paired-results.json",
+      "bytes": 1514,
+      "sha256": "ddb8ab2aa481205d7bf283722bbc1afb6d99fa91990683dbda9aa2c941818cb3"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/rules-both-results.json",
+      "bytes": 98028,
+      "sha256": "a240f6cae85c45b0f9d5c7b674493caa84c5f9da1218b76fefbaa28fd8c76e7e"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/rules-output.txt",
+      "bytes": 955,
+      "sha256": "4a6ee501a31555a1c18c8652273c394181ac42e772b6cdee57df01a0611cdee5"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/run-reference-paired.mjs",
+      "bytes": 1550,
+      "sha256": "c5d6106502cc370f9f216a81be38dbdde6e3cfd9702e6e40296313a8d2aab754"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/simulation/run-rules-bots.mjs",
+      "bytes": 6512,
+      "sha256": "99fc6ad3c0240db3933c01371c418ab34505e6e23de969fd9e8f5234031d85c3"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/typecheck-output.txt",
+      "bytes": 169,
+      "sha256": "f1f5b87746bf1ffe9441054aaadb9aff2829d48d800cd94e0003c5f1d035293b"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/typescript-loader.mjs",
+      "bytes": 1194,
+      "sha256": "7b3e2bf15648d30402526984a7540e931b2678a60c0ad8bfc6836507e8920e27"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/ui-flow-check.mjs",
+      "bytes": 16662,
+      "sha256": "39bc5fbc62e865f4e179f4d132a4af6ef090d025ce37726ddd5e29b2f1f18041"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/ui-flow-final-output.txt",
+      "bytes": 1140,
+      "sha256": "df9d5d303c756a545d523c3c39ea95190b97b369ea5a7707c7f50667a8f9815d"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/ui-flow-output.txt",
+      "bytes": 1140,
+      "sha256": "df9d5d303c756a545d523c3c39ea95190b97b369ea5a7707c7f50667a8f9815d"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/ui-flow-results.json",
+      "bytes": 1968,
+      "sha256": "9dedb8e91fefe1b20a22efc0289a1b4dd0713727066a16fc904bde10068aec2e"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/ui-geometry-check.mjs",
+      "bytes": 1864,
+      "sha256": "78189ad59923584a7b63483343b279ef3a077709a50bbb8879a4ad64bf21acc2"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/ui-geometry-final-output.txt",
+      "bytes": 289,
+      "sha256": "876b503d88911c00cd3cae8f1935af48b12f58be62dd30895887c84504ec5b9f"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/ui-geometry-output.txt",
+      "bytes": 109,
+      "sha256": "336859c97ccb4705f0b17bc55b578abed3c0090df05300ec17865420801e6b87"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/ui-geometry-results.json",
+      "bytes": 122,
+      "sha256": "a50411cfbd251d62648013803b69a3a6f0dddf4fad90d72cba01fe79315b99f4"
+    },
+    {
+      "path": "gemcard-demo/verification/v2/ui-module-output.txt",
+      "bytes": 100,
+      "sha256": "aadaa32ee8f41a3da138a98a54b2e940cc48af030003373bce0594cf2d52704f"
+    },
+    {
+      "path": "gemcard-demo/verification/v2-art/README.md",
+      "bytes": 3288,
+      "sha256": "9fe82d351b6b777f5213a84078c9dbc48a37604620e470be3f9b2c93b79ee91b"
+    },
+    {
+      "path": "gemcard-demo/verification/v2-art/contract-output.txt",
+      "bytes": 1613,
+      "sha256": "7699d759a7bd599a60782175d6474a48d8fab4f765332370305aafa9de698739"
+    },
+    {
+      "path": "gemcard-demo/verification/v2-art/contract-result.json",
+      "bytes": 1613,
+      "sha256": "5fe8f0423977221a362184d75b568c494ccd390d49cb41d1307e38fe41130a79"
+    },
+    {
+      "path": "gemcard-demo/verification/v2-art/mon_chest.with-bite.svg",
+      "bytes": 3190,
+      "sha256": "a88c8125d93ebf65bfc54c05fbe4b0c5b6237e4cd759c8aab1422cd84f701805"
+    },
+    {
+      "path": "gemcard-demo/verification/v2-art/original-art-sha256.json",
+      "bytes": 5616,
+      "sha256": "f0bfc9c08394683e23d7d7ffdb07d6f0523724c8ca708a2f53689ec8b1ec787f"
+    },
+    {
+      "path": "gemcard-demo/verification/v2-art/run-contract.mjs",
+      "bytes": 11024,
+      "sha256": "80a2a1623abeb820344e1e1a4c13c4d31e4617218bac62b5d7a4cdd96a18069e"
+    },
+    {
+      "path": "gemcard-demo/vite.config.ts",
+      "bytes": 83,
+      "sha256": "e93f7ca0ec71b277ef4b6826d6ab00abd43ab23c68213457e13e7e95aec7864d"
+    },
+    {
+      "path": "gemcard-demo/启动.command",
+      "bytes": 1625,
+      "sha256": "adbb7107ad34a79313fff1946ef5372fb6d2ba7fbcff013c2aab73ef4923f3ca"
+    },
+    {
+      "path": "gemcard-demo/requirements/00-开发说明.md",
+      "bytes": 6085,
+      "sha256": "b1c4b8897fa15d6f81e6344ca4a4a56e4f8d1e8f8cd8f16d1616fd32b9848e00"
+    },
+    {
+      "path": "gemcard-demo/requirements/01-规则改动.md",
+      "bytes": 18586,
+      "sha256": "ade544440447aff33beca0e864037d803a678c55529c87465dd9c267e2899a9d"
+    },
+    {
+      "path": "gemcard-demo/requirements/02-界面和手感.md",
+      "bytes": 12905,
+      "sha256": "c4c46753ab52c89915600f9e53b8ce2713ecacec17111d69608e23344bdca0fe"
+    },
+    {
+      "path": "gemcard-demo/requirements/03-素材对接.md",
+      "bytes": 3262,
+      "sha256": "f8025e31015d06d4fa57382b254efea4c5e97e71e9c91b5b147dfd455aa08474"
+    },
+    {
+      "path": "gemcard-demo/requirements/04-验收清单.md",
+      "bytes": 4302,
+      "sha256": "d482f5f73d2fc3ca05a30c5a67523bccc7897844f0b70d5fd18d4f2d94c36858"
+    },
+    {
+      "path": "gemcard-demo/requirements/素材清单.json",
+      "bytes": 36790,
+      "sha256": "0895e9d409ec3f37feffca0d1ce400bfdf83951b469c058d54d6f836f8d56556"
+    }
+  ]
+}

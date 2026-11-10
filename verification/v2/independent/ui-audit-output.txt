@@ -1,0 +1,13 @@
+PASS 61: safe cyan white reaction beats yellow shun in actual UI
+PASS 62: cyan attack is excluded before ranking; magenta is sole hint
+PASS 63: if all reacting cards attack, UI has no hint
+PASS Bite only changes countdown mid-turn, at zero heart stays; end-turn attacks once
+PASS Undo restores countdown, heart, hints and removes obsolete effects
+PASS Unwind completion flashes green even when countdown stays full at 2
+PASS Bite at countdown 0 still flashes red on a fresh rule trigger
+PASS Bite countdown reaches zero and retains warn stay, without lost heart before turn end
+PASS Warnings remain when hints are disabled and killing green is safe
+PASS Dragon crossing card uses old rule, next card uses bite, undo restores layer
+PASS Rapid eight plays remain accepted and replay after undo keeps correct total
+PASS Relic cannot be skipped and repeated selection only creates one chosen relic
+{"passed":true,"pass":12,"fail":0}

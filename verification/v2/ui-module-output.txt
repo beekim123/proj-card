@@ -1,0 +1,1 @@
+PASS: GameUI module and rules/art/feel/sound links resolve under Node24 stripping. Not a typecheck.

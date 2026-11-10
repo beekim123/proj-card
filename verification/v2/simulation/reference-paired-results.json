@@ -1,0 +1,86 @@
+{
+  "implementation": "Unmodified supplied sim.mjs with second-version configuration",
+  "seedFormula": "1 + i * 7919",
+  "hintCount": 300,
+  "planCount": 60,
+  "hint": {
+    "win": 12,
+    "turns": 18,
+    "hits": 3.76,
+    "best": 387750,
+    "rbRuns": 4,
+    "beh": {
+      "soldier": {
+        "held": 0,
+        "redPos": 0.46,
+        "white": 2.69
+      },
+      "chest": {
+        "held": 1.24,
+        "redPos": 0.45,
+        "white": 1.73
+      },
+      "clock": {
+        "held": 0.06,
+        "redPos": 0.46,
+        "white": 1.6
+      },
+      "bear": {
+        "held": 0,
+        "redPos": 0.53,
+        "white": 2.64
+      },
+      "dragon": {
+        "held": 0.22,
+        "redPos": 0.51,
+        "white": 2.63
+      }
+    },
+    "breaks": 1.7,
+    "cancels": 1.7,
+    "lostAt": {
+      "4": 3,
+      "5": 93,
+      "6": 169
+    }
+  },
+  "plan": {
+    "win": 93,
+    "turns": 13,
+    "hits": 1.12,
+    "best": 1314150,
+    "rbRuns": 62,
+    "beh": {
+      "soldier": {
+        "held": 0,
+        "redPos": 0.55,
+        "white": 2.44
+      },
+      "chest": {
+        "held": 0.67,
+        "redPos": 0.57,
+        "white": 2.09
+      },
+      "clock": {
+        "held": 0,
+        "redPos": 0.54,
+        "white": 1.77
+      },
+      "bear": {
+        "held": 0,
+        "redPos": 0.5,
+        "white": 2.55
+      },
+      "dragon": {
+        "held": 0.22,
+        "redPos": 0.55,
+        "white": 2.31
+      }
+    },
+    "breaks": 0.8,
+    "cancels": 0.8,
+    "lostAt": {
+      "6": 4
+    }
+  }
+}

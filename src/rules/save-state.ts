@@ -1,5 +1,5 @@
 import { CONFIG, TOOLS, TOOL_TYPES } from './config';
-import { RUN, MONSTERS } from './run-config';
+import { RUN, MONSTERS, RELICS } from './run-config';
 import type { RunState } from './run-types';
 import type { ToolType } from './types';
 
@@ -7,7 +7,7 @@ type ObjectValue = Record<string, unknown>;
 export type RunLoadResult = {
   state: RunState | null;
   clear: boolean;
-  reason: 'empty' | 'invalid' | 'ok';
+  reason: 'empty' | 'invalid' | 'outdated' | 'ok';
 };
 
 function object(value: unknown): value is ObjectValue {
@@ -21,6 +21,12 @@ function integer(value: unknown, min = 0): value is number {
 }
 function tool(value: unknown): value is ToolType {
   return typeof value === 'string' && (TOOL_TYPES as readonly string[]).includes(value);
+}
+function relic(value: unknown): boolean {
+  return typeof value === 'string' && Object.hasOwn(RELICS, value);
+}
+function relicList(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every(relic) && new Set(value).size === value.length;
 }
 function numbers(value: unknown, length?: number): value is number[] {
   return Array.isArray(value) && (length === undefined || value.length === length)
@@ -40,12 +46,16 @@ function rowEntry(value: unknown): value is ObjectValue {
     && ['plain', 'same', 'shun', 'white'].includes(String(value.k))
     && numbers(value.gemValues, 3)
     && Array.isArray(value.grown) && value.grown.every((index: unknown) => integer(index) && index < 3)
-    && typeof value.rb === 'boolean';
+    && typeof value.rb === 'boolean'
+    && Array.isArray(value.effects) && value.effects.every((effect: unknown) => object(effect)
+      && typeof effect.id === 'string' && typeof effect.text === 'string');
 }
 
 /** Verify both card conservation and identity; resolved mirrors are only allowed on the row. */
 function game(value: unknown, cards: ObjectValue[], history: boolean): value is ObjectValue {
-  if (!object(value)) return false;
+  if (!object(value) || !typeofBoolean(value.onceUsed)
+    || (value.relic !== undefined && !relic(value.relic))
+    || (value.relics !== undefined && !relicList(value.relics))) return false;
   const piles = ['deck', 'discard', 'hand'];
   for (const key of piles) {
     if (!Array.isArray(value[key]) || !value[key].every((item: unknown) => card(item))) return false;
@@ -73,14 +83,21 @@ function game(value: unknown, cards: ObjectValue[], history: boolean): value is 
 function typeofBoolean(value: unknown): value is boolean { return typeof value === 'boolean'; }
 
 function monster(value: unknown): value is ObjectValue {
-  return object(value) && Object.hasOwn(MONSTERS, String(value.key))
+  if (!object(value) || !Object.hasOwn(MONSTERS, String(value.key))) return false;
+  const definition = MONSTERS[value.key as keyof typeof MONSTERS];
+  const expectedRule = value.key === 'dragon' ? 'layers' : 'rule' in definition ? definition.rule : undefined;
+  return value.rule === expectedRule
     && number(value.hp) && number(value.maxHp, 1) && value.hp <= value.maxHp
-    && integer(value.countdown, 1) && integer(value.maxCountdown, 1) && value.countdown <= value.maxCountdown + RUN.guardDelay
+    && integer(value.countdown) && integer(value.maxCountdown, 1) && value.countdown <= value.maxCountdown
     && typeofBoolean(value.broken) && value.broken === (value.hp === 0)
     && number(value.turnStartHp, 1) && number(value.overkill)
-    && integer(value.weak) && value.weak <= 2 && integer(value.maxToughness) && integer(value.toughness)
-    && value.toughness <= value.maxToughness && typeofBoolean(value.guardDown)
-    && (value.guardDown ? value.toughness === 0 : value.toughness > 0 || value.maxToughness === 0);
+    && integer(value.layer, 1) && value.layer <= 3
+    && integer(value.wind) && integer(value.maxWind) && value.wind <= value.maxWind
+    && typeofBoolean(value.woundDown)
+    && (value.rule === 'wind'
+      ? value.maxWind === MONSTERS.soldier.wind && value.maxCountdown === MONSTERS.soldier.countdown
+        && value.woundDown === (value.wind === 0)
+      : value.wind === 0 && value.maxWind === 0 && value.woundDown === false);
 }
 function stats(value: unknown): value is ObjectValue {
   return object(value) && integer(value.turns) && number(value.bestTurn)
@@ -94,41 +111,44 @@ function stats(value: unknown): value is ObjectValue {
 
 /** Strict structural validation of active states; no browser, clock, or storage dependency. */
 export function isActiveRunState(value: unknown): value is RunState {
-  if (!object(value) || (value.phase !== 'battle' && value.phase !== 'loot')
+  if (!object(value) || (value.phase !== 'relic' && value.phase !== 'battle' && value.phase !== 'loot')
     || !Array.isArray(value.cards) || !value.cards.every((item: unknown) => card(item))) return false;
   const cards = value.cards as ObjectValue[];
   if (cards.length < CONFIG.deck.reduce((sum, entry) => sum + entry.count, 0) || new Set(cards.map((item) => item.id)).size !== cards.length) return false;
-  if (!integer(value.hearts, 1) || value.hearts > RUN.hearts || (value.handLimit !== RUN.handStart && value.handLimit !== RUN.handMax)
+  if (!integer(value.maxHearts, RUN.hearts) || value.maxHearts > RUN.hearts + RELICS.heart.hearts
+    || !integer(value.hearts, 1) || value.hearts > value.maxHearts || (value.handLimit !== RUN.handStart && value.handLimit !== RUN.handMax)
     || !integer(value.fight, 1) || value.fight > RUN.fights.length || !monster(value.monster)
     || !game(value.game, cards, true) || !stats(value.stats) || value.result !== null) return false;
+  if (!relicList(value.relics)) return false;
+  if (!Array.isArray(value.relicOptions) || !value.relicOptions.every(relic)
+    || new Set(value.relicOptions).size !== value.relicOptions.length) return false;
+  if (value.phase === 'relic') {
+    if (value.relic !== null || value.relics.length !== 0 || value.game.relic !== undefined
+      || (value.game.relics !== undefined && (value.game.relics as string[]).length !== 0) || value.relicOptions.length !== RUN.relicOptions
+      || value.fight !== 1 || value.hearts !== RUN.hearts || value.maxHearts !== RUN.hearts
+      || (value.game.row as unknown[]).length !== 0 || value.game.onceUsed !== false) return false;
+  } else if (!relic(value.relic) || value.relicOptions.length !== 0 || value.game.relic !== value.relic
+    || !value.relics.includes(String(value.relic)) || JSON.stringify(value.game.relics) !== JSON.stringify(value.relics)
+    || value.maxHearts !== RUN.hearts + (value.relics.includes('heart') ? RELICS.heart.hearts : 0)) return false;
   if (!Array.isArray(value.monsters) || value.monsters.length !== RUN.fights.length
     || !value.monsters.every((item: unknown) => typeof item === 'string' && Object.hasOwn(MONSTERS, item))) return false;
   if (!Array.isArray(value.loot) || !value.loot.every(tool)
     || new Set(value.loot).size !== value.loot.length) return false;
   if (value.phase === 'loot' && (!value.monster.broken || value.fight === RUN.fights.length || (value.loot.length !== RUN.lootCount && value.loot.length !== RUN.lootBonusCount))) return false;
-  if (value.phase === 'battle' && value.loot.length !== 0) return false;
+  if (value.phase !== 'loot' && value.loot.length !== 0) return false;
   if (value.monster.key !== value.monsters[value.fight - 1]) return false;
   if (!Array.isArray(value.hist) || !Array.isArray(value.game.hist) || value.hist.length !== value.game.hist.length) return false;
-  if (value.phase === 'loot' && value.hist.length !== 0) return false;
+  if (value.phase !== 'battle' && value.hist.length !== 0) return false;
+  const selectedRelic = value.game.relic;
+  const selectedRelics = JSON.stringify(value.game.relics);
+  if (!(value.game.hist as ObjectValue[]).every((snapshot) => snapshot.relic === selectedRelic && JSON.stringify(snapshot.relics) === selectedRelics)) return false;
   return value.hist.every((entry: unknown) => object(entry) && monster(entry.monster) && stats(entry.stats));
 }
 
-/** Saves from before toughness existed: give their monsters full toughness (in place). */
-function upgradeMonsters(state: ObjectValue): void {
-  const upgrade = (m: unknown) => {
-    if (!object(m) || m.weak !== undefined || !Object.hasOwn(MONSTERS, String(m.key))) return;
-    const fight = integer(state.fight, 1) ? RUN.fights[(state.fight as number) - 1] : undefined;
-    const max = fight?.toughness ?? 0;
-    Object.assign(m, { weak: MONSTERS[m.key as keyof typeof MONSTERS].weak, toughness: max, maxToughness: max, guardDown: false });
-  };
-  upgrade(state.monster);
-  if (Array.isArray(state.hist)) state.hist.forEach((entry: unknown) => object(entry) && upgrade(entry.monster));
-}
-
 export function encodeRunSave(state: RunState): string | null {
-  if (state.phase !== 'battle' && state.phase !== 'loot') return null;
+  if (state.phase !== 'relic' && state.phase !== 'battle' && state.phase !== 'loot') return null;
   if (!isActiveRunState(state)) throw new TypeError('不能保存不完整的一局');
-  return JSON.stringify({ version: 2, state });
+  return JSON.stringify({ version: 3, state });
 }
 
 /** Invalid saves return a clear instruction; the later UI storage adapter performs deletion. */
@@ -136,8 +156,10 @@ export function decodeRunSave(raw: string | null): RunLoadResult {
   if (raw === null) return { state: null, clear: false, reason: 'empty' };
   try {
     const envelope: unknown = JSON.parse(raw);
-    if (object(envelope) && object(envelope.state)) upgradeMonsters(envelope.state);
-    if (object(envelope) && envelope.version === 2 && isActiveRunState(envelope.state)) {
+    if (object(envelope) && integer(envelope.version) && envelope.version < 3) {
+      return { state: null, clear: true, reason: 'outdated' };
+    }
+    if (object(envelope) && envelope.version === 3 && isActiveRunState(envelope.state)) {
       return { state: envelope.state, clear: false, reason: 'ok' };
     }
   } catch { /* Broken JSON is a recoverable missing save, never a startup crash. */ }

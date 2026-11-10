@@ -120,7 +120,11 @@ export class ArtStore {
     return element;
   }
 
-  /** Repeated events restart immediately. Temporary events return to the persistent state. */
+  /**
+   * The manifest is the timing authority. Older artwork need not contain a CSS
+   * selector for a newly added event: the attribute still expires on schedule.
+   * Repeated events restart immediately. Temporary events restore a stay state.
+   */
   play(element: SVGSVGElement, event: string): number {
     if (this.disposed) return 0;
     const id = element.dataset.artId;
@@ -136,12 +140,14 @@ export class ArtStore {
     // A stay event remains mounted, including its looping or forwards-filled CSS animation.
     if (definition.stay?.includes(event)) return duration;
     const timer = setTimeout(() => {
-      if (this.timers.get(element) !== timer) return;
-      this.timers.delete(element);
-      if (element.getAttribute('data-anim') !== event) return;
-      const stay = this.stays.get(element);
-      if (stay) element.setAttribute('data-anim', stay);
-      else element.removeAttribute('data-anim');
+      this.afterFiniteAnimations(element, () => {
+        if (this.timers.get(element) !== timer || this.disposed) return;
+        this.timers.delete(element);
+        if (element.getAttribute('data-anim') !== event) return;
+        const stay = this.stays.get(element);
+        if (stay) element.setAttribute('data-anim', stay);
+        else element.removeAttribute('data-anim');
+      });
     }, duration);
     this.timers.set(element, timer);
     return duration;
@@ -179,6 +185,20 @@ export class ArtStore {
     this.timers.delete(element);
   }
 
+  /** Keep hit-stop / slow-motion tails; missing event CSS still finishes on the manifest timer. */
+  private afterFiniteAnimations(element: SVGSVGElement, finish: () => void): void {
+    const animations = element.getAnimations?.({ subtree:true }) ?? [];
+    const finite = animations.filter(animation => {
+      const endTime = animation.effect?.getComputedTiming().endTime;
+      return (animation.playState === 'running' || animation.playState === 'paused')
+        && typeof endTime === 'number' && Number.isFinite(endTime);
+    });
+    if (!finite.length) { finish(); return; }
+    // Infinite idle / stay animations are deliberately excluded. Cancellation is
+    // also completion here, with the caller's token protecting newer events.
+    void Promise.allSettled(finite.map(animation => animation.finished)).then(finish);
+  }
+
   /** Insert a code-owned value inside a namespaced artwork slot, never as markup. */
   setSlotText(element: SVGSVGElement, slotId: string, value: string | number): SVGTextElement {
     const id = element.dataset.artId;
@@ -206,6 +226,29 @@ export class ArtStore {
     return text;
   }
 
+  /** Fill an existing artwork group with a code-owned icon from the loaded manifest. */
+  setSlotIcon(element: SVGSVGElement, slotId: string, assetId: string, box: [number, number, number, number] = [20,16,56,56]): SVGImageElement {
+    const id = element.dataset.artId;
+    if (!id) throw new Error('图标槽只能作用于由 ArtStore 创建的素材');
+    if (!this.get(id).definition.parts?.includes(slotId)) throw new Error(`${id} 没有图标槽 ${slotId}`);
+    const slot = [...element.querySelectorAll('[id]')].find(part => part.id === `${element.dataset.artPrefix}-${slotId}`);
+    if (!slot || slot.localName !== 'g') throw new Error(`${id} 缺少图标槽 #${slotId}`);
+    const asset = this.get(assetId);
+    if (asset.definition.load !== 'img') throw new Error(`${assetId} 不是静态图标素材`);
+    let icon = slot.querySelector<SVGImageElement>('image[data-art-slot-icon]');
+    if (!icon) {
+      icon = document.createElementNS(SVG_NS, 'image');
+      icon.dataset.artSlotIcon = slotId;
+      slot.append(icon);
+    }
+    for (const [index, name] of ['x','y','width','height'].entries()) icon.setAttribute(name,String(box[index]));
+    icon.setAttribute('href', asset.url);
+    icon.setAttribute('preserveAspectRatio','xMidYMid meet');
+    icon.setAttribute('aria-label',asset.definition.desc);
+    icon.dataset.iconArtId = assetId;
+    return icon;
+  }
+
   /** Effects are fresh instances. The caller supplies coordinates in its own layout system. */
   effect(id: string, parent: HTMLElement, x: number, y: number, color?: string): SVGSVGElement {
     if (!id.startsWith('fx_')) throw new Error('effect 只接受 fx_* 素材');
@@ -215,10 +258,14 @@ export class ArtStore {
     if (this.get(id).definition.tint) element.style.color = color ?? this.manifest.palette.text;
     parent.append(element);
     const duration = this.play(element, 'play');
-    this.removals.set(element, setTimeout(() => {
-      element.remove();
-      this.removals.delete(element);
-    }, duration));
+    const removal = setTimeout(() => {
+      this.afterFiniteAnimations(element, () => {
+        if (this.removals.get(element) !== removal || this.disposed) return;
+        element.remove();
+        this.removals.delete(element);
+      });
+    }, duration);
+    this.removals.set(element, removal);
     return element;
   }
 

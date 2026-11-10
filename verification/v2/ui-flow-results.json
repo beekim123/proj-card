@@ -1,0 +1,62 @@
+{
+  "scope": "Minimal DOM simulation with mock ArtStore/WAAPI/virtual timers. No rendered browser, screenshot, FPS, actual audio or touch claim.",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Mandatory relic options persist and two clicks choose then enter battle",
+      "status": "PASS"
+    },
+    {
+      "name": "Legacy save has exact update notice",
+      "status": "PASS"
+    },
+    {
+      "name": "One best hint only, always-visible warnings, countdown preview and undo",
+      "status": "PASS"
+    },
+    {
+      "name": "Eight rapid cards accepted; all per-card total damage sums to turn total",
+      "status": "PASS"
+    },
+    {
+      "name": "Fresh toast replaces previous immediately; score and undo never go negative",
+      "status": "PASS"
+    },
+    {
+      "name": "Boss breakthrough action is 打赢了！ and four-heart relic renders all hearts",
+      "status": "PASS"
+    },
+    {
+      "name": "Relic selection survives refresh without reroll",
+      "status": "PASS"
+    },
+    {
+      "name": "All seven viewports expose new UI; hints and rainbow-ready draw from rules",
+      "status": "PASS"
+    },
+    {
+      "name": "Dragon switches at boundary, flips once, and inherited rules never request unsupported monster events",
+      "status": "PASS"
+    },
+    {
+      "name": "Elite heals missing hearts at 150ms intervals; skip loot does not heal",
+      "status": "PASS"
+    },
+    {
+      "name": "Attack impact is at 330ms, losing heart stays in place, next turn clears wound-down",
+      "status": "PASS"
+    },
+    {
+      "name": "Relic transition interrupted by settings cannot fire a stale entrance or duplicate relic",
+      "status": "PASS"
+    },
+    {
+      "name": "Debug return to relic selection resets game reference and remains v3-loadable",
+      "status": "PASS"
+    },
+    {
+      "name": "Unchanged countdown still flashes green for wound-down and red for a zero-count bite",
+      "status": "PASS"
+    }
+  ]
+}

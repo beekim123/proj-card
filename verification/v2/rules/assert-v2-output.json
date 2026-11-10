@@ -1,0 +1,6 @@
+{
+  "runner": "Supplemental Node assert compatibility harness, NOT Vitest",
+  "passed": 31,
+  "failed": 0,
+  "failures": []
+}

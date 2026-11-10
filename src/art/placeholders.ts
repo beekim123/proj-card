@@ -70,7 +70,13 @@ function monster(def: ArtDefinition, p: Palette, w: number, h: number): string {
   const label = `<text x="${cx}" y="300" text-anchor="middle" fill="${p.textDim}" font-size="28" font-family="sans-serif">${names[def.id] ?? xml(def.id)}</text>`;
   const shadow = part('shadow', `<ellipse cx="${cx}" cy="386" rx="${bodyWidth*.57}" ry="12" fill="${p.ink}" opacity=".8"/>`);
   used.add('root');
-  const remaining = (def.parts ?? []).filter(id => !used.has(id)).map(id => part(id)).join('');
+  const ruleParts: Record<string, string> = {
+    key: `<path d="M${cx+76} 170v-38m0 0c-38 0-38-42-18-42 14 0 18 18 18 24 0-6 4-24 18-24 20 0 20 42-18 42Z" fill="${p.accent}" stroke="${p.ink}" stroke-width="5"/>`,
+    teeth: `<path d="M${cx-40} 145l14 22 14-22 14 22 14-22 14 22 14-22" fill="${p.text}"/>`,
+    belly_gems: ['red','green','blue'].map((color, i) => `<g class="rule-layer-gem rule-layer-gem-${i}" transform="translate(${cx-82+i*58} 205)">${shape(color as GemColor,p.gem[color as GemColor].mid,p.ink,48)}</g>`).join(''),
+  };
+  const remaining = (def.parts ?? []).filter(id => !used.has(id)).map(id => part(id,ruleParts[id] ?? '')).join('');
+  const rules = monsterRuleAnimations(def, p);
   return `<style>
 .${name} #root { transform-origin:${cx}px ${h}px; }
 .${name}:not([data-anim]) #root { animation:${name}-idle 3000ms ease-in-out infinite; }
@@ -90,7 +96,73 @@ ${clock ? `.${name}[data-anim="tick"] #root { animation:${name}-tick 500ms ease-
 @keyframes ${name}-daze { 0%,100% { transform:rotate(-3deg); } 50% { transform:rotate(3deg); } }
 @keyframes ${name}-die { to { opacity:0; transform:translateY(65px) scale(.9); } }
 ${clock ? `@keyframes ${name}-tick { 25% { transform:translateX(-8px); } 50% { transform:translateX(8px); } 100% { transform:translateX(0); } } @keyframes ${name}-dial { 0%,100% { transform:rotate(-1deg); } 50% { transform:rotate(1deg); } }` : ''}
-</style><g id="root">${shadow}${body}${head}${label}${remaining}</g>`;
+</style>${rules.style}<g id="root">${shadow}${body}${head}${label}${remaining}${rules.decoration}</g>`;
+}
+
+/** New rule events are generated from the manifest; delivered v1 artwork stays untouched. */
+function monsterRuleAnimations(def: ArtDefinition, p: Palette): { style: string; decoration: string } {
+  const name = `svg-${def.id}`;
+  const styles: string[] = [];
+  let decoration = '';
+  for (const [event, duration] of Object.entries(def.events ?? {})) {
+    const selector = `.${name}[data-anim="${event}"]`;
+    if (event === 'bite') {
+      styles.push(`${selector} #lid,${selector} #teeth { transform-origin:160px 148px; animation:${name}-bite ${duration}ms ease-out; }
+@keyframes ${name}-bite { 0%,100% { transform:translateY(0); } 35% { transform:translateY(-24px); } 58% { transform:translateY(12px); } }`);
+    } else if (event === 'unwind') {
+      styles.push(`.${name} #key { transform-origin:236px 132px; }
+${selector} #key { animation:${name}-unwind ${duration}ms ease-out; }
+${selector} #root { animation:${name}-unwind-body ${duration}ms ease-out; }
+@keyframes ${name}-unwind { to { transform:rotate(-90deg); } }
+@keyframes ${name}-unwind-body { 45% { transform:rotate(-6deg); } 100% { transform:rotate(0); } }`);
+    } else if (event === 'wound_down') {
+      styles.push(`${selector} #root { animation:${name}-wound-down ${duration}ms ease-out forwards; }
+${selector} #key { transform:rotate(-90deg); }
+@keyframes ${name}-wound-down { to { transform:translateY(25px) scaleY(.88); } }`);
+    } else if (event === 'ring') {
+      styles.push(`.${name} .rule-rings { opacity:0; transform-origin:160px 95px; }
+${selector} #root { animation:${name}-ring ${duration}ms ease-out; }
+${selector} .rule-rings { animation:${name}-ring-waves ${duration}ms ease-out; }
+@keyframes ${name}-ring { 22% { transform:translateY(-18px); } 45% { transform:translateX(-6px); } 68% { transform:translateX(6px); } 100% { transform:translate(0); } }
+@keyframes ${name}-ring-waves { 0% { opacity:0; transform:scale(.6); } 30% { opacity:1; } 100% { opacity:0; transform:scale(1.15); } }`);
+      decoration = `<g class="rule-rings" fill="none" stroke="${p.text}" stroke-width="5"><path d="M70 75Q160 5 250 75M90 95Q160 35 230 95"/></g>`;
+    } else if (event === 'layer') {
+      styles.push(`${selector} #head { transform-origin:260px 170px; animation:${name}-layer ${duration}ms ease-out; }
+${selector} .rule-layer-gem { animation:${name}-layer-glow ${duration}ms ease-out; }
+${selector} .rule-layer-gem-1 { animation-delay:${duration*.12}ms; }
+${selector} .rule-layer-gem-2 { animation-delay:${duration*.24}ms; }
+@keyframes ${name}-layer { 30% { transform:translateY(-18px) rotate(-8deg); } 100% { transform:translateY(0); } }
+@keyframes ${name}-layer-glow { 20% { filter:brightness(2); } 55%,100% { filter:brightness(1); } }`);
+    }
+  }
+  return { style:styles.length ? `<style>${styles.join('\n')}</style>` : '', decoration };
+}
+
+function ruleSign(def: ArtDefinition, p: Palette): string {
+  const duration = def.events!.flip;
+  return `<style>
+.svg-ui_rule_sign #board { transform-origin:140px 44px; }
+.svg-ui_rule_sign:not([data-anim]) #board { animation:svg-ui_rule_sign-idle 3000ms ease-in-out infinite; }
+.svg-ui_rule_sign[data-anim="flip"] #board { animation:svg-ui_rule_sign-flip ${duration}ms ease-in-out; }
+@keyframes svg-ui_rule_sign-idle { 0%,100% { transform:rotate(-1deg); } 50% { transform:rotate(1deg); } }
+@keyframes svg-ui_rule_sign-flip { 0%,100% { transform:scaleX(1); } 50% { transform:scaleX(0); } }
+</style><g id="root"><g id="rope" fill="none" stroke="${p.accentDark}" stroke-width="5"><path d="M58 0v22M222 0v22"/></g><g id="board"><rect x="4" y="14" width="272" height="70" rx="10" fill="${p.textDim}" stroke="${p.accentDark}" stroke-width="5"/><g id="icon_slot"></g><g id="rule_text"></g></g></g>`;
+}
+
+function ruleOrRelic(def: ArtDefinition, p: Palette, w: number, h: number): string {
+  // Use the user-supplied names, not implementation IDs, for readable placeholder labels.
+  const label = def.desc.split('：')[0].slice(0,def.id.startsWith('rule_') ? 1 : 2);
+  return `<rect x="3" y="3" width="${w-6}" height="${h-6}" rx="${w*.18}" fill="${p.panelBg}" stroke="${p.accentDark}" stroke-width="4"/><text x="${w/2}" y="${h/2}" text-anchor="middle" dominant-baseline="central" fill="${p.text}" font-size="${w*.36}" font-family="sans-serif">${xml(label)}</text>`;
+}
+
+function rainbowSlot(def: ArtDefinition, p: Palette): string {
+  return `<style>
+.svg-ui_rainbow_slot #gem { opacity:0; transform-origin:24px 24px; }
+.svg-ui_rainbow_slot[data-anim="light"] #gem { animation:svg-ui_rainbow_slot-light ${def.events!.light}ms ease-out forwards; }
+.svg-ui_rainbow_slot[data-anim="out"] #gem { animation:svg-ui_rainbow_slot-out ${def.events!.out}ms ease-out forwards; }
+@keyframes svg-ui_rainbow_slot-light { 0% { opacity:0; transform:scale(.4); } 65% { opacity:1; transform:scale(1.15); } 100% { opacity:1; transform:scale(1); } }
+@keyframes svg-ui_rainbow_slot-out { 0% { opacity:1; transform:scale(1); } 100% { opacity:0; transform:scale(.5); } }
+</style><circle cx="24" cy="24" r="21" fill="${p.barTrack}" stroke="${p.accentDark}" stroke-width="3"/><g id="gem"><circle cx="24" cy="24" r="17" fill="currentColor"/></g>`;
 }
 
 function toolArt(def: ArtDefinition, p: Palette): string {
@@ -190,6 +262,12 @@ export function generatePlaceholder(def: ArtDefinition, manifest: ArtManifest): 
     body = `<g fill="none" stroke="${p.textDim}" stroke-width="7"><ellipse cx="88" cy="105" rx="42" ry="30"/><path d="M48 111l-9 -14m89 14l9 -14M88 78V61" stroke-linecap="round"/></g>`;
   } else if (def.id === 'card_gem_bar') {
     body = `<rect width="132" height="34" rx="12" fill="${p.accentDark}"/><circle cx="30" cy="17" r="12" fill="${p.ink}"/><rect x="54" y="5" width="24" height="24" rx="2" fill="${p.ink}"/><path d="M102 5l12 24H90Z" fill="${p.ink}"/>`;
+  } else if (def.id === 'ui_rule_sign') {
+    body = ruleSign(def, p);
+  } else if (def.id === 'ui_rainbow_slot') {
+    body = rainbowSlot(def, p);
+  } else if (def.id.startsWith('rule_') || def.id.startsWith('relic_')) {
+    body = ruleOrRelic(def, p, w, h);
   } else if (def.monster) {
     body = monster(def, p, w, h);
   } else if (/^card_art_(bag|lens|hammer|mirror|stone)$/.test(def.id)) {

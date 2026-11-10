@@ -1,0 +1,23 @@
+/* Fixed overlays have no layout coordinates and do not consume pointer input. */
+.feel-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, var(--pageBg, #0D111C) 100%);
+}
+.feel-damage { display: inline-block; font-size: var(--feel-damage-size, 44px); font-style: normal; }
+.feel-damage[data-feel-tier="large"] { color: var(--accent); font-style: italic; }
+/* Rainbow wins even when a large-hit class is also present. */
+.feel-damage.rainbow,
+.damage-float.rainbow,
+.damage-float.big.rainbow,
+.rainbow-announcement {
+  background-image: linear-gradient(90deg, #E3263A, #FFD84A, #1DBF5E, #3FE3F0, #2E66F0, #E94FD8, #E3263A);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 0;
+}

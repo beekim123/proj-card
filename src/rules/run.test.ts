@@ -2,10 +2,18 @@ import { describe, expect, it } from 'vitest';
 import { createToolCard, formatNumber, previewCard } from './index';
 import type { ToolType } from './types';
 import {
-  RUN, abandonRun, chooseLoot, cloneRun, createRecords, createRun, endRunTurn,
+  RUN, abandonRun, chooseLoot, cloneRun, createRecords, createRun as createUnselectedRun, chooseRelic, endRunTurn,
   formatMonsterHp, formatOverkill, playRunCard, skipLoot, undoRun, updateRecords,
 } from './run';
 import type { RunState } from './run-types';
+
+/** Existing battle scenarios explicitly choose a non-numeric-changing relic. */
+function createRun(seed: number): RunState {
+  const run = createUnselectedRun(seed);
+  run.relicOptions = ['same', 'once', 'white'];
+  chooseRelic(run, 0);
+  return run;
+}
 import { decodeRunSave, encodeRunSave } from './save-state';
 
 const rainbow = [1, 3, 2, 6, 4, 5] as const;
@@ -138,7 +146,7 @@ describe('新01 §11.2 一仗 · #21–#32', () => {
     expect(run.monster.turnStartHp).toBe(1000);
     expect(run.monster.overkill).toBe(209);
     expect(run.game.turnDmg).toBe(209000);
-    expect(run.monster.countdown).toBe(3);
+    expect(run.monster.countdown).toBe(run.monster.maxCountdown);
   });
 
   it('#24: 打穿后能逐张撤回，恢复100血未打穿，再全部恢复1000血', () => {
@@ -156,8 +164,8 @@ describe('新01 §11.2 一仗 · #21–#32', () => {
     expect(undoRun(run)).toBe(false);
   });
 
-  it('#25: 第3个未打穿回合结束才出手，心减1，倒计时重置', () => {
-    const run = createRun(1);
+  it('#25: 非发条怪第3个未打穿回合结束才出手，心减1，倒计时重置', () => {
+    const run = createRun(123);
     endRunTurn(run);
     expect([run.monster.countdown, run.hearts]).toEqual([2, 3]);
     endRunTurn(run);
@@ -168,7 +176,7 @@ describe('新01 §11.2 一仗 · #21–#32', () => {
   });
 
   it('#26: 空过也减倒计时、加回合，手牌不变', () => {
-    const run = createRun(1);
+    const run = createRun(123);
     const hand = [...run.game.hand];
     endRunTurn(run);
     expect(run.monster.countdown).toBe(2);
@@ -307,11 +315,11 @@ describe('新01 §11.3 战利品、一局、存档 · #41–#52', () => {
     expect(undoRun(run)).toBe(false);
     inventory(run);
   });
-  it('#45: 不拿战利品时2心恢复为3心', () => {
+  it('#45（v2更新）: 不拿战利品时2心保持2心', () => {
     const run = lootAtOverkill(2);
     run.hearts = 2;
     skipLoot(run);
-    expect(run.hearts).toBe(3);
+    expect(run.hearts).toBe(2);
     expect(run.cards).toHaveLength(30);
   });
   it('#46: 满心时不拿仍为3心', () => {
@@ -391,7 +399,7 @@ describe('新01 §11.3 战利品、一局、存档 · #41–#52', () => {
     }
   });
   it('#52: 错误version或坏JSON返回无存档并要求清除', () => {
-    for (const raw of ['not JSON', '{', JSON.stringify({ version: 1, state: createRun(1) })]) {
+    for (const raw of ['not JSON', '{', JSON.stringify({ version: 4, state: createRun(1) })]) {
       expect(decodeRunSave(raw)).toEqual({ state: null, clear: true, reason: 'invalid' });
     }
   });
@@ -491,7 +499,7 @@ describe('冒险 · 补充边界和用户澄清', () => {
   });
 
   it('前回合已削血后，新回合超杀分母取当时剩余血而非满血', () => {
-    const run = createRun(3);
+    const run = createRun(1);
     deal(run, [1]);
     playRunCard(run, 0);
     endRunTurn(run);
@@ -524,13 +532,13 @@ describe('冒险 · 补充边界和用户澄清', () => {
     expect(run).toEqual(loot);
   });
 
-  it('每仗数值与所有工具参数来自配置，怪外观不影响血量或倒计时', () => {
+  it('每仗数值来自配置，发条兵倒计时覆盖为2', () => {
     expect(RUN.fights.map((f) => [f.hp, f.countdown])).toEqual([
       [20000, 3], [40000, 3], [100000, 3], [300000, 3], [600000, 3], [1500000, 4],
     ]);
     for (let seed = 0; seed < 30; seed += 1) {
       const run = createRun(seed);
-      expect([run.monster.hp, run.monster.countdown]).toEqual([20000, 3]);
+      expect([run.monster.hp, run.monster.countdown]).toEqual([20000, run.monster.key === 'soldier' ? 2 : 3]);
     }
   });
 });

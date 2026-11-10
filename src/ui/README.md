@@ -1,27 +1,48 @@
-# 界面交接
+# 第二版界面交接
 
-- `game.ts`：复用原生 DOM 舞台和 Pointer Events，实现首页、练习、冒险、战利品、结算、弹窗、键盘输入和 debug 入口。所有伤害、随机、战利品和结算均调用 `src/rules/`。
-- `card.ts` / `card.css`：`createCard(store, maskOrCard, growth?, growthEnabled?, options?)` 保留数字 mask 兼容，支持完整工具牌；`options` 为 `static`、`resolved`、`play`。`playCardArt` 播工具事件；`setCardPaused` 控制静止和暂停。
-- `geometry.ts`：原有手牌扇形、桌牌压缩与两行换行纯函数。
-- `../layout/`：原有坐标保持，新冒险字段及长屏分配按附件 02；界面从布局表取位置。
-- `../save.ts`：浏览器存储边界，只用约定的三个 localStorage key。终局调用 `recordResult`，记录成功后清活跃存档。
+## 文件与规则边界
 
-## 输入
+- `game.ts`：在原有 DOM 舞台上继续实现首页、练习、冒险、选宝物、战利品、结算、拖牌、弹窗、设置与 debug。
+- 所有出牌、规矩、宝物、倒计时预览、警告、最佳提示和彩虹可用判断都调用 `src/rules/`。界面没有随机源。
+- `card.ts` / `card.css`：复用原有牌面；卡面可接收规则层给出的成长门槛，让「宝石长得快」也正确显示形态和底数。
+- `geometry.ts`：手牌根据完整旋转后边界收紧；`presentation.ts`：从当前屏幕数字插值到目标值，负时间戳和撤回均不产生负数。
+- `../layout/`：新规矩牌、宝物栏、彩虹六格、彩虹提示及选宝物位置均来自布局表。长竖屏规矩牌跟怪、六格跟伤害面板、提示跟手牌移动。
+- `feel.ts` / `sound.ts`：独立反馈及 WebAudio 模块，详见 `FEEL_SOUND.md`。
 
-Pointer capture、pointercancel、失焦、转屏、撤回、结束回合、弹窗都会取消拖牌。拖牌持续移动只改 transform；预览只在进入或离开可放区域时重建。规则同步结算，普通连续出牌不等动画结束。
+## 第二版界面
 
-Space：结束回合/拿战利品；Z：撤回；战利品 1–4 选中、Enter 拿走、0 不拿。鼠标或触摸选牌需连续选中同一张两次；选择别张只换选中。Esc 关闭弹窗，Tab 在弹窗内循环。
+- 开局必须从三个已存档宝物中选择。第一次点选中，第二次拿走；数字 1–3 同样两次确认，Enter 拿选中项。没有跳过按钮。
+- 宝物栏显示宝物详情，命中 `RowEntry.effects` 时立即放大闪亮。
+- 规矩牌写入素材的 `rule_text` 和 `icon_slot`；发条显示圈数；龙在翻牌中点换字，继承规矩不会播放该怪未声明的动画事件。
+- 警告常显，只有规则层返回的最佳牌显示反应提示；拖牌显示规则层预测的倒计时变化。
+- 彩虹六格及手牌边框由规则层结果驱动。达成彩虹后六格闪两次，并保持到回合结束。
+- 桌面每张牌的数字用 `damage` 总伤害，同时显示彩虹、锤子加值及规矩/宝物标签。
+- 倒计时闪烁根据触发的效果，而不只看数值是否变化，所以「2 回到 2 的发条松完」仍绿闪，「0 再咬手」仍红闪。
+- 精英奖励缺少的心逐颗显示，间隔 150ms；不拿战利品不再回心。首领打穿后按钮为「打赢了！」。
+- 提示不排队，新消息替换旧消息，放在 banner 上沿。出牌成长和规矩反馈使用本地标签与动画。
 
-## 调试与定位
+## 输入与中断
 
-只有 `?debug=1` 暴露 `window.__gemcard`：
+Pointer cancel、失焦、转屏、撤回、结束回合、弹窗都会取消拖牌。普通快速连续出牌不等待动画。
 
-`snapshot/runSnapshot/screen/startAdventure/practice/goHome/resume/debugJumpFight/setMonsterHp/setHearts/giveTool/dealCards/scenario/deal/play/undo/end/endTurn/selectLoot/chooseLoot/skipLoot/records`。
+Space 结束回合；Z 撤回；战利品 1–4 选中、Enter 拿走、0 不拿；Esc 关弹窗；Tab 在弹窗循环。
 
-`scenario(1..14)` 使用附件 01 §11.1 顺序；测试 11 设置红宝石已有 10 次成长。调试发牌可以明确补入指定额外牌，普通游戏仍完全由规则层管理牌身份和数量。
+设置可持久化提示、布局、声音、三档音量、震屏、正常/快动画。选宝物转场中修改设置会取消旧动画回调，不重复进入战斗。
 
-定位符包括 `#stage[data-layout]`、`.hand-card`、`.row-card`、`.loot-card[data-loot-index]`、`.turn-damage[data-value]`、`.result-panel`、`[data-action]`。
+## Debug（仅 `?debug=1`）
 
-## 证据边界
+`window.__gemcard` 保留旧 API，新增：
 
-本轮逻辑、素材契约、静态构建与 DOM 模拟通过记录见根 `HANDOFF.md`。没有真实浏览器、像素、动画帧率或真机验证，未提供这些项目的截图；不得由模拟结果推断视觉或手感通过。
+- `selectRelic(index)` / `chooseRelic(index)`
+- `giveRelic(id)`（六种，可多个）
+- `setCountdown(n)` / `setWind(n)`
+
+设置面板可回到选宝物，调用规则层 debug 命令重建合法新局，并同步 UI 的 game 引用。旧韧性入口已删除。
+
+## 已验证与未验证
+
+- `node verification/v2/ui-geometry-check.mjs`：1534 条纯函数断言通过，覆盖七个尺寸与 7/8/9 张手牌旋转后横向完整入屏、布局新字段、滚分边界。
+- `node verification/v2/ui-flow-check.mjs`：14 组最小 DOM 模拟流程通过。包括双击宝物/刷新、单提示/警告、当场倒计时/撤回、八张快出、伤害求和、旧存档提示、首领按钮、龙换层、精英逐颗回血、330ms 心碎、设置中断、两种倒计时不变时的反馈。
+- Node24 可解析 UI TypeScript 并导入完整 GameUI 及规则/素材/手感/音效模块。此项不是 TypeScript 类型检查。
+- 当前环境缺少 TypeScript/Vite/Vitest 安装产物，官方依赖源返回 403；因此 `npm test`、`npm run typecheck`、`npm run build` 尚未通过正式工具链验证。
+- 未完成真实浏览器渲染、截图、触屏、声音试听、CPU 4 倍降速帧率和录像。最小 DOM 模拟不代表这些项目通过。尤其密集桌面标签和选宝物长文本应在真实渲染后复核。

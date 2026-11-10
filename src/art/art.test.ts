@@ -22,7 +22,7 @@ afterEach(() => { vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubAllGlobals(
 
 describe('素材占位契约', () => {
   it('清单全部素材都有同 viewBox 和固有尺寸的 SVG', () => {
-    expect(assets).toHaveLength(63);
+    expect(assets).toHaveLength(75);
     for (const asset of assets) {
       const [width,height] = dimensions(asset.definition);
       expect(asset.svg).toContain(`viewBox="${asset.definition.viewBox}"`);
@@ -94,10 +94,10 @@ describe('素材加载和生命周期', () => {
     const fetcher = vi.fn(async (url: RequestInfo | URL) => String(url).endsWith('art-manifest.json')
       ? new Response(JSON.stringify(manifest),{status:200}) : new Response('',{status:404}));
     const store = await loadArtAssets({ fetcher:fetcher as typeof fetch, onProgress:progress });
-    expect(fetcher).toHaveBeenCalledTimes(64);
-    expect(store.assets.size).toBe(63);
+    expect(fetcher).toHaveBeenCalledTimes(76);
+    expect(store.assets.size).toBe(75);
     expect([...store.assets.values()].every(asset => asset.source === 'placeholder' && asset.url.startsWith('blob:'))).toBe(true);
-    expect(progress).toHaveBeenLastCalledWith(63,63);
+    expect(progress).toHaveBeenLastCalledWith(75,75);
     expect(fetcher).toHaveBeenCalledWith('./art/dummy.svg',{cache:'no-store'});
     store.dispose();
   });
@@ -154,9 +154,9 @@ describe('素材加载和生命周期', () => {
 
 
 describe('新素材的完整契约', () => {
-  it('63 项状态齐全，9 颗宝石和牌背、徽记标记为 idle', () => {
-    expect(manifest.assets).toHaveLength(63);
-    expect(manifest.assets.every(asset => ['已有', '重画', '新画'].includes(asset.status ?? ''))).toBe(true);
+  it('75 项状态齐全，9 颗宝石和牌背、徽记标记为 idle', () => {
+    expect(manifest.assets).toHaveLength(75);
+    expect(manifest.assets.every(asset => ['已有', '返修', '重画', '新画'].includes(asset.status ?? ''))).toBe(true);
     expect(manifest.assets.filter(asset => asset.idle)).toHaveLength(11);
     expect(manifest.assets.filter(asset => asset.monster)).toHaveLength(5);
     expect(manifest.assets.find(asset => asset.id === 'mon_clock')?.slots).toEqual({countdown_slot:[160,140,64]});
@@ -213,7 +213,7 @@ describe('新素材的完整契约', () => {
     const create = vi.spyOn(URL,'createObjectURL');
     const revoke = vi.spyOn(URL,'revokeObjectURL');
     const store = await loadArtAssets({fetcher:fetcher as typeof fetch});
-    expect(create).toHaveBeenCalledTimes(74);
+    expect(create).toHaveBeenCalledTimes(86);
     for (const asset of store.assets.values()) {
       if (asset.definition.idle) {
         expect(asset.staticUrl).toBeTruthy();
@@ -223,10 +223,10 @@ describe('新素材的完整契约', () => {
       } else expect(asset.staticUrl).toBeUndefined();
     }
     store.dispose();
-    expect(revoke).toHaveBeenCalledTimes(74);
-    expect(new Set(revoke.mock.calls.map(call => call[0])).size).toBe(74);
+    expect(revoke).toHaveBeenCalledTimes(86);
+    expect(new Set(revoke.mock.calls.map(call => call[0])).size).toBe(86);
     store.dispose();
-    expect(revoke).toHaveBeenCalledTimes(74);
+    expect(revoke).toHaveBeenCalledTimes(86);
   });
   it('镜面占位支持 currentColor，额外框保留透明原画窗', () => {
     expect(assets.find(asset => asset.definition.id === 'card_art_mirror')!.svg).toContain('fill="currentColor"');

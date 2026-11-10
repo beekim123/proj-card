@@ -39,8 +39,11 @@ export interface Layout {
   progress: { x: number; y: number; w: number; node: number };
   monsterScale: { normal: number; boss: number };
   hpBar: Rect; hpBorder: number;
-  /** 韧性条：左边弱点宝石图标（边长 = h），右边一格一格的韧性。 */
-  toughBar: Rect;
+  ruleSign: Rect;
+  relics: { x: number; y: number; size: number; gap: number };
+  rainbow: { x: number; y: number; slot: number; gap: number };
+  rainbowReady: Rect;
+  relicPick: { scale: number; points: Point[]; icon: number; nameSize: number; textSize: number };
   /** 手牌大图：放大倍数、大图下沿的 y（x 跟着那张牌，夹在舞台里）。 */
   inspect: { scale: number; bottom: number };
   /** 倒计时圆章的中心与直径。 */
@@ -64,7 +67,7 @@ export const MOTION = {
 export const handSize = (l: Layout) => ({ w: MOTION.cardW * l.hand.scale, h: MOTION.cardH * l.hand.scale });
 export const rowSize = (l: Layout) => ({ w: MOTION.cardW * l.rowScale, h: MOTION.cardH * l.rowScale });
 /** 桌面排每张牌上方的反应标签、下方的伤害数字离牌的距离；两行之间的行距 = 牌高 + lineExtra */
-export const ROW = { labelOffset: 42, damageGap: 8, lineExtra: 94 } as const;
+export const ROW = { labelOffset: 42, damageGap: 8, lineExtra: 154 } as const;
 export const rowPitch = (l: Layout) => rowSize(l).h + ROW.lineExtra;
 
 /** 桌面排间距：同色叠住 40%，顺色、凑白挨紧，普通留 30 的缝 */
