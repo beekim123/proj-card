@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  abandonRun, chooseLoot, cloneRun, createRecords, createRun as createUnselectedRun, chooseRelic, endRunTurn,
+  chooseDoor, shopSkip, abandonRun, chooseLoot, cloneRun, createRecords, createRun as createUnselectedRun, chooseRelic, endRunTurn,
   playRunCard, skipLoot, undoRun, updateRecords,
 } from './run';
 import type { RunState } from './run-types';
@@ -11,6 +11,15 @@ function createRun(seed: number): RunState {
   run.relicOptions = ['same', 'once', 'white'];
   chooseRelic(run, 0);
   return run;
+}
+
+
+/** Resolve the new mandatory inter-room phases; prefer card doors for old combat fixtures. */
+function proceed(run: RunState, take = false): void {
+  if (run.phase === 'loot') { if (take && run.loot.length) chooseLoot(run, 0); else skipLoot(run); }
+  else if (run.phase === 'relic') chooseRelic(run, run.relicOptions.findIndex(id => id === 'white') >= 0 ? run.relicOptions.indexOf('white') : 0);
+  else if (run.phase === 'shop') shopSkip(run);
+  if (run.phase === 'doors') chooseDoor(run, Math.max(0, run.doors.findIndex(door => door.reward === 'card')));
 }
 
 function breakMonster(run: RunState): void {
@@ -70,11 +79,11 @@ describe('冒险命令边界与跨阶段守恒', () => {
       const handSize = run.game.hand.length;
       endRunTurn(run);
       expect(run.game.hand).toHaveLength(handSize);
-      if (fight < 3) skipLoot(run);
+      if (fight < 3) proceed(run);
     }
     expect(run.handLimit).toBe(8);
     expect(run.game.opts.hand).toBe(7);
-    skipLoot(run);
+    proceed(run);
     expect(run.game.opts.hand).toBe(8);
     expect(run.game.hand).toHaveLength(8);
     inventory(run);
@@ -86,13 +95,13 @@ describe('冒险命令边界与跨阶段守恒', () => {
       breakMonster(run);
       endRunTurn(run);
       inventory(run);
-      if (fight < 6) chooseLoot(run, 0);
+      if (fight < 6) proceed(run, true);
     }
     const records = createRecords();
     updateRecords(records, run);
     expect(records).toMatchObject({ played: 1, wins: 1, farthest: 7 });
     expect(run.result).toMatchObject({ totalTurns: 6, recordsApplied: true });
-    expect(run.result?.extraCards).toHaveLength(5);
+    expect(run.result?.extraCards).toHaveLength(4); // 新流程：门的奖励里有工坊、回心，不再每仗都拿牌
     expect(run.stats.fights.map((fight) => fight.turns)).toEqual([1, 1, 1, 1, 1, 1]);
     expect(run.stats.fights.reduce((sum, fight) => sum + fight.damage, 0)).toBe(run.stats.totalDamage);
     const before = JSON.stringify({ run, records });
@@ -145,7 +154,8 @@ describe('冒险命令边界与跨阶段守恒', () => {
         if (run.phase === 'loot') {
           if (action % 3 === 0) skipLoot(run);
           else chooseLoot(run, action % run.loot.length);
-        } else if (action % 9 === 0 && run.hist.length > 0) undoRun(run);
+        } else if (run.phase === 'doors' || run.phase === 'relic' || run.phase === 'shop') proceed(run);
+        else if (action % 9 === 0 && run.hist.length > 0) undoRun(run);
         else if (run.game.hand.length === 0 || action % 7 === 6) endRunTurn(run);
         else playRunCard(run, action % run.game.hand.length);
         inventory(run);

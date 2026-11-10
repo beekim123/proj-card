@@ -1,0 +1,250 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_seal" viewBox="0 0 176 188" width="176" height="188">
+<title>额外牌原画 · 封条</title>
+<style>
+.svg-card_art_seal g { transform-box: view-box; }
+.svg-card_art_seal #root { transform-origin: 102px 104px; }
+.svg-card_art_seal #sign_board { transform-origin: 102px 104px; }
+.svg-card_art_seal #seal_1 { transform-origin: 102px 104px; }
+.svg-card_art_seal #seal_2 { transform-origin: 102px 104px; }
+.svg-card_art_seal #seal_corner { transform-origin: 136px 76px; }
+.svg-card_art_seal #wax_stamp { transform-origin: 102px 104px; }
+
+/* 待机 idle（3s 循环）：封条右上角轻轻翘起又落下 */
+@keyframes svg-card_art_seal-idle-corner {
+  0%, 100% {
+    transform: rotate(0deg) translate(0px, 0px);
+    animation-timing-function: ease-in-out;
+  }
+  50% {
+    transform: rotate(-12deg) translate(-2px, -4px);
+    animation-timing-function: ease-in-out;
+  }
+}
+.svg-card_art_seal:not([data-anim]) #seal_corner,
+.svg-card_art_seal[data-anim="idle"] #seal_corner {
+  animation: svg-card_art_seal-idle-corner 3s infinite;
+}
+
+/* play（600ms）：
+   0ms(0%) 待机
+   -> 100ms(16.67%) 两条封条和蜡印一起弹起来离开牌子（位移 >= 20px，远超 16px 下限），露出下面的字迹
+   -> 250ms(41.67%) 第一条啪地拍回去
+   -> 400ms(66.67%) 第二条拍回去，成一个叉
+   -> 500ms(83.33%) 蜡印按下去，压扁到位
+   -> 600ms(100%) 弹回待机
+   所有运动部件（#sign_board, #seal_1, #seal_2, #wax_stamp）严格共用同一组百分比：0%, 16.67%, 41.67%, 66.67%, 83.33%, 100% */
+@keyframes svg-card_art_seal-play-board {
+  0% {
+    transform: translateY(0px) scale(1, 1);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  16.67% {
+    transform: translateY(4px) scale(0.97, 0.97);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  41.67% {
+    transform: translateY(2px) scale(1.02, 0.98);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  66.67% {
+    transform: translateY(3px) scale(1.03, 0.97);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  83.33% {
+    transform: translateY(5px) scale(1.04, 0.95);
+    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
+  }
+  100% {
+    transform: translateY(0px) scale(1, 1);
+  }
+}
+@keyframes svg-card_art_seal-play-seal1 {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  16.67% {
+    transform: translate(-10px, -22px) rotate(-8deg) scale(1.08);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  41.67% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1.03, 0.96);
+    animation-timing-function: linear;
+  }
+  66.67% {
+    transform: translate(0px, 1px) rotate(0deg) scale(1, 1);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  83.33% {
+    transform: translate(0px, 3px) rotate(0deg) scale(1.02, 0.97);
+    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
+  }
+  100% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+  }
+}
+@keyframes svg-card_art_seal-play-seal2 {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  16.67% {
+    transform: translate(12px, -22px) rotate(9deg) scale(1.08);
+    animation-timing-function: linear;
+  }
+  41.67% {
+    transform: translate(10px, -20px) rotate(7deg) scale(1.08);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  66.67% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1.03, 0.96);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  83.33% {
+    transform: translate(0px, 3px) rotate(0deg) scale(1.02, 0.97);
+    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
+  }
+  100% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+  }
+}
+@keyframes svg-card_art_seal-play-wax {
+  0% {
+    transform: translateY(0px) scale(1, 1);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  16.67% {
+    transform: translateY(-26px) scale(1.14, 1.14);
+    animation-timing-function: linear;
+  }
+  41.67% {
+    transform: translateY(-24px) scale(1.14, 1.14);
+    animation-timing-function: linear;
+  }
+  66.67% {
+    transform: translateY(-20px) scale(1.16, 1.16);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  83.33% {
+    transform: translateY(3px) scale(1.22, 0.84);
+    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
+  }
+  100% {
+    transform: translateY(0px) scale(1, 1);
+  }
+}
+.svg-card_art_seal[data-anim="play"] #sign_board {
+  animation: svg-card_art_seal-play-board 0.6s both;
+}
+.svg-card_art_seal[data-anim="play"] #seal_1 {
+  animation: svg-card_art_seal-play-seal1 0.6s both;
+}
+.svg-card_art_seal[data-anim="play"] #seal_2 {
+  animation: svg-card_art_seal-play-seal2 0.6s both;
+}
+.svg-card_art_seal[data-anim="play"] #wax_stamp {
+  animation: svg-card_art_seal-play-wax 0.6s both;
+}
+</style>
+<g id="root">
+  <!-- 左上角 x:0..30, y:0..90 严格留空；全图无宝石色，蜡印用压暗酒红 #8C3B45 / #5E242C -->
+  <!-- 底部暗影 -->
+  <ellipse cx="102" cy="166" rx="54" ry="8" fill="#0D111C" opacity="0.58"/>
+
+  <!-- 1. 怪头顶同款规矩旧木牌 sign_board（两根麻绳吊着，带原来的规矩字迹） -->
+  <g id="sign_board">
+    <!-- 两根吊绳（x=64 与 x=140，避开左上角留空区） -->
+    <g id="ropes">
+      <line x1="64" y1="22" x2="64" y2="64" stroke="#1C1412" stroke-width="6.5" stroke-linecap="round"/>
+      <line x1="64" y1="22" x2="64" y2="64" stroke="#9A8968" stroke-width="3" stroke-dasharray="4 3" stroke-linecap="round"/>
+      <line x1="140" y1="22" x2="140" y2="64" stroke="#1C1412" stroke-width="6.5" stroke-linecap="round"/>
+      <line x1="140" y1="22" x2="140" y2="64" stroke="#9A8968" stroke-width="3" stroke-dasharray="4 3" stroke-linecap="round"/>
+    </g>
+
+    <!-- 旧木牌主体（哥特切角木匾，范围 x:36..168, y:58..150） -->
+    <polygon points="44,58 160,58 168,66 168,142 160,150 44,150 36,142 36,66" fill="#704122" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 木牌右侧与底部背光焦茶暗面 -->
+    <polygon points="104,58 160,58 168,66 168,142 160,150 104,150" fill="#3D2212" opacity="0.72"/>
+    <!-- 木牌内凹深色字槽 -->
+    <rect x="44" y="66" width="116" height="76" rx="4" fill="#3D2212" stroke="#1C1412" stroke-width="2"/>
+    <!-- 木牌左上受光边与横向木板拼缝 -->
+    <polyline points="40,138 40,68 46,62 156,62" fill="none" stroke="#C48A5C" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+    <line x1="38" y1="104" x2="166" y2="104" stroke="#1C1412" stroke-width="1.8"/>
+
+    <!-- 左右铁包角与吊环铆钉 -->
+    <g fill="#3B515C" stroke="#1C1412" stroke-width="2" stroke-linejoin="round">
+      <polygon points="36,66 44,58 56,58 44,70 36,78"/>
+      <polygon points="168,66 160,58 148,58 160,70 168,78"/>
+      <polygon points="36,142 44,150 56,150 44,138 36,130"/>
+      <polygon points="168,142 160,150 148,150 160,138 168,130"/>
+      <circle cx="64" cy="64" r="4" fill="#9A7B46"/>
+      <circle cx="140" cy="64" r="4" fill="#9A7B46"/>
+    </g>
+
+    <!-- 木牌上原来的规矩字迹与小图标框（平时被交叉封条盖住大半，play 第 100ms 封条弹起时清楚露出） -->
+    <g id="carved_text" opacity="0.9">
+      <!-- 左侧规矩小方框印记 -->
+      <rect x="52" y="88" width="22" height="28" rx="3" fill="#161221" stroke="#9A8968" stroke-width="1.8"/>
+      <path d="M57,96 L69,96 M57,104 L69,104 M63,92 L63,112" stroke="#C8B894" stroke-width="2" stroke-linecap="round"/>
+      <!-- 中右部古文字笔画（清晰可见的刻字笔迹） -->
+      <path d="M84,92 H112 M98,84 V120 M86,104 H110 M84,118 H114" fill="none" stroke="#E6DEC8" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M122,90 H148 V118 H122 Z M122,104 H148 M135,90 V118" fill="none" stroke="#E6DEC8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- 2. 第一条旧纸封条 seal_1（左上 -> 右下斜贴，play 第 250ms 率先啪地拍回） -->
+  <g id="seal_1">
+    <!-- 封条底下投射的薄暗影 -->
+    <polygon points="44,64 60,52 162,138 146,152" fill="#0D111C" opacity="0.45"/>
+    <!-- 旧羊皮纸封条本体（带折痕与撕口缺角） -->
+    <polygon points="42,62 58,48 160,136 154,143 158,148 144,154 40,68" fill="#C8B894" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <!-- 右下背光旧纸暗面 -->
+    <polygon points="101,100 160,136 154,143 158,148 144,154 92,111" fill="#9A8968" opacity="0.78"/>
+    <!-- 左上受光亮边 -->
+    <line x1="45" y1="61" x2="154" y2="136" stroke="#E2D6BA" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- 封条上的暗酒红封禁符文/双杠画押 -->
+    <path d="M58,64 L144,138 M52,70 L138,144" stroke="#5E242C" stroke-width="2" stroke-dasharray="10 6" stroke-linecap="round"/>
+  </g>
+
+  <!-- 3. 第二条旧纸封条 seal_2（左下 -> 右上斜贴，右上角带待机翘起角 #seal_corner，play 第 400ms 拍回成叉） -->
+  <g id="seal_2">
+    <!-- 封条底下暗影 -->
+    <polygon points="44,142 142,54 158,68 58,156" fill="#0D111C" opacity="0.45"/>
+    <!-- 左下到中右段封条主体 -->
+    <polygon points="42,140 132,60 146,74 56,154 48,146 42,148" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="42,140 100,88 112,102 56,154 48,146 42,148" fill="#C8B894" opacity="0.85"/>
+    <path d="M56,142 L134,72 M50,136 L128,66" stroke="#5E242C" stroke-width="2" stroke-dasharray="10 6" stroke-linecap="round"/>
+
+    <!-- 右上角待机轻轻翘起又落下的封条角 seal_corner -->
+    <g id="seal_corner">
+      <!-- 翘起角底下的深色阴影（表现角翘离木牌） -->
+      <polygon points="130,64 160,48 166,64 142,78" fill="#0D111C" opacity="0.55"/>
+      <!-- 翘起的封条纸尾 -->
+      <polygon points="128,62 154,44 162,52 157,57 164,62 142,76" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <!-- 纸角微卷折面 -->
+      <polygon points="146,50 154,44 162,52 152,58" fill="#9A8968" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+      <line x1="132" y1="62" x2="152" y2="48" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+    </g>
+  </g>
+
+  <!-- 4. 中央交叉处压暗酒红蜡印 wax_stamp（无宝石色，play 第 500ms 重重按下压扁到位） -->
+  <g id="wax_stamp">
+    <!-- 蜡印底层投影 -->
+    <circle cx="102" cy="107" r="24" fill="#0D111C" opacity="0.6"/>
+    <!-- 不规则厚蜡边缘（压暗酒红 #8C3B45 + 暗部 #5E242C + 受光边 #B5626C） -->
+    <path d="M102,80 C110,79 118,83 123,89 C128,95 129,104 125,112 C122,120 113,127 103,127 C93,128 84,123 80,115 C75,107 77,96 82,89 C87,82 94,81 102,80 Z" fill="#8C3B45" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <!-- 蜡印右下背光暗面 -->
+    <path d="M102,80 C110,79 118,83 123,89 C128,95 129,104 125,112 C122,120 113,127 103,127 L102,104 Z" fill="#5E242C" opacity="0.82"/>
+    <!-- 蜡印左上厚边受光高光 -->
+    <path d="M82,110 C79,102 81,92 87,87 C92,83 98,82 104,83" fill="none" stroke="#B5626C" stroke-width="2.2" stroke-linecap="round"/>
+
+    <!-- 蜡印内圈凹陷印章盘 -->
+    <circle cx="102" cy="104" r="15" fill="#5E242C" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="102" cy="104" r="12.5" fill="none" stroke="#B5626C" stroke-width="1.2" opacity="0.8"/>
+
+    <!-- 印章中央「封禁 ×」浮雕徽记 -->
+    <path d="M95,97 L109,111 M109,97 L95,111" stroke="#1C1412" stroke-width="5.2" stroke-linecap="round"/>
+    <path d="M95,97 L109,111 M109,97 L95,111" stroke="#B5626C" stroke-width="2.6" stroke-linecap="round"/>
+  </g>
+</g>
+</svg>

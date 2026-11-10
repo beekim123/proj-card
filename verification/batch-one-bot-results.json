@@ -1,0 +1,4823 @@
+{
+  "hintRandom": {
+    "n": 300,
+    "win": 48.7,
+    "hits": 3.22,
+    "turnsMean": 18.12,
+    "checkedPlays": 40793,
+    "hintDifferences": 908,
+    "elapsedMs": 5200,
+    "rows": [
+      {
+        "seed": 1,
+        "win": false,
+        "hits": 5,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "first2",
+          "heart"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 7920,
+        "win": true,
+        "hits": 2,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "heart",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 15839,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 23758,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "slow",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 31677,
+        "win": true,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "first2",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 39596,
+        "win": false,
+        "hits": 3,
+        "turns": 11,
+        "room": 5,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 47515,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "same"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 55434,
+        "win": false,
+        "hits": 4,
+        "turns": 16,
+        "room": 5,
+        "relics": [
+          "grow",
+          "once"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 63353,
+        "win": true,
+        "hits": 2,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 71272,
+        "win": false,
+        "hits": 3,
+        "turns": 14,
+        "room": 5,
+        "relics": [
+          "once",
+          "same"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 79191,
+        "win": true,
+        "hits": 5,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "start2",
+          "heart"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 87110,
+        "win": true,
+        "hits": 4,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "start2",
+          "twice"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 95029,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "first2",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 102948,
+        "win": true,
+        "hits": 4,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "heart",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 110867,
+        "win": false,
+        "hits": 5,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "same",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 118786,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "grow",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 126705,
+        "win": false,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 134624,
+        "win": false,
+        "hits": 5,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "same",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 142543,
+        "win": true,
+        "hits": 4,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "heart",
+          "same"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 150462,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 158381,
+        "win": false,
+        "hits": 4,
+        "turns": 13,
+        "room": 5,
+        "relics": [
+          "once",
+          "same"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 166300,
+        "win": false,
+        "hits": 3,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "start2",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 174219,
+        "win": true,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "once",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 182138,
+        "win": false,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "once",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 190057,
+        "win": true,
+        "hits": 0,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "white",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 197976,
+        "win": true,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "heart",
+          "first2"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 205895,
+        "win": false,
+        "hits": 3,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "start2",
+          "same"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 213814,
+        "win": true,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "slow"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 221733,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "same",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 229652,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "once",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 237571,
+        "win": false,
+        "hits": 3,
+        "turns": 13,
+        "room": 5,
+        "relics": [
+          "grow",
+          "once"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 245490,
+        "win": false,
+        "hits": 5,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "once"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 253409,
+        "win": true,
+        "hits": 1,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "same",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 261328,
+        "win": false,
+        "hits": 5,
+        "turns": 25,
+        "room": 6,
+        "relics": [
+          "same",
+          "slow"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 269247,
+        "win": true,
+        "hits": 3,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "once",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 277166,
+        "win": true,
+        "hits": 2,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "same",
+          "white"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 285085,
+        "win": true,
+        "hits": 3,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "twice",
+          "white"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 293004,
+        "win": false,
+        "hits": 5,
+        "turns": 27,
+        "room": 6,
+        "relics": [
+          "heart",
+          "rainbow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 300923,
+        "win": true,
+        "hits": 1,
+        "turns": 13,
+        "room": 6,
+        "relics": [
+          "first2",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 308842,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "grow",
+          "first2"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 316761,
+        "win": true,
+        "hits": 1,
+        "turns": 14,
+        "room": 6,
+        "relics": [
+          "grow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 324680,
+        "win": true,
+        "hits": 1,
+        "turns": 13,
+        "room": 6,
+        "relics": [
+          "first2",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 332599,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "grow",
+          "twice"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 340518,
+        "win": true,
+        "hits": 0,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "once",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 348437,
+        "win": true,
+        "hits": 3,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "start2",
+          "twice"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 356356,
+        "win": false,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "same",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 364275,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "grow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 372194,
+        "win": false,
+        "hits": 4,
+        "turns": 15,
+        "room": 5,
+        "relics": [
+          "twice",
+          "once"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 380113,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "start2",
+          "white"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 388032,
+        "win": true,
+        "hits": 3,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "heart",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 395951,
+        "win": true,
+        "hits": 2,
+        "turns": 14,
+        "room": 6,
+        "relics": [
+          "first2",
+          "grow"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 403870,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "twice",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 411789,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "white",
+          "heart"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 419708,
+        "win": true,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "slow",
+          "heart"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 427627,
+        "win": true,
+        "hits": 1,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "white",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 435546,
+        "win": false,
+        "hits": 5,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "white",
+          "first2"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 443465,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "same",
+          "rainbow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 451384,
+        "win": false,
+        "hits": 7,
+        "turns": 24,
+        "room": 6,
+        "relics": [
+          "grow",
+          "once"
+        ],
+        "deck": 28
+      },
+      {
+        "seed": 459303,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 467222,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 475141,
+        "win": true,
+        "hits": 2,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 483060,
+        "win": false,
+        "hits": 4,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "once",
+          "rainbow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 490979,
+        "win": false,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 498898,
+        "win": false,
+        "hits": 6,
+        "turns": 29,
+        "room": 6,
+        "relics": [
+          "heart",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 506817,
+        "win": true,
+        "hits": 2,
+        "turns": 14,
+        "room": 6,
+        "relics": [
+          "grow",
+          "rainbow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 514736,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 5,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 522655,
+        "win": true,
+        "hits": 0,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "slow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 530574,
+        "win": false,
+        "hits": 3,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "slow",
+          "grow"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 538493,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "grow",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 546412,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "once",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 554331,
+        "win": true,
+        "hits": 2,
+        "turns": 24,
+        "room": 6,
+        "relics": [
+          "slow",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 562250,
+        "win": false,
+        "hits": 3,
+        "turns": 12,
+        "room": 5,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 570169,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "white",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 578088,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "grow",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 586007,
+        "win": false,
+        "hits": 4,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "start2",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 593926,
+        "win": false,
+        "hits": 5,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "white",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 601845,
+        "win": false,
+        "hits": 5,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "same",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 609764,
+        "win": false,
+        "hits": 5,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "once",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 617683,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "first2",
+          "twice"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 625602,
+        "win": false,
+        "hits": 5,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "white",
+          "once"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 633521,
+        "win": true,
+        "hits": 4,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "heart",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 641440,
+        "win": false,
+        "hits": 4,
+        "turns": 13,
+        "room": 5,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 649359,
+        "win": false,
+        "hits": 5,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "grow",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 657278,
+        "win": true,
+        "hits": 1,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "twice",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 665197,
+        "win": false,
+        "hits": 5,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 673116,
+        "win": true,
+        "hits": 2,
+        "turns": 13,
+        "room": 6,
+        "relics": [
+          "first2",
+          "start2"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 681035,
+        "win": true,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "heart",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 688954,
+        "win": false,
+        "hits": 5,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "once",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 696873,
+        "win": true,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "white",
+          "same"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 704792,
+        "win": true,
+        "hits": 3,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 712711,
+        "win": false,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 720630,
+        "win": true,
+        "hits": 2,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "grow",
+          "white"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 728549,
+        "win": true,
+        "hits": 5,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "heart",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 736468,
+        "win": false,
+        "hits": 3,
+        "turns": 10,
+        "room": 5,
+        "relics": [
+          "first2",
+          "slow"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 744387,
+        "win": true,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "white",
+          "first2"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 752306,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "heart",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 760225,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 5,
+        "relics": [
+          "rainbow",
+          "slow"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 768144,
+        "win": false,
+        "hits": 4,
+        "turns": 14,
+        "room": 5,
+        "relics": [
+          "start2",
+          "grow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 776063,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "start2",
+          "twice"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 783982,
+        "win": true,
+        "hits": 2,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "white",
+          "grow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 791901,
+        "win": false,
+        "hits": 3,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "start2",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 799820,
+        "win": true,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 807739,
+        "win": true,
+        "hits": 2,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "grow",
+          "heart"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 815658,
+        "win": true,
+        "hits": 2,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 823577,
+        "win": false,
+        "hits": 4,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "slow",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 831496,
+        "win": false,
+        "hits": 5,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "twice",
+          "white"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 839415,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 5,
+        "relics": [
+          "rainbow",
+          "slow"
+        ],
+        "deck": 25
+      },
+      {
+        "seed": 847334,
+        "win": true,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 855253,
+        "win": true,
+        "hits": 1,
+        "turns": 13,
+        "room": 6,
+        "relics": [
+          "start2",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 863172,
+        "win": false,
+        "hits": 3,
+        "turns": 13,
+        "room": 5,
+        "relics": [
+          "grow",
+          "twice"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 871091,
+        "win": true,
+        "hits": 2,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "same",
+          "once"
+        ],
+        "deck": 22
+      },
+      {
+        "seed": 879010,
+        "win": true,
+        "hits": 1,
+        "turns": 14,
+        "room": 6,
+        "relics": [
+          "first2",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 886929,
+        "win": true,
+        "hits": 3,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "grow",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 894848,
+        "win": false,
+        "hits": 5,
+        "turns": 24,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 902767,
+        "win": false,
+        "hits": 3,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "grow",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 910686,
+        "win": false,
+        "hits": 5,
+        "turns": 18,
+        "room": 5,
+        "relics": [
+          "once",
+          "heart"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 918605,
+        "win": true,
+        "hits": 1,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "start2",
+          "white"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 926524,
+        "win": true,
+        "hits": 2,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "grow",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 934443,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "twice",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 942362,
+        "win": false,
+        "hits": 4,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "white",
+          "same"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 950281,
+        "win": false,
+        "hits": 3,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 958200,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "white",
+          "heart"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 966119,
+        "win": true,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "white",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 974038,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "slow",
+          "once"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 981957,
+        "win": true,
+        "hits": 2,
+        "turns": 14,
+        "room": 6,
+        "relics": [
+          "white",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 989876,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "white",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 997795,
+        "win": true,
+        "hits": 2,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "same",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1005714,
+        "win": false,
+        "hits": 5,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "grow",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1013633,
+        "win": false,
+        "hits": 5,
+        "turns": 25,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1021552,
+        "win": false,
+        "hits": 4,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "same",
+          "rainbow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1029471,
+        "win": false,
+        "hits": 5,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "same",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1037390,
+        "win": false,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "slow",
+          "white"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1045309,
+        "win": true,
+        "hits": 2,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "twice",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1053228,
+        "win": true,
+        "hits": 3,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "heart",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1061147,
+        "win": true,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "start2",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1069066,
+        "win": false,
+        "hits": 6,
+        "turns": 24,
+        "room": 6,
+        "relics": [
+          "heart",
+          "twice"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1076985,
+        "win": true,
+        "hits": 3,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "once",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1084904,
+        "win": false,
+        "hits": 4,
+        "turns": 16,
+        "room": 5,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1092823,
+        "win": false,
+        "hits": 5,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "once",
+          "rainbow"
+        ],
+        "deck": 25
+      },
+      {
+        "seed": 1100742,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "start2",
+          "twice"
+        ],
+        "deck": 22
+      },
+      {
+        "seed": 1108661,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1116580,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "white",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1124499,
+        "win": true,
+        "hits": 3,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "first2",
+          "white"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1132418,
+        "win": true,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "twice",
+          "white"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1140337,
+        "win": true,
+        "hits": 3,
+        "turns": 24,
+        "room": 6,
+        "relics": [
+          "twice",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1148256,
+        "win": false,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "first2",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1156175,
+        "win": true,
+        "hits": 0,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "twice",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1164094,
+        "win": true,
+        "hits": 3,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "slow",
+          "rainbow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1172013,
+        "win": true,
+        "hits": 2,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "grow",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1179932,
+        "win": false,
+        "hits": 5,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "heart",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1187851,
+        "win": true,
+        "hits": 3,
+        "turns": 25,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1195770,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "heart",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1203689,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "grow"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1211608,
+        "win": true,
+        "hits": 2,
+        "turns": 14,
+        "room": 6,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1219527,
+        "win": true,
+        "hits": 3,
+        "turns": 25,
+        "room": 6,
+        "relics": [
+          "slow",
+          "heart"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1227446,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "first2",
+          "grow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1235365,
+        "win": true,
+        "hits": 2,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "once",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1243284,
+        "win": false,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "grow",
+          "once"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1251203,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "once",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1259122,
+        "win": true,
+        "hits": 2,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "start2",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1267041,
+        "win": true,
+        "hits": 2,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "heart",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1274960,
+        "win": true,
+        "hits": 0,
+        "turns": 11,
+        "room": 6,
+        "relics": [
+          "start2",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1282879,
+        "win": false,
+        "hits": 6,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "heart",
+          "white"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1290798,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "twice",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1298717,
+        "win": true,
+        "hits": 3,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "white",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1306636,
+        "win": true,
+        "hits": 3,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "white",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1314555,
+        "win": false,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "twice",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1322474,
+        "win": true,
+        "hits": 2,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "white",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1330393,
+        "win": true,
+        "hits": 3,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "once",
+          "first2"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1338312,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "white",
+          "first2"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1346231,
+        "win": false,
+        "hits": 3,
+        "turns": 24,
+        "room": 6,
+        "relics": [
+          "slow",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1354150,
+        "win": true,
+        "hits": 1,
+        "turns": 13,
+        "room": 6,
+        "relics": [
+          "once",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1362069,
+        "win": false,
+        "hits": 3,
+        "turns": 8,
+        "room": 3,
+        "relics": [
+          "twice"
+        ],
+        "deck": 32
+      },
+      {
+        "seed": 1369988,
+        "win": false,
+        "hits": 3,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "slow",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1377907,
+        "win": true,
+        "hits": 2,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "slow",
+          "same"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1385826,
+        "win": false,
+        "hits": 5,
+        "turns": 24,
+        "room": 6,
+        "relics": [
+          "same",
+          "slow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1393745,
+        "win": true,
+        "hits": 3,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "white",
+          "heart"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1401664,
+        "win": true,
+        "hits": 2,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "once",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1409583,
+        "win": false,
+        "hits": 5,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "once",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1417502,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "twice",
+          "grow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1425421,
+        "win": false,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "grow",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1433340,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "first2",
+          "white"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1441259,
+        "win": true,
+        "hits": 3,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "grow",
+          "first2"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1449178,
+        "win": false,
+        "hits": 3,
+        "turns": 14,
+        "room": 5,
+        "relics": [
+          "grow",
+          "start2"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1457097,
+        "win": false,
+        "hits": 3,
+        "turns": 15,
+        "room": 5,
+        "relics": [
+          "once",
+          "grow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1465016,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "grow",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1472935,
+        "win": false,
+        "hits": 4,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "first2",
+          "grow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1480854,
+        "win": true,
+        "hits": 5,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "once",
+          "start2"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1488773,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "white",
+          "heart"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1496692,
+        "win": true,
+        "hits": 2,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "twice",
+          "start2"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1504611,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "heart",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1512530,
+        "win": true,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1520449,
+        "win": true,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1528368,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1536287,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "slow",
+          "grow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1544206,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "heart",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1552125,
+        "win": false,
+        "hits": 3,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "twice",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1560044,
+        "win": false,
+        "hits": 6,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "heart",
+          "white"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1567963,
+        "win": false,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "start2",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1575882,
+        "win": true,
+        "hits": 2,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "start2",
+          "rainbow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1583801,
+        "win": true,
+        "hits": 1,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "grow",
+          "rainbow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1591720,
+        "win": true,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "first2",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1599639,
+        "win": true,
+        "hits": 1,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "slow",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1607558,
+        "win": true,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "once",
+          "same"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1615477,
+        "win": true,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "heart",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1623396,
+        "win": false,
+        "hits": 6,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "grow",
+          "heart"
+        ],
+        "deck": 32
+      },
+      {
+        "seed": 1631315,
+        "win": false,
+        "hits": 3,
+        "turns": 14,
+        "room": 6,
+        "relics": [
+          "first2",
+          "slow"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1639234,
+        "win": true,
+        "hits": 2,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "white",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1647153,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "first2",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1655072,
+        "win": false,
+        "hits": 5,
+        "turns": 28,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1662991,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "slow",
+          "start2"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1670910,
+        "win": true,
+        "hits": 1,
+        "turns": 14,
+        "room": 6,
+        "relics": [
+          "same",
+          "grow"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1678829,
+        "win": false,
+        "hits": 4,
+        "turns": 14,
+        "room": 5,
+        "relics": [
+          "grow",
+          "once"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1686748,
+        "win": true,
+        "hits": 1,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "same",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1694667,
+        "win": true,
+        "hits": 3,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "heart",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1702586,
+        "win": false,
+        "hits": 3,
+        "turns": 14,
+        "room": 5,
+        "relics": [
+          "white",
+          "same"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1710505,
+        "win": false,
+        "hits": 5,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "heart",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1718424,
+        "win": true,
+        "hits": 2,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "start2",
+          "once"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1726343,
+        "win": true,
+        "hits": 0,
+        "turns": 11,
+        "room": 6,
+        "relics": [
+          "first2",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1734262,
+        "win": true,
+        "hits": 3,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "grow",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1742181,
+        "win": false,
+        "hits": 5,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "same",
+          "grow"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1750100,
+        "win": false,
+        "hits": 5,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1758019,
+        "win": false,
+        "hits": 6,
+        "turns": 26,
+        "room": 6,
+        "relics": [
+          "twice",
+          "heart"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1765938,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "white",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1773857,
+        "win": true,
+        "hits": 2,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "white",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1781776,
+        "win": false,
+        "hits": 4,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "first2",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1789695,
+        "win": true,
+        "hits": 1,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "grow",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1797614,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1805533,
+        "win": false,
+        "hits": 3,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "white",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1813452,
+        "win": true,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "once",
+          "start2"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1821371,
+        "win": false,
+        "hits": 3,
+        "turns": 14,
+        "room": 5,
+        "relics": [
+          "rainbow",
+          "slow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1829290,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "first2",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1837209,
+        "win": false,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "same",
+          "once"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1845128,
+        "win": false,
+        "hits": 3,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "first2",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1853047,
+        "win": true,
+        "hits": 2,
+        "turns": 11,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1860966,
+        "win": true,
+        "hits": 1,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "grow",
+          "white"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1868885,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "grow",
+          "same"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1876804,
+        "win": false,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "same",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1884723,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "slow",
+          "grow"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1892642,
+        "win": false,
+        "hits": 4,
+        "turns": 12,
+        "room": 5,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 25
+      },
+      {
+        "seed": 1900561,
+        "win": true,
+        "hits": 2,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "start2",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1908480,
+        "win": false,
+        "hits": 6,
+        "turns": 24,
+        "room": 6,
+        "relics": [
+          "heart",
+          "rainbow"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 1916399,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "grow",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1924318,
+        "win": false,
+        "hits": 5,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "same"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1932237,
+        "win": false,
+        "hits": 5,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "same",
+          "once"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1940156,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "grow",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1948075,
+        "win": false,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "same",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1955994,
+        "win": true,
+        "hits": 2,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1963913,
+        "win": false,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "twice",
+          "grow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 1971832,
+        "win": true,
+        "hits": 5,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 1979751,
+        "win": true,
+        "hits": 4,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "once",
+          "white"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 1987670,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "once",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 1995589,
+        "win": true,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "same"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 2003508,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "white",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2011427,
+        "win": true,
+        "hits": 3,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "heart",
+          "grow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2019346,
+        "win": false,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "slow",
+          "grow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2027265,
+        "win": true,
+        "hits": 2,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "grow",
+          "twice"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2035184,
+        "win": true,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "once",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2043103,
+        "win": true,
+        "hits": 2,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "white",
+          "grow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2051022,
+        "win": true,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "slow",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2058941,
+        "win": false,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "white",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2066860,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2074779,
+        "win": false,
+        "hits": 5,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "twice",
+          "heart"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2082698,
+        "win": false,
+        "hits": 4,
+        "turns": 16,
+        "room": 5,
+        "relics": [
+          "slow",
+          "rainbow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 2090617,
+        "win": false,
+        "hits": 4,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "start2",
+          "same"
+        ],
+        "deck": 22
+      },
+      {
+        "seed": 2098536,
+        "win": false,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "first2",
+          "once"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2106455,
+        "win": false,
+        "hits": 5,
+        "turns": 25,
+        "room": 6,
+        "relics": [
+          "same",
+          "grow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 2114374,
+        "win": true,
+        "hits": 2,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 26
+      },
+      {
+        "seed": 2122293,
+        "win": false,
+        "hits": 5,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "grow",
+          "rainbow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 2130212,
+        "win": true,
+        "hits": 1,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "first2",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2138131,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "once",
+          "same"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2146050,
+        "win": false,
+        "hits": 5,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "start2",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2153969,
+        "win": false,
+        "hits": 4,
+        "turns": 23,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "slow"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 2161888,
+        "win": false,
+        "hits": 4,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "grow",
+          "white"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 2169807,
+        "win": true,
+        "hits": 2,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "slow",
+          "start2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2177726,
+        "win": false,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "slow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2185645,
+        "win": true,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "once",
+          "heart"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2193564,
+        "win": false,
+        "hits": 6,
+        "turns": 22,
+        "room": 6,
+        "relics": [
+          "heart",
+          "slow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2201483,
+        "win": false,
+        "hits": 4,
+        "turns": 20,
+        "room": 6,
+        "relics": [
+          "grow",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2209402,
+        "win": false,
+        "hits": 4,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "start2",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2217321,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "start2",
+          "heart"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2225240,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "slow",
+          "white"
+        ],
+        "deck": 22
+      },
+      {
+        "seed": 2233159,
+        "win": false,
+        "hits": 5,
+        "turns": 24,
+        "room": 6,
+        "relics": [
+          "heart",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2241078,
+        "win": true,
+        "hits": 2,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "heart",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2248997,
+        "win": true,
+        "hits": 1,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "start2",
+          "first2"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2256916,
+        "win": false,
+        "hits": 4,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "start2",
+          "same"
+        ],
+        "deck": 29
+      },
+      {
+        "seed": 2264835,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "start2",
+          "heart"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2272754,
+        "win": true,
+        "hits": 3,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "once",
+          "grow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 2280673,
+        "win": false,
+        "hits": 3,
+        "turns": 16,
+        "room": 6,
+        "relics": [
+          "start2",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2288592,
+        "win": true,
+        "hits": 2,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "grow",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2296511,
+        "win": true,
+        "hits": 1,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "slow",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2304430,
+        "win": true,
+        "hits": 3,
+        "turns": 19,
+        "room": 6,
+        "relics": [
+          "once",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2312349,
+        "win": false,
+        "hits": 4,
+        "turns": 15,
+        "room": 5,
+        "relics": [
+          "once",
+          "slow"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 2320268,
+        "win": false,
+        "hits": 5,
+        "turns": 18,
+        "room": 5,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 33
+      },
+      {
+        "seed": 2328187,
+        "win": false,
+        "hits": 4,
+        "turns": 21,
+        "room": 6,
+        "relics": [
+          "once",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2336106,
+        "win": true,
+        "hits": 1,
+        "turns": 15,
+        "room": 6,
+        "relics": [
+          "start2",
+          "white"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2344025,
+        "win": true,
+        "hits": 1,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "slow",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2351944,
+        "win": true,
+        "hits": 2,
+        "turns": 18,
+        "room": 6,
+        "relics": [
+          "slow",
+          "grow"
+        ],
+        "deck": 30
+      },
+      {
+        "seed": 2359863,
+        "win": false,
+        "hits": 3,
+        "turns": 17,
+        "room": 6,
+        "relics": [
+          "same",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 2367782,
+        "win": true,
+        "hits": 2,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 34
+      }
+    ]
+  },
+  "planSmart": {
+    "n": 100,
+    "win": 100,
+    "hits": 0.12,
+    "turnsMean": 8.33,
+    "checkedPlays": 7164,
+    "hintDifferences": 0,
+    "elapsedMs": 14366,
+    "rows": [
+      {
+        "seed": 1,
+        "win": true,
+        "hits": 1,
+        "turns": 13,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 7920,
+        "win": true,
+        "hits": 1,
+        "turns": 11,
+        "room": 6,
+        "relics": [
+          "once",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 15839,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 23758,
+        "win": true,
+        "hits": 1,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "first2",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 31677,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 39596,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 47515,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 55434,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 63353,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 71272,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "same",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 79191,
+        "win": true,
+        "hits": 0,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "start2",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 87110,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 95029,
+        "win": true,
+        "hits": 1,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 102948,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "start2",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 110867,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "twice",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 118786,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 126705,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 134624,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 142543,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 150462,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 158381,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "same",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 166300,
+        "win": true,
+        "hits": 0,
+        "turns": 11,
+        "room": 6,
+        "relics": [
+          "same",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 174219,
+        "win": true,
+        "hits": 0,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "once",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 182138,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 190057,
+        "win": true,
+        "hits": 0,
+        "turns": 11,
+        "room": 6,
+        "relics": [
+          "same",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 197976,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "start2",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 205895,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "white",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 213814,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 221733,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 229652,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "twice",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 237571,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 245490,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 253409,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "same",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 261328,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 269247,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 277166,
+        "win": true,
+        "hits": 1,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 285085,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 293004,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "once",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 300923,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 308842,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 316761,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 324680,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 332599,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "once",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 340518,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "once",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 348437,
+        "win": true,
+        "hits": 0,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "twice",
+          "slow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 356356,
+        "win": true,
+        "hits": 0,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "same",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 364275,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 372194,
+        "win": true,
+        "hits": 1,
+        "turns": 13,
+        "room": 6,
+        "relics": [
+          "twice",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 380113,
+        "win": true,
+        "hits": 0,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "twice",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 388032,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "twice",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 395951,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 403870,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "twice",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 411789,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "twice",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 419708,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "first2",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 427627,
+        "win": true,
+        "hits": 1,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 435546,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "twice",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 443465,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 451384,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "slow",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 459303,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 467222,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 475141,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 483060,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "twice",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 490979,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 498898,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "twice",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 506817,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 514736,
+        "win": true,
+        "hits": 0,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 522655,
+        "win": true,
+        "hits": 1,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 530574,
+        "win": true,
+        "hits": 0,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 538493,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "same",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 546412,
+        "win": true,
+        "hits": 1,
+        "turns": 11,
+        "room": 6,
+        "relics": [
+          "once",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 554331,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 562250,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 570169,
+        "win": true,
+        "hits": 1,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 578088,
+        "win": true,
+        "hits": 1,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "first2",
+          "start2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 586007,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "once",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 593926,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 601845,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 609764,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "twice",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 617683,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "first2",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 625602,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 633521,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 641440,
+        "win": true,
+        "hits": 1,
+        "turns": 11,
+        "room": 6,
+        "relics": [
+          "first2",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 649359,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "same",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 657278,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 665197,
+        "win": true,
+        "hits": 0,
+        "turns": 9,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "white"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 673116,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 681035,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "same",
+          "twice"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 688954,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "once",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 696873,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "twice",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 704792,
+        "win": true,
+        "hits": 0,
+        "turns": 12,
+        "room": 6,
+        "relics": [
+          "same",
+          "once"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 712711,
+        "win": true,
+        "hits": 0,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 720630,
+        "win": true,
+        "hits": 0,
+        "turns": 10,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 728549,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "twice",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 736468,
+        "win": true,
+        "hits": 0,
+        "turns": 6,
+        "room": 6,
+        "relics": [
+          "first2",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 744387,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "once",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 752306,
+        "win": true,
+        "hits": 0,
+        "turns": 7,
+        "room": 6,
+        "relics": [
+          "twice",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 760225,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "rainbow",
+          "same"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 768144,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "twice",
+          "first2"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 776063,
+        "win": true,
+        "hits": 0,
+        "turns": 8,
+        "room": 6,
+        "relics": [
+          "once",
+          "rainbow"
+        ],
+        "deck": 34
+      },
+      {
+        "seed": 783982,
+        "win": true,
+        "hits": 0,
+        "turns": 11,
+        "room": 6,
+        "relics": [
+          "twice",
+          "same"
+        ],
+        "deck": 34
+      }
+    ]
+  }
+}

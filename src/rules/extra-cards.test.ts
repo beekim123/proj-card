@@ -48,15 +48,15 @@ describe('新01 §11.1 额外牌 · #1–#18', () => {
   }[] = [
     { id: 1, values: [1, 'lens'], damage: [100, 200], multiplier: 6, total: 300 },
     { id: 2, values: [3, 'lens'], damage: [200, 1000], multiplier: 8, total: 1200 },
-    { id: 3, values: [1, 3, 'hammer'], damage: [100, 800, 800], multiplier: 8, total: 3400, hammer: [0, 0, 1700] },
-    { id: 4, values: [...rainbow, 'hammer'], damage: [100, 800, 800, 3200, 3200, 12800, 12800], multiplier: 128, total: 443600, rainbow: 188100, hammer: [0, 0, 0, 0, 0, 0, 221800] },
+    { id: 3, values: [1, 3, 'hammer'], damage: [100, 800, 800], multiplier: 8, total: 5100, hammer: [0, 0, 3400] },
+    { id: 4, values: [...rainbow, 'hammer'], damage: [100, 800, 800, 3200, 3200, 12800, 12800], multiplier: 128, total: 665400, rainbow: 188100, hammer: [0, 0, 0, 0, 0, 0, 443600] },
     { id: 5, values: [1, 3, 2, 6, 'lens', 5], damage: [100, 800, 800, 3200, 3200, 25600], multiplier: 128, total: 337000, rainbow: 303300 },
     { id: 6, values: [1, 'mirror'], damage: [100, 2000], multiplier: 4, total: 2100 },
     { id: 7, values: [0, 'mirror'], damage: [0, 3000], multiplier: 4, total: 3000 },
     { id: 8, values: ['mirror'], damage: [0], multiplier: 2, total: 0 },
     { id: 9, values: [7, 'mirror'], damage: [300, 0], multiplier: 4, total: 300 },
     { id: 10, values: [1, 'mirror', 1], damage: [100, 2000, 2000], multiplier: 8, total: 4100 },
-    { id: 12, values: ['hammer', 'hammer'], damage: [100, 400], multiplier: 3, total: 1200, hammer: [100, 600] },
+    { id: 12, values: ['hammer', 'hammer'], damage: [100, 400], multiplier: 3, total: 2100, hammer: [200, 1400] },
     { id: 14, values: [1, 3, 2, 6, 4, 'mirror'], damage: [100, 800, 800, 3200, 3200, 32000], multiplier: 64, total: 40100 },
   ];
   for (const c of cases) {
@@ -124,7 +124,8 @@ describe('新01 §11.1 额外牌 · #1–#18', () => {
   it('#15: 口袋牌库1张、弃牌3张时先摸1再洗弃牌摸1，卡牌守恒', () => {
     const state = fixture(['bag']);
     state.discard = state.deck.splice(0, 3);
-    state.hand.push(...state.deck.splice(0, state.deck.length - 1));
+    // 手牌硬上限 12：多余的牌退出本局，只留牌库 1 张、弃牌 3 张
+    state.deck.splice(0, state.deck.length - 1);
     const top = state.deck[0]!;
     const discards = state.discard.map((c) => c.id);
     const ids = inventory(state);
@@ -174,7 +175,7 @@ describe('额外牌 · 结算顺序、完整撤回和练习兼容', () => {
   it('口袋洗弃牌后撤回也恢复随机数，再次出牌结果完全相同', () => {
     const state = fixture(['bag']);
     state.discard = state.deck.splice(0, 6);
-    state.hand.push(...state.deck.splice(0));
+    state.deck.splice(0); // 手牌硬上限 12：牌库清空，只留弃牌 6 张
     const before = cloneGame(state);
     playCard(state, 0);
     const after = cloneGame(state);
@@ -218,7 +219,7 @@ describe('额外牌 · 结算顺序、完整撤回和练习兼容', () => {
     const before = cloneGame(state);
     const preview = previewCard(state, state.hand[0]!);
     expect(preview.rainbow).toBeGreaterThan(0);
-    expect(preview.hammer).toBe((state.turnDmg + preview.dmg) * 10);
+    expect(preview.hammer).toBe((state.turnDmg + preview.dmg) * 20);
     expect(preview.damage).toBe(preview.dmg + preview.rainbow + preview.hammer);
     expect(state).toEqual(before);
     expect(playCard(state, 0)).toEqual(preview);
@@ -262,9 +263,9 @@ describe('额外牌 · 结算顺序、完整撤回和练习兼容', () => {
   it('练习支持手牌7及每种额外牌1张，空过回合不增加回合数', () => {
     const state = createGame(seededRng(123), { hand: 7, tools: true });
     const all = [...state.deck, ...state.hand];
-    expect(all).toHaveLength(35);
-    expect(all.filter((c) => c.type)).toHaveLength(5);
-    expect(new Set(all.filter((c) => c.type).map((c) => c.type)).size).toBe(5);
+    expect(all).toHaveLength(39);
+    expect(all.filter((c) => c.type)).toHaveLength(9);
+    expect(new Set(all.filter((c) => c.type).map((c) => c.type)).size).toBe(9);
     expect(state.hand).toHaveLength(7);
     endTurn(state, seededRng(1));
     expect(state.turn).toBe(1);
@@ -276,7 +277,7 @@ describe('额外牌 · 结算顺序、完整撤回和练习兼容', () => {
     const lens = sequence([1, 'lens']).cards[1]!;
     expect(formatFormula(lens)).toBe('放大镜：蓝 100 × 倍率 2 = 200　倍率再 ×2 → 6');
     const hammer = sequence([1, 3, 'hammer']).cards[2]!;
-    expect(formatFormula(hammer)).toBe('锤子：红 100 × 倍率 4 × 顺色 2 = 800　锤子！这回合 ×2　+1,700');
+    expect(formatFormula(hammer)).toBe('锤子：红 100 × 倍率 4 × 顺色 2 = 800　锤子！这回合 ×3　+3,400');
     const mirror = sequence([1, 'mirror']).cards[1]!;
     expect(formatFormula(mirror)).toBe('镜子（变成青宝石）：绿 100 + 蓝 100 = 200 × 倍率 2 × 凑白 5 = 2,000');
     expect(formatFormula(sequence(['mirror']).cards[0]!)).toBe('镜子：0 × 倍率 1 = 0');
@@ -290,7 +291,7 @@ describe('额外牌 · 提示、设置重开与随机流', () => {
     const examples: [(number | ToolType)[], string][] = [
       [[6, 'bag'], '顺色 · 摸 2'],
       [[3, 'lens'], '凑白 · 倍率 ×2'],
-      [[3, 'hammer'], '顺色 · 这回合 ×2'],
+      [[3, 'hammer'], '顺色 · 这回合 ×3'],
       [[1, 'mirror'], '凑白'],
       [[1, 'stone'], '顺色 · 宝石 +5'],
     ];
@@ -303,7 +304,7 @@ describe('额外牌 · 提示、设置重开与随机流', () => {
     const state = fixture([1]);
     playCard(state, 0);
     updateSettings(state, { tools: true });
-    expect(inventory(state)).toHaveLength(35);
+    expect(inventory(state)).toHaveLength(39);
     expect(state.turn).toBe(1);
     expect(state.total).toBe(0);
     expect(state.turnDmg).toBe(0);

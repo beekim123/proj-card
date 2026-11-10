@@ -44,6 +44,9 @@ export const portrait: Layout = {
     chest: { x: 540, y: 900 },
   },
   result: { panel: { x: 90, y: 860, w: 900, h: 620 }, home: { x: 80, y: 1584, w: 440, h: 112 }, again: { x: 560, y: 1584, w: 440, h: 112 } },
+  doors: { points: [{ x: 290, y: 1380 }, { x: 790, y: 1380 }], scale: 1.3, monsterScale: 0.85, reward: { dy: -740, w: 320, h: 100 }, ruleSign: { dy: -470, w: 320, h: 100 }, detail: { x: 90, y: 1540, w: 900, h: 300 }, hint: { x: 140, y: 1860, w: 800, h: 48 } },
+  shop: { ops: [{ x: 90, y: 760, w: 430, h: 560 }, { x: 560, y: 760, w: 430, h: 560 }], grid: { x: 40, y: 560, w: 1000, h: 1240 }, gridScale: 0.75, back: { x: 80, y: 1860, w: 440, h: 112 }, confirm: { x: 560, y: 1860, w: 440, h: 112 } },
+  knocker: { x: 160, y: 300, scale: 0.7 }, knockerSay: { x: 270, y: 230, w: 720, h: 150 }, actLabel: { x: 500, y: 100, w: 340, h: 36 }, handMinStep: 64,
   title: {
     name: { x: 90, y: 190, w: 900, h: 140 }, emblem: { x: 540, y: 860 }, emblemScale: 1.0,
     start: { x: 240, y: 940, w: 600, h: 128 }, resume: { x: 240, y: 1090, w: 600, h: 112 },

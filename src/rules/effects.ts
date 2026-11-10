@@ -1,9 +1,10 @@
+import { drawCards } from './index';
 import { CONFIG, TOOLS } from './config';
 import { MONSTERS, RELICS, RULES, RUN } from './run-config';
 import type { Card, GameSnapshot, GemValues, RowEntry } from './types';
 import type { MonsterState, RelicId, RuleId, RunState } from './run-types';
 
-export type EffectHook = 'mask' | 'reaction' | 'gemValues' | 'reactionMultiplier' | 'multiplier' | 'rainbowNeed' | 'rainbow' | 'hammer' | 'afterMonster' | 'growthThresholds' | 'afterCard' | 'afterGrowth' | 'afterLayer';
+export type EffectHook = 'prepare' | 'mask' | 'reaction' | 'gemValues' | 'reactionMultiplier' | 'multiplier' | 'rainbowNeed' | 'rainbow' | 'hammer' | 'afterMonster' | 'growthThresholds' | 'afterCard' | 'afterGrowth' | 'afterLayer';
 export type LifecycleHook = 'runStart' | 'fightStart' | 'turnStart' | 'turnEnd' | 'fightWon';
 export interface EffectContext {
   state: GameSnapshot;
@@ -13,6 +14,9 @@ export interface EffectContext {
   thresholds: readonly [number, number, number];
   need: number;
   draw: number;
+  drawTool: number;
+  times: number;
+  reactionLocked?: boolean;
   onceUsed: boolean;
   monster?: MonsterState;
   monsterWasBroken?: boolean;
@@ -20,6 +24,7 @@ export interface EffectContext {
 export interface EffectDefinition {
   id: string;
   name: string;
+  repeatable?: boolean;
   text: string;
   hooks: Partial<Record<EffectHook, (context: EffectContext) => void>>;
   lifecycle?: Partial<Record<LifecycleHook, (run: RunState) => void>>;
@@ -36,11 +41,22 @@ export function monsterLayer(monster: Pick<MonsterState, 'hp' | 'maxHp'>): 1 | 2
 
 /** New effects only extend this registry; the settlement pipeline has no named-effect branches. */
 export const EFFECTS: Record<string, EffectDefinition> = {
+  hourglass: { id: 'hourglass', repeatable: true, ...TOOLS.hourglass, hooks: { afterCard(c) { if (liveMonster(c)) { c.monster!.countdown += TOOLS.hourglass.countdown * c.times; markEffect(c, 'hourglass', TOOLS.hourglass.name); } } } },
+  seal: { id: 'seal', ...TOOLS.seal, hooks: { afterCard(c) { if (c.monster) c.monster.sealed = true; markEffect(c, 'seal', TOOLS.seal.name); } } },
+  shadow: { id: 'shadow', ...TOOLS.shadow, hooks: {
+    mask(c) { c.entry.v = c.state.row.at(-1)?.v ?? 0; markEffect(c, 'shadow', TOOLS.shadow.name); },
+    reaction(c) { c.entry.k = c.state.row.at(-1)?.k ?? 'plain'; c.reactionLocked = true; },
+  } },
+  whistle: { id: 'whistle', repeatable: true, ...TOOLS.whistle, hooks: { afterCard(c) { c.drawTool += TOOLS.whistle.drawTool * c.times; markEffect(c, 'whistle', TOOLS.whistle.name); } } },
+  start2: { id: 'start2', ...RELICS.start2, hooks: { prepare(c) { if (!c.state.row.length) markEffect(c, 'start2', RELICS.start2.name); } }, lifecycle: { turnStart(run) { run.game.m = RELICS.start2.startMultiplier; } } },
+  slow: { id: 'slow', ...RELICS.slow, hooks: {}, lifecycle: { fightStart(run) { run.monster.maxCountdown += RELICS.slow.countdown; run.monster.countdown = run.monster.maxCountdown; } } },
+  first2: { id: 'first2', ...RELICS.first2, hooks: {}, lifecycle: { fightStart(run) { drawCards(run.game, RELICS.first2.draw); } } },
+  twice: { id: 'twice', ...RELICS.twice, hooks: { prepare(c) { if (c.card.type && !c.state.row.some(card => card.type)) { c.times = RELICS.twice.times; markEffect(c, 'twice', RELICS.twice.name); } } } },
   mirror: { id: 'mirror', ...TOOLS.mirror, hooks: { mask(c) { c.entry.v = c.state.row.length ? 7 - c.state.row.at(-1)!.v : TOOLS.mirror.v; markEffect(c, 'mirror', TOOLS.mirror.name); } } },
-  hammer: { id: 'hammer', ...TOOLS.hammer, hooks: { hammer(c) { c.entry.hammer = (c.state.turnDmg + c.entry.dmg + c.entry.rainbow) * (TOOLS.hammer.turnMultiplier - 1); markEffect(c, 'hammer', TOOLS.hammer.name); } } },
-  lens: { id: 'lens', ...TOOLS.lens, hooks: { afterCard(c) { c.entry.m2 *= TOOLS.lens.multiplier; markEffect(c, 'lens', TOOLS.lens.name); } } },
-  stone: { id: 'stone', ...TOOLS.stone, hooks: { afterCard(c) { c.xp = c.xp.map(x => x + TOOLS.stone.xp) as GemValues; markEffect(c, 'stone', TOOLS.stone.name); } } },
-  bag: { id: 'bag', ...TOOLS.bag, hooks: { afterCard(c) { c.draw += TOOLS.bag.draw; markEffect(c, 'bag', TOOLS.bag.name); } } },
+  hammer: { id: 'hammer', repeatable: true, ...TOOLS.hammer, hooks: { hammer(c) { c.entry.hammer = (c.state.turnDmg + c.entry.dmg + c.entry.rainbow) * (TOOLS.hammer.turnMultiplier ** c.times - 1); markEffect(c, 'hammer', TOOLS.hammer.name); } } },
+  lens: { id: 'lens', repeatable: true, ...TOOLS.lens, hooks: { afterCard(c) { c.entry.m2 *= TOOLS.lens.multiplier ** c.times; markEffect(c, 'lens', TOOLS.lens.name); } } },
+  stone: { id: 'stone', repeatable: true, ...TOOLS.stone, hooks: { afterCard(c) { c.xp = c.xp.map(x => x + TOOLS.stone.xp * c.times) as GemValues; markEffect(c, 'stone', TOOLS.stone.name); } } },
+  bag: { id: 'bag', repeatable: true, ...TOOLS.bag, hooks: { afterCard(c) { c.draw += TOOLS.bag.draw * c.times; markEffect(c, 'bag', TOOLS.bag.name); } } },
   bite: { id: 'bite', ...RULES.bite, hooks: { afterMonster(c) {
     const m = liveMonster(c); if (m && carries(c, RULES.bite.gem)) { m.countdown = Math.max(0, m.countdown + RULES.bite.countdown); markEffect(c, 'bite', RULES.bite.name); }
   } } },
@@ -68,7 +84,7 @@ export const EFFECTS: Record<string, EffectDefinition> = {
     if (c.entry.k === 'same') { c.entry.m2 = c.state.m * CONFIG.multiplierDouble; markEffect(c, 'same', RELICS.same.name); }
   } } },
   once: { id: 'once', ...RELICS.once, hooks: { reaction(c) {
-    if (c.state.row.length > 0 && c.entry.k === 'plain' && !c.onceUsed) { c.entry.k = 'shun'; c.onceUsed = true; markEffect(c, 'once', RELICS.once.name); }
+    if (!c.reactionLocked && c.state.row.length > 0 && c.entry.k === 'plain' && !c.onceUsed) { c.entry.k = 'shun'; c.onceUsed = true; markEffect(c, 'once', RELICS.once.name); }
   } } },
   white: { id: 'white', ...RELICS.white, hooks: { reactionMultiplier(c) {
     if (c.entry.k === 'white') { c.entry.cm = RELICS.white.whiteMultiplier; markEffect(c, 'white', RELICS.white.name); }
@@ -78,7 +94,7 @@ export const EFFECTS: Record<string, EffectDefinition> = {
     rainbow(c) { if (c.entry.rb) markEffect(c, 'rainbow', RELICS.rainbow.name); },
   } },
   heart: { id: 'heart', ...RELICS.heart, hooks: {}, lifecycle: {
-    runStart(run) { run.maxHearts += RELICS.heart.hearts; run.hearts = run.maxHearts; },
+    runStart(run) { run.maxHearts += RELICS.heart.hearts; run.hearts = Math.min(run.maxHearts, run.hearts + RELICS.heart.hearts); },
   } },
   grow: { id: 'grow', ...RELICS.grow, hooks: {
     growthThresholds(c) { c.thresholds = RELICS.grow.formAt; },
@@ -93,18 +109,18 @@ export function activeRelics(game: Pick<GameSnapshot, 'relic' | 'relics'>): Reli
   return game.relics ? [...new Set(game.relics)] : game.relic ? [game.relic] : [];
 }
 export function activeMonsterRule(monster: MonsterState): RuleId | undefined {
-  if (monster.broken) return undefined;
+  if (monster.broken || monster.sealed) return undefined;
   return EFFECTS[monster.rule]?.ruleFor?.(monster) ?? monster.rule as RuleId;
 }
 export function effectIds(state: GameSnapshot, card: Card, monster?: MonsterState): string[] {
   const rule = monster ? activeMonsterRule(monster) : undefined;
-  return [...new Set([...(card.type ? [card.type] : []), ...activeRelics(state), ...(rule ? [rule] : []), ...(monster && !monster.broken ? [monster.rule] : [])])];
+  return [...new Set([...(card.type ? [card.type] : []), ...activeRelics(state), ...(rule ? [rule] : []), ...(monster && !monster.broken && (!monster.sealed || EFFECTS[monster.rule]?.ruleFor) ? [monster.rule] : [])])];
 }
 export function applyEffects(ids: readonly string[], hook: EffectHook, context: EffectContext): void {
   for (const id of ids) EFFECTS[id]?.hooks[hook]?.(context);
 }
 export function applyLifecycle(run: RunState, hook: LifecycleHook): void {
-  const ids = [...new Set(['combat', ...run.relics, run.monster.rule])];
+  const ids = [...new Set(['combat', run.monster.rule, ...run.relics])];
   for (const id of ids) EFFECTS[id]?.lifecycle?.[hook]?.(run);
 }
 export function growthThresholds(source: (Pick<GameSnapshot, 'relic' | 'relics'>) | RunState): readonly [number, number, number] {

@@ -22,6 +22,12 @@ export const FEEL = {
   heal: { ms: 300, scale: 1.25, gapMs: 150 },
   attack: { windupMs: 250, impactMs: 330, holdUntilMs: 450, totalMs: 800, scale: 1.3, down: 40 },
   vignette: { ms: 500, opacity: 0.55 },
+  countdown: { ms: 300, brightness: 1.7 },
+  shop: { removeMs: 360, gapMs: 120, copyMs: 300, settleMs: 400 },
+  seal: { ms: 180 },
+  repeatGapMs: 150,
+  doorOpenMs: 600,
+  rewardHealMs: 800,
 } as const;
 
 export function damageTier(damage: number): 'small' | 'medium' | 'large' {
@@ -163,6 +169,26 @@ export class FeelSystem {
   }
   relic(node: FeelNode): void {
     this.animate(node, [{ transform: 'scale(1)', filter: 'brightness(1)' }, { transform: `scale(${FEEL.relic.scale})`, filter: `brightness(${FEEL.relic.brightness})` }, { transform: 'scale(1)', filter: 'brightness(1)' }], { duration: FEEL.relic.ms }, true);
+  }
+  /** Caller supplies the green text styling and artwork tick event. */
+  countdown(node: FeelNode): void {
+    this.animate(node, [{ filter: `brightness(${FEEL.countdown.brightness})` }, { filter: 'brightness(1)' }], { duration: FEEL.countdown.ms });
+  }
+  /** Distance is measured by the caller from the active layout, never a fixed screen coordinate. */
+  shopRemove(node: FeelNode, index: number, distance: number): void {
+    this.animate(node, [{ transform: 'translateY(0)', opacity: 1 }, { transform: `translateY(${distance}px)`, opacity: 0 }], { duration: FEEL.shop.removeMs, delay: Math.max(0, index) * FEEL.shop.gapMs, fill: 'forwards', easing: 'ease-in' }, true);
+  }
+  /** Pass the newly cloned visual; the existing card remains in place. */
+  shopCopy(node: FeelNode, distance: number): void {
+    this.animate(node, [{ transform: 'translateX(0)', filter: 'brightness(1)' }, { filter: 'brightness(2)', offset: 0.5 }, { transform: `translateX(${distance}px)`, filter: 'brightness(1)' }], { duration: FEEL.shop.copyMs, fill: 'forwards', easing: 'ease-out' }, true);
+  }
+  handFull(node: FeelNode): void { this.rule(node, 'bite'); }
+  /** Animate the paper strip; caller owns its lifecycle and rule-sign dimming. */
+  seal(node: FeelNode, removing = false): void {
+    this.animate(node, removing
+      ? [{ transform: 'scaleX(1)', opacity: 1 }, { transform: 'scaleX(0)', opacity: 0 }]
+      : [{ transform: 'scale(1.2)', opacity: 0 }, { transform: 'scale(1)', opacity: 1 }],
+    { duration: FEEL.seal.ms, fill: 'forwards' }, true);
   }
   rule(node: FeelNode, kind: RuleFeel): void {
     if (kind === 'layer') {

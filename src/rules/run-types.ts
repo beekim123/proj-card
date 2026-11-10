@@ -2,11 +2,11 @@ import type { Card, GameState, GemForm, ToolType } from './types';
 
 export type NormalMonster = 'chest' | 'soldier' | 'bear';
 export type MonsterKey = NormalMonster | 'clock' | 'dragon';
-export type FightType = 'normal' | 'elite' | 'boss';
+export type FightType = 'normal' | 'doors' | 'elite' | 'boss';
 export type AdventureHandLimit = 7 | 8;
 export type RuleId = 'bite' | 'hug' | 'wind' | 'bell';
-export type RelicId = 'same' | 'once' | 'white' | 'rainbow' | 'heart' | 'grow';
-export type RunPhase = 'relic' | 'battle' | 'loot' | 'victory' | 'defeat';
+export type RelicId = 'same' | 'once' | 'white' | 'rainbow' | 'heart' | 'grow' | 'start2' | 'slow' | 'first2' | 'twice';
+export type RunPhase = 'relic' | 'battle' | 'loot' | 'doors' | 'shop' | 'victory' | 'defeat';
 
 export interface FightConfig {
   type: FightType;
@@ -14,6 +14,7 @@ export interface FightConfig {
   hp: number;
   countdown: number;
   healFull?: boolean;
+  relic?: boolean;
   handUp?: number;
 }
 
@@ -24,6 +25,7 @@ export interface MonsterState {
   countdown: number;
   maxCountdown: number;
   broken: boolean;
+  sealed?: boolean;
   /** HP before the first play of the current turn. Never replaced on breaking. */
   turnStartHp: number;
   /** The raw ratio, not its rounded display value. Zero until broken. */
@@ -93,7 +95,17 @@ export interface RunUndo {
 }
 
 /** Portable JSON state. Its one RNG state lives at game.rngState. */
+export type DoorReward = 'card' | 'shop' | 'heal';
+export interface DoorOption { monster: NormalMonster; rule: RuleId; reward: DoorReward }
 export interface RunState {
+  act: number;
+  room: number;
+  doors: DoorOption[];
+  pendingReward: DoorReward;
+  previousNormal: NormalMonster | null;
+  hpScale: number;
+  shopsVisited: number;
+  nextCardId: number;
   cards: Card[];
   hearts: number;
   maxHearts: number;

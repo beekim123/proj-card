@@ -1,20 +1,30 @@
 import type { FightConfig, NormalMonster, RelicId, RuleId } from './run-types';
 /** All adventure tuning and authored text from second-edition 01. */
-export const RUN = {
-  fights: [
-    { type: 'normal', hp: 20_000, countdown: 3 },
-    { type: 'normal', hp: 40_000, countdown: 3 },
-    { type: 'elite', monster: 'clock', hp: 100_000, countdown: 3, handUp: 1, healFull: true },
-    { type: 'normal', hp: 300_000, countdown: 3 },
-    { type: 'normal', hp: 600_000, countdown: 3 },
-    { type: 'boss', monster: 'dragon', hp: 1_500_000, countdown: 4 },
-  ] as readonly FightConfig[],
+const hall = {
+  id: 'hall', name: '门厅',
   normalMonsters: ['chest', 'soldier', 'bear'] as readonly NormalMonster[],
-  hearts: 3, handStart: 7, handMax: 8,
+  rooms: [
+    { type: 'normal', hp: 20_000, countdown: 3 },
+    { type: 'doors', hp: 40_000, countdown: 3 },
+    { type: 'elite', monster: 'clock', hp: 100_000, countdown: 3, handUp: 1, healFull: true, relic: true },
+    { type: 'doors', hp: 250_000, countdown: 3 },
+    { type: 'doors', hp: 450_000, countdown: 3 },
+    { type: 'boss', monster: 'dragon', hp: 1_000_000, countdown: 4 },
+  ] as readonly FightConfig[],
+};
+export const RUN = {
+  acts: [hall],
+  /** Compatibility view for older consumers. Author new content in acts. */
+  get fights(): readonly FightConfig[] { return this.acts.flatMap(act => act.rooms); },
+  normalMonsters: hall.normalMonsters,
+  doorRewards: ['card', 'shop', 'heal'] as const,
+  hearts: 3, handStart: 7 as const, handMax: 8 as const, handHardMax: 12,
   lootCount: 3, lootBonusCount: 4, lootBonusOverkill: 10,
-  relicOptions: 3,
-  hpLayers: { normal: 1, elite: 2, boss: 3 },
-} as const;
+  relicOptions: 3, toolCap: 2,
+  shop: { dropMax: 3, copyCount: 1, minDeck: 20 }, healDoor: 1,
+  hpScale: 1,
+  hpLayers: { normal: 1, doors: 1, elite: 2, boss: 3 },
+};
 export const MONSTERS = {
   chest: { name: '宝箱怪', line: '谁碰它的宝石，它就咬谁。', rule: 'bite' },
   soldier: { name: '发条兵', line: '拧一圈，走三步，扎一下。', rule: 'wind', countdown: 2, wind: 4 },
@@ -30,6 +40,10 @@ export const RULES = {
   layers: { name: '三层脾气', text: '血每掉一层，换一条规矩：抱红 → 咬手 → 敲钟。' },
 } as const;
 export const RELICS = {
+  start2: { name: '倍率从 2 起', text: '每回合倍率从 2 开始。', startMultiplier: 2 },
+  slow: { name: '慢一拍', text: '怪出手的倒计时都多 1 回合。', countdown: 1 },
+  first2: { name: '开打多摸两张', text: '每一仗的第一回合多摸 2 张。', draw: 2 },
+  twice: { name: '头一张打两次', text: '每回合打出的第一张额外牌，效果算两次。', times: 2 },
   same: { name: '同色也翻倍', text: '同色也让倍率翻倍。' },
   once: { name: '断一次不算', text: '每回合第一次没反应，算作顺色。' },
   white: { name: '凑白 ×8', text: '凑白的伤害 ×8（原来 ×5）。', whiteMultiplier: 8 },

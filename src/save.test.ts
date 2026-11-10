@@ -51,7 +51,7 @@ describe('active adventure storage', () => {
   it('reports a missing save without clearing anything', () => {
     expect(loadRun(new MemoryStorage())).toEqual({ state: null, clear: false, reason: 'empty' });
   });
-  for (const raw of ['bad JSON', '{}', 'null', '[]', '{"version":3,"state":{}}']) {
+  for (const raw of ['bad JSON', '{}', 'null', '[]', '{"version":4,"state":{}}']) {
     it(`clears invalid save ${raw}`, () => {
       const s = new MemoryStorage(); s.data.set(SAVE_KEYS.run, raw);
       expect(loadRun(s)).toEqual({ state: null, clear: true, reason: 'invalid' });
@@ -187,8 +187,8 @@ describe('storage unavailability', () => {
 });
 
 
-describe('v3 save upgrades and feel preferences', () => {
-  it.each([0, 1, 2])('clears old version %i but preserves existing records', (version) => {
+describe('v4 save upgrades and feel preferences', () => {
+  it.each([0, 1, 2, 3])('clears old version %i but preserves existing records', (version) => {
     const s = new MemoryStorage();
     const records = { played: 5, wins: 2, farthest: 7, bestTurn: 2000, maxOverkill: 12 };
     saveRecords(records, s);
@@ -210,7 +210,7 @@ describe('v3 save upgrades and feel preferences', () => {
     const s = new MemoryStorage(), run = createRun(81);
     expect(run.phase).toBe('relic');
     expect(saveRun(run, s)).toBe(true);
-    expect(JSON.parse(s.getItem(SAVE_KEYS.run)!).version).toBe(3);
+    expect(JSON.parse(s.getItem(SAVE_KEYS.run)!).version).toBe(4);
     expect(loadRun(s).state).toEqual(run);
   });
   it.each([1, 2, 3] as const)('round-trips feel preferences at volume %i', (volume) => {

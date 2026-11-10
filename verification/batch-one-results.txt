@@ -1,0 +1,77 @@
+PASS 101,107 hourglass sequence and undo
+PASS 102 bite occurs before hourglass
+PASS 103 bell before hourglass
+PASS 104 winding and hourglass coexist
+PASS 105 postpones an imminent attack
+PASS 106 killing hourglass does not extend countdown
+PASS 108 extended countdown attacks on fourth end, then resets
+PASS 111 seal itself still follows hug and empty-card reactions
+PASS 112,116,118,119 seal disables bite, warnings, and undoes
+PASS 113 seal removes beneficial winding too
+PASS 114 seal on dragon layer one
+PASS 115,117 sealed dragon changes layer but rule returns next turn
+PASS 120 white and seal complement reaction
+PASS 121 shadow exact arithmetic
+PASS 123 shadow exact arithmetic
+PASS 124 shadow exact arithmetic
+PASS 125 shadow exact arithmetic
+PASS 126 shadow exact arithmetic
+PASS 128 shadow exact arithmetic
+PASS 122 shadow copies white and rings clock again
+PASS 127 shadow copies once-adjusted reaction without consuming another
+PASS 129 shadow copies first-card plain, not same
+PASS 130 shadow uses current growth
+PASS 131,134 whistle searches from top and undo restores exact location
+PASS 132 whistle never reshuffles discard
+PASS 133 whistle is yellow
+PASS 135 whistle refills from eleven to twelve
+PASS 141 hammer triples accumulated turn damage
+PASS 151,152 start2 resets each turn and emits effect
+PASS 155 first2 begins with nine, later refills seven
+PASS 157 twice bag draws four
+PASS 158 twice lens quadruples multiplier
+PASS 159 twice hammer multiplies turn by nine
+PASS 160 only first extra card doubles
+PASS 161 mirror consumes first tool even without repeat effect
+PASS 162 twice hourglass, whistle and stone
+PASS 163 undo restores twice availability
+PASS 164 multiple relic hooks compose
+PASS 174 bag respects hard cap and leaves undrawn top in place
+PASS 175 first2 and twice bag never exceed twelve
+PASS 213 practice has no adventure fields and hammer triples
+PASS 214 rainbow counts hourglass and whistle but not shadow/mirror
+PASS 215 hourglass cancels bite attack warning and participates in hint
+PASS 153 slow increases normal, soldier and dragon reset maxima
+PASS 154 slow winding reset is three
+PASS 156 first2 draws ten with elite hand limit eight
+PASS 165 elite heart immediately grants fourth full heart
+PASS 171 two bags excluded from 200 loot seeds; options distinct
+PASS 172 seven capped types leave exactly two loot options
+PASS 173 capped bag cannot be copied and rejection is immutable
+PASS 181 fixed seed begins first room with random normal and 20000 HP
+PASS 182 first loot choice or skip enters mandatory doors excluding previous normal
+PASS 183 full hearts produce card and shop across 200 seeds
+PASS 184 missing heart allows all three rewards with distinct pairs
+PASS 185 door save preserves options and random state
+PASS 186 same seed and choices produce same entire six-room trace
+PASS 187 soldier door uses room HP and own countdown
+PASS 188 heal door goes directly to elite, restores only one heart
+PASS 189 shop reward enters workshop
+PASS 190 elite heals, raises hand, and requires three unowned relic choices
+PASS 191 intervening elite does not replace previous normal exclusion
+PASS 192,194 sixth room dragon properties and victory
+PASS 193 proportional dragon boundary crossing
+PASS 195 hp scale three applies to all six rooms
+PASS 201 workshop exposes exact 31-card choices
+PASS 202 dropping bases and tool removes identities in all later fights
+PASS 203 zero drop rejected; explicit skip changes nothing
+PASS 204,205 minimum deck controls exact drop limits
+PASS 206 copy bag preserves type and creates unique ID
+PASS 207 copy white base preserves gem mask
+PASS 208 unconfirmed workshop survives save
+PASS 209 confirmed workshop cannot undo or confirm again
+PASS regression invalid IDs, duplicate drop IDs, cap and drop count reject atomically
+PASS 211 old version three is discarded without changing old records
+PASS 212 each saved checkpoint continues identically for thirty commands through doors/shop/elite/seal/hourglass/twice
+PASS regression initial relic options and extended countdown save verbatim
+Offline Node assertion runner: 76/76 passed, 0 failed, 0 skipped. (Not Vitest.)

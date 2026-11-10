@@ -166,7 +166,7 @@ function rainbowSlot(def: ArtDefinition, p: Palette): string {
 }
 
 function toolArt(def: ArtDefinition, p: Palette): string {
-  const glyphs: Record<string, string> = { bag: '袋', lens: '放', hammer: '锤', mirror: '镜', stone: '磨' };
+  const glyphs: Record<string, string> = { bag: '袋', lens: '放', hammer: '锤', mirror: '镜', stone: '磨', hourglass: '沙漏', seal: '封条', shadow: '影子', whistle: '哨子' };
   const name = `svg-${def.id}`;
   return `<style>.${name} #tool { transform-origin:88px 94px; }
 .${name}:not([data-anim]) #tool { animation:${name}-idle 3200ms ease-in-out infinite; }
@@ -174,6 +174,24 @@ function toolArt(def: ArtDefinition, p: Palette): string {
 @keyframes ${name}-idle { 0%,100% { transform:rotate(-3deg); } 50% { transform:rotate(3deg); } }
 @keyframes ${name}-play { 40% { transform:scale(1.2); } 100% { transform:scale(1); } }
 </style><g id="tool"><circle cx="88" cy="94" r="56" fill="${def.tint ? 'currentColor' : p.textDim}" stroke="${p.ink}" stroke-width="6"/><text x="88" y="94" text-anchor="middle" dominant-baseline="central" fill="${p.ink}" font-size="48" font-family="sans-serif">${glyphs[def.id.replace('card_art_', '')]}</text></g>`;
+}
+
+function door(def: ArtDefinition, p: Palette): string {
+  return `<style>
+.svg-ui_door #leaf { transform-origin:32px 480px; }
+.svg-ui_door[data-anim="open"] #leaf { animation:svg-ui_door-open ${def.events!.open}ms ease-in-out forwards; }
+@keyframes svg-ui_door-open { 0% { transform:scaleX(1); } 15% { transform:scaleX(.96); } 100% { transform:scaleX(.12); } }
+</style><g id="root"><g id="dark"><path d="M32 480V160Q32 65 160 24Q288 65 288 160V480Z" fill="${p.pageBg}"/></g><g id="leaf"><path d="M32 480V160Q32 65 160 24Q288 65 288 160V480Z" fill="${p.accentDark}" stroke="${p.ink}" stroke-width="6"/><path d="M96 80V478M160 28V478M224 80V478" fill="none" stroke="${p.ink}" stroke-width="4"/><circle cx="252" cy="225" r="14" fill="none" stroke="${p.accent}" stroke-width="6"/></g><g id="frame"><path d="M16 480V160Q16 52 160 8Q304 52 304 160V480M32 480V160Q32 65 160 24Q288 65 288 160V480" fill="none" stroke="${p.textDim}" stroke-width="14"/></g></g>`;
+}
+
+function knocker(def: ArtDefinition, p: Palette): string {
+  return `<style>
+.svg-npc_knocker #ring { transform-origin:120px 130px; }
+.svg-npc_knocker:not([data-anim]) #ring { animation:svg-npc_knocker-idle 3000ms ease-in-out infinite; }
+.svg-npc_knocker[data-anim="talk"] #ring { animation:svg-npc_knocker-talk ${def.events!.talk}ms ease-in-out; }
+@keyframes svg-npc_knocker-idle { 0%,100% { transform:rotate(-2deg); } 50% { transform:rotate(2deg); } }
+@keyframes svg-npc_knocker-talk { 0%,25%,50%,75%,100% { transform:translateY(0); } 12.5%,37.5%,62.5%,87.5% { transform:translateY(-12px); } }
+</style><g id="root"><g id="plate"><circle cx="120" cy="100" r="84" fill="${p.accentDark}" stroke="${p.textDim}" stroke-width="7"/></g><g id="face"><g id="eyes" fill="${p.gem.green.mid}"><circle cx="92" cy="90" r="5"/><circle cx="148" cy="90" r="5"/></g><g id="mouth"><path d="M92 125Q120 145 148 125" fill="none" stroke="${p.ink}" stroke-width="9"/></g></g><g id="ring"><circle cx="120" cy="172" r="49" fill="none" stroke="${p.accent}" stroke-width="15"/></g></g>`;
 }
 
 function heart(def: ArtDefinition, p: Palette): string {
@@ -262,6 +280,13 @@ export function generatePlaceholder(def: ArtDefinition, manifest: ArtManifest): 
     body = `<g fill="none" stroke="${p.textDim}" stroke-width="7"><ellipse cx="88" cy="105" rx="42" ry="30"/><path d="M48 111l-9 -14m89 14l9 -14M88 78V61" stroke-linecap="round"/></g>`;
   } else if (def.id === 'card_gem_bar') {
     body = `<rect width="132" height="34" rx="12" fill="${p.accentDark}"/><circle cx="30" cy="17" r="12" fill="${p.ink}"/><rect x="54" y="5" width="24" height="24" rx="2" fill="${p.ink}"/><path d="M102 5l12 24H90Z" fill="${p.ink}"/>`;
+  } else if (def.id === 'ui_door') {
+    body = door(def, p);
+  } else if (def.id === 'npc_knocker') {
+    body = knocker(def, p);
+  } else if (def.id.startsWith('ui_reward_')) {
+    const labels: Record<string,string> = { ui_reward_card:'牌', ui_reward_shop:'坊', ui_reward_heal:'心' };
+    body = ruleOrRelic({...def, desc:labels[def.id]}, p, w, h);
   } else if (def.id === 'ui_rule_sign') {
     body = ruleSign(def, p);
   } else if (def.id === 'ui_rainbow_slot') {
@@ -270,7 +295,7 @@ export function generatePlaceholder(def: ArtDefinition, manifest: ArtManifest): 
     body = ruleOrRelic(def, p, w, h);
   } else if (def.monster) {
     body = monster(def, p, w, h);
-  } else if (/^card_art_(bag|lens|hammer|mirror|stone)$/.test(def.id)) {
+  } else if (/^card_art_(bag|lens|hammer|mirror|stone|hourglass|seal|shadow|whistle)$/.test(def.id)) {
     body = toolArt(def, p);
   } else if (def.id === 'ui_heart' || def.id === 'ui_heart_empty') {
     body = heart(def, p);
@@ -281,7 +306,7 @@ export function generatePlaceholder(def: ArtDefinition, manifest: ArtManifest): 
   } else if (def.id === 'card_back' || def.id === 'title_emblem') {
     body = emblem(def, p, w, h);
   } else if (def.id.startsWith('ui_node_')) {
-    const glyph = ({ui_node_fight:'战',ui_node_elite:'精',ui_node_boss:'龙'} as Record<string,string>)[def.id];
+    const glyph = ({ui_node_fight:'战',ui_node_elite:'精',ui_node_boss:'龙',ui_node_door:'门'} as Record<string,string>)[def.id];
     body = `<circle cx="32" cy="32" r="27" fill="${p.panelBg}" stroke="${p.accentDark}" stroke-width="5"/><text x="32" y="32" text-anchor="middle" dominant-baseline="central" fill="${p.text}" font-family="sans-serif" font-size="28">${glyph}</text>`;
   } else if (def.id === 'ui_banner') {
     body = `<path d="M4 10H596L570 70L596 130H4L30 70Z" fill="${p.accentDark}" stroke="${p.accent}" stroke-width="5"/>`;

@@ -131,7 +131,7 @@ export class ArtStore {
     if (!id) throw new Error('事件只能作用于由 ArtStore 创建的素材');
     const definition = this.get(id).definition;
     const duration = definition.events?.[event];
-    if (duration === undefined) throw new Error(`${id} 没有事件 ${event}`);
+    if (duration === undefined) return 0;
     this.cancelTimer(element);
     if (definition.stay?.includes(event)) this.stays.set(element, event);
     element.removeAttribute('data-anim');
@@ -216,7 +216,7 @@ export class ArtStore {
     }
     text.setAttribute('x', String(position[0]));
     text.setAttribute('y', String(position[1]));
-    text.setAttribute('font-size', String(position[2]));
+    text.setAttribute('font-size', String(id === 'ui_rule_sign' && slotId === 'rule_text' && String(value).length >= 4 ? Math.min(24, position[2]) : position[2]));
     text.setAttribute('text-anchor', 'middle');
     text.setAttribute('dominant-baseline', 'central');
     text.setAttribute('font-weight', '700');

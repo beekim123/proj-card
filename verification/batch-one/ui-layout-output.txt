@@ -1,0 +1,7 @@
+{
+  passed: true,
+  assertions: 345,
+  scope: 'Pure layout geometry at five required viewport sizes; no browser, rendering or touch validation.'
+}
+(node:6) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

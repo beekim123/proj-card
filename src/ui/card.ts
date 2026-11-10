@@ -103,7 +103,8 @@ export function createCard(store: ArtStore, source: number | Card, growth: [numb
     toolArtwork = put(art, `card_art_${toolType}`, 0, 0, layout.artWindow.w, layout.artWindow.h) as SVGSVGElement;
     toolArtwork.classList.add('card-tool-art');
     if (toolType === 'mirror') toolArtwork.style.color = unknownMirror ? palette.text : color ?? palette.textDim;
-  } else {
+  }
+  if (!toolType || toolType === 'shadow') {
     if (active.length === 0) put(art, 'card_art_empty', 0, 0, layout.artWindow.w, layout.artWindow.h);
     for (let p = 0; p < active.length; p++) {
       const i = active[p];
@@ -150,7 +151,7 @@ export function createCard(store: ArtStore, source: number | Card, growth: [numb
   }
   if (toolType) {
     // 效果角标：不看原画也知道这张牌干什么（原画重画前的兜底，2026-11-09）
-    const label = { bag: `+${TOOLS.bag.draw} 张`, lens: `倍率×${TOOLS.lens.multiplier}`, hammer: `伤害×${TOOLS.hammer.turnMultiplier}`, mirror: '变色', stone: `成长+${TOOLS.stone.xp}` }[toolType];
+    const label = { bag: `+${TOOLS.bag.draw} 张`, lens: `倍率×${TOOLS.lens.multiplier}`, hammer: `伤害×${TOOLS.hammer.turnMultiplier}`, mirror: '变色', stone: `成长+${TOOLS.stone.xp}`, hourglass: '倒计时+1', seal: '封', shadow: '照抄', whistle: '+额外牌' }[toolType];
     const w = 18 * [...label].reduce((s, ch) => s + (/[\x00-\x7f]/.test(ch) ? 0.62 : 1), 0) + 18;
     const badge = document.createElementNS(NS, 'g'); badge.dataset.cardText = 'badge';
     const rect = document.createElementNS(NS, 'rect');

@@ -35,7 +35,7 @@ function numbers(value: unknown, length?: number): value is number[] {
 function card(value: unknown, row = false): value is ObjectValue {
   if (!object(value) || !integer(value.id, 1) || !integer(value.v) || value.v > 7) return false;
   if (value.type === undefined) return true;
-  return tool(value.type) && (row && value.type === 'mirror' || value.v === TOOLS[value.type].v);
+  return tool(value.type) && (row && (value.type === 'mirror' || value.type === 'shadow') || value.v === TOOLS[value.type].v);
 }
 function rowEntry(value: unknown): value is ObjectValue {
   if (!card(value, true)) return false;
@@ -51,7 +51,7 @@ function rowEntry(value: unknown): value is ObjectValue {
       && typeof effect.id === 'string' && typeof effect.text === 'string');
 }
 
-/** Verify both card conservation and identity; resolved mirrors are only allowed on the row. */
+/** Verify both card conservation and identity; resolved mirrors and shadows are only allowed on the row. */
 function game(value: unknown, cards: ObjectValue[], history: boolean): value is ObjectValue {
   if (!object(value) || !typeofBoolean(value.onceUsed)
     || (value.relic !== undefined && !relic(value.relic))
@@ -60,13 +60,14 @@ function game(value: unknown, cards: ObjectValue[], history: boolean): value is 
   for (const key of piles) {
     if (!Array.isArray(value[key]) || !value[key].every((item: unknown) => card(item))) return false;
   }
+  if ((value.hand as unknown[]).length > RUN.handHardMax) return false;
   if (!Array.isArray(value.row) || !value.row.every(rowEntry)) return false;
   const all = piles.flatMap((key) => value[key] as ObjectValue[]).concat(value.row as ObjectValue[]);
   if (all.length !== cards.length || new Set(all.map((item) => item.id)).size !== cards.length) return false;
   const canonical = new Map(cards.map((item) => [item.id, item]));
   for (const item of all) {
     const original = canonical.get(item.id);
-    if (!original || original.type !== item.type || (item.type !== 'mirror' && original.v !== item.v)) return false;
+    if (!original || original.type !== item.type || (item.type !== 'mirror' && item.type !== 'shadow' && original.v !== item.v)) return false;
   }
   if (!integer(value.rngState) || value.rngState > 0xffffffff || !number(value.m, 1)
     || !integer(value.turn, 1) || !typeofBoolean(value.rainbow)) return false;
@@ -88,14 +89,15 @@ function monster(value: unknown): value is ObjectValue {
   const expectedRule = value.key === 'dragon' ? 'layers' : 'rule' in definition ? definition.rule : undefined;
   return value.rule === expectedRule
     && number(value.hp) && number(value.maxHp, 1) && value.hp <= value.maxHp
-    && integer(value.countdown) && integer(value.maxCountdown, 1) && value.countdown <= value.maxCountdown
+    && integer(value.countdown) && integer(value.maxCountdown, 1)
+    && (value.sealed === undefined || typeofBoolean(value.sealed))
     && typeofBoolean(value.broken) && value.broken === (value.hp === 0)
     && number(value.turnStartHp, 1) && number(value.overkill)
     && integer(value.layer, 1) && value.layer <= 3
     && integer(value.wind) && integer(value.maxWind) && value.wind <= value.maxWind
     && typeofBoolean(value.woundDown)
     && (value.rule === 'wind'
-      ? value.maxWind === MONSTERS.soldier.wind && value.maxCountdown === MONSTERS.soldier.countdown
+      ? value.maxWind === MONSTERS.soldier.wind && (value.maxCountdown === MONSTERS.soldier.countdown || value.maxCountdown === MONSTERS.soldier.countdown + RELICS.slow.countdown)
         && value.woundDown === (value.wind === 0)
       : value.wind === 0 && value.maxWind === 0 && value.woundDown === false);
 }
@@ -111,10 +113,10 @@ function stats(value: unknown): value is ObjectValue {
 
 /** Strict structural validation of active states; no browser, clock, or storage dependency. */
 export function isActiveRunState(value: unknown): value is RunState {
-  if (!object(value) || (value.phase !== 'relic' && value.phase !== 'battle' && value.phase !== 'loot')
+  if (!object(value) || !['relic', 'battle', 'loot', 'doors', 'shop'].includes(String(value.phase))
     || !Array.isArray(value.cards) || !value.cards.every((item: unknown) => card(item))) return false;
   const cards = value.cards as ObjectValue[];
-  if (cards.length < CONFIG.deck.reduce((sum, entry) => sum + entry.count, 0) || new Set(cards.map((item) => item.id)).size !== cards.length) return false;
+  if (cards.length < RUN.shop.minDeck || new Set(cards.map((item) => item.id)).size !== cards.length) return false;
   if (!integer(value.maxHearts, RUN.hearts) || value.maxHearts > RUN.hearts + RELICS.heart.hearts
     || !integer(value.hearts, 1) || value.hearts > value.maxHearts || (value.handLimit !== RUN.handStart && value.handLimit !== RUN.handMax)
     || !integer(value.fight, 1) || value.fight > RUN.fights.length || !monster(value.monster)
@@ -122,21 +124,43 @@ export function isActiveRunState(value: unknown): value is RunState {
   if (!relicList(value.relics)) return false;
   if (!Array.isArray(value.relicOptions) || !value.relicOptions.every(relic)
     || new Set(value.relicOptions).size !== value.relicOptions.length) return false;
-  if (value.phase === 'relic') {
-    if (value.relic !== null || value.relics.length !== 0 || value.game.relic !== undefined
-      || (value.game.relics !== undefined && (value.game.relics as string[]).length !== 0) || value.relicOptions.length !== RUN.relicOptions
-      || value.fight !== 1 || value.hearts !== RUN.hearts || value.maxHearts !== RUN.hearts
+  const owned = value.relics;
+  if (value.relicOptions.some(option => owned.includes(String(option)))) return false;
+  if (value.maxHearts !== RUN.hearts + (owned.includes('heart') ? RELICS.heart.hearts : 0)) return false;
+  if (value.phase === 'relic' && value.relicOptions.length !== Math.min(RUN.relicOptions, Object.keys(RELICS).length - owned.length)) return false;
+  if (value.phase !== 'relic' && value.relicOptions.length !== 0) return false;
+  if (owned.length === 0) {
+    if (value.phase !== 'relic' || value.relic !== null || value.game.relic !== undefined
+      || (value.game.relics !== undefined && (value.game.relics as string[]).length !== 0)
+      || value.fight !== 1 || value.hearts !== RUN.hearts
       || (value.game.row as unknown[]).length !== 0 || value.game.onceUsed !== false) return false;
-  } else if (!relic(value.relic) || value.relicOptions.length !== 0 || value.game.relic !== value.relic
-    || !value.relics.includes(String(value.relic)) || JSON.stringify(value.game.relics) !== JSON.stringify(value.relics)
-    || value.maxHearts !== RUN.hearts + (value.relics.includes('heart') ? RELICS.heart.hearts : 0)) return false;
+  } else if (!relic(value.relic) || value.game.relic !== value.relic
+    || !owned.includes(String(value.relic)) || JSON.stringify(value.game.relics) !== JSON.stringify(owned)) return false;
+  if (!integer(value.act, 1) || value.act > RUN.acts.length || !integer(value.room, 1)) return false;
+  const act = RUN.acts[value.act - 1]!;
+  if (value.room > act.rooms.length
+    || value.fight !== RUN.acts.slice(0, value.act - 1).reduce((sum, item) => sum + item.rooms.length, 0) + value.room
+    || !number(value.hpScale, Number.MIN_VALUE) || !integer(value.shopsVisited) || !integer(value.nextCardId, 1)
+    || !RUN.doorRewards.includes(value.pendingReward as 'card' | 'shop' | 'heal')
+    || (value.previousNormal !== null && !act.normalMonsters.includes(value.previousNormal as never))) return false;
+  if (!Array.isArray(value.doors) || !value.doors.every((door: unknown) => object(door)
+    && act.normalMonsters.includes(door.monster as never)
+    && door.rule === MONSTERS[door.monster as keyof typeof MONSTERS].rule
+    && RUN.doorRewards.includes(door.reward as 'card' | 'shop' | 'heal'))) return false;
+  if (value.phase === 'doors') {
+    if (act.rooms[value.room - 1]!.type !== 'doors' || value.doors.length !== 2
+      || new Set(value.doors.map(door => door.monster)).size !== 2
+      || new Set(value.doors.map(door => door.reward)).size !== 2
+      || value.doors.some(door => door.monster === value.previousNormal)
+      || (value.hearts === value.maxHearts && value.doors.some(door => door.reward === 'heal'))) return false;
+  }
   if (!Array.isArray(value.monsters) || value.monsters.length !== RUN.fights.length
     || !value.monsters.every((item: unknown) => typeof item === 'string' && Object.hasOwn(MONSTERS, item))) return false;
   if (!Array.isArray(value.loot) || !value.loot.every(tool)
     || new Set(value.loot).size !== value.loot.length) return false;
-  if (value.phase === 'loot' && (!value.monster.broken || value.fight === RUN.fights.length || (value.loot.length !== RUN.lootCount && value.loot.length !== RUN.lootBonusCount))) return false;
+  if (value.phase === 'loot' && (!value.monster.broken || value.fight === RUN.fights.length || value.loot.length > RUN.lootBonusCount)) return false;
   if (value.phase !== 'loot' && value.loot.length !== 0) return false;
-  if (value.monster.key !== value.monsters[value.fight - 1]) return false;
+  if (value.phase !== 'doors' && value.monster.key !== value.monsters[value.fight - 1]) return false;
   if (!Array.isArray(value.hist) || !Array.isArray(value.game.hist) || value.hist.length !== value.game.hist.length) return false;
   if (value.phase !== 'battle' && value.hist.length !== 0) return false;
   const selectedRelic = value.game.relic;
@@ -146,9 +170,9 @@ export function isActiveRunState(value: unknown): value is RunState {
 }
 
 export function encodeRunSave(state: RunState): string | null {
-  if (state.phase !== 'relic' && state.phase !== 'battle' && state.phase !== 'loot') return null;
+  if (!['relic', 'battle', 'loot', 'doors', 'shop'].includes(state.phase)) return null;
   if (!isActiveRunState(state)) throw new TypeError('不能保存不完整的一局');
-  return JSON.stringify({ version: 3, state });
+  return JSON.stringify({ version: 4, state });
 }
 
 /** Invalid saves return a clear instruction; the later UI storage adapter performs deletion. */
@@ -156,10 +180,10 @@ export function decodeRunSave(raw: string | null): RunLoadResult {
   if (raw === null) return { state: null, clear: false, reason: 'empty' };
   try {
     const envelope: unknown = JSON.parse(raw);
-    if (object(envelope) && integer(envelope.version) && envelope.version < 3) {
+    if (object(envelope) && integer(envelope.version) && envelope.version < 4) {
       return { state: null, clear: true, reason: 'outdated' };
     }
-    if (object(envelope) && envelope.version === 3 && isActiveRunState(envelope.state)) {
+    if (object(envelope) && envelope.version === 4 && isActiveRunState(envelope.state)) {
       return { state: envelope.state, clear: false, reason: 'ok' };
     }
   } catch { /* Broken JSON is a recoverable missing save, never a startup crash. */ }

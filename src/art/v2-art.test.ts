@@ -23,9 +23,9 @@ const fakeSvg = (id: string): SVGSVGElement => {
 afterEach(() => { vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 
 describe('第二版素材契约', () => {
-  it('v3 原样保留 75 项与 3 / 16 项第二版批次', () => {
-    expect(manifest.version).toBe(3);
-    expect(manifest.assets).toHaveLength(75);
+  it('v4 保留旧素材并扩展至 89 项与 3 / 16 项第二版批次', () => {
+    expect(manifest.version).toBe(4);
+    expect(manifest.assets).toHaveLength(89);
     expect(manifest.assets.filter(asset => asset.v2 === '第1批').map(asset => asset.id)).toEqual(['mon_chest','card_art_bag','card_art_stone']);
     expect(manifest.assets.filter(asset => asset.v2 === '第2批')).toHaveLength(16);
     expect(manifest.assets.filter(asset => asset.status === '返修')).toHaveLength(5);
@@ -121,15 +121,15 @@ describe('第二版素材契约', () => {
     expect(slot.getAttribute('data-anim')).toBeNull(); expect(store.getStay(slot)).toBeNull();
     store.dispose();
   });
-  it('批次筛选与返修/重画/新画组合，全部可恢复 75 项', () => {
+  it('批次筛选与返修/重画/新画组合，全部可恢复 89 项', () => {
     const matching = (changed:boolean,batch:string) => manifest.assets.filter(asset => matchesAssetFilter(asset,changed,batch));
-    expect(matching(false,'all')).toHaveLength(75);
+    expect(matching(false,'all')).toHaveLength(89);
     expect(matching(false,'第1批')).toHaveLength(3);
     expect(matching(false,'第2批')).toHaveLength(16);
-    expect(matching(true,'all')).toHaveLength(19);
+    expect(matching(true,'all')).toHaveLength(33);
     expect(matching(true,'第1批')).toHaveLength(3);
     expect(matching(true,'第2批')).toHaveLength(16);
-    expect(matching(false,'all')).toHaveLength(75);
+    expect(matching(false,'all')).toHaveLength(89);
   });
   it('图标只写当前实例槽，复用 image，引用当前已加载图标', () => {
     const store = new ArtStore(manifest,assets);

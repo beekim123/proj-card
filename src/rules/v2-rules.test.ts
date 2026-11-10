@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   createRun, chooseRelic, debugGiveRelic, createToolCard, playRunCard, previewRunCard,
   endRunTurn, undoRun, currentRule, cardWarnings, bestHintCard, rainbowStatus,
-  encodeRunSave, decodeRunSave, skipLoot, gemForm, formatFormula, createGame,
+  chooseDoor, shopSkip, encodeRunSave, decodeRunSave, skipLoot, gemForm, formatFormula, createGame,
   type RunState, type MonsterKey, type RelicId, type ToolType,
 } from './index';
 
@@ -43,7 +43,7 @@ const texts = (entry: ReturnType<typeof play>) => entry.effects.map(e => e.text)
 const damages = (run: RunState, n: number) => Array.from({ length: n }, () => play(run).dmg);
 function reload(run: RunState) {
   const raw = encodeRunSave(run)!;
-  expect(JSON.parse(raw).version).toBe(3);
+  expect(JSON.parse(raw).version).toBe(4);
   const result = decodeRunSave(raw);
   expect(result.reason).toBe('ok'); expect(result.state).toEqual(run);
   return result.state!;
@@ -174,17 +174,17 @@ describe('v2 01 §9 exact rule scenarios (preview equals play and is immutable)'
     expect([a.phase, a.game.hand.length, a.hearts]).toEqual(['battle', 7, a.relic === 'heart' ? 4 : 3]);
     expect(() => chooseRelic(a, 0)).toThrow(); expect(undoRun(a)).toBe(false);
     for (let i = 0; i < 5; i++) {
-      for (const r of [a, b]) { r.monster.hp = 0; r.monster.broken = true; endRunTurn(r); skipLoot(r); }
+      for (const r of [a, b]) { r.monster.hp = 0; r.monster.broken = true; endRunTurn(r); proceed(r); }
       expect(a).toEqual(b);
     }
   });
   it('37,44,45 elite heals to cap, skip never heals, next hand has eight', () => {
     for (const relic of ['same', 'heart'] as const) {
       const r = fixture('clock', [], relic); expect([r.hearts, r.maxHearts]).toEqual(relic === 'heart' ? [4, 4] : [3, 3]);
-      r.hearts = 2; r.monster.hp = 0; r.monster.broken = true; endRunTurn(r); skipLoot(r); expect(r.hearts).toBe(2);
-      r.monster.hp = 0; r.monster.broken = true; endRunTurn(r); skipLoot(r); expect(r.fight).toBe(3);
+      r.hearts = 2; r.monster.hp = 0; r.monster.broken = true; endRunTurn(r); proceed(r); expect(r.hearts).toBe(2);
+      r.monster.hp = 0; r.monster.broken = true; endRunTurn(r); proceed(r); expect(r.fight).toBe(3);
       r.hearts = 1; r.monster.hp = 0; r.monster.broken = true; endRunTurn(r); expect(r.hearts).toBe(r.maxHearts);
-      skipLoot(r); expect([r.fight, r.game.hand.length, r.handLimit]).toEqual([4, 8, 8]);
+      proceed(r); expect([r.fight, r.game.hand.length, r.handLimit]).toEqual([4, 8, 8]);
     }
   });
   it('46 soldier has fixed starting countdown and wind', () => {
@@ -255,3 +255,10 @@ describe('v2 01 §9 exact rule scenarios (preview equals play and is immutable)'
     expect(bestHintCard(r)).toBe(undefined);
   });
 });
+
+function proceed(run: RunState): void {
+  if (run.phase === 'loot') skipLoot(run);
+  else if (run.phase === 'shop') shopSkip(run);
+  else if (run.phase === 'relic') chooseRelic(run, Math.max(0, run.relicOptions.findIndex(id => id !== 'first2')));
+  if (run.phase === 'doors') chooseDoor(run, Math.max(0, run.doors.findIndex(door => door.reward === 'card')));
+}

@@ -6,6 +6,7 @@ export interface ArtDefinition {
   id: string;
   phase?: number;
   v2?: '第1批' | '第2批';
+  batch?: '本体第1批' | '本体第2批';
   group: string;
   viewBox: string;
   load: 'img' | 'inline';

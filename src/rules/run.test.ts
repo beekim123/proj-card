@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { createToolCard, formatNumber, previewCard } from './index';
+import { TOOL_TYPES } from './config';
 import type { ToolType } from './types';
 import {
-  RUN, abandonRun, chooseLoot, cloneRun, createRecords, createRun as createUnselectedRun, chooseRelic, endRunTurn,
+  chooseDoor, shopSkip, RUN, abandonRun, chooseLoot, cloneRun, createRecords, createRun as createUnselectedRun, chooseRelic, endRunTurn,
   formatMonsterHp, formatOverkill, playRunCard, skipLoot, undoRun, updateRecords,
 } from './run';
 import type { RunState } from './run-types';
@@ -58,11 +59,20 @@ function winCurrentFight(run: RunState): void {
   inventory(run);
 }
 
+
+/** Resolve the new mandatory inter-room phases; prefer card doors for old combat fixtures. */
+function proceed(run: RunState, take = false): void {
+  if (run.phase === 'loot') { if (take && run.loot.length) chooseLoot(run, 0); else skipLoot(run); }
+  else if (run.phase === 'relic') chooseRelic(run, run.relicOptions.findIndex(id => id === 'white') >= 0 ? run.relicOptions.indexOf('white') : 0);
+  else if (run.phase === 'shop') shopSkip(run);
+  if (run.phase === 'doors') chooseDoor(run, Math.max(0, run.doors.findIndex(door => door.reward === 'card')));
+}
+
 function fight(number: number): RunState {
   const run = createRun(123);
   while (run.fight < number) {
     winCurrentFight(run);
-    skipLoot(run);
+    proceed(run);
   }
   return run;
 }
@@ -93,7 +103,8 @@ function nextOperation(run: RunState, index: number): void {
   if (run.phase === 'loot') {
     if (index % 4 === 0) skipLoot(run);
     else chooseLoot(run, index % run.loot.length);
-  } else if (run.phase === 'battle') {
+  } else if (run.phase === 'doors' || run.phase === 'relic' || run.phase === 'shop') proceed(run);
+  else if (run.phase === 'battle') {
     if (index % 7 === 3 && run.hist.length) undoRun(run);
     else if (run.monster.broken || index % 5 === 4 || !run.game.hand.length) endRunTurn(run);
     else {
@@ -263,7 +274,7 @@ describe('新01 §11.2 一仗 · #21–#32', () => {
       winCurrentFight(run);
       const xp = [...run.game.xp];
       const total = run.game.total;
-      chooseLoot(run, 0);
+      proceed(run, true);
       expect(run.fight).toBe(n + 1);
       expect(run.game.row).toEqual([]);
       expect(run.game.discard).toEqual([]);
@@ -294,8 +305,8 @@ describe('新01 §11.3 战利品、一局、存档 · #41–#52', () => {
       for (let f = 1; f <= 5; f += 1) {
         winCurrentFight(run);
         expect(new Set(run.loot).size).toBe(run.loot.length);
-        expect(run.loot.every((t) => ['bag', 'lens', 'hammer', 'mirror', 'stone'].includes(t))).toBe(true);
-        skipLoot(run);
+        expect(run.loot.every((t) => (TOOL_TYPES as readonly string[]).includes(t))).toBe(true);
+        proceed(run);
       }
     }
   });
@@ -331,10 +342,10 @@ describe('新01 §11.3 战利品、一局、存档 · #41–#52', () => {
     const run = fight(3);
     expect(run.handLimit).toBe(7);
     winCurrentFight(run);
-    expect(run.phase).toBe('loot');
+    expect(run.phase).toBe('relic');
     expect(run.handLimit).toBe(8);
     expect(run.game.opts.hand).toBe(7);
-    skipLoot(run);
+    proceed(run);
     expect(run.fight).toBe(4);
     expect(run.game.hand).toHaveLength(8);
     expect(run.game.opts.hand).toBe(8);
@@ -342,6 +353,7 @@ describe('新01 §11.3 战利品、一局、存档 · #41–#52', () => {
   it('#48: 1000种种子，小怪跨精英仍不重复，精英/首领固定', () => {
     for (let seed = 0; seed < 1000; seed += 1) {
       const run = createRun(seed);
+      for (let room = 1; room < 6; room += 1) { winCurrentFight(run); proceed(run); }
       const m = run.monsters;
       expect(m[1]).not.toBe(m[0]);
       expect(m[3]).not.toBe(m[1]);
@@ -399,7 +411,7 @@ describe('新01 §11.3 战利品、一局、存档 · #41–#52', () => {
     }
   });
   it('#52: 错误version或坏JSON返回无存档并要求清除', () => {
-    for (const raw of ['not JSON', '{', JSON.stringify({ version: 4, state: createRun(1) })]) {
+    for (const raw of ['not JSON', '{', JSON.stringify({ version: 5, state: createRun(1) })]) {
       expect(decodeRunSave(raw)).toEqual({ state: null, clear: true, reason: 'invalid' });
     }
   });
@@ -466,8 +478,7 @@ describe('冒险 · 补充边界和用户澄清', () => {
     run.cards.push(tool);
     run.game.deck.push({ ...tool });
     deal(run, ['bag']);
-    run.game.discard = run.game.deck.splice(0, 4);
-    run.game.hand.push(...run.game.deck.splice(0));
+    run.game.discard = run.game.deck.splice(0); // 牌库清空、全在弃牌堆里（手牌硬上限 12，不能再往手里塞）
     const before = cloneRun(run);
     playRunCard(run, 0);
     const after = cloneRun(run);
@@ -490,10 +501,10 @@ describe('冒险 · 补充边界和用户澄清', () => {
     playRunCard(run, 0);
     playRunCard(run, 0);
     const before = cloneRun(run);
-    expect(playRunCard(run, 0).damage).toBe(2500);
+    expect(playRunCard(run, 0).damage).toBe(4200);
     expect(run.monster.hp).toBe(0);
-    expect(run.monster.overkill).toBe(3.4);
-    expect(run.game.total).toBe(3400);
+    expect(run.monster.overkill).toBe(5.1);
+    expect(run.game.total).toBe(5100);
     expect(undoRun(run)).toBe(true);
     expect(run).toEqual(before);
   });
@@ -534,7 +545,7 @@ describe('冒险 · 补充边界和用户澄清', () => {
 
   it('每仗数值来自配置，发条兵倒计时覆盖为2', () => {
     expect(RUN.fights.map((f) => [f.hp, f.countdown])).toEqual([
-      [20000, 3], [40000, 3], [100000, 3], [300000, 3], [600000, 3], [1500000, 4],
+      [20000, 3], [40000, 3], [100000, 3], [250000, 3], [450000, 3], [1000000, 4],
     ]);
     for (let seed = 0; seed < 30; seed += 1) {
       const run = createRun(seed);

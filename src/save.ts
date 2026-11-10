@@ -1,4 +1,4 @@
-import { cloneRun, createRecords, updateRecords } from './rules/run';
+import { cloneRun, createRecords, updateRecords, RUN } from './rules/run';
 import { decodeRunSave, encodeRunSave, type RunLoadResult } from './rules/save-state';
 import type { RunRecords, RunState } from './rules/run-types';
 import type { LayoutName } from './layout/types';
@@ -70,7 +70,7 @@ function isRecords(value: unknown): value is RunRecords {
   for (const key of ['bestTurn', 'maxOverkill'] as const) {
     if (typeof value[key] !== 'number' || !Number.isFinite(value[key]) || value[key] < 0) return false;
   }
-  return (value.wins as number) <= (value.played as number) && (value.farthest as number) <= 7;
+  return (value.wins as number) <= (value.played as number) && (value.farthest as number) <= RUN.fights.length + 1;
 }
 function copyRecords(records: RunRecords): RunRecords {
   return { played: records.played, wins: records.wins, farthest: records.farthest, bestTurn: records.bestTurn, maxOverkill: records.maxOverkill };

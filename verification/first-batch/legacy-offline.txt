@@ -1,0 +1,31 @@
+FAIL #15: 口袋牌库1张、弃牌3张时先摸1再洗弃牌摸1，卡牌守恒 AssertionError [ERR_ASSERTION]: length 26 to be 28
+    at check (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:7:97)
+    at Object.toHaveLength (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:11:25)
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/src/rules/extra-cards.test.ts:133:24
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/run-legacy.mjs:5:71
+FAIL 口袋洗弃牌后撤回也恢复随机数，再次出牌结果完全相同 AssertionError [ERR_ASSERTION]: not 1575874446 to be 1575874446
+    at check (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:7:97)
+    at Object.toBe (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:9:17)
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/src/rules/extra-cards.test.ts:181:32
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/run-legacy.mjs:5:71
+FAIL 练习支持手牌7及每种额外牌1张，空过回合不增加回合数 AssertionError [ERR_ASSERTION]: length 39 to be 35
+    at check (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:7:97)
+    at Object.toHaveLength (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:11:25)
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/src/rules/extra-cards.test.ts:265:17
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/run-legacy.mjs:5:71
+FAIL 练习切换额外牌后重开，清除旧伤害、成长、桌面和撤回 AssertionError [ERR_ASSERTION]: length 39 to be 35
+    at check (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:7:97)
+    at Object.toHaveLength (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:11:25)
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/src/rules/extra-cards.test.ts:306:30
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/run-legacy.mjs:5:71
+FAIL 口袋触发洗弃牌后，JSON重载再撤回/重打恢复怪、卡牌、随机和统计 TypeError: 不能保存不完整的一局
+    at encodeRunSave (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/src/rules/save-state.ts:174:39)
+    at persisted (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/src/rules/run.test.ts:93:19)
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/src/rules/run.test.ts:486:22
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/run-legacy.mjs:5:71
+FAIL 胜利只结算一次，重复放弃或更新纪录不重复计局 AssertionError [ERR_ASSERTION]: length 4 to be 5
+    at check (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:7:97)
+    at Object.toHaveLength (file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/legacy-assert.mjs:11:25)
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/src/rules/run-invariants.test.ts:104:36
+    at file:///workspace/shared/attached-20261110/%E4%BB%A3%E7%A0%81%E5%8C%85/%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE/gemcard-demo/verification/run-legacy.mjs:5:71
+269/275 offline assertions passed; 6 failed. NOT Vitest.

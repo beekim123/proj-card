@@ -1,6 +1,7 @@
 import { applyEffects, effectIds, growthThresholds, type EffectContext } from './effects';
 import type { MonsterState } from './run-types';
 export { EFFECTS, growthThresholds } from './effects';
+import { RUN } from './run-config';
 import { CARD_NAMES, CONFIG, GEMS, REACTION_NAMES, TOOLS, TOOL_TYPES } from './config';
 import type {
   Card, GameOptions, GameSnapshot, GameState, GemForm,
@@ -124,7 +125,7 @@ export function cloneGame(state: GameState): GameState {
 export function drawCards(state: GameState, count: number): Card[] {
   if (!Number.isInteger(count) || count < 0) throw new RangeError('摸牌数必须是非负整数');
   const drawn: Card[] = [];
-  for (let i = 0; i < count; i += 1) {
+  for (let i = 0; i < count && state.hand.length < RUN.handHardMax; i += 1) {
     if (state.deck.length === 0) {
       if (state.discard.length === 0) break;
       state.deck = shuffle(state.discard.map(copyCard), randomFromState(state));
@@ -133,6 +134,19 @@ export function drawCards(state: GameState, count: number): Card[] {
     const card = state.deck.pop()!;
     state.hand.push(card);
     drawn.push(card);
+  }
+  return drawn;
+}
+
+/** Search from the top (array end), without recycling the discard. */
+export function drawToolCards(state: GameState, count: number): Card[] {
+  const drawn: Card[] = [];
+  for (let n = 0; n < count && state.hand.length < RUN.handHardMax; n += 1) {
+    let index = state.deck.length - 1;
+    while (index >= 0 && !state.deck[index]!.type) index -= 1;
+    if (index < 0) break;
+    const card = state.deck.splice(index, 1)[0]!;
+    state.hand.push(card); drawn.push(card);
   }
   return drawn;
 }
@@ -208,10 +222,11 @@ function evaluateCard(state: GameSnapshot, original: Card, monster?: MonsterStat
     gemValues: [gemValue(state, 0), gemValue(state, 1), gemValue(state, 2)],
     grown: [], rb: false, effects: [],
   };
-  const context: EffectContext = { state, card: original, entry, xp: [...state.xp], thresholds: CONFIG.formAt, need: CONFIG.rainbowColors.length, draw: 0, onceUsed: state.onceUsed, monster: monster ? { ...monster } : undefined, monsterWasBroken: monster?.broken };
+  const context: EffectContext = { state, card: original, entry, xp: [...state.xp], thresholds: CONFIG.formAt, need: CONFIG.rainbowColors.length, draw: 0, drawTool: 0, times: 1, onceUsed: state.onceUsed, monster: monster ? { ...monster } : undefined, monsterWasBroken: monster?.broken };
   const ids = effectIds(state, original, monster);
   assertMask(original.v);
   if (original.type && !TOOL_TYPES.includes(original.type)) throw new RangeError('未知的额外牌类型');
+  applyEffects(ids, 'prepare', context);
   applyEffects(ids, 'mask', context);
   entry.k = reaction(state.row.at(-1)?.v ?? null, entry.v);
   applyEffects(ids, 'reaction', context);
@@ -237,6 +252,10 @@ function evaluateCard(state: GameSnapshot, original: Card, monster?: MonsterStat
   applyEffects(ids, 'growthThresholds', context);
   GEMS.forEach((gem, index) => { context.xp[index] = context.xp[index]! + ((entry.v & gem.bit) ? 1 : 0); });
   applyEffects(ids, 'afterCard', context);
+  const free = RUN.handHardMax - Math.max(0, state.hand.length - 1);
+  const requested = context.draw + context.drawTool;
+  if (requested > free) entry.effects.push({ id: 'handFull', text: '手里拿不下了' });
+  else if (context.drawTool > state.deck.filter(card => card.type).length) entry.effects.push({ id: 'whistleEmpty', text: '牌堆里没有额外牌' });
   GEMS.forEach((_gem, index) => {
     const before = gemForm(state, index);
     if (state.opts.grow && before < 2 && context.xp[index]! >= context.thresholds[before + 1]!) entry.grown.push(index);
@@ -273,6 +292,7 @@ export function playCard(state: GameState, handIndex: number, monster?: MonsterS
   state.onceUsed = context.onceUsed;
   if (monster && context.monster) Object.assign(monster, context.monster);
   drawCards(state, context.draw);
+  drawToolCards(state, context.drawTool);
   return entry;
 }
 

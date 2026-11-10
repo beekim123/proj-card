@@ -1,0 +1,2 @@
+PASS: 135 v4 save checks (all active phases, 4 × 30 continuation commands, undo, reduced decks, old-save clearing and unchanged records).
+PASS: 3000 active-state roundtrips across 200 completed seeded adventures (forced wins, not balance testing).

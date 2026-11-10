@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  chooseLoot, createRun as createUnselectedRun, chooseRelic, decodeRunSave, encodeRunSave, endRunTurn,
+  chooseDoor, shopSkip, chooseLoot, createRun as createUnselectedRun, chooseRelic, decodeRunSave, encodeRunSave, endRunTurn,
   playRunCard, previewCard, skipLoot, undoRun,
 } from './index';
 import type { RunState } from './run-types';
@@ -26,7 +26,7 @@ describe('整局规则集成压力', () => {
   it.each(Array.from({ length: 100 }, (_, seed) => seed))('种子%d整局自动操作，每次存读和撤回重做完全一致', (seed) => {
       let run = createRun(seed);
       let commands = 0;
-      while (run.phase === 'battle' || run.phase === 'loot') {
+      while (!run.result) {
         expect(commands).toBeLessThan(1_000);
         const saved = encodeRunSave(run);
         const restored = decodeRunSave(saved).state;
@@ -39,7 +39,10 @@ describe('整局规则集成压力', () => {
             const hammer = run.loot.indexOf('hammer');
             chooseLoot(run, hammer >= 0 ? hammer : 0);
           }
-        } else if (run.game.hand.length > 0) {
+        } else if (run.phase === 'doors') chooseDoor(run, 0);
+        else if (run.phase === 'shop') shopSkip(run);
+        else if (run.phase === 'relic') chooseRelic(run, 0);
+        else if (run.game.hand.length > 0) {
           // A repeatable test policy, not a claim about optimal or human play.
           let selected = 0;
           let largest = -1;

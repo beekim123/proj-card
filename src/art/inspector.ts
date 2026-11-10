@@ -1,3 +1,5 @@
+import { generatePlaceholder } from './placeholders';
+import { namespaceSvg } from './namespace';
 import { createCard, playCardArt } from '../ui/card';
 import { CONFIG, TOOLS, TOOL_TYPES } from '../rules/config';
 import { portrait } from '../layout/portrait';
@@ -43,12 +45,14 @@ function assetItem(store: ArtStore, definition: ArtDefinition): HTMLElement {
   item.dataset.assetId = definition.id;
   item.dataset.status = definition.status ?? '已有';
   item.dataset.v2 = definition.v2 ?? '';
+  item.dataset.batch = definition.batch ?? '';
   const title = element('div', 'art-item-title');
   const badges = element('div', 'art-badges');
   const source = element('span', `art-source art-source-${loaded.source}`, loaded.source === 'art' ? '美术' : '占位');
   source.dataset.source = loaded.source;
   badges.append(element('span', `art-status art-status-${definition.status ?? '已有'}`, definition.status ?? '已有'), source);
   if (definition.v2) badges.append(element('span','art-batch',`第二版 · ${definition.v2}`));
+  if (definition.batch) badges.append(element('span','art-batch',definition.batch));
   title.append(element('h3', undefined, definition.id), badges);
   item.append(title, element('p', 'art-meta', `viewBox="${definition.viewBox}" · ${definition.load}${definition.tint ? ' · currentColor' : ''}${definition.idle ? ' · idle' : ''}`));
   const [width,height] = dimensions(definition);
@@ -91,6 +95,11 @@ function assetItem(store: ArtStore, definition: ArtDefinition): HTMLElement {
     artworks.forEach(artwork => store.setStay(artwork as SVGSVGElement,'light'));
   }
   if (definition.idle) createPreview('静止 · 1 倍',1,true);
+  if (definition.id === 'npc_knocker') {
+    const speech = action('老门环：挑一件，试试你的运气。', () => store.play(artworks[0] as SVGSVGElement, 'talk'));
+    speech.classList.add('art-knocker-speech');
+    stage.append(speech);
+  }
   if (definition.monster) {
     const variants = [
       ['竖屏小怪 / 精英',portrait.monsterScale.normal],
@@ -226,7 +235,7 @@ function baseCards(store: ArtStore): HTMLElement {
 function toolCards(store: ArtStore): HTMLElement {
   const section = element('section','art-group art-tool-cards');
   section.id = 'tool-cards';
-  section.append(element('h2',undefined,'五种额外牌 · 手牌与桌面'), element('p','art-explainer','左边手牌保持待机，右边桌面暂停；播放后会重新暂停。镜子手中显示 ?，桌面按实际宝石位显示底数与镜面颜色。'));
+  section.append(element('h2',undefined,`${TOOL_TYPES.length} 种额外牌 · 手牌与桌面`), element('p','art-explainer','左边手牌保持待机，右边桌面暂停；播放后会重新暂停。镜子手中显示 ?，桌面按实际宝石位显示底数与镜面颜色。'));
   const label = element('label','art-tint','镜子在桌上变成 ');
   const select = element('select'); select.setAttribute('aria-label','桌面镜子的宝石');
   for (const [mask,name] of [[0,'没宝石'],[1,'红'],[2,'绿'],[4,'蓝'],[3,'黄'],[6,'青'],[5,'品红'],[7,'白']] as const) {
@@ -290,6 +299,48 @@ function composedUi(store: ArtStore): HTMLElement {
   return section;
 }
 
+/** Use the exact game layout tables so this checks delivered art against both scenes. */
+function doorScenes(store: ArtStore): HTMLElement {
+  const section = element('section','art-group art-door-scenes');
+  section.id = 'door-scenes';
+  section.append(element('h2',undefined,'两扇门 · 关门 / 开门'));
+  for (const layout of [portrait, landscape]) {
+    const figure = element('figure','art-variant');
+    figure.append(element('figcaption','art-meta',`${layout.name} · 游戏布局坐标`));
+    const viewport = element('div','art-scroll');
+    const stage = element('div','art-door-stage');
+    stage.style.width = `${layout.width}px`; stage.style.height = `${layout.doors.hint.y}px`;
+    let openDoor: SVGSVGElement | undefined;
+    for (const [index,point] of layout.doors.points.entries()) {
+      const place = (art: HTMLImageElement | SVGSVGElement, id: string, scale: number) => {
+        const [w,h] = dimensions(store.get(id).definition);
+        const anchor = store.get(id).definition.anchor ?? [w/2,h];
+        Object.assign(art.style,{position:'absolute',left:`${point.x-anchor[0]*scale}px`,top:`${point.y-anchor[1]*scale}px`,width:`${w*scale}px`,height:`${h*scale}px`});
+        stage.append(art);
+      };
+      const door = store.createInline('ui_door'); place(door,'ui_door',layout.doors.scale);
+      if (index === 1) { store.setStay(door,'open'); openDoor = door; }
+      const monsterId = index === 0 ? 'mon_chest' : 'mon_bear';
+      // Always use the declared fallback monster here: its exact footprint is easy to compare.
+      const monsterDefinition = store.get(monsterId).definition;
+      const monster = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      const parsed = new DOMParser().parseFromString(generatePlaceholder(monsterDefinition,store.manifest),'image/svg+xml').documentElement;
+      monster.setAttribute('viewBox',monsterDefinition.viewBox);
+      monster.innerHTML = namespaceSvg(parsed.innerHTML,`door-preview-${layout.name}-${index}`);
+      monster.setAttribute('class',`svg-${monsterId}`);
+      place(monster,monsterId,layout.doors.monsterScale);
+      const reward = store.createInline('ui_rule_sign');
+      store.setSlotText(reward,'rule_text',index === 0 ? '额外牌' : '回一颗心');
+      store.setSlotIcon(reward,'icon_slot',index === 0 ? 'ui_reward_card' : 'ui_reward_heal');
+      const r = layout.doors.reward;
+      Object.assign(reward.style,{position:'absolute',left:`${point.x-r.w/2}px`,top:`${point.y+r.dy}px`,width:`${r.w}px`,height:`${r.h}px`});
+      stage.append(reward);
+    }
+    viewport.append(stage); figure.append(viewport,action('重播右门 open · 600ms', () => { if (openDoor) store.play(openDoor,'open'); })); section.append(figure);
+  }
+  return section;
+}
+
 export function renderArtGallery(root: HTMLElement, store: ArtStore): void {
   root.replaceChildren(); root.className = 'art-inspector';
   Object.entries(store.manifest.palette).forEach(([key,value]) => { if (typeof value === 'string') root.style.setProperty(`--art-${key}`,value); });
@@ -304,9 +355,9 @@ export function renderArtGallery(root: HTMLElement, store: ArtStore): void {
   const back = element('a','art-action','返回游戏'); back.href = './'; controls.append(theme,back); header.append(copy,controls); root.append(header);
   root.append(element('p','art-explainer','把同名 SVG 放入 art/ 后刷新即可替换。会动 / 静止可对照；stay 按钮保持事件，挂着 daze 再点 hit 可检验恢复状态。十字标出对齐点与打击点。'));
   const toolbar = element('nav','art-controls art-navigation'); toolbar.setAttribute('aria-label','素材检查导航');
-  const batchLabel = element('label','art-batch-filter','第二版批次 ');
+  const batchLabel = element('label','art-batch-filter','素材批次 ');
   const batch = element('select'); batch.setAttribute('aria-label','第二版素材批次');
-  for (const [value,label] of [['all','全部'],['第1批','第 1 批'],['第2批','第 2 批']]) {
+  for (const [value,label] of [['all','全部'],['第1批','第 1 批'],['第2批','第 2 批'],['本体第1批','本体第 1 批'],['本体第2批','本体第 2 批']]) {
     const option = element('option',undefined,label); option.value = value; batch.append(option);
   }
   const filterSummary = element('span','art-filter-summary'); filterSummary.setAttribute('aria-live','polite');
@@ -331,7 +382,7 @@ export function renderArtGallery(root: HTMLElement, store: ArtStore): void {
   });
   filter.setAttribute('aria-pressed','false'); filter.dataset.action = 'filter-changed';
   batch.addEventListener('change',applyFilters); batchLabel.append(batch); toolbar.append(filter,batchLabel,filterSummary);
-  for (const [target,label] of [['base-cards','基础牌拼装'],['tool-cards','额外牌拼装'],['composed-ui','界面组合']]) { const link = element('a','art-action',label); link.href = `#${target}`; toolbar.append(link); }
+  for (const [target,label] of [['base-cards','基础牌拼装'],['tool-cards','额外牌拼装'],['composed-ui','界面组合'],['door-scenes','两扇门组合']]) { const link = element('a','art-action',label); link.href = `#${target}`; toolbar.append(link); }
   root.append(toolbar);
   const groups = new Map<string,ArtDefinition[]>();
   for (const definition of store.manifest.assets) { if (!groups.has(definition.group)) groups.set(definition.group,[]); groups.get(definition.group)!.push(definition); }
@@ -340,6 +391,6 @@ export function renderArtGallery(root: HTMLElement, store: ArtStore): void {
     section.append(element('h2',undefined,name)); const grid = element('div','art-grid');
     definitions.forEach(definition => grid.append(assetItem(store,definition))); section.append(grid); root.append(section);
   }
-  root.append(baseCards(store),toolCards(store),composedUi(store));
+  root.append(baseCards(store),toolCards(store),composedUi(store),doorScenes(store));
   applyFilters();
 }

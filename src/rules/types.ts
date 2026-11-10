@@ -10,7 +10,7 @@ export type GemIndex = 0 | 1 | 2;
 export type GemForm = 0 | 1 | 2;
 export type GemValues = [number, number, number];
 export type Reaction = 'plain' | 'same' | 'shun' | 'white';
-export type ToolType = 'bag' | 'lens' | 'hammer' | 'mirror' | 'stone';
+export type ToolType = 'bag' | 'lens' | 'hammer' | 'mirror' | 'stone' | 'hourglass' | 'seal' | 'shadow' | 'whistle';
 export type HandLimit = 6 | 7 | 8;
 
 export interface Card {

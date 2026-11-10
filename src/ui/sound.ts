@@ -227,6 +227,19 @@ export class SoundSystem {
   heartLose(): void { for (let i = 0; i < 3; i++) this.noise(0.045, 0.21, 4500 + i * 700, 'highpass', i * 0.055); }
   heal(): void { this.tone(523.251, 0.2, 0.14, 'sine'); this.tone(659.255, 0.3, 0.14, 'sine', 0.1); }
   button(): void { this.tone(520, 0.024, 0.045, 'triangle', 0, 380); }
+  hourglass(): void { this.noise(0.2, 0.16, 5200, 'lowpass', 0, 180); }
+  seal(): void { this.noise(0.045, 0.22, 1600, 'bandpass'); }
+  unseal(): void { this.noise(0.19, 0.13, 1800, 'highpass', 0, 5500); }
+  /** The copied card's index, not the shadow card's current position. */
+  shadow(previousTurnCardIndex: number): void { this.tone(cardFrequency(previousTurnCardIndex) / 2, SOUND.cardMs / 1000, 0.12); }
+  whistle(): void { this.tone(880, 0.16, 0.12, 'sine', 0, 1760); }
+  slowBeat(): void { this.tone(165, 0.055, 0.16, 'square', 0, 90); }
+  shopRemove(): void { this.tone(75, 0.12, 0.24, 'sine', 0, 35); }
+  shopCopy(): void { this.tone(1046.5, 0.25, 0.13, 'sine', 0, undefined, true); }
+  doorOpen(): void {
+    this.tone(48, 0.52, 0.1, 'sawtooth', 0, 110);
+    this.tone(80, 0.16, 0.28, 'sine', 0.44, 35);
+  }
   rule(rule: RuleSound): void {
     if (rule === 'bite') this.tone(110, 0.055, 0.16, 'square', 0, 58);
     if (rule === 'hug') this.noise(0.13, 0.28, 230, 'lowpass');

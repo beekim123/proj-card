@@ -1,12 +1,12 @@
 import { dimensions, type ArtStore } from '../art';
-import { CONFIG, createGame, playCard, previewCard, undo, endTurn, updateSettings, resetGrowth, gemForm, formatFormula, formatNumber, formatFull, formatCardHint, previewRunCard, cardWarnings, bestHintCard, rainbowStatus, currentRule, previewCountdown, growthThresholds, chooseRelic, debugGiveRelic, debugSetMonsterHp, debugSetCountdown, debugSetWind, debugRelicSelection, RELICS, RULES, createRun, playRunCard, undoRun, endRunTurn, chooseLoot, skipLoot, abandonRun, createToolCard, formatOverkill, MONSTERS, RUN, TOOLS, TOOL_TYPES, type Card, type RowEntry, type GameState, type RunState, type RunRecords, type ToolType, type RelicId } from '../rules';
+import { CONFIG, displayedRule, canDoubleTool, debugEnterShop, debugJumpRoom, debugSetDoors, debugGiveTool as giveRunTool, debugFillHand, debugSetSealed, doorOptions, chooseDoor, shopState, canCopyCard, shopDrop, shopCopy, shopSkip, ruleSealed, createGame, playCard, previewCard, undo, endTurn, updateSettings, resetGrowth, gemForm, formatFormula, formatNumber, formatFull, formatCardHint, previewRunCard, cardWarnings, bestHintCard, rainbowStatus, currentRule, previewCountdown, growthThresholds, chooseRelic, debugGiveRelic, debugSetMonsterHp, debugSetCountdown, debugSetWind, debugRelicSelection, RELICS, RULES, createRun, playRunCard, undoRun, endRunTurn, chooseLoot, skipLoot, abandonRun, createToolCard, formatOverkill, MONSTERS, RUN, TOOLS, TOOL_TYPES, type Card, type RowEntry, type GameState, type RunState, type RunRecords, type ToolType, type RelicId } from '../rules';
 import { loadRun, saveRun, loadRecords, recordResult, loadSettings, saveSettings, type Settings } from '../save';
 import { portrait } from '../layout/portrait';
 import { landscape } from '../layout/landscape';
 import { fitLayout } from '../layout/fit';
 import { MOTION, ROW, handSize, rowSize, growthRects, type Layout, type Point, type Rect } from '../layout/types';
 import { CARD_NAMES, createCard, playCardArt } from './card';
-import { handPositions, rowPositions } from './geometry';
+import { handPositions, handScale, rowPositions } from './geometry';
 import { SoundSystem } from './sound';
 import { FeelSystem } from './feel';
 import { scoreAt } from './presentation';
@@ -18,7 +18,8 @@ const FORM_IDS = ['rough', 'cut', 'shine'];
 const REACTION = { plain: '普通', same: '同色', shun: '顺色', white: '凑白' };
 /** 手牌大图里额外牌的效果说明 */
 const TOOL_HELP: Record<ToolType, string> = {
-  bag: '打出后从牌库摸 2 张。', lens: '打出后倍率再 ×2。', hammer: '打出后，这回合到这里的伤害 ×2。',
+  bag: '打出后从牌库摸 2 张。', lens: '打出后倍率再 ×2。', hammer: '打出后，这回合到这里的伤害 ×3。',
+  hourglass: '倒计时 +1。打穿了就不加。', seal: '从下一张牌起，到这回合结束。', shadow: '宝石和反应都照抄上一张。第一张打它，什么都没有。', whistle: '从牌堆里找最上面的一张额外牌。牌堆里没有就不摸。',
   mirror: '变成上一张缺的宝石，一定和上一张凑白；这回合第一张打出时没有宝石。', stone: '打出后三颗宝石各长 5 次。',
 };
 /** 多层血条每层的颜色（第 1 层是最后打的那层） */
@@ -51,6 +52,10 @@ export class GameUI {
   private screen: 'home' | 'practice' | 'adventure' = 'home';
   private transition = false;
   private selectedLoot = -1;
+  private selectedDoor = -1;
+  private shopMode: 'drop' | 'copy' | null = null;
+  private shopSelected: number[] = [];
+
   private brokenHintShown = false;
   private heartNodes: (HTMLElement | SVGSVGElement)[] = [];
   private hpFill = el('div', 'hp-fill');
@@ -219,7 +224,7 @@ export class GameUI {
     const extra = base.name === 'portrait' ? rect.height / this.scale - base.height : rect.width / this.scale - base.width;
     const next = fitLayout(base, extra);
     const changed = next.name !== this.layout.name || next.width !== this.layout.width || next.height !== this.layout.height;
-    if (changed) { this.cancelDrag(); this.closeModal(); this.resetEffects(); this.syncPresentation(); }
+    if (changed) { this.transition = false; this.cancelDrag(); this.closeModal(); this.resetEffects(); this.syncPresentation(); }
     this.layout = next;
     Object.assign(this.stage.style, { width: `${next.width}px`, height: `${next.height}px`, transform: `translate(-50%, -50%) scale(${this.scale})` });
     this.stage.dataset.layout = next.name;
@@ -255,6 +260,8 @@ export class GameUI {
     for (const b of [rules, settings]) b.style.setProperty('--icon-size', `${l.toolbarIcon}px`);
     if (this.screen === 'home') { this.buildHome(); return; }
     if (this.screen === 'adventure' && this.run?.phase === 'relic') { this.buildAdventureTop(); this.buildRelicPick(); return; }
+    if (this.screen === 'adventure' && this.run?.phase === 'doors') { this.buildAdventureTop(); this.buildDoors(); return; }
+    if (this.screen === 'adventure' && this.run?.phase === 'shop') { this.buildAdventureTop(); this.buildShop(); return; }
     if (this.screen === 'adventure' && this.run?.phase === 'loot') { this.buildAdventureTop(); this.buildLoot(); return; }
     if (this.screen === 'adventure' && this.run?.result) { this.buildResult(); return; }
     const artId = this.screen === 'adventure' && this.run ? `mon_${this.run.monster.key}` : 'dummy';
@@ -365,7 +372,7 @@ export class GameUI {
         if (entry.rainbow) details.append(el('div', 'card-bonus rainbow-text', `彩虹 +${formatFull(entry.rainbow)}`));
         if (entry.hammer) details.append(el('div', 'card-bonus', `锤子 +${formatFull(entry.hammer)}`));
         const effects = el('div', 'card-effects');
-        entry.effects?.filter(effect => effect.id in RULES || effect.id === 'layers' || effect.id in RELICS).forEach(effect => effects.append(el('span', `effect-label ${effect.id in RELICS ? 'relic-effect' : 'rule-effect'}`, effect.text)));
+        entry.effects?.filter(effect => effect.id in RULES || effect.id === 'layers' || effect.id in RELICS || effect.id in TOOLS).forEach(effect => effects.append(el('span', `effect-label ${effect.id in RELICS ? 'relic-effect' : 'rule-effect'}`, effect.id === 'twice' ? '打两次' : effect.text)));
         details.append(effects); node.append(details);
       }
     });
@@ -376,14 +383,15 @@ export class GameUI {
     const keep = new Set(cards.map(card => card.id));
     for (const [id, node] of this.handNodes) if (!keep.has(id)) { node.remove(); this.handNodes.delete(id); }
     const best = bestHintCard(this.run ?? this.state); const rainbow = rainbowStatus(this.run ?? this.state);
-    const positions = handPositions(cards.length, this.layout); const size = handSize(this.layout);
+    const positions = handPositions(cards.length, this.layout); const scale = handScale(cards.length, this.layout); const size = { w: MOTION.cardW * scale, h: MOTION.cardH * scale };
     cards.forEach((card, i) => {
       let node = this.handNodes.get(card.id);
       if (!node) { node = el('div', 'hand-card'); node.tabIndex = 0; node.setAttribute('role', 'button'); this.handNodes.set(card.id, node); this.handLayer.append(node); }
       const p = positions[i]; place(node, { x: p.x, y: p.y, w: size.w, h: size.h }); node.style.transform = `rotate(${p.rotation}deg)`; node.style.zIndex = String(i + 1); node.dataset.cardId = String(card.id); node.dataset.mask = String(card.v);
       node.classList.toggle('picked', this.drag?.id === card.id && !this.drag.dragging);
       if (this.drag?.id === card.id && !this.drag.dragging) { node.style.zIndex = '200'; node.style.transform = `translateY(${-MOTION.handLift}px) scale(${MOTION.handPickScale})`; }
-      const face = createCard(this.store, card, this.displayXp, this.state.opts.grow, { thresholds: growthThresholds(this.run ?? this.state) }); face.style.transform = `scale(${this.layout.hand.scale})`; node.replaceChildren(face); node.setAttribute('aria-label', `${face.getAttribute('aria-label')}。拖到桌面出牌，点按查看。`);
+      const shown = card.type === 'shadow' || card.type === 'mirror' ? { ...card, v: this.predict(card).v } : card;
+      const face = createCard(this.store, shown, this.displayXp, this.state.opts.grow, { thresholds: growthThresholds(this.run ?? this.state), resolved: shown !== card }); face.style.transform = `scale(${scale})`; node.replaceChildren(face); node.setAttribute('aria-label', `${face.getAttribute('aria-label')}。拖到桌面出牌，点按查看。`);
       const hintEntry = this.predict(card);
       const chosen = this.state.opts.hint && best === card.id;
       node.classList.toggle('has-hint', chosen);
@@ -393,6 +401,7 @@ export class GameUI {
       if (chosen) tags.append(el('span', 'hand-hint', formatCardHint(hintEntry)));
       if (warnings.attack) tags.append(el('span', 'hand-warning attack-warning', '会挨打'));
       if (warnings.unwind) tags.append(el('span', 'hand-warning unwind-warning', '松发条'));
+      if(this.run && canDoubleTool(this.run,card))node.append(el('span','twice-badge','×2'));
       node.append(tags);
       if (newIds.includes(card.id)) {
         const delay = newIds.indexOf(card.id) * drawInterval;
@@ -429,6 +438,14 @@ export class GameUI {
   private onPointerMove = (event: PointerEvent) => {
     const drag = this.drag; if (!drag || drag.pointer !== event.pointerId) return;
     event.preventDefault(); const p = this.point(event); drag.last = p;
+    if (drag.touch && !drag.dragging && p.y >= this.layout.hand.region.y) {
+      if (Math.abs(p.x - drag.start.x) > MOTION.dragThreshold) { clearTimeout(this.holdTimer); this.hideCardPreview(); }
+      const cards = this.state.hand; const positions = handPositions(cards.length, this.layout);
+      let index = 0; positions.forEach((position, i) => { if (p.x >= position.x) index = i; });
+      const next = cards[index];
+      if (next && next.id !== drag.id) { drag.id = next.id; drag.node = this.handNodes.get(next.id)!; drag.origin = positions[index]; drag.offset = { x: p.x - positions[index].x, y: p.y - positions[index].y }; this.renderHand(); }
+      return;
+    }
     if (!drag.dragging && Math.hypot(p.x - drag.start.x, p.y - drag.start.y) > MOTION.dragThreshold) {
       drag.dragging = true; clearTimeout(this.holdTimer); this.hideCardPreview(); const card = this.state.hand.find(c => c.id === drag.id); if (!card) return this.cancelDrag();
       const node = el('div', 'drag-card'); const dragSize = handSize(this.layout); Object.assign(node.style, { width: `${dragSize.w}px`, height: `${dragSize.h}px` }); const face = createCard(this.store, card, this.displayXp, this.state.opts.grow, { thresholds: growthThresholds(this.run ?? this.state) }); face.style.transform = `scale(${this.layout.hand.scale})`; node.append(face); drag.node = node; this.dragLayer.append(node); this.renderHand();
@@ -475,7 +492,7 @@ export class GameUI {
     const index = this.state.hand.findIndex(card => card.id === id); if (index < 0) return;
     this.hideCardPreview(); const wasBroken = this.run?.monster.broken; const countdownBefore = this.run?.monster.countdown; const oldRule = this.run ? currentRule(this.run) : undefined; const beforeIds = new Set(this.state.hand.map(c => c.id));
     const entry = this.screen === 'adventure' && this.run ? playRunCard(this.run, index) : playCard(this.state, index);
-    const drawnIds = entry.type === 'bag' ? this.state.hand.filter(c => !beforeIds.has(c.id)).map(c => c.id) : []; drawnIds.forEach(id => this.pendingDrawIds.add(id));
+    const drawnIds = entry.type === 'bag' || entry.type === 'whistle' ? this.state.hand.filter(c => !beforeIds.has(c.id)).map(c => c.id) : []; drawnIds.forEach(id => this.pendingDrawIds.add(id));
     this.preview = null; const brokeNow = !wasBroken && Boolean(this.run?.monster.broken); this.persist();
     this.growth.forEach(socket => socket.classList.toggle('stone-growth', entry.type === 'stone'));
     this.displayXp = [...this.state.xp]; this.displayMultiplier = this.state.m; this.displayTotal = this.state.total;
@@ -492,7 +509,7 @@ export class GameUI {
     this.animateScore(this.displayScore, this.state.turnDmg);
     const hit = this.monsterHitPoint();
     const big = this.run ? entry.damage >= this.run.monster.maxHp * .1 || entry.k === 'white' || entry.rainbow > 0 || entry.type === 'hammer' : entry.damage >= 20000 || entry.k === 'white' || entry.rainbow > 0 || entry.type === 'hammer';
-    this.sound.playCard(this.state.row.length - 1);
+    if(entry.type==='shadow')this.sound.shadow(Math.max(0,this.state.row.length-2));else this.sound.playCard(this.state.row.length - 1);
     this.store.play(this.dummy, big ? 'hit_big' : 'hit');
     this.sound.hit(big); if (brokeNow) this.sound.pierce();
     if (row) this.feel.cardDrop(row);
@@ -520,7 +537,7 @@ export class GameUI {
       });
     }
     if (entry.type === 'hammer') { this.effect('fx_slam', { x: (this.layout.rowStart.x + this.layout.rowRight) / 2, y: this.layout.rowStart.y + rowSize(this.layout).h }, color, 1.5); }
-    if (entry.type === 'bag') this.later(() => { drawnIds.forEach(id => this.pendingDrawIds.delete(id)); this.renderHand(drawnIds, 120); }, 300);
+    if (entry.type === 'bag' || entry.type === 'whistle') this.later(() => { drawnIds.forEach(id => this.pendingDrawIds.delete(id)); this.renderHand(drawnIds, 120); }, 300);
     entry.grown.forEach(i => {
       this.effect('fx_grow', this.layout.growth.centers[i], this.store.manifest.palette.gem[COLORS[i]].mid);
       const label = el('span', 'growth-upgrade', `变成${FORMS[gemForm(this.state, i)]}`); this.growth[i]?.append(label); this.later(() => label.remove(), 900);
@@ -571,8 +588,10 @@ export class GameUI {
     if (this.screen === 'practice') { endTurn(this.state); this.syncPresentation(); this.render(); this.renderHand(this.state.hand.filter(c => !previousIds.has(c.id)).map(c => c.id)); return; }
     if (!this.run) return;
     const oldHearts = this.run.hearts; const countdown = this.run.monster.countdown;
+    if(ruleSealed(this.run))this.sound.unseal();
     endRunTurn(this.run); this.state = this.run.game; this.persist();
     if (this.run.result) this.settleRecords();
+    if(!broken&&this.run.phase==='battle'){const start=this.relicNodes.get('start2');if(start)this.feel.relic(start);}
     if (broken) { this.deathTransition(oldHearts); return; }
     if (oldHearts !== this.run.hearts) {
       this.transition = Boolean(this.run.result); this.attacking = true; this.losingHeart = oldHearts - 1; this.syncPresentation(); if (!this.transition) this.render(); else { this.rowLayer.replaceChildren(); this.rowNodes.clear(); } this.updateCountdown(0); this.store.play(this.dummy, 'attack');
@@ -595,6 +614,11 @@ export class GameUI {
       return;
     }
     if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || /INPUT|TEXTAREA|SELECT/.test((event.target as Element).tagName)) return;
+    if (this.screen === 'adventure' && this.run?.phase === 'doors' && !this.transition) {
+      if (/^[12]$/.test(event.key)) { event.preventDefault(); this.selectDoor(Number(event.key) - 1, false); }
+      else if (event.key === 'Enter' && this.selectedDoor >= 0) { event.preventDefault(); this.selectDoor(this.selectedDoor); }
+      return;
+    }
     if (this.screen === 'adventure' && this.run?.phase === 'relic' && !this.transition) {
       if (/^[1-3]$/.test(event.key)) { event.preventDefault(); this.selectRelic(Number(event.key) - 1); }
       else if (event.key === 'Enter' && this.selectedRelic >= 0) { event.preventDefault(); this.takeRelic(this.selectedRelic); }
@@ -607,7 +631,8 @@ export class GameUI {
       return;
     }
     if (!this.playing) return;
-    if (event.code === 'Space') { event.preventDefault(); this.finishTurn(); }
+    if (/^[1-9]$/.test(event.key)) { event.preventDefault(); this.playById(this.state.hand[Number(event.key) - 1]?.id); }
+    else if (event.code === 'Space') { event.preventDefault(); this.finishTurn(); }
     else if (event.key.toLowerCase() === 'z') { event.preventDefault(); this.rewind(); }
     else if (event.key === 'Enter') { const card = (event.target as Element).closest<HTMLElement>('.hand-card'); const value = this.state.hand.find(c => c.id === Number(card?.dataset.cardId)); if (value) this.inspectCard(value); }
   };
@@ -649,6 +674,7 @@ export class GameUI {
     const panel = this.openModal(card.type ? TOOLS[card.type].name : CARD_NAMES[card.v]); panel.classList.add('card-inspection');
     const wrap = el('div', 'inspection-card'); wrap.style.width = `${MOTION.cardW * MOTION.inspectScale}px`; wrap.style.height = `${MOTION.cardH * MOTION.inspectScale}px`;
     const face = createCard(this.store, card, this.displayXp, this.state.opts.grow, { thresholds: growthThresholds(this.run ?? this.state) }); face.style.transform = `scale(${MOTION.inspectScale})`; wrap.append(face); panel.append(wrap);
+    if(card.type)panel.append(el('p','',TOOL_HELP[card.type]));
     panel.addEventListener('click', () => this.closeModal());
   }
   private showRules() {
@@ -665,9 +691,9 @@ export class GameUI {
     ];
     const list = el('ul', 'rules-list'); rules.forEach(rule => list.append(el('li', '', rule))); panel.append(list);
     const sections = [
-      ['一局怎么打', '一局 6 仗：小怪、小怪、精英、小怪、小怪、首领。宝石的成长整局都在。', '怪头顶是它的血，旁边的数字是它还有几回合出手。数到 0 它就打你一下，你少 1 颗心；3 颗心都没了就输了。', '把怪的血打空就算打穿了。打穿以后这回合还能接着出牌，打得越多超杀越高。点“拿战利品”结束这一仗。'],
-      ['额外牌', '额外牌也带宝石，宝石照常算伤害、照常起反应，效果是另外加的。', '口袋（绿）：摸 2 张。', '放大镜（蓝）：倍率再 ×2。', '锤子（红）：这回合到这里的伤害 ×2，最后打最划算。', '镜子（没宝石）：变成上一张缺的宝石，一定凑白。', '磨石（没宝石）：三颗宝石各长 5 次。'],
-      ['战利品', '每打赢一仗，从几张额外牌里选一张放进牌组，也可以不拿。超杀到 10 倍多一张可选。打赢精英，手牌上限 +1，心回满。'],
+      ['一局怎么打', '每一间：打赢小怪拿额外牌。到了门前，两扇门各写着打谁、赢了拿什么，挑一扇。打赢精英回满心，再挑一件宝物。', '怪头顶是它的血，旁边的数字是它还有几回合出手。数到 0 它就打你一下，你少 1 颗心；3 颗心都没了就输了。', '把怪的血打空就算打穿了。打穿以后这回合还能接着出牌，打得越多超杀越高。点“拿战利品”结束这一仗。'],
+      ['额外牌', '每种额外牌最多带 2 张。手里最多拿 12 张。', '额外牌也带宝石，宝石照常算伤害、照常起反应，效果是另外加的。', '口袋（绿）：摸 2 张。', '放大镜（蓝）：倍率再 ×2。', '锤子（红）：这回合到这里的伤害 ×3，最后打最划算。', '镜子（没宝石）：变成上一张缺的宝石，一定凑白。', '磨石（没宝石）：三颗宝石各长 5 次。', '沙漏：怪出手推后 1 回合。', '封条：这回合怪的规矩不算。', '影子：跟上一张一模一样。', '哨子：叫来 1 张额外牌。'],
+      ['战利品', '奖励是额外牌时，从几张额外牌里选一张放进牌组，也可以不拿。超杀到 10 倍多一张可选。工坊里扔牌或者抄牌；回心门打赢回一颗心。打赢精英，手牌上限 +1，心回满，再挑一件宝物。'],
     ];
     sections.push(['怪的规矩', ...Object.values(RULES).map(rule => `${rule.name}：${rule.text}`)]);
     if (this.run?.relics.length) sections.push(['宝物', ...this.run.relics.map(id => `${RELICS[id].name}：${RELICS[id].text}`)]);
@@ -714,12 +740,12 @@ export class GameUI {
     if (this.run?.result) this.settleRecords(); this.flushSettlements();
     this.cancelDrag(); this.closeModal(); this.resetEffects(); this.transition = false;
     this.run = createRun(this.seed()); this.run.game.opts.hint = this.prefs.hint; this.state = this.run.game; this.savedRun = this.run;
-    this.screen = 'adventure'; this.selectedLoot = -1; this.selectedRelic = -1; this.brokenHintShown = false; this.persist(); this.syncPresentation(); this.buildScene(); this.render();
+    this.screen = 'adventure'; this.selectedDoor = -1; this.shopMode = null; this.shopSelected = []; this.selectedLoot = -1; this.selectedRelic = -1; this.brokenHintShown = false; this.persist(); this.syncPresentation(); this.buildScene(); this.render();
   }
   private resumeAdventure() {
     if (!this.savedRun) return;
     this.cancelDrag(); this.closeModal(); this.resetEffects(); this.transition = false; this.run = this.savedRun; this.state = this.run.game;
-    this.screen = 'adventure'; this.selectedLoot = -1; this.brokenHintShown = this.run.stats.fights.length > 0 || this.run.monster.broken;
+    this.screen = 'adventure'; this.selectedDoor = -1; this.shopMode = null; this.shopSelected = []; this.selectedLoot = -1; this.brokenHintShown = this.run.stats.fights.length > 0 || this.run.monster.broken;
     this.state.opts.hint = this.prefs.hint; this.syncPresentation(); this.buildScene(); this.render();
   }
   private startPractice() {
@@ -733,6 +759,100 @@ export class GameUI {
     if (this.screen === 'adventure' && this.run && !this.run.result) { this.persist(); this.savedRun = this.run; }
     this.screen = 'home'; this.run = null; this.buildScene();
   }
+  private buildKnocker() {
+    const lines = ['又来一个找宝石的。老规矩：宝物带出大门才算你的。', '挑一件带上吧。里头那条龙，可比你会攒东西。', '我赌你过不了门厅。敢不敢？'];
+    const art = this.store.createInline('npc_knocker'); this.placeAnchored(art, 'npc_knocker', this.layout.knocker, this.layout.knocker.scale);
+    const say = el('p', 'knocker-say', lines[this.localRecords.played % 3]); place(say, this.layout.knockerSay); this.scene.append(art, say); this.store.play(art, 'talk');
+  }
+  private buildDoors() {
+    if (!this.run) return;
+    this.banner('挑一扇门', true);
+    const layout = this.layout.doors;
+    doorOptions(this.run).forEach((option, i) => {
+      const group = el('button', 'door-choice') as HTMLButtonElement; group.type = 'button'; group.dataset.doorIndex = String(i);
+      place(group, { x: 0, y: 0, w: this.layout.width, h: this.layout.height });
+      group.classList.toggle('selected', this.selectedDoor === i); group.classList.toggle('dimmed', this.selectedDoor >= 0 && this.selectedDoor !== i);
+      group.setAttribute('aria-pressed', String(this.selectedDoor === i)); group.setAttribute('aria-label', `${i + 1} ${MONSTERS[option.monster].name}，${{card:'额外牌',shop:'工坊',heal:'回一颗心'}[option.reward]}`);
+      const point = layout.points[i]; const door = this.store.createInline('ui_door'); this.placeAnchored(door, 'ui_door', point, layout.scale); group.append(door);
+      const monster = this.store.createInline(`mon_${option.monster}`); this.placeAnchored(monster, `mon_${option.monster}`, point, layout.monsterScale); group.append(monster);
+      const reward = this.store.createInline('ui_rule_sign'); place(reward, { x: point.x - layout.reward.w / 2, y: point.y + layout.reward.dy, w: layout.reward.w, h: layout.reward.h });
+      this.store.setSlotText(reward, 'rule_text', {card:'额外牌',shop:'工坊',heal:'回一颗心'}[option.reward]); this.store.setSlotIcon(reward, 'icon_slot', `ui_reward_${option.reward}`); group.append(reward);
+      const rule = this.store.createInline('ui_rule_sign'); place(rule, { x: point.x - layout.ruleSign.w / 2, y: point.y + layout.ruleSign.dy, w: layout.ruleSign.w, h: layout.ruleSign.h }); this.store.setSlotText(rule, 'rule_text', RULES[option.rule].name); this.store.setSlotIcon(rule, 'icon_slot', `rule_${option.rule}`); group.append(rule);
+      group.addEventListener('click', () => this.selectDoor(i)); this.scene.append(group);
+    });
+    const detail = el('div', 'door-detail'); place(detail, layout.detail); this.store.nineSlice(detail, 'ui_panel', 24);
+    const option = doorOptions(this.run)[this.selectedDoor];
+    if (option) detail.append(el('p','',`${MONSTERS[option.monster].name} · ${MONSTERS[option.monster].line}`), el('p','',`${RULES[option.rule].name} · ${RULES[option.rule].text}`), el('p','',`打赢拿：${{card:'额外牌，三张里挑一张。',shop:'进一次工坊，扔牌或者抄牌。',heal:'回一颗心。'}[option.reward]}`));
+    else detail.hidden = true;
+    const hint = el('div', 'loot-hint', '点一下看，再点一下进去'); place(hint, layout.hint); this.scene.append(detail, hint);
+  }
+  private selectDoor(index: number, confirm = true) {
+    if (this.transition || this.run?.phase !== 'doors' || !doorOptions(this.run)[index]) return;
+    if (this.selectedDoor !== index || !confirm) { this.selectedDoor = index; this.buildScene(); return; }
+    this.transition = true; this.sound.doorOpen();
+    const point = this.layout.doors.points[index];
+    this.scene.querySelectorAll<HTMLElement>('.door-choice').forEach((node, i) => {
+      if (i !== index) node.animate([{opacity:1},{opacity:0}], {duration:600,fill:'forwards'});
+      else { const door = node.querySelector<SVGSVGElement>('[data-art-id="ui_door"]'); if (door) this.store.play(door,'open'); }
+    });
+    this.later(() => {
+      if (!this.run) return; chooseDoor(this.run,index); this.state=this.run.game; this.selectedDoor=-1; this.transition=false; this.persist(); this.syncPresentation(); this.buildScene(); this.render(); this.enterFight();
+      this.monsterMotion.animate([{ transform:`translate(${point.x-this.layout.dummyAnchor.x}px,${point.y-this.layout.dummyAnchor.y}px) scale(${this.layout.doors.monsterScale/this.monsterScale()})` },{ transform:'translate(0,0) scale(1)' }],{duration:500,easing:'ease-out'});
+    },600);
+  }
+  private buildShop() {
+    if (!this.run) return;
+    const status=shopState(this.run), layout=this.layout.shop;
+    this.banner(this.shopMode === 'drop' ? '扔牌：挑 1–3 张' : this.shopMode === 'copy' ? '抄牌：挑 1 张' : '工坊',true);
+    const count = this.roundButton('牌库',this.layout.deck,()=>this.showDeck(),'ui_icon_deck'); count.append(el('span','count-bubble',String(this.run.cards.length)));
+    if (!this.shopMode) {
+      (['drop','copy'] as const).forEach((mode,i)=>{
+        const allowed=mode==='drop'?status.canDrop:status.canCopy;
+        const button=el('button','shop-operation') as HTMLButtonElement; button.type='button'; button.dataset.shopMode=mode; button.classList.toggle('unavailable',!allowed);button.setAttribute('aria-disabled',String(!allowed));place(button,layout.ops[i]);this.store.nineSlice(button,'ui_panel',24);
+        button.append(el('strong','',mode==='drop'?'扔牌':'抄牌'),el('p','',mode==='drop'?'从整副牌里扔掉 1–3 张。':'挑 1 张，多一张一模一样的。'),el('small','',mode==='drop'?`现在 ${this.run!.cards.length} 张，最少留 20 张`:'每种额外牌最多带 2 张'));
+        button.addEventListener('click',()=>{if(!allowed){this.toast(mode==='drop'?'牌已经只剩 20 张，不能再扔':'这种牌已经带满 2 张，不能再抄');return;}this.shopMode=mode;this.shopSelected=[];this.buildScene();});this.scene.append(button);
+      });
+      this.button('不用了',this.layout.loot.skip,()=>{const panel=this.openModal('什么都不做就走？');this.modalAction(panel,'走',()=>{this.closeModal();if(this.run)shopSkip(this.run);this.finishShop();});this.modalAction(panel,'再看看',()=>this.closeModal());}).dataset.action='skip-shop';
+      return;
+    }
+    const grid=el('div','shop-grid');place(grid,layout.grid); grid.style.setProperty('--shop-card-w',`${MOTION.cardW*layout.gridScale}px`);grid.style.setProperty('--shop-card-h',`${MOTION.cardH*layout.gridScale}px`);
+    const groups=new Map<string,Card[]>();const sorted=[...this.run.cards].sort((a,b)=>a.type&&b.type?TOOL_TYPES.indexOf(a.type)-TOOL_TYPES.indexOf(b.type):a.type?-1:b.type?1:[1,2,4,3,6,5,7,0].indexOf(a.v)-[1,2,4,3,6,5,7,0].indexOf(b.v));
+    sorted.forEach(card=>{const key=card.type??String(card.v);groups.set(key,[...(groups.get(key)??[]),card]);});
+    groups.forEach(cards=>{
+      const card=cards[0],selected=cards.filter(c=>this.shopSelected.includes(c.id)); const allowed=this.shopMode!=='copy'||canCopyCard(this.run!,card.id);
+      const button=el('button','shop-card') as HTMLButtonElement;button.type='button';button.dataset.cardId=String(card.id);button.classList.toggle('selected',selected.length>0);button.classList.toggle('unavailable',!allowed);button.setAttribute('aria-pressed',String(selected.length>0));button.setAttribute('aria-label',`${card.type?TOOLS[card.type].name:CARD_NAMES[card.v]}，${cards.length} 张${allowed?'':'，带满了'}`);
+      const face=createCard(this.store,card,this.state.xp,true,{static:true,thresholds:growthThresholds(this.run!)});face.style.transform=`scale(${layout.gridScale})`;button.append(face,el('span','shop-count',!allowed?'带满了':selected.length?`选了 ${selected.length}`:`×${cards.length}`));
+      let held=false,timer:ReturnType<typeof setTimeout>|undefined;button.addEventListener('pointerdown',()=>{held=false;timer=setTimeout(()=>{held=true;this.inspectCard(card);},MOTION.holdMs);});for(const name of ['pointerup','pointercancel','pointerleave'])button.addEventListener(name,()=>clearTimeout(timer));
+      button.addEventListener('click',()=>{
+        if(held||this.transition)return;if(!allowed){this.toast('这种牌已经带满 2 张，不能再抄');return;}
+        if(this.shopMode==='copy')this.shopSelected=selected.length?[]:[card.id];
+        else if(selected.length===cards.length)this.shopSelected=this.shopSelected.filter(id=>!cards.some(c=>c.id===id));
+        else if(this.shopSelected.length>=status.maxDrop){if(selected.length)this.shopSelected=this.shopSelected.filter(id=>!cards.some(c=>c.id===id));else this.toast(status.maxDrop<3?'整副牌最少留 20 张':'最多扔 3 张');}
+        else this.shopSelected.push(cards.find(c=>!this.shopSelected.includes(c.id))!.id);
+        const scroll=grid.scrollTop;this.buildScene();const next=this.scene.querySelector('.shop-grid');if(next)next.scrollTop=scroll;
+      });grid.append(button);
+    });this.scene.append(grid);
+    this.button('换个做法',layout.back,()=>{if(this.transition)return;this.shopMode=null;this.shopSelected=[];this.buildScene();}).dataset.action='shop-back';
+    const confirm=this.button(this.shopMode==='drop'?`扔掉这 ${this.shopSelected.length} 张`:'抄这张',layout.confirm,()=>this.confirmShop(),undefined,true);confirm.disabled=!this.shopSelected.length;confirm.dataset.action='shop-confirm';
+  }
+  private confirmShop() {
+    if(this.transition||this.run?.phase!=='shop'||!this.shopSelected.length)return;
+    this.transition=true;const mode=this.shopMode;
+    const nodes:HTMLElement[]=[];const grid=this.scene.querySelector<HTMLElement>('.shop-grid')!;
+    for(const id of this.shopSelected){const card=this.run.cards.find(c=>c.id===id)!;const representative=[...this.scene.querySelectorAll<HTMLElement>('.shop-card')].find(node=>{const item=this.run!.cards.find(c=>c.id===Number(node.dataset.cardId));return item?.type===card.type&&item?.v===card.v;});if(!representative)continue;
+      const clone=representative.cloneNode(true) as HTMLElement;clone.classList.remove('selected');clone.style.margin='0';const box=representative.getBoundingClientRect(),stage=this.stage.getBoundingClientRect();place(clone,{x:(box.left-stage.left)/this.scale,y:(box.top-stage.top)/this.scale,w:box.width/this.scale,h:box.height/this.scale});this.fxLayer.append(clone);nodes.push(clone);
+    }
+    if(mode==='drop')for(const node of this.scene.querySelectorAll<HTMLElement>('.shop-card.selected')){const source=this.run.cards.find(card=>card.id===Number(node.dataset.cardId));if(!source)continue;const group=this.run.cards.filter(card=>card.type===source.type&&card.v===source.v);const remaining=group.filter(card=>!this.shopSelected.includes(card.id)).length;if(!remaining)node.style.opacity='0';else{node.classList.remove('selected');const badge=node.querySelector('.shop-count');if(badge)badge.textContent=`×${remaining}`;}}
+    grid.inert=true;
+    if(mode==='drop')shopDrop(this.run,this.shopSelected);else shopCopy(this.run,this.shopSelected[0]);this.persist();
+    nodes.forEach((_,i)=>this.later(()=>mode==='drop'?this.sound.shopRemove():this.sound.shopCopy(),i*120));
+    nodes.forEach((node,i)=>node.animate(mode==='drop'?[{transform:'translateY(-20px)',opacity:1},{transform:`translateY(${this.layout.height}px)`,opacity:0}]:[{transform:'translateX(0)',filter:'brightness(1)'},{transform:'translateX(40px)',filter:'brightness(1.7)'},{transform:'translateX(0)',filter:'brightness(1)'}],{duration:400,delay:i*120,fill:'forwards'}));
+    this.later(()=>{const count=this.scene.querySelector('.count-bubble');if(count){count.textContent=String(this.run!.cards.length);count.animate([{transform:'scale(1.4)'},{transform:'scale(1)'}],{duration:300});}this.later(()=>this.finishShop(),400);},400+Math.max(0,nodes.length-1)*120);
+  }
+  private finishShop() {
+    if(!this.run)return;this.shopMode=null;this.shopSelected=[];this.transition=false;this.state=this.run.game;this.resetEffects();this.persist();this.syncPresentation();this.buildScene();this.render();this.enterFight();
+  }
+
   private buildRelicBar() {
     this.relicNodes.clear(); if (!this.run) return;
     const l = this.layout.relics;
@@ -744,7 +864,8 @@ export class GameUI {
     });
   }
   private buildRelicPick() {
-    if (!this.run) return; this.banner('选一个宝物带进古堡', true); this.lootCards = [];
+    if (!this.run) return; this.banner(this.run.relics.length ? '再挑一件宝物' : '选一个宝物带进古堡', true); this.lootCards = [];
+    if (!this.run.relics.length) this.buildKnocker();
     const layout = this.layout.relicPick;
     this.run.relicOptions.forEach((id, i) => {
       const node = el('button', 'relic-pick loot-card') as HTMLButtonElement; node.type = 'button'; node.dataset.relicIndex = String(i);
@@ -766,12 +887,12 @@ export class GameUI {
     chooseRelic(this.run, index); this.state = this.run.game; this.persist();
     const icon = this.store.create(`relic_${id}`); const point = this.layout.relicPick.points[index]; const l = this.layout.relics;
     place(icon, { x: point.x, y: point.y, w: this.layout.relicPick.icon, h: this.layout.relicPick.icon }); this.fxLayer.append(icon);
-    icon.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: `translate(${l.x - point.x}px,${l.y - point.y}px) scale(${l.size / this.layout.relicPick.icon})`, opacity: 1 }], { duration: 500, fill: 'forwards', easing: 'ease-in-out' });
+    icon.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: `translate(${l.x + (this.run.relics.length - 1) * (l.size + l.gap) - point.x}px,${l.y - point.y}px) scale(${l.size / this.layout.relicPick.icon})`, opacity: 1 }], { duration: 500, fill: 'forwards', easing: 'ease-in-out' });
     this.lootCards.forEach(node => node.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' })); card?.setAttribute('aria-pressed', 'true');
     this.later(() => { this.transition = false; this.selectedRelic = -1; this.resetEffects(); this.syncPresentation(); this.buildScene(); this.render(); this.enterFight(); }, 500);
   }
   private renderRuleSign(override?: keyof typeof RULES) {
-    if (!this.run) return; const id = override ?? currentRule(this.run); this.ruleButton.hidden = !id; if (!id) return;
+    if (!this.run) return; const sealed = ruleSealed(this.run); const id = override ?? currentRule(this.run) ?? (sealed ? displayedRule(this.run) : undefined); this.ruleButton.classList.toggle('sealed', sealed); this.ruleButton.hidden = !id; if (!id) return;
     const m = this.run.monster; const text = id === 'wind' ? m.woundDown ? '发条松完' : `${RULES[id].name} ${'●'.repeat(m.wind)}${'○'.repeat(Math.max(0, m.maxWind - m.wind))}` : RULES[id].name;
     this.ruleButton.dataset.rule = id; this.ruleButton.setAttribute('aria-label', `${text}，查看规矩`);
     const label = this.store.setSlotText(this.ruleSign, 'rule_text', text); if (id === 'wind') label.setAttribute('font-size', '24'); this.store.setSlotIcon(this.ruleSign, 'icon_slot', `rule_${id}`);
@@ -808,6 +929,17 @@ export class GameUI {
   private presentEffects(entry: RowEntry, countdownBefore?: number, oldRule?: keyof typeof RULES) {
     if (!this.run) return;
     entry.effects?.forEach(effect => {
+      if(effect.id==='hourglass')this.sound.hourglass();
+      if(effect.id==='seal'){this.sound.seal();this.ruleButton.animate([{filter:'brightness(1.5)'},{filter:'brightness(1)'}],{duration:200});}
+      if(effect.id==='whistle')this.sound.whistle();
+      if(effect.text==='手里拿不下了'){this.toast(effect.text);this.feel.handFull(this.deckButton);}
+      if(effect.text==='牌堆里没有额外牌')this.toast(effect.text);
+      if(effect.id==='twice'){const soundIndex=this.state.row.length-1;const face=this.rowNodes.get(entry.id)?.querySelector<HTMLElement>('.gem-card');this.later(()=>{
+        if(face)playCardArt(face);
+        if(entry.type==='hourglass'){this.sound.hourglass();this.store.play(this.countdownArt,'tick');this.feel.countdown(this.countdownNode);}
+        else if(entry.type==='whistle')this.sound.whistle();
+        else {this.sound.playCard(soundIndex);if(entry.type==='hammer')this.effect('fx_slam',{x:(this.layout.rowStart.x+this.layout.rowRight)/2,y:this.layout.rowStart.y+rowSize(this.layout).h},this.store.manifest.palette.mix[String(entry.v)] ?? undefined,1.5);if(entry.type==='lens'){this.store.play(this.badge,'double');this.feel.multiplier(this.mult,true);this.sound.double(soundIndex);}if(entry.type==='stone')this.growth.forEach((_,i)=>this.effect('fx_grow',this.layout.growth.centers[i],this.store.manifest.palette.gem[COLORS[i]].mid));}
+      },150);}
       const relic = this.relicNodes.get(effect.id); if (relic) this.feel.relic(relic);
       if (effect.id === 'layers') {
         this.store.play(this.dummy, 'layer'); this.store.play(this.ruleSign, 'flip'); this.sound.rule('layer');
@@ -832,10 +964,11 @@ export class GameUI {
     if (!this.run) return;
     place(this.turn, this.layout.turn); this.turn.textContent = `第 ${this.run.fight} 仗 · 第 ${this.state.turn} 回合`; this.scene.append(this.turn);
     this.renderHearts(); this.buildRelicBar();
+    const act = el('div', 'act-label', `门厅 · 第 ${this.run.room} 间`); place(act, this.layout.actLabel); this.scene.append(act);
     const p = this.layout.progress; const progress = el('div', 'fight-progress'); place(progress, { x:p.x, y:p.y-p.node/2, w:p.w, h:p.node });
     const line = el('div', 'progress-line'); progress.append(line);
     RUN.fights.forEach((fight,i) => {
-      const node = el('div', 'progress-node'); const asset = fight.type === 'boss' ? 'ui_node_boss' : fight.type === 'elite' ? 'ui_node_elite' : 'ui_node_fight';
+      const node = el('div', 'progress-node'); const asset = fight.type === 'doors' ? 'ui_node_door' : fight.type === 'boss' ? 'ui_node_boss' : fight.type === 'elite' ? 'ui_node_elite' : 'ui_node_fight';
       node.append(this.store.create(asset)); place(node, { x: i*(p.w-p.node)/(RUN.fights.length-1), y:0, w:p.node, h:p.node });
       node.classList.toggle('done', i+1 < this.run!.fight || (this.run!.phase === 'loot' && i+1 === this.run!.fight)); node.classList.toggle('current', i+1 === this.run!.fight); node.setAttribute('aria-label', `第 ${i+1} 仗${i+1===this.run!.fight?'，当前':''}`); progress.append(node);
     }); this.scene.append(progress);
@@ -860,7 +993,7 @@ export class GameUI {
     if (!this.run) return;
     this.renderHearts(); const m = this.run.monster;
     // 血条不写数字：按层显示（小怪 1 层、精英 2、首领 3），每层一种颜色，当前层下面垫着下一层
-    const layers = RUN.hpLayers[RUN.fights[this.run.fight - 1]!.type]; const per = m.maxHp / layers;
+    const fightType = RUN.fights[this.run.fight - 1]!.type; const layers = RUN.hpLayers[fightType === 'doors' ? 'normal' : fightType]; const per = m.maxHp / layers;
     const layer = m.hp > 0 ? Math.min(layers, Math.ceil(m.hp / per - 1e-9)) : 0; const fraction = layer ? (m.hp - (layer - 1) * per) / per : 0;
     const colorOf = (n: number) => n <= 1 ? 'var(--hpFill)' : HP_LAYER_COLORS[n - 1]!;
     this.hpFill.style.background = colorOf(layer); this.hpUnder.style.background = layer > 1 ? colorOf(layer - 1) : 'transparent';
@@ -892,6 +1025,9 @@ export class GameUI {
     this.monsterMotion.animate([{transform:'translateY(40px)',opacity:0},{transform:'translateY(0)',opacity:1}],{duration:500});
     this.banner(`第 ${this.run.fight} 仗`); this.toast(`${MONSTERS[this.run.monster.key].name}：${MONSTERS[this.run.monster.key].line}`);
     this.renderHand(this.state.hand.map(c=>c.id));
+    for(const id of ['start2','slow','first2']){const node=this.relicNodes.get(id);if(node)this.feel.relic(node);}
+    if(this.run.relics.includes('slow')){this.sound.slowBeat();this.countdownNode.classList.add('countdown-green');this.feel.countdown(this.countdownNode);this.later(()=>this.countdownNode.classList.remove('countdown-green'),300);}
+
   }
   private deathTransition(oldHearts: number) {
     if (!this.run) return;
@@ -899,8 +1035,9 @@ export class GameUI {
     this.mult.style.opacity='0'; this.formula.style.opacity='0'; this.undoButton.hidden=true; this.deckButton.hidden=true; this.endButton.hidden=true; this.growth.forEach(g=>g.hidden=true);
     this.store.setStay(this.dummy,null); const defeated = this.dummy; const deathDuration = this.store.play(defeated,'die'); this.later(() => defeated.remove(), deathDuration);
     this.later(()=>{ this.effect('fx_overkill',this.layout.floating,undefined,1.5); const text=el('div','overkill-announcement',`超杀 ${formatOverkill(this.run!.monster.overkill)}`); text.style.left=`${this.layout.floating.x}px`;text.style.top=`${this.layout.floating.y}px`;this.fxLayer.append(text);this.later(()=>text.remove(),1300); },300);
-    const finish=()=> { this.transition=false; this.resetEffects(); this.mult.style.opacity='';this.formula.style.opacity='';this.buildScene(); if (this.run?.phase==='loot') this.animateLoot(); };
-    if (this.run.phase==='loot' && this.run.fight===3) this.later(()=>{ this.banner('背包变大 · 心回满');this.toast('手牌上限 7 → 8，心回满了');this.healingHearts=oldHearts;this.renderHearts();for(let i=oldHearts;i<this.run!.hearts;i++)this.later(()=>{this.healingHearts=i+1;this.renderHearts();const heart=this.heartNodes[i];if(heart instanceof SVGSVGElement)this.store.play(heart,'gain');const h=this.layout.hearts;this.effect('fx_heal',{x:h.x+i*(h.size+h.gap)+h.size/2,y:h.y+h.size/2});if(heart instanceof HTMLElement || heart instanceof SVGElement)this.feel.heal(heart);this.sound.heal();},(i-oldHearts)*150);this.later(finish,1200);},1800);
+    const finish=()=> { this.transition=false; this.resetEffects(); this.mult.style.opacity='';this.formula.style.opacity='';this.syncPresentation(); this.buildScene(); this.render(); this.enterFight(); if (this.run?.phase==='loot') this.animateLoot(); };
+    if (this.run.phase==='relic' && this.run.relics.length > 0) this.later(()=>{ this.banner('背包变大 · 心回满');this.toast('手牌上限 7 → 8，心回满了');this.healingHearts=oldHearts;this.renderHearts();for(let i=oldHearts;i<this.run!.hearts;i++)this.later(()=>{this.healingHearts=i+1;this.renderHearts();const heart=this.heartNodes[i];if(heart instanceof SVGSVGElement)this.store.play(heart,'gain');const h=this.layout.hearts;this.effect('fx_heal',{x:h.x+i*(h.size+h.gap)+h.size/2,y:h.y+h.size/2});if(heart instanceof HTMLElement || heart instanceof SVGElement)this.feel.heal(heart);this.sound.heal();},(i-oldHearts)*150);this.later(finish,1200);},1800);
+    else if (this.run.hearts > oldHearts) this.later(() => { this.banner('回了一颗心'); this.renderHearts(); const h = this.layout.hearts; const heart = this.heartNodes[oldHearts]; if (heart instanceof SVGSVGElement) this.store.play(heart, 'gain'); this.effect('fx_heal', { x: h.x + oldHearts * (h.size + h.gap), y: h.y }); this.sound.heal(); this.later(finish, 800); }, 1800);
     else this.later(finish,1800);
   }
   private buildLoot() {
@@ -944,13 +1081,14 @@ export class GameUI {
     const result=this.run?.result;if(!result)return;
     this.banner(result.outcome==='victory'?'胜利':'失败',true);
     const panel=el('section','result-panel');place(panel,this.layout.result.panel);this.store.nineSlice(panel,'ui_panel',48);
+    panel.append(el('p','knocker-result',result.outcome==='victory'?'老门环：行，这回算你的。龙叼着宝石往长廊里跑了，长廊的门过些日子才开。':`老门环：倒在${MONSTERS[result.monster].name}手上了。身上的宝物，龙收下了。`));
     if(result.outcome==='defeat')panel.append(el('div','result-heading',`倒在第 ${result.fight} 仗 · ${MONSTERS[result.monster].name}`));
     else if(result.newRecords.farthest)panel.append(el('div','result-heading','通关！ 新纪录'));
     const countRows: { node: HTMLElement; value: number; format: (n:number)=>string }[] = [];
     const add=(label:string,value:string,record=false,count?:{value:number;format:(n:number)=>string})=>{const row=el('div','result-row');const number=el('strong','',value);row.append(el('span','',label),number);if(record)row.append(el('em','new-record','新纪录'));panel.append(row);if(count)countRows.push({node:number,...count});};
     add(`打了 ${result.totalTurns} 回合`,'');add('最高一回合',`${formatFull(result.bestTurn)}   第 ${result.bestFight} 仗`,result.newRecords.bestTurn,{value:result.bestTurn,format:n=>`${formatFull(n)}   第 ${result.bestFight} 仗`});add('最大超杀',formatOverkill(result.maxOverkill),result.newRecords.maxOverkill,{value:result.maxOverkill,format:formatOverkill});add('总伤害',formatFull(result.totalDamage),false,{value:result.totalDamage,format:formatFull});
     add('宝石',result.gemForms.map((f,i)=>`${['红','绿','蓝'][i]} ${FORMS[f]}`).join(' · '));
-    const extras=TOOL_TYPES.map(t=>{const n=result.extraCards.filter(c=>c.type===t).length;return n?`${TOOLS[t].name}${n>1?` ×${n}`:''}`:'';}).filter(Boolean).join(' · ');add('拿到的额外牌',extras||'没有');
+    const extras=TOOL_TYPES.map(t=>{const n=result.extraCards.filter(c=>c.type===t).length;return n?`${TOOLS[t].name}${n>1?` ×${n}`:''}`:'';}).filter(Boolean).join(' · ');add('拿到的额外牌',extras||'没有');add('进了几次工坊',String(this.run!.shopsVisited));add('带了几件宝物',String(this.run!.relics.length));
     this.scene.append(panel);panel.animate([{transform:'translateY(60px)',opacity:0},{transform:'translateY(0)',opacity:1}],{duration:400});
     panel.querySelectorAll('.result-row').forEach((row,i)=>row.animate([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],{duration:300,delay:i*300,fill:'backwards'}));
     countRows.forEach((count,i)=>{for(let step=0;step<=10;step++)this.later(()=>{count.node.textContent=count.format(count.value*step/10);},(i+1)*300+step*30);});
@@ -962,13 +1100,13 @@ export class GameUI {
     panel.append(el('h3', '', MONSTERS[m.key].name), el('p', '', MONSTERS[m.key].line), el('p', '', `血量 ${formatFull(m.hp)} / ${formatFull(m.maxHp)} · 每 ${m.maxCountdown} 回合出手一次`));
     const active = currentRule(this.run); const ids = m.key === 'dragon' ? ['hug', 'bite', 'bell'] as const : active ? [active] : [];
     ids.forEach(id => panel.append(el('h3', '', `${RULES[id].name}${active === id ? ' · 现在' : ''}`), el('p', '', RULES[id].text)));
+    if (ruleSealed(this.run)) panel.append(el('p', '', '这回合不算'));
     if (m.broken) panel.append(el('p', '', '打穿了，这回合规矩不再起作用。'));
   }
   private debugRefresh() {if(this.screen==='adventure'&&this.run)this.state=this.run.game;this.cancelDrag();this.closeModal();this.resetEffects();this.transition=false;this.syncPresentation();this.buildScene();this.render();this.persist();}
   private debugJumpFight(fight:number) {
     if(!this.debugEnabled||!Number.isInteger(fight)||fight<1||fight>6)return;
-    this.startAdventure(); chooseRelic(this.run!, 0);
-    while(this.run!.fight<fight){this.run!.monster.broken=true;this.run!.monster.hp=0;endRunTurn(this.run!);skipLoot(this.run!);}
+    if(!this.run)this.startAdventure(); if(this.run!.phase==='relic'&&!this.run!.relics.length)chooseRelic(this.run!,0); debugJumpRoom(this.run!,fight);
     this.state=this.run!.game;this.debugRefresh();
   }
   private debugHp(value:number) { if (!this.debugEnabled || !this.run) return; debugSetMonsterHp(this.run, value); this.debugRefresh(); }
@@ -976,7 +1114,7 @@ export class GameUI {
   private debugWind(value:number) { if (!this.debugEnabled || !this.run) return; debugSetWind(this.run, value); this.debugRefresh(); }
   private debugRelic(id:RelicId) { if (!this.debugEnabled || !this.run) return; debugGiveRelic(this.run, id); this.debugRefresh(); }
   private debugHearts(value:number) {if(!this.debugEnabled||!this.run||!Number.isInteger(value)||value<1||value>this.run.maxHearts)return;this.run.hearts=value;this.debugRefresh();}
-  private debugGiveTool(type:ToolType) {if(!this.debugEnabled||!TOOL_TYPES.includes(type))return;if(!this.playing)this.startPractice();const cards=this.run?.cards??[...this.state.deck,...this.state.hand,...this.state.row,...this.state.discard];const card=createToolCard(type,Math.max(0,...cards.map(c=>c.id))+1);if(this.run)this.run.cards.push({...card});this.state.hand.push(card);this.state.hist=[];if(this.run)this.run.hist=[];this.debugRefresh();}
+  private debugGiveTool(type:ToolType,ignoreCap=false) {if(!this.debugEnabled||!TOOL_TYPES.includes(type))return;if(this.run){try{giveRunTool(this.run,type,ignoreCap);this.debugRefresh();}catch(error){this.toast(error instanceof Error?error.message:'带满了');}return;}if(!this.playing)this.startPractice();const cards=[...this.state.deck,...this.state.hand,...this.state.row,...this.state.discard];this.state.hand.push(createToolCard(type,Math.max(0,...cards.map(c=>c.id))+1));this.state.hist=[];this.debugRefresh();}
   private debugDeal(sequence: readonly (number|ToolType)[], test?:number) {
     if(!this.debugEnabled)return;if(!this.playing)this.startPractice();
     const original=this.run?.cards??[...this.state.deck,...this.state.hand,...this.state.row,...this.state.discard].map(c=>c.type?createToolCard(c.type,c.id):{...c});const pool=original.map(c=>({...c}));const hand:Card[]=[];let id=Math.max(0,...pool.map(c=>c.id));
@@ -987,17 +1125,25 @@ export class GameUI {
   }
   private buildDebug(panel:HTMLElement) {
     panel.append(el('h3','','测试入口（仅 debug=1）'));
+    const scaleRow=el('div','debug-actions');scaleRow.append(el('span','',`血量倍数 ×${RUN.hpScale}（新开一局生效）`));[1,1.5,2,3,4].forEach(value=>{const button=el('button','',`×${value}`);button.addEventListener('click',()=>{RUN.hpScale=value;this.closeModal();this.showSettings();});scaleRow.append(button);});panel.append(scaleRow);
+    this.modalAction(panel,'直接进工坊',()=>{if(!this.run)this.startAdventure();debugEnterShop(this.run!);this.shopMode=null;this.shopSelected=[];this.debugRefresh();});
+    if(this.run){this.modalAction(panel,ruleSealed(this.run)?'撕掉封条':'给怪贴封条',()=>{debugSetSealed(this.run!,!ruleSealed(this.run!));this.debugRefresh();});}
+    const forced=el('div','debug-actions');const picks=Array.from({length:2},()=>{const monster=document.createElement('select'),reward=document.createElement('select');RUN.normalMonsters.forEach(key=>{const option=document.createElement('option');option.value=key;option.textContent=MONSTERS[key].name;monster.append(option);});(['card','shop','heal'] as const).forEach(key=>{const option=document.createElement('option');option.value=key;option.textContent={card:'额外牌',shop:'工坊',heal:'回一颗心'}[key];reward.append(option);});forced.append(monster,reward);return{monster,reward};});picks[1].monster.selectedIndex=1;picks[1].reward.selectedIndex=1;
+    const force=el('button','','指定两扇门');force.addEventListener('click',()=>{if(!this.run)this.startAdventure();try{debugSetDoors(this.run!,picks.map(p=>{const monster=p.monster.value as typeof RUN.normalMonsters[number];return{monster,rule:MONSTERS[monster].rule,reward:p.reward.value as 'card'|'shop'|'heal'};}));this.selectedDoor=-1;this.debugRefresh();}catch(error){this.toast(error instanceof Error?error.message:'门设置无效');}});forced.append(force);panel.append(forced);
+
     const fights=el('div','debug-actions');for(let n=1;n<=6;n++){const button=el('button','',`第 ${n} 仗`);button.dataset.debugFight=String(n);button.addEventListener('click',()=>this.debugJumpFight(n));fights.append(button);}panel.append(fights);
     const inputRow=(label:string,value:string,apply:(v:string)=>void)=>{const row=el('div','setting-row debug-input');const input=document.createElement('input');input.value=value;input.setAttribute('aria-label',label);const button=el('button','',label);button.addEventListener('click',()=>{try{apply(input.value);}catch(error){this.toast(error instanceof Error?error.message:'输入不正确');}});row.append(input,button);panel.append(row);};
+    if(this.run)inputRow('把手牌加到 N 张（最多 12）',String(this.state.hand.length),v=>{debugFillHand(this.run!,Number(v));this.debugRefresh();});
     if(this.run?.phase==='battle'){inputRow('设怪的血',String(this.run.monster.hp),v=>this.debugHp(Number(v)));inputRow(`设心（1–${this.run.maxHearts}）`,String(this.run.hearts),v=>this.debugHearts(Number(v)));inputRow('设倒计时',String(this.run.monster.countdown),v=>this.debugCountdown(Number(v)));if(this.run.monster.maxWind)inputRow('设发条',String(this.run.monster.wind),v=>this.debugWind(Number(v)));}
     const relics=el('div','debug-actions'); (Object.keys(RELICS) as RelicId[]).forEach(id => { const button=el('button','',`给宝物：${RELICS[id].name}`);button.addEventListener('click',()=>this.debugRelic(id));relics.append(button); }); panel.append(relics);
     this.modalAction(panel,'跳到选宝物画面',()=>{if(this.run) {debugRelicSelection(this.run);this.selectedRelic=-1;this.debugRefresh();}else this.startAdventure();});
-    const tools=el('div','debug-actions');TOOL_TYPES.forEach(type=>{const button=el('button','',`给一张${TOOLS[type].name}`);button.addEventListener('click',()=>this.debugGiveTool(type));tools.append(button);});panel.append(tools);
+    const capLabel=el('label','','不管上限');const ignoreCap=document.createElement('input');ignoreCap.type='checkbox';capLabel.prepend(ignoreCap);panel.append(capLabel);
+    const tools=el('div','debug-actions');TOOL_TYPES.forEach(type=>{const button=el('button','',`给一张${TOOLS[type].name}`);button.addEventListener('click',()=>this.debugGiveTool(type,ignoreCap.checked));tools.append(button);});panel.append(tools);
     inputRow('发指定的牌','1,3,2,6,4,5,hammer',v=>this.debugDeal(v.split(/[\s,，]+/).filter(Boolean).map(v=>/^\d+$/.test(v)?Number(v):v as ToolType)));
     const cases=el('div','debug-actions');Object.keys(DEBUG_SEQUENCES).forEach(key=>{const button=el('button','',`用例 ${key} 发牌`);button.dataset.debugCase=key;button.addEventListener('click',()=>this.debugDeal(DEBUG_SEQUENCES[Number(key)],Number(key)));cases.append(button);});panel.append(cases);
   }
   private installDebug() {
-    const api={snapshot:()=>JSON.parse(JSON.stringify(this.state)) as GameState,runSnapshot:()=>this.run?JSON.parse(JSON.stringify(this.run)) as RunState:null,screen:()=>this.screen,
+    const api={enterShop:()=>{if(this.run){debugEnterShop(this.run);this.shopMode=null;this.debugRefresh();}},selectDoor:(n:number)=>this.selectDoor(n,false),chooseDoor:(n:number)=>{this.selectedDoor=n;this.selectDoor(n);},fillHand:(n:number)=>{if(this.run){debugFillHand(this.run,n);this.debugRefresh();}},setSealed:(sealed:boolean)=>{if(this.run){debugSetSealed(this.run,sealed);this.debugRefresh();}},setHpScale:(n:number)=>{RUN.hpScale=n;},snapshot:()=>JSON.parse(JSON.stringify(this.state)) as GameState,runSnapshot:()=>this.run?JSON.parse(JSON.stringify(this.run)) as RunState:null,screen:()=>this.screen,
       startAdventure:()=>this.startAdventure(),practice:()=>this.startPractice(),goHome:()=>this.goHome(),resume:()=>this.resumeAdventure(),debugJumpFight:(n:number)=>this.debugJumpFight(n),setMonsterHp:(n:number)=>this.debugHp(n),setCountdown:(n:number)=>this.debugCountdown(n),setWind:(n:number)=>this.debugWind(n),giveRelic:(id:RelicId)=>this.debugRelic(id),selectRelic:(n:number)=>this.selectRelic(n),chooseRelic:(n:number)=>this.takeRelic(n),setHearts:(n:number)=>this.debugHearts(n),giveTool:(type:ToolType)=>this.debugGiveTool(type),dealCards:(sequence:(number|ToolType)[])=>this.debugDeal(sequence),scenario:(n:number)=>this.debugDeal(DEBUG_SEQUENCES[n],n),
       deal:(n:number)=>this.debugDeal(DEBUG_SEQUENCES[n],n),endTurn:()=>this.finishTurn(),play:(index=0)=>this.playById(this.state.hand[index]?.id),undo:()=>this.rewind(),end:()=>this.finishTurn(),chooseLoot:(index:number)=>this.takeLoot(index),selectLoot:(index:number)=>this.selectLoot(index),skipLoot:()=>this.takeLoot(-1),records:()=>({...this.localRecords})};
     Object.assign(window,{__gemcard:api});

@@ -51,6 +51,9 @@ export interface Layout {
   banner: Rect;
   loot: { scale: number; three: Point[]; four: Point[]; hint: Rect; skip: Rect; chest: Point };
   result: { panel: Rect; home: Rect; again: Rect };
+  doors: { points: Point[]; scale: number; monsterScale: number; reward: { dy: number; w: number; h: number }; ruleSign: { dy: number; w: number; h: number }; detail: Rect; hint: Rect };
+  shop: { ops: Rect[]; grid: Rect; gridScale: number; back: Rect; confirm: Rect };
+  knocker: Point & { scale: number }; knockerSay: Rect; actLabel: Rect; handMinStep: number;
   title: { name: Rect; emblem: Point; emblemScale: number; start: Rect; resume: Rect; practice: Rect; record: Rect };
 }
 

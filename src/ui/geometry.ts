@@ -3,7 +3,19 @@ import type { RowEntry } from '../rules';
 export interface HandPosition extends Point { rotation: number }
 export interface RowPosition extends Point { line: number; showLabel: boolean; showDamage: boolean }
 
+/** Dense hands use a flat fan so every exposed strip remains reachable. */
+export function handScale(count: number, layout: Layout): number {
+  if (count <= 8) return layout.hand.scale;
+  const width = MOTION.cardW * layout.hand.scale;
+  return layout.hand.scale * Math.min(1, layout.hand.width / (width + (count - 1) * layout.handMinStep));
+}
 export function handPositions(count: number, layout: Layout): HandPosition[] {
+  if (count > 8) {
+    const scale = handScale(count, layout), w = MOTION.cardW * scale;
+    const step = Math.min(MOTION.handStep, (layout.hand.width - w) / (count - 1));
+    const left = layout.hand.center - (w + step * (count - 1)) / 2;
+    return Array.from({ length: count }, (_, i) => ({ x: left + i * step, y: layout.hand.top, rotation: 0 }));
+  }
   const { w, h } = handSize(layout);
   const radius = Math.max(0, (count - 1) / 2);
   const angle = radius * MOTION.handRotation * Math.PI / 180;

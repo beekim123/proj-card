@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_reward_heal" viewBox="0 0 64 64" width="64" height="64">
+<title>奖励图标 · 回一颗心</title>
+<g id="root">
+  <!-- 心形挂坠（照 ui_heart.svg 简化：粗外框 + 1 层暗面，红宝石是唯一鲜艳的地方） -->
+  <g id="heart_pendant">
+    <!-- 顶部旧铜挂环 -->
+    <circle cx="28" cy="11" r="4.2" fill="none" stroke="#1C1412" stroke-width="4.6"/>
+    <circle cx="28" cy="11" r="4.2" fill="none" stroke="#9A7B46" stroke-width="2"/>
+    <rect x="25.2" y="13.5" width="5.6" height="4.2" rx="1" fill="#6E542B" stroke="#1C1412" stroke-width="2"/>
+
+    <!-- 旧铜心形外框（压暗古铜色 #6E542B + 右下暗面 #3B2B14） -->
+    <path d="M28,20 L20,15 L10,18 L6,28 L9,40 L28,57 L47,40 L50,28 L46,18 L36,15 Z" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <!-- 右下背光铜暗面 -->
+    <path d="M28,20 L36,15 L46,18 L50,28 L47,40 L28,57 Z" fill="#3B2B14" opacity="0.78"/>
+    <!-- 左上冷受光亮边 -->
+    <path d="M26,18.5 L20,16.8 L11.5,19.5 L8,28 L10.5,38.5" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- 鲜艳心形红宝石主体（全图唯一鲜艳处：#E3263A 主色 + #FF5C6E 亮面 + #9E1424 暗面） -->
+    <path d="M28,24.5 L21.5,20.5 L14,23 L11.2,30 L13.8,38.5 L28,51.5 L42.2,38.5 L44.8,30 L42,23 L34.5,20.5 Z" fill="#E3263A" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <!-- 左上受光亮面 -->
+    <polygon points="28,24.5 21.5,20.5 14,23 11.2,30 19,34 28,29" fill="#FF5C6E"/>
+    <!-- 右下背光暗面 -->
+    <polygon points="28,24.5 34.5,20.5 42,23 44.8,30 42.2,38.5 28,51.5 28,29" fill="#9E1424" opacity="0.85"/>
+    <!-- 中央简洁心形台面 -->
+    <polygon points="28,28.5 20,25.5 17.5,31.5 20,37.5 28,44.5 36,37.5 38.5,31.5 36,25.5" fill="#E3263A" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- 高光白斑 -->
+    <polygon points="18.5,26.5 24.5,25.5 22.5,31 17.5,30" fill="#FFFFFF" opacity="0.95"/>
+    <!-- 宝石粗外框重描 -->
+    <path d="M28,24.5 L21.5,20.5 L14,23 L11.2,30 L13.8,38.5 L28,51.5 L42.2,38.5 L44.8,30 L42,23 L34.5,20.5 Z" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+
+    <!-- 挂坠外框重描与三颗包爪铆钉 -->
+    <path d="M28,20 L20,15 L10,18 L6,28 L9,40 L28,57 L47,40 L50,28 L46,18 L36,15 Z" fill="none" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="10.5" cy="28.5" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="45.5" cy="28.5" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="28" cy="53" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4"/>
+  </g>
+
+  <!-- 右上角成套小加号（旧羊皮纸浅色 + 旧铜暗面，不抢红宝石鲜艳度） -->
+  <g id="plus_badge">
+    <path d="M46,8 H52 V14 H58 V20 H52 V26 H46 V20 H40 V14 H46 Z" fill="#E6DEC8" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M49,8 H52 V14 H58 V20 H52 V26 H49 V17 H40 V14 H49 Z" fill="#9A8968" opacity="0.78"/>
+    <path d="M46,8 H52 V14 H58 V20 H52 V26 H46 V20 H40 V14 H46 Z" fill="none" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

@@ -23,6 +23,9 @@ export function fitLayout(base: Layout, extra: number): Layout {
     const rowScale = Math.min(0.95, base.rowScale + table / 1400);
     return {
       ...base, height: base.height + e,
+      doors: { ...base.doors, points: base.doors.points.map(p => dy(p, e / 2)), detail: ry(base.doors.detail, e / 2), hint: ry(base.doors.hint, e / 2) },
+      shop: { ...base.shop, ops: base.shop.ops.map(p => ry(p, e / 2)), grid: { ...base.shop.grid, h: base.shop.grid.h + e / 2 }, back: ry(base.shop.back, e), confirm: ry(base.shop.confirm, e) },
+
       hpBar: ry(base.hpBar, scene / 2), ruleSign: ry(base.ruleSign, scene), countdown: { ...base.countdown, y: base.countdown.y + scene / 2 },
       inspect: { ...base.inspect, bottom: base.inspect.bottom + rest },
       dummyAnchor: dy(base.dummyAnchor, scene), rackAnchor: dy(base.rackAnchor, scene),
@@ -61,6 +64,10 @@ export function fitLayout(base: Layout, extra: number): Layout {
   const half = e / 2;
   return {
     ...base, width: base.width + e,
+    doors: { ...base.doors, points: base.doors.points.map(p => dx(p, half)), detail: rx(base.doors.detail, half), hint: rx(base.doors.hint, half) },
+    shop: { ...base.shop, ops: base.shop.ops.map(p => rx(p, half)), grid: rx(base.shop.grid, half), back: rx(base.shop.back, half), confirm: rx(base.shop.confirm, half) },
+    knocker: { ...base.knocker, x: base.knocker.x + half }, knockerSay: rx(base.knockerSay, half), actLabel: rx(base.actLabel, half),
+
     rules: rx(base.rules, e), settings: rx(base.settings, e),
     progress: { ...base.progress, x: base.progress.x + half },
     hpBar: rx(base.hpBar, half), ruleSign: rx(base.ruleSign, half), countdown: { ...base.countdown, x: base.countdown.x + half },

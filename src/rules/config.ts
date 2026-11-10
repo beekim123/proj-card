@@ -37,8 +37,12 @@ export const REACTION_NAMES = {
 export const TOOLS = {
   bag: { name: '口袋', v: 2, text: '摸 2 张', draw: 2 },
   lens: { name: '放大镜', v: 4, text: '倍率再 ×2', multiplier: 2 },
-  hammer: { name: '锤子', v: 1, text: '这回合伤害 ×2', turnMultiplier: 2 },
+  hammer: { name: '锤子', v: 1, text: '这回合伤害 ×3', turnMultiplier: 3 },
   mirror: { name: '镜子', v: 0, text: '变成上一张缺的宝石' },
+  hourglass: { name: '沙漏', v: 6, text: '怪出手推后 1 回合', countdown: 1 },
+  seal: { name: '封条', v: 0, text: '这回合怪的规矩不算' },
+  shadow: { name: '影子', v: 0, text: '跟上一张一模一样' },
+  whistle: { name: '哨子', v: 3, text: '叫来 1 张额外牌', drawTool: 1 },
   stone: { name: '磨石', v: 0, text: '三颗宝石各长 5 次', xp: 5 },
 } as const;
-export const TOOL_TYPES = ['bag', 'lens', 'hammer', 'mirror', 'stone'] as const;
+export const TOOL_TYPES = ['bag', 'lens', 'hammer', 'mirror', 'stone', 'hourglass', 'seal', 'shadow', 'whistle'] as const;

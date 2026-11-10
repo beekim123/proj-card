@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "assertions": 345,
+  "scope": "Pure layout geometry at five required viewport sizes; no browser, rendering or touch validation."
+}
