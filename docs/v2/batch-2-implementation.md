@@ -58,3 +58,8 @@
 - 原UI smoke120、Inspector209项通过；Inspector保留旧9种工具并增加3种原生占位，全部12种拼装验证。
 
 最终原始报告 `artifacts/batch-2/final-report.json`，日志 `final-import.log` / `final-check.log`，新流程报告 `final-replay-report.json`。这些忽略目录文件是证据，不是运行依赖。图形14张截图尚未执行，按上文脚本交本地接续；不表示用户体验通过。最终文档提交不改变本次通过的运行代码。
+
+
+## 分支交付
+
+`feature/body-batch-2` 已发布至用户指定的 `https://github.com/beekim123/proj-card`，首个发布提交 `3c00d2ea6e19c5834765b231850deca15d7c471f`，其tree `88289b9d7c62f75a2daa36fa9ba1624dbfbbd9b1` 与本地完整开发树完全相同。最终文档更新后SHA见交付回复。云端Git HTTPS无写入凭据，使用用户已连接且具有push权限的GitHub Git对象接口发布，未改main或强推。本地逐步提交历史另留分支，最终开发分支以远端核验为准。
