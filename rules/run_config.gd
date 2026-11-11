@@ -26,7 +26,10 @@ static var LEGACY_RUN: Dictionary = {
 	"shop": {"dropMax": 3, "copyCount": 1, "minDeck": 20}, "healDoor": 1, "hpScale": 1,
 	"hpLayers": {"normal": 1, "doors": 1, "elite": 2, "boss": 3},
 }
+const DIFFICULTY_TIERS: Array = [1.0,1.5,2.0,3.0,4.0,6.0]
 const MONSTERS: Dictionary = {
+	"tree":{"name":"摇钱树","line":"掉的血还会长回来。","rule":"regrow"},
+	"armor":{"name":"盔甲","line":"倍率最高三十二。","rule":"cap"},
 	"box":{"name":"弹簧盒","line":"一张探头，一张缩回去。","rule":"duck"},
 	"portrait":{"name":"画像","line":"一颗宝石？它可不吃。","rule":"picky"},
 	"lock":{"name":"大挂锁","line":"数到六，咔哒一声。","rule":"six"},
@@ -37,6 +40,8 @@ const MONSTERS: Dictionary = {
 	"dragon": {"name": "宝石龙", "line": "吞下了古堡里最大的那颗宝石。", "rule": "layers", "rules": ["hug", "bite", "bell"]},
 }
 const RULES: Dictionary = {
+	"regrow":{"name":"长回去","text":"回合结束，掉的血长回一半；封条可解除。"},
+	"cap":{"name":"压倍率","text":"倍率最高×32。"},
 	"duck": {"name":"缩头","text":"第2、4、6张牌伤害为0，其他效果照常。"},
 	"picky": {"name":"挑食","text":"单色宝石底数算0，其他效果照常。"},
 	"six": {"name":"限六张","text":"每回合最多打6张牌。"},
@@ -47,6 +52,10 @@ const RULES: Dictionary = {
 	"layers": {"name": "三层脾气", "text": "血每掉一层，换一条规矩：抱红 → 咬手 → 敲钟。"},
 }
 const RELICS: Dictionary = {
+	"link":{"name":"凑白也接链","text":"凑白保留顺色链。"},
+	"shine":{"name":"闪光300","text":"闪光宝石基础底数变成300。"},
+	"guard":{"name":"挡一次","text":"每幕抵挡一次攻击，取得后当幕立即可用。"},
+	"rbheal":{"name":"彩虹回心","text":"本回合实际新触发彩虹时回1心。"},
 	"red":{"name":"红宝石加倍","text":"红宝石底数 ×2。"},
 	"green":{"name":"绿宝石加倍","text":"绿宝石底数 ×2。"},
 	"blue":{"name":"蓝宝石加倍","text":"蓝宝石底数 ×2。"},
@@ -63,7 +72,7 @@ const RELICS: Dictionary = {
 	"heart": {"name": "多一颗心", "text": "心的上限变成 4。", "hearts": 1},
 	"grow": {"name": "宝石长得快", "text": "宝石用 8 次切好、24 次闪光。", "formAt": [0, 8, 24]},
 }
-const RELIC_IDS: Array = ["start2", "slow", "first2", "twice", "same", "once", "white", "rainbow", "heart", "grow", "red", "green", "blue", "shun", "same4"]
+const RELIC_IDS: Array = ["start2", "slow", "first2", "twice", "same", "once", "white", "rainbow", "heart", "grow", "red", "green", "blue", "shun", "same4", "link", "shine", "guard", "rbheal"]
 
 static var BATCH_TWO_RUN: Dictionary = make_batch_two()
 static var RUN: Dictionary = make_current()
@@ -85,12 +94,27 @@ static func make_batch_two() -> Dictionary:
 	value.acts = [hall,corridor]; value.fights = []
 	for act: Dictionary in value.acts: value.fights.append_array(act.rooms)
 	value.toolPool = preload("res://rules/config.gd").TOOL_TYPES.duplicate()
-	value.relicPool = RELIC_IDS.duplicate(); value.startPool = INITIAL_COLLECTION.duplicate(); value.legacy = false
+	value.relicPool = RELIC_IDS.slice(0,15); value.startPool = INITIAL_COLLECTION.duplicate(); value.legacy = false
 	return value
 static func use_current() -> void:
 	RUN = make_current()
 
 static func make_current() -> Dictionary:
-	return make_batch_two()
+	var value: Dictionary = make_batch_two()
+	value.merge({"saveVersion":6,"contentVersion":"body-batch-3","maxReadableRunVersion":6,"recordsEnvelopeVersion":3},true)
+	value.acts[1].rooms[5].canContinue = true
+	value.acts.append({"id":"vault","name":"宝库","normalMonsters":["tree","box","portrait","chest","bear"],"dragonRules":["bell","duck","cap"],"rooms":[
+		{"type":"normal","hp":4000000,"countdown":3},
+		{"type":"doors","hp":5500000,"countdown":3},
+		{"type":"elite","monster":"armor","hp":4000000,"countdown":3,"handUp":0,"healFull":true,"relic":true},
+		{"type":"doors","hp":9000000,"countdown":3},
+		{"type":"doors","hp":14000000,"countdown":3},
+		{"type":"boss","monster":"dragon","hp":25000000,"countdown":4,"healFull":true,"relic":false,"canContinue":false}]})
+	value.fights = []
+	for act: Dictionary in value.acts: value.fights.append_array(act.rooms)
+	value.relicPool = RELIC_IDS.duplicate()
+	return value
+static func is_current() -> bool:
+	return RUN.get("contentVersion") == "body-batch-3"
 static func use_batch_two() -> void:
 	RUN = BATCH_TWO_RUN.duplicate(true)

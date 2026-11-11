@@ -7,10 +7,12 @@ static func starting_relics(profile: Dictionary) -> Array:
 	var result: Array = []
 	var source: Variant = profile.get("collected",[])
 	if source is Array:
-		for id: String in RC.RELIC_IDS:
+		for id: String in RC.RUN.relicPool:
 			if source.has(id): result.append(id)
 	return result
 static func apply_retreat(profile: Dictionary, relics: Array) -> Dictionary:
+	return apply_safe_exit(profile,relics)
+static func apply_safe_exit(profile: Dictionary, relics: Array) -> Dictionary:
 	return {"version":1,"collected":starting_relics({"collected":starting_relics(profile)+relics})}
 static func valid(profile: Variant) -> bool:
 	if not profile is Dictionary or profile.get("version") != 1 or not profile.get("collected") is Array: return false

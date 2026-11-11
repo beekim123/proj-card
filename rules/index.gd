@@ -171,7 +171,7 @@ static func gem_form(state: Dictionary, index: Variant) -> int:
 	return 2 if count >= thresholds[2] else (1 if count >= thresholds[1] else 0)
 
 static func gem_value(state: Dictionary, index: Variant) -> float:
-	return float(CONFIG.gemValue[gem_form(state,index)])
+	return 300.0 if RC.is_current() and gem_form(state,index) == 2 and E.active_relics(state).has("shine") else float(CONFIG.gemValue[gem_form(state,index)])
 
 static func base_value(state: Dictionary, value: Variant) -> float:
 	if not assert_mask(value): return 0.0
@@ -190,9 +190,10 @@ static func reaction(previous: Variant, current: Variant) -> String:
 
 static func next_chain(state: Dictionary, value: Variant, kind: String) -> Dictionary:
 	var chromatic: bool = CONFIG.rainbowColors.has(int(value))
-	var colors: Array = state.chain.duplicate() if kind == "shun" else []
+	var keep: bool = kind == "shun" or (RC.is_current() and kind == "white" and E.active_relics(state).has("link"))
+	var colors: Array = state.chain.duplicate() if keep else []
 	if chromatic and not colors.has(value): colors.append(value)
-	var indices: Array = state.chainIdx.duplicate() if kind == "shun" else []
+	var indices: Array = state.chainIdx.duplicate() if keep else []
 	indices.append(state.row.size())
 	return {"colors":colors,"indices":indices}
 
@@ -220,8 +221,8 @@ static func evaluate_card(state: Dictionary, original: Dictionary, monster: Vari
 		if int(entry.v) & int(GEMS[index].bit): entry.b += entry.gemValues[index]
 	entry.cm = CONFIG.reactionMultiplier[entry.k]
 	E.apply_effects(ids,"reactionMultiplier",context)
-	entry.dmg = entry.b*state.m*entry.cm
-	entry.m2 = state.m*CONFIG.multiplierDouble if entry.k in ["shun","white"] else state.m+CONFIG.multiplierIncrement
+	entry.dmg = entry.b*entry.m*entry.cm
+	entry.m2 = entry.m*CONFIG.multiplierDouble if entry.k in ["shun","white"] else entry.m+CONFIG.multiplierIncrement
 	E.apply_effects(ids,"multiplier",context); E.apply_effects(ids,"rainbowNeed",context)
 	context.chain = next_chain(state,entry.v,entry.k)
 	E.apply_effects(ids,"chain",context)
@@ -249,6 +250,8 @@ static func evaluate_card(state: Dictionary, original: Dictionary, monster: Vari
 		var before: int = gem_form(state,index)
 		if state.opts.grow and before < 2 and context.xp[index] >= context.thresholds[before+1]: entry.grown.append(index)
 	E.apply_effects(ids,"afterGrowth",context); E.apply_effects(ids,"afterLayer",context)
+	if RC.is_current() and (ids.has("cap") or (context.has("monster") and E.active_monster_rule(context.monster) == "cap")):
+		entry.m2 = minf(entry.m2,32)
 	return context
 
 static func preview_card(state: Dictionary, card_or_mask: Variant) -> Dictionary:

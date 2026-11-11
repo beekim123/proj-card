@@ -2,7 +2,8 @@ class_name GamePersistence
 extends RefCounted
 ## Native filesystem adapter for the H5 save.ts behavior. Rules return the exact
 ## portable JSON string; this adapter writes and reads that original text.
-const RC = preload("res://rules/run_config.gd")
+const RC: GDScript = preload("res://rules/run_config.gd")
+const Progression: GDScript = preload("res://rules/progression.gd")
 const Profile = preload("res://rules/profile.gd")
 const Save: GDScript = preload("res://rules/save_state.gd")
 const Run: GDScript = preload("res://rules/run.gd")
@@ -76,14 +77,18 @@ func _is_records(value: Variant) -> bool:
 		if not Save.integer(value.get(key)): return false
 	for key: String in ["bestTurn", "maxOverkill"]:
 		if not Save.number(value.get(key)): return false
-	return value.wins <= value.played and value.farthest <= (7 if RC.RUN.legacy else 12) and (RC.RUN.legacy or (Save.integer(value.get("retreats")) and value.retreats <= value.played))
+	if RC.is_current():
+		if not Save.integer(value.get("fullWins")) or not Save.integer(value.get("bestClearedTier"),-1) or value.bestClearedTier > 5: return false
+		if value.fullWins > value.wins or (value.fullWins == 0 and value.bestClearedTier != -1) or (value.fullWins > 0 and value.bestClearedTier < 0): return false
+	return value.wins <= value.played and value.farthest <= (7 if RC.RUN.legacy else RC.RUN.fights.size()) and (RC.RUN.legacy or (Save.integer(value.get("retreats")) and value.retreats <= value.played))
 
 func _copy_records(records: Dictionary) -> Dictionary:
 	var result: Dictionary = {"played": records.played, "wins": records.wins, "farthest": records.farthest, "bestTurn": records.bestTurn, "maxOverkill": records.maxOverkill}
 	if not RC.RUN.legacy: result.retreats = records.get("retreats",0)
+	if RC.is_current(): result.fullWins = records.get("fullWins",0); result.bestClearedTier = records.get("bestClearedTier",-1)
 	return result
 
-func _read_records() -> Dictionary:
+func _read_records_older() -> Dictionary:
 	var raw: Variant = _read_raw("gemcard.records")
 	var defaults: Dictionary = {"version":2,"records":Run.create_records(),"profile":Profile.create_profile(),"settledRunIds":[],"clearedRun":null}
 	if raw == null: return defaults
@@ -108,6 +113,29 @@ func _read_records() -> Dictionary:
 	if not RC.RUN.legacy: last_error = "收藏与纪录读不出来，原文件已保留"
 	return defaults
 
+func _read_records() -> Dictionary:
+	if not RC.is_current(): return _read_records_older()
+	var defaults: Dictionary = {"version":3,"records":Run.create_records(),"profile":Profile.create_profile(),"settledRunIds":[],"clearedRun":null}
+	var raw: Variant = _read_raw("gemcard.records")
+	if raw == null: return defaults
+	var value: Variant = Save.parse_json_exact(raw)
+	if value is Dictionary and value.get("version") == 3:
+		var valid: bool = _is_records(value.get("records")) and Profile.valid(value.get("profile")) and value.get("settledRunIds") is Array
+		if valid:
+			valid = Save._unique(value.settledRunIds)
+			for id: Variant in value.settledRunIds:
+				if not id is String or id.is_empty(): valid = false
+		if valid and (value.get("clearedRun") == null or value.clearedRun is String): return value
+	elif value is Dictionary and (value.get("version") == 2 or not value.has("version")):
+		var current: Dictionary = RC.RUN; RC.use_batch_two()
+		var older: Dictionary = _read_records_older()
+		RC.set("RUN",current)
+		if last_error.is_empty():
+			older.version = 3; older.records.fullWins = 0; older.records.bestClearedTier = -1
+			if _is_records(older.records) and Profile.valid(older.profile): return older
+	last_error = "收藏与纪录读不出来，原文件已保留"
+	return defaults
+
 func _write_records(records: Dictionary, cleared_run: Variant, previous: Dictionary = {}) -> bool:
 	if not _is_records(records): last_error = "纪录无效"; return false
 	if RC.RUN.legacy:
@@ -116,6 +144,7 @@ func _write_records(records: Dictionary, cleared_run: Variant, previous: Diction
 		return _write("gemcard.records",value)
 	var envelope: Dictionary = previous.duplicate(true) if not previous.is_empty() else _read_records()
 	if not last_error.is_empty(): return false
+	envelope.version = RC.RUN.recordsEnvelopeVersion
 	envelope.records = _copy_records(records); envelope.clearedRun = cleared_run
 	return _write("gemcard.records",envelope)
 
@@ -172,14 +201,15 @@ func load_run() -> Dictionary:
 	var result: Dictionary = Save.decode_run_save(raw)
 	if result.get("migrated",false):
 		# Back up the untouched v4 bytes before any migration write.
-		var backup_key: String = "gemcard.run.v4-" + str(raw).sha256_text().left(16)
+		var backup_key: String = "gemcard.run.v"+str(result.get("sourceVersion",4))+"-" + str(raw).sha256_text().left(16)
 		if not FileAccess.file_exists(directory+backup_key+".json") and not _write_raw(backup_key,raw):
 			return {"state":null,"clear":false,"reason":"migration_failed","error":last_error}
-		var identity: Variant = _read("gemcard.run.migration")
-		if not identity is Dictionary or identity.get("sourceHash") != str(raw).sha256_text() or not identity.get("runId") is String:
-			identity = {"sourceHash":str(raw).sha256_text(),"runId":new_run_id()}
-			if not _write("gemcard.run.migration",identity): return {"state":null,"clear":false,"reason":"migration_failed","error":last_error}
-		result.state.runId = identity.runId
+		if result.state.runId.is_empty():
+			var identity: Variant = _read("gemcard.run.migration")
+			if not identity is Dictionary or identity.get("sourceHash") != str(raw).sha256_text() or not identity.get("runId") is String:
+				identity = {"sourceHash":str(raw).sha256_text(),"runId":new_run_id()}
+				if not _write("gemcard.run.migration",identity): return {"state":null,"clear":false,"reason":"migration_failed","error":last_error}
+			result.state.runId = identity.runId
 		if _fail_io("migration"): return {"state":null,"clear":false,"reason":"migration_failed","error":last_error}
 		var converted: Variant = Save.encode_run_save(result.state)
 		if converted == null or not _write_raw("gemcard.run",converted):
@@ -201,7 +231,7 @@ func save_run(state: Dictionary) -> bool:
 	if not RC.RUN.legacy:
 		var existing: Variant = _read("gemcard.run")
 		if not last_error.is_empty(): return false
-		if existing is Dictionary and Save.integer(existing.get("version")) and existing.version > 5:
+		if existing is Dictionary and Save.integer(existing.get("version")) and existing.version > RC.RUN.maxReadableRunVersion:
 			last_error = "存档来自更新版本，原文件已保留"; return false
 		if not state.get("runId") is String or state.runId.is_empty(): last_error = "这局缺少身份，不能保存"; return false
 	var raw: Variant = Save.encode_run_save(state)
@@ -225,6 +255,10 @@ func clear_run() -> bool:
 func record_result(state: Dictionary, records: Dictionary) -> bool:
 	last_error = ""
 	if state.get("result") == null: return false
+	if RC.is_current():
+		if state.get("phase") not in ["victory","retreat","defeat"] or state.result.outcome != state.phase or state.get("contentVersion") != "body-batch-3": last_error = "结算状态无效"; return false
+		if not state.get("difficulty") is Dictionary or Progression.tier_multiplier(state.difficulty.get("tier")) < 0: last_error = "结算档位无效"; return false
+		if state.phase == "victory" and (state.fight != 18 or Run.cleared_fights(state) != 18): last_error = "不是完整三幕通关"; return false
 	if not RC.RUN.legacy and (not state.get("runId") is String or state.runId.is_empty()):
 		last_error = "这局缺少身份，不能结算"; return false
 	if state.result.get("recordsApplied", false): return true
@@ -249,7 +283,12 @@ func record_result(state: Dictionary, records: Dictionary) -> bool:
 		var updated: Dictionary = envelope.duplicate(true)
 		updated.settledRunIds.append(state.runId)
 		var previous_collection: Array = Profile.starting_relics(envelope.profile)
-		if state.result.outcome == "retreat": updated.profile = Profile.apply_retreat(envelope.profile,state.relics)
+		if state.result.outcome == "retreat" or (RC.is_current() and state.result.outcome == "victory"): updated.profile = Profile.apply_safe_exit(envelope.profile,state.relics)
+		if RC.is_current() and state.result.outcome == "victory":
+			next_records = Progression.apply_clear(next_records,int(state.difficulty.tier))
+			next_run.result.firstBigGem = not Progression.has_big_gem(envelope.records)
+			next_run.result.newUnlockedTiers = []
+			for tier: int in range(Progression.unlocked_tier(envelope.records)+1,Progression.unlocked_tier(next_records)+1): next_run.result.newUnlockedTiers.append(tier)
 		next_run.result.newCollection = []
 		for id: String in Profile.starting_relics(updated.profile):
 			if not previous_collection.has(id): next_run.result.newCollection.append(id)

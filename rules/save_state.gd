@@ -50,11 +50,11 @@ static func numbers(value: Variant, length: int = -1) -> bool:
 
 static func card(value: Variant, row: bool = false) -> bool:
 	if not object(value) or not integer(value.get("id"), 1) or not integer(value.get("v")) or value.v > 7: return false
-	if not RC.RUN.legacy and not row and (value.has("spent") or value.has("heal")): return false
+	if not RC.RUN.legacy and not row and (value.has("spent") or value.has("heal") or value.has("rbHeal")): return false
 	if not value.has("type"): return true
 	return tool(value.type) and ((row and value.type in Config.RESOLVED_MASK_TOOLS) or value.v == Config.TOOLS[value.type].v)
 
-static func row_entry(value: Variant) -> bool:
+static func row_entry(value: Variant, context: Dictionary = {}) -> bool:
 	if not card(value, true): return false
 	for key: String in ["cm", "m", "m2"]:
 		if not number(value.get(key), 1): return false
@@ -68,8 +68,12 @@ static func row_entry(value: Variant) -> bool:
 	for effect: Variant in value.effects:
 		if not object(effect) or not effect.get("id") is String or not effect.get("text") is String: return false
 	if not RC.RUN.legacy:
+		var rainbow_heal: bool = value.has("rbHeal")
+		if rainbow_heal and (not RC.is_current() or value.rbHeal != true or not value.rb or context.get("rainbow") != true or not context.get("relics",[]).has("rbheal")): return false
 		if value.get("type") == "potion":
-			if value.get("spent") != true or (not integer(value.get("heal"),1) or value.heal > 2): return false
+			if value.get("spent") != true or not integer(value.get("heal"),2 if rainbow_heal else 1) or value.heal > (3 if rainbow_heal else 2): return false
+		elif rainbow_heal:
+			if value.has("spent") or value.get("heal") != 1: return false
 		elif value.has("spent") or value.has("heal"): return false
 		for effect: Dictionary in value.effects:
 			if not preload("res://rules/effects.gd").EFFECTS.has(effect.id) and effect.id not in ["handFull","whistleEmpty"]: return false
@@ -86,9 +90,12 @@ static func game(value: Variant, cards: Array, history: bool) -> bool:
 			if not card(item): return false
 			all.append(item)
 	if value.hand.size() > RC.RUN.handHardMax or not value.get("row") is Array: return false
+	var rainbow_heals: int = 0
 	for item: Variant in value.row:
-		if not row_entry(item): return false
+		if not row_entry(item,value): return false
+		if item.has("rbHeal"): rainbow_heals += 1
 		all.append(item)
+	if rainbow_heals > 1: return false
 	if all.size() != cards.size(): return false
 	var ids: Array = []
 	var canonical: Dictionary = {}
@@ -223,7 +230,7 @@ static func encode_run_save(state: Dictionary) -> Variant:
 	if not is_active_run_state(state):
 		last_error = "不能保存不完整的一局"
 		return null
-	return JSON.stringify({"version": 4 if RC.RUN.legacy else 5, "state": state}, "", false, true)
+	return JSON.stringify({"version": RC.RUN.saveVersion, "state": state}, "", false, true)
 
 static func _contains_marker(value: Variant, marker: String) -> bool:
 	if value is String: return value.contains(marker)
@@ -291,19 +298,33 @@ static func decode_run_save(raw: Variant) -> Dictionary:
 	if raw is String:
 		var envelope: Variant = parse_json_exact(raw)
 		if object(envelope) and integer(envelope.get("version")):
-			if envelope.version < 4: return {"state":null,"clear":true,"reason":"outdated"}
-			if envelope.version > (4 if RC.RUN.legacy else 5): return {"state":null,"clear":false,"reason":"unsupported"} if not RC.RUN.legacy else {"state":null,"clear":true,"reason":"invalid"}
-			if envelope.version == 4:
-				var previous: Dictionary = RC.RUN
-				RC.use_legacy()
-				var valid: bool = is_active_run_state(envelope.get("state"))
-				RC.set("RUN",previous)
-				if valid:
-					if RC.RUN.legacy: return {"state":envelope.state,"clear":false,"reason":"ok"}
-					return {"state":migrate_v4(envelope.state),"clear":false,"reason":"ok","migrated":true}
-			elif envelope.version == 5 and is_active_run_state(envelope.get("state")):
-				return {"state":envelope.state,"clear":false,"reason":"ok"}
+			var version: int = int(envelope.version)
+			if version < 4: return {"state":null,"clear":true,"reason":"outdated"}
+			if version > RC.RUN.maxReadableRunVersion: return {"state":null,"clear":false,"reason":"unsupported"} if not RC.RUN.legacy else {"state":null,"clear":true,"reason":"invalid"}
+			var previous: Dictionary = RC.RUN
+			if version == 4: RC.use_legacy()
+			elif version == 5: RC.use_batch_two()
+			var valid: bool = is_active_run_state(envelope.get("state"))
+			RC.set("RUN",previous)
+			if valid:
+				var state: Dictionary = envelope.state
+				if version == RC.RUN.saveVersion: return {"state":state,"clear":false,"reason":"ok"}
+				if version == 4: state = migrate_v4(state)
+				if RC.is_current(): state = migrate_v5(state)
+				# v4 has no identity yet; filesystem adapter binds the source hash.
+				var identity: String = state.runId
+				if identity.is_empty(): state.runId = "migration-validation-only"
+				valid = is_active_run_state(state); state.runId = identity
+				if valid: return {"state":state,"clear":false,"reason":"ok","migrated":true,"sourceVersion":version,"sourceHash":str(raw).sha256_text()}
 	return {"state":null,"clear":true,"reason":"invalid"}
+
+static func migrate_v5(original: Dictionary) -> Dictionary:
+	var state: Dictionary = original.duplicate(true)
+	state.contentVersion = "body-batch-3"
+	state.monsters.append_array(["tree","tree","armor","tree","tree","dragon"])
+	state.difficulty = {"tier":0,"tuningScale":state.hpScale}; state.guardUsedThisAct = false
+	for history: Dictionary in state.hist: history.guardUsedThisAct = false
+	return state
 
 static func migrate_v4(original: Dictionary) -> Dictionary:
 	var state: Dictionary = original.duplicate(true)
@@ -318,10 +339,17 @@ static func migrate_v4(original: Dictionary) -> Dictionary:
 	return state
 
 static func _v5_details(value: Dictionary) -> bool:
-	if not value.get("runId") is String or value.runId.is_empty() or value.get("contentVersion") != "body-batch-2": return false
+	if not value.get("runId") is String or value.runId.is_empty() or value.get("contentVersion") != RC.RUN.contentVersion: return false
 	if value.get("relicPurpose") not in ["initial","elite","boss"]: return false
 	if not relic_list(value.get("startingRelics")) or value.startingRelics.is_empty(): return false
-	if value.relics.size() > 5: return false
+	if value.relics.size() > (6 if RC.is_current() else 5): return false
+	if RC.is_current():
+		if not value.get("difficulty") is Dictionary or value.difficulty.size() != 2 or not value.difficulty.has("tier") or not value.difficulty.has("tuningScale"): return false
+		var multiplier: float = preload("res://rules/progression.gd").tier_multiplier(value.difficulty.tier)
+		if multiplier < 0 or not number(value.difficulty.tuningScale) or value.difficulty.tuningScale <= 0 or value.hpScale != multiplier*value.difficulty.tuningScale: return false
+		if not value.get("guardUsedThisAct") is bool or (not value.relics.has("guard") and value.guardUsedThisAct): return false
+		for history: Dictionary in value.hist:
+			if not history.get("guardUsedThisAct") is bool or (not value.relics.has("guard") and history.guardUsedThisAct): return false
 	var count: Dictionary = {}
 	for item: Dictionary in value.cards:
 		if item.id >= value.nextCardId: return false
