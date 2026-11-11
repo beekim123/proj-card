@@ -1,0 +1,396 @@
+{
+	"sourceCommit": "74fddbe7763f613981560b42ddf17e2b1511f19e",
+	"mode": "body-batch-2 after L05 fix, before batch3",
+	"fixtures": {
+		"initial-relic": {
+			"commands": "create_run(1979)",
+			"sha256": "95135ba592b93ab2ac7ac6702c663399509959a9a251f1add911ef74c87a052e",
+			"phase": "relic",
+			"rngState": 880026137,
+			"cards": 30,
+			"nextCardId": 31,
+			"hand": [
+				{
+					"id": 28,
+					"v": 7
+				},
+				{
+					"id": 13,
+					"v": 4
+				},
+				{
+					"id": 21,
+					"v": 6
+				},
+				{
+					"id": 8,
+					"v": 2
+				},
+				{
+					"id": 6,
+					"v": 2
+				},
+				{
+					"id": 26,
+					"v": 5
+				},
+				{
+					"id": 4,
+					"v": 1
+				}
+			],
+			"relicOptions": [
+				"same",
+				"once",
+				"white"
+			]
+		},
+		"battle": {
+			"commands": "choose_relic(0)",
+			"sha256": "dae2adf0b837f7c97ed339c50cd2739442c982506277a86560102e3a0159789b",
+			"phase": "battle",
+			"rngState": 880026137,
+			"cards": 30,
+			"nextCardId": 31,
+			"hand": [
+				{
+					"id": 28,
+					"v": 7
+				},
+				{
+					"id": 13,
+					"v": 4
+				},
+				{
+					"id": 21,
+					"v": 6
+				},
+				{
+					"id": 8,
+					"v": 2
+				},
+				{
+					"id": 6,
+					"v": 2
+				},
+				{
+					"id": 26,
+					"v": 5
+				},
+				{
+					"id": 4,
+					"v": 1
+				}
+			],
+			"relicOptions": []
+		},
+		"loot": {
+			"commands": "debug HP1, play until broken, end turn",
+			"sha256": "1e9e5c4fc986bd307e6cedc4368432013a6defb19b33e8f27789684d7e40e3f1",
+			"phase": "loot",
+			"rngState": 3847380896,
+			"cards": 30,
+			"nextCardId": 31,
+			"hand": [
+				{
+					"id": 13,
+					"v": 4
+				},
+				{
+					"id": 21,
+					"v": 6
+				},
+				{
+					"id": 8,
+					"v": 2
+				},
+				{
+					"id": 6,
+					"v": 2
+				},
+				{
+					"id": 26,
+					"v": 5
+				},
+				{
+					"id": 4,
+					"v": 1
+				}
+			],
+			"relicOptions": []
+		},
+		"doors": {
+			"commands": "skip_loot",
+			"sha256": "ab8048df2fdc17553e883d299524cebf74169db7ba2f03102f7c384b71d72912",
+			"phase": "doors",
+			"rngState": 496378955,
+			"cards": 30,
+			"nextCardId": 31,
+			"hand": [
+				{
+					"id": 25,
+					"v": 5
+				},
+				{
+					"id": 23,
+					"v": 6
+				},
+				{
+					"id": 28,
+					"v": 7
+				},
+				{
+					"id": 20,
+					"v": 6
+				},
+				{
+					"id": 16,
+					"v": 3
+				},
+				{
+					"id": 29,
+					"v": 7
+				},
+				{
+					"id": 9,
+					"v": 2
+				}
+			],
+			"relicOptions": []
+		},
+		"shop": {
+			"commands": "choose shop door; debug HP1 victory",
+			"sha256": "3d0544030e43ce10c7414921a6949c41aeaa8bd69d19635b9ae521dc7cefa10f",
+			"phase": "shop",
+			"rngState": 496378955,
+			"cards": 30,
+			"nextCardId": 31,
+			"hand": [
+				{
+					"id": 23,
+					"v": 6
+				},
+				{
+					"id": 28,
+					"v": 7
+				},
+				{
+					"id": 20,
+					"v": 6
+				},
+				{
+					"id": 16,
+					"v": 3
+				},
+				{
+					"id": 29,
+					"v": 7
+				},
+				{
+					"id": 9,
+					"v": 2
+				}
+			],
+			"relicOptions": []
+		},
+		"elite-relic": {
+			"commands": "jump act1 room3; debug HP1 victory",
+			"sha256": "24a498f48bccb30679667f9ad654da5ebded9020d326093f5028c41330e16d3c",
+			"phase": "relic",
+			"rngState": 496378955,
+			"cards": 30,
+			"nextCardId": 31,
+			"hand": [
+				{
+					"id": 30,
+					"v": 0
+				},
+				{
+					"id": 18,
+					"v": 3
+				},
+				{
+					"id": 25,
+					"v": 5
+				},
+				{
+					"id": 29,
+					"v": 7
+				},
+				{
+					"id": 17,
+					"v": 3
+				},
+				{
+					"id": 3,
+					"v": 1
+				}
+			],
+			"relicOptions": [
+				"shun",
+				"green",
+				"first2"
+			]
+		},
+		"boss-relic": {
+			"commands": "choose elite relic; jump act1 room6; debug HP1 victory",
+			"sha256": "ca08100159133df57f27ab3d780b41e0a61fd947d53452a770a53fc88f251bae",
+			"phase": "relic",
+			"rngState": 3520098611,
+			"cards": 30,
+			"nextCardId": 31,
+			"hand": [
+				{
+					"id": 9,
+					"v": 2
+				},
+				{
+					"id": 8,
+					"v": 2
+				},
+				{
+					"id": 11,
+					"v": 4
+				},
+				{
+					"id": 10,
+					"v": 2
+				},
+				{
+					"id": 26,
+					"v": 5
+				},
+				{
+					"id": 27,
+					"v": 5
+				},
+				{
+					"id": 17,
+					"v": 3
+				}
+			],
+			"relicOptions": [
+				"once",
+				"red",
+				"green"
+			]
+		},
+		"act1-choice": {
+			"commands": "jump act1 room6; win; choose boss relic",
+			"sha256": "9d61b0409a79ed559a4769dfe7073312bcc0024f2877dab0ade87bc69e7e9ac9",
+			"phase": "act_choice",
+			"rngState": 3520098611,
+			"cards": 30,
+			"nextCardId": 31,
+			"hand": [
+				{
+					"id": 9,
+					"v": 2
+				},
+				{
+					"id": 8,
+					"v": 2
+				},
+				{
+					"id": 11,
+					"v": 4
+				},
+				{
+					"id": 10,
+					"v": 2
+				},
+				{
+					"id": 26,
+					"v": 5
+				},
+				{
+					"id": 27,
+					"v": 5
+				},
+				{
+					"id": 17,
+					"v": 3
+				}
+			],
+			"relicOptions": []
+		},
+		"act2-choice": {
+			"commands": "jump act2 room6; win; choose boss relic",
+			"sha256": "5ae139004dd326aeaf50cf65d07730b367bf2f9374b6de14df082ff8276e184a",
+			"phase": "act_choice",
+			"rngState": 2888262941,
+			"cards": 30,
+			"nextCardId": 31,
+			"hand": [
+				{
+					"id": 12,
+					"v": 4
+				},
+				{
+					"id": 10,
+					"v": 2
+				},
+				{
+					"id": 11,
+					"v": 4
+				},
+				{
+					"id": 29,
+					"v": 7
+				},
+				{
+					"id": 19,
+					"v": 3
+				},
+				{
+					"id": 3,
+					"v": 1
+				}
+			],
+			"relicOptions": []
+		},
+		"palette-row": {
+			"commands": "give palette+potion via legal allocator; deal red,palette,potion; play red,palette",
+			"sha256": "2b64d39f74e8dc76a2201bf331e43e9674b605c6f6cdc0e9ff113f2fc49dae3e",
+			"phase": "battle",
+			"rngState": 880026137,
+			"cards": 32,
+			"nextCardId": 33,
+			"hand": [
+				{
+					"id": 32,
+					"v": 1,
+					"type": "potion"
+				}
+			],
+			"relicOptions": []
+		},
+		"potion-spent": {
+			"commands": "play potion before turn commit",
+			"sha256": "764c4c37ab52e62c0672dffe8ab3ac67fcda218b2b27d8c1efd4cbc168117edb",
+			"phase": "battle",
+			"rngState": 880026137,
+			"cards": 32,
+			"nextCardId": 33,
+			"hand": [],
+			"relicOptions": []
+		},
+		"undo-history": {
+			"commands": "undo potion, retain paired earlier histories",
+			"sha256": "2b64d39f74e8dc76a2201bf331e43e9674b605c6f6cdc0e9ff113f2fc49dae3e",
+			"phase": "battle",
+			"rngState": 880026137,
+			"cards": 32,
+			"nextCardId": 33,
+			"hand": [
+				{
+					"id": 32,
+					"v": 1,
+					"type": "potion"
+				}
+			],
+			"relicOptions": []
+		}
+	},
+	"failures": []
+}

@@ -503,26 +503,28 @@ func _relic_pick() -> void:
 	for index: int in range(run_state.relicOptions.size()):
 		var id: String = run_state.relicOptions[index]
 		var point: Dictionary = layout.relicPick.points[index]
-		var box: Dictionary = {"x":point.x,"y":point.y,"w":200*layout.relicPick.scale,"h":300*layout.relicPick.scale}
+		var box: Dictionary = {"x":point.x-(20 if layout.name == "landscape" else 0),"y":point.y,"w":240 if layout.name == "landscape" else 200*layout.relicPick.scale,"h":300*layout.relicPick.scale}
 		var panel: Control=_panel(box); panel.name="RelicPanel"+str(index); panel.clip_contents=true
 		var inner_width: float=float(box.w)-20.0
-		var name_height: float=float(layout.relicPick.nameSize)*1.1
-		var detail_height: float=minf(float(layout.relicPick.textSize)*3.6,maxf(0.0,float(box.h)-16.0-float(layout.relicPick.icon)-name_height-8.0))
-		var block_height: float=float(layout.relicPick.icon)+name_height+detail_height+8.0
+		var name_height: float=art.font.get_height(int(layout.relicPick.nameSize))
+		var detail_height: float=art.font.get_height(int(layout.relicPick.textSize))*4.0
+		var icon_height: float=maxf(40.0,float(box.h)-32.0-name_height-detail_height)
+		var block_height: float=icon_height+name_height+detail_height+8.0
 		var top: float=(float(box.h)-block_height)/2.0
-		var icon_extent: float=minf(float(layout.relicPick.icon),inner_width)
-		_art("relic_"+id,{"x":(box.w-icon_extent)/2.0,"y":top+(layout.relicPick.icon-icon_extent)/2.0,"w":icon_extent,"h":icon_extent},panel)
-		var title_box: Control=Control.new(); title_box.position=Vector2(10,top+layout.relicPick.icon+4); title_box.size=Vector2(inner_width,name_height); title_box.mouse_filter=Control.MOUSE_FILTER_IGNORE; panel.add_child(title_box)
+		var icon_extent: float=minf(icon_height,inner_width)
+		_art("relic_"+id,{"x":(box.w-icon_extent)/2.0,"y":top+(icon_height-icon_extent)/2.0,"w":icon_extent,"h":icon_extent},panel)
+		var title_box: Control=Control.new(); title_box.position=Vector2(10,top+icon_height+4); title_box.size=Vector2(inner_width,name_height); title_box.mouse_filter=Control.MOUSE_FILTER_IGNORE; panel.add_child(title_box)
 		var title_font: FontVariation=FontVariation.new(); title_font.base_font=art.bold_font if art.bold_font!=null else art.font; title_font.spacing_glyph=-1
 		var title_width: float=maxf(inner_width,title_font.get_string_size(RC.RELICS[id].name,HORIZONTAL_ALIGNMENT_CENTER,-1,int(layout.relicPick.nameSize)).x)
 		var name: Label=Label.new(); name.name="RelicName"+str(index); name.mouse_filter=Control.MOUSE_FILTER_IGNORE; name.autowrap_mode=TextServer.AUTOWRAP_OFF; name.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		name.add_theme_font_override("font",title_font); name.add_theme_font_size_override("font_size",int(layout.relicPick.nameSize)); name.add_theme_color_override("font_color",Color(art.manifest.palette.text))
 		name.position=Vector2((inner_width-title_width)/2.0,(name_height-title_font.get_height(int(layout.relicPick.nameSize)))/2.0); name.size=Vector2(title_width,title_font.get_height(int(layout.relicPick.nameSize))); title_box.add_child(name); name.text=RC.RELICS[id].name
-		var detail_box: Control=Control.new(); detail_box.name="RelicDescriptionClip"+str(index); detail_box.clip_contents=true; detail_box.mouse_filter=Control.MOUSE_FILTER_IGNORE; detail_box.position=Vector2(10,top+layout.relicPick.icon+4+name_height+4); detail_box.size=Vector2(inner_width,detail_height); panel.add_child(detail_box)
+		name.scale.x=minf(1.0,inner_width/title_width); name.position.x=(inner_width-title_width*name.scale.x)/2.0
+		var detail_box: Control=Control.new(); detail_box.name="RelicDescriptionClip"+str(index); detail_box.clip_contents=true; detail_box.mouse_filter=Control.MOUSE_FILTER_IGNORE; detail_box.position=Vector2(10,top+icon_height+4+name_height+4); detail_box.size=Vector2(inner_width,detail_height); panel.add_child(detail_box)
 		var detail_font: int=int(layout.relicPick.textSize)
-		var detail: Label=Label.new(); detail.name="RelicDescription"+str(index); detail.mouse_filter=Control.MOUSE_FILTER_IGNORE; detail.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; detail.clip_text=true; detail.max_lines_visible=3; detail.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-		detail.add_theme_font_size_override("font_size",detail_font); detail.add_theme_color_override("font_color",Color(art.manifest.palette.text)); detail.add_theme_constant_override("line_spacing",int(round(detail_font*1.2-art.font.get_height(detail_font))))
-		detail.position=Vector2(0,(detail_font*1.2-art.font.get_height(detail_font))/2.0); detail.size=Vector2(inner_width,maxf(detail_height,art.font.get_height(detail_font))); detail_box.add_child(detail); detail.text=RC.RELICS[id].text
+		var detail: Label=Label.new(); detail.name="RelicDescription"+str(index); detail.mouse_filter=Control.MOUSE_FILTER_IGNORE; detail.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; detail.clip_text=false; detail.max_lines_visible=-1; detail.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+		detail.add_theme_font_size_override("font_size",detail_font); detail.add_theme_color_override("font_color",Color(art.manifest.palette.text)); detail.add_theme_constant_override("line_spacing",0)
+		detail.position=Vector2.ZERO; detail.size=Vector2(inner_width,maxf(detail_height,art.font.get_height(detail_font))); detail_box.add_child(detail); detail.text=RC.RELICS[id].text
 		_selectable(panel,index == selected_relic,func() -> void: selected_relic = index; _render(),{},"relic")
 	_label("选了「%s」，点“拿这件”带走" % RC.RELICS[run_state.relicOptions[selected_relic]].name if selected_relic >= 0 else "选一件，再点“拿这件”",layout.loot.hint,30,null,true)
 	_button("拿这件",layout.loot.take,_take_relic,true).disabled = selected_relic < 0
@@ -890,7 +892,7 @@ func _visible_hand() -> Array[Dictionary]:
 
 func _hand() -> void:
 	if screen == "adventure" and not R.can_play_run_card(run_state).ok:
-		var blocked: Label = _label("这回合打满6张了",layout.loot.hint,30,null,true); blocked.name = "SixCardLimit"
+		var blocked: Label = _label("这回合打满6张了",{"x":48 if layout.name == "landscape" else 700,"y":820 if layout.name == "landscape" else 870,"w":330,"h":48},26,null,true); blocked.name = "SixCardLimit"
 	var previous: Dictionary=hand_nodes.duplicate()
 	hand_nodes.clear()
 	for old: Control in hand_labels:
@@ -1940,9 +1942,16 @@ func _result_count(number: Label, value: float, formatter: Callable, order: int)
 		_later((order+1)*300.0+step*30.0,func() -> void:
 			if is_instance_valid(number): number.text=formatter.call(value*float(step)/10.0))
 
+func _content_panel_box() -> Dictionary:
+	var box: Dictionary = layout.result.panel.duplicate(true)
+	var top: float = maxf(float(box.y),float(layout.banner.y+layout.banner.h)+24.0)
+	var bottom: float = minf(float(layout.result.home.y),float(layout.result.again.y))-32.0
+	box.y = top; box.h = bottom-top
+	return box
+
 func _result() -> void:
 	var result: Dictionary=run_state.result
-	var panel: Control=_panel(layout.result.panel,scene,48)
+	var panel: Control=_panel(_content_panel_box(),scene,48)
 	panel.name="ResultPanel"
 	var origin: Vector2=panel.position
 	panel.modulate.a=0.0
@@ -2212,6 +2221,13 @@ func debug_deal(sequence: Array, test: int = 0) -> void:
 			if not C.TOOL_TYPES.has(value): _toast("未知额外牌"); return
 		elif not (value is int or value is float) or float(value) != floor(float(value)) or float(value) < 0 or float(value) > 7:
 			_toast("宝石位必须是 0–7"); return
+	# Validate the complete request before changing cards or the identity allocator.
+	if sequence.size() > RC.RUN.handHardMax: _toast("手里拿不下了"); return
+	var requested: Dictionary = {}
+	for value: Variant in sequence:
+		if value is String:
+			requested[value] = int(requested.get(value,0))+1
+			if requested[value] > RC.RUN.toolCap: _toast("同种额外牌最多两张"); return
 	var pool: Array = []
 	if not run_state.is_empty():
 		for card: Dictionary in run_state.cards: pool.append(C.copy_card(card))
@@ -2226,7 +2242,7 @@ func debug_deal(sequence: Array, test: int = 0) -> void:
 		for index: int in range(pool.size()):
 			if (value is String and pool[index].get("type", "") == value) or (not value is String and not pool[index].has("type") and pool[index].v == value): found=index; break
 		if found < 0:
-			identity += 1
+			identity = R.next_identity(run_state) if not run_state.is_empty() else identity+1
 			var added: Dictionary = C.create_tool_card(value,identity) if value is String else {"id":identity,"v":value}
 			hand.append(added)
 			if not run_state.is_empty(): run_state.cards.append(C.copy_card(added))
@@ -2388,7 +2404,7 @@ func _collection() -> void:
 	_banner("收藏室")
 	var profile: Dictionary = storage.load_profile()
 	var owned: Array = Profile.starting_relics(profile)
-	var panel: Control = _panel(layout.result.panel,scene,48)
+	var panel: Control = _panel(_content_panel_box(),scene,48)
 	var count: Label = _label("已收藏 %d/15" % owned.size(),{"x":36,"y":20,"w":panel.size.x-72,"h":56},36,panel,true)
 	count.name = "CollectionCount"
 	if profile.is_empty():
@@ -2402,7 +2418,7 @@ func _collection() -> void:
 
 func _act_choice() -> void:
 	_banner("带走，还是继续？" if run_state.act == 1 else "长廊已过")
-	var panel: Control = _panel(layout.result.panel,scene,48)
+	var panel: Control = _panel(_content_panel_box(),scene,48)
 	var scroll: ScrollContainer = ScrollContainer.new(); scroll.name = "ActChoiceScroll"
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.position = Vector2(40,30); scroll.size = panel.size-Vector2(80,60); panel.add_child(scroll)

@@ -41,6 +41,11 @@ func _run() -> void:
 		total += int(result.get("passed",0))
 		for failure: Variant in result.get("failures",[]): failures.append("batch_two_"+name+": "+str(failure))
 		print("SUITE batch_two_",name,": ",result.get("passed",0)," passed, ",result.get("failed",0)," failed")
+	var preflight: Dictionary = await preload("res://tests/test_batch_three_preflight.gd").new().run()
+	report.suites["batch_three_preflight"] = preflight
+	total += int(preflight.passed)
+	for failure: String in preflight.failures: failures.append("preflight: "+failure)
+	print("SUITE preflight: ",preflight.passed," passed, ",preflight.failed," failed")
 	var smoke: GDScript = load("res://tests/test_ui_smoke.gd") as GDScript
 	if smoke == null: failures.append("UI smoke missing")
 	else:
