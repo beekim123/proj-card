@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_reward_card"
+svg_fingerprint = "f3106ad2637ed305"
+definition = {"id":"ui_reward_card","group":"奖励图标","viewBox":"0 0 64 64","load":"img","desc":"奖励图标·额外牌：一张斜放的额外牌牌背（照 card_back 缩小、简化），右上角一个小加号。要和基础牌分得开：用额外牌牌框的颜色","status":"新画","batch":"本体第1批"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"ui_reward_card.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"f3106ad2637ed305"}}
+animations = {":idle":"res://art/resources/ui_reward_card--idle.tres"}

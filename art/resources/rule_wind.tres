@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "rule_wind"
+svg_fingerprint = "d435b340f3101ba4"
+definition = {"id":"rule_wind","group":"规矩图标","viewBox":"0 0 64 64","load":"img","desc":"上发条：一把发条钥匙，钥匙柄上嵌一颗蓝色三角宝石","status":"新画","v2":"第2批"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"rule_wind.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"d435b340f3101ba4"}}
+animations = {":idle":"res://art/resources/rule_wind--idle.tres"}

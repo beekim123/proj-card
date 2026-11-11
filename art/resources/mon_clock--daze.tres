@@ -1,0 +1,117 @@
+[gd_resource type="SpriteFrames" load_steps=18 format=3]
+
+[ext_resource type="Texture2D" path="res://art/sprites/mon_clock-4.png" id="t0"]
+
+[sub_resource type="AtlasTexture" id="f0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 254, 379)
+margin = Rect2(33, 21, 66, 21)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1"]
+atlas = ExtResource("t0")
+region = Rect2(254, 0, 260, 375)
+margin = Rect2(26, 25, 60, 25)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2"]
+atlas = ExtResource("t0")
+region = Rect2(514, 0, 266, 372)
+margin = Rect2(20, 28, 54, 28)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3"]
+atlas = ExtResource("t0")
+region = Rect2(780, 0, 269, 370)
+margin = Rect2(16, 30, 51, 30)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4"]
+atlas = ExtResource("t0")
+region = Rect2(1049, 0, 272, 370)
+margin = Rect2(13, 30, 48, 30)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5"]
+atlas = ExtResource("t0")
+region = Rect2(0, 379, 274, 370)
+margin = Rect2(11, 30, 46, 30)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f6"]
+atlas = ExtResource("t0")
+region = Rect2(274, 379, 276, 369)
+margin = Rect2(9, 31, 44, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f7"]
+atlas = ExtResource("t0")
+region = Rect2(550, 379, 275, 369)
+margin = Rect2(9, 31, 45, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f8"]
+atlas = ExtResource("t0")
+region = Rect2(825, 379, 276, 369)
+margin = Rect2(8, 31, 44, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f9"]
+atlas = ExtResource("t0")
+region = Rect2(0, 749, 277, 369)
+margin = Rect2(7, 31, 43, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f10"]
+atlas = ExtResource("t0")
+region = Rect2(277, 749, 277, 369)
+margin = Rect2(7, 31, 43, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f11"]
+atlas = ExtResource("t0")
+region = Rect2(554, 749, 277, 369)
+margin = Rect2(7, 31, 43, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f12"]
+atlas = ExtResource("t0")
+region = Rect2(831, 749, 277, 369)
+margin = Rect2(7, 31, 43, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f13"]
+atlas = ExtResource("t0")
+region = Rect2(0, 1118, 277, 369)
+margin = Rect2(7, 31, 43, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f14"]
+atlas = ExtResource("t0")
+region = Rect2(277, 1118, 277, 369)
+margin = Rect2(7, 31, 43, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f15"]
+atlas = ExtResource("t0")
+region = Rect2(554, 1118, 277, 369)
+margin = Rect2(7, 31, 43, 31)
+filter_clip = true
+
+[resource]
+animations = [{ "frames": [{ "duration": 41.67, "texture": SubResource("f0") },
+{ "duration": 41.67, "texture": SubResource("f1") },
+{ "duration": 41.67, "texture": SubResource("f2") },
+{ "duration": 41.67, "texture": SubResource("f3") },
+{ "duration": 41.67, "texture": SubResource("f4") },
+{ "duration": 41.67, "texture": SubResource("f5") },
+{ "duration": 41.67, "texture": SubResource("f6") },
+{ "duration": 41.67, "texture": SubResource("f7") },
+{ "duration": 41.67, "texture": SubResource("f8") },
+{ "duration": 41.67, "texture": SubResource("f9") },
+{ "duration": 41.67, "texture": SubResource("f10") },
+{ "duration": 41.67, "texture": SubResource("f11") },
+{ "duration": 41.67, "texture": SubResource("f12") },
+{ "duration": 41.67, "texture": SubResource("f13") },
+{ "duration": 16.67, "texture": SubResource("f14") },
+{ "duration": 41.67, "texture": SubResource("f15") }], "loop": false, "name": &"daze", "speed": 1000.0 }]

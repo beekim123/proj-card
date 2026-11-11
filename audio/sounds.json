@@ -1,0 +1,1443 @@
+{
+  "source": "h5/src/ui/sound.ts",
+  "source_sha256": "4f23e7afdf5200bd4d9d9a11005d7d056d5fa70769e346ab71bad03de6086d07",
+  "sample_rate": 48000,
+  "channels": 2,
+  "bits": 16,
+  "volume": {
+    "1": 0.22,
+    "2": 0.45,
+    "3": 0.7
+  },
+  "recordings": [
+    {
+      "name": "card_0",
+      "file": "card_0_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_1",
+      "file": "card_1_v1.wav",
+      "volume": 1,
+      "frames": 8158,
+      "duration_ms": 169.95833333333331
+    },
+    {
+      "name": "card_2",
+      "file": "card_2_v1.wav",
+      "volume": 1,
+      "frames": 8159,
+      "duration_ms": 169.97916666666666
+    },
+    {
+      "name": "card_3",
+      "file": "card_3_v1.wav",
+      "volume": 1,
+      "frames": 8199,
+      "duration_ms": 170.8125
+    },
+    {
+      "name": "card_4",
+      "file": "card_4_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_5",
+      "file": "card_5_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_6",
+      "file": "card_6_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_7",
+      "file": "card_7_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_8",
+      "file": "card_8_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_9",
+      "file": "card_9_v1.wav",
+      "volume": 1,
+      "frames": 8186,
+      "duration_ms": 170.54166666666669
+    },
+    {
+      "name": "card_10",
+      "file": "card_10_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_11",
+      "file": "card_11_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_12",
+      "file": "card_12_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_13",
+      "file": "card_13_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_14",
+      "file": "card_14_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "double_0",
+      "file": "double_0_v1.wav",
+      "volume": 1,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_1",
+      "file": "double_1_v1.wav",
+      "volume": 1,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_2",
+      "file": "double_2_v1.wav",
+      "volume": 1,
+      "frames": 7225,
+      "duration_ms": 150.52083333333331
+    },
+    {
+      "name": "double_3",
+      "file": "double_3_v1.wav",
+      "volume": 1,
+      "frames": 7231,
+      "duration_ms": 150.64583333333334
+    },
+    {
+      "name": "double_4",
+      "file": "double_4_v1.wav",
+      "volume": 1,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_5",
+      "file": "double_5_v1.wav",
+      "volume": 1,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_6",
+      "file": "double_6_v1.wav",
+      "volume": 1,
+      "frames": 7241,
+      "duration_ms": 150.85416666666669
+    },
+    {
+      "name": "double_7",
+      "file": "double_7_v1.wav",
+      "volume": 1,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_8",
+      "file": "double_8_v1.wav",
+      "volume": 1,
+      "frames": 7237,
+      "duration_ms": 150.77083333333331
+    },
+    {
+      "name": "double_9",
+      "file": "double_9_v1.wav",
+      "volume": 1,
+      "frames": 7237,
+      "duration_ms": 150.77083333333331
+    },
+    {
+      "name": "double_10",
+      "file": "double_10_v1.wav",
+      "volume": 1,
+      "frames": 7239,
+      "duration_ms": 150.8125
+    },
+    {
+      "name": "double_11",
+      "file": "double_11_v1.wav",
+      "volume": 1,
+      "frames": 7245,
+      "duration_ms": 150.9375
+    },
+    {
+      "name": "double_12",
+      "file": "double_12_v1.wav",
+      "volume": 1,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_13",
+      "file": "double_13_v1.wav",
+      "volume": 1,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_14",
+      "file": "double_14_v1.wav",
+      "volume": 1,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "shadow_0",
+      "file": "shadow_0_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_1",
+      "file": "shadow_1_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_2",
+      "file": "shadow_2_v1.wav",
+      "volume": 1,
+      "frames": 8131,
+      "duration_ms": 169.39583333333334
+    },
+    {
+      "name": "shadow_3",
+      "file": "shadow_3_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_4",
+      "file": "shadow_4_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_5",
+      "file": "shadow_5_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_6",
+      "file": "shadow_6_v1.wav",
+      "volume": 1,
+      "frames": 8158,
+      "duration_ms": 169.95833333333331
+    },
+    {
+      "name": "shadow_7",
+      "file": "shadow_7_v1.wav",
+      "volume": 1,
+      "frames": 8159,
+      "duration_ms": 169.97916666666666
+    },
+    {
+      "name": "shadow_8",
+      "file": "shadow_8_v1.wav",
+      "volume": 1,
+      "frames": 8199,
+      "duration_ms": 170.8125
+    },
+    {
+      "name": "shadow_9",
+      "file": "shadow_9_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_10",
+      "file": "shadow_10_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_11",
+      "file": "shadow_11_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_12",
+      "file": "shadow_12_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_13",
+      "file": "shadow_13_v1.wav",
+      "volume": 1,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_14",
+      "file": "shadow_14_v1.wav",
+      "volume": 1,
+      "frames": 8186,
+      "duration_ms": 170.54166666666669
+    },
+    {
+      "name": "hit",
+      "file": "hit_v1.wav",
+      "volume": 1,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "hit_big",
+      "file": "hit_big_v1.wav",
+      "volume": 1,
+      "frames": 11087,
+      "duration_ms": 230.97916666666669
+    },
+    {
+      "name": "rule_bite",
+      "file": "rule_bite_v1.wav",
+      "volume": 1,
+      "frames": 5087,
+      "duration_ms": 105.97916666666667
+    },
+    {
+      "name": "rule_hug",
+      "file": "rule_hug_v1.wav",
+      "volume": 1,
+      "frames": 7255,
+      "duration_ms": 151.14583333333334
+    },
+    {
+      "name": "rule_unwind",
+      "file": "rule_unwind_v1.wav",
+      "volume": 1,
+      "frames": 5090,
+      "duration_ms": 106.04166666666667
+    },
+    {
+      "name": "rule_wound_down",
+      "file": "rule_wound_down_v1.wav",
+      "volume": 1,
+      "frames": 23291,
+      "duration_ms": 485.22916666666663
+    },
+    {
+      "name": "rule_bell",
+      "file": "rule_bell_v1.wav",
+      "volume": 1,
+      "frames": 55247,
+      "duration_ms": 1150.9791666666667
+    },
+    {
+      "name": "rule_layer",
+      "file": "rule_layer_v1.wav",
+      "volume": 1,
+      "frames": 25487,
+      "duration_ms": 530.9791666666666
+    },
+    {
+      "name": "white",
+      "file": "white_v1.wav",
+      "volume": 1,
+      "frames": 14830,
+      "duration_ms": 308.9583333333333
+    },
+    {
+      "name": "rainbow",
+      "file": "rainbow_v1.wav",
+      "volume": 1,
+      "frames": 34127,
+      "duration_ms": 710.9791666666667
+    },
+    {
+      "name": "pierce",
+      "file": "pierce_v1.wav",
+      "volume": 1,
+      "frames": 16766,
+      "duration_ms": 349.2916666666667
+    },
+    {
+      "name": "heart_lose",
+      "file": "heart_lose_v1.wav",
+      "volume": 1,
+      "frames": 9887,
+      "duration_ms": 205.97916666666666
+    },
+    {
+      "name": "heal",
+      "file": "heal_v1.wav",
+      "volume": 1,
+      "frames": 21647,
+      "duration_ms": 450.97916666666663
+    },
+    {
+      "name": "draw",
+      "file": "draw_v1.wav",
+      "volume": 1,
+      "frames": 5803,
+      "duration_ms": 120.89583333333333
+    },
+    {
+      "name": "button",
+      "file": "button_v1.wav",
+      "volume": 1,
+      "frames": 3599,
+      "duration_ms": 74.97916666666667
+    },
+    {
+      "name": "hourglass",
+      "file": "hourglass_v1.wav",
+      "volume": 1,
+      "frames": 9650,
+      "duration_ms": 201.04166666666669
+    },
+    {
+      "name": "seal",
+      "file": "seal_v1.wav",
+      "volume": 1,
+      "frames": 4570,
+      "duration_ms": 95.20833333333334
+    },
+    {
+      "name": "unseal",
+      "file": "unseal_v1.wav",
+      "volume": 1,
+      "frames": 11568,
+      "duration_ms": 241
+    },
+    {
+      "name": "whistle",
+      "file": "whistle_v1.wav",
+      "volume": 1,
+      "frames": 10127,
+      "duration_ms": 210.97916666666666
+    },
+    {
+      "name": "slow_beat",
+      "file": "slow_beat_v1.wav",
+      "volume": 1,
+      "frames": 5087,
+      "duration_ms": 105.97916666666667
+    },
+    {
+      "name": "shop_remove",
+      "file": "shop_remove_v1.wav",
+      "volume": 1,
+      "frames": 8126,
+      "duration_ms": 169.29166666666669
+    },
+    {
+      "name": "shop_copy",
+      "file": "shop_copy_v1.wav",
+      "volume": 1,
+      "frames": 15470,
+      "duration_ms": 322.29166666666663
+    },
+    {
+      "name": "door_open",
+      "file": "door_open_v1.wav",
+      "volume": 1,
+      "frames": 31247,
+      "duration_ms": 650.9791666666666
+    },
+    {
+      "name": "card_0",
+      "file": "card_0_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_1",
+      "file": "card_1_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_2",
+      "file": "card_2_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_3",
+      "file": "card_3_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_4",
+      "file": "card_4_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_5",
+      "file": "card_5_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_6",
+      "file": "card_6_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_7",
+      "file": "card_7_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_8",
+      "file": "card_8_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_9",
+      "file": "card_9_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_10",
+      "file": "card_10_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_11",
+      "file": "card_11_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_12",
+      "file": "card_12_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_13",
+      "file": "card_13_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_14",
+      "file": "card_14_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "double_0",
+      "file": "double_0_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_1",
+      "file": "double_1_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_2",
+      "file": "double_2_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_3",
+      "file": "double_3_v2.wav",
+      "volume": 2,
+      "frames": 7237,
+      "duration_ms": 150.77083333333331
+    },
+    {
+      "name": "double_4",
+      "file": "double_4_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_5",
+      "file": "double_5_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_6",
+      "file": "double_6_v2.wav",
+      "volume": 2,
+      "frames": 7245,
+      "duration_ms": 150.9375
+    },
+    {
+      "name": "double_7",
+      "file": "double_7_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_8",
+      "file": "double_8_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_9",
+      "file": "double_9_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_10",
+      "file": "double_10_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_11",
+      "file": "double_11_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_12",
+      "file": "double_12_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_13",
+      "file": "double_13_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_14",
+      "file": "double_14_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "shadow_0",
+      "file": "shadow_0_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_1",
+      "file": "shadow_1_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_2",
+      "file": "shadow_2_v2.wav",
+      "volume": 2,
+      "frames": 8159,
+      "duration_ms": 169.97916666666666
+    },
+    {
+      "name": "shadow_3",
+      "file": "shadow_3_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_4",
+      "file": "shadow_4_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_5",
+      "file": "shadow_5_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_6",
+      "file": "shadow_6_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_7",
+      "file": "shadow_7_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_8",
+      "file": "shadow_8_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_9",
+      "file": "shadow_9_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_10",
+      "file": "shadow_10_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_11",
+      "file": "shadow_11_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_12",
+      "file": "shadow_12_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_13",
+      "file": "shadow_13_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_14",
+      "file": "shadow_14_v2.wav",
+      "volume": 2,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "hit",
+      "file": "hit_v2.wav",
+      "volume": 2,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "hit_big",
+      "file": "hit_big_v2.wav",
+      "volume": 2,
+      "frames": 11087,
+      "duration_ms": 230.97916666666669
+    },
+    {
+      "name": "rule_bite",
+      "file": "rule_bite_v2.wav",
+      "volume": 2,
+      "frames": 5087,
+      "duration_ms": 105.97916666666667
+    },
+    {
+      "name": "rule_hug",
+      "file": "rule_hug_v2.wav",
+      "volume": 2,
+      "frames": 8474,
+      "duration_ms": 176.54166666666669
+    },
+    {
+      "name": "rule_unwind",
+      "file": "rule_unwind_v2.wav",
+      "volume": 2,
+      "frames": 5234,
+      "duration_ms": 109.04166666666666
+    },
+    {
+      "name": "rule_wound_down",
+      "file": "rule_wound_down_v2.wav",
+      "volume": 2,
+      "frames": 23642,
+      "duration_ms": 492.54166666666663
+    },
+    {
+      "name": "rule_bell",
+      "file": "rule_bell_v2.wav",
+      "volume": 2,
+      "frames": 55247,
+      "duration_ms": 1150.9791666666667
+    },
+    {
+      "name": "rule_layer",
+      "file": "rule_layer_v2.wav",
+      "volume": 2,
+      "frames": 25487,
+      "duration_ms": 530.9791666666666
+    },
+    {
+      "name": "white",
+      "file": "white_v2.wav",
+      "volume": 2,
+      "frames": 16362,
+      "duration_ms": 340.875
+    },
+    {
+      "name": "rainbow",
+      "file": "rainbow_v2.wav",
+      "volume": 2,
+      "frames": 34127,
+      "duration_ms": 710.9791666666667
+    },
+    {
+      "name": "pierce",
+      "file": "pierce_v2.wav",
+      "volume": 2,
+      "frames": 16809,
+      "duration_ms": 350.1875
+    },
+    {
+      "name": "heart_lose",
+      "file": "heart_lose_v2.wav",
+      "volume": 2,
+      "frames": 9887,
+      "duration_ms": 205.97916666666666
+    },
+    {
+      "name": "heal",
+      "file": "heal_v2.wav",
+      "volume": 2,
+      "frames": 21647,
+      "duration_ms": 450.97916666666663
+    },
+    {
+      "name": "draw",
+      "file": "draw_v2.wav",
+      "volume": 2,
+      "frames": 5808,
+      "duration_ms": 121
+    },
+    {
+      "name": "button",
+      "file": "button_v2.wav",
+      "volume": 2,
+      "frames": 3599,
+      "duration_ms": 74.97916666666667
+    },
+    {
+      "name": "hourglass",
+      "file": "hourglass_v2.wav",
+      "volume": 2,
+      "frames": 10794,
+      "duration_ms": 224.875
+    },
+    {
+      "name": "seal",
+      "file": "seal_v2.wav",
+      "volume": 2,
+      "frames": 4601,
+      "duration_ms": 95.85416666666667
+    },
+    {
+      "name": "unseal",
+      "file": "unseal_v2.wav",
+      "volume": 2,
+      "frames": 11569,
+      "duration_ms": 241.02083333333331
+    },
+    {
+      "name": "whistle",
+      "file": "whistle_v2.wav",
+      "volume": 2,
+      "frames": 10127,
+      "duration_ms": 210.97916666666666
+    },
+    {
+      "name": "slow_beat",
+      "file": "slow_beat_v2.wav",
+      "volume": 2,
+      "frames": 5087,
+      "duration_ms": 105.97916666666667
+    },
+    {
+      "name": "shop_remove",
+      "file": "shop_remove_v2.wav",
+      "volume": 2,
+      "frames": 8169,
+      "duration_ms": 170.1875
+    },
+    {
+      "name": "shop_copy",
+      "file": "shop_copy_v2.wav",
+      "volume": 2,
+      "frames": 16550,
+      "duration_ms": 344.7916666666667
+    },
+    {
+      "name": "door_open",
+      "file": "door_open_v2.wav",
+      "volume": 2,
+      "frames": 31247,
+      "duration_ms": 650.9791666666666
+    },
+    {
+      "name": "card_0",
+      "file": "card_0_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_1",
+      "file": "card_1_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_2",
+      "file": "card_2_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_3",
+      "file": "card_3_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_4",
+      "file": "card_4_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_5",
+      "file": "card_5_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_6",
+      "file": "card_6_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_7",
+      "file": "card_7_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_8",
+      "file": "card_8_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_9",
+      "file": "card_9_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_10",
+      "file": "card_10_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_11",
+      "file": "card_11_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_12",
+      "file": "card_12_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_13",
+      "file": "card_13_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "card_14",
+      "file": "card_14_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "double_0",
+      "file": "double_0_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_1",
+      "file": "double_1_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_2",
+      "file": "double_2_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_3",
+      "file": "double_3_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_4",
+      "file": "double_4_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_5",
+      "file": "double_5_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_6",
+      "file": "double_6_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_7",
+      "file": "double_7_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_8",
+      "file": "double_8_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_9",
+      "file": "double_9_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_10",
+      "file": "double_10_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_11",
+      "file": "double_11_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_12",
+      "file": "double_12_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_13",
+      "file": "double_13_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "double_14",
+      "file": "double_14_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "shadow_0",
+      "file": "shadow_0_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_1",
+      "file": "shadow_1_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_2",
+      "file": "shadow_2_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_3",
+      "file": "shadow_3_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_4",
+      "file": "shadow_4_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_5",
+      "file": "shadow_5_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_6",
+      "file": "shadow_6_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_7",
+      "file": "shadow_7_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_8",
+      "file": "shadow_8_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_9",
+      "file": "shadow_9_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_10",
+      "file": "shadow_10_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_11",
+      "file": "shadow_11_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_12",
+      "file": "shadow_12_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_13",
+      "file": "shadow_13_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "shadow_14",
+      "file": "shadow_14_v3.wav",
+      "volume": 3,
+      "frames": 8207,
+      "duration_ms": 170.97916666666666
+    },
+    {
+      "name": "hit",
+      "file": "hit_v3.wav",
+      "volume": 3,
+      "frames": 7247,
+      "duration_ms": 150.97916666666666
+    },
+    {
+      "name": "hit_big",
+      "file": "hit_big_v3.wav",
+      "volume": 3,
+      "frames": 11087,
+      "duration_ms": 230.97916666666669
+    },
+    {
+      "name": "rule_bite",
+      "file": "rule_bite_v3.wav",
+      "volume": 3,
+      "frames": 5087,
+      "duration_ms": 105.97916666666667
+    },
+    {
+      "name": "rule_hug",
+      "file": "rule_hug_v3.wav",
+      "volume": 3,
+      "frames": 8721,
+      "duration_ms": 181.6875
+    },
+    {
+      "name": "rule_unwind",
+      "file": "rule_unwind_v3.wav",
+      "volume": 3,
+      "frames": 5235,
+      "duration_ms": 109.0625
+    },
+    {
+      "name": "rule_wound_down",
+      "file": "rule_wound_down_v3.wav",
+      "volume": 3,
+      "frames": 25076,
+      "duration_ms": 522.4166666666666
+    },
+    {
+      "name": "rule_bell",
+      "file": "rule_bell_v3.wav",
+      "volume": 3,
+      "frames": 55247,
+      "duration_ms": 1150.9791666666667
+    },
+    {
+      "name": "rule_layer",
+      "file": "rule_layer_v3.wav",
+      "volume": 3,
+      "frames": 25487,
+      "duration_ms": 530.9791666666666
+    },
+    {
+      "name": "white",
+      "file": "white_v3.wav",
+      "volume": 3,
+      "frames": 16796,
+      "duration_ms": 349.91666666666663
+    },
+    {
+      "name": "rainbow",
+      "file": "rainbow_v3.wav",
+      "volume": 3,
+      "frames": 34679,
+      "duration_ms": 722.4791666666666
+    },
+    {
+      "name": "pierce",
+      "file": "pierce_v3.wav",
+      "volume": 3,
+      "frames": 16824,
+      "duration_ms": 350.5
+    },
+    {
+      "name": "heart_lose",
+      "file": "heart_lose_v3.wav",
+      "volume": 3,
+      "frames": 9887,
+      "duration_ms": 205.97916666666666
+    },
+    {
+      "name": "heal",
+      "file": "heal_v3.wav",
+      "volume": 3,
+      "frames": 21647,
+      "duration_ms": 450.97916666666663
+    },
+    {
+      "name": "draw",
+      "file": "draw_v3.wav",
+      "volume": 3,
+      "frames": 5809,
+      "duration_ms": 121.02083333333333
+    },
+    {
+      "name": "button",
+      "file": "button_v3.wav",
+      "volume": 3,
+      "frames": 3599,
+      "duration_ms": 74.97916666666667
+    },
+    {
+      "name": "hourglass",
+      "file": "hourglass_v3.wav",
+      "volume": 3,
+      "frames": 11934,
+      "duration_ms": 248.625
+    },
+    {
+      "name": "seal",
+      "file": "seal_v3.wav",
+      "volume": 3,
+      "frames": 4605,
+      "duration_ms": 95.9375
+    },
+    {
+      "name": "unseal",
+      "file": "unseal_v3.wav",
+      "volume": 3,
+      "frames": 11569,
+      "duration_ms": 241.02083333333331
+    },
+    {
+      "name": "whistle",
+      "file": "whistle_v3.wav",
+      "volume": 3,
+      "frames": 10127,
+      "duration_ms": 210.97916666666666
+    },
+    {
+      "name": "slow_beat",
+      "file": "slow_beat_v3.wav",
+      "volume": 3,
+      "frames": 5087,
+      "duration_ms": 105.97916666666667
+    },
+    {
+      "name": "shop_remove",
+      "file": "shop_remove_v3.wav",
+      "volume": 3,
+      "frames": 8184,
+      "duration_ms": 170.5
+    },
+    {
+      "name": "shop_copy",
+      "file": "shop_copy_v3.wav",
+      "volume": 3,
+      "frames": 17331,
+      "duration_ms": 361.0625
+    },
+    {
+      "name": "door_open",
+      "file": "door_open_v3.wav",
+      "volume": 3,
+      "frames": 31247,
+      "duration_ms": 650.9791666666666
+    }
+  ],
+  "note": "Each WAV renders the original SoundSystem in a fresh offline context; deterministic noise/reverb seed resets per recording."
+}

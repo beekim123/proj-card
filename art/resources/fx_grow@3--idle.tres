@@ -1,0 +1,9 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3]
+
+
+
+[sub_resource type="AtlasTexture" id="f0"]
+region = Rect2(0, 0, 240, 240)
+
+[resource]
+animations = [{ "frames": [{ "duration": 0, "texture": SubResource("f0") }], "loop": true, "name": &"idle", "speed": 1000.0 }]

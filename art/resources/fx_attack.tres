@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "fx_attack"
+svg_fingerprint = "c5acaf66e0177b8d"
+definition = {"id":"fx_attack","phase":1,"group":"特效","viewBox":"0 0 320 320","load":"inline","events":{"play":500},"desc":"怪出手打到你：三道爪痕 / 划痕横扫过去，墨色带一点浅边，不要血、不要红","status":"已有"}
+entries = {"":{"w":320,"h":320,"scale":1.5,"stillScale":2,"still":"fx_attack.png","sheets":[{"f":"fx_attack-0.png","w":1227,"h":1480}],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-2,"d":0}]},"play":{"loop":false,"hold":false,"sheets":[0],"frames":[{"s":-2,"d":41.67},{"s":0,"x":378,"y":1153,"w":270,"h":247,"ox":86,"oy":49,"d":41.67},{"s":0,"x":0,"y":1153,"w":378,"h":327,"ox":42,"oy":43,"d":41.67},{"s":0,"x":390,"y":778,"w":404,"h":370,"ox":27,"oy":45,"d":41.67},{"s":0,"x":0,"y":0,"w":411,"h":392,"ox":27,"oy":48,"d":41.67},{"s":0,"x":411,"y":0,"w":409,"h":391,"ox":27,"oy":50,"d":41.67},{"s":0,"x":820,"y":0,"w":407,"h":389,"ox":27,"oy":52,"d":41.67},{"s":0,"x":0,"y":392,"w":403,"h":386,"ox":27,"oy":56,"d":41.67},{"s":0,"x":403,"y":392,"w":400,"h":382,"ox":27,"oy":60,"d":41.67},{"s":0,"x":803,"y":392,"w":395,"h":380,"ox":28,"oy":62,"d":41.67},{"s":0,"x":0,"y":778,"w":390,"h":375,"ox":28,"oy":67,"d":41.67},{"s":0,"x":794,"y":778,"w":381,"h":356,"ox":29,"oy":86,"d":41.67}]}},"hash":"c5acaf66e0177b8d"}}
+animations = {":idle":"res://art/resources/fx_attack--idle.tres",":play":"res://art/resources/fx_attack--play.tres"}

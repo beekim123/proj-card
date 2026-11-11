@@ -1,0 +1,12 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://art/sprites/ui_node_boss.png" id="t0"]
+
+[sub_resource type="AtlasTexture" id="f0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 128, 128)
+margin = Rect2(0, 0, 0, 0)
+filter_clip = true
+
+[resource]
+animations = [{ "frames": [{ "duration": 0, "texture": SubResource("f0") }], "loop": true, "name": &"idle", "speed": 1000.0 }]

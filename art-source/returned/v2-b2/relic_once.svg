@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_once" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 断一次不算</title>
+<g id="root">
+  <!-- 旧银灰铁项链链身（左右两段弧形粗链环，在正上方断开并由醒目小铜扣重新接上） -->
+  <g id="chain_links" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round">
+    <!-- 左半圈旧银铁链环 -->
+    <ellipse cx="26" cy="28" rx="9" ry="5.5" transform="rotate(-38 26 28)" fill="#5A7682"/>
+    <ellipse cx="17" cy="42" rx="9" ry="5.5" transform="rotate(-76 17 42)" fill="#3B515C"/>
+    <ellipse cx="20" cy="57" rx="9" ry="5.5" transform="rotate(52 20 57)" fill="#5A7682"/>
+    <ellipse cx="33" cy="67" rx="9" ry="5.5" transform="rotate(22 33 67)" fill="#3B515C"/>
+
+    <!-- 右半圈旧银铁链环 -->
+    <ellipse cx="70" cy="28" rx="9" ry="5.5" transform="rotate(38 70 28)" fill="#3B515C"/>
+    <ellipse cx="79" cy="42" rx="9" ry="5.5" transform="rotate(76 79 42)" fill="#1E2C33"/>
+    <ellipse cx="76" cy="57" rx="9" ry="5.5" transform="rotate(-52 76 57)" fill="#3B515C"/>
+    <ellipse cx="63" cy="67" rx="9" ry="5.5" transform="rotate(-22 63 67)" fill="#1E2C33"/>
+  </g>
+  <!-- 链环内孔挖暗增强小图识别度 -->
+  <g fill="#0D111C">
+    <circle cx="17" cy="42" r="2.6"/>
+    <circle cx="20" cy="57" r="2.6"/>
+    <circle cx="79" cy="42" r="2.6"/>
+    <circle cx="76" cy="57" r="2.6"/>
+  </g>
+
+  <!-- 顶部断口接缝处的醒目旧铜锁扣（把断掉的左右两头牢牢扣在一起） -->
+  <g id="brass_clasp">
+    <!-- 左右两个断链端环 -->
+    <circle cx="34" cy="22" r="6" fill="#8CAAB5" stroke="#1C1412" stroke-width="3"/>
+    <circle cx="62" cy="22" r="6" fill="#5A7682" stroke="#1C1412" stroke-width="3"/>
+    <!-- 中央横跨断口的厚重旧铜修补搭扣 -->
+    <rect x="33" y="13" width="30" height="18" rx="5" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2"/>
+    <rect x="48" y="13" width="15" height="18" rx="4" fill="#6E542B"/>
+    <path d="M36,16 H58" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
+    <rect x="33" y="13" width="30" height="18" rx="5" fill="none" stroke="#1C1412" stroke-width="3.2"/>
+    <!-- 铜扣中間接缝齿线与两颗铆钉（一眼看出“断了又接上”） -->
+    <path d="M48,13 L45,19 L51,25 L48,31" fill="none" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <circle cx="39" cy="22" r="2.8" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.6"/>
+    <circle cx="57" cy="22" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.6"/>
+  </g>
+
+  <!-- 项链底端悬挂的鲜艳蓝色三角宝石坠子（唯一鲜艳处） -->
+  <g id="pendant_gem">
+    <circle cx="48" cy="69" r="4.5" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6"/>
+    <polygon points="48,58 65,86 31,86" fill="#2E66F0" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <polygon points="48,58 65,86 48,86" fill="#193D9E"/>
+    <polygon points="48,66 57,82 39,82" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <polygon points="47,68 51,76 43,77" fill="#FFFFFF" opacity="0.95"/>
+    <polygon points="48,58 65,86 31,86" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

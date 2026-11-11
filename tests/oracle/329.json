@@ -1,0 +1,1 @@
+{"file":"save-state.test.ts","name":"存档纯数据边界 > 损坏或版本不符返回清除指令：{\"version\":4,\"state\":{}}","passed":true,"table":[["{\"version\":4,\"state\":{}}"],{"state":null,"clear":true,"reason":"invalid"}],"calls":[{"module":"index","function":"decodeRunSave","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":{"$ref":1}}]}

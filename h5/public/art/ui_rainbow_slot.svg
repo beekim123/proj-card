@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_rainbow_slot" viewBox="0 0 48 48" width="48" height="48">
+<title>彩虹格</title>
+<style>
+.svg-ui_rainbow_slot g { transform-box: view-box; }
+.svg-ui_rainbow_slot #root { transform-origin: 24px 24px; }
+.svg-ui_rainbow_slot #gem_lit { transform-origin: 24px 24px; opacity: 0; }
+.svg-ui_rainbow_slot .slot-glow { transform-origin: 24px 24px; opacity: 0; }
+
+/* ==========================================================================
+   1. 点亮 light（300ms，stay，播完用 forwards 停在 300ms）
+   关键时间点：0ms(0%) 空槽 → 100ms(33.3333%) 宝石从中心一下胀出来（比槽还大一点，外面一圈光）
+               → 300ms(100%) 缩回到槽里，亮着停住
+   ========================================================================== */
+@keyframes svg-ui_rainbow_slot-light-gem {
+  0% { opacity: 0; transform: scale(0.2); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { opacity: 1; transform: scale(1.24); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes svg-ui_rainbow_slot-light-glow {
+  0% { opacity: 0; transform: scale(0.5); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { opacity: 1; transform: scale(1.12); animation-timing-function: ease-in-out; }
+  100% { opacity: 0.75; transform: scale(1); }
+}
+.svg-ui_rainbow_slot[data-anim="light"] #gem_lit {
+  animation: svg-ui_rainbow_slot-light-gem 0.3s forwards;
+}
+.svg-ui_rainbow_slot[data-anim="light"] .slot-glow {
+  animation: svg-ui_rainbow_slot-light-glow 0.3s forwards;
+}
+
+/* ==========================================================================
+   2. 熄灭 out（300ms，从亮着开始，到空槽结束）
+   关键时间点：0ms(0%) 亮着 → 100ms(33.3333%) 宝石一缩，光灭 → 300ms(100%) 空槽
+   ========================================================================== */
+@keyframes svg-ui_rainbow_slot-out-gem {
+  0% { opacity: 1; transform: scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { opacity: 0.7; transform: scale(0.62); animation-timing-function: ease-in-out; }
+  100% { opacity: 0; transform: scale(0.2); }
+}
+@keyframes svg-ui_rainbow_slot-out-glow {
+  0% { opacity: 0.75; transform: scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { opacity: 0; transform: scale(0.65); animation-timing-function: linear; }
+  100% { opacity: 0; transform: scale(0.5); }
+}
+.svg-ui_rainbow_slot[data-anim="out"] #gem_lit {
+  animation: svg-ui_rainbow_slot-out-gem 0.3s both;
+}
+.svg-ui_rainbow_slot[data-anim="out"] .slot-glow {
+  animation: svg-ui_rainbow_slot-out-glow 0.3s both;
+}
+</style>
+
+<g id="root">
+  <!-- 1. 平时静止状态：暗色空宝石槽 + 圆形旧铜边（不用 currentColor） -->
+  <g id="empty_socket">
+    <circle cx="24" cy="24" r="19" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
+    <path d="M37.4,10.6 A19,19 0 0,1 10.6,37.4 L24,24 Z" fill="#3B2B14" opacity="0.82"/>
+    <path d="M11,17 A16,16 0 0,1 33,10" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
+    <circle cx="24" cy="24" r="13.5" fill="#161221" stroke="#1C1412" stroke-width="2.4"/>
+    <path d="M14,29 A11.5,11.5 0 0,1 29,14" fill="none" stroke="#0D111C" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="24" cy="6.5" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="24" cy="41.5" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="6.5" cy="24" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="41.5" cy="24" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4"/>
+  </g>
+
+  <!-- 2. 外圈发光环 .slot-glow（用 currentColor 描边） -->
+  <g class="slot-glow" opacity="0">
+    <!-- pivot: 24,24 -->
+    <circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="3.2" opacity="0.85"/>
+    <circle cx="24" cy="24" r="15.5" fill="none" stroke="#FFFFFF" stroke-width="1.4" opacity="0.65"/>
+  </g>
+
+  <!-- 3. 槽内发光宝石 #gem_lit（宝石本体用 currentColor 纯色填充） -->
+  <g id="gem_lit" opacity="0">
+    <!-- pivot: 24,24 -->
+    <circle cx="24" cy="24" r="13" fill="currentColor" stroke="#1C1412" stroke-width="2.6"/>
+    <path d="M33.2,14.8 A13,13 0 0,1 14.8,33.2 L24,24 Z" fill="#1C1412" opacity="0.28"/>
+    <circle cx="24" cy="24" r="8" fill="currentColor" stroke="#FFFFFF" stroke-width="1.2" stroke-opacity="0.65"/>
+    <polygon points="18,18 23,15 26,18 20,23" fill="#FFFFFF" opacity="0.92"/>
+    <circle cx="24" cy="24" r="13" fill="none" stroke="#1C1412" stroke-width="2.6"/>
+  </g>
+</g>
+</svg>

@@ -1,0 +1,131 @@
+[gd_resource type="SpriteFrames" load_steps=20 format=3]
+
+[ext_resource type="Texture2D" path="res://art/sprites/mon_chest-3.png" id="t0"]
+
+[sub_resource type="AtlasTexture" id="f0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 792, 262, 367)
+margin = Rect2(29, 33, 58, 33)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1"]
+atlas = ExtResource("t0")
+region = Rect2(524, 792, 263, 360)
+margin = Rect2(28, 40, 57, 40)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2"]
+atlas = ExtResource("t0")
+region = Rect2(787, 792, 267, 339)
+margin = Rect2(25, 61, 53, 61)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3"]
+atlas = ExtResource("t0")
+region = Rect2(1054, 792, 272, 308)
+margin = Rect2(21, 92, 48, 92)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4"]
+atlas = ExtResource("t0")
+region = Rect2(0, 1159, 279, 279)
+margin = Rect2(17, 121, 41, 121)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5"]
+atlas = ExtResource("t0")
+region = Rect2(279, 1159, 282, 260)
+margin = Rect2(15, 140, 38, 140)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f6"]
+atlas = ExtResource("t0")
+region = Rect2(561, 1159, 284, 254)
+margin = Rect2(14, 146, 36, 146)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f7"]
+atlas = ExtResource("t0")
+region = Rect2(1029, 0, 258, 395)
+margin = Rect2(34, 5, 62, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f8"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 257, 400)
+margin = Rect2(35, 0, 63, 0)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f9"]
+atlas = ExtResource("t0")
+region = Rect2(257, 0, 257, 400)
+margin = Rect2(35, 0, 63, 0)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f10"]
+atlas = ExtResource("t0")
+region = Rect2(514, 0, 257, 400)
+margin = Rect2(35, 0, 63, 0)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f11"]
+atlas = ExtResource("t0")
+region = Rect2(771, 0, 258, 397)
+margin = Rect2(34, 3, 62, 3)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f12"]
+atlas = ExtResource("t0")
+region = Rect2(0, 400, 258, 392)
+margin = Rect2(34, 8, 62, 8)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f13"]
+atlas = ExtResource("t0")
+region = Rect2(258, 400, 259, 385)
+margin = Rect2(33, 15, 61, 15)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f14"]
+atlas = ExtResource("t0")
+region = Rect2(517, 400, 260, 378)
+margin = Rect2(31, 22, 60, 22)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f15"]
+atlas = ExtResource("t0")
+region = Rect2(777, 400, 261, 372)
+margin = Rect2(30, 28, 59, 28)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f16"]
+atlas = ExtResource("t0")
+region = Rect2(1038, 400, 262, 369)
+margin = Rect2(29, 31, 58, 31)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f17"]
+atlas = ExtResource("t0")
+region = Rect2(262, 792, 262, 367)
+margin = Rect2(29, 33, 58, 33)
+filter_clip = true
+
+[resource]
+animations = [{ "frames": [{ "duration": 41.67, "texture": SubResource("f0") },
+{ "duration": 41.67, "texture": SubResource("f1") },
+{ "duration": 41.67, "texture": SubResource("f2") },
+{ "duration": 41.67, "texture": SubResource("f3") },
+{ "duration": 41.67, "texture": SubResource("f4") },
+{ "duration": 41.67, "texture": SubResource("f5") },
+{ "duration": 41.67, "texture": SubResource("f6") },
+{ "duration": 41.67, "texture": SubResource("f7") },
+{ "duration": 125, "texture": SubResource("f8") },
+{ "duration": 41.67, "texture": SubResource("f9") },
+{ "duration": 41.67, "texture": SubResource("f10") },
+{ "duration": 41.67, "texture": SubResource("f11") },
+{ "duration": 41.67, "texture": SubResource("f12") },
+{ "duration": 41.67, "texture": SubResource("f13") },
+{ "duration": 41.67, "texture": SubResource("f14") },
+{ "duration": 41.67, "texture": SubResource("f15") },
+{ "duration": 41.67, "texture": SubResource("f16") },
+{ "duration": 8.33, "texture": SubResource("f17") }], "loop": false, "name": &"attack", "speed": 1000.0 }]

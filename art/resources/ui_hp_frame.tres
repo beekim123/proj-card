@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_hp_frame"
+svg_fingerprint = "989c56bb3b1ab698"
+definition = {"id":"ui_hp_frame","phase":1,"group":"界面","viewBox":"0 0 256 48","load":"img","nineSlice":[16,16,16,16],"inner":[8,8,8,8],"desc":"血条框：一条细长的铁 / 旧铜槽，九宫格。中间的槽是暗的空槽，代码往里画血（hpFill）和字。会被拉成约 460×40","status":"已有"}
+entries = {"":{"w":256,"h":48,"scale":1.5,"stillScale":2,"still":"ui_hp_frame.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"989c56bb3b1ab698"}}
+animations = {":idle":"res://art/resources/ui_hp_frame--idle.tres"}

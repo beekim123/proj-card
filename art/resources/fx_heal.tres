@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "fx_heal"
+svg_fingerprint = "18fbef27eef6dc8b"
+definition = {"id":"fx_heal","phase":2,"group":"特效","viewBox":"0 0 160 160","load":"inline","events":{"play":700},"desc":"回 1 颗心：一小股红色碎光往上旋，收进心里","status":"已有"}
+entries = {"":{"w":160,"h":160,"scale":1.5,"stillScale":2,"still":"fx_heal.png","sheets":[{"f":"fx_heal-0.png","w":539,"h":606}],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-2,"d":0}]},"play":{"loop":false,"hold":false,"sheets":[0],"frames":[{"s":-2,"d":41.67},{"s":0,"x":158,"y":182,"w":158,"h":158,"ox":55,"oy":82,"d":41.67},{"s":0,"x":329,"y":0,"w":160,"h":172,"ox":53,"oy":67,"d":41.67},{"s":0,"x":0,"y":0,"w":166,"h":182,"ox":45,"oy":53,"d":41.67},{"s":0,"x":166,"y":0,"w":163,"h":179,"ox":42,"oy":47,"d":41.67},{"s":0,"x":0,"y":182,"w":158,"h":165,"ox":43,"oy":46,"d":41.67},{"s":0,"x":316,"y":182,"w":153,"h":150,"ox":43,"oy":47,"d":41.67},{"s":0,"x":0,"y":347,"w":145,"h":145,"ox":45,"oy":51,"d":41.67},{"s":0,"x":145,"y":347,"w":141,"h":144,"ox":46,"oy":52,"d":41.67},{"s":0,"x":286,"y":347,"w":130,"h":132,"ox":48,"oy":58,"d":41.67},{"s":0,"x":416,"y":347,"w":123,"h":117,"ox":53,"oy":64,"d":41.67},{"s":0,"x":0,"y":492,"w":120,"h":114,"ox":60,"oy":60,"d":41.67},{"s":0,"x":120,"y":492,"w":112,"h":106,"ox":64,"oy":64,"d":41.67},{"s":0,"x":232,"y":492,"w":106,"h":100,"ox":67,"oy":67,"d":41.67},{"s":0,"x":338,"y":492,"w":92,"h":87,"ox":74,"oy":74,"d":41.67},{"s":0,"x":430,"y":492,"w":66,"h":62,"ox":87,"oy":86,"d":41.67},{"s":0,"x":496,"y":492,"w":38,"h":36,"ox":101,"oy":99,"d":33.33}]}},"hash":"18fbef27eef6dc8b"}}
+animations = {":idle":"res://art/resources/fx_heal--idle.tres",":play":"res://art/resources/fx_heal--play.tres"}

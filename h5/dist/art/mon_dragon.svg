@@ -1,0 +1,708 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-mon_dragon" viewBox="0 0 520 400" width="520" height="400">
+<title>宝石龙</title>
+<style>
+.svg-mon_dragon g { transform-box: view-box; }
+
+.svg-mon_dragon #root { transform-origin: 260px 400px; }
+.svg-mon_dragon #shadow { transform-origin: 260px 388px; }
+.svg-mon_dragon #pile { transform-origin: 260px 360px; }
+.svg-mon_dragon #tail { transform-origin: 368px 278px; }
+.svg-mon_dragon #body { transform-origin: 260px 320px; }
+.svg-mon_dragon #belly_gems { transform-origin: 260px 236px; }
+.svg-mon_dragon .belly-red { transform-origin: 212px 236px; }
+.svg-mon_dragon .belly-green { transform-origin: 262px 250px; }
+.svg-mon_dragon .belly-blue { transform-origin: 312px 236px; }
+.svg-mon_dragon .gem-flash-red { transform-origin: 212px 236px; opacity: 0; }
+.svg-mon_dragon .gem-flash-green { transform-origin: 262px 250px; opacity: 0; }
+.svg-mon_dragon .gem-flash-blue { transform-origin: 312px 236px; opacity: 0; }
+.svg-mon_dragon #wings { transform-origin: 260px 156px; }
+.svg-mon_dragon .wing-l { transform-origin: 196px 156px; }
+.svg-mon_dragon .wing-r { transform-origin: 316px 156px; }
+.svg-mon_dragon #head { transform-origin: 224px 142px; }
+.svg-mon_dragon #jaw { transform-origin: 218px 158px; }
+.svg-mon_dragon #eyes { transform-origin: 210px 112px; }
+.svg-mon_dragon .eyelids { transform-origin: 210px 106px; }
+.svg-mon_dragon #face_hurt { transform-origin: 212px 112px; opacity: 0; }
+.svg-mon_dragon #face_daze { transform-origin: 212px 96px; opacity: 0; }
+.svg-mon_dragon .daze-stars { transform-origin: 212px 38px; }
+.svg-mon_dragon .daze-swirl-l { transform-origin: 182px 110px; }
+.svg-mon_dragon .daze-swirl-r { transform-origin: 238px 114px; }
+.svg-mon_dragon .breath-shards { transform-origin: 180px 180px; opacity: 0; }
+.svg-mon_dragon .pile-roll { transform-origin: 260px 340px; opacity: 0; }
+
+/* ==========================================================================
+   1. 待机 idle（3000ms 循环）
+   关键时间点：0ms(0%) 低 → 1500ms(50%) 高（肚皮起伏9px、尾巴尖卷一下、厚眼皮慢慢眨一次） → 3000ms(100%) 低
+   ========================================================================== */
+@keyframes svg-mon_dragon-idle-body {
+  0%, 100% { transform: translate(0px, 0px) scale(1, 1); }
+  50% { transform: translate(0px, -9px) scale(1.02, 0.98); }
+}
+@keyframes svg-mon_dragon-idle-gems {
+  0%, 100% { transform: translate(0px, 0px); }
+  50% { transform: translate(0px, -9px); }
+}
+@keyframes svg-mon_dragon-idle-head {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+  50% { transform: translate(0px, 4px) rotate(-2.2deg); }
+}
+@keyframes svg-mon_dragon-idle-eyes {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.06, 0.14); }
+}
+@keyframes svg-mon_dragon-idle-wings {
+  0%, 100% { transform: translate(0px, 0px) scaleY(1); }
+  50% { transform: translate(0px, -4px) scaleY(1.06); }
+}
+@keyframes svg-mon_dragon-idle-tail {
+  0%, 100% { transform: rotate(0deg) translate(0px, 0px); }
+  50% { transform: rotate(8.5deg) translate(-4px, -5px); }
+}
+@keyframes svg-mon_dragon-idle-shadow {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(0.95, 0.95); }
+}
+.svg-mon_dragon:not([data-anim]) #body,
+.svg-mon_dragon[data-anim="idle"] #body {
+  animation: svg-mon_dragon-idle-body 3s ease-in-out infinite;
+}
+.svg-mon_dragon:not([data-anim]) #belly_gems,
+.svg-mon_dragon[data-anim="idle"] #belly_gems {
+  animation: svg-mon_dragon-idle-gems 3s ease-in-out infinite;
+}
+.svg-mon_dragon:not([data-anim]) #head,
+.svg-mon_dragon[data-anim="idle"] #head {
+  animation: svg-mon_dragon-idle-head 3s ease-in-out infinite;
+}
+.svg-mon_dragon:not([data-anim]) #eyes,
+.svg-mon_dragon[data-anim="idle"] #eyes {
+  animation: svg-mon_dragon-idle-eyes 3s ease-in-out infinite;
+}
+.svg-mon_dragon:not([data-anim]) #wings,
+.svg-mon_dragon[data-anim="idle"] #wings {
+  animation: svg-mon_dragon-idle-wings 3s ease-in-out infinite;
+}
+.svg-mon_dragon:not([data-anim]) #tail,
+.svg-mon_dragon[data-anim="idle"] #tail {
+  animation: svg-mon_dragon-idle-tail 3s ease-in-out infinite;
+}
+.svg-mon_dragon:not([data-anim]) #shadow,
+.svg-mon_dragon[data-anim="idle"] #shadow {
+  animation: svg-mon_dragon-idle-shadow 3s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   2. 轻击 hit（400ms）
+   关键时间点：0ms(0%) → 50ms(12.5%) 压扁9%+后歪8.5°，头往后一缩，眼皮一下睁大
+               → 130ms(32.5%) 停住 → 330ms(82.5%) 弹回过头 → 400ms(100%) 静止姿势
+   ========================================================================== */
+@keyframes svg-mon_dragon-hit-body {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(16px, -8px) rotate(8.5deg) scale(1.04, 0.91); animation-timing-function: linear; }
+  32.5% { transform: translate(16px, -8px) rotate(8.5deg) scale(1.04, 0.91); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(-3px, 1px) rotate(-2deg) scale(0.98, 1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_dragon-hit-gems {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(16px, -4px) rotate(8.5deg); animation-timing-function: linear; }
+  32.5% { transform: translate(16px, -4px) rotate(8.5deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(-3px, 1px) rotate(-2deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-hit-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(14px, -6px) rotate(9deg); animation-timing-function: linear; }
+  32.5% { transform: translate(14px, -6px) rotate(9deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(-2px, 1px) rotate(-2deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-hit-eyes {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: scale(1.22, 1.28); animation-timing-function: linear; }
+  32.5% { transform: scale(1.22, 1.28); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: scale(0.96, 0.94); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+@keyframes svg-mon_dragon-hit-eyelids {
+  0% { transform: translateY(0px) scaleY(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translateY(-6px) scaleY(0.28); animation-timing-function: linear; }
+  32.5% { transform: translateY(-6px) scaleY(0.28); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translateY(1px) scaleY(1.06); animation-timing-function: ease-in-out; }
+  100% { transform: translateY(0px) scaleY(1); }
+}
+.svg-mon_dragon[data-anim="hit"] #body { animation: svg-mon_dragon-hit-body 0.4s both; }
+.svg-mon_dragon[data-anim="hit"] #belly_gems { animation: svg-mon_dragon-hit-gems 0.4s both; }
+.svg-mon_dragon[data-anim="hit"] #head { animation: svg-mon_dragon-hit-head 0.4s both; }
+.svg-mon_dragon[data-anim="hit"] #eyes { animation: svg-mon_dragon-hit-eyes 0.4s both; }
+.svg-mon_dragon[data-anim="hit"] .eyelids { animation: svg-mon_dragon-hit-eyelids 0.4s both; }
+
+/* ==========================================================================
+   3. 重击 hit_big（700ms）
+   关键时间点：0ms(0%) → 60ms(8.5714%) 压扁16%+后仰13.5°、头后仰、嘴闭紧、换face_hurt、宝石堆弹起小宝石(>=60px高)
+               → 200ms(28.5714%) 停住 → 500ms(71.4286%) 弹回过头、宝石落下淡出 → 700ms(100%) 静止姿势
+   ========================================================================== */
+@keyframes svg-mon_dragon-hitbig-body {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: translate(22px, -16px) rotate(13.5deg) scale(1.05, 0.84); animation-timing-function: linear; }
+  28.5714% { transform: translate(22px, -16px) rotate(13.5deg) scale(1.05, 0.84); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: translate(-4px, 2px) rotate(-3deg) scale(0.97, 1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_dragon-hitbig-gems {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: translate(22px, -6px) rotate(13.5deg); animation-timing-function: linear; }
+  28.5714% { transform: translate(22px, -6px) rotate(13.5deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: translate(-4px, 1px) rotate(-3deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-hitbig-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: translate(12px, -12px) rotate(15deg); animation-timing-function: linear; }
+  28.5714% { transform: translate(12px, -12px) rotate(15deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: translate(-2px, 2px) rotate(-3deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-hitbig-jaw {
+  0% { transform: translateY(0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: translateY(-6px) rotate(3deg); animation-timing-function: linear; }
+  28.5714% { transform: translateY(-6px) rotate(3deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: translateY(1px) rotate(-1deg); animation-timing-function: ease-in-out; }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-hitbig-eyes {
+  0% { opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { opacity: 0; animation-timing-function: linear; }
+  28.5714% { opacity: 0; animation-timing-function: ease-in-out; }
+  71.4286% { opacity: 1; animation-timing-function: linear; }
+  100% { opacity: 1; }
+}
+@keyframes svg-mon_dragon-hitbig-hurt {
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { opacity: 1; animation-timing-function: linear; }
+  28.5714% { opacity: 1; animation-timing-function: ease-in-out; }
+  71.4286% { opacity: 0.08; animation-timing-function: linear; }
+  100% { opacity: 0; }
+}
+@keyframes svg-mon_dragon-hitbig-roll {
+  0% { opacity: 0; transform: translateY(0px) scale(0.75); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { opacity: 1; transform: translateY(-76px) scale(1.06); animation-timing-function: linear; }
+  28.5714% { opacity: 1; transform: translateY(-76px) scale(1.06); animation-timing-function: ease-in-out; }
+  71.4286% { opacity: 0.18; transform: translateY(18px) scale(0.95); animation-timing-function: linear; }
+  100% { opacity: 0; transform: translateY(22px) scale(0.9); }
+}
+.svg-mon_dragon[data-anim="hit_big"] #body { animation: svg-mon_dragon-hitbig-body 0.7s both; }
+.svg-mon_dragon[data-anim="hit_big"] #belly_gems { animation: svg-mon_dragon-hitbig-gems 0.7s both; }
+.svg-mon_dragon[data-anim="hit_big"] #head { animation: svg-mon_dragon-hitbig-head 0.7s both; }
+.svg-mon_dragon[data-anim="hit_big"] #jaw { animation: svg-mon_dragon-hitbig-jaw 0.7s both; }
+.svg-mon_dragon[data-anim="hit_big"] #eyes { animation: svg-mon_dragon-hitbig-eyes 0.7s both; }
+.svg-mon_dragon[data-anim="hit_big"] #face_hurt { animation: svg-mon_dragon-hitbig-hurt 0.7s both; }
+.svg-mon_dragon[data-anim="hit_big"] .pile-roll { animation: svg-mon_dragon-hitbig-roll 0.7s both; }
+
+/* ==========================================================================
+   4. 出手 attack（800ms）
+   关键时间点：0ms(0%) → 250ms(31.25%) 往后一缩(往下缩12%)，头抬高
+               → 330ms(41.25%) 头猛地往前扑咬，嘴张到最大，喷出一团宝石碎屑（在框里），咬中
+               → 450ms(56.25%) 停住 → 800ms(100%) 回到静止姿势
+   ========================================================================== */
+@keyframes svg-mon_dragon-attack-body {
+  0% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(16px, 14px) scale(1.06, 0.88) rotate(5deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-22px, -6px) scale(0.98, 1.06) rotate(-6deg); animation-timing-function: linear; }
+  56.25% { transform: translate(-22px, -6px) scale(0.98, 1.06) rotate(-6deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-attack-gems {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(16px, 12px) rotate(5deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-22px, -6px) rotate(-6deg); animation-timing-function: linear; }
+  56.25% { transform: translate(-22px, -6px) rotate(-6deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-attack-head {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(14px, -16px) rotate(14deg) scale(0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-34px, 18px) rotate(-14deg) scale(1.14); animation-timing-function: linear; }
+  56.25% { transform: translate(-34px, 18px) rotate(-14deg) scale(1.14); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+}
+@keyframes svg-mon_dragon-attack-jaw {
+  0% { transform: translateY(0px) rotate(0deg); animation-timing-function: ease-in-out; }
+  31.25% { transform: translateY(6px) rotate(-6deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translateY(28px) rotate(-24deg); animation-timing-function: linear; }
+  56.25% { transform: translateY(28px) rotate(-24deg); animation-timing-function: ease-in-out; }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-attack-shards {
+  0% { opacity: 0; transform: translate(28px, -14px) scale(0.45); animation-timing-function: ease-in-out; }
+  31.25% { opacity: 0; transform: translate(24px, -12px) scale(0.5); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { opacity: 1; transform: translate(-8px, 8px) scale(1.08); animation-timing-function: linear; }
+  56.25% { opacity: 1; transform: translate(-12px, 12px) scale(1.1); animation-timing-function: ease-in-out; }
+  100% { opacity: 0; transform: translate(-18px, 18px) scale(0.6); }
+}
+.svg-mon_dragon[data-anim="attack"] #body { animation: svg-mon_dragon-attack-body 0.8s both; }
+.svg-mon_dragon[data-anim="attack"] #belly_gems { animation: svg-mon_dragon-attack-gems 0.8s both; }
+.svg-mon_dragon[data-anim="attack"] #head { animation: svg-mon_dragon-attack-head 0.8s both; }
+.svg-mon_dragon[data-anim="attack"] #jaw { animation: svg-mon_dragon-attack-jaw 0.8s both; }
+.svg-mon_dragon[data-anim="attack"] .breath-shards { animation: svg-mon_dragon-attack-shards 0.8s both; }
+
+/* ==========================================================================
+   5. 掉一层血换规矩 layer（800ms，新事件）
+   关键时间点：0ms(0%) → 200ms(25%) 抬头张嘴吼、翅膀张开
+               → 300ms(37.5%) 红宝石闪一下 → 400ms(50%) 绿宝石闪一下
+               → 500ms(62.5%) 蓝宝石闪一下 → 600ms(75%) 停住 → 800ms(100%) 回到静止姿势
+   ========================================================================== */
+@keyframes svg-mon_dragon-layer-body {
+  0% { transform: translate(0px, 0px) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: linear; }
+  37.5% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: linear; }
+  50% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: linear; }
+  62.5% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: linear; }
+  75% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1, 1); }
+}
+@keyframes svg-mon_dragon-layer-gems {
+  0% { transform: translate(0px, 0px) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: linear; }
+  37.5% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: linear; }
+  50% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: linear; }
+  62.5% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: linear; }
+  75% { transform: translate(0px, -10px) scale(1.03, 1.04); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1, 1); }
+}
+@keyframes svg-mon_dragon-layer-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(4px, -14px) rotate(12deg); animation-timing-function: linear; }
+  37.5% { transform: translate(4px, -14px) rotate(12deg); animation-timing-function: linear; }
+  50% { transform: translate(4px, -14px) rotate(12deg); animation-timing-function: linear; }
+  62.5% { transform: translate(4px, -14px) rotate(12deg); animation-timing-function: linear; }
+  75% { transform: translate(4px, -14px) rotate(12deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-layer-jaw {
+  0% { transform: translateY(0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translateY(20px) rotate(-18deg); animation-timing-function: linear; }
+  37.5% { transform: translateY(20px) rotate(-18deg); animation-timing-function: linear; }
+  50% { transform: translateY(20px) rotate(-18deg); animation-timing-function: linear; }
+  62.5% { transform: translateY(20px) rotate(-18deg); animation-timing-function: linear; }
+  75% { transform: translateY(20px) rotate(-18deg); animation-timing-function: ease-in-out; }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+@keyframes svg-mon_dragon-layer-wings {
+  0% { transform: translate(0px, 0px) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px, -12px) scale(1.22, 1.24); animation-timing-function: linear; }
+  37.5% { transform: translate(0px, -12px) scale(1.22, 1.24); animation-timing-function: linear; }
+  50% { transform: translate(0px, -12px) scale(1.22, 1.24); animation-timing-function: linear; }
+  62.5% { transform: translate(0px, -12px) scale(1.22, 1.24); animation-timing-function: linear; }
+  75% { transform: translate(0px, -12px) scale(1.22, 1.24); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1, 1); }
+}
+@keyframes svg-mon_dragon-layer-flash-r {
+  0%, 25%, 50%, 62.5%, 75%, 100% { opacity: 0; transform: scale(0.85); animation-timing-function: linear; }
+  37.5% { opacity: 1; transform: scale(1.25); animation-timing-function: linear; }
+}
+@keyframes svg-mon_dragon-layer-flash-g {
+  0%, 25%, 37.5%, 62.5%, 75%, 100% { opacity: 0; transform: scale(0.85); animation-timing-function: linear; }
+  50% { opacity: 1; transform: scale(1.25); animation-timing-function: linear; }
+}
+@keyframes svg-mon_dragon-layer-flash-b {
+  0%, 25%, 37.5%, 50%, 75%, 100% { opacity: 0; transform: scale(0.85); animation-timing-function: linear; }
+  62.5% { opacity: 1; transform: scale(1.25); animation-timing-function: linear; }
+}
+.svg-mon_dragon[data-anim="layer"] #body { animation: svg-mon_dragon-layer-body 0.8s both; }
+.svg-mon_dragon[data-anim="layer"] #belly_gems { animation: svg-mon_dragon-layer-gems 0.8s both; }
+.svg-mon_dragon[data-anim="layer"] #head { animation: svg-mon_dragon-layer-head 0.8s both; }
+.svg-mon_dragon[data-anim="layer"] #jaw { animation: svg-mon_dragon-layer-jaw 0.8s both; }
+.svg-mon_dragon[data-anim="layer"] #wings { animation: svg-mon_dragon-layer-wings 0.8s both; }
+.svg-mon_dragon[data-anim="layer"] .gem-flash-red { animation: svg-mon_dragon-layer-flash-r 0.8s both; }
+.svg-mon_dragon[data-anim="layer"] .gem-flash-green { animation: svg-mon_dragon-layer-flash-g 0.8s both; }
+.svg-mon_dragon[data-anim="layer"] .gem-flash-blue { animation: svg-mon_dragon-layer-flash-b 0.8s both; }
+
+/* ==========================================================================
+   6. 发晕 daze（600ms 进场 + 2000ms 循环，stay）
+   进场：0ms(0%) → 600ms(100%) 头耷拉到宝石堆上，换 face_daze，整只歪 5.8°
+   循环：0ms(0%) → 1000ms(50%) → 2000ms(100%) 慢慢左右晃，小星绕圈
+   ========================================================================== */
+@keyframes svg-mon_dragon-daze-in-body {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+  100% { transform: translate(-6px, 12px) rotate(-5.5deg) scale(1.03, 0.92); }
+}
+@keyframes svg-mon_dragon-daze-loop-body {
+  0%, 100% { transform: translate(-6px, 12px) rotate(-5.5deg) scale(1.03, 0.92); }
+  50% { transform: translate(6px, 12px) rotate(5.8deg) scale(1.03, 0.92); }
+}
+@keyframes svg-mon_dragon-daze-in-gems {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  100% { transform: translate(-6px, 12px) rotate(-5.5deg); }
+}
+@keyframes svg-mon_dragon-daze-loop-gems {
+  0%, 100% { transform: translate(-6px, 12px) rotate(-5.5deg); }
+  50% { transform: translate(6px, 12px) rotate(5.8deg); }
+}
+@keyframes svg-mon_dragon-daze-in-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  100% { transform: translate(-6px, 28px) rotate(-8deg); }
+}
+@keyframes svg-mon_dragon-daze-loop-head {
+  0%, 100% { transform: translate(-6px, 28px) rotate(-8deg); }
+  50% { transform: translate(6px, 28px) rotate(6deg); }
+}
+@keyframes svg-mon_dragon-daze-in-eyes {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes svg-mon_dragon-daze-loop-eyes {
+  0%, 50%, 100% { opacity: 0; }
+}
+@keyframes svg-mon_dragon-daze-in-face {
+  0% { opacity: 0; transform: translateY(6px) scale(0.88); }
+  100% { opacity: 1; transform: translateY(0px) scale(1); }
+}
+@keyframes svg-mon_dragon-daze-loop-face {
+  0%, 100% { opacity: 1; transform: translateY(0px) scale(1); }
+  50% { opacity: 1; transform: translateY(1px) scale(1); }
+}
+@keyframes svg-mon_dragon-daze-in-swirl {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(120deg); }
+}
+@keyframes svg-mon_dragon-daze-loop-swirl {
+  0% { transform: rotate(120deg); }
+  50% { transform: rotate(300deg); }
+  100% { transform: rotate(480deg); }
+}
+@keyframes svg-mon_dragon-daze-in-stars {
+  0% { transform: translate(-8px, 4px) scale(0.85); }
+  100% { transform: translate(-8px, 0px) scale(1); }
+}
+@keyframes svg-mon_dragon-daze-loop-stars {
+  0%, 100% { transform: translate(-8px, 0px) scale(1); }
+  50% { transform: translate(8px, -2px) scale(1); }
+}
+.svg-mon_dragon[data-anim="daze"] #body {
+  animation: svg-mon_dragon-daze-in-body 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_dragon-daze-loop-body 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_dragon[data-anim="daze"] #belly_gems {
+  animation: svg-mon_dragon-daze-in-gems 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_dragon-daze-loop-gems 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_dragon[data-anim="daze"] #head {
+  animation: svg-mon_dragon-daze-in-head 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_dragon-daze-loop-head 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_dragon[data-anim="daze"] #eyes {
+  animation: svg-mon_dragon-daze-in-eyes 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_dragon-daze-loop-eyes 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_dragon[data-anim="daze"] #face_daze {
+  animation: svg-mon_dragon-daze-in-face 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_dragon-daze-loop-face 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_dragon[data-anim="daze"] .daze-swirl-l,
+.svg-mon_dragon[data-anim="daze"] .daze-swirl-r {
+  animation: svg-mon_dragon-daze-in-swirl 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_dragon-daze-loop-swirl 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_dragon[data-anim="daze"] .daze-stars {
+  animation: svg-mon_dragon-daze-in-stars 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_dragon-daze-loop-stars 2s ease-in-out 0.6s infinite;
+}
+
+/* ==========================================================================
+   7. 击退/散架 die（1000ms）
+   关键时间点：0ms(0%) → 150ms(15%) 猛一抖 → 300ms(30%) 趴倒在宝石堆上，翅膀收起（不翻白眼、不四脚朝天）
+               → 600ms(60%) 肚皮上三颗宝石崩出来，飞出>120px滚到前面地上(y:362..386)
+               → 1000ms(100%) 龙和宝石一起淡出
+   ========================================================================== */
+@keyframes svg-mon_dragon-die-root {
+  0% { opacity: 1; transform: translate(0px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { opacity: 1; transform: translate(-6px, 2px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { opacity: 1; transform: translate(2px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { opacity: 1; transform: translate(0px, 0px); animation-timing-function: linear; }
+  100% { opacity: 0; transform: translate(0px, 4px); }
+}
+@keyframes svg-mon_dragon-die-body {
+  0% { transform: translate(0px, 0px) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-6px, 4px) scale(1.04, 0.94); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(0px, 24px) scale(1.06, 0.72); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(0px, 28px) scale(1.07, 0.68); animation-timing-function: linear; }
+  100% { transform: translate(0px, 30px) scale(1.07, 0.66); }
+}
+@keyframes svg-mon_dragon-die-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-4px, -4px) rotate(-4deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-14px, 38px) rotate(-14deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(-16px, 44px) rotate(-16deg); animation-timing-function: linear; }
+  100% { transform: translate(-16px, 46px) rotate(-17deg); }
+}
+@keyframes svg-mon_dragon-die-eyes {
+  0% { transform: scaleY(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: scaleY(0.4); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: scaleY(0.15); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: scaleY(0.12); animation-timing-function: linear; }
+  100% { transform: scaleY(0.12); }
+}
+@keyframes svg-mon_dragon-die-wings {
+  0% { transform: translate(0px, 0px) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(0px, 6px) scale(0.92, 0.88); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(0px, 26px) scale(0.68, 0.55); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(0px, 30px) scale(0.64, 0.5); animation-timing-function: linear; }
+  100% { transform: translate(0px, 32px) scale(0.62, 0.48); }
+}
+@keyframes svg-mon_dragon-die-gem1 {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-18px, -16px) rotate(-12deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-54px, -38px) rotate(-28deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  60% { transform: translate(-88px, 132px) rotate(-52deg); animation-timing-function: linear; }
+  100% { transform: translate(-92px, 134px) rotate(-56deg); }
+}
+@keyframes svg-mon_dragon-die-gem2 {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-4px, -22px) rotate(8deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-12px, -48px) rotate(22deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  60% { transform: translate(-18px, 120px) rotate(38deg); animation-timing-function: linear; }
+  100% { transform: translate(-20px, 122px) rotate(42deg); }
+}
+@keyframes svg-mon_dragon-die-gem3 {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(18px, -16px) rotate(12deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(52px, -36px) rotate(28deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  60% { transform: translate(84px, 130px) rotate(48deg); animation-timing-function: linear; }
+  100% { transform: translate(88px, 132px) rotate(52deg); }
+}
+.svg-mon_dragon[data-anim="die"] #root { animation: svg-mon_dragon-die-root 1s both; }
+.svg-mon_dragon[data-anim="die"] #body { animation: svg-mon_dragon-die-body 1s both; }
+.svg-mon_dragon[data-anim="die"] #head { animation: svg-mon_dragon-die-head 1s both; }
+.svg-mon_dragon[data-anim="die"] #eyes { animation: svg-mon_dragon-die-eyes 1s both; }
+.svg-mon_dragon[data-anim="die"] #wings { animation: svg-mon_dragon-die-wings 1s both; }
+.svg-mon_dragon[data-anim="die"] .belly-red { animation: svg-mon_dragon-die-gem1 1s both; }
+.svg-mon_dragon[data-anim="die"] .belly-green { animation: svg-mon_dragon-die-gem2 1s both; }
+.svg-mon_dragon[data-anim="die"] .belly-blue { animation: svg-mon_dragon-die-gem3 1s both; }
+</style>
+
+<g id="root">
+  <!-- pivot: 260,400 -->
+  <!-- 落地暗影 shadow -->
+  <g id="shadow">
+    <!-- pivot: 260,388 -->
+    <ellipse cx="260" cy="388" rx="220" ry="12" fill="#0D111C" opacity="0.68"/>
+    <ellipse cx="260" cy="388" rx="176" ry="7" fill="#1C1412" opacity="0.52"/>
+    <path d="M72,392 L88,380 M104,393 L120,379 M136,394 L152,379 M168,395 L184,378 M200,395 L216,378 M232,395 L248,378 M264,395 L280,378 M296,395 L312,378 M328,395 L344,378 M360,394 L376,379 M392,393 L408,380 M424,392 L440,381" stroke="#1C1412" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+  </g>
+
+  <!-- 垫在胖龙身下的宝藏与宝石堆 pile（无滤镜） -->
+  <g id="pile">
+    <!-- pivot: 260,360 -->
+    <path d="M28,376 L58,328 L128,296 L260,286 L396,298 L464,332 L492,378 L442,388 L76,388 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M46,374 L84,334 L164,308 L268,304 L374,316 L448,346 L474,378 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M58,332 L128,300 L248,290" fill="none" stroke="#9A7B46" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/>
+
+    <!-- 宝石堆里镶嵌的鲜艳红圆、绿方、蓝三角小宝石 -->
+    <circle cx="94" cy="356" r="11" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="91" cy="353" r="4" fill="#FF5C6E"/>
+    <circle cx="212" cy="368" r="10" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="209" cy="365" r="3.5" fill="#FF5C6E"/>
+    <circle cx="384" cy="354" r="11.5" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="381" cy="351" r="4.2" fill="#FF5C6E"/>
+
+    <rect x="134" y="346" width="20" height="20" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2" transform="rotate(-14 144 356)"/>
+    <rect x="138" y="350" width="9" height="9" fill="#5CE892" transform="rotate(-14 144 356)"/>
+    <rect x="316" y="356" width="21" height="21" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2" transform="rotate(16 326.5 366.5)"/>
+    <rect x="320" y="360" width="9.5" height="9.5" fill="#5CE892" transform="rotate(16 326.5 366.5)"/>
+    <rect x="426" y="352" width="18" height="18" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2"/>
+
+    <polygon points="68,342 82,366 54,366" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="68,348 75,362 61,362" fill="#6B9BFF"/>
+    <polygon points="272,350 288,376 256,376" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="272,357 280,372 264,372" fill="#6B9BFF"/>
+    <polygon points="454,344 468,368 440,368" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+
+    <!-- hit_big 时从宝石堆里弹起至少60px高的几颗小宝石 .pile-roll（平时 opacity="0"） -->
+    <g class="pile-roll" opacity="0">
+      <!-- pivot: 260,340 -->
+      <circle cx="110" cy="346" r="11" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+      <circle cx="107" cy="343" r="4" fill="#FF5C6E"/>
+      <rect x="232" y="340" width="20" height="20" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2" transform="rotate(22 242 350)"/>
+      <polygon points="368,336 384,362 352,362" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="422" cy="348" r="9.5" fill="#FF5C6E" stroke="#1C1412" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- 胖龙主躯干组 body（无滤镜，去除沸腾描边） -->
+  <g id="body">
+    <!-- pivot: 260,320 -->
+
+    <!-- 右侧卷尾巴 tail -->
+    <g id="tail">
+      <!-- pivot: 368,278 -->
+      <path d="M356,256 Q436,246 474,204 Q492,226 476,268 Q452,318 368,316 Z" fill="#262036" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="M368,282 Q442,286 476,268 Q452,318 368,316 Z" fill="#161221" opacity="0.82"/>
+      <polygon points="402,248 414,228 424,244" fill="#3B515C" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="434,236 448,214 456,230" fill="#3B515C" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="474,204 490,186 484,218" fill="#5A7682" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    </g>
+
+    <!-- 背部一对哥特小蝠翼 wings -->
+    <g id="wings">
+      <!-- pivot: 260,156 -->
+      <path d="M196,144 L132,76 L116,118 L142,132 L126,158 L184,174 Z" fill="#262036" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M192,140 L135,80" stroke="#8CAAB5" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M316,144 L388,74 L406,118 L378,132 L394,160 L330,176 Z" fill="#161221" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M320,140 L384,78" stroke="#5A7682" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+
+    <!-- 趴在宝堆两侧的粗短龙腿 -->
+    <polygon points="92,276 144,270 152,332 84,330" fill="#3B515C" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="368,272 418,278 426,334 360,332" fill="#1E2C33" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- 胖滚滚的暗色龙身与大肚皮 -->
+    <path d="M156,136 L346,140 L398,218 L384,322 L260,344 L132,320 L116,222 Z" fill="#3B515C" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/>
+    <path d="M268,138 L346,140 L398,218 L384,322 L260,344 Q284,240 268,138 Z" fill="#1E2C33" opacity="0.82"/>
+    <path d="M158,142 L122,222 L136,314" fill="none" stroke="#8CAAB5" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+
+    <!-- 宽阔的暗灰羊皮纸龙肚皮 -->
+    <path d="M178,182 L342,184 L362,258 L338,328 L260,338 L182,326 L158,256 Z" fill="#4A4742" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M260,183 L342,184 L362,258 L338,328 L260,338 Z" fill="#2E2C28" opacity="0.72"/>
+    <path d="M168,216 Q260,228 352,218 M164,262 Q260,276 356,264 M176,302 Q260,314 344,304" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+    <path d="M316,196 L354,234 M312,216 L356,260 M308,242 L348,282" stroke="#1C1412" stroke-width="1.2" opacity="0.48"/>
+
+    <!-- 前爪尖趾甲 -->
+    <polygon points="82,318 96,334 106,318" fill="#C8B894" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="106,320 120,336 130,320" fill="#C8B894" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="386,322 400,338 410,322" fill="#9A8968" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="410,320 424,336 432,320" fill="#9A8968" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M156,136 L346,140 L398,218 L384,322 L260,344 L132,320 L116,222 Z" fill="none" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/>
+
+    <!-- 龙头与下颌组 head -->
+    <g id="head">
+      <!-- pivot: 224,142 -->
+
+      <!-- 下颌与大嘴 jaw -->
+      <g id="jaw">
+        <!-- pivot: 218,158 -->
+        <polygon points="146,142 266,146 258,188 152,184" fill="#161221" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+        <polygon points="142,158 268,162 256,194 150,190" fill="#262036" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+        <polygon points="156,160 166,144 176,160" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+        <polygon points="196,161 206,146 216,161" fill="#C8B894" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+        <polygon points="234,162 244,146 254,162" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      </g>
+
+      <!-- 两只哥特弯角 -->
+      <path d="M168,78 Q138,48 152,32 Q174,38 188,72 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M248,80 Q282,50 268,34 Q244,40 228,74 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M164,70 L178,66 M158,54 L172,52 M242,70 L256,66 M248,54 L262,52" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+
+      <!-- 宽扁胖龙头与上颌尖牙 -->
+      <path d="M156,72 L256,76 L276,124 L268,160 L138,156 L134,118 Z" fill="#3B515C" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="M212,74 L256,76 L276,124 L268,160 L212,158 Z" fill="#1E2C33" opacity="0.8"/>
+      <path d="M158,76 L138,118 L142,152" fill="none" stroke="#8CAAB5" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="158" cy="136" r="4" fill="#1C1412"/>
+      <circle cx="182" cy="138" r="4" fill="#1C1412"/>
+      <polygon points="146,156 155,172 164,156" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="222,158 231,174 240,158" fill="#C8B894" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+
+      <!-- 睡不醒的厚眼皮与龙眼 eyes -->
+      <g id="eyes">
+        <!-- pivot: 210,112 -->
+        <ellipse cx="182" cy="110" rx="16" ry="12" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6"/>
+        <circle cx="182" cy="112" r="5.5" fill="#1C1412"/>
+        <circle cx="180" cy="110" r="2" fill="#E6DEC8"/>
+
+        <ellipse cx="238" cy="114" rx="15" ry="11" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6"/>
+        <circle cx="238" cy="116" r="5" fill="#1C1412"/>
+        <circle cx="236" cy="114" r="1.8" fill="#E6DEC8"/>
+
+        <!-- 睡不醒的半耷拉厚眼皮 .eyelids（hit 时一下睁大） -->
+        <g class="eyelids">
+          <!-- pivot: 210,106 -->
+          <path d="M164,108 Q182,94 200,108 L198,112 L166,112 Z" fill="#262036" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+          <path d="M221,112 Q238,98 255,112 L253,116 L223,116 Z" fill="#161221" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+        </g>
+      </g>
+
+      <!-- 重击表情 face_hurt（平时 opacity="0"） -->
+      <g id="face_hurt" opacity="0">
+        <!-- pivot: 212,112 -->
+        <path d="M166,102 L194,112 L166,120 M254,104 L226,114 L254,122" fill="none" stroke="#E2D6BA" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M166,102 L194,112 L166,120 M254,104 L226,114 L254,122" fill="none" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <!-- 眩晕表情 face_daze（平时 opacity="0"） -->
+      <g id="face_daze" opacity="0">
+        <!-- pivot: 212,96 -->
+        <g class="daze-swirl-l">
+          <!-- pivot: 182,110 -->
+          <circle cx="182" cy="110" r="13" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.4"/>
+          <path d="M182,110 m-2,0 a2,2 0 1,0 4,0 a4.5,4.5 0 1,0 -9,0 a7,7 0 1,0 14,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <g class="daze-swirl-r">
+          <!-- pivot: 238,114 -->
+          <circle cx="238" cy="114" r="12" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.4"/>
+          <path d="M238,114 m-2,0 a2,2 0 1,0 4,0 a4.5,4.5 0 1,0 -9,0 a7,7 0 1,0 14,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <g class="daze-stars">
+          <!-- pivot: 212,38 -->
+          <path d="M132,36 L135,42 L141,45 L135,48 L132,54 L129,48 L123,45 L129,42 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M210,28 L213,34 L219,37 L213,40 L210,46 L207,40 L201,37 L207,34 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M288,38 L291,44 L297,47 L291,50 L288,56 L285,50 L279,47 L285,44 Z" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+        </g>
+      </g>
+
+      <!-- attack 状态喷出的一团鲜艳三色宝石碎屑 .breath-shards（平时 opacity="0"，不喷火） -->
+      <g class="breath-shards" opacity="0">
+        <!-- pivot: 180,180 -->
+        <path d="M156,168 L84,204 M168,178 L96,232 M186,182 L134,246" stroke="#8CAAB5" stroke-width="3.2" stroke-linecap="round"/>
+        <circle cx="96" cy="192" r="9" fill="#E3263A" stroke="#1C1412" stroke-width="2"/>
+        <circle cx="93" cy="189" r="3.5" fill="#FF5C6E"/>
+        <rect x="108" y="216" width="16" height="16" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2" transform="rotate(-22 116 224)"/>
+        <polygon points="74,214 90,236 62,234" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="142" cy="236" r="7.5" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.8"/>
+        <rect x="64" y="182" width="13" height="13" rx="1.5" fill="#5CE892" stroke="#1C1412" stroke-width="1.8" transform="rotate(18 70.5 188.5)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- 肚皮上嵌着的三颗鲜艳大宝石 belly_gems（独立于 #body 的缩放，使 die 滚地时宝石不变形；内含 layer 闪光层） -->
+  <g id="belly_gems">
+    <!-- pivot: 260,236 -->
+    <!-- 左：大红圆宝石 (中心 212,236, r=22) -->
+    <g class="belly-red">
+      <!-- pivot: 212,236 -->
+      <circle cx="212" cy="236" r="22" fill="#E3263A" stroke="#1C1412" stroke-width="2.8"/>
+      <path d="M228,220 A22,22 0 0,1 196,252 L212,236 Z" fill="#9E1424"/>
+      <circle cx="212" cy="236" r="13" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.4"/>
+      <polygon points="202,228 210,222 218,226 207,236" fill="#FFFFFF" opacity="0.92"/>
+      <!-- layer 300ms 亮光层（用 opacity 闪一下） -->
+      <g class="gem-flash-red" opacity="0">
+        <circle cx="212" cy="236" r="28" fill="#FF5C6E" opacity="0.45"/>
+        <circle cx="212" cy="236" r="21" fill="#FFFFFF" opacity="0.88"/>
+        <polygon points="212,196 218,228 250,236 218,244 212,276 206,244 174,236 206,228" fill="#FFFFFF"/>
+      </g>
+    </g>
+
+    <!-- 中：大绿方宝石 (中心 262,250, 38×38) -->
+    <g class="belly-green">
+      <!-- pivot: 262,250 -->
+      <rect x="243" y="231" width="38" height="38" rx="4" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.8"/>
+      <polygon points="281,231 281,269 243,269 251,261 273,261 273,239" fill="#117A3B"/>
+      <rect x="251" y="239" width="22" height="22" rx="2" fill="#5CE892" stroke="#1C1412" stroke-width="1.4"/>
+      <polygon points="254,242 266,242 260,250 254,250" fill="#FFFFFF" opacity="0.92"/>
+      <!-- layer 400ms 亮光层（用 opacity 闪一下） -->
+      <g class="gem-flash-green" opacity="0">
+        <rect x="236" y="224" width="52" height="52" rx="8" fill="#5CE892" opacity="0.45"/>
+        <rect x="243" y="231" width="38" height="38" rx="4" fill="#FFFFFF" opacity="0.88"/>
+        <polygon points="262,210 268,242 300,250 268,258 262,290 256,258 224,250 256,242" fill="#FFFFFF"/>
+      </g>
+    </g>
+
+    <!-- 右：大蓝三角宝石 (中心 312,236) -->
+    <g class="belly-blue">
+      <!-- pivot: 312,236 -->
+      <polygon points="312,212 334,254 290,254" fill="#2E66F0" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <polygon points="312,212 334,254 312,254" fill="#193D9E"/>
+      <polygon points="312,224 324,248 300,248" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+      <polygon points="310,227 316,239 306,241" fill="#FFFFFF" opacity="0.92"/>
+      <!-- layer 500ms 亮光层（用 opacity 闪一下） -->
+      <g class="gem-flash-blue" opacity="0">
+        <circle cx="312" cy="238" r="28" fill="#6B9BFF" opacity="0.45"/>
+        <polygon points="312,212 334,254 290,254" fill="#FFFFFF" opacity="0.88"/>
+        <polygon points="312,198 318,230 350,238 318,246 312,278 306,246 274,238 306,230" fill="#FFFFFF"/>
+      </g>
+    </g>
+  </g>
+</g>
+</svg>

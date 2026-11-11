@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_mirror" viewBox="0 0 176 188" width="176" height="188" style="color: #E6DEC8;">
+<title>额外牌原画 · 镜子</title>
+<style>
+.svg-card_art_mirror g { transform-box: view-box; }
+.svg-card_art_mirror #root { transform-origin: 96px 94px; }
+.svg-card_art_mirror #mirror_body { transform-origin: 96px 96px; }
+.svg-card_art_mirror #reflection { transform-origin: 96px 76px; }
+.svg-card_art_mirror #flash_white { transform-origin: 96px 76px; opacity: 0; }
+.svg-card_art_mirror #ripple_tint { transform-origin: 96px 76px; opacity: 0; }
+
+/* 待机（3.2s 循环）：镜面上的浅白倒影慢慢荡动 */
+@keyframes svg-card_art_mirror-idle-refl {
+  0%, 100% { transform: translate(-4px, -2px) rotate(-2deg); opacity: 0.78; }
+  50% { transform: translate(5px, 3px) rotate(2.5deg); opacity: 0.98; }
+}
+@keyframes svg-card_art_mirror-idle-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.8deg) translateY(-1.5px); }
+}
+.svg-card_art_mirror:not([data-anim]) #reflection,
+.svg-card_art_mirror[data-anim="idle"] #reflection {
+  animation: svg-card_art_mirror-idle-refl 3.2s ease-in-out infinite;
+}
+.svg-card_art_mirror:not([data-anim]) #mirror_body,
+.svg-card_art_mirror[data-anim="idle"] #mirror_body {
+  animation: svg-card_art_mirror-idle-sway 3.2s steps(8, end) infinite;
+}
+
+/* play（600ms）：镜身一震放大，镜面先一闪白，随后带 currentColor 的波纹大幅荡开 */
+@keyframes svg-card_art_mirror-play-body {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  18% { transform: scale(0.92) rotate(-4deg); }
+  40% { transform: scale(1.14) rotate(3deg); }
+  70% { transform: scale(0.98) rotate(-1deg); }
+}
+@keyframes svg-card_art_mirror-play-flash {
+  0%, 10%, 72%, 100% { opacity: 0; transform: scale(0.85); }
+  26% { opacity: 1; transform: scale(1.04); }
+  48% { opacity: 0.65; transform: scale(1); }
+}
+@keyframes svg-card_art_mirror-play-ripple {
+  0%, 24%, 96%, 100% { opacity: 0; transform: scale(0.72); }
+  42% { opacity: 1; transform: scale(1.06); }
+  74% { opacity: 0.82; transform: scale(1.3); }
+  94% { opacity: 0; transform: scale(1.38); }
+}
+.svg-card_art_mirror[data-anim="play"] #mirror_body {
+  animation: svg-card_art_mirror-play-body 0.6s steps(8, end) both;
+}
+.svg-card_art_mirror[data-anim="play"] #flash_white {
+  animation: svg-card_art_mirror-play-flash 0.6s steps(6, end) both;
+}
+.svg-card_art_mirror[data-anim="play"] #ripple_tint {
+  animation: svg-card_art_mirror-play-ripple 0.6s steps(8, end) both;
+}
+</style>
+<defs>
+  <clipPath id="card_art_mirror-clip">
+    <ellipse cx="96" cy="76" rx="30" ry="38"/>
+  </clipPath>
+</defs>
+<g id="root">
+  <!-- pivot: 96,94 -->
+  <!-- 左上角 x:0..30, y:0..90 严格留空（镜体中心在 x=96，左缘 x>=52，波纹最大左缘 x>=38 > 30） -->
+  <g id="mirror_body">
+    <!-- pivot: 96,96 -->
+    <!-- 手镜长柄（x:86..106, y:118..168） -->
+    <polygon points="88,116 104,116 101,154 91,154" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="96,116 104,116 101,154 96,154" fill="#3B2B14" opacity="0.78"/>
+    <polygon points="84,122 108,122 105,129 87,129" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <!-- 柄尾哥特菱形雕花头 -->
+    <polygon points="96,148 106,158 96,168 86,158" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="96,153 101,158 96,163 91,158" fill="#3B515C" stroke="#1C1412" stroke-width="1.4"/>
+
+    <!-- 哥特椭圆手镜外框（中心 96,76，外径 rx=40, ry=48，范围 x:54..138, y:22..126） -->
+    <!-- 镜框四角哥特尖刺雕花翼 -->
+    <polygon points="96,18 105,30 87,30" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="50,76 62,68 62,84" fill="#C2A670" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="142,76 130,68 130,84" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="62,42 74,44 68,54" fill="#C2A670" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="130,42 118,44 124,54" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- 旧铜椭圆主镜框 -->
+    <ellipse cx="96" cy="76" rx="38" ry="46" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
+    <path d="M96,30 A38,46 0 0,1 96,122 Z" fill="#3B2B14" opacity="0.75"/>
+    <path d="M64,98 A35,43 0 0,1 92,33" fill="none" stroke="#C2A670" stroke-width="2.2" stroke-linecap="round"/>
+    <ellipse cx="96" cy="76" rx="33" ry="41" fill="none" stroke="#9A7B46" stroke-width="1.6"/>
+
+    <!-- 镜面：严格用 currentColor 绘制，适配红/黄/青/白/浅灰任意染色 -->
+    <ellipse cx="96" cy="76" rx="30" ry="38" fill="currentColor" stroke="#1C1412" stroke-width="2.4"/>
+    <!-- 镜面边缘微压暗环（用 #1C1412 低透明度，让浅白或鲜艳色都有哥特深邃立体感） -->
+    <ellipse cx="96" cy="76" rx="28" ry="36" fill="none" stroke="#1C1412" stroke-width="4" opacity="0.22"/>
+    <path d="M96,38 A30,38 0 0,1 96,114 A22,36 0 0,0 96,38 Z" fill="#1C1412" opacity="0.18"/>
+
+    <!-- 镜面上的固定浅白倒影高光（裁剪在镜面内，待机时缓慢荡动） -->
+    <g clip-path="url(#card_art_mirror-clip)">
+      <g id="reflection">
+        <!-- pivot: 96,76 -->
+        <polygon points="62,92 114,40 126,50 74,104" fill="#FFFFFF" opacity="0.38"/>
+        <polygon points="74,108 124,58 130,64 80,114" fill="#FFFFFF" opacity="0.24"/>
+        <ellipse cx="84" cy="58" rx="8" ry="14" fill="#FFFFFF" opacity="0.32" transform="rotate(28 84 58)"/>
+      </g>
+    </g>
+
+    <!-- 镜面左上固定小高光点与内框墨线 -->
+    <circle cx="78" cy="50" r="2.6" fill="#FFFFFF" opacity="0.88"/>
+    <ellipse cx="96" cy="76" rx="30" ry="38" fill="none" stroke="#1C1412" stroke-width="2.4"/>
+
+    <!-- play 状态：镜面瞬间闪白层（平时 opacity="0"） -->
+    <g id="flash_white" opacity="0">
+      <!-- pivot: 96,76 -->
+      <ellipse cx="96" cy="76" rx="30" ry="38" fill="#FFFFFF" opacity="0.92"/>
+      <path d="M96,30 L100,68 L130,76 L100,84 L96,122 L92,84 L62,76 L92,68 Z" fill="#FFFFFF"/>
+    </g>
+  </g>
+
+  <!-- play 状态：向外荡开的 currentColor 染色波纹环（平时 opacity="0"，缩放 1.38 后左缘 x=96-39*1.38=42.2 > 30） -->
+  <g id="ripple_tint" opacity="0">
+    <!-- pivot: 96,76 -->
+    <ellipse cx="96" cy="76" rx="38" ry="46" fill="none" stroke="currentColor" stroke-width="3.6" stroke-dasharray="20 6"/>
+    <ellipse cx="96" cy="76" rx="34" ry="42" fill="none" stroke="#FFFFFF" stroke-width="1.8" opacity="0.85"/>
+  </g>
+</g>
+</svg>

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_door"
+svg_fingerprint = "d06f4febb74a5283"
+definition = {"id":"ui_door","group":"界面","viewBox":"0 0 320 480","load":"inline","anchor":[160,480],"parts":["root","frame","dark","leaf"],"events":{"open":600},"stay":["open"],"desc":"门：古堡里的一扇旧木门。尖拱石门框（frame），门洞是一块近黑的暗色（dark），门扇（leaf）是深色旧木板竖着拼的，左边两道铁合页，右边一只铁门环，上半截一排门钉。挑门的画面上并排摆两扇，每扇门前站着一只怪（代码放，会挡住门的下半截），门楣上方由代码挂一块牌子，所以：认得出是门的东西（拱顶、合页、门钉）要画在上半截和两侧；门框顶上不要再画装饰。待机：不动。open：门扇往里一顿，再绕左边的合页转开（用 scaleX 把门扇横向压到 12% 来做，转轴在左门框），露出后面的 dark，播完停在开着的样子（animation-fill-mode: forwards）。关着、开着两个样子都要好看。每一帧都不出画框","status":"新画","batch":"本体第1批"}
+entries = {"":{"w":320,"h":480,"scale":1,"stillScale":2,"still":"ui_door.png","sheets":[{"f":"ui_door-0.png","w":318,"h":474},{"f":"ui_door-1.png","w":1590,"h":1422}],"actions":{"idle":{"loop":true,"hold":false,"sheets":[0],"frames":[{"s":0,"x":0,"y":0,"w":318,"h":474,"ox":1,"oy":5,"d":0}]},"open":{"loop":false,"hold":true,"sheets":[1],"frames":[{"s":1,"x":0,"y":0,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":318,"y":0,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":636,"y":0,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":954,"y":0,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":1272,"y":0,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":0,"y":474,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":318,"y":474,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":636,"y":474,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":954,"y":474,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":1272,"y":474,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":0,"y":948,"w":318,"h":474,"ox":1,"oy":5,"d":83.33},{"s":1,"x":318,"y":948,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":636,"y":948,"w":318,"h":474,"ox":1,"oy":5,"d":41.67},{"s":1,"x":954,"y":948,"w":318,"h":474,"ox":1,"oy":5,"d":16.67},{"s":1,"x":1272,"y":948,"w":318,"h":474,"ox":1,"oy":5,"d":41.67}]}},"hash":"d06f4febb74a5283"}}
+animations = {":idle":"res://art/resources/ui_door--idle.tres",":open":"res://art/resources/ui_door--open.tres"}

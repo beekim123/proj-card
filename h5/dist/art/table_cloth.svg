@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-table_cloth" viewBox="0 0 256 256" width="256" height="256">
+<title>桌布</title>
+<g id="root">
+<!-- 绒布主底（外圈深暗，内衬暗夜紫绒布） -->
+    <rect x="3" y="3" width="250" height="250" rx="14" fill="#161221" stroke="#1C1412" stroke-width="3.2"/>
+    <rect x="14" y="14" width="228" height="228" rx="6" fill="#262036"/>
+    <rect x="22" y="22" width="212" height="212" rx="4" fill="#161221"/>
+
+    <!-- 四边顺着拉伸方向的平直双线铜边与暗酒红压线（72..184 绝无圆点或斜花纹） -->
+    <rect x="10" y="10" width="236" height="236" rx="8" fill="none" stroke="#6E542B" stroke-width="2"/>
+    <rect x="18" y="18" width="220" height="220" rx="4" fill="none" stroke="#5E242C" stroke-width="1.5"/>
+    <rect x="22" y="22" width="212" height="212" rx="3" fill="none" stroke="#1C1412" stroke-width="1.6"/>
+    <!-- 左上冷受光细边 -->
+    <path d="M6,242 V16 A10,10 0 0,1 16,6 H242" fill="none" stroke="#62577D" stroke-width="1.5" opacity="0.55"/>
+
+    <!-- 四角包铜角花（严格在 72×72 角区内） -->
+    <g>
+    <polygon points="4,4 64,4 56,14 22,14 14,22 14,56 4,64" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="8,8 46,8 40,12 12,12 12,40 8,46" fill="#C2A670" opacity="0.65"/>
+    <polygon points="18,18 48,18 42,24 24,24 24,42 18,48" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
+    <circle cx="52" cy="9" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="9" cy="52" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <path d="M26,26 L38,38 M38,26 L26,38" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+    <g transform="translate(256, 0) scale(-1, 1)">
+    <polygon points="4,4 64,4 56,14 22,14 14,22 14,56 4,64" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="8,8 46,8 40,12 12,12 12,40 8,46" fill="#C2A670" opacity="0.65"/>
+    <polygon points="18,18 48,18 42,24 24,24 24,42 18,48" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
+    <circle cx="52" cy="9" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="9" cy="52" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <path d="M26,26 L38,38 M38,26 L26,38" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+    <g transform="translate(0, 256) scale(1, -1)">
+    <polygon points="4,4 64,4 56,14 22,14 14,22 14,56 4,64" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="8,8 46,8 40,12 12,12 12,40 8,46" fill="#C2A670" opacity="0.65"/>
+    <polygon points="18,18 48,18 42,24 24,24 24,42 18,48" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
+    <circle cx="52" cy="9" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="9" cy="52" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <path d="M26,26 L38,38 M38,26 L26,38" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+    <g transform="translate(256, 256) scale(-1, -1)">
+    <polygon points="4,4 64,4 56,14 22,14 14,22 14,56 4,64" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="8,8 46,8 40,12 12,12 12,40 8,46" fill="#C2A670" opacity="0.65"/>
+    <polygon points="18,18 48,18 42,24 24,24 24,42 18,48" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
+    <circle cx="52" cy="9" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="9" cy="52" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <path d="M26,26 L38,38 M38,26 L26,38" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+</g>
+</svg>

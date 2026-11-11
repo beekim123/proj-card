@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_heart_empty"
+svg_fingerprint = "252554ef0f97843d"
+definition = {"id":"ui_heart_empty","phase":1,"group":"界面","viewBox":"0 0 64 64","load":"img","desc":"空的心形挂坠：和 ui_heart 同一个铜边，宝石没了，只剩暗的空槽","status":"已有"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"ui_heart_empty.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"252554ef0f97843d"}}
+animations = {":idle":"res://art/resources/ui_heart_empty--idle.tres"}

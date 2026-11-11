@@ -1,0 +1,131 @@
+[gd_resource type="SpriteFrames" load_steps=20 format=3]
+
+[ext_resource type="Texture2D" path="res://art/sprites/mon_soldier-3.png" id="t0"]
+
+[sub_resource type="AtlasTexture" id="f0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 785, 254, 376)
+margin = Rect2(23, 24, 66, 24)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1"]
+atlas = ExtResource("t0")
+region = Rect2(508, 785, 261, 373)
+margin = Rect2(22, 27, 59, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2"]
+atlas = ExtResource("t0")
+region = Rect2(769, 785, 282, 363)
+margin = Rect2(19, 37, 38, 37)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3"]
+atlas = ExtResource("t0")
+region = Rect2(1051, 785, 304, 349)
+margin = Rect2(16, 51, 16, 51)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4"]
+atlas = ExtResource("t0")
+region = Rect2(0, 1161, 304, 334)
+margin = Rect2(16, 66, 16, 66)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5"]
+atlas = ExtResource("t0")
+region = Rect2(304, 1161, 303, 324)
+margin = Rect2(17, 76, 17, 76)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f6"]
+atlas = ExtResource("t0")
+region = Rect2(607, 1161, 302, 320)
+margin = Rect2(18, 79, 18, 80)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f7"]
+atlas = ExtResource("t0")
+region = Rect2(824, 0, 274, 392)
+margin = Rect2(0, 8, 46, 8)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f8"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 275, 395)
+margin = Rect2(0, 5, 45, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f9"]
+atlas = ExtResource("t0")
+region = Rect2(275, 0, 275, 395)
+margin = Rect2(0, 5, 45, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f10"]
+atlas = ExtResource("t0")
+region = Rect2(550, 0, 274, 394)
+margin = Rect2(0, 6, 46, 6)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f11"]
+atlas = ExtResource("t0")
+region = Rect2(1098, 0, 269, 392)
+margin = Rect2(2, 8, 51, 8)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f12"]
+atlas = ExtResource("t0")
+region = Rect2(0, 395, 264, 390)
+margin = Rect2(1, 10, 56, 10)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f13"]
+atlas = ExtResource("t0")
+region = Rect2(264, 395, 252, 386)
+margin = Rect2(14, 14, 68, 14)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f14"]
+atlas = ExtResource("t0")
+region = Rect2(516, 395, 259, 382)
+margin = Rect2(8, 18, 61, 18)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f15"]
+atlas = ExtResource("t0")
+region = Rect2(775, 395, 257, 379)
+margin = Rect2(11, 21, 63, 21)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f16"]
+atlas = ExtResource("t0")
+region = Rect2(1032, 395, 250, 377)
+margin = Rect2(19, 23, 70, 23)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f17"]
+atlas = ExtResource("t0")
+region = Rect2(254, 785, 254, 376)
+margin = Rect2(23, 24, 66, 24)
+filter_clip = true
+
+[resource]
+animations = [{ "frames": [{ "duration": 41.67, "texture": SubResource("f0") },
+{ "duration": 41.67, "texture": SubResource("f1") },
+{ "duration": 41.67, "texture": SubResource("f2") },
+{ "duration": 41.67, "texture": SubResource("f3") },
+{ "duration": 41.67, "texture": SubResource("f4") },
+{ "duration": 41.67, "texture": SubResource("f5") },
+{ "duration": 41.67, "texture": SubResource("f6") },
+{ "duration": 41.67, "texture": SubResource("f7") },
+{ "duration": 125, "texture": SubResource("f8") },
+{ "duration": 41.67, "texture": SubResource("f9") },
+{ "duration": 41.67, "texture": SubResource("f10") },
+{ "duration": 41.67, "texture": SubResource("f11") },
+{ "duration": 41.67, "texture": SubResource("f12") },
+{ "duration": 41.67, "texture": SubResource("f13") },
+{ "duration": 41.67, "texture": SubResource("f14") },
+{ "duration": 41.67, "texture": SubResource("f15") },
+{ "duration": 41.67, "texture": SubResource("f16") },
+{ "duration": 8.33, "texture": SubResource("f17") }], "loop": false, "name": &"attack", "speed": 1000.0 }]

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_rainbow" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 五色彩虹</title>
+<g id="root">
+  <!-- 六格旧铜镶边木宝石盒（3列×2行，外框 x:8..88, y:18..82） -->
+  <rect x="8" y="18" width="80" height="64" rx="6" fill="#704122" stroke="#1C1412" stroke-width="3.4"/>
+  <!-- 右下背光暗面 -->
+  <path d="M48,18 H82 A6,6 0 0,1 88,24 V76 A6,6 0 0,1 82,82 H48 Z" fill="#3D2212" opacity="0.8"/>
+  <!-- 左上受光亮边 -->
+  <path d="M12,76 V22 H80" fill="none" stroke="#C48A5C" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- 盒内暗绒底槽与六宫格旧铜隔板 -->
+  <rect x="14" y="24" width="68" height="52" rx="3" fill="#161221" stroke="#1C1412" stroke-width="2.8"/>
+  <path d="M36.6,24 V76 M59.3,24 V76 M14,50 H82" stroke="#9A7B46" stroke-width="4"/>
+  <path d="M36.6,24 V76 M59.3,24 V76 M14,50 H82" stroke="#1C1412" stroke-width="2"/>
+
+  <!-- 五格亮着的鲜艳宝石（红、黄、绿、青、蓝）+ 第六格（右下）明显空缺 -->
+  <!-- 1. 左上格：红宝石 (#E3263A) -->
+  <circle cx="25.3" cy="37" r="8.2" fill="#E3263A" stroke="#1C1412" stroke-width="2.4"/>
+  <circle cx="23.5" cy="35" r="2.8" fill="#FFFFFF"/>
+
+  <!-- 2. 中上格：黄宝石 (#FFD84A) -->
+  <polygon points="48,28 56.5,37 48,46 39.5,37" fill="#FFD84A" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+  <circle cx="46.5" cy="35" r="2.5" fill="#FFFFFF"/>
+
+  <!-- 3. 右上格：绿宝石 (#1DBF5E) -->
+  <rect x="62.5" y="29" width="16" height="16" rx="2.5" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.4"/>
+  <rect x="65" y="31.5" width="5" height="5" fill="#FFFFFF"/>
+
+  <!-- 4. 左下格：青宝石 (#3FE3F0) -->
+  <polygon points="25.3,54 34,63 25.3,72 16.6,63" fill="#3FE3F0" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+  <circle cx="24" cy="61" r="2.5" fill="#FFFFFF"/>
+
+  <!-- 5. 中下格：蓝宝石 (#2E66F0) -->
+  <polygon points="48,54 57,71 39,71" fill="#2E66F0" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+  <circle cx="47" cy="65" r="2.3" fill="#FFFFFF"/>
+
+  <!-- 6. 右下格：空的凹槽（缺了一格，只有暗底与空爪托） -->
+  <circle cx="70.6" cy="63" r="6.5" fill="#0D111C" stroke="#3B515C" stroke-width="2" stroke-dasharray="3 2"/>
+
+  <!-- 四角旧铜包角与外框重描 -->
+  <g fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round">
+    <polygon points="8,24 14,18 20,18 8,30"/>
+    <polygon points="88,24 82,18 76,18 88,30"/>
+    <polygon points="8,76 14,82 20,82 8,70"/>
+    <polygon points="88,76 82,82 76,82 88,70"/>
+  </g>
+  <rect x="8" y="18" width="80" height="64" rx="6" fill="none" stroke="#1C1412" stroke-width="3.4"/>
+</g>
+</svg>

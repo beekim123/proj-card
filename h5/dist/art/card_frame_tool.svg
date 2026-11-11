@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_frame_tool" viewBox="0 0 200 300" width="200" height="300">
+<title>额外牌框</title>
+<defs>
+  <linearGradient id="card_frame_tool-body" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#3B515C"/>
+    <stop offset="52%" stop-color="#1E2C33"/>
+    <stop offset="100%" stop-color="#0D111C"/>
+  </linearGradient>
+</defs>
+<g id="root">
+  <!-- 牌身底板（冷铁灰青配旧骨白/冷银镶边，与基础牌暗紫铜框一眼区分；evenodd 挖空原画窗 x12 y12 176×188） -->
+  <path d="M12,2 H188 A10,10 0 0,1 198,12 V288 A10,10 0 0,1 188,298 H12 A10,10 0 0,1 2,288 V12 A10,10 0 0,1 12,2 Z M20,14 H180 A6,6 0 0,1 186,20 V192 A6,6 0 0,1 180,198 H20 A6,6 0 0,1 14,192 V20 A6,6 0 0,1 20,14 Z" fill="url(#card_frame_tool-body)" fill-rule="evenodd"/>
+  <!-- 牌身左上冷月青受光轮廓线 -->
+  <path d="M4,280 V13 A9,9 0 0,1 13,4 H184" fill="none" stroke="#8CAAB5" stroke-width="2" opacity="0.82"/>
+  <!-- 下半截文字框暗底（y222..290，平整深暗，绝不放花纹） -->
+  <rect x="12" y="222" width="176" height="68" rx="6" fill="#0D111C" stroke="#1C1412" stroke-width="2"/>
+  <rect x="14" y="224" width="172" height="64" rx="4.5" fill="none" stroke="#9A8968" stroke-width="1.1" opacity="0.78"/>
+  <!-- 骨白/旧银双线外框与侧翼铆钉 -->
+  <rect x="6" y="6" width="188" height="288" rx="8" fill="none" stroke="#C8B894" stroke-width="1.6"/>
+  <!-- 原画窗骨白/冷银双层镶边（压住窗边） -->
+  <rect x="12" y="12" width="176" height="188" rx="8" fill="none" stroke="#1C1412" stroke-width="3.2"/>
+  <rect x="13.5" y="13.5" width="173" height="185" rx="7" fill="none" stroke="#C8B894" stroke-width="2.2"/>
+  <path d="M15,190 V20 A5,5 0 0,1 20,15 H178" fill="none" stroke="#E2D6BA" stroke-width="1.2" opacity="0.9"/>
+  <!-- 额外牌专属：哥特尖刺铆钉骨白/旧银角花（与基础牌阶梯铜角花明显区分） -->
+  <g fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round">
+    <!-- 左上角花：双尖翼折角 + 铆钉 -->
+    <polygon points="6,6 32,6 25,12 16,12 12,16 12,25 6,32"/>
+    <circle cx="13" cy="13" r="2" fill="#8CAAB5"/>
+    <!-- 右上角花 -->
+    <polygon points="194,6 168,6 175,12 184,12 188,16 188,25 194,32"/>
+    <circle cx="187" cy="13" r="2" fill="#8CAAB5"/>
+    <!-- 左下窗角花 -->
+    <polygon points="6,206 30,206 24,200 16,200 12,196 12,186 6,180"/>
+    <circle cx="13" cy="199" r="1.8" fill="#8CAAB5"/>
+    <!-- 右下窗角花 -->
+    <polygon points="194,206 170,206 176,200 184,200 188,196 188,186 194,180"/>
+    <circle cx="187" cy="199" r="1.8" fill="#8CAAB5"/>
+    <!-- 牌底左右两角骨白尖角包边 -->
+    <polygon points="6,294 26,294 21,288 12,288 12,279 6,274"/>
+    <polygon points="194,294 174,294 179,288 188,288 188,279 194,274"/>
+  </g>
+  <!-- 左右边框中段小菱形银钉装饰 -->
+  <polygon points="6,102 10,106 6,110 2,106" fill="#C8B894" stroke="#1C1412" stroke-width="1.2"/>
+  <polygon points="194,102 198,106 194,110 190,106" fill="#C8B894" stroke="#1C1412" stroke-width="1.2"/>
+  <!-- 牌身手绘粗外框 -->
+  <path d="M12,2 H188 A10,10 0 0,1 198,12 V288 A10,10 0 0,1 188,298 H12 A10,10 0 0,1 2,288 V12 A10,10 0 0,1 12,2 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+</g>
+</svg>

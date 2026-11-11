@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "relic_rainbow"
+svg_fingerprint = "6aee10b96b6bf4b1"
+definition = {"id":"relic_rainbow","group":"宝物","viewBox":"0 0 96 96","load":"img","desc":"五色彩虹：一只缺了一格的六格宝石盒，五格亮着","status":"新画","v2":"第2批"}
+entries = {"":{"w":96,"h":96,"scale":1.5,"stillScale":2,"still":"relic_rainbow.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"6aee10b96b6bf4b1"}}
+animations = {":idle":"res://art/resources/relic_rainbow--idle.tres"}

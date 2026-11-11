@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "rule_bite"
+svg_fingerprint = "94855d6be9de6629"
+definition = {"id":"rule_bite","group":"规矩图标","viewBox":"0 0 64 64","load":"img","desc":"咬手：一排尖牙咬住一颗绿色方宝石","status":"新画","v2":"第2批"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"rule_bite.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"94855d6be9de6629"}}
+animations = {":idle":"res://art/resources/rule_bite--idle.tres"}

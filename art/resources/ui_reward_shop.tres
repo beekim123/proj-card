@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_reward_shop"
+svg_fingerprint = "d23a7744f25a35e2"
+definition = {"id":"ui_reward_shop","group":"奖励图标","viewBox":"0 0 64 64","load":"img","desc":"奖励图标·工坊：一把旧剪刀和一支羽毛笔交叉（剪刀 = 扔牌，笔 = 抄牌）。线要粗，28 像素大小也认得出","status":"新画","batch":"本体第1批"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"ui_reward_shop.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"d23a7744f25a35e2"}}
+animations = {":idle":"res://art/resources/ui_reward_shop--idle.tres"}

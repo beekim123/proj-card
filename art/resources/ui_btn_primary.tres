@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_btn_primary"
+svg_fingerprint = "28936d347a59a6e2"
+definition = {"id":"ui_btn_primary","phase":2,"group":"界面","viewBox":"0 0 192 96","load":"img","nineSlice":[32,32,32,32],"desc":"主按钮底（结束回合）：比 ui_btn 醒目，旧铜色","status":"已有"}
+entries = {"":{"w":192,"h":96,"scale":1.5,"stillScale":2,"still":"ui_btn_primary.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"28936d347a59a6e2"}}
+animations = {":idle":"res://art/resources/ui_btn_primary--idle.tres"}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_bg" viewBox="0 0 176 188" width="176" height="188">
+<title>原画窗底</title>
+<defs>
+<radialGradient id="card_art_bg-velvet" cx="52%" cy="52%" r="65%">
+      <stop offset="0%" stop-color="#262036"/>
+      <stop offset="70%" stop-color="#161221"/>
+      <stop offset="100%" stop-color="#0D111C"/>
+    </radialGradient>
+</defs>
+<g id="root">
+<path d="M0,0 H176 V188 H0 Z" fill="url(#card_art_bg-velvet)"/>
+    <!-- 首饰盒内衬暗凹槽边缘（避开左上角 x0..34, y0..94 图标区） -->
+    <path d="M38,14 H162 V174 H14 V98" fill="none" stroke="#3A324D" stroke-width="1" stroke-dasharray="4 3" opacity="0.38"/>
+    <!-- 极淡的右下角背光斜排线 -->
+    <path d="M142,178 L168,152 M150,180 L170,160 M158,182 L172,168" stroke="#1C1412" stroke-width="1" opacity="0.35"/>
+</g>
+</svg>

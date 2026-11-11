@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_node_fight"
+svg_fingerprint = "a26fa01b3e788c96"
+definition = {"id":"ui_node_fight","phase":2,"group":"界面","viewBox":"0 0 64 64","load":"img","desc":"一局进度上的一格：普通一仗（一把小剑）","status":"已有"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"ui_node_fight.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"a26fa01b3e788c96"}}
+animations = {":idle":"res://art/resources/ui_node_fight--idle.tres"}

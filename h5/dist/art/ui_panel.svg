@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_panel" viewBox="0 0 192 192" width="192" height="192">
+<title>通用底板</title>
+<g id="root">
+<rect x="3" y="3" width="186" height="186" rx="12" fill="#161221" stroke="#1C1412" stroke-width="3"/>
+    <rect x="8" y="8" width="176" height="176" rx="8" fill="none" stroke="#6E542B" stroke-width="2"/>
+    <rect x="13" y="13" width="166" height="166" rx="5" fill="none" stroke="#3A324D" stroke-width="1.2"/>
+    <path d="M6,178 V14 A8,8 0 0,1 14,6 H178" fill="none" stroke="#62577D" stroke-width="1.4" opacity="0.65"/>
+    <g>
+    <polygon points="4,4 42,4 36,12 12,12 12,36 4,42" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="14,14 28,14 24,19 19,19 19,24 14,28" fill="#C2A670" opacity="0.85"/>
+  </g>
+    <g transform="translate(192, 0) scale(-1, 1)">
+    <polygon points="4,4 42,4 36,12 12,12 12,36 4,42" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="14,14 28,14 24,19 19,19 19,24 14,28" fill="#C2A670" opacity="0.85"/>
+  </g>
+    <g transform="translate(0, 192) scale(1, -1)">
+    <polygon points="4,4 42,4 36,12 12,12 12,36 4,42" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="14,14 28,14 24,19 19,19 19,24 14,28" fill="#C2A670" opacity="0.85"/>
+  </g>
+    <g transform="translate(192, 192) scale(-1, -1)">
+    <polygon points="4,4 42,4 36,12 12,12 12,36 4,42" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="14,14 28,14 24,19 19,19 19,24 14,28" fill="#C2A670" opacity="0.85"/>
+  </g>
+</g>
+</svg>

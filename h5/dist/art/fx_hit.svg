@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_hit" viewBox="0 0 160 160" width="160" height="160">
+<title>特效 · 打中木桩</title>
+<style>
+.svg-fx_hit g { transform-box: view-box; }
+.svg-fx_hit #burst_core, .svg-fx_hit #shards_a, .svg-fx_hit #shards_b { opacity: 0; transform-origin: 80px 80px; }
+@keyframes svg-fx_hit-core {
+  0%, 100% { opacity: 0; transform: scale(0.25) rotate(0deg); }
+  18% { opacity: 1; transform: scale(1.08) rotate(-8deg); }
+  55% { opacity: 0.9; transform: scale(0.92) rotate(6deg); }
+  90% { opacity: 0; transform: scale(1.15) rotate(12deg); }
+}
+@keyframes svg-fx_hit-shards-a {
+  0%, 100% { opacity: 0; transform: scale(0.35); }
+  22% { opacity: 1; transform: scale(0.92); }
+  75% { opacity: 0.85; transform: scale(1.12); }
+  95% { opacity: 0; transform: scale(1.18); }
+}
+@keyframes svg-fx_hit-shards-b {
+  0%, 10% { opacity: 0; transform: scale(0.4) rotate(-10deg); }
+  35% { opacity: 1; transform: scale(1) rotate(0deg); }
+  85% { opacity: 0.6; transform: scale(1.15) rotate(8deg); }
+  100% { opacity: 0; transform: scale(1.2) rotate(12deg); }
+}
+.svg-fx_hit[data-anim="play"] #burst_core { animation: svg-fx_hit-core 0.4s steps(6, end) both; }
+.svg-fx_hit[data-anim="play"] #shards_a { animation: svg-fx_hit-shards-a 0.4s steps(6, end) both; }
+.svg-fx_hit[data-anim="play"] #shards_b { animation: svg-fx_hit-shards-b 0.4s steps(6, end) both; }
+</style>
+<g id="root">
+<!-- pivot: 80,80 -->
+    <g id="shards_b" opacity="0"><!-- pivot: 80,80 -->
+      <path d="M80,22 L85,46 L75,46 Z M136,80 L114,85 L114,75 Z M80,138 L75,114 L85,114 Z M24,80 L46,75 L46,85 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="36,36 52,44 44,52" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.3"/>
+      <polygon points="124,36 116,52 108,44" fill="currentColor" stroke="#1C1412" stroke-width="1.3"/>
+      <polygon points="124,124 108,116 116,108" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.3"/>
+      <polygon points="36,124 44,108 52,116" fill="currentColor" stroke="#1C1412" stroke-width="1.3"/>
+    </g>
+    <g id="shards_a" opacity="0"><!-- pivot: 80,80 -->
+      <polygon points="80,26 90,62 126,44 100,76 132,96 94,94 104,130 80,102 56,130 66,94 28,96 60,76 34,44 70,62" fill="currentColor" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    </g>
+    <g id="burst_core" opacity="0"><!-- pivot: 80,80 -->
+      <polygon points="80,40 90,68 118,62 96,82 114,106 84,96 76,120 68,94 42,102 62,80 44,58 72,66" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    </g>
+</g>
+</svg>

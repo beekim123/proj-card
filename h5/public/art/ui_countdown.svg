@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_countdown" viewBox="0 0 96 96" width="96" height="96">
+<title>出手倒计时圆章</title>
+<style>
+.svg-ui_countdown g { transform-box: view-box; }
+.svg-ui_countdown #root { transform-origin: 48px 48px; }
+.svg-ui_countdown #badge { transform-origin: 48px 48px; }
+.svg-ui_countdown #sand_stream { transform-origin: 82px 49px; }
+
+/* 待机（2.2s 循环）：边上小沙漏里的沙粒慢慢往下漏 */
+@keyframes svg-ui_countdown-idle-sand {
+  0%, 100% { opacity: 0.95; transform: translateY(0px) scaleY(1); }
+  50% { opacity: 0.35; transform: translateY(3px) scaleY(0.82); }
+}
+.svg-ui_countdown:not([data-anim]) #sand_stream,
+.svg-ui_countdown[data-anim="idle"] #sand_stream {
+  animation: svg-ui_countdown-idle-sand 2.2s steps(6, end) infinite;
+}
+
+/* tick（500ms）：倒计时少 1 时整枚圆章像沙漏一样翻一下 */
+@keyframes svg-ui_countdown-tick-flip {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-14deg) scale(1.06); }
+  72% { transform: rotate(192deg) scale(1.04); }
+  88% { transform: rotate(175deg) scale(0.98); }
+  100% { transform: rotate(180deg) scale(1); }
+}
+.svg-ui_countdown[data-anim="tick"] #badge {
+  animation: svg-ui_countdown-tick-flip 0.5s steps(8, end) both;
+}
+
+/* warn（800ms 进场 + 无限循环）：只剩 1 回合时一直轻轻抖 */
+@keyframes svg-ui_countdown-warn-jitter {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+  20% { transform: translate(-2px, -1px) rotate(-4.5deg); }
+  40% { transform: translate(2px, 1px) rotate(4.5deg); }
+  60% { transform: translate(-2px, 1px) rotate(-3.5deg); }
+  80% { transform: translate(2px, -1px) rotate(3.8deg); }
+}
+.svg-ui_countdown[data-anim="warn"] #badge {
+  animation: svg-ui_countdown-warn-jitter 0.4s steps(5, end) infinite;
+  animation-iteration-count: infinite;
+}
+</style>
+<g id="root">
+  <!-- pivot: 48,48 -->
+  <g id="badge">
+    <!-- pivot: 48,48 -->
+    <!-- 四角哥特小铜齿凸耳 -->
+    <polygon points="44,5 52,5 54,12 42,12" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="44,91 52,91 54,84 42,84" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="5,44 5,52 12,54 12,42" fill="#C2A670" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- 旧铜圆章主体外圈（中心 48,48，外半径 39） -->
+    <circle cx="48" cy="48" r="39" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
+    <path d="M76,20 A39,39 0 0,1 20,76 L48,48 Z" fill="#3B2B14" opacity="0.78"/>
+    <!-- 左上冷受光铜边 -->
+    <path d="M16,66 A36,36 0 0,1 66,16" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round"/>
+    <!-- 铜章刻度铆钉 -->
+    <circle cx="23" cy="23" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
+    <circle cx="73" cy="23" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
+    <circle cx="23" cy="73" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
+    <circle cx="73" cy="73" r="2.2" fill="#6E542B" stroke="#1C1412" stroke-width="1.2"/>
+
+    <!-- 正中直径 56（半径 28）平整深暗底盘（代码在正中写 40 号浅色数字，完全无杂纹干扰） -->
+    <circle cx="48" cy="48" r="29" fill="#0D111C" stroke="#1C1412" stroke-width="2.6"/>
+    <circle cx="48" cy="48" r="27" fill="#161221"/>
+    <circle cx="48" cy="48" r="28" fill="none" stroke="#9A7B46" stroke-width="1.2" opacity="0.7"/>
+
+    <!-- 圆章右侧边上的哥特小沙漏（x:73..91, y:32..64，不遮挡中间 r=28 数字区） -->
+    <g id="hourglass">
+      <!-- 沙漏上下铜盖与立柱 -->
+      <rect x="73" y="32" width="18" height="4" rx="1" fill="#C2A670" stroke="#1C1412" stroke-width="1.8"/>
+      <rect x="73" y="60" width="18" height="4" rx="1" fill="#6E542B" stroke="#1C1412" stroke-width="1.8"/>
+      <path d="M75,36 V60 M89,36 V60" stroke="#9A7B46" stroke-width="1.6"/>
+      <!-- 沙漏上下玻璃囊 -->
+      <polygon points="76,36 88,36 83,47 81,47" fill="#1E2C33" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <polygon points="81,49 83,49 88,60 76,60" fill="#1E2C33" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <!-- 上半部余沙与下半部积沙 -->
+      <polygon points="78,41 86,41 83,46.5 81,46.5" fill="#C8B894"/>
+      <polygon points="82,53 87,59 77,59" fill="#C8B894"/>
+      <!-- 待机往下漏的沙粒流 sand_stream -->
+      <g id="sand_stream">
+        <!-- pivot: 82,49 -->
+        <line x1="82" y1="46.5" x2="82" y2="54.5" stroke="#E2D6BA" stroke-width="1.8" stroke-dasharray="2 1.5" stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+</g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="400" viewBox="0 0 320 400" class="svg-mon_chest"><style>
+.svg-mon_chest #root { transform-origin:160px 400px; }
+.svg-mon_chest:not([data-anim]) #root { animation:svg-mon_chest-idle 3000ms ease-in-out infinite; }
+.svg-mon_chest #face_hurt,.svg-mon_chest #face_daze { opacity:0; }
+.svg-mon_chest[data-anim="hit"] #root { animation:svg-mon_chest-hit 400ms ease-out; }
+.svg-mon_chest[data-anim="hit_big"] #root { animation:svg-mon_chest-hit-big 700ms ease-out; }
+.svg-mon_chest[data-anim="hit_big"] #face_hurt,.svg-mon_chest[data-anim="daze"] #face_daze { opacity:1; }
+.svg-mon_chest[data-anim="hit_big"] #eyes,.svg-mon_chest[data-anim="hit_big"] #face,.svg-mon_chest[data-anim="hit_big"] .normal-face,.svg-mon_chest[data-anim="daze"] #eyes,.svg-mon_chest[data-anim="daze"] #face,.svg-mon_chest[data-anim="daze"] .normal-face { opacity:0; }
+.svg-mon_chest[data-anim="attack"] #root { animation:svg-mon_chest-attack 800ms ease-in-out; }
+.svg-mon_chest[data-anim="daze"] #root { animation:svg-mon_chest-daze 600ms ease-in-out infinite; }
+.svg-mon_chest[data-anim="die"] #root { animation:svg-mon_chest-die 1000ms ease-in both; }
+
+@keyframes svg-mon_chest-idle { 0%,100% { transform:rotate(-.8deg); } 50% { transform:rotate(.8deg); } }
+@keyframes svg-mon_chest-hit { 25% { transform:rotate(6deg); } 100% { transform:rotate(0); } }
+@keyframes svg-mon_chest-hit-big { 25% { transform:rotate(14deg); } 100% { transform:rotate(0); } }
+@keyframes svg-mon_chest-attack { 50% { transform:scale(1.15); } 100% { transform:scale(1); } }
+@keyframes svg-mon_chest-daze { 0%,100% { transform:rotate(-3deg); } 50% { transform:rotate(3deg); } }
+@keyframes svg-mon_chest-die { to { opacity:0; transform:translateY(65px) scale(.9); } }
+
+</style><style>.svg-mon_chest[data-anim="bite"] #lid,.svg-mon_chest[data-anim="bite"] #teeth { transform-origin:160px 148px; animation:svg-mon_chest-bite 300ms ease-out; }
+@keyframes svg-mon_chest-bite { 0%,100% { transform:translateY(0); } 35% { transform:translateY(-24px); } 58% { transform:translateY(12px); } }</style><g id="root"><g id="shadow"><ellipse cx="160" cy="386" rx="113.99999999999999" ry="12" fill="#1C1412" opacity=".8"/></g><g id="box"><rect x="60" y="160" width="200" height="220" rx="42" fill="#161221" stroke="#6E542B" stroke-width="8"/></g><g id="lid"><circle cx="160" cy="116" r="66" fill="#161221" stroke="#6E542B" stroke-width="8"/><g id="eyes"><path d="M132 112h4m48 0h4m-44 24q16 12 32 0" fill="none" stroke="#E6DEC8" stroke-width="7" stroke-linecap="round"/></g><g id="face_hurt"><path d="M126 104l18 18m0 -18l-18 18m50 -18l18 18m0 -18l-18 18" fill="none" stroke="#E6DEC8" stroke-width="6"/></g><g id="face_daze"><text x="160" y="124" text-anchor="middle" fill="#C2A670" font-size="40">×  ×</text></g></g><text x="160" y="300" text-anchor="middle" fill="#9A8968" font-size="28" font-family="sans-serif">宝箱怪</text><g id="teeth"><path d="M120 145l14 22 14-22 14 22 14-22 14 22 14-22" fill="#E6DEC8"/></g><g id="tongue"></g><g id="gems_spill"></g></g></svg>

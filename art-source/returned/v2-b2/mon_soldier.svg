@@ -1,0 +1,696 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-mon_soldier" viewBox="0 0 320 400" width="320" height="400">
+<title>发条兵</title>
+<style>
+.svg-mon_soldier g { transform-box: view-box; }
+
+.svg-mon_soldier #root { transform-origin: 160px 400px; }
+.svg-mon_soldier #shadow { transform-origin: 160px 388px; }
+.svg-mon_soldier #legs { transform-origin: 160px 380px; }
+.svg-mon_soldier #body { transform-origin: 160px 300px; }
+.svg-mon_soldier #head { transform-origin: 160px 176px; }
+.svg-mon_soldier .hat-part { transform-origin: 160px 112px; }
+.svg-mon_soldier .eyes-blink { transform-origin: 160px 139px; }
+.svg-mon_soldier #jaw { transform-origin: 160px 168px; }
+.svg-mon_soldier #key { transform-origin: 54px 236px; }
+.svg-mon_soldier #spear { transform-origin: 228px 256px; }
+.svg-mon_soldier #face_hurt { transform-origin: 160px 142px; opacity: 0; }
+.svg-mon_soldier #face_daze { transform-origin: 160px 120px; opacity: 0; }
+.svg-mon_soldier .daze-stars { transform-origin: 160px 44px; }
+.svg-mon_soldier .daze-swirl-l { transform-origin: 136px 140px; }
+.svg-mon_soldier .daze-swirl-r { transform-origin: 184px 140px; }
+.svg-mon_soldier #spring { transform-origin: 160px 190px; opacity: 0; }
+.svg-mon_soldier .screw-1 { transform-origin: 112px 172px; }
+.svg-mon_soldier .screw-2 { transform-origin: 206px 168px; }
+.svg-mon_soldier .screw-3 { transform-origin: 158px 182px; }
+
+/* ==========================================================================
+   1. 待机 idle（3000ms 循环）
+   关键时间点：0ms(0%) 低 → 1500ms(50%) 高+眨眼 → 3000ms(100%) 低
+   背后的钥匙匀速转一整圈，正好 3000ms
+   ========================================================================== */
+@keyframes svg-mon_soldier-idle-body {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+  50% { transform: translate(0px, -8px) rotate(-1.5deg) scale(0.99, 1.02); }
+}
+@keyframes svg-mon_soldier-idle-legs {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(0.99, 1.02); }
+}
+@keyframes svg-mon_soldier-idle-head {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+  50% { transform: translate(0px, -3px) rotate(1.8deg); }
+}
+@keyframes svg-mon_soldier-idle-jaw {
+  0%, 100% { transform: translate(0px, 0px); }
+  50% { transform: translate(0px, -2px); }
+}
+@keyframes svg-mon_soldier-idle-eyes {
+  0%, 100% { transform: translate(0px, 0px) scale(1, 1); }
+  50% { transform: translate(0px, 1px) scale(1.12, 0.12); }
+}
+@keyframes svg-mon_soldier-idle-spear {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+  50% { transform: translate(0px, -4px) rotate(2.5deg); }
+}
+@keyframes svg-mon_soldier-idle-key {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes svg-mon_soldier-idle-shadow {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(0.93, 0.93); }
+}
+.svg-mon_soldier:not([data-anim]) #body,
+.svg-mon_soldier[data-anim="idle"] #body {
+  animation: svg-mon_soldier-idle-body 3s ease-in-out infinite;
+}
+.svg-mon_soldier:not([data-anim]) #legs,
+.svg-mon_soldier[data-anim="idle"] #legs {
+  animation: svg-mon_soldier-idle-legs 3s ease-in-out infinite;
+}
+.svg-mon_soldier:not([data-anim]) #head,
+.svg-mon_soldier[data-anim="idle"] #head {
+  animation: svg-mon_soldier-idle-head 3s ease-in-out infinite;
+}
+.svg-mon_soldier:not([data-anim]) #jaw,
+.svg-mon_soldier[data-anim="idle"] #jaw {
+  animation: svg-mon_soldier-idle-jaw 3s ease-in-out infinite;
+}
+.svg-mon_soldier:not([data-anim]) .eyes-blink,
+.svg-mon_soldier[data-anim="idle"] .eyes-blink {
+  animation: svg-mon_soldier-idle-eyes 3s ease-in-out infinite;
+}
+.svg-mon_soldier:not([data-anim]) #spear,
+.svg-mon_soldier[data-anim="idle"] #spear {
+  animation: svg-mon_soldier-idle-spear 3s ease-in-out infinite;
+}
+.svg-mon_soldier:not([data-anim]) #key,
+.svg-mon_soldier[data-anim="idle"] #key {
+  animation: svg-mon_soldier-idle-key 3s linear infinite;
+}
+.svg-mon_soldier:not([data-anim]) #shadow,
+.svg-mon_soldier[data-anim="idle"] #shadow {
+  animation: svg-mon_soldier-idle-shadow 3s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   2. 轻击 hit（400ms）
+   关键时间点：0ms(0%) 原样 → 50ms(12.5%) 受击到位（铁皮身子后歪8.5°+压扁9%，帽子后甩，钥匙停住）
+               → 130ms(32.5%) 停住 → 330ms(82.5%) 弹回过头 → 400ms(100%) 静止姿势
+   ========================================================================== */
+@keyframes svg-mon_soldier-hit-body {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-14px, -8px) rotate(8.5deg) scale(1.04, 0.91); animation-timing-function: linear; }
+  32.5% { transform: translate(-14px, -8px) rotate(8.5deg) scale(1.04, 0.91); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(3px, -1px) rotate(-2deg) scale(0.98, 1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_soldier-hit-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-4px, 4px) rotate(6.5deg); animation-timing-function: linear; }
+  32.5% { transform: translate(-4px, 4px) rotate(6.5deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(1px, -1px) rotate(-1.8deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_soldier-hit-hat {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-6px, -6px) rotate(9deg); animation-timing-function: linear; }
+  32.5% { transform: translate(-6px, -6px) rotate(9deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(2px, 1px) rotate(-2.5deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_soldier-hit-eyes {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: scale(1.18, 0.15); animation-timing-function: linear; }
+  32.5% { transform: scale(1.18, 0.15); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: scale(0.95, 1.05); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+@keyframes svg-mon_soldier-hit-key {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: rotate(-16deg); animation-timing-function: linear; }
+  32.5% { transform: rotate(-16deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(0deg); }
+}
+@keyframes svg-mon_soldier-hit-spear {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(4px, 4px) rotate(8deg); animation-timing-function: linear; }
+  32.5% { transform: translate(4px, 4px) rotate(8deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(-1px, -1px) rotate(-2deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_soldier-hit-shadow {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: scale(1.05, 0.92); animation-timing-function: linear; }
+  32.5% { transform: scale(1.05, 0.92); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: scale(0.98, 1.02); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+.svg-mon_soldier[data-anim="hit"] #body { animation: svg-mon_soldier-hit-body 0.4s both; }
+.svg-mon_soldier[data-anim="hit"] #head { animation: svg-mon_soldier-hit-head 0.4s both; }
+.svg-mon_soldier[data-anim="hit"] .hat-part { animation: svg-mon_soldier-hit-hat 0.4s both; }
+.svg-mon_soldier[data-anim="hit"] .eyes-blink { animation: svg-mon_soldier-hit-eyes 0.4s both; }
+.svg-mon_soldier[data-anim="hit"] #key { animation: svg-mon_soldier-hit-key 0.4s both; }
+.svg-mon_soldier[data-anim="hit"] #spear { animation: svg-mon_soldier-hit-spear 0.4s both; }
+.svg-mon_soldier[data-anim="hit"] #shadow { animation: svg-mon_soldier-hit-shadow 0.4s both; }
+
+/* ==========================================================================
+   3. 重击 hit_big（700ms）
+   关键时间点：0ms(0%) → 60ms(8.5714%) 压扁16%+后仰13.5°、换face_hurt、帽子飞起、崩出螺丝
+               → 200ms(28.5714%) 停住 → 500ms(71.4286%) 弹回过头、螺丝落下淡出 → 700ms(100%) 静止姿势
+   ========================================================================== */
+@keyframes svg-mon_soldier-hitbig-body {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: translate(-20px, -16px) rotate(13.5deg) scale(1.05, 0.84); animation-timing-function: linear; }
+  28.5714% { transform: translate(-20px, -16px) rotate(13.5deg) scale(1.05, 0.84); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: translate(4px, -2px) rotate(-3deg) scale(0.97, 1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_soldier-hitbig-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: translate(-4px, 6px) rotate(6deg); animation-timing-function: linear; }
+  28.5714% { transform: translate(-4px, 6px) rotate(6deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: translate(2px, -2px) rotate(-2deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_soldier-hitbig-hat {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: translate(-8px, -18px) rotate(11deg); animation-timing-function: linear; }
+  28.5714% { transform: translate(-8px, -18px) rotate(11deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: translate(2px, 3px) rotate(-3deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_soldier-hitbig-jaw {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: translate(0px, 22px) rotate(9deg); animation-timing-function: linear; }
+  28.5714% { transform: translate(0px, 22px) rotate(9deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: translate(0px, -2px) rotate(-1.5deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_soldier-hitbig-hurt {
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { opacity: 1; animation-timing-function: linear; }
+  28.5714% { opacity: 1; animation-timing-function: ease-in-out; }
+  71.4286% { opacity: 0.1; animation-timing-function: linear; }
+  100% { opacity: 0; }
+}
+@keyframes svg-mon_soldier-hitbig-spring {
+  0% { opacity: 0; transform: translate(0px, 8px) scale(0.5); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { opacity: 1; transform: translate(0px, -6px) scale(1.05); animation-timing-function: linear; }
+  28.5714% { opacity: 1; transform: translate(0px, -6px) scale(1.05); animation-timing-function: ease-in-out; }
+  71.4286% { opacity: 0.15; transform: translate(6px, 28px) scale(0.88); animation-timing-function: linear; }
+  100% { opacity: 0; transform: translate(6px, 34px) scale(0.8); }
+}
+@keyframes svg-mon_soldier-hitbig-shadow {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: scale(1.08, 0.88); animation-timing-function: linear; }
+  28.5714% { transform: scale(1.08, 0.88); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: scale(0.97, 1.03); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+.svg-mon_soldier[data-anim="hit_big"] #body { animation: svg-mon_soldier-hitbig-body 0.7s both; }
+.svg-mon_soldier[data-anim="hit_big"] #head { animation: svg-mon_soldier-hitbig-head 0.7s both; }
+.svg-mon_soldier[data-anim="hit_big"] .hat-part { animation: svg-mon_soldier-hitbig-hat 0.7s both; }
+.svg-mon_soldier[data-anim="hit_big"] #jaw { animation: svg-mon_soldier-hitbig-jaw 0.7s both; }
+.svg-mon_soldier[data-anim="hit_big"] #face_hurt { animation: svg-mon_soldier-hitbig-hurt 0.7s both; }
+.svg-mon_soldier[data-anim="hit_big"] #spring { animation: svg-mon_soldier-hitbig-spring 0.7s both; }
+.svg-mon_soldier[data-anim="hit_big"] #shadow { animation: svg-mon_soldier-hitbig-shadow 0.7s both; }
+
+/* ==========================================================================
+   4. 出手 attack（800ms）
+   关键时间点：0ms(0%) → 250ms(31.25%) 蓄力（往下缩12%、端枪往后收）
+               → 330ms(41.25%) 出手刺中（长枪直刺出去，枪尖到画框边上，不出框）
+               → 450ms(56.25%) 停住 → 800ms(100%) 回到静止姿势
+   ========================================================================== */
+@keyframes svg-mon_soldier-attack-body {
+  0% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(8px, 14px) scale(1.06, 0.88) rotate(5deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-14px, -6px) scale(0.96, 1.05) rotate(-7deg); animation-timing-function: linear; }
+  56.25% { transform: translate(-14px, -6px) scale(0.96, 1.05) rotate(-7deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); }
+}
+@keyframes svg-mon_soldier-attack-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(4px, 6px) rotate(4deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-6px, -4px) rotate(-5deg); animation-timing-function: linear; }
+  56.25% { transform: translate(-6px, -4px) rotate(-5deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes svg-mon_soldier-attack-jaw {
+  0% { transform: translate(0px, 0px); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(0px, -2px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(0px, 12px); animation-timing-function: linear; }
+  56.25% { transform: translate(0px, 12px); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px); }
+}
+@keyframes svg-mon_soldier-attack-spear {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(14px, 18px) rotate(22deg) scale(0.96, 0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-36px, 24px) rotate(-56deg) scale(1.08, 1.12); animation-timing-function: linear; }
+  56.25% { transform: translate(-36px, 24px) rotate(-56deg) scale(1.08, 1.12); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_soldier-attack-key {
+  0% { transform: rotate(0deg); animation-timing-function: ease-in-out; }
+  31.25% { transform: rotate(-60deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: rotate(180deg); animation-timing-function: linear; }
+  56.25% { transform: rotate(180deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(360deg); }
+}
+@keyframes svg-mon_soldier-attack-shadow {
+  0% { transform: scale(1, 1); animation-timing-function: ease-in-out; }
+  31.25% { transform: scale(1.08, 0.92); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: scale(0.94, 0.94); animation-timing-function: linear; }
+  56.25% { transform: scale(0.94, 0.94); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+.svg-mon_soldier[data-anim="attack"] #body { animation: svg-mon_soldier-attack-body 0.8s both; }
+.svg-mon_soldier[data-anim="attack"] #head { animation: svg-mon_soldier-attack-head 0.8s both; }
+.svg-mon_soldier[data-anim="attack"] #jaw { animation: svg-mon_soldier-attack-jaw 0.8s both; }
+.svg-mon_soldier[data-anim="attack"] #spear { animation: svg-mon_soldier-attack-spear 0.8s both; }
+.svg-mon_soldier[data-anim="attack"] #key { animation: svg-mon_soldier-attack-key 0.8s both; }
+.svg-mon_soldier[data-anim="attack"] #shadow { animation: svg-mon_soldier-attack-shadow 0.8s both; }
+
+/* ==========================================================================
+   5. 松发条 unwind（300ms）
+   关键时间点：0ms(0%) → 60ms(20%) 钥匙倒着猛转四分之一圈(-90°)，身子一歪6.5°
+               → 140ms(46.6667%) 停住 → 300ms(100%) 回到静止姿势
+   ========================================================================== */
+@keyframes svg-mon_soldier-unwind-key {
+  0% { transform: rotate(0deg) scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  20% { transform: rotate(-90deg) scale(1.08); animation-timing-function: linear; }
+  46.6667% { transform: rotate(-90deg) scale(1.08); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+@keyframes svg-mon_soldier-unwind-body {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  20% { transform: translate(-8px, 4px) rotate(-6.5deg) scale(1.02, 0.95); animation-timing-function: linear; }
+  46.6667% { transform: translate(-8px, 4px) rotate(-6.5deg) scale(1.02, 0.95); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_soldier-unwind-head {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  20% { transform: rotate(-4.5deg); animation-timing-function: linear; }
+  46.6667% { transform: rotate(-4.5deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes svg-mon_soldier-unwind-spear {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  20% { transform: rotate(-6deg); animation-timing-function: linear; }
+  46.6667% { transform: rotate(-6deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: rotate(0deg); }
+}
+.svg-mon_soldier[data-anim="unwind"] #key { animation: svg-mon_soldier-unwind-key 0.3s both; }
+.svg-mon_soldier[data-anim="unwind"] #body { animation: svg-mon_soldier-unwind-body 0.3s both; }
+.svg-mon_soldier[data-anim="unwind"] #head { animation: svg-mon_soldier-unwind-head 0.3s both; }
+.svg-mon_soldier[data-anim="unwind"] #spear { animation: svg-mon_soldier-unwind-spear 0.3s both; }
+
+/* ==========================================================================
+   6. 发条松完 wound_down（600ms 进场后停住，stay）
+   关键时间点：0ms(0%) → 200ms(33.3333%) 钥匙卡住不转，身子一软
+               → 600ms(100%) 垮下来：身子压低10%，头往前耷拉15°，枪尖垂到地上
+   ========================================================================== */
+@keyframes svg-mon_soldier-wound-body {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { transform: translate(-2px, 8px) rotate(-3deg) scale(1.02, 0.94); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-6px, 16px) rotate(-6.5deg) scale(1.03, 0.9); }
+}
+@keyframes svg-mon_soldier-wound-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { transform: translate(-3px, 6px) rotate(-7deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-8px, 14px) rotate(-15deg); }
+}
+@keyframes svg-mon_soldier-wound-jaw {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { transform: translate(0px, 8px) rotate(-4deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-2px, 16px) rotate(-10deg); }
+}
+@keyframes svg-mon_soldier-wound-eyes {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { transform: scale(1.06, 0.45); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1.1, 0.18); }
+}
+@keyframes svg-mon_soldier-wound-key {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { transform: rotate(-28deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(-24deg); }
+}
+@keyframes svg-mon_soldier-wound-spear {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.3333% { transform: translate(-6px, 10px) rotate(-32deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-18px, 26px) rotate(-108deg); }
+}
+.svg-mon_soldier[data-anim="wound_down"] #body { animation: svg-mon_soldier-wound-body 0.6s forwards; }
+.svg-mon_soldier[data-anim="wound_down"] #head { animation: svg-mon_soldier-wound-head 0.6s forwards; }
+.svg-mon_soldier[data-anim="wound_down"] #jaw { animation: svg-mon_soldier-wound-jaw 0.6s forwards; }
+.svg-mon_soldier[data-anim="wound_down"] .eyes-blink { animation: svg-mon_soldier-wound-eyes 0.6s forwards; }
+.svg-mon_soldier[data-anim="wound_down"] #key { animation: svg-mon_soldier-wound-key 0.6s forwards; }
+.svg-mon_soldier[data-anim="wound_down"] #spear { animation: svg-mon_soldier-wound-spear 0.6s forwards; }
+
+/* ==========================================================================
+   7. 发晕 daze（600ms 进场 + 2000ms 循环，stay）
+   进场：0ms(0%) → 600ms(100%) 换 face_daze，整只歪 6.5°
+   循环：0ms(0%) → 1000ms(50%) → 2000ms(100%) 慢慢左右晃，小星绕圈
+   ========================================================================== */
+@keyframes svg-mon_soldier-daze-in-body {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+  100% { transform: translate(-6px, 8px) rotate(-6.2deg) scale(1.01, 0.94); }
+}
+@keyframes svg-mon_soldier-daze-loop-body {
+  0%, 100% { transform: translate(-6px, 8px) rotate(-6.2deg) scale(1.01, 0.94); }
+  50% { transform: translate(6px, 8px) rotate(6.5deg) scale(1.01, 0.94); }
+}
+@keyframes svg-mon_soldier-daze-in-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  100% { transform: translate(-2px, 6px) rotate(-5deg); }
+}
+@keyframes svg-mon_soldier-daze-loop-head {
+  0%, 100% { transform: translate(-2px, 6px) rotate(-5deg); }
+  50% { transform: translate(2px, 6px) rotate(5.5deg); }
+}
+@keyframes svg-mon_soldier-daze-in-jaw {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  100% { transform: translate(0px, 10px) rotate(3deg); }
+}
+@keyframes svg-mon_soldier-daze-loop-jaw {
+  0%, 100% { transform: translate(0px, 10px) rotate(3deg); }
+  50% { transform: translate(0px, 12px) rotate(-3deg); }
+}
+@keyframes svg-mon_soldier-daze-in-face {
+  0% { opacity: 0; transform: translateY(6px) scale(0.88); }
+  100% { opacity: 1; transform: translateY(0px) scale(1); }
+}
+@keyframes svg-mon_soldier-daze-loop-face {
+  0%, 100% { opacity: 1; transform: translateY(0px) scale(1); }
+  50% { opacity: 1; transform: translateY(1px) scale(1); }
+}
+@keyframes svg-mon_soldier-daze-in-swirl {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(120deg); }
+}
+@keyframes svg-mon_soldier-daze-loop-swirl {
+  0% { transform: rotate(120deg); }
+  50% { transform: rotate(300deg); }
+  100% { transform: rotate(480deg); }
+}
+@keyframes svg-mon_soldier-daze-in-stars {
+  0% { transform: translate(-6px, 4px) scale(0.85); }
+  100% { transform: translate(-6px, 0px) scale(1); }
+}
+@keyframes svg-mon_soldier-daze-loop-stars {
+  0%, 100% { transform: translate(-6px, 0px) scale(1); }
+  50% { transform: translate(6px, -2px) scale(1); }
+}
+@keyframes svg-mon_soldier-daze-in-spear {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  100% { transform: translate(0px, 6px) rotate(-8deg); }
+}
+@keyframes svg-mon_soldier-daze-loop-spear {
+  0%, 100% { transform: translate(0px, 6px) rotate(-8deg); }
+  50% { transform: translate(0px, 8px) rotate(-14deg); }
+}
+.svg-mon_soldier[data-anim="daze"] #body {
+  animation: svg-mon_soldier-daze-in-body 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_soldier-daze-loop-body 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_soldier[data-anim="daze"] #head {
+  animation: svg-mon_soldier-daze-in-head 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_soldier-daze-loop-head 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_soldier[data-anim="daze"] #jaw {
+  animation: svg-mon_soldier-daze-in-jaw 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_soldier-daze-loop-jaw 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_soldier[data-anim="daze"] #face_daze {
+  animation: svg-mon_soldier-daze-in-face 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_soldier-daze-loop-face 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_soldier[data-anim="daze"] .daze-swirl-l,
+.svg-mon_soldier[data-anim="daze"] .daze-swirl-r {
+  animation: svg-mon_soldier-daze-in-swirl 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_soldier-daze-loop-swirl 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_soldier[data-anim="daze"] .daze-stars {
+  animation: svg-mon_soldier-daze-in-stars 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_soldier-daze-loop-stars 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_soldier[data-anim="daze"] #spear {
+  animation: svg-mon_soldier-daze-in-spear 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_soldier-daze-loop-spear 2s ease-in-out 0.6s infinite;
+}
+
+/* ==========================================================================
+   8. 死亡 die（1000ms）
+   关键时间点：0ms(0%) → 150ms(15%) 猛一抖 → 300ms(30%) 弹簧齿轮崩出、帽子掉了、整个倒下
+               → 600ms(60%) 东西落到地上(y:360..390，位移>120px) → 1000ms(100%) 全部淡出
+   ========================================================================== */
+@keyframes svg-mon_soldier-die-root {
+  0% { opacity: 1; transform: translate(0px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { opacity: 1; transform: translate(-4px, 2px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { opacity: 1; transform: translate(2px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { opacity: 1; transform: translate(0px, 0px); animation-timing-function: linear; }
+  100% { opacity: 0; transform: translate(0px, 4px); }
+}
+@keyframes svg-mon_soldier-die-body {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-6px, 4px) rotate(-5deg) scale(1.04, 0.94); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-12px, 18px) rotate(13deg) scale(0.98, 0.88); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(-14px, 24px) rotate(16deg) scale(0.96, 0.86); animation-timing-function: linear; }
+  100% { transform: translate(-14px, 26px) rotate(16.5deg) scale(0.96, 0.86); }
+}
+@keyframes svg-mon_soldier-die-head {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-4px, -6px) rotate(-6deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-8px, 18px) rotate(10deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(-10px, 24px) rotate(14deg); animation-timing-function: linear; }
+  100% { transform: translate(-10px, 26px) rotate(15deg); }
+}
+@keyframes svg-mon_soldier-die-hat {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-8px, -14px) rotate(-12deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-34px, 48px) rotate(-32deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  60% { transform: translate(-48px, 198px) rotate(-46deg); animation-timing-function: linear; }
+  100% { transform: translate(-50px, 200px) rotate(-48deg); }
+}
+@keyframes svg-mon_soldier-die-jaw {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(0px, 6px) rotate(4deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(0px, 20px) rotate(11deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(0px, 24px) rotate(14deg); animation-timing-function: linear; }
+  100% { transform: translate(0px, 25px) rotate(14deg); }
+}
+@keyframes svg-mon_soldier-die-key {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-8px, -10px) rotate(-25deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-18px, 44px) rotate(-65deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  60% { transform: translate(-12px, 118px) rotate(-95deg); animation-timing-function: linear; }
+  100% { transform: translate(-12px, 120px) rotate(-98deg); }
+}
+@keyframes svg-mon_soldier-die-spear {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(4px, -6px) rotate(6deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-14px, 8px) rotate(-22deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(-18px, 14px) rotate(-28deg); animation-timing-function: linear; }
+  100% { transform: translate(-18px, 16px) rotate(-29deg); }
+}
+@keyframes svg-mon_soldier-die-spring {
+  0% { opacity: 0; transform: translate(0px, 10px) scale(0.45); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { opacity: 0.85; transform: translate(-6px, -18px) scale(0.95); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { opacity: 1; transform: translate(-14px, -36px) scale(1.08); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  60% { opacity: 1; transform: translate(-22px, 152px) scale(1); animation-timing-function: linear; }
+  100% { opacity: 0; transform: translate(-24px, 156px) scale(0.96); }
+}
+.svg-mon_soldier[data-anim="die"] #root { animation: svg-mon_soldier-die-root 1s both; }
+.svg-mon_soldier[data-anim="die"] #body { animation: svg-mon_soldier-die-body 1s both; }
+.svg-mon_soldier[data-anim="die"] #head { animation: svg-mon_soldier-die-head 1s both; }
+.svg-mon_soldier[data-anim="die"] .hat-part { animation: svg-mon_soldier-die-hat 1s both; }
+.svg-mon_soldier[data-anim="die"] #jaw { animation: svg-mon_soldier-die-jaw 1s both; }
+.svg-mon_soldier[data-anim="die"] #key { animation: svg-mon_soldier-die-key 1s both; }
+.svg-mon_soldier[data-anim="die"] #spear { animation: svg-mon_soldier-die-spear 1s both; }
+.svg-mon_soldier[data-anim="die"] #spring { animation: svg-mon_soldier-die-spring 1s both; }
+</style>
+
+<g id="root">
+  <!-- pivot: 160,400 -->
+  <!-- 落地暗影 shadow -->
+  <g id="shadow">
+    <!-- pivot: 160,388 -->
+    <ellipse cx="160" cy="388" rx="108" ry="11" fill="#0D111C" opacity="0.65"/>
+    <ellipse cx="160" cy="388" rx="78" ry="6.5" fill="#1C1412" opacity="0.5"/>
+    <path d="M68,392 L80,381 M88,393 L100,380 M108,394 L120,379 M128,395 L140,379 M148,395 L160,379 M168,395 L180,379 M188,394 L200,380 M208,393 L220,381 M228,392 L240,382" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.65"/>
+  </g>
+
+  <!-- 铁皮双腿与底座 legs（无滤镜，范围 x:78..242, y:290..388） -->
+  <g id="legs">
+    <!-- pivot: 160,380 -->
+    <polygon points="88,370 232,370 242,388 78,388" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="160,370 232,370 242,388 160,388" fill="#3B2B14" opacity="0.78"/>
+    <path d="M92,374 H224" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
+    <polygon points="110,290 146,290 144,372 106,372" fill="#3B515C" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="174,290 210,290 214,372 176,372" fill="#1E2C33" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="102,340 148,340 146,374 96,374" fill="#262036" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="172,340 218,340 224,374 174,374" fill="#161221" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M113,294 L110,338" stroke="#8CAAB5" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="128" cy="322" r="3.5" fill="#C2A670" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="192" cy="322" r="3.5" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4"/>
+  </g>
+
+  <!-- 铁皮兵主躯干组 body（无滤镜，去除沸腾线） -->
+  <g id="body">
+    <!-- pivot: 160,300 -->
+
+    <!-- 后背左侧固定发条轴套 -->
+    <rect x="52" y="226" width="48" height="20" rx="3" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6"/>
+    <path d="M56,230 H96" stroke="#9A7B46" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- 背后插着的黄铜发条大钥匙 key（围绕轴心 54,236 匀速旋转 360° 永不穿帮或出框） -->
+    <g id="key">
+      <!-- pivot: 54,236 -->
+      <!-- 对称十字双环发条翼片（x:24..84, y:206..266） -->
+      <path d="M26,208 L54,218 L82,208 L72,236 L82,264 L54,254 L26,264 L36,236 Z M34,216 L48,224 L42,232 L32,226 Z M74,216 L60,224 L66,232 L76,226 Z M34,256 L48,248 L42,240 L32,246 Z M74,256 L60,248 L66,240 L76,246 Z" fill="#9A7B46" fill-rule="evenodd" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <!-- 钥匙上翼冷高光与方向铆钉（一眼看清正转与倒转） -->
+      <path d="M30,211 L52,220" stroke="#C2A670" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="54" cy="236" r="8" fill="#6E542B" stroke="#1C1412" stroke-width="2.4"/>
+      <circle cx="54" cy="222" r="3" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.4"/>
+    </g>
+
+    <!-- 圆筒铁皮躯干（暗酒红旧漆配灰铁胸甲与十字武装带，x:94..226, y:184..304） -->
+    <polygon points="96,188 224,190 218,302 102,300" fill="#8C3B45" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <polygon points="160,189 224,190 218,302 160,301" fill="#5E242C" opacity="0.82"/>
+    <path d="M100,194 L106,295" stroke="#8CAAB5" stroke-width="2.8" stroke-linecap="round" opacity="0.88"/>
+    <path d="M176,208 L214,246 M170,224 L212,266 M168,244 L210,286 M188,202 L218,232" stroke="#1C1412" stroke-width="1.2" opacity="0.48"/>
+    <path d="M212,212 L174,250 M214,234 L176,272" stroke="#1C1412" stroke-width="1" opacity="0.35"/>
+
+    <!-- 旧铜肩章与左臂 -->
+    <polygon points="80,192 108,184 106,258 84,256" fill="#5A7682" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="74,182 112,178 108,198 72,196" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="208,178 246,184 242,202 210,198" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <!-- 胸前交叉羊皮纸绶带与正中铜扣（hitPoint 160,230） -->
+    <polygon points="104,190 120,190 214,288 198,288" fill="#C8B894" stroke="#1C1412" stroke-width="2.2"/>
+    <polygon points="200,190 216,190 122,288 106,288" fill="#9A8968" stroke="#1C1412" stroke-width="2.2"/>
+    <polygon points="98,278 222,280 220,302 100,300" fill="#262036" stroke="#1C1412" stroke-width="2.6"/>
+    <rect x="144" y="216" width="32" height="28" rx="3" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4"/>
+    <circle cx="160" cy="230" r="6" fill="#3B515C" stroke="#1C1412" stroke-width="1.6"/>
+    <polygon points="96,188 224,190 218,302 102,300" fill="none" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+
+    <!-- 重击与死亡崩出的弹簧、齿轮与三颗螺丝 spring（平时 opacity="0"） -->
+    <g id="spring" opacity="0">
+      <!-- pivot: 160,190 -->
+      <!-- 崩出的螺旋钢丝弹簧 -->
+      <path d="M156,196 L130,184 L178,170 L126,156 L182,142 L140,128" fill="none" stroke="#1C1412" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M156,196 L130,184 L178,170 L126,156 L182,142 L140,128" fill="none" stroke="#8CAAB5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- 飞溅的黄铜齿轮 -->
+      <circle cx="102" cy="166" r="11" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-dasharray="5 3"/>
+      <circle cx="102" cy="166" r="4" fill="#1C1412"/>
+      <circle cx="216" cy="160" r="9.5" fill="#C2A670" stroke="#1C1412" stroke-width="2.2" stroke-dasharray="4 3"/>
+      <circle cx="216" cy="160" r="3.5" fill="#1C1412"/>
+      <!-- 崩出的三颗铁皮螺丝钉 -->
+      <g class="screw-1">
+        <polygon points="80,140 94,140 90,146 84,146" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.8"/>
+        <rect x="84" y="146" width="6" height="10" fill="#5A7682" stroke="#1C1412" stroke-width="1.6"/>
+      </g>
+      <g class="screw-2">
+        <polygon points="226,136 240,136 236,142 230,142" fill="#C2A670" stroke="#1C1412" stroke-width="1.8"/>
+        <rect x="230" y="142" width="6" height="10" fill="#9A7B46" stroke="#1C1412" stroke-width="1.6"/>
+      </g>
+      <g class="screw-3">
+        <polygon points="148,116 162,116 158,122 152,122" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.8"/>
+        <rect x="152" y="122" width="6" height="10" fill="#5A7682" stroke="#1C1412" stroke-width="1.6"/>
+      </g>
+    </g>
+
+    <!-- 大方下巴 jaw（独立部件，内侧颈部画完整避免张嘴露缝） -->
+    <g id="jaw">
+      <!-- pivot: 160,168 -->
+      <rect x="120" y="148" width="80" height="40" fill="#0D111C" stroke="#1C1412" stroke-width="2.2"/>
+      <polygon points="116,162 204,164 198,196 122,194" fill="#C8B894" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <polygon points="160,163 204,164 198,196 160,195" fill="#9A8968" opacity="0.78"/>
+      <rect x="128" y="162" width="64" height="12" fill="#E2D6BA" stroke="#1C1412" stroke-width="2"/>
+      <path d="M144,162 V174 M160,162 V174 M176,162 V174" stroke="#1C1412" stroke-width="2"/>
+      <circle cx="126" cy="184" r="2.5" fill="#5A7682" stroke="#1C1412" stroke-width="1.2"/>
+      <circle cx="194" cy="184" r="2.5" fill="#5A7682" stroke="#1C1412" stroke-width="1.2"/>
+    </g>
+
+    <!-- 铁皮脸与高筒军帽 head -->
+    <g id="head">
+      <!-- pivot: 160,176 -->
+      <!-- 铁皮方脸（顶部延伸至 y=106 防止帽子飞起时露缝） -->
+      <polygon points="108,108 212,110 208,166 112,164" fill="#C8B894" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <polygon points="162,109 212,110 208,166 160,165" fill="#9A8968" opacity="0.75"/>
+      <ellipse cx="124" cy="150" rx="11" ry="7.5" fill="#8C3B45" stroke="#1C1412" stroke-width="1.6" opacity="0.82"/>
+      <ellipse cx="196" cy="152" rx="10.5" ry="7" fill="#5E242C" stroke="#1C1412" stroke-width="1.6" opacity="0.82"/>
+
+      <!-- 诡萌机械小眼（带 .eyes-blink 在 1500ms 眨眼） -->
+      <g id="eyes_normal">
+        <g class="eyes-blink">
+          <!-- pivot: 160,139 -->
+          <circle cx="136" cy="138" r="10.5" fill="#1E2C33" stroke="#1C1412" stroke-width="2.4"/>
+          <circle cx="136" cy="138" r="5" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.4"/>
+          <circle cx="136" cy="138" r="2" fill="#1C1412"/>
+          <circle cx="184" cy="140" r="9" fill="#1E2C33" stroke="#1C1412" stroke-width="2.4"/>
+          <circle cx="184" cy="140" r="4.2" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.4"/>
+          <circle cx="184" cy="140" r="1.8" fill="#1C1412"/>
+        </g>
+        <polygon points="160,132 167,152 153,152" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M122,126 L148,131 M198,128 L172,132" stroke="#1C1412" stroke-width="3.2" stroke-linecap="round"/>
+      </g>
+
+      <!-- 重击表情 face_hurt（平时 opacity="0"） -->
+      <g id="face_hurt" opacity="0">
+        <!-- pivot: 160,142 -->
+        <polygon points="110,114 210,116 206,162 114,160" fill="#C8B894"/>
+        <polygon points="162,115 210,116 206,162 160,161" fill="#9A8968" opacity="0.75"/>
+        <ellipse cx="124" cy="150" rx="11" ry="7.5" fill="#8C3B45" stroke="#1C1412" stroke-width="1.6"/>
+        <ellipse cx="196" cy="152" rx="10.5" ry="7" fill="#5E242C" stroke="#1C1412" stroke-width="1.6"/>
+        <path d="M124,132 L144,140 L124,148 M196,134 L176,142 L196,150" fill="none" stroke="#1C1412" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <polygon points="160,132 167,152 153,152" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      </g>
+
+      <!-- 眩晕表情 face_daze（平时 opacity="0"） -->
+      <g id="face_daze" opacity="0">
+        <!-- pivot: 160,120 -->
+        <polygon points="110,114 210,116 206,162 114,160" fill="#C8B894"/>
+        <polygon points="162,115 210,116 206,162 160,161" fill="#9A8968" opacity="0.75"/>
+        <g class="daze-swirl-l">
+          <!-- pivot: 136,140 -->
+          <circle cx="136" cy="140" r="10.5" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.2"/>
+          <path d="M136,140 m-1.8,0 a1.8,1.8 0 1,0 3.6,0 a4,4 0 1,0 -8,0 a6,6 0 1,0 12,0" fill="none" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+        </g>
+        <g class="daze-swirl-r">
+          <!-- pivot: 184,140 -->
+          <circle cx="184" cy="140" r="9.5" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.2"/>
+          <path d="M184,140 m-1.6,0 a1.6,1.6 0 1,0 3.2,0 a3.6,3.6 0 1,0 -7.2,0 a5.5,5.5 0 1,0 11,0" fill="none" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+        </g>
+        <g class="daze-stars">
+          <!-- pivot: 160,44 -->
+          <ellipse cx="160" cy="44" rx="48" ry="9" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.78"/>
+          <path d="M112,42 L115,48 L121,51 L115,54 L112,60 L109,54 L103,51 L109,48 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M208,42 L211,48 L217,51 L211,54 L208,60 L205,54 L199,51 L205,48 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+        </g>
+      </g>
+
+      <!-- 高筒铁皮军帽 .hat-part（hit后甩、hit_big飞起再落回、die掉地上） -->
+      <g class="hat-part">
+        <!-- pivot: 160,112 -->
+        <polygon points="98,42 224,46 214,120 106,118" fill="#262036" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+        <polygon points="162,44 224,46 214,120 160,119" fill="#161221" opacity="0.82"/>
+        <circle cx="160" cy="36" r="9" fill="#C8B894" stroke="#1C1412" stroke-width="2.4"/>
+        <polygon points="94,110 226,112 220,126 100,124" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+        <path d="M102,46 L109,108" stroke="#8CAAB5" stroke-width="2.6" stroke-linecap="round" opacity="0.9"/>
+        <polygon points="160,60 178,82 160,104 142,82" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+        <polygon points="160,68 172,92 148,92" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+        <polygon points="160,68 172,92 160,92" fill="#193D9E"/>
+        <polygon points="159,74 164,86 154,86" fill="#6B9BFF"/>
+        <circle cx="158" cy="76" r="2" fill="#FFFFFF"/>
+      </g>
+    </g>
+
+    <!-- 右手握着的长枪 spear（attack 时直刺到画框边上 x≈18，绝不出框） -->
+    <g id="spear">
+      <!-- pivot: 228,256 -->
+      <polygon points="212,194 238,198 242,262 216,258" fill="#3B515C" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <polygon points="246,96 256,98 220,362 210,360" fill="#704122" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <polygon points="234,92 268,98 262,110 232,104" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="262,36 274,96 251,96 238,92" fill="#5A7682" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <polygon points="262,36 274,96 251,96" fill="#1E2C33" opacity="0.8"/>
+      <path d="M260,42 L242,88" stroke="#E2D6BA" stroke-width="2.2" stroke-linecap="round"/>
+      <rect x="218" y="242" width="24" height="22" rx="4" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6"/>
+    </g>
+  </g>
+</g>
+</svg>

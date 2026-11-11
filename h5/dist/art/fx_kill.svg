@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_kill" viewBox="0 0 320 320" width="320" height="320">
+<title>特效 · 把怪打穿</title>
+<style>
+.svg-fx_kill g { transform-box: view-box; }
+.svg-fx_kill #crack_ring { transform-origin: 160px 160px; opacity: 0; }
+.svg-fx_kill #shards_inner { transform-origin: 160px 160px; opacity: 0; }
+.svg-fx_kill #shards_outer { transform-origin: 160px 160px; opacity: 0; }
+
+/* play（900ms）：一圈哥特锯齿裂纹猛然炸开 + 一把红绿蓝三色宝石碎片向四周迸散；平时全透明 */
+@keyframes svg-fx_kill-cracks {
+  0%, 100% { opacity: 0; transform: scale(0.32) rotate(-8deg); }
+  16% { opacity: 1; transform: scale(0.96) rotate(0deg); }
+  48% { opacity: 0.95; transform: scale(1.08) rotate(3deg); }
+  82% { opacity: 0.45; transform: scale(1.14) rotate(5deg); }
+}
+@keyframes svg-fx_kill-inner {
+  0%, 6%, 96%, 100% { opacity: 0; transform: scale(0.35) rotate(0deg); }
+  22% { opacity: 1; transform: scale(0.95) rotate(6deg); }
+  56% { opacity: 1; transform: scale(1.12) rotate(14deg); }
+  88% { opacity: 0; transform: scale(1.18) rotate(18deg); }
+}
+@keyframes svg-fx_kill-outer {
+  0%, 12%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  30% { opacity: 1; transform: scale(0.92) rotate(-6deg); }
+  66% { opacity: 0.92; transform: scale(1.1) rotate(-14deg); }
+  96% { opacity: 0; transform: scale(1.16) rotate(-18deg); }
+}
+.svg-fx_kill[data-anim="play"] #crack_ring { animation: svg-fx_kill-cracks 0.9s steps(10, end) both; }
+.svg-fx_kill[data-anim="play"] #shards_inner { animation: svg-fx_kill-inner 0.9s steps(10, end) both; }
+.svg-fx_kill[data-anim="play"] #shards_outer { animation: svg-fx_kill-outer 0.9s steps(10, end) both; }
+</style>
+<g id="root">
+  <!-- pivot: 160,160 -->
+  <!-- 炸开的哥特锯齿裂纹环 crack_ring（控制在 r<=122 内，放大 1.14 倍后严格在 320×320 画框内） -->
+  <g id="crack_ring" opacity="0">
+    <!-- pivot: 160,160 -->
+    <!-- 中央星芒裂口 -->
+    <polygon points="160,52 178,122 246,84 198,144 268,160 198,178 244,236 176,198 160,268 142,198 76,236 122,176 52,160 122,142 74,84 142,122" fill="#1C1412" stroke="#E2D6BA" stroke-width="2.4" stroke-linejoin="round"/>
+    <!-- 一圈折线裂纹环 -->
+    <polygon points="160,44 206,62 248,54 256,102 276,160 254,212 242,258 196,256 160,276 118,254 74,256 66,208 44,160 68,108 78,60 122,64" fill="none" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/>
+    <polygon points="160,48 204,66 244,58 252,104 272,160 250,210 238,254 194,252 160,272 120,250 78,252 70,206 48,160 72,110 82,64 124,68" fill="none" stroke="#E6DEC8" stroke-width="1.6" stroke-dasharray="14 8" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 内圈三色宝石碎片 shards_inner（红圆/刻面、绿方、蓝三角，鲜艳高饱和） -->
+  <g id="shards_inner" opacity="0">
+    <!-- pivot: 160,160 -->
+    <!-- 红宝石碎片 -->
+    <g>
+      <polygon points="148,74 166,68 172,86 154,94 142,84" fill="#E3263A" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="148,74 166,68 160,82" fill="#FF5C6E"/>
+      <polygon points="94,196 112,190 116,208 98,214" fill="#E3263A" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="94,196 112,190 104,204" fill="#FFD6DC"/>
+      <circle cx="212" cy="196" r="10" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+      <circle cx="209" cy="193" r="4" fill="#FF5C6E"/>
+    </g>
+    <!-- 绿宝石碎片 -->
+    <g>
+      <rect x="206" y="104" width="22" height="22" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2" transform="rotate(24 217 115)"/>
+      <rect x="210" y="108" width="10" height="10" fill="#5CE892" transform="rotate(24 217 115)"/>
+      <rect x="82" y="114" width="20" height="20" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2" transform="rotate(-18 92 124)"/>
+      <rect x="86" y="118" width="9" height="9" fill="#D4FFEA" transform="rotate(-18 92 124)"/>
+      <rect x="150" y="216" width="18" height="18" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2"/>
+    </g>
+    <!-- 蓝宝石碎片 -->
+    <g>
+      <polygon points="118,76 134,102 104,98" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="118,76 126,96 108,95" fill="#6B9BFF"/>
+      <polygon points="234,152 252,178 222,176" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="234,152 242,172 226,172" fill="#D9E6FF"/>
+      <polygon points="184,218 202,242 174,240" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- 外圈飞散三色宝石碎晶与闪星 shards_outer（控制在 48..272 内，缩放 1.16 倍后仍在 30..290 画框内） -->
+  <g id="shards_outer" opacity="0">
+    <!-- pivot: 160,160 -->
+    <!-- 红碎晶 -->
+    <circle cx="72" cy="82" r="8" fill="#FF5C6E" stroke="#1C1412" stroke-width="2"/>
+    <polygon points="246,92 262,86 258,104 242,102" fill="#E3263A" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="122" cy="252" r="7.5" fill="#E3263A" stroke="#1C1412" stroke-width="2"/>
+    <!-- 绿碎晶 -->
+    <rect x="188" y="54" width="15" height="15" rx="2" fill="#5CE892" stroke="#1C1412" stroke-width="2" transform="rotate(32 195.5 61.5)"/>
+    <rect x="54" y="156" width="16" height="16" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2" transform="rotate(-24 62 164)"/>
+    <rect x="234" y="218" width="15" height="15" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2" transform="rotate(15 241.5 225.5)"/>
+    <!-- 蓝碎晶 -->
+    <polygon points="82,232 98,252 72,250" fill="#6B9BFF" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="262,142 274,162 252,160" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="134,48 148,66 126,64" fill="#6B9BFF" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <!-- 白色闪星 -->
+    <path d="M160,136 L166,154 L184,160 L166,166 L160,184 L154,166 L136,160 L154,154 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

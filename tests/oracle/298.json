@@ -1,0 +1,1 @@
+{"file":"run.test.ts","name":"新01 §12 显示表 · 全部11项 > 超杀 1.06 → ×1","passed":true,"table":[[{"$float64":"f6285c8fc2f5f03f"}]],"calls":[{"module":"run","function":"formatOverkill","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":"×1"}]}

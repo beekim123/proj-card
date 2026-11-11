@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "gem_green_cut"
+svg_fingerprint = "965d43fc027ab104"
+definition = {"id":"gem_green_cut","phase":1,"group":"宝石","viewBox":"0 0 100 100","load":"img","desc":"绿宝石 · 切好（方）。这次重画成会动的：每 3–4 秒一道光从刻面上扫过，带一颗小星闪一下","status":"已有","idle":true}
+entries = {"":{"w":100,"h":100,"scale":1.5,"stillScale":2,"still":"gem_green_cut.png","sheets":[{"f":"gem_green_cut-0.png","w":464,"h":580}],"actions":{"idle":{"loop":true,"hold":false,"sheets":[0],"frames":[{"s":0,"x":0,"y":0,"w":116,"h":116,"ox":17,"oy":17,"d":500},{"s":0,"x":116,"y":0,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":232,"y":0,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":348,"y":0,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":0,"y":116,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":116,"y":116,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":232,"y":116,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":348,"y":116,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":0,"y":232,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":116,"y":232,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":232,"y":232,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":348,"y":232,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":0,"y":348,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":116,"y":348,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":232,"y":348,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":348,"y":348,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":0,"y":464,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":116,"y":464,"w":116,"h":116,"ox":17,"oy":17,"d":1966.67}]}},"hash":"965d43fc027ab104"}}
+animations = {":idle":"res://art/resources/gem_green_cut--idle.tres"}

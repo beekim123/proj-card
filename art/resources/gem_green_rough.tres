@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "gem_green_rough"
+svg_fingerprint = "0ba1b7fd7056728e"
+definition = {"id":"gem_green_rough","phase":1,"group":"宝石","viewBox":"0 0 100 100","load":"img","desc":"绿宝石 · 原石（方）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3–6 秒一次，一次不超过 0.4 秒）","status":"已有","idle":true}
+entries = {"":{"w":100,"h":100,"scale":1.5,"stillScale":2,"still":"gem_green_rough.png","sheets":[{"f":"gem_green_rough-0.png","w":232,"h":348}],"actions":{"idle":{"loop":true,"hold":false,"sheets":[0],"frames":[{"s":0,"x":0,"y":0,"w":116,"h":116,"ox":17,"oy":17,"d":1333.33},{"s":0,"x":116,"y":0,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":0,"y":116,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":116,"y":116,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":0,"y":232,"w":116,"h":116,"ox":17,"oy":17,"d":83.33},{"s":0,"x":0,"y":0,"w":116,"h":116,"ox":17,"oy":17,"d":3533.33}]}},"hash":"0ba1b7fd7056728e"}}
+animations = {":idle":"res://art/resources/gem_green_rough--idle.tres"}

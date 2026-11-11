@@ -1,0 +1,72 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=3]
+
+[ext_resource type="Texture2D" path="res://art/sprites/fx_hit@2-0.png" id="t0"]
+
+[sub_resource type="AtlasTexture" id="f0"]
+region = Rect2(0, 0, 240, 240)
+
+[sub_resource type="AtlasTexture" id="f1"]
+atlas = ExtResource("t0")
+region = Rect2(463, 402, 88, 89)
+margin = Rect2(76, 74, 152, 151)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2"]
+atlas = ExtResource("t0")
+region = Rect2(329, 402, 134, 138)
+margin = Rect2(53, 50, 106, 102)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3"]
+atlas = ExtResource("t0")
+region = Rect2(173, 402, 156, 162)
+margin = Rect2(42, 39, 84, 78)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4"]
+atlas = ExtResource("t0")
+region = Rect2(0, 402, 173, 180)
+margin = Rect2(33, 30, 67, 60)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5"]
+atlas = ExtResource("t0")
+region = Rect2(376, 206, 182, 188)
+margin = Rect2(29, 26, 58, 52)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f6"]
+atlas = ExtResource("t0")
+region = Rect2(190, 206, 186, 192)
+margin = Rect2(27, 24, 54, 48)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f7"]
+atlas = ExtResource("t0")
+region = Rect2(0, 206, 190, 196)
+margin = Rect2(25, 22, 50, 44)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f8"]
+atlas = ExtResource("t0")
+region = Rect2(200, 0, 194, 200)
+margin = Rect2(23, 20, 46, 40)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f9"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 200, 206)
+margin = Rect2(20, 17, 40, 34)
+filter_clip = true
+
+[resource]
+animations = [{ "frames": [{ "duration": 41.67, "texture": SubResource("f0") },
+{ "duration": 41.67, "texture": SubResource("f1") },
+{ "duration": 41.67, "texture": SubResource("f2") },
+{ "duration": 41.67, "texture": SubResource("f3") },
+{ "duration": 41.67, "texture": SubResource("f4") },
+{ "duration": 41.67, "texture": SubResource("f5") },
+{ "duration": 41.67, "texture": SubResource("f6") },
+{ "duration": 41.67, "texture": SubResource("f7") },
+{ "duration": 41.67, "texture": SubResource("f8") },
+{ "duration": 25, "texture": SubResource("f9") }], "loop": false, "name": &"play", "speed": 1000.0 }]

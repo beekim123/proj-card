@@ -1,0 +1,1 @@
+{"file":"run.test.ts","name":"新01 §12 显示表 · 全部11项 > 怪血 19900/20000 → 1.99万 / 2万","passed":true,"table":[[19900,20000]],"calls":[{"module":"run","function":"formatMonsterHp","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":"1.99万 / 2万"}]}

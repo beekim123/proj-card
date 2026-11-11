@@ -1,0 +1,131 @@
+[gd_resource type="SpriteFrames" load_steps=20 format=3]
+
+[ext_resource type="Texture2D" path="res://art/sprites/gem_green_cut-0.png" id="t0"]
+
+[sub_resource type="AtlasTexture" id="f0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1"]
+atlas = ExtResource("t0")
+region = Rect2(116, 0, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2"]
+atlas = ExtResource("t0")
+region = Rect2(232, 0, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3"]
+atlas = ExtResource("t0")
+region = Rect2(348, 0, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4"]
+atlas = ExtResource("t0")
+region = Rect2(0, 116, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5"]
+atlas = ExtResource("t0")
+region = Rect2(116, 116, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f6"]
+atlas = ExtResource("t0")
+region = Rect2(232, 116, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f7"]
+atlas = ExtResource("t0")
+region = Rect2(348, 116, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f8"]
+atlas = ExtResource("t0")
+region = Rect2(0, 232, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f9"]
+atlas = ExtResource("t0")
+region = Rect2(116, 232, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f10"]
+atlas = ExtResource("t0")
+region = Rect2(232, 232, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f11"]
+atlas = ExtResource("t0")
+region = Rect2(348, 232, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f12"]
+atlas = ExtResource("t0")
+region = Rect2(0, 348, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f13"]
+atlas = ExtResource("t0")
+region = Rect2(116, 348, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f14"]
+atlas = ExtResource("t0")
+region = Rect2(232, 348, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f15"]
+atlas = ExtResource("t0")
+region = Rect2(348, 348, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f16"]
+atlas = ExtResource("t0")
+region = Rect2(0, 464, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f17"]
+atlas = ExtResource("t0")
+region = Rect2(116, 464, 116, 116)
+margin = Rect2(17, 17, 34, 34)
+filter_clip = true
+
+[resource]
+animations = [{ "frames": [{ "duration": 500, "texture": SubResource("f0") },
+{ "duration": 83.33, "texture": SubResource("f1") },
+{ "duration": 83.33, "texture": SubResource("f2") },
+{ "duration": 83.33, "texture": SubResource("f3") },
+{ "duration": 83.33, "texture": SubResource("f4") },
+{ "duration": 83.33, "texture": SubResource("f5") },
+{ "duration": 83.33, "texture": SubResource("f6") },
+{ "duration": 83.33, "texture": SubResource("f7") },
+{ "duration": 83.33, "texture": SubResource("f8") },
+{ "duration": 83.33, "texture": SubResource("f9") },
+{ "duration": 83.33, "texture": SubResource("f10") },
+{ "duration": 83.33, "texture": SubResource("f11") },
+{ "duration": 83.33, "texture": SubResource("f12") },
+{ "duration": 83.33, "texture": SubResource("f13") },
+{ "duration": 83.33, "texture": SubResource("f14") },
+{ "duration": 83.33, "texture": SubResource("f15") },
+{ "duration": 83.33, "texture": SubResource("f16") },
+{ "duration": 1966.67, "texture": SubResource("f17") }], "loop": true, "name": &"idle", "speed": 1000.0 }]

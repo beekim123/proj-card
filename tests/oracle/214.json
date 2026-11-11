@@ -1,0 +1,1 @@
+{"file":"number-rounding.test.ts","name":"四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 1234567 → 123.5万","passed":true,"table":[[1234567]],"calls":[{"module":"index","function":"formatNumber","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":"123.5万"}]}

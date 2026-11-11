@@ -1,0 +1,1 @@
+{"file":"rules.test.ts","name":"01 §8 · 大数字表全部用例 > 1000000000000 → 1兆","passed":true,"table":[[1000000000000]],"calls":[{"module":"index","function":"formatNumber","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":"1兆"}]}

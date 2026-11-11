@@ -1,0 +1,47 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3]
+
+[ext_resource type="Texture2D" path="res://art/sprites/gem_red_rough-0.png" id="t0"]
+
+[sub_resource type="AtlasTexture" id="f0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 122, 122)
+margin = Rect2(14, 14, 28, 28)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1"]
+atlas = ExtResource("t0")
+region = Rect2(122, 0, 122, 122)
+margin = Rect2(14, 14, 28, 28)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2"]
+atlas = ExtResource("t0")
+region = Rect2(0, 122, 122, 122)
+margin = Rect2(14, 14, 28, 28)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3"]
+atlas = ExtResource("t0")
+region = Rect2(122, 122, 122, 122)
+margin = Rect2(14, 14, 28, 28)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4"]
+atlas = ExtResource("t0")
+region = Rect2(0, 244, 122, 122)
+margin = Rect2(14, 14, 28, 28)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 122, 122)
+margin = Rect2(14, 14, 28, 28)
+filter_clip = true
+
+[resource]
+animations = [{ "frames": [{ "duration": 916.67, "texture": SubResource("f0") },
+{ "duration": 83.33, "texture": SubResource("f1") },
+{ "duration": 83.33, "texture": SubResource("f2") },
+{ "duration": 83.33, "texture": SubResource("f3") },
+{ "duration": 83.33, "texture": SubResource("f4") },
+{ "duration": 3350, "texture": SubResource("f5") }], "loop": true, "name": &"idle", "speed": 1000.0 }]

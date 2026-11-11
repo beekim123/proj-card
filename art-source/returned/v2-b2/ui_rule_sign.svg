@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_rule_sign" viewBox="0 0 280 88" width="280" height="88">
+<title>规矩牌子</title>
+<style>
+.svg-ui_rule_sign g { transform-box: view-box; }
+
+.svg-ui_rule_sign #root { transform-origin: 140px 0px; }
+.svg-ui_rule_sign #rope { transform-origin: 140px 44px; }
+.svg-ui_rule_sign #board { transform-origin: 140px 48px; }
+
+/* ==========================================================================
+   1. 待机 idle（3000ms 循环）
+   关键时间点：0ms(0%) 往左歪 -1.5°（内层静态已偏 -1.5°，故 0% 为 rotate(0deg)）
+               → 1500ms(50%) 往右 +1.5°（相对转 +3deg）
+               → 3000ms(100%) 回到左 -1.5°（rotate(0deg)）
+   转轴在两根绳的顶上 (140,0)，绳跟着动
+   ========================================================================== */
+@keyframes svg-ui_rule_sign-idle-root {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+.svg-ui_rule_sign:not([data-anim]) #root,
+.svg-ui_rule_sign[data-anim="idle"] #root {
+  animation: svg-ui_rule_sign-idle-root 3s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   2. 翻面 flip（400ms）
+   关键时间点：0ms(0%) 正面 → 200ms(50%) 木板横向压成一条线 scaleX(0) → 400ms(100%) 转回正面
+   转轴在木板中线 x=140
+   ========================================================================== */
+@keyframes svg-ui_rule_sign-flip-board {
+  0% { transform: scaleX(1); animation-timing-function: ease-in-out; }
+  50% { transform: scaleX(0); animation-timing-function: ease-in-out; }
+  100% { transform: scaleX(1); }
+}
+@keyframes svg-ui_rule_sign-flip-rope {
+  0% { transform: scaleX(1); animation-timing-function: ease-in-out; }
+  50% { transform: scaleX(0.08); animation-timing-function: ease-in-out; }
+  100% { transform: scaleX(1); }
+}
+.svg-ui_rule_sign[data-anim="flip"] #board {
+  animation: svg-ui_rule_sign-flip-board 0.4s both;
+}
+.svg-ui_rule_sign[data-anim="flip"] #rope {
+  animation: svg-ui_rule_sign-flip-rope 0.4s both;
+}
+</style>
+
+<g id="root">
+  <!-- pivot: 140,0 -->
+  <g transform="rotate(-1.5 140 0)">
+    <!-- 两根麻绳 rope（从画框上沿 y=0 垂下来） -->
+    <g id="rope">
+      <!-- pivot: 140,44 -->
+      <line x1="68" y1="2" x2="68" y2="22" stroke="#1C1412" stroke-width="7.5" stroke-linecap="round"/>
+      <line x1="68" y1="2" x2="68" y2="22" stroke="#9A8968" stroke-width="3.4" stroke-dasharray="4 3" stroke-linecap="round"/>
+      <line x1="212" y1="2" x2="212" y2="22" stroke="#1C1412" stroke-width="7.5" stroke-linecap="round"/>
+      <line x1="212" y1="2" x2="212" y2="22" stroke="#9A8968" stroke-width="3.4" stroke-dasharray="4 3" stroke-linecap="round"/>
+    </g>
+
+    <!-- 旧木牌主体 board（照 card_art_seal.svg 的哥特切角铁包角木匾，占 x:10..270, y:14..83） -->
+    <g id="board">
+      <!-- pivot: 140,48 -->
+      <polygon points="18,14 262,14 270,22 270,75 262,83 18,83 10,75 10,22" fill="#704122" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+      <polygon points="18,75 262,75 270,67 270,75 262,83 18,83 10,75" fill="#3D2212" opacity="0.82"/>
+      <polyline points="14,72 14,24 20,18 258,18" fill="none" stroke="#C48A5C" stroke-width="2.4" stroke-linecap="round" opacity="0.88"/>
+
+      <!-- 右侧写字区平整浅色底板（x:82..262, y:20..76，无压字纹路或钉子） -->
+      <rect x="82" y="20" width="178" height="56" rx="4" fill="#C8B894" stroke="#1C1412" stroke-width="2.4"/>
+      <path d="M85,73 H257 V23" fill="none" stroke="#9A8968" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M85,23 H255" fill="none" stroke="#E2D6BA" stroke-width="1.8" stroke-linecap="round"/>
+
+      <!-- 左侧图标凹槽暗色方框（x:20..76, y:16..72，正合 56×56 图标） -->
+      <rect x="20" y="16" width="56" height="56" rx="5" fill="#161221" stroke="#1C1412" stroke-width="2.8"/>
+      <path d="M23,69 V19 H73" fill="none" stroke="#0D111C" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M23,70 H73 V20" fill="none" stroke="#6E542B" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+
+      <!-- 四角灰铁包角与两颗顶部吊环铜铆钉 -->
+      <g fill="#3B515C" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round">
+        <polygon points="10,22 18,14 30,14 18,26 10,34"/>
+        <polygon points="270,22 262,14 250,14 262,26 270,34"/>
+        <polygon points="10,75 18,83 30,83 18,71 10,63"/>
+        <polygon points="270,75 262,83 250,83 262,71 270,63"/>
+        <circle cx="68" cy="18" r="4.2" fill="#9A7B46"/>
+        <circle cx="212" cy="18" r="4.2" fill="#9A7B46"/>
+      </g>
+
+      <polygon points="18,14 262,14 270,22 270,75 262,83 18,83 10,75 10,22" fill="none" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+
+      <!-- 空的图标槽与文字槽（放在 board 里跟着木板动） -->
+      <g id="icon_slot"></g>
+      <g id="rule_text"></g>
+    </g>
+  </g>
+</g>
+</svg>

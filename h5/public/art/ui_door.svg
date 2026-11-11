@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_door" viewBox="0 0 320 480" width="320" height="480">
+<title>门</title>
+<style>
+.svg-ui_door g { transform-box: view-box; }
+.svg-ui_door #root { transform-origin: 160px 480px; }
+.svg-ui_door #frame { transform-origin: 160px 480px; }
+.svg-ui_door #dark { transform-origin: 160px 256px; }
+.svg-ui_door #leaf { transform-origin: 48px 256px; }
+.svg-ui_door #door_ring { transform-origin: 244px 124px; }
+
+/* open（600ms，播完停住）：0ms 关着 -> 100ms(16.67%) 门扇往里一顿、门环颤一下 -> 400ms(66.67%) 绕左合页转开横向压到 12% -> 480ms(80%) 停住 -> 600ms(100%) 回弹到 15% 停住 */
+@keyframes svg-ui_door-open-leaf {
+  0% {
+    transform: scaleX(1) skewY(0deg);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  16.67% {
+    transform: scaleX(0.96) skewY(0.8deg);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  66.67% {
+    transform: translateY(14px) scale(0.12, 0.94) skewY(-1.6deg);
+    animation-timing-function: linear;
+  }
+  80% {
+    transform: translateY(14px) scale(0.12, 0.94) skewY(-1.6deg);
+    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
+  }
+  100% {
+    transform: translateY(12px) scale(0.15, 0.95) skewY(-1.2deg);
+  }
+}
+@keyframes svg-ui_door-open-ring {
+  0% {
+    transform: rotate(0deg) translateY(0px);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  16.67% {
+    transform: rotate(-14deg) translateY(-4px);
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  66.67% {
+    transform: rotate(10deg) translateY(2px);
+    animation-timing-function: linear;
+  }
+  80% {
+    transform: rotate(10deg) translateY(2px);
+    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
+  }
+  100% {
+    transform: rotate(4deg) translateY(0px);
+  }
+}
+.svg-ui_door[data-anim="open"] #leaf {
+  animation: svg-ui_door-open-leaf 0.6s forwards;
+}
+.svg-ui_door[data-anim="open"] #door_ring {
+  animation: svg-ui_door-open-ring 0.6s forwards;
+}
+</style>
+<g id="root">
+  <!-- 落地点 anchor: 160,480 -->
+  <!-- 1. 门洞暗色层 dark（在石框内侧，门扇打开时露出超过 85% 的深邃暗洞，无暖光） -->
+  <g id="dark">
+    <!-- 门洞主体近黑底色 -->
+    <path d="M46,458 V152 Q46,66 160,34 Q274,66 274,152 V458 Z" fill="#0D111C" stroke="#1C1412" stroke-width="2.5" stroke-linejoin="round"/>
+    <!-- 门洞内壁左侧石阶暗影（开门后体现门框厚度与纵深） -->
+    <path d="M46,458 V152 Q46,66 160,34 Q102,68 72,154 V458 Z" fill="#161221" opacity="0.85"/>
+    <!-- 门洞内壁右侧微弱冷灰石阶线与地面暗阶 -->
+    <path d="M254,456 V156 Q254,84 160,48" fill="none" stroke="#1E2C33" stroke-width="2" opacity="0.65"/>
+    <polygon points="46,444 274,444 274,458 46,458" fill="#161221"/>
+  </g>
+
+  <!-- 2. 门扇 leaf（绕左门框 x=48 转轴缩放；重点识别特征集中在 y<120 拱顶区和左右两侧） -->
+  <g id="leaf">
+    <!-- 旧木门扇主底板（哥特尖拱形，范围 x:48..272, y:36..456） -->
+    <path d="M48,456 V152 Q48,68 160,36 Q272,68 272,152 V456 Z" fill="#704122" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+
+    <!-- 右半侧与底部背光焦茶暗面 -->
+    <path d="M160,36 Q272,68 272,152 V456 H156 V36 Z" fill="#3D2212" opacity="0.62"/>
+    <path d="M48,390 H272 V456 H48 Z" fill="#3D2212" opacity="0.45"/>
+
+    <!-- 竖拼旧木板分缝线（5 块宽木板：x=92, 138, 184, 228） -->
+    <g stroke="#1C1412" stroke-width="2.4" stroke-linecap="round">
+      <line x1="92" y1="74" x2="92" y2="454"/>
+      <line x1="138" y1="45" x2="138" y2="454"/>
+      <line x1="184" y1="45" x2="184" y2="454"/>
+      <line x1="228" y1="74" x2="228" y2="454"/>
+    </g>
+    <!-- 木板受光侧浅亮边与木纹裂痕（集中在 y<120 与两侧） -->
+    <path d="M53,448 V152 Q53,74 156,41" fill="none" stroke="#C48A5C" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/>
+    <path d="M96,78 V130 M142,48 V125 M188,48 V120 M232,78 V140" fill="none" stroke="#9E6238" stroke-width="1.6" stroke-linecap="round" opacity="0.7"/>
+    <!-- 背光侧干笔刷交叉排线 -->
+    <path d="M234,96 L264,126 M234,114 L266,146 M236,134 L266,164 M236,360 L266,390 M236,382 L266,412" stroke="#1C1412" stroke-width="1.3" stroke-linecap="round" opacity="0.48"/>
+
+    <!-- 上半截（y:42..116）尖拱包铁箍与一排醒目门钉（保证 y<120 未遮挡区一眼认出是门） -->
+    <!-- 拱顶沿边铁箍带 -->
+    <path d="M48,144 Q48,68 160,36 Q272,68 272,144 L258,148 Q256,82 160,52 Q64,82 62,148 Z" fill="#3B515C" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M52,140 Q54,72 158,40" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+    <!-- 上半截横向加固铁梁（y:92..112，在 y<120 范围内！） -->
+    <polygon points="48,92 272,94 272,112 48,110" fill="#3B515C" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="160,93 272,94 272,112 160,111" fill="#1E2C33" opacity="0.7"/>
+    <line x1="52" y1="95" x2="268" y2="97" stroke="#8CAAB5" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- 上半截一排大铁门钉（7 颗拱形 + 横梁铆钉，全部在 y:58..106 内） -->
+    <g fill="#8CAAB5" stroke="#1C1412" stroke-width="2">
+      <!-- 拱顶弧线门钉 -->
+      <circle cx="160" cy="64" r="5"/>
+      <circle cx="122" cy="73" r="4.8"/>
+      <circle cx="198" cy="73" r="4.8" fill="#5A7682"/>
+      <circle cx="88" cy="84" r="4.5"/>
+      <circle cx="232" cy="84" r="4.5" fill="#5A7682"/>
+      <!-- 横梁一排大方头门钉 -->
+      <polygon points="74,97 82,102 74,107 66,102"/>
+      <polygon points="115,97 123,102 115,107 107,102"/>
+      <polygon points="160,97 168,102 160,107 152,102"/>
+      <polygon points="205,98 213,103 205,108 197,103" fill="#5A7682"/>
+      <polygon points="246,98 254,103 246,108 238,103" fill="#5A7682"/>
+    </g>
+
+    <!-- 左边两道大铁合页（上合页在 y:116..142，下合页在 y:342..368，咬合左门边 x=46..132） -->
+    <g id="hinges">
+      <!-- 上合页 -->
+      <path d="M44,116 H56 V142 H44 Z" fill="#1E2C33" stroke="#1C1412" stroke-width="2.2"/>
+      <path d="M52,120 L122,122 L134,129 L122,136 L52,138 Z" fill="#3B515C" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M54,123 L120,124" stroke="#8CAAB5" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="68" cy="129" r="3.2" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.6"/>
+      <circle cx="96" cy="129" r="3.2" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.6"/>
+      <circle cx="120" cy="129" r="3.2" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.6"/>
+      <!-- 下合页 -->
+      <path d="M44,342 H56 V368 H44 Z" fill="#1E2C33" stroke="#1C1412" stroke-width="2.2"/>
+      <path d="M52,346 L118,348 L130,355 L118,362 L52,364 Z" fill="#3B515C" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M54,349 L116,350" stroke="#8CAAB5" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="68" cy="355" r="3.2" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.6"/>
+      <circle cx="94" cy="355" r="3.2" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.6"/>
+      <circle cx="116" cy="355" r="3.2" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.6"/>
+    </g>
+
+    <!-- 右边铁门环与锁鼻（位于 x:224..266, y:112..166，紧靠门扇右侧边缘，不被中间怪物完全挡住） -->
+    <g id="latch_plate">
+      <polygon points="244,108 264,116 264,158 244,166 226,158 226,116" fill="#1E2C33" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="244,112 260,118 260,154 244,160 230,154 230,118" fill="#3B515C" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+      <!-- 钥匙孔 -->
+      <circle cx="244" cy="146" r="3.5" fill="#0D111C"/>
+      <polygon points="242,146 246,146 247,155 241,155" fill="#0D111C"/>
+      <!-- 门环固定鼻 -->
+      <rect x="238" y="118" width="12" height="10" rx="2" fill="#5A7682" stroke="#1C1412" stroke-width="2"/>
+    </g>
+    <g id="door_ring">
+      <!-- 铁门环本环 -->
+      <circle cx="244" cy="138" r="15" fill="none" stroke="#1C1412" stroke-width="8"/>
+      <circle cx="244" cy="138" r="15" fill="none" stroke="#5A7682" stroke-width="4.2"/>
+      <path d="M232,129 A15,15 0 0,1 255,128" fill="none" stroke="#8CAAB5" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- 3. 尖拱石门框 frame（顶上不加额外高耸装饰，拱顶与两侧巨石砌块清晰醒目） -->
+  <g id="frame">
+    <!-- 石门框外轮廓与内洞（evenodd 挖空门洞 x:48..272, y:38..456） -->
+    <path d="M12,462 V148 Q12,38 160,8 Q308,38 308,148 V462 Z M48,456 H272 V152 Q272,68 160,36 Q48,68 48,152 Z" fill="#4A4742" fill-rule="evenodd" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+
+    <!-- 石门框右侧与内沿背光暗面 -->
+    <path d="M160,8 Q308,38 308,148 V462 H272 V152 Q272,68 160,36 Z" fill="#2E2C28" opacity="0.65"/>
+
+    <!-- 石门框左上外沿冷灰青受光轮廓光 -->
+    <path d="M16,454 V148 Q16,42 160,12 Q212,23 248,46" fill="none" stroke="#948F86" stroke-width="2.4" stroke-linecap="round" opacity="0.88"/>
+    <!-- 门洞内拱受光亮边 -->
+    <path d="M275,452 V152 Q275,66 162,33" fill="none" stroke="#6E6A63" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+
+    <!-- 尖拱顶楔石（Keystone，不超出门框顶 y=8）与两侧砌石砖缝 -->
+    <polygon points="142,10 178,10 170,40 150,40" fill="#6E6A63" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polyline points="145,36 151,14 174,14" fill="none" stroke="#948F86" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- 拱圈辐射石缝与两侧柱石横缝 -->
+    <g stroke="#1C1412" stroke-width="2.2" stroke-linecap="round">
+      <!-- 左拱圈石缝 -->
+      <line x1="106" y1="22" x2="118" y2="50"/>
+      <line x1="64" y1="48" x2="84" y2="72"/>
+      <line x1="30" y1="88" x2="58" y2="104"/>
+      <line x1="14" y1="136" x2="48" y2="140"/>
+      <!-- 右拱圈石缝 -->
+      <line x1="214" y1="22" x2="202" y2="50"/>
+      <line x1="256" y1="48" x2="236" y2="72"/>
+      <line x1="290" y1="88" x2="262" y2="104"/>
+      <line x1="306" y1="136" x2="272" y2="140"/>
+      <!-- 左石柱横缝 -->
+      <line x1="12" y1="196" x2="48" y2="196"/>
+      <line x1="12" y1="258" x2="48" y2="258"/>
+      <line x1="12" y1="322" x2="48" y2="322"/>
+      <line x1="12" y1="388" x2="48" y2="388"/>
+      <!-- 右石柱横缝 -->
+      <line x1="272" y1="196" x2="308" y2="196"/>
+      <line x1="272" y1="258" x2="308" y2="258"/>
+      <line x1="272" y1="322" x2="308" y2="322"/>
+      <line x1="272" y1="388" x2="308" y2="388"/>
+    </g>
+    <!-- 石块手绘裂纹与排线肌理 -->
+    <path d="M24,204 L32,218 L26,230 M292,266 L284,282 M282,150 L302,170 M282,164 L302,184 M282,332 L302,352 M282,346 L302,366" fill="none" stroke="#1C1412" stroke-width="1.3" stroke-linecap="round" opacity="0.55"/>
+
+    <!-- 底部宽石门槛（y:454..476，底边对齐 y=476，留 4px 安全边距防描边出框） -->
+    <polygon points="6,454 314,454 316,476 4,476" fill="#4A4742" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <polygon points="160,454 314,454 316,476 160,476" fill="#2E2C28" opacity="0.65"/>
+    <line x1="10" y1="458" x2="308" y2="458" stroke="#948F86" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+    <line x1="108" y1="454" x2="104" y2="476" stroke="#1C1412" stroke-width="2"/>
+    <line x1="216" y1="454" x2="220" y2="476" stroke="#1C1412" stroke-width="2"/>
+  </g>
+</g>
+</svg>

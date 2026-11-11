@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_white" viewBox="0 0 240 240" width="240" height="240">
+<title>特效 · 凑白</title>
+<style>
+.svg-fx_white g { transform-box: view-box; }
+.svg-fx_white #w_ring, .svg-fx_white #w_rays, .svg-fx_white #w_core { opacity: 0; transform-origin: 120px 120px; }
+@keyframes svg-fx_white-core {
+  0%, 100% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+  16% { opacity: 1; transform: scale(1.06) rotate(-6deg); }
+  55% { opacity: 0.95; transform: scale(0.92) rotate(6deg); }
+  90% { opacity: 0; transform: scale(1.14) rotate(12deg); }
+}
+@keyframes svg-fx_white-rays {
+  0%, 8% { opacity: 0; transform: scale(0.35); }
+  25% { opacity: 1; transform: scale(0.95); }
+  72% { opacity: 0.88; transform: scale(1.1); }
+  100% { opacity: 0; transform: scale(1.16); }
+}
+@keyframes svg-fx_white-ring {
+  0%, 14% { opacity: 0; transform: scale(0.45) rotate(10deg); }
+  35% { opacity: 1; transform: scale(0.98) rotate(0deg); }
+  82% { opacity: 0.7; transform: scale(1.12) rotate(-8deg); }
+  100% { opacity: 0; transform: scale(1.16) rotate(-12deg); }
+}
+.svg-fx_white[data-anim="play"] #w_core { animation: svg-fx_white-core 0.7s steps(8, end) both; }
+.svg-fx_white[data-anim="play"] #w_rays { animation: svg-fx_white-rays 0.7s steps(8, end) both; }
+.svg-fx_white[data-anim="play"] #w_ring { animation: svg-fx_white-ring 0.7s steps(8, end) both; }
+</style>
+<g id="root">
+<!-- pivot: 120,120 -->
+    <g id="w_ring" opacity="0"><!-- pivot: 120,120 -->
+      <!-- 哥特折角碎裂光环與飞散白晶 -->
+      <polygon points="120,24 166,38 202,74 216,120 202,166 166,202 120,216 74,202 38,166 24,120 38,74 74,38" fill="none" stroke="#F4F1FF" stroke-width="4" stroke-dasharray="18 10"/>
+      <path d="M46,35 L49,43 L57,46 L49,49 L46,57 L43,49 L35,46 L43,43 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.4"/>
+      <path d="M194,35 L197,43 L205,46 L197,49 L194,57 L191,49 L183,46 L191,43 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.4"/>
+      <path d="M194,183 L197,191 L205,194 L197,197 L194,205 L191,197 L183,194 L191,191 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.4"/>
+      <path d="M46,183 L49,191 L57,194 L49,197 L46,205 L43,197 L35,194 L43,191 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.4"/>
+    </g>
+    <g id="w_rays" opacity="0"><!-- pivot: 120,120 -->
+      <polygon points="120,20 134,82 192,48 158,106 220,120 158,134 192,192 134,158 120,220 106,158 48,192 82,134 20,120 82,106 48,48 106,82" fill="#F4F1FF" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    </g>
+    <g id="w_core" opacity="0"><!-- pivot: 120,120 -->
+      <polygon points="120,52 136,96 188,88 148,120 188,152 136,144 120,188 104,144 52,152 92,120 52,88 104,96" fill="#FFFFFF" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <circle cx="120" cy="120" r="18" fill="#E6DEC8" stroke="#1C1412" stroke-width="1.6"/>
+    </g>
+</g>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-prop_rack" viewBox="0 0 120 240" width="120" height="240">
+<title>兵器架</title>
+<defs>
+<filter id="prop_rack-grunge" filterUnits="userSpaceOnUse" x="0" y="0" width="120" height="240" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="2" seed="23" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0.09 0" result="grain"/>
+    <feComposite in="grain" in2="SourceGraphic" operator="in" result="clippedGrain"/>
+    <feBlend mode="multiply" in="SourceGraphic" in2="clippedGrain"/>
+  </filter>
+</defs>
+<g id="root">
+<!-- pivot: 60,240 -->
+    <!-- 落地排线暗影 -->
+    <ellipse cx="60" cy="232" rx="48" ry="6" fill="#0D111C" opacity="0.65"/>
+    <path d="M20,235 L28,228 M30,236 L38,228 M40,236 L48,228 M50,237 L58,228 M60,237 L68,228 M70,236 L78,228 M80,236 L88,228 M90,235 L98,229" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+
+    <g filter="url(#prop_rack-grunge)">
+      <!-- 后排右侧：练习长木棍 -->
+      <path d="M78,26 L86,28 L66,226 L58,224 Z" fill="#704122" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M80,28 L60,224" stroke="#9A8968" stroke-width="1.4" opacity="0.7"/>
+
+      <!-- 中间：阔刃练习木剑（带羊皮纸缠柄） -->
+      <polygon points="56,18 66,30 62,150 50,150 48,30" fill="#9A8968" stroke="#1C1412" stroke-width="2.5" stroke-linejoin="round"/>
+      <polygon points="56,18 66,30 62,150 56,150" fill="#704122" opacity="0.75"/>
+      <path d="M50,32 L56,20" stroke="#E2D6BA" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- 护手与剑柄 -->
+      <polygon points="38,148 74,150 72,158 40,156" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <rect x="52" y="156" width="8" height="22" fill="#5E242C" stroke="#1C1412" stroke-width="2"/>
+      <circle cx="56" cy="182" r="5" fill="#6E542B" stroke="#1C1412" stroke-width="2"/>
+
+      <!-- 左侧：歪斜短木剑 -->
+      <polygon points="28,48 38,56 46,162 36,164 24,58" fill="#9A8968" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="28,48 38,56 46,162 41,163" fill="#704122" opacity="0.75"/>
+      <polygon points="26,160 54,156 55,164 27,168" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M38,164 L42,184" stroke="#3D2212" stroke-width="6" stroke-linecap="round"/>
+      <path d="M38,164 L42,184" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- 兵器架木框主体（A字立柱 + 上下横档） -->
+      <!-- 左立柱 -->
+      <polygon points="18,74 26,74 22,232 12,232" fill="#704122" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M19,76 L14,230" stroke="#9A8968" stroke-width="1.5" opacity="0.75"/>
+      <!-- 右立柱 -->
+      <polygon points="94,76 102,76 108,232 98,232" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <!-- 上横档 -->
+      <polygon points="12,96 108,98 106,110 14,108" fill="#9E6238" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M14,98 H106" stroke="#9A8968" stroke-width="1.5" opacity="0.8"/>
+      <!-- 下横档 -->
+      <polygon points="10,192 110,194 108,208 12,206" fill="#704122" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M14,202 L106,204" stroke="#3D2212" stroke-width="3"/>
+      <!-- 铁箍铆钉 -->
+      <circle cx="22" cy="102" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
+      <circle cx="98" cy="104" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
+      <circle cx="18" cy="199" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
+      <circle cx="102" cy="201" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
+    </g>
+</g>
+</svg>

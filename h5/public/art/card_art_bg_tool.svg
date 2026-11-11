@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_bg_tool" viewBox="0 0 176 188" width="176" height="188">
+<title>额外牌原画窗底</title>
+<defs>
+  <radialGradient id="card_art_bg_tool-leather" cx="54%" cy="52%" r="68%">
+    <stop offset="0%" stop-color="#3D2212"/>
+    <stop offset="68%" stop-color="#2E2C28"/>
+    <stop offset="100%" stop-color="#1C1412"/>
+  </radialGradient>
+</defs>
+<g id="root">
+  <!-- 暗色平整旧皮革衬底（与基础牌暗紫丝绒明显区分，左上角 x0..34, y0..94 保持完全干净平整） -->
+  <path d="M0,0 H176 V188 H0 Z" fill="url(#card_art_bg_tool-leather)"/>
+  <!-- 旧皮压印单线与细缝线（避开左上角 x0..36, y0..96 宝石小图标区） -->
+  <path d="M40,12 H164 V176 H12 V100" fill="none" stroke="#524531" stroke-width="1.2" opacity="0.45"/>
+  <path d="M44,16 H160 V172 H16 V104" fill="none" stroke="#704122" stroke-width="1" stroke-dasharray="5 4" opacity="0.38"/>
+  <!-- 右下与左下极轻的旧皮暗部斜排线 -->
+  <path d="M144,178 L168,154 M152,180 L170,162 M160,182 L172,170 M18,176 L32,162 M24,180 L38,166" stroke="#1C1412" stroke-width="1" opacity="0.35"/>
+</g>
+</svg>

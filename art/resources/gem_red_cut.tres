@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "gem_red_cut"
+svg_fingerprint = "9f4bc6016bb90d6c"
+definition = {"id":"gem_red_cut","phase":0,"group":"宝石","viewBox":"0 0 100 100","load":"img","desc":"红宝石 · 切好（圆）。这次重画成会动的：每 3–4 秒一道光从刻面上扫过，带一颗小星闪一下","status":"已有","idle":true}
+entries = {"":{"w":100,"h":100,"scale":1.5,"stillScale":2,"still":"gem_red_cut.png","sheets":[{"f":"gem_red_cut-0.png","w":488,"h":488}],"actions":{"idle":{"loop":true,"hold":false,"sheets":[0],"frames":[{"s":0,"x":0,"y":0,"w":122,"h":122,"ox":14,"oy":14,"d":416.67},{"s":0,"x":122,"y":0,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":244,"y":0,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":366,"y":0,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":0,"y":122,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":122,"y":122,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":244,"y":122,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":366,"y":122,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":0,"y":244,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":122,"y":244,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":244,"y":244,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":366,"y":244,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":0,"y":366,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":122,"y":366,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":244,"y":366,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":366,"y":366,"w":122,"h":122,"ox":14,"oy":14,"d":1816.67}]}},"hash":"9f4bc6016bb90d6c"}}
+animations = {":idle":"res://art/resources/gem_red_cut--idle.tres"}

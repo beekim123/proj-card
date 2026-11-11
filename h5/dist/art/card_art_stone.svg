@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_stone" viewBox="0 0 176 188" width="176" height="188">
+<title>额外牌原画 · 磨石</title>
+<style>
+.svg-card_art_stone g { transform-box: view-box; }
+.svg-card_art_stone #root { transform-origin: 96px 104px; }
+.svg-card_art_stone #shadow { transform-origin: 96px 168px; }
+.svg-card_art_stone #stand { transform-origin: 96px 146px; }
+.svg-card_art_stone #wheel { transform-origin: 92px 86px; }
+.svg-card_art_stone #gem_grinding { transform-origin: 118px 54px; }
+.svg-card_art_stone #grind_spark { transform-origin: 108px 60px; }
+.svg-card_art_stone #gem_red { transform-origin: 60px 144px; }
+.svg-card_art_stone #gem_green { transform-origin: 96px 144px; }
+.svg-card_art_stone #gem_blue { transform-origin: 132px 144px; }
+
+/* ==========================================================================
+   1. 待机 idle（3000ms 循环）：轮子慢转，磨宝石的地方偶尔闪一下
+   关键时间点：0ms(0%) → 1200ms(40%) → 1500ms(50% 闪一下) → 1800ms(60%) → 3000ms(100%)
+   ========================================================================== */
+@keyframes svg-card_art_stone-idle-wheel {
+  0% { transform: rotate(0deg); }
+  40% { transform: rotate(144deg); }
+  50% { transform: rotate(180deg); }
+  60% { transform: rotate(216deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes svg-card_art_stone-idle-grinding {
+  0%, 40%, 60%, 100% { transform: translate(0px, 0px) scale(1, 1); }
+  50% { transform: translate(-1.5px, 1.5px) scale(1.04, 1.04); }
+}
+@keyframes svg-card_art_stone-idle-spark {
+  0%, 40%, 60%, 100% { opacity: 0.72; transform: scale(0.92) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.24) rotate(8deg); }
+}
+.svg-card_art_stone:not([data-anim]) #wheel,
+.svg-card_art_stone[data-anim="idle"] #wheel {
+  animation: svg-card_art_stone-idle-wheel 3s linear infinite;
+}
+.svg-card_art_stone:not([data-anim]) #gem_grinding,
+.svg-card_art_stone[data-anim="idle"] #gem_grinding {
+  animation: svg-card_art_stone-idle-grinding 3s linear infinite;
+}
+.svg-card_art_stone:not([data-anim]) #grind_spark,
+.svg-card_art_stone[data-anim="idle"] #grind_spark {
+  animation: svg-card_art_stone-idle-spark 3s linear infinite;
+}
+
+/* ==========================================================================
+   2. 打出 play（600ms）
+   关键时间点：0ms(0%) → 150ms(25%) 轮子飞快转、火花迸出
+               → 300ms(50%) 红宝石亮起变大一圈
+               → 400ms(66.6667%) 绿宝石亮起变大一圈
+               → 500ms(83.3333%) 蓝宝石亮起变大一圈
+               → 600ms(100%) 回到待机
+   ========================================================================== */
+@keyframes svg-card_art_stone-play-wheel {
+  0% { transform: rotate(0deg) scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: rotate(200deg) scale(1.04); animation-timing-function: linear; }
+  50% { transform: rotate(380deg) scale(1.04); animation-timing-function: linear; }
+  66.6667% { transform: rotate(500deg) scale(1.03); animation-timing-function: linear; }
+  83.3333% { transform: rotate(620deg) scale(1.02); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(720deg) scale(1); }
+}
+@keyframes svg-card_art_stone-play-stand {
+  0% { transform: translateY(0px) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translateY(3px) scale(1.03, 0.96); animation-timing-function: ease-in-out; }
+  50% { transform: translateY(-2px) scale(0.98, 1.02); animation-timing-function: ease-in-out; }
+  66.6667% { transform: translateY(1.5px) scale(1.02, 0.98); animation-timing-function: ease-in-out; }
+  83.3333% { transform: translateY(-1px) scale(0.99, 1.01); animation-timing-function: ease-in-out; }
+  100% { transform: translateY(0px) scale(1, 1); }
+}
+@keyframes svg-card_art_stone-play-grinding {
+  0% { transform: translate(0px, 0px) scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(-3.5px, 3.5px) scale(1.08); animation-timing-function: ease-in-out; }
+  50% { transform: translate(-2px, 2px) scale(1.05); animation-timing-function: ease-in-out; }
+  66.6667% { transform: translate(-3px, 3px) scale(1.06); animation-timing-function: ease-in-out; }
+  83.3333% { transform: translate(-1.5px, 1.5px) scale(1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+@keyframes svg-card_art_stone-play-spark {
+  0% { opacity: 0.72; transform: scale(0.92) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { opacity: 1; transform: scale(1.48) rotate(12deg); animation-timing-function: ease-in-out; }
+  50% { opacity: 0.96; transform: scale(1.36) rotate(-8deg); animation-timing-function: ease-in-out; }
+  66.6667% { opacity: 1; transform: scale(1.42) rotate(10deg); animation-timing-function: ease-in-out; }
+  83.3333% { opacity: 0.9; transform: scale(1.26) rotate(-4deg); animation-timing-function: ease-in-out; }
+  100% { opacity: 0.72; transform: scale(0.92) rotate(0deg); }
+}
+@keyframes svg-card_art_stone-play-red {
+  0% { transform: translate(0px, 0px) scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px, 2px) scale(0.92); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  50% { transform: translate(0px, -9px) scale(1.42); animation-timing-function: ease-in-out; }
+  66.6667% { transform: translate(0px, -4px) scale(1.16); animation-timing-function: ease-in-out; }
+  83.3333% { transform: translate(0px, -2px) scale(1.08); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+@keyframes svg-card_art_stone-play-green {
+  0% { transform: translate(0px, 0px) scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px, 1px) scale(0.95); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  50% { transform: translate(0px, 2px) scale(0.92); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  66.6667% { transform: translate(0px, -9px) scale(1.42); animation-timing-function: ease-in-out; }
+  83.3333% { transform: translate(0px, -4px) scale(1.16); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+@keyframes svg-card_art_stone-play-blue {
+  0% { transform: translate(0px, 0px) scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px, 1px) scale(0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  50% { transform: translate(0px, 1.5px) scale(0.94); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  66.6667% { transform: translate(0px, 2px) scale(0.92); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  83.3333% { transform: translate(0px, -9px) scale(1.42); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+.svg-card_art_stone[data-anim="play"] #wheel { animation: svg-card_art_stone-play-wheel 0.6s both; }
+.svg-card_art_stone[data-anim="play"] #stand { animation: svg-card_art_stone-play-stand 0.6s both; }
+.svg-card_art_stone[data-anim="play"] #gem_grinding { animation: svg-card_art_stone-play-grinding 0.6s both; }
+.svg-card_art_stone[data-anim="play"] #grind_spark { animation: svg-card_art_stone-play-spark 0.6s both; }
+.svg-card_art_stone[data-anim="play"] #gem_red { animation: svg-card_art_stone-play-red 0.6s both; }
+.svg-card_art_stone[data-anim="play"] #gem_green { animation: svg-card_art_stone-play-green 0.6s both; }
+.svg-card_art_stone[data-anim="play"] #gem_blue { animation: svg-card_art_stone-play-blue 0.6s both; }
+</style>
+
+<g id="root">
+  <!-- pivot: 96,104 -->
+  <!-- 左上角 x:0..30, y:0..90 严格留空 -->
+
+  <!-- 落地暗影 -->
+  <g id="shadow">
+    <!-- pivot: 96,168 -->
+    <ellipse cx="96" cy="168" rx="54" ry="8" fill="#0D111C" opacity="0.62"/>
+  </g>
+
+  <!-- 磨石木架与旋轉石轮 -->
+  <g id="stand">
+    <!-- pivot: 96,146 -->
+    <!-- 后侧木架支腿 -->
+    <polygon points="60,84 72,84 62,162 48,162" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="114,84 126,84 138,162 124,162" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+
+    <!-- 圆磨石轮 wheel（中心 92,86，半径 36，x:56..128, y:50..122，完全避开左上角 x:0..30） -->
+    <g id="wheel">
+      <!-- pivot: 92,86 -->
+      <circle cx="92" cy="86" r="36" fill="#6E6A63" stroke="#1C1412" stroke-width="3"/>
+      <!-- 背光半圈暗面 -->
+      <path d="M117.5,60.5 A36,36 0 0,1 66.5,111.5 L92,86 Z" fill="#4A4742" opacity="0.82"/>
+      <!-- 石轮同心磨痕与砂纹 -->
+      <circle cx="92" cy="86" r="27" fill="none" stroke="#948F86" stroke-width="1.6" stroke-dasharray="12 7"/>
+      <circle cx="92" cy="86" r="18" fill="none" stroke="#2E2C28" stroke-width="1.4" stroke-dasharray="7 5"/>
+      <path d="M64,70 L74,77 M120,102 L110,95 M108,58 L101,68 M76,114 L83,104" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
+      <!-- 中央铁轴座与弯曲铁摇把（控制在半径 r<=28 内） -->
+      <circle cx="92" cy="86" r="9.5" fill="#3B515C" stroke="#1C1412" stroke-width="2.4"/>
+      <path d="M92,86 L110,75 L115,84" fill="none" stroke="#1C1412" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M92,86 L110,75 L115,84" fill="none" stroke="#9A7B46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="92" cy="86" r="3.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.4"/>
+      <ellipse cx="116" cy="85" rx="6" ry="4" fill="#704122" stroke="#1C1412" stroke-width="1.8"/>
+    </g>
+
+    <!-- 前侧木架水槽横梁与前支腿 -->
+    <polygon points="42,104 150,106 144,132 48,130" fill="#704122" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="96,105 150,106 144,132 96,131" fill="#3D2212" opacity="0.75"/>
+    <path d="M46,108 L144,110" stroke="#C48A5C" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+    <polygon points="48,102 61,102 54,166 40,166" fill="#704122" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="131,102 144,102 152,166 138,166" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <circle cx="54" cy="116" r="2.8" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.3"/>
+    <circle cx="138" cy="116" r="2.8" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.3"/>
+
+    <!-- 前方陈列托板（摆放三颗磨亮的小宝石） -->
+    <polygon points="44,142 148,142 154,158 38,158" fill="#262036" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M44,145 H148" stroke="#9A7B46" stroke-width="1.4" opacity="0.8"/>
+  </g>
+
+  <!-- 轮上正压着打磨的宝石与铜夹具 gem_grinding（位于石轮右上沿 108,60） -->
+  <g id="gem_grinding">
+    <!-- pivot: 118,54 -->
+    <!-- 右上方压握的旧铜夹爪手柄 -->
+    <path d="M148,30 L126,46" stroke="#1C1412" stroke-width="7" stroke-linecap="round"/>
+    <path d="M148,30 L126,46" stroke="#6E542B" stroke-width="4" stroke-linecap="round"/>
+    <polygon points="116,40 132,42 130,56 122,50" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <!-- 正压在磨石轮边打磨的鲜艳多刻面宝石（半原石半切面，透出亮青/翠绿与绯红折射） -->
+    <polygon points="104,62 110,44 126,46 128,60 116,68" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="110,44 126,46 120,56 108,54" fill="#5CE892"/>
+    <polygon points="126,46 128,60 116,68 120,56" fill="#117A3B"/>
+    <polygon points="104,62 108,54 120,56 116,68" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round"/>
+    <polygon points="110,47 118,48 115,53 109,52" fill="#FFFFFF" opacity="0.95"/>
+  </g>
+
+  <!-- 磨宝石接触点迸出的白青星芒与宝石碎光 grind_spark（中心 108,60，无琥珀暖光/火光） -->
+  <g id="grind_spark">
+    <!-- pivot: 108,60 -->
+    <!-- 迸射白光与青翠碎光射线 -->
+    <path d="M98,52 L82,36 M106,46 L102,26 M122,66 L142,64 M118,74 L136,84 M94,62 L76,58" stroke="#E6DEC8" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M92,44 L78,30 M126,56 L144,48" stroke="#5CE892" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- 磨接点大十字星芒（#FFFFFF + #5CE892） -->
+    <polygon points="106,42 110,55 123,59 110,63 106,76 102,63 89,59 102,55" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <polygon points="106,48 108.5,56.5 117,59 108.5,61.5 106,70 103.5,61.5 95,59 103.5,56.5" fill="#3FE3F0"/>
+    <!-- 飞溅的细小三色宝石晶屑 -->
+    <circle cx="88" cy="42" r="3.2" fill="#E3263A" stroke="#1C1412" stroke-width="1.2"/>
+    <rect x="130" y="52" width="6" height="6" rx="1" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.2" transform="rotate(20 133 55)"/>
+    <polygon points="112,28 117,36 107,36" fill="#2E66F0" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 旁边摆着磨亮了的红圆、绿方、蓝三角三颗小宝石（play 时依次亮起、变大一圈） -->
+  <!-- 1. 红圆宝石 gem_red (中心 60,144) -->
+  <g id="gem_red">
+    <!-- pivot: 60,144 -->
+    <circle cx="60" cy="144" r="12" fill="#E3263A" stroke="#1C1412" stroke-width="2.4"/>
+    <path d="M68.5,135.5 A12,12 0 0,1 51.5,152.5 L60,144 Z" fill="#9E1424"/>
+    <circle cx="60" cy="144" r="7" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.2"/>
+    <polygon points="55,139 60,136 64,139 58,144" fill="#FFFFFF" opacity="0.95"/>
+    <!-- 磨亮四角星高光 -->
+    <polygon points="51,131 53,135 57,137 53,139 51,143 49,139 45,137 49,135" fill="#FFFFFF" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 2. 绿方宝石 gem_green (中心 96,144) -->
+  <g id="gem_green">
+    <!-- pivot: 96,144 -->
+    <rect x="85" y="133" width="22" height="22" rx="2.5" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.4"/>
+    <polygon points="85,133 107,133 102,138 90,138" fill="#5CE892"/>
+    <polygon points="107,133 107,155 85,155 90,150 102,150 102,138" fill="#117A3B"/>
+    <rect x="90" y="138" width="12" height="12" rx="1" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.2"/>
+    <polygon points="92,140 99,140 95,146 92,146" fill="#FFFFFF" opacity="0.95"/>
+    <!-- 磨亮四角星高光 -->
+    <polygon points="106,129 108,133 112,135 108,137 106,141 104,137 100,135 104,133" fill="#FFFFFF" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 3. 蓝三角宝石 gem_blue (中心 132,144) -->
+  <g id="gem_blue">
+    <!-- pivot: 132,144 -->
+    <polygon points="132,130 145,155 119,155" fill="#2E66F0" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="132,130 145,155 132,155" fill="#193D9E"/>
+    <polygon points="132,137 140,152 124,152" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round"/>
+    <polygon points="131,139 135,147 128,148" fill="#FFFFFF" opacity="0.95"/>
+    <!-- 磨亮四角星高光 -->
+    <polygon points="142,131 144,135 148,137 144,139 142,143 140,139 136,137 140,135" fill="#FFFFFF" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "gem_red_rough"
+svg_fingerprint = "595d7921656e3d44"
+definition = {"id":"gem_red_rough","phase":1,"group":"宝石","viewBox":"0 0 100 100","load":"img","desc":"红宝石 · 原石（圆）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3–6 秒一次，一次不超过 0.4 秒）","status":"已有","idle":true}
+entries = {"":{"w":100,"h":100,"scale":1.5,"stillScale":2,"still":"gem_red_rough.png","sheets":[{"f":"gem_red_rough-0.png","w":244,"h":366}],"actions":{"idle":{"loop":true,"hold":false,"sheets":[0],"frames":[{"s":0,"x":0,"y":0,"w":122,"h":122,"ox":14,"oy":14,"d":916.67},{"s":0,"x":122,"y":0,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":0,"y":122,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":122,"y":122,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":0,"y":244,"w":122,"h":122,"ox":14,"oy":14,"d":83.33},{"s":0,"x":0,"y":0,"w":122,"h":122,"ox":14,"oy":14,"d":3350}]}},"hash":"595d7921656e3d44"}}
+animations = {":idle":"res://art/resources/gem_red_rough--idle.tres"}

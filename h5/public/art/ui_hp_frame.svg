@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_hp_frame" viewBox="0 0 256 48" width="256" height="48">
+<title>血条框</title>
+<g id="root">
+  <!-- 九宫格切线 [16, 16, 16, 16]：x=16..240 与 y=16..32 拉伸区严格只用顺着拉伸方向的直线；中间离四边各 8 (x:8..248, y:8..40) 是暗的空槽 -->
+  <!-- 外框旧铁铜底槽 -->
+  <rect x="2" y="2" width="252" height="44" rx="6" fill="#6E542B" stroke="#1C1412" stroke-width="2.8"/>
+  <!-- 下半暗面立体厚度（顺水平拉伸方向的纯直线） -->
+  <path d="M4,26 H252 V40 A4,4 0 0,1 248,44 H8 A4,4 0 0,1 4,40 Z" fill="#3B2B14" opacity="0.85"/>
+  <!-- 顶部受光亮边（顺水平拉伸方向直线） -->
+  <line x1="16" y1="5" x2="240" y2="5" stroke="#C2A670" stroke-width="1.8"/>
+  <line x1="16" y1="43" x2="240" y2="43" stroke="#9A7B46" stroke-width="1.2" opacity="0.7"/>
+
+  <!-- 中间离四边各 8 的深暗空槽（x:8..248, y:8..40，宽 240 高 32，代码往里画 hpFill 和字） -->
+  <rect x="8" y="8" width="240" height="32" rx="3" fill="#0D111C" stroke="#1C1412" stroke-width="2.2"/>
+  <!-- 槽内顶部微陷暗影与底边细亮线（纯水平直线） -->
+  <rect x="9.5" y="9.5" width="237" height="5" fill="#161221" opacity="0.9"/>
+  <line x1="16" y1="39" x2="240" y2="39" stroke="#6E542B" stroke-width="1" opacity="0.65"/>
+
+  <!-- 四角包铜与小铆钉（严格限制在四角 16×16 区域内：x<=15 或 x>=241，y<=15 或 y>=33，拉伸绝不变形） -->
+  <!-- 左上角 (0..16, 0..16) -->
+  <polygon points="2,2 15,2 13,7 7,7 7,13 2,15" fill="#9A7B46" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  <circle cx="5.5" cy="5.5" r="1.6" fill="#E2D6BA" stroke="#1C1412" stroke-width="0.9"/>
+  <!-- 右上角 (240..256, 0..16) -->
+  <polygon points="254,2 241,2 243,7 249,7 249,13 254,15" fill="#9A7B46" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  <circle cx="250.5" cy="5.5" r="1.6" fill="#E2D6BA" stroke="#1C1412" stroke-width="0.9"/>
+  <!-- 左下角 (0..16, 32..48) -->
+  <polygon points="2,46 15,46 13,41 7,41 7,35 2,33" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  <circle cx="5.5" cy="42.5" r="1.6" fill="#C2A670" stroke="#1C1412" stroke-width="0.9"/>
+  <!-- 右下角 (240..256, 32..48) -->
+  <polygon points="254,46 241,46 243,41 249,41 249,35 254,33" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  <circle cx="250.5" cy="42.5" r="1.6" fill="#C2A670" stroke="#1C1412" stroke-width="0.9"/>
+</g>
+</svg>

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_icon_rules"
+svg_fingerprint = "a93d253cf96aa92f"
+definition = {"id":"ui_icon_rules","phase":2,"group":"图标","viewBox":"0 0 64 64","load":"img","desc":"规则（一本旧书 / 一卷纸）","status":"已有"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"ui_icon_rules.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"a93d253cf96aa92f"}}
+animations = {":idle":"res://art/resources/ui_icon_rules--idle.tres"}

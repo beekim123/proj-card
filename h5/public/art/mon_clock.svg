@@ -1,0 +1,591 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-mon_clock" viewBox="0 0 320 400" width="320" height="400">
+<title>老座钟</title>
+<style>
+.svg-mon_clock g { transform-box: view-box; }
+
+.svg-mon_clock #root { transform-origin: 160px 400px; }
+.svg-mon_clock #shadow { transform-origin: 160px 388px; }
+.svg-mon_clock #case { transform-origin: 160px 380px; }
+.svg-mon_clock #dial { transform-origin: 160px 140px; }
+.svg-mon_clock #hand_hour { transform-origin: 160px 140px; }
+.svg-mon_clock #hand_minute { transform-origin: 160px 140px; }
+.svg-mon_clock #pendulum { transform-origin: 160px 218px; }
+.svg-mon_clock #eyes { transform-origin: 160px 64px; }
+.svg-mon_clock #face_hurt { transform-origin: 160px 64px; opacity: 0; }
+.svg-mon_clock #face_daze { transform-origin: 160px 64px; opacity: 0; }
+.svg-mon_clock .daze-stars { transform-origin: 160px 36px; }
+.svg-mon_clock .daze-swirl-l { transform-origin: 120px 65px; }
+.svg-mon_clock .daze-swirl-r { transform-origin: 200px 65px; }
+.svg-mon_clock #gears { transform-origin: 160px 280px; opacity: 0; }
+.svg-mon_clock .glass-crack { transform-origin: 160px 272px; opacity: 0; }
+.svg-mon_clock .clock-door { transform-origin: 96px 280px; }
+.svg-mon_clock .ring-waves { transform-origin: 160px 56px; opacity: 0; }
+
+/* ==========================================================================
+   1. 待机 idle（3000ms 循环）
+   关键时间点：0ms(0%) 钟摆在左(-12°)、钟身低
+               → 1500ms(50%) 钟摆摆到右(+12°，即相对静止左位转 +24°)、钟身高、眨眼
+               → 3000ms(100%) 钟摆回左(-12°)、钟身低
+   ========================================================================== */
+@keyframes svg-mon_clock-idle-pendulum {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-24deg); }
+}
+@keyframes svg-mon_clock-idle-case {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+  50% { transform: translate(0px, -7px) rotate(1.2deg) scale(0.99, 1.02); }
+}
+@keyframes svg-mon_clock-idle-eyes {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.08, 0.12); }
+}
+@keyframes svg-mon_clock-idle-shadow {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(0.94, 0.94); }
+}
+.svg-mon_clock:not([data-anim]) #pendulum,
+.svg-mon_clock[data-anim="idle"] #pendulum {
+  animation: svg-mon_clock-idle-pendulum 3s ease-in-out infinite;
+}
+.svg-mon_clock:not([data-anim]) #case,
+.svg-mon_clock[data-anim="idle"] #case {
+  animation: svg-mon_clock-idle-case 3s ease-in-out infinite;
+}
+.svg-mon_clock:not([data-anim]) #eyes,
+.svg-mon_clock[data-anim="idle"] #eyes {
+  animation: svg-mon_clock-idle-eyes 3s ease-in-out infinite;
+}
+.svg-mon_clock:not([data-anim]) #shadow,
+.svg-mon_clock[data-anim="idle"] #shadow {
+  animation: svg-mon_clock-idle-shadow 3s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   2. 走字 tick（500ms）
+   关键时间点：0ms(0%) → 50ms(10%) 分针往前跳一格(+36°)，整座钟往下一顿4px
+               → 150ms(30%) 停住 → 500ms(100%) 分针慢慢回去，回到静止姿势
+   ========================================================================== */
+@keyframes svg-mon_clock-tick-case {
+  0% { transform: translate(0px, 0px) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  10% { transform: translate(0px, 4px) scale(1.02, 0.97); animation-timing-function: linear; }
+  30% { transform: translate(0px, 4px) scale(1.02, 0.97); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1, 1); }
+}
+@keyframes svg-mon_clock-tick-min {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  10% { transform: rotate(36deg); animation-timing-function: linear; }
+  30% { transform: rotate(36deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(0deg); }
+}
+@keyframes svg-mon_clock-tick-hour {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  10% { transform: rotate(12deg); animation-timing-function: linear; }
+  30% { transform: rotate(12deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(0deg); }
+}
+@keyframes svg-mon_clock-tick-pendulum {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  10% { transform: rotate(8deg); animation-timing-function: linear; }
+  30% { transform: rotate(8deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(0deg); }
+}
+.svg-mon_clock[data-anim="tick"] #case { animation: svg-mon_clock-tick-case 0.5s both; }
+.svg-mon_clock[data-anim="tick"] #hand_minute { animation: svg-mon_clock-tick-min 0.5s both; }
+.svg-mon_clock[data-anim="tick"] #hand_hour { animation: svg-mon_clock-tick-hour 0.5s both; }
+.svg-mon_clock[data-anim="tick"] #pendulum { animation: svg-mon_clock-tick-pendulum 0.5s both; }
+
+/* ==========================================================================
+   3. 敲钟 ring（400ms，新事件）
+   关键时间点：0ms(0%) → 60ms(15%) 整座钟往上一跳10px，钟身左右一震
+               → 140ms(35%) 表盘上方冒出两圈声波弧线(y:20..80)
+               → 300ms(75%) 弧线往外扩大、变淡 → 400ms(100%) 静止姿势
+   ========================================================================== */
+@keyframes svg-mon_clock-ring-case {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(0px, -10px) rotate(-2.5deg) scale(0.98, 1.03); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  35% { transform: translate(0px, -6px) rotate(2.2deg) scale(1.01, 1.01); animation-timing-function: ease-in-out; }
+  75% { transform: translate(0px, 1px) rotate(-0.8deg) scale(1.01, 0.99); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_clock-ring-waves {
+  0% { opacity: 0; transform: translate(0px, 6px) scale(0.78); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { opacity: 0.45; transform: translate(0px, 2px) scale(0.9); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  35% { opacity: 1; transform: translate(0px, 0px) scale(1); animation-timing-function: linear; }
+  75% { opacity: 0.18; transform: translate(0px, -4px) scale(1.12); animation-timing-function: linear; }
+  100% { opacity: 0; transform: translate(0px, -6px) scale(1.16); }
+}
+@keyframes svg-mon_clock-ring-pendulum {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: rotate(20deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  35% { transform: rotate(-4deg); animation-timing-function: ease-in-out; }
+  75% { transform: rotate(3deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(0deg); }
+}
+@keyframes svg-mon_clock-ring-eyes {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: scale(1.14, 1.2); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  35% { transform: scale(1.18, 1.24); animation-timing-function: ease-in-out; }
+  75% { transform: scale(1.04, 1.06); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+@keyframes svg-mon_clock-ring-shadow {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: scale(0.9, 0.9); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  35% { transform: scale(0.94, 0.94); animation-timing-function: ease-in-out; }
+  75% { transform: scale(1.01, 1); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+.svg-mon_clock[data-anim="ring"] #case { animation: svg-mon_clock-ring-case 0.4s both; }
+.svg-mon_clock[data-anim="ring"] .ring-waves { animation: svg-mon_clock-ring-waves 0.4s both; }
+.svg-mon_clock[data-anim="ring"] #pendulum { animation: svg-mon_clock-ring-pendulum 0.4s both; }
+.svg-mon_clock[data-anim="ring"] #eyes { animation: svg-mon_clock-ring-eyes 0.4s both; }
+.svg-mon_clock[data-anim="ring"] #shadow { animation: svg-mon_clock-ring-shadow 0.4s both; }
+
+/* ==========================================================================
+   4. 轻击 hit（400ms）
+   关键时间点：0ms(0%) → 50ms(12.5%) 钟身往后歪8.5°+压扁9%，钟摆被甩到一边
+               → 130ms(32.5%) 停住 → 330ms(82.5%) 弹回过头 → 400ms(100%) 静止姿势
+   ========================================================================== */
+@keyframes svg-mon_clock-hit-case {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-14px, -10px) rotate(8.5deg) scale(1.04, 0.91); animation-timing-function: linear; }
+  32.5% { transform: translate(-14px, -10px) rotate(8.5deg) scale(1.04, 0.91); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(3px, -1px) rotate(-2deg) scale(0.98, 1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_clock-hit-pendulum {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: rotate(34deg); animation-timing-function: linear; }
+  32.5% { transform: rotate(34deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(0deg); }
+}
+@keyframes svg-mon_clock-hit-eyes {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: scale(1.15, 0.18); animation-timing-function: linear; }
+  32.5% { transform: scale(1.15, 0.18); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: scale(0.96, 1.05); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+@keyframes svg-mon_clock-hit-shadow {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: scale(1.05, 0.92); animation-timing-function: linear; }
+  32.5% { transform: scale(1.05, 0.92); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: scale(0.98, 1.02); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+.svg-mon_clock[data-anim="hit"] #case { animation: svg-mon_clock-hit-case 0.4s both; }
+.svg-mon_clock[data-anim="hit"] #pendulum { animation: svg-mon_clock-hit-pendulum 0.4s both; }
+.svg-mon_clock[data-anim="hit"] #eyes { animation: svg-mon_clock-hit-eyes 0.4s both; }
+.svg-mon_clock[data-anim="hit"] #shadow { animation: svg-mon_clock-hit-shadow 0.4s both; }
+
+/* ==========================================================================
+   5. 重击 hit_big（700ms）
+   关键时间点：0ms(0%) → 60ms(8.5714%) 压扁16%+后歪13.5°、换face_hurt、玻璃裂一道、崩出小齿轮
+               → 200ms(28.5714%) 停住 → 500ms(71.4286%) 弹回过头、齿轮落下淡出 → 700ms(100%) 静止姿势
+   ========================================================================== */
+@keyframes svg-mon_clock-hitbig-case {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: translate(-18px, -18px) rotate(13.5deg) scale(1.04, 0.84); animation-timing-function: linear; }
+  28.5714% { transform: translate(-18px, -18px) rotate(13.5deg) scale(1.04, 0.84); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: translate(4px, -2px) rotate(-3deg) scale(0.97, 1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_clock-hitbig-pendulum {
+  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: rotate(38deg); animation-timing-function: linear; }
+  28.5714% { transform: rotate(38deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(0deg); }
+}
+@keyframes svg-mon_clock-hitbig-eyes {
+  0% { opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { opacity: 0; animation-timing-function: linear; }
+  28.5714% { opacity: 0; animation-timing-function: ease-in-out; }
+  71.4286% { opacity: 1; animation-timing-function: linear; }
+  100% { opacity: 1; }
+}
+@keyframes svg-mon_clock-hitbig-hurt {
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { opacity: 1; animation-timing-function: linear; }
+  28.5714% { opacity: 1; animation-timing-function: ease-in-out; }
+  71.4286% { opacity: 0.08; animation-timing-function: linear; }
+  100% { opacity: 0; }
+}
+@keyframes svg-mon_clock-hitbig-crack {
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { opacity: 1; animation-timing-function: linear; }
+  28.5714% { opacity: 1; animation-timing-function: ease-in-out; }
+  71.4286% { opacity: 0.2; animation-timing-function: linear; }
+  100% { opacity: 0; }
+}
+@keyframes svg-mon_clock-hitbig-gears {
+  0% { opacity: 0; transform: translate(0px, 8px) scale(0.5); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { opacity: 1; transform: translate(0px, -14px) scale(1.04); animation-timing-function: linear; }
+  28.5714% { opacity: 1; transform: translate(0px, -14px) scale(1.04); animation-timing-function: ease-in-out; }
+  71.4286% { opacity: 0.15; transform: translate(6px, 32px) scale(0.88); animation-timing-function: linear; }
+  100% { opacity: 0; transform: translate(6px, 38px) scale(0.82); }
+}
+@keyframes svg-mon_clock-hitbig-shadow {
+  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.5714% { transform: scale(1.08, 0.88); animation-timing-function: linear; }
+  28.5714% { transform: scale(1.08, 0.88); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.4286% { transform: scale(0.97, 1.03); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+.svg-mon_clock[data-anim="hit_big"] #case { animation: svg-mon_clock-hitbig-case 0.7s both; }
+.svg-mon_clock[data-anim="hit_big"] #pendulum { animation: svg-mon_clock-hitbig-pendulum 0.7s both; }
+.svg-mon_clock[data-anim="hit_big"] #eyes { animation: svg-mon_clock-hitbig-eyes 0.7s both; }
+.svg-mon_clock[data-anim="hit_big"] #face_hurt { animation: svg-mon_clock-hitbig-hurt 0.7s both; }
+.svg-mon_clock[data-anim="hit_big"] .glass-crack { animation: svg-mon_clock-hitbig-crack 0.7s both; }
+.svg-mon_clock[data-anim="hit_big"] #gears { animation: svg-mon_clock-hitbig-gears 0.7s both; }
+.svg-mon_clock[data-anim="hit_big"] #shadow { animation: svg-mon_clock-hitbig-shadow 0.7s both; }
+
+/* ==========================================================================
+   6. 出手 attack（800ms）
+   关键时间点：0ms(0%) → 250ms(31.25%) 蓄力（往下缩11%、往后仰，钟摆被拉高）
+               → 330ms(41.25%) 出手撞中（整座钟往前一撞，钟摆大幅甩出来）
+               → 450ms(56.25%) 停住 → 800ms(100%) 回到静止姿势
+   ========================================================================== */
+@keyframes svg-mon_clock-attack-case {
+  0% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(8px, 12px) scale(1.06, 0.89) rotate(6deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-12px, -6px) scale(0.97, 1.05) rotate(-7deg); animation-timing-function: linear; }
+  56.25% { transform: translate(-12px, -6px) scale(0.97, 1.05) rotate(-7deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); }
+}
+@keyframes svg-mon_clock-attack-pendulum {
+  0% { transform: rotate(0deg) scale(1, 1); animation-timing-function: ease-in-out; }
+  31.25% { transform: rotate(-18deg) scale(0.96, 0.88); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: rotate(46deg) scale(1.22, 1.22); animation-timing-function: linear; }
+  56.25% { transform: rotate(46deg) scale(1.22, 1.22); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(0deg) scale(1, 1); }
+}
+@keyframes svg-mon_clock-attack-min {
+  0% { transform: rotate(0deg); animation-timing-function: ease-in-out; }
+  31.25% { transform: rotate(-45deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: rotate(180deg); animation-timing-function: linear; }
+  56.25% { transform: rotate(180deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(360deg); }
+}
+@keyframes svg-mon_clock-attack-shadow {
+  0% { transform: scale(1, 1); animation-timing-function: ease-in-out; }
+  31.25% { transform: scale(1.08, 0.92); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: scale(0.94, 0.94); animation-timing-function: linear; }
+  56.25% { transform: scale(0.94, 0.94); animation-timing-function: ease-in-out; }
+  100% { transform: scale(1, 1); }
+}
+.svg-mon_clock[data-anim="attack"] #case { animation: svg-mon_clock-attack-case 0.8s both; }
+.svg-mon_clock[data-anim="attack"] #pendulum { animation: svg-mon_clock-attack-pendulum 0.8s both; }
+.svg-mon_clock[data-anim="attack"] #hand_minute { animation: svg-mon_clock-attack-min 0.8s both; }
+.svg-mon_clock[data-anim="attack"] #shadow { animation: svg-mon_clock-attack-shadow 0.8s both; }
+
+/* ==========================================================================
+   7. 发晕 daze（600ms 进场 + 2000ms 循环，stay）
+   进场：0ms(0%) → 600ms(100%) 换 face_daze，整座钟歪 6.2°
+   循环：0ms(0%) → 1000ms(50%) → 2000ms(100%) 慢慢左右晃，小星绕圈，指针旋转
+   ========================================================================== */
+@keyframes svg-mon_clock-daze-in-case {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+  100% { transform: translate(-4px, -10px) rotate(-6deg) scale(1.01, 0.94); }
+}
+@keyframes svg-mon_clock-daze-loop-case {
+  0%, 100% { transform: translate(-4px, -10px) rotate(-6deg) scale(1.01, 0.94); }
+  50% { transform: translate(4px, -10px) rotate(6.2deg) scale(1.01, 0.94); }
+}
+@keyframes svg-mon_clock-daze-in-pendulum {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(26deg); }
+}
+@keyframes svg-mon_clock-daze-loop-pendulum {
+  0%, 100% { transform: rotate(26deg); }
+  50% { transform: rotate(-4deg); }
+}
+@keyframes svg-mon_clock-daze-in-min {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(180deg); }
+}
+@keyframes svg-mon_clock-daze-loop-min {
+  0% { transform: rotate(180deg); }
+  50% { transform: rotate(360deg); }
+  100% { transform: rotate(540deg); }
+}
+@keyframes svg-mon_clock-daze-in-eyes {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes svg-mon_clock-daze-loop-eyes {
+  0%, 50%, 100% { opacity: 0; }
+}
+@keyframes svg-mon_clock-daze-in-face {
+  0% { opacity: 0; transform: translateY(6px) scale(0.88); }
+  100% { opacity: 1; transform: translateY(0px) scale(1); }
+}
+@keyframes svg-mon_clock-daze-loop-face {
+  0%, 100% { opacity: 1; transform: translateY(0px) scale(1); }
+  50% { opacity: 1; transform: translateY(1px) scale(1); }
+}
+@keyframes svg-mon_clock-daze-in-swirl {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(120deg); }
+}
+@keyframes svg-mon_clock-daze-loop-swirl {
+  0% { transform: rotate(120deg); }
+  50% { transform: rotate(300deg); }
+  100% { transform: rotate(480deg); }
+}
+@keyframes svg-mon_clock-daze-in-stars {
+  0% { transform: translate(-6px, 4px) scale(0.85); }
+  100% { transform: translate(-6px, 0px) scale(1); }
+}
+@keyframes svg-mon_clock-daze-loop-stars {
+  0%, 100% { transform: translate(-6px, 0px) scale(1); }
+  50% { transform: translate(6px, -2px) scale(1); }
+}
+.svg-mon_clock[data-anim="daze"] #case {
+  animation: svg-mon_clock-daze-in-case 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_clock-daze-loop-case 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_clock[data-anim="daze"] #pendulum {
+  animation: svg-mon_clock-daze-in-pendulum 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_clock-daze-loop-pendulum 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_clock[data-anim="daze"] #hand_minute {
+  animation: svg-mon_clock-daze-in-min 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_clock-daze-loop-min 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_clock[data-anim="daze"] #eyes {
+  animation: svg-mon_clock-daze-in-eyes 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_clock-daze-loop-eyes 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_clock[data-anim="daze"] #face_daze {
+  animation: svg-mon_clock-daze-in-face 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_clock-daze-loop-face 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_clock[data-anim="daze"] .daze-swirl-l,
+.svg-mon_clock[data-anim="daze"] .daze-swirl-r {
+  animation: svg-mon_clock-daze-in-swirl 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_clock-daze-loop-swirl 2s ease-in-out 0.6s infinite;
+}
+.svg-mon_clock[data-anim="daze"] .daze-stars {
+  animation: svg-mon_clock-daze-in-stars 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_clock-daze-loop-stars 2s ease-in-out 0.6s infinite;
+}
+
+/* ==========================================================================
+   8. 死亡 die（1000ms）
+   关键时间点：0ms(0%) → 150ms(15%) 猛一抖 → 300ms(30%) 玻璃碎了、齿轮发条崩出、钟摆掉下、钟身倒下
+               → 600ms(60%) 东西落到地上(y:360..390，位移>110px) → 1000ms(100%) 全部淡出
+   ========================================================================== */
+@keyframes svg-mon_clock-die-root {
+  0% { opacity: 1; transform: translate(0px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { opacity: 1; transform: translate(-4px, 2px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { opacity: 1; transform: translate(2px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { opacity: 1; transform: translate(0px, 0px); animation-timing-function: linear; }
+  100% { opacity: 0; transform: translate(0px, 4px); }
+}
+@keyframes svg-mon_clock-die-case {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-4px, 4px) rotate(-4deg) scale(1.03, 0.94); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-6px, -12px) rotate(10deg) scale(1, 0.85); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(-8px, -16px) rotate(12deg) scale(1, 0.82); animation-timing-function: linear; }
+  100% { transform: translate(-8px, -16px) rotate(12.5deg) scale(1, 0.82); }
+}
+@keyframes svg-mon_clock-die-door {
+  0% { transform: scaleX(1) skewY(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: scaleX(0.6) skewY(3deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: scaleX(-0.42) skewY(8deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: scaleX(-0.48) skewY(9deg); animation-timing-function: linear; }
+  100% { transform: scaleX(-0.5) skewY(9deg); }
+}
+@keyframes svg-mon_clock-die-crack {
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { opacity: 0.8; animation-timing-function: linear; }
+  100% { opacity: 0; }
+}
+@keyframes svg-mon_clock-die-pendulum {
+  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(6px, -8px) rotate(18deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(22px, 34px) rotate(-18deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  60% { transform: translate(32px, 78px) rotate(-32deg); animation-timing-function: linear; }
+  100% { transform: translate(34px, 80px) rotate(-34deg); }
+}
+@keyframes svg-mon_clock-die-gears {
+  0% { opacity: 0; transform: translate(0px, -24px) scale(0.45); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { opacity: 0.9; transform: translate(-8px, -46px) scale(0.92); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { opacity: 1; transform: translate(-14px, -58px) scale(1.06); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  60% { opacity: 1; transform: translate(-18px, 68px) scale(1); animation-timing-function: linear; }
+  100% { opacity: 0; transform: translate(-20px, 72px) scale(0.95); }
+}
+.svg-mon_clock[data-anim="die"] #root { animation: svg-mon_clock-die-root 1s both; }
+.svg-mon_clock[data-anim="die"] #case { animation: svg-mon_clock-die-case 1s both; }
+.svg-mon_clock[data-anim="die"] .clock-door { animation: svg-mon_clock-die-door 1s both; }
+.svg-mon_clock[data-anim="die"] .glass-crack { animation: svg-mon_clock-die-crack 1s both; }
+.svg-mon_clock[data-anim="die"] #pendulum { animation: svg-mon_clock-die-pendulum 1s both; }
+.svg-mon_clock[data-anim="die"] #gears { animation: svg-mon_clock-die-gears 1s both; }
+</style>
+
+<g id="root">
+  <!-- pivot: 160,400 -->
+  <!-- 落地暗影 shadow -->
+  <g id="shadow">
+    <!-- pivot: 160,388 -->
+    <ellipse cx="160" cy="388" rx="116" ry="11" fill="#0D111C" opacity="0.65"/>
+    <ellipse cx="160" cy="388" rx="86" ry="6.5" fill="#1C1412" opacity="0.5"/>
+    <path d="M60,392 L74,381 M80,393 L94,380 M100,394 L114,379 M120,395 L134,379 M140,395 L154,379 M160,395 L174,379 M180,395 L194,379 M200,394 L214,380 M220,393 L234,381 M240,392 L254,382" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.65"/>
+  </g>
+
+  <!-- 老座钟精英主体 case -->
+  <g id="case">
+    <!-- pivot: 160,380 -->
+
+    <!-- 厚重灰铁与旧铜兽爪底座 -->
+    <polygon points="44,348 276,350 284,388 36,386" fill="#3B515C" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="160,349 276,350 284,388 160,387" fill="#1E2C33" opacity="0.82"/>
+    <polygon points="56,336 264,338 272,354 48,352" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M50,356 H268" stroke="#8CAAB5" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- 钟身中下段厚木柜与装甲肩翼 -->
+    <polygon points="54,196 266,198 258,340 62,338" fill="#704122" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <polygon points="162,197 266,198 258,340 160,339" fill="#3D2212" opacity="0.8"/>
+    <polygon points="36,188 76,182 82,340 50,338" fill="#3B515C" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="244,184 284,190 270,340 238,340" fill="#1E2C33" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M40,192 L54,334" stroke="#8CAAB5" stroke-width="2.6" stroke-linecap="round" opacity="0.88"/>
+    <circle cx="58" cy="212" r="3.6" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="62" cy="268" r="3.6" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="66" cy="320" r="3.6" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="262" cy="214" r="3.6" fill="#5A7682" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="258" cy="270" r="3.6" fill="#5A7682" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="254" cy="322" r="3.6" fill="#5A7682" stroke="#1C1412" stroke-width="1.4"/>
+
+    <!-- 肚子里玻璃窗后的深暗钟摆腔 -->
+    <polygon points="96,214 224,216 218,332 102,330" fill="#0D111C" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="104,222 216,224 210,324 110,322" fill="#161221"/>
+
+    <!-- 钟摆 pendulum（内层原生 SVG transform="rotate(12 160 218)" 使静止第 0 帧即在左侧 -12°，待机旋转 +24° 摆到右侧 +12°） -->
+    <g id="pendulum">
+      <!-- pivot: 160,218 -->
+      <g transform="rotate(12 160 218)">
+        <rect x="157" y="216" width="6" height="68" fill="#9A7B46" stroke="#1C1412" stroke-width="2"/>
+        <circle cx="160" cy="292" r="20" fill="#C2A670" stroke="#1C1412" stroke-width="2.6"/>
+        <path d="M174,278 A20,20 0 0,1 146,306 L160,292 Z" fill="#6E542B"/>
+        <rect x="151" y="283" width="18" height="18" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2"/>
+        <rect x="155" y="287" width="10" height="10" fill="#5CE892"/>
+        <rect x="153" y="285" width="4" height="3" fill="#FFFFFF"/>
+      </g>
+    </g>
+
+    <!-- 玻璃窗框与反光条 -->
+    <g class="clock-door">
+      <!-- pivot: 96,280 -->
+      <polygon points="96,214 224,216 218,332 102,330" fill="none" stroke="#9A7B46" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="M110,234 L136,222 M108,252 L152,226" stroke="#8CAAB5" stroke-width="2" stroke-linecap="round" opacity="0.45"/>
+      <circle cx="210" cy="274" r="4" fill="#C2A670" stroke="#1C1412" stroke-width="1.4"/>
+    </g>
+
+    <!-- 重击与死亡时的玻璃裂纹 .glass-crack（平时 opacity="0"） -->
+    <g class="glass-crack" opacity="0">
+      <path d="M114,226 L154,264 L136,288 L178,322 M154,264 L196,248 M136,288 L112,306" fill="none" stroke="#E6DEC8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M114,226 L154,264 L136,288 L178,322" fill="none" stroke="#8CAAB5" stroke-width="1.2" stroke-linecap="round"/>
+    </g>
+
+    <!-- 钟冠上部厚重哥特尖顶钟楼头 -->
+    <polygon points="44,78 72,38 160,28 248,40 276,80 268,202 52,200" fill="#704122" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <polygon points="160,28 248,40 276,80 268,202 160,201" fill="#3D2212" opacity="0.82"/>
+    <polygon points="56,42 74,28 84,50 52,58" fill="#3B515C" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="146,32 160,24 174,32 168,46 152,46" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="246,30 264,44 268,60 236,52" fill="#1E2C33" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M48,80 L74,42 L156,32" fill="none" stroke="#8CAAB5" stroke-width="2.8" stroke-linecap="round" opacity="0.9"/>
+
+    <!-- 表盘上方两扇小窗眼睛 eyes -->
+    <g id="eyes">
+      <!-- pivot: 160,64 -->
+      <polygon points="94,50 144,58 142,78 96,76" fill="#0D111C" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <polygon points="100,54 138,60 136,74 102,72" fill="#E2D6BA"/>
+      <circle cx="122" cy="65" r="5.5" fill="#8C3B45" stroke="#1C1412" stroke-width="1.5"/>
+      <circle cx="122" cy="65" r="2.2" fill="#1C1412"/>
+      <path d="M90,46 L146,56" stroke="#9A7B46" stroke-width="3.6" stroke-linecap="round"/>
+
+      <polygon points="226,50 176,58 178,78 224,76" fill="#0D111C" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <polygon points="220,54 182,60 184,74 218,72" fill="#E2D6BA"/>
+      <circle cx="198" cy="65" r="5.5" fill="#8C3B45" stroke="#1C1412" stroke-width="1.5"/>
+      <circle cx="198" cy="65" r="2.2" fill="#1C1412"/>
+      <path d="M230,46 L174,56" stroke="#6E542B" stroke-width="3.6" stroke-linecap="round"/>
+    </g>
+
+    <!-- 重击表情 face_hurt（平时 opacity="0"） -->
+    <g id="face_hurt" opacity="0">
+      <!-- pivot: 160,64 -->
+      <polygon points="94,50 144,58 142,78 96,76" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6"/>
+      <polygon points="226,50 176,58 178,78 224,76" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M100,56 L136,66 L100,74 M220,56 L184,66 L220,74" fill="none" stroke="#E2D6BA" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- 眩晕表情 face_daze（平时 opacity="0"） -->
+    <g id="face_daze" opacity="0">
+      <!-- pivot: 160,64 -->
+      <polygon points="94,50 144,58 142,78 96,76" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6"/>
+      <polygon points="226,50 176,58 178,78 224,76" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6"/>
+      <g class="daze-swirl-l">
+        <!-- pivot: 120,65 -->
+        <path d="M120,65 m-2,0 a2,2 0 1,0 4,0 a4.5,4.5 0 1,0 -9,0 a7,7 0 1,0 14,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+      </g>
+      <g class="daze-swirl-r">
+        <!-- pivot: 200,65 -->
+        <path d="M200,65 m-2,0 a2,2 0 1,0 4,0 a4.5,4.5 0 1,0 -9,0 a7,7 0 1,0 14,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+      </g>
+      <g class="daze-stars">
+        <!-- pivot: 160,36 -->
+        <path d="M104,32 L107,38 L113,41 L107,44 L104,50 L101,44 L95,41 L101,38 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M216,32 L219,38 L225,41 L219,44 L216,50 L213,44 L207,41 L213,38 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+      </g>
+    </g>
+
+    <!-- 表盘组 dial -->
+    <g id="dial">
+      <!-- pivot: 160,140 -->
+      <circle cx="160" cy="140" r="64" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
+      <path d="M114,94 A64,64 0 0,1 206,94" fill="none" stroke="#C2A670" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="160" cy="140" r="56" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6"/>
+      <circle cx="160" cy="140" r="52" fill="none" stroke="#C8B894" stroke-width="1.5"/>
+      <path d="M160,85 V92 M160,188 V195 M105,140 H112 M208,140 H215 M188,92 L184,98 M132,188 L136,182 M208,112 L202,116 M112,168 L118,164 M208,168 L202,164 M112,112 L118,116 M188,188 L184,182 M132,92 L136,98" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
+
+      <g id="hand_hour">
+        <!-- pivot: 160,140 -->
+        <polygon points="106,140 122,134 120,140 122,146" fill="#1C1412"/>
+        <circle cx="110" cy="140" r="3" fill="#6E542B" stroke="#1C1412" stroke-width="1.2"/>
+      </g>
+
+      <g id="hand_minute">
+        <!-- pivot: 160,140 -->
+        <polygon points="160,86 166,104 160,101 154,104" fill="#8C3B45" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="160" cy="90" r="2.5" fill="#C2A670"/>
+      </g>
+
+      <g id="countdown_slot"></g>
+    </g>
+
+    <polygon points="44,78 72,38 160,28 248,40 276,80 268,202 52,200" fill="none" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 新事件 ring 表盘上方冒出的两圈声波弧线 .ring-waves（y:24..68，严格处于 y:20..80） -->
+  <g class="ring-waves" opacity="0">
+    <!-- pivot: 160,56 -->
+    <path d="M54,68 Q82,34 126,34" fill="none" stroke="#1C1412" stroke-width="6.4" stroke-linecap="round"/>
+    <path d="M54,68 Q82,34 126,34" fill="none" stroke="#F4F1FF" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M266,68 Q238,34 194,34" fill="none" stroke="#1C1412" stroke-width="6.4" stroke-linecap="round"/>
+    <path d="M266,68 Q238,34 194,34" fill="none" stroke="#F4F1FF" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M36,60 Q72,24 134,24" fill="none" stroke="#1C1412" stroke-width="5.6" stroke-linecap="round"/>
+    <path d="M36,60 Q72,24 134,24" fill="none" stroke="#E6DEC8" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M284,60 Q248,24 186,24" fill="none" stroke="#1C1412" stroke-width="5.6" stroke-linecap="round"/>
+    <path d="M284,60 Q248,24 186,24" fill="none" stroke="#E6DEC8" stroke-width="2.8" stroke-linecap="round"/>
+  </g>
+
+  <!-- 重击与死亡崩出的发条齿轮与弹簧组 gears（平时 opacity="0"） -->
+  <g id="gears" opacity="0">
+    <!-- pivot: 160,280 -->
+    <circle cx="118" cy="296" r="16" fill="#9A7B46" stroke="#1C1412" stroke-width="2.8" stroke-dasharray="7 4"/>
+    <circle cx="118" cy="296" r="6" fill="#1C1412"/>
+    <circle cx="196" cy="302" r="14" fill="#5A7682" stroke="#1C1412" stroke-width="2.6" stroke-dasharray="6 4"/>
+    <circle cx="196" cy="302" r="5" fill="#1C1412"/>
+    <circle cx="156" cy="312" r="11" fill="#C2A670" stroke="#1C1412" stroke-width="2.2" stroke-dasharray="5 3"/>
+    <path d="M132,276 L156,266 L142,288 L174,278 L162,298 L192,290" fill="none" stroke="#1C1412" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M132,276 L156,266 L142,288 L174,278 L162,298 L192,290" fill="none" stroke="#8CAAB5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

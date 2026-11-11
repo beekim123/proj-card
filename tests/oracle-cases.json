@@ -1,0 +1,2644 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 101,107 hourglass sequence and undo",
+      "path": "tests/oracle/000.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 102 bite occurs before hourglass",
+      "path": "tests/oracle/001.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 103 bell before hourglass",
+      "path": "tests/oracle/002.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 104 winding and hourglass coexist",
+      "path": "tests/oracle/003.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 105 postpones an imminent attack",
+      "path": "tests/oracle/004.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 106 killing hourglass does not extend countdown",
+      "path": "tests/oracle/005.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 108 extended countdown attacks on fourth end, then resets",
+      "path": "tests/oracle/006.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 111 seal itself still follows hug and empty-card reactions",
+      "path": "tests/oracle/007.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 112,116,118,119 seal disables bite, warnings, and undoes",
+      "path": "tests/oracle/008.json",
+      "passed": true,
+      "calls": 25
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 113 seal removes beneficial winding too",
+      "path": "tests/oracle/009.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 114 seal on dragon layer one",
+      "path": "tests/oracle/010.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 115,117 sealed dragon changes layer but rule returns next turn",
+      "path": "tests/oracle/011.json",
+      "passed": true,
+      "calls": 11
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 120 white and seal complement reaction",
+      "path": "tests/oracle/012.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 121 shadow exact arithmetic",
+      "path": "tests/oracle/013.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 123 shadow exact arithmetic",
+      "path": "tests/oracle/014.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 124 shadow exact arithmetic",
+      "path": "tests/oracle/015.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 125 shadow exact arithmetic",
+      "path": "tests/oracle/016.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 126 shadow exact arithmetic",
+      "path": "tests/oracle/017.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 128 shadow exact arithmetic",
+      "path": "tests/oracle/018.json",
+      "passed": true,
+      "calls": 11
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 122 shadow copies white and rings clock again",
+      "path": "tests/oracle/019.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 127 shadow copies once-adjusted reaction without consuming another",
+      "path": "tests/oracle/020.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 129 shadow copies first-card plain, not same",
+      "path": "tests/oracle/021.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 130 shadow uses current growth",
+      "path": "tests/oracle/022.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 131,134 whistle searches from top and undo restores exact location",
+      "path": "tests/oracle/023.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 132 whistle never reshuffles discard",
+      "path": "tests/oracle/024.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 133 whistle is yellow",
+      "path": "tests/oracle/025.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 135 whistle refills from eleven to twelve",
+      "path": "tests/oracle/026.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 141 hammer triples accumulated turn damage",
+      "path": "tests/oracle/027.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 151,152 start2 resets each turn and emits effect",
+      "path": "tests/oracle/028.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 155 first2 begins with nine, later refills seven",
+      "path": "tests/oracle/029.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 157 twice bag draws four",
+      "path": "tests/oracle/030.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 158 twice lens quadruples multiplier",
+      "path": "tests/oracle/031.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 159 twice hammer multiplies turn by nine",
+      "path": "tests/oracle/032.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 160 only first extra card doubles",
+      "path": "tests/oracle/033.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 161 mirror consumes first tool even without repeat effect",
+      "path": "tests/oracle/034.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 162 twice hourglass, whistle and stone",
+      "path": "tests/oracle/035.json",
+      "passed": true,
+      "calls": 17
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 163 undo restores twice availability",
+      "path": "tests/oracle/036.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 164 multiple relic hooks compose",
+      "path": "tests/oracle/037.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 174 bag respects hard cap and leaves undrawn top in place",
+      "path": "tests/oracle/038.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 175 first2 and twice bag never exceed twelve",
+      "path": "tests/oracle/039.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 213 practice has no adventure fields and hammer triples",
+      "path": "tests/oracle/040.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 214 rainbow counts hourglass and whistle but not shadow/mirror",
+      "path": "tests/oracle/041.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "batch-one-cards.test.ts",
+      "name": "第一批 §11 independent card and relic acceptance > 215 hourglass cancels bite attack warning and participates in hint",
+      "path": "tests/oracle/042.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 153 slow increases normal, soldier and dragon reset maxima",
+      "path": "tests/oracle/043.json",
+      "passed": true,
+      "calls": 43
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 154 slow winding reset is three",
+      "path": "tests/oracle/044.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 156 first2 draws ten with elite hand limit eight",
+      "path": "tests/oracle/045.json",
+      "passed": true,
+      "calls": 16
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 165 elite heart immediately grants fourth full heart",
+      "path": "tests/oracle/046.json",
+      "passed": true,
+      "calls": 15
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 171 two bags excluded from 200 loot seeds; options distinct",
+      "path": "tests/oracle/047.json",
+      "passed": true,
+      "calls": 1400
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 172 seven capped types leave exactly two loot options",
+      "path": "tests/oracle/048.json",
+      "passed": true,
+      "calls": 19
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 173 capped bag cannot be copied and rejection is immutable",
+      "path": "tests/oracle/049.json",
+      "passed": true,
+      "calls": 15
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 181 fixed seed begins first room with random normal and 20000 HP",
+      "path": "tests/oracle/050.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 182 first loot choice or skip enters mandatory doors excluding previous normal",
+      "path": "tests/oracle/051.json",
+      "passed": true,
+      "calls": 24
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 183 full hearts produce card and shop across 200 seeds",
+      "path": "tests/oracle/052.json",
+      "passed": true,
+      "calls": 1400
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 184 missing heart allows all three rewards with distinct pairs",
+      "path": "tests/oracle/053.json",
+      "passed": true,
+      "calls": 1400
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 185 door save preserves options and random state",
+      "path": "tests/oracle/054.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 186 same seed and choices produce same entire six-room trace",
+      "path": "tests/oracle/055.json",
+      "passed": true,
+      "calls": 56
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 187 soldier door uses room HP and own countdown",
+      "path": "tests/oracle/056.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 188 heal door goes directly to elite, restores only one heart",
+      "path": "tests/oracle/057.json",
+      "passed": true,
+      "calls": 11
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 189 shop reward enters workshop",
+      "path": "tests/oracle/058.json",
+      "passed": true,
+      "calls": 11
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 190 elite heals, raises hand, and requires three unowned relic choices",
+      "path": "tests/oracle/059.json",
+      "passed": true,
+      "calls": 17
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 191 intervening elite does not replace previous normal exclusion",
+      "path": "tests/oracle/060.json",
+      "passed": true,
+      "calls": 24
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 192,194 sixth room dragon properties and victory",
+      "path": "tests/oracle/061.json",
+      "passed": true,
+      "calls": 28
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 193 proportional dragon boundary crossing",
+      "path": "tests/oracle/062.json",
+      "passed": true,
+      "calls": 27
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 195 hp scale three applies to all six rooms",
+      "path": "tests/oracle/063.json",
+      "passed": true,
+      "calls": 25
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 201 workshop exposes exact 31-card choices",
+      "path": "tests/oracle/064.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 202 dropping bases and tool removes identities in all later fights",
+      "path": "tests/oracle/065.json",
+      "passed": true,
+      "calls": 27
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 203 zero drop rejected; explicit skip changes nothing",
+      "path": "tests/oracle/066.json",
+      "passed": true,
+      "calls": 14
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 204,205 minimum deck controls exact drop limits",
+      "path": "tests/oracle/067.json",
+      "passed": true,
+      "calls": 28
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 206 copy bag preserves type and creates unique ID",
+      "path": "tests/oracle/068.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 207 copy white base preserves gem mask",
+      "path": "tests/oracle/069.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 208 unconfirmed workshop survives save",
+      "path": "tests/oracle/070.json",
+      "passed": true,
+      "calls": 14
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > 209 confirmed workshop cannot undo or confirm again",
+      "path": "tests/oracle/071.json",
+      "passed": true,
+      "calls": 16
+    },
+    {
+      "file": "batch-one-run.test.ts",
+      "name": "第一批 §11 independent adventure acceptance > regression invalid IDs, duplicate drop IDs, cap and drop count reject atomically",
+      "path": "tests/oracle/072.json",
+      "passed": true,
+      "calls": 52
+    },
+    {
+      "file": "batch-one-save.test.ts",
+      "name": "第一批 §11 save and continuation > 211 old version three is discarded without changing old records",
+      "path": "tests/oracle/073.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "batch-one-save.test.ts",
+      "name": "第一批 §11 save and continuation > 212 each saved checkpoint continues identically for thirty commands through doors/shop/elite/seal/hourglass/twice",
+      "path": "tests/oracle/074.json",
+      "passed": true,
+      "calls": 4481
+    },
+    {
+      "file": "batch-one-save.test.ts",
+      "name": "第一批 §11 save and continuation > regression initial relic options and extended countdown save verbatim",
+      "path": "tests/oracle/075.json",
+      "passed": true,
+      "calls": 11
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #1: 1 → lens",
+      "path": "tests/oracle/076.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #2: 3 → lens",
+      "path": "tests/oracle/077.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #3: 1 → 3 → hammer",
+      "path": "tests/oracle/078.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #4: 1 → 3 → 2 → 6 → 4 → 5 → hammer",
+      "path": "tests/oracle/079.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #5: 1 → 3 → 2 → 6 → lens → 5",
+      "path": "tests/oracle/080.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #6: 1 → mirror",
+      "path": "tests/oracle/081.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #7: 0 → mirror",
+      "path": "tests/oracle/082.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #8: mirror",
+      "path": "tests/oracle/083.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #9: 7 → mirror",
+      "path": "tests/oracle/084.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #10: 1 → mirror → 1",
+      "path": "tests/oracle/085.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #12: hammer → hammer",
+      "path": "tests/oracle/086.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #14: 1 → 3 → 2 → 6 → 4 → mirror",
+      "path": "tests/oracle/087.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #11: 磨石先把红从10次升到15次，下一张红使用150底数",
+      "path": "tests/oracle/088.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #13: 口袋从牌库末尾摸两张，出一摸二，手牌净增一",
+      "path": "tests/oracle/089.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #15: 口袋牌库1张、弃牌3张时先摸1再洗弃牌摸1，卡牌守恒",
+      "path": "tests/oracle/090.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #16: 彩虹之后的锤子撤回，回到64倍率、209000伤害，彩虹保留",
+      "path": "tests/oracle/091.json",
+      "passed": true,
+      "calls": 11
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #17: 口袋撤回复原两张牌的位置，再打摸到同样的牌",
+      "path": "tests/oracle/092.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "新01 §11.1 额外牌 · #1–#18 > #18: 磨石同时使红44→49闪光、绿14→19切好，蓝0→5",
+      "path": "tests/oracle/093.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 结算顺序、完整撤回和练习兼容 > 口袋洗弃牌后撤回也恢复随机数，再次出牌结果完全相同",
+      "path": "tests/oracle/094.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 结算顺序、完整撤回和练习兼容 > 镜子桌面使用有效宝石，进弃牌时恢复无宝石，撤回回到手牌原样",
+      "path": "tests/oracle/095.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 结算顺序、完整撤回和练习兼容 > 磨石升级可完整撤回，成长关闭仍增加次数而不提升底数或升级特效",
+      "path": "tests/oracle/096.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 结算顺序、完整撤回和练习兼容 > 锤子恰好触发彩虹时先算彩虹再翻倍，预览包含二者且不改变状态",
+      "path": "tests/oracle/097.json",
+      "passed": true,
+      "calls": 12
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 结算顺序、完整撤回和练习兼容 > 所有额外牌预览与实际结算一致，预览不摸口袋牌、不改成长或随机数",
+      "path": "tests/oracle/098.json",
+      "passed": true,
+      "calls": 35
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 结算顺序、完整撤回和练习兼容 > 两堆均空时口袋少摸，桌面牌不回收",
+      "path": "tests/oracle/099.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 结算顺序、完整撤回和练习兼容 > 口袋可越过手牌上限，下一回合保留超出的手牌且不再补牌",
+      "path": "tests/oracle/100.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 结算顺序、完整撤回和练习兼容 > 练习支持手牌7及每种额外牌1张，空过回合不增加回合数",
+      "path": "tests/oracle/101.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 结算顺序、完整撤回和练习兼容 > §3.5算式完整展示工具、变色和加成，并固定出牌时的底数",
+      "path": "tests/oracle/102.json",
+      "passed": true,
+      "calls": 37
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 提示、设置重开与随机流 > 提示沿用反应名并接上工具效果，镜子只显示凑白",
+      "path": "tests/oracle/103.json",
+      "passed": true,
+      "calls": 30
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 提示、设置重开与随机流 > 练习切换额外牌后重开，清除旧伤害、成长、桌面和撤回",
+      "path": "tests/oracle/104.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "extra-cards.test.ts",
+      "name": "额外牌 · 提示、设置重开与随机流 > 种子随机整数状态可取出和恢复，之后100次抽样逐个一致",
+      "path": "tests/oracle/105.json",
+      "passed": true,
+      "calls": 2
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子0整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/106.json",
+      "passed": true,
+      "calls": 352
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子1整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/107.json",
+      "passed": true,
+      "calls": 1256
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子2整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/108.json",
+      "passed": true,
+      "calls": 1386
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子3整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/109.json",
+      "passed": true,
+      "calls": 1118
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子4整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/110.json",
+      "passed": true,
+      "calls": 1240
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子5整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/111.json",
+      "passed": true,
+      "calls": 1515
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子6整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/112.json",
+      "passed": true,
+      "calls": 830
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子7整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/113.json",
+      "passed": true,
+      "calls": 810
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子8整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/114.json",
+      "passed": true,
+      "calls": 1279
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子9整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/115.json",
+      "passed": true,
+      "calls": 1017
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子10整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/116.json",
+      "passed": true,
+      "calls": 1138
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子11整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/117.json",
+      "passed": true,
+      "calls": 1176
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子12整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/118.json",
+      "passed": true,
+      "calls": 830
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子13整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/119.json",
+      "passed": true,
+      "calls": 908
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子14整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/120.json",
+      "passed": true,
+      "calls": 1344
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子15整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/121.json",
+      "passed": true,
+      "calls": 722
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子16整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/122.json",
+      "passed": true,
+      "calls": 1174
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子17整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/123.json",
+      "passed": true,
+      "calls": 774
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子18整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/124.json",
+      "passed": true,
+      "calls": 1193
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子19整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/125.json",
+      "passed": true,
+      "calls": 722
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子20整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/126.json",
+      "passed": true,
+      "calls": 774
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子21整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/127.json",
+      "passed": true,
+      "calls": 1172
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子22整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/128.json",
+      "passed": true,
+      "calls": 1459
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子23整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/129.json",
+      "passed": true,
+      "calls": 1260
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子24整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/130.json",
+      "passed": true,
+      "calls": 724
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子25整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/131.json",
+      "passed": true,
+      "calls": 1237
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子26整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/132.json",
+      "passed": true,
+      "calls": 296
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子27整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/133.json",
+      "passed": true,
+      "calls": 897
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子28整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/134.json",
+      "passed": true,
+      "calls": 1067
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子29整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/135.json",
+      "passed": true,
+      "calls": 961
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子30整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/136.json",
+      "passed": true,
+      "calls": 724
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子31整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/137.json",
+      "passed": true,
+      "calls": 1409
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子32整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/138.json",
+      "passed": true,
+      "calls": 895
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子33整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/139.json",
+      "passed": true,
+      "calls": 1379
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子34整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/140.json",
+      "passed": true,
+      "calls": 296
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子35整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/141.json",
+      "passed": true,
+      "calls": 410
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子36整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/142.json",
+      "passed": true,
+      "calls": 774
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子37整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/143.json",
+      "passed": true,
+      "calls": 1272
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子38整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/144.json",
+      "passed": true,
+      "calls": 1181
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子39整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/145.json",
+      "passed": true,
+      "calls": 509
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子40整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/146.json",
+      "passed": true,
+      "calls": 410
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子41整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/147.json",
+      "passed": true,
+      "calls": 1103
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子42整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/148.json",
+      "passed": true,
+      "calls": 637
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子43整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/149.json",
+      "passed": true,
+      "calls": 1534
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子44整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/150.json",
+      "passed": true,
+      "calls": 1191
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子45整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/151.json",
+      "passed": true,
+      "calls": 884
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子46整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/152.json",
+      "passed": true,
+      "calls": 352
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子47整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/153.json",
+      "passed": true,
+      "calls": 1256
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子48整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/154.json",
+      "passed": true,
+      "calls": 900
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子49整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/155.json",
+      "passed": true,
+      "calls": 664
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子50整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/156.json",
+      "passed": true,
+      "calls": 1250
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子51整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/157.json",
+      "passed": true,
+      "calls": 1371
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子52整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/158.json",
+      "passed": true,
+      "calls": 679
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子53整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/159.json",
+      "passed": true,
+      "calls": 1235
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子54整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/160.json",
+      "passed": true,
+      "calls": 1047
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子55整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/161.json",
+      "passed": true,
+      "calls": 832
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子56整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/162.json",
+      "passed": true,
+      "calls": 1105
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子57整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/163.json",
+      "passed": true,
+      "calls": 1578
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子58整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/164.json",
+      "passed": true,
+      "calls": 567
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子59整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/165.json",
+      "passed": true,
+      "calls": 828
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子60整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/166.json",
+      "passed": true,
+      "calls": 910
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子61整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/167.json",
+      "passed": true,
+      "calls": 1327
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子62整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/168.json",
+      "passed": true,
+      "calls": 352
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子63整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/169.json",
+      "passed": true,
+      "calls": 1185
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子64整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/170.json",
+      "passed": true,
+      "calls": 1107
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子65整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/171.json",
+      "passed": true,
+      "calls": 774
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子66整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/172.json",
+      "passed": true,
+      "calls": 352
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子67整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/173.json",
+      "passed": true,
+      "calls": 722
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子68整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/174.json",
+      "passed": true,
+      "calls": 892
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子69整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/175.json",
+      "passed": true,
+      "calls": 920
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子70整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/176.json",
+      "passed": true,
+      "calls": 1277
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子71整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/177.json",
+      "passed": true,
+      "calls": 296
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子72整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/178.json",
+      "passed": true,
+      "calls": 1102
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子73整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/179.json",
+      "passed": true,
+      "calls": 860
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子74整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/180.json",
+      "passed": true,
+      "calls": 619
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子75整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/181.json",
+      "passed": true,
+      "calls": 1049
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子76整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/182.json",
+      "passed": true,
+      "calls": 1069
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子77整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/183.json",
+      "passed": true,
+      "calls": 1210
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子78整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/184.json",
+      "passed": true,
+      "calls": 1208
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子79整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/185.json",
+      "passed": true,
+      "calls": 1072
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子80整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/186.json",
+      "passed": true,
+      "calls": 1210
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子81整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/187.json",
+      "passed": true,
+      "calls": 1120
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子82整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/188.json",
+      "passed": true,
+      "calls": 862
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子83整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/189.json",
+      "passed": true,
+      "calls": 565
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子84整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/190.json",
+      "passed": true,
+      "calls": 1141
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子85整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/191.json",
+      "passed": true,
+      "calls": 511
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子86整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/192.json",
+      "passed": true,
+      "calls": 1310
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子87整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/193.json",
+      "passed": true,
+      "calls": 1070
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子88整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/194.json",
+      "passed": true,
+      "calls": 679
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子89整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/195.json",
+      "passed": true,
+      "calls": 660
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子90整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/196.json",
+      "passed": true,
+      "calls": 988
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子91整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/197.json",
+      "passed": true,
+      "calls": 410
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子92整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/198.json",
+      "passed": true,
+      "calls": 586
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子93整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/199.json",
+      "passed": true,
+      "calls": 565
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子94整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/200.json",
+      "passed": true,
+      "calls": 1072
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子95整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/201.json",
+      "passed": true,
+      "calls": 1446
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子96整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/202.json",
+      "passed": true,
+      "calls": 1361
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子97整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/203.json",
+      "passed": true,
+      "calls": 705
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子98整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/204.json",
+      "passed": true,
+      "calls": 1015
+    },
+    {
+      "file": "integration.test.ts",
+      "name": "整局规则集成压力 > 种子99整局自动操作，每次存读和撤回重做完全一致",
+      "path": "tests/oracle/205.json",
+      "passed": true,
+      "calls": 1070
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 12344 → 1.234万",
+      "path": "tests/oracle/206.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 12345 → 1.235万",
+      "path": "tests/oracle/207.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 12346 → 1.235万",
+      "path": "tests/oracle/208.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > -12345 → -1.235万",
+      "path": "tests/oracle/209.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 123450 → 12.35万",
+      "path": "tests/oracle/210.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 1234500 → 123.5万",
+      "path": "tests/oracle/211.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 123450000 → 1.235亿",
+      "path": "tests/oracle/212.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 1234500000000 → 1.235兆",
+      "path": "tests/oracle/213.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 1234567 → 123.5万",
+      "path": "tests/oracle/214.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "number-rounding.test.ts",
+      "name": "四位有效数字 · 原整数位阶四舍五入，避免二进制中点误差 > 1500000 → 150万",
+      "path": "tests/oracle/215.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #1: 红宝石",
+      "path": "tests/oracle/216.json",
+      "passed": true,
+      "calls": 3
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #2: 红宝石 → 红宝石",
+      "path": "tests/oracle/217.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #3: 红宝石 → 黄宝石",
+      "path": "tests/oracle/218.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #4: 红宝石 → 青宝石",
+      "path": "tests/oracle/219.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #5: 红宝石 → 绿宝石",
+      "path": "tests/oracle/220.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #6: 空托 → 红宝石",
+      "path": "tests/oracle/221.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #7: 白宝石 → 空托",
+      "path": "tests/oracle/222.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #8: 黄宝石 → 青宝石",
+      "path": "tests/oracle/223.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #9: 红宝石 → 黄宝石 → 绿宝石 → 青宝石 → 蓝宝石 → 品红宝石",
+      "path": "tests/oracle/224.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #10: 红宝石 → 黄宝石 → 绿宝石 → 青宝石 → 蓝宝石 → 品红宝石 → 品红宝石 → 绿宝石",
+      "path": "tests/oracle/225.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #11: 红宝石 → 黄宝石 → 白宝石 → 黄宝石 → 绿宝石 → 青宝石 → 蓝宝石 → 品红宝石",
+      "path": "tests/oracle/226.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #12: 红宝石 → 黄宝石 → 绿宝石 → 品红宝石 → 蓝宝石 → 青宝石",
+      "path": "tests/oracle/227.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 1–13 出牌与彩虹 > #13: 红宝石 → 黄宝石 → 绿宝石 → 青宝石 → 蓝宝石 → 品红宝石 → 蓝宝石 → 青宝石 → 绿宝石 → 黄宝石 → 红宝石 → 品红宝石",
+      "path": "tests/oracle/228.json",
+      "passed": true,
+      "calls": 14
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 14–17 宝石成长 > #14: 第 15 次红宝石先按 100 结算，再变切好",
+      "path": "tests/oracle/229.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 14–17 宝石成长 > #15: 红 15、绿 0，黄底数 250",
+      "path": "tests/oracle/230.json",
+      "passed": true,
+      "calls": 3
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 14–17 宝石成长 > #16: 红 15、绿 45、蓝 0，白底数 450",
+      "path": "tests/oracle/231.json",
+      "passed": true,
+      "calls": 3
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 14–17 宝石成长 > #17: 同 #16，成长关闭时按原石算，次数仍累计",
+      "path": "tests/oracle/232.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 18–23 撤回、回合、牌库 > #18: 用例 3 撤回黄色，整个状态恢复",
+      "path": "tests/oracle/233.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 18–23 撤回、回合、牌库 > #19: 开局牌库 24、手牌 6、回合 1，所有数值清零",
+      "path": "tests/oracle/234.json",
+      "passed": true,
+      "calls": 2
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 18–23 撤回、回合、牌库 > #20: 出 3 张结束回合，弃牌 3、手牌 6、牌库 21、回合 2",
+      "path": "tests/oracle/235.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 18–23 撤回、回合、牌库 > #21: 空回合不加回合数，不摸多余牌",
+      "path": "tests/oracle/236.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 18–23 撤回、回合、牌库 > #22: 牌库空后只洗实际弃牌，长期 300 回合始终同一组 30 张",
+      "path": "tests/oracle/237.json",
+      "passed": true,
+      "calls": 2102
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §10 · 18–23 撤回、回合、牌库 > #23: 彩虹回合结算上回合/最高 209,000，下一回合可以再触发",
+      "path": "tests/oracle/238.json",
+      "passed": true,
+      "calls": 15
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 0 → 0",
+      "path": "tests/oracle/239.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 9999 → 9,999",
+      "path": "tests/oracle/240.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 10000 → 1万",
+      "path": "tests/oracle/241.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 12000 → 1.2万",
+      "path": "tests/oracle/242.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 267100 → 26.71万",
+      "path": "tests/oracle/243.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 1000000 → 100万",
+      "path": "tests/oracle/244.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 12300000 → 1230万",
+      "path": "tests/oracle/245.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 99990000 → 9999万",
+      "path": "tests/oracle/246.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 123456789 → 1.235亿",
+      "path": "tests/oracle/247.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 1000000000000 → 1兆",
+      "path": "tests/oracle/248.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §8 · 大数字表全部用例 > 25000000000000000 → 2.5京",
+      "path": "tests/oracle/249.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 牌组数量、宝石位、唯一标识严格符合配置",
+      "path": "tests/oracle/250.json",
+      "passed": true,
+      "calls": 3
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 相同种子能复现开局与回收洗牌",
+      "path": "tests/oracle/251.json",
+      "passed": true,
+      "calls": 176
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 64 种有前牌的反应都符合异或分类，第一张始终普通",
+      "path": "tests/oracle/252.json",
+      "passed": true,
+      "calls": 72
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 空托能通过顺色留在链里，不增加颜色且不打断彩虹",
+      "path": "tests/oracle/253.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 同色及普通会重置顺色链，不能跨越反应拼彩虹",
+      "path": "tests/oracle/254.json",
+      "passed": true,
+      "calls": 12
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 预览包含彩虹和成长、无任何副作用，和实算完全一致",
+      "path": "tests/oracle/255.json",
+      "passed": true,
+      "calls": 11
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 彩虹后可逐张撤回至回合开始，所有字段及历史逐次相等",
+      "path": "tests/oracle/256.json",
+      "passed": true,
+      "calls": 27
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 快照不共享引用，普通 JSON 完整复制状态",
+      "path": "tests/oracle/257.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 手牌上限增大即补，减小不弃，之后只补到新上限",
+      "path": "tests/oracle/258.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 手牌上限减小或不变不会在回合中补牌，只在下回合补到新上限",
+      "path": "tests/oracle/259.json",
+      "passed": true,
+      "calls": 17
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 成长 44 → 45 先按切好结算；成长开关及清零不丢计数",
+      "path": "tests/oracle/260.json",
+      "passed": true,
+      "calls": 12
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 撤回也恢复出牌前设置和牌堆（设置变化后仍是整个状态恢复）",
+      "path": "tests/oracle/261.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 没有可摸牌时不制造牌、不陷入循环",
+      "path": "tests/oracle/262.json",
+      "passed": true,
+      "calls": 37
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "额外边界与可移植性 > 非法输入明确报错且非法出牌不会增加撤回历史",
+      "path": "tests/oracle/263.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §9 · 算式行 > 单颗、普通、空托及预计算式",
+      "path": "tests/oracle/264.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §9 · 算式行 > 混色拆分是出牌前底数，后续成长不能改写旧算式",
+      "path": "tests/oracle/265.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "rules.test.ts",
+      "name": "01 §9 · 算式行 > 白牌与彩虹末尾所有数字统一采用 §8 单位",
+      "path": "tests/oracle/266.json",
+      "passed": true,
+      "calls": 14
+    },
+    {
+      "file": "run-invariants.test.ts",
+      "name": "冒险命令边界与跨阶段守恒 > 非法手牌、战利品索引和跨阶段命令不会部分修改状态",
+      "path": "tests/oracle/267.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "run-invariants.test.ts",
+      "name": "冒险命令边界与跨阶段守恒 > 致败回合不摸新牌、不推进随机数，也不多开一回合",
+      "path": "tests/oracle/268.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "run-invariants.test.ts",
+      "name": "冒险命令边界与跨阶段守恒 > 精英奖励先加冒险手牌上限，不在战利品画面补牌",
+      "path": "tests/oracle/269.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "run-invariants.test.ts",
+      "name": "冒险命令边界与跨阶段守恒 > 胜利只结算一次，重复放弃或更新纪录不重复计局",
+      "path": "tests/oracle/270.json",
+      "passed": true,
+      "calls": 27
+    },
+    {
+      "file": "run-invariants.test.ts",
+      "name": "冒险命令边界与跨阶段守恒 > 纪录相同不标新纪录，战利品阶段放弃不重复加回合",
+      "path": "tests/oracle/271.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "run-invariants.test.ts",
+      "name": "冒险命令边界与跨阶段守恒 > 深拷贝完全隔离牌、历史和结算，且等价于JSON复制",
+      "path": "tests/oracle/272.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "run-invariants.test.ts",
+      "name": "冒险命令边界与跨阶段守恒 > 多种子贯穿出牌、撤回、回合与战利品，始终保持身份守恒",
+      "path": "tests/oracle/273.json",
+      "passed": true,
+      "calls": 5751
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #21: 固定种子新局的30张基础牌、心、手牌、倒计时及血量",
+      "path": "tests/oracle/274.json",
+      "passed": true,
+      "calls": 2
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #22: 第一张红的100伤害立即从血量扣除",
+      "path": "tests/oracle/275.json",
+      "passed": true,
+      "calls": 3
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #23: 1000起始血第3张打穿，继续彩虹到209000，超杀209",
+      "path": "tests/oracle/276.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #24: 打穿后能逐张撤回，恢复100血未打穿，再全部恢复1000血",
+      "path": "tests/oracle/277.json",
+      "passed": true,
+      "calls": 16
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #25: 非发条怪第3个未打穿回合结束才出手，心减1，倒计时重置",
+      "path": "tests/oracle/278.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #26: 空过也减倒计时、加回合，手牌不变",
+      "path": "tests/oracle/279.json",
+      "passed": true,
+      "calls": 3
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #27: 最后一颗心耗尽失败，停止生成存档并更新纪录",
+      "path": "tests/oracle/280.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #28: 首领有4完整回合，前三回合不出手，第四回合出手",
+      "path": "tests/oracle/281.json",
+      "passed": true,
+      "calls": 49
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #29: 打穿后结束回合进入战利品，不再攻击、不改变倒计时",
+      "path": "tests/oracle/282.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #30: 第6仗打穿后结束为胜利，没有战利品",
+      "path": "tests/oracle/283.json",
+      "passed": true,
+      "calls": 55
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #31: 打穿后再出2张仍计反应、成长、整回合超杀，血不为负",
+      "path": "tests/oracle/284.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.2 一仗 · #21–#32 > #32: 每仗重洗全部身份并重置桌面、弃牌、倍率，成长整局保留",
+      "path": "tests/oracle/285.json",
+      "passed": true,
+      "calls": 55
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #41: 原始超杀9.999只出3张，不使用显示值判断",
+      "path": "tests/oracle/286.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #42: 原始超杀正好10出4张",
+      "path": "tests/oracle/287.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #43: 200种种子的每次战利品均不重复且来自5种工具",
+      "path": "tests/oracle/288.json",
+      "passed": true,
+      "calls": 9000
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #44: 选放大镜后新增id31，下一仗31张牌完整重洗",
+      "path": "tests/oracle/289.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #45（v2更新）: 不拿战利品时2心保持2心",
+      "path": "tests/oracle/290.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #46: 满心时不拿仍为3心",
+      "path": "tests/oracle/291.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #47: 赢精英立即标记上限8，但到下一仗才补8张",
+      "path": "tests/oracle/292.json",
+      "passed": true,
+      "calls": 28
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #48: 1000种种子，小怪跨精英仍不重复，精英/首领固定",
+      "path": "tests/oracle/293.json",
+      "passed": true,
+      "calls": 45000
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #49: 战利品保存/恢复后仍是同样选项和随机状态",
+      "path": "tests/oracle/294.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #50: 多个时点存档/读档后相同20步操作，状态、撤回和后续随机结果一致",
+      "path": "tests/oracle/295.json",
+      "passed": true,
+      "calls": 2472
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #51: 同种子同操作的状态全过程一致，包含出牌、撤回、结束和选牌",
+      "path": "tests/oracle/296.json",
+      "passed": true,
+      "calls": 368
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §11.3 战利品、一局、存档 · #41–#52 > #52: 错误version或坏JSON返回无存档并要求清除",
+      "path": "tests/oracle/297.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 超杀 1.06 → ×1",
+      "path": "tests/oracle/298.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 超杀 2.46 → ×2.4",
+      "path": "tests/oracle/299.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 超杀 9.96 → ×9.9",
+      "path": "tests/oracle/300.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 超杀 10 → ×10",
+      "path": "tests/oracle/301.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 超杀 37.6 → ×37",
+      "path": "tests/oracle/302.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 超杀 209 → ×209",
+      "path": "tests/oracle/303.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 超杀 12345.6 → ×1.235万",
+      "path": "tests/oracle/304.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 怪血 20000/20000 → 2万 / 2万",
+      "path": "tests/oracle/305.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 怪血 19900/20000 → 1.99万 / 2万",
+      "path": "tests/oracle/306.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 怪血 1234567/1500000 → 123.5万 / 150万",
+      "path": "tests/oracle/307.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "新01 §12 显示表 · 全部11项 > 怪血 0/100000 → 0 / 10万",
+      "path": "tests/oracle/308.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "run.test.ts",
+      "name": "冒险 · 补充边界和用户澄清 > 第3仗第2回合放弃，要计入正在打的第2回合",
+      "path": "tests/oracle/309.json",
+      "passed": true,
+      "calls": 22
+    },
+    {
+      "file": "run.test.ts",
+      "name": "冒险 · 补充边界和用户澄清 > 战利品阶段放弃不重复算已经完成的回合或战斗",
+      "path": "tests/oracle/310.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "run.test.ts",
+      "name": "冒险 · 补充边界和用户澄清 > 纪录只更新一次，严格超过才标新纪录",
+      "path": "tests/oracle/311.json",
+      "passed": true,
+      "calls": 108
+    },
+    {
+      "file": "run.test.ts",
+      "name": "冒险 · 补充边界和用户澄清 > 口袋触发洗弃牌后，JSON重载再撤回/重打恢复怪、卡牌、随机和统计",
+      "path": "tests/oracle/312.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "run.test.ts",
+      "name": "冒险 · 补充边界和用户澄清 > 锤子所有追加伤害都即时扣血，超杀使用整回合伤害",
+      "path": "tests/oracle/313.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "run.test.ts",
+      "name": "冒险 · 补充边界和用户澄清 > 前回合已削血后，新回合超杀分母取当时剩余血而非满血",
+      "path": "tests/oracle/314.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "run.test.ts",
+      "name": "冒险 · 补充边界和用户澄清 > 结束后不能出牌或选战利品，无效命令不改变状态",
+      "path": "tests/oracle/315.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "run.test.ts",
+      "name": "冒险 · 补充边界和用户澄清 > 非法出牌与非法战利品索引不增加历史、不改变随机或卡牌",
+      "path": "tests/oracle/316.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "run.test.ts",
+      "name": "冒险 · 补充边界和用户澄清 > 每仗数值来自配置，发条兵倒计时覆盖为2",
+      "path": "tests/oracle/317.json",
+      "passed": true,
+      "calls": 60
+    },
+    {
+      "file": "run.test.ts",
+      "name": "大数字与超杀 · 用户确认的两步舍入边界 > 伤害和血量在四位有效数字中点按旧规范四舍五入，不向下截断",
+      "path": "tests/oracle/318.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "run.test.ts",
+      "name": "大数字与超杀 · 用户确认的两步舍入边界 > 超杀只先舍弃原数的小数，之后仍走统一的大数字四舍五入",
+      "path": "tests/oracle/319.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 完整v4活跃状态往返，包括可继续撤回与RNG状态",
+      "path": "tests/oracle/320.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 读取产生独立对象，不与原状态共享数组",
+      "path": "tests/oracle/321.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 战利品和选牌后的随机流不因读档改变",
+      "path": "tests/oracle/322.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 桌面镜子可保留有效宝石位，牌组镜子仍为空白",
+      "path": "tests/oracle/323.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 空存档不要求清除",
+      "path": "tests/oracle/324.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 损坏或版本不符返回清除指令：",
+      "path": "tests/oracle/325.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 损坏或版本不符返回清除指令：broken JSON",
+      "path": "tests/oracle/326.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 损坏或版本不符返回清除指令：null",
+      "path": "tests/oracle/327.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 损坏或版本不符返回清除指令：[]",
+      "path": "tests/oracle/328.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 损坏或版本不符返回清除指令：{\"version\":4,\"state\":{}}",
+      "path": "tests/oracle/329.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 重复或丢失卡牌身份拒绝，不能载入破坏守恒的状态",
+      "path": "tests/oracle/330.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 随机数必须为32位可保存整数",
+      "path": "tests/oracle/331.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 损坏或不成对的撤回记录拒绝",
+      "path": "tests/oracle/332.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 非有限数值不可保存，不让JSON把它静默变为null",
+      "path": "tests/oracle/333.json",
+      "passed": true,
+      "calls": 3
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "存档纯数据边界 > 终局不保存，意外残留的终局档要求清除",
+      "path": "tests/oracle/334.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 fields > round-trips relic choices before the first battle",
+      "path": "tests/oracle/335.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 fields > distinguishes outdated version 0 from corruption",
+      "path": "tests/oracle/336.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 fields > distinguishes outdated version 1 from corruption",
+      "path": "tests/oracle/337.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 fields > distinguishes outdated version 2 from corruption",
+      "path": "tests/oracle/338.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 fields > distinguishes outdated version 3 from corruption",
+      "path": "tests/oracle/339.json",
+      "passed": true,
+      "calls": 1
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 fields > requires once-used and effect records, including undo snapshots",
+      "path": "tests/oracle/340.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 fields > validates relic ownership and heart capacity",
+      "path": "tests/oracle/341.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 continuation and new save boundaries > 185/208/212: preserves doors, shop, elite choices and sealed turn for 30 further commands each",
+      "path": "tests/oracle/342.json",
+      "passed": true,
+      "calls": 268
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 continuation and new save boundaries > preserves over-full hourglass countdown, shadow masks and both undo stacks",
+      "path": "tests/oracle/343.json",
+      "passed": true,
+      "calls": 25
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 continuation and new save boundaries > accepts decks reduced below the original 30-card size and rejects below 20",
+      "path": "tests/oracle/344.json",
+      "passed": true,
+      "calls": 24
+    },
+    {
+      "file": "save-state.test.ts",
+      "name": "v4 continuation and new save boundaries > rejects duplicate doors, malformed new fields and unknown future versions",
+      "path": "tests/oracle/345.json",
+      "passed": true,
+      "calls": 36
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 11,26 bite sequence and full undo restore countdown",
+      "path": "tests/oracle/346.json",
+      "passed": true,
+      "calls": 17
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 12 countdown clamps at zero and attacks only once",
+      "path": "tests/oracle/347.json",
+      "passed": true,
+      "calls": 10
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 13 killing green does not bite; broken rules stay disabled",
+      "path": "tests/oracle/348.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 14 hug preserves reaction, multiplier, growth and formula",
+      "path": "tests/oracle/349.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 15 hugged red still upgrades at 15 uses",
+      "path": "tests/oracle/350.json",
+      "passed": true,
+      "calls": 4
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 16 red recovers its full value after the monster breaks",
+      "path": "tests/oracle/351.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 17,18,20,27 unwind, ignored later blue, undo and next-turn refill",
+      "path": "tests/oracle/352.json",
+      "passed": true,
+      "calls": 15
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 19 normal soldier attacks do not refill partial winding",
+      "path": "tests/oracle/353.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 21 clock only advances on white reactions",
+      "path": "tests/oracle/354.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 22 mirror effective gems trigger clock, bite and winding",
+      "path": "tests/oracle/355.json",
+      "passed": true,
+      "calls": 18
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > white card contains all gems, mirror after white resolves blank",
+      "path": "tests/oracle/356.json",
+      "passed": true,
+      "calls": 18
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 23,24 dragon boundary uses old rule for crossing card",
+      "path": "tests/oracle/357.json",
+      "passed": true,
+      "calls": 9
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 25 one card crosses two layers, emits once, undo restores everything",
+      "path": "tests/oracle/358.json",
+      "passed": true,
+      "calls": 5
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 31 same relic doubles multiplier, damage unchanged",
+      "path": "tests/oracle/359.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 32,33 once excludes first card, consumes once, restores on undo and resets",
+      "path": "tests/oracle/360.json",
+      "passed": true,
+      "calls": 17
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 34 white relic changes reaction damage to eight",
+      "path": "tests/oracle/361.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 35,36 five-color rainbow exactly once with undo restoration",
+      "path": "tests/oracle/362.json",
+      "passed": true,
+      "calls": 17
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 38 grow upgrades before next card, including threshold 24",
+      "path": "tests/oracle/363.json",
+      "passed": true,
+      "calls": 11
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 41,42,43 fixed selection, mandatory choice and deterministic run",
+      "path": "tests/oracle/364.json",
+      "passed": true,
+      "calls": 36
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 37,44,45 elite heals to cap, skip never heals, next hand has eight",
+      "path": "tests/oracle/365.json",
+      "passed": true,
+      "calls": 18
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 46 soldier has fixed starting countdown and wind",
+      "path": "tests/oracle/366.json",
+      "passed": true,
+      "calls": 100
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 47 older envelopes request deletion and outdated notice",
+      "path": "tests/oracle/367.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 48 save/reload before each of twenty actions matches uninterrupted state, including undo/draw/RNG",
+      "path": "tests/oracle/368.json",
+      "passed": true,
+      "calls": 333
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 48 saves preserve exhausted wind and crossed layers with paired undo snapshots",
+      "path": "tests/oracle/369.json",
+      "passed": true,
+      "calls": 22
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 51–54 attack warning distinguishes newly caused attacks and killing blows",
+      "path": "tests/oracle/370.json",
+      "passed": true,
+      "calls": 8
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 55 unwind warning uses current resolved blue and ignores wound-down turns",
+      "path": "tests/oracle/371.json",
+      "passed": true,
+      "calls": 7
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 56,57 ready colors and lit order exclude white and mirror",
+      "path": "tests/oracle/372.json",
+      "passed": true,
+      "calls": 13
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 58,59 five-color readiness and no second rainbow",
+      "path": "tests/oracle/373.json",
+      "passed": true,
+      "calls": 15
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 60,61 hints skip ordinary cards and prioritize white over shun",
+      "path": "tests/oracle/374.json",
+      "passed": true,
+      "calls": 11
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 62 corrected: exclude dangerous cyan and recommend safe magenta",
+      "path": "tests/oracle/375.json",
+      "passed": true,
+      "calls": 6
+    },
+    {
+      "file": "v2-rules.test.ts",
+      "name": "v2 01 §9 exact rule scenarios (preview equals play and is immutable) > 63 corrected: all reacting cards attack, ordinary alternatives are not hints",
+      "path": "tests/oracle/376.json",
+      "passed": true,
+      "calls": 7
+    }
+  ]
+}

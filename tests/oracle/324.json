@@ -1,0 +1,1 @@
+{"file":"save-state.test.ts","name":"存档纯数据边界 > 空存档不要求清除","passed":true,"table":[[null],{"state":null,"clear":false,"reason":"empty"}],"calls":[{"module":"index","function":"decodeRunSave","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":{"$ref":1}}]}

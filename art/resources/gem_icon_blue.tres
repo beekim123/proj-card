@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "gem_icon_blue"
+svg_fingerprint = "f9998491388ea302"
+definition = {"id":"gem_icon_blue","phase":1,"group":"宝石小图标","viewBox":"0 0 32 32","load":"img","desc":"蓝宝石小图标（三角）","status":"已有"}
+entries = {"":{"w":32,"h":32,"scale":1.5,"stillScale":2,"still":"gem_icon_blue.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"f9998491388ea302"}}
+animations = {":idle":"res://art/resources/gem_icon_blue--idle.tres"}

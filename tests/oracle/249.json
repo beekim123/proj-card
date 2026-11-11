@@ -1,0 +1,1 @@
+{"file":"rules.test.ts","name":"01 §8 · 大数字表全部用例 > 25000000000000000 → 2.5京","passed":true,"table":[[{"$float64":"00a0d88557345643"}]],"calls":[{"module":"index","function":"formatNumber","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":"2.5京"}]}

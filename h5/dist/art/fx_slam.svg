@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_slam" viewBox="0 0 400 160" width="400" height="160">
+<title>特效 · 锤子砸下</title>
+<style>
+.svg-fx_slam g { transform-box: view-box; }
+.svg-fx_slam #slam_core,
+.svg-fx_slam #slam_wave_in,
+.svg-fx_slam #slam_wave_out,
+.svg-fx_slam #dust_left,
+.svg-fx_slam #dust_right {
+  opacity: 0;
+  transform-origin: 200px 96px;
+}
+
+/* play（500ms）：贴着桌面横着荡开的一圈锯齿冲击波（currentColor）+ 两侧尘土碎屑，全程在 400×160 内 */
+@keyframes svg-fx_slam-core {
+  0%, 100% { opacity: 0; transform: scale(0.35, 0.45); }
+  16% { opacity: 1; transform: scale(1.06, 1.04); }
+  48% { opacity: 0.9; transform: scale(0.95, 0.92); }
+  82% { opacity: 0; transform: scale(1.08, 0.85); }
+}
+@keyframes svg-fx_slam-wave-in {
+  0%, 100% { opacity: 0; transform: scale(0.38, 0.45); }
+  20% { opacity: 1; transform: scale(0.84, 0.88); }
+  56% { opacity: 0.95; transform: scale(1.02, 1.0); }
+  90% { opacity: 0; transform: scale(1.08, 1.04); }
+}
+@keyframes svg-fx_slam-wave-out {
+  0%, 10%, 100% { opacity: 0; transform: scale(0.48, 0.52); }
+  32% { opacity: 1; transform: scale(0.88, 0.9); }
+  74% { opacity: 0.85; transform: scale(1.02, 1.01); }
+  98% { opacity: 0; transform: scale(1.05, 1.03); }
+}
+@keyframes svg-fx_slam-dust-l {
+  0%, 8%, 100% { opacity: 0; transform: translate(34px, 6px) scale(0.5); }
+  28% { opacity: 1; transform: translate(12px, 0px) scale(0.92); }
+  72% { opacity: 0.9; transform: translate(-4px, -4px) scale(1.02); }
+  96% { opacity: 0; transform: translate(-10px, -6px) scale(0.96); }
+}
+@keyframes svg-fx_slam-dust-r {
+  0%, 8%, 100% { opacity: 0; transform: translate(-34px, 6px) scale(0.5); }
+  28% { opacity: 1; transform: translate(-12px, 0px) scale(0.92); }
+  72% { opacity: 0.9; transform: translate(4px, -4px) scale(1.02); }
+  96% { opacity: 0; transform: translate(10px, -6px) scale(0.96); }
+}
+.svg-fx_slam[data-anim="play"] #slam_core {
+  animation: svg-fx_slam-core 0.5s steps(7, end) both;
+}
+.svg-fx_slam[data-anim="play"] #slam_wave_in {
+  animation: svg-fx_slam-wave-in 0.5s steps(7, end) both;
+}
+.svg-fx_slam[data-anim="play"] #slam_wave_out {
+  animation: svg-fx_slam-wave-out 0.5s steps(7, end) both;
+}
+.svg-fx_slam[data-anim="play"] #dust_left {
+  animation: svg-fx_slam-dust-l 0.5s steps(7, end) both;
+}
+.svg-fx_slam[data-anim="play"] #dust_right {
+  animation: svg-fx_slam-dust-r 0.5s steps(7, end) both;
+}
+</style>
+<g id="root">
+  <!-- pivot: 200,96 -->
+
+  <!-- 外圈横向透视锯齿冲击波环（用 currentColor 填充，配 #1C1412 粗墨线，染红或染白都醒目） -->
+  <g id="slam_wave_out" opacity="0">
+    <!-- pivot: 200,96 -->
+    <path d="M26,96 L48,76 L88,66 L142,56 L200,52 L258,56 L312,66 L352,76 L374,96 L348,118 L304,132 L248,140 L200,142 L152,140 L96,132 L52,118 Z M54,96 L76,110 L122,122 L200,126 L278,122 L324,110 L346,96 L322,82 L274,70 L200,66 L126,70 L78,82 Z" fill="currentColor" fill-rule="evenodd" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <!-- 前沿横飞冲击尖刺 -->
+    <polygon points="18,96 42,88 38,104" fill="currentColor" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="382,96 358,88 362,104" fill="currentColor" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="118,136 136,128 142,144" fill="currentColor" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <polygon points="282,136 264,128 258,144" fill="currentColor" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 内圈贴地锯齿冲击波与白芯亮环 -->
+  <g id="slam_wave_in" opacity="0">
+    <!-- pivot: 200,96 -->
+    <path d="M74,94 L98,76 L146,66 L200,62 L254,66 L302,76 L326,94 L300,114 L252,124 L200,128 L148,124 L100,114 Z M102,94 L124,106 L162,114 L200,116 L238,114 L276,106 L298,94 L274,82 L236,74 L200,72 L164,74 L126,82 Z" fill="currentColor" fill-rule="evenodd" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- 冲击波上沿冷亮脊线 -->
+    <polyline points="86,92 106,79 150,70 200,66 250,70 294,79 314,92" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.88"/>
+  </g>
+
+  <!-- 左侧翻滚的哥特折角尘土团与飞石（旧羊皮纸与灰褐配色） -->
+  <g id="dust_left" opacity="0">
+    <!-- pivot: 200,96 -->
+    <polygon points="36,84 52,66 76,68 92,56 112,68 118,86 98,102 62,106 40,98" fill="#9A8968" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="44,82 56,70 76,72 90,62 104,72 88,88 56,92" fill="#C8B894"/>
+    <polyline points="46,79 56,70 74,71" fill="none" stroke="#E2D6BA" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- 左下第二团小尘土与碎石块 -->
+    <polygon points="68,108 86,96 110,100 116,116 94,126 72,120" fill="#6E6A63" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="48,50 62,44 60,58 46,56" fill="#9A8968" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="84,42 96,36 98,48 86,50" fill="currentColor" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 右侧翻滚的哥特折角尘土团与飞石 -->
+  <g id="dust_right" opacity="0">
+    <!-- pivot: 200,96 -->
+    <polygon points="364,84 348,66 324,68 308,56 288,68 282,86 302,102 338,106 360,98" fill="#9A8968" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="356,82 344,70 324,72 310,62 296,72 312,88 344,92" fill="#C8B894"/>
+    <polyline points="354,79 344,70 326,71" fill="none" stroke="#E2D6BA" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- 右下第二团小尘土与碎石块 -->
+    <polygon points="332,108 314,96 290,100 284,116 306,126 328,120" fill="#6E6A63" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="352,50 338,44 340,58 354,56" fill="#9A8968" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="316,42 304,36 302,48 314,50" fill="currentColor" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 锤心砸地星芒与放射震裂纹 -->
+  <g id="slam_core" opacity="0">
+    <!-- pivot: 200,96 -->
+    <polygon points="200,46 214,76 268,64 232,88 286,96 230,104 256,124 208,108 200,134 192,108 144,124 170,104 114,96 168,88 132,64 186,76" fill="currentColor" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="200,62 210,82 246,74 220,90 256,96 218,102 234,114 200,104 166,114 182,102 144,96 180,90 154,74 190,82" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

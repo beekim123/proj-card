@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "prop_rack"
+svg_fingerprint = "88eda86b630c2e1f"
+definition = {"id":"prop_rack","phase":2,"group":"场景","viewBox":"0 0 120 240","load":"img","anchor":[60,240],"desc":"木桩旁边的兵器架，插着两三把练习用的木剑木棍。表示这里是练习场。不发光","status":"已有"}
+entries = {"":{"w":120,"h":240,"scale":1.5,"stillScale":2,"still":"prop_rack.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"88eda86b630c2e1f"}}
+animations = {":idle":"res://art/resources/prop_rack--idle.tres"}

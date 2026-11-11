@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_banner"
+svg_fingerprint = "a6d9e00d94d9fcae"
+definition = {"id":"ui_banner","phase":2,"group":"界面","viewBox":"0 0 600 140","load":"img","desc":"横幅：一条破旧的暗色绶带 / 牌匾，两头铜饰。中间平、暗，代码写大字（「第 3 仗」「战利品」「胜利」「失败」，56 号）。不拉伸","status":"已有"}
+entries = {"":{"w":600,"h":140,"scale":1.5,"stillScale":2,"still":"ui_banner.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"a6d9e00d94d9fcae"}}
+animations = {":idle":"res://art/resources/ui_banner--idle.tres"}

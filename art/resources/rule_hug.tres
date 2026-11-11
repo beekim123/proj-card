@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "rule_hug"
+svg_fingerprint = "1440e181dd122a84"
+definition = {"id":"rule_hug","group":"规矩图标","viewBox":"0 0 64 64","load":"img","desc":"抱红：两只布偶手臂抱着一颗红色圆宝石","status":"新画","v2":"第2批"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"rule_hug.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"1440e181dd122a84"}}
+animations = {":idle":"res://art/resources/rule_hug--idle.tres"}

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_node_elite" viewBox="0 0 64 64" width="64" height="64">
+<title>进度节点 · 精英</title>
+<g id="root">
+  <!-- 统一规格暗色小圆底（与 ui_node_fight 完全同款的 12 边形哥特旧铜圆章） -->
+  <polygon points="32,8 44,11 53,20 56,32 53,44 44,53 32,56 20,53 11,44 8,32 11,20 20,11" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+  <!-- 右下背光铜暗面 -->
+  <polygon points="44,11 53,20 56,32 53,44 44,53 32,56 20,53 32,32" fill="#3B2B14" opacity="0.82"/>
+  <!-- 左上冷受光亮边 -->
+  <polyline points="11,42 9.5,32 12.2,20.8 20.8,12.2 32,9.5 42,11.5" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 内部暗夜紫凹盘 -->
+  <circle cx="32" cy="32" r="18.5" fill="#161221" stroke="#1C1412" stroke-width="2.4"/>
+  <path d="M18,22 A17,17 0 0,1 46,22 A17,15 0 0,0 18,22 Z" fill="#0D111C" opacity="0.8"/>
+
+  <!-- 四方铆钉 -->
+  <circle cx="32" cy="11" r="1.6" fill="#C2A670" stroke="#1C1412" stroke-width="1"/>
+  <circle cx="53" cy="32" r="1.6" fill="#9A7B46" stroke="#1C1412" stroke-width="1"/>
+  <circle cx="32" cy="53" r="1.6" fill="#9A7B46" stroke="#1C1412" stroke-width="1"/>
+  <circle cx="11" cy="32" r="1.6" fill="#C2A670" stroke="#1C1412" stroke-width="1"/>
+
+  <!-- 中央图案：老座钟钟面（带上方双小窗眉与哥特指针，粗外框 + 一层暗面 + 高光） -->
+  <g id="clock_face">
+    <!-- 表盘上方老座钟标志性双拱眉冠 -->
+    <path d="M21,21 L24,15 L30,17 L32,19 L34,17 L40,15 L43,21 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- 旧羊皮纸圆钟盘 -->
+    <circle cx="32" cy="34" r="13.5" fill="#C8B894" stroke="#1C1412" stroke-width="2.6"/>
+    <!-- 钟盘右下暗面弯月 -->
+    <path d="M41,24 A13,13 0 0,1 22,43 A12,12 0 0,0 41,24 Z" fill="#9A8968"/>
+    <!-- 钟盘左上亮高光弧 -->
+    <path d="M21,31 A11,11 0 0,1 34,23" fill="none" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- 四正刻度（粗短清晰） -->
+    <path d="M32,22.5 V25.5 M32,42.5 V45.5 M20.5,34 H23.5 M40.5,34 H43.5" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
+
+    <!-- 分针（指向右上 2 点方向）与时针（指向左上 10 点方向） -->
+    <polygon points="32,34 39,25 41,29 33,36" fill="#1C1412"/>
+    <polygon points="32,34 24,28 26,33 32,36" fill="#5E242C" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <!-- 中心铜轴钉 -->
+    <circle cx="32" cy="34" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.8"/>
+  </g>
+</g>
+</svg>

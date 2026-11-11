@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "card_frame_tool"
+svg_fingerprint = "e1587e0e34036070"
+definition = {"id":"card_frame_tool","phase":1,"group":"卡牌","viewBox":"0 0 200 300","load":"img","desc":"额外牌的牌框：和 card_frame 同样的结构（原画窗是透明的洞、文字框平而暗），但一眼能看出是另一类牌：比如骨白 / 旧银色的边，角花换一种。不画字","status":"已有"}
+entries = {"":{"w":200,"h":300,"scale":1.5,"stillScale":2,"still":"card_frame_tool.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"e1587e0e34036070"}}
+animations = {":idle":"res://art/resources/card_frame_tool--idle.tres"}

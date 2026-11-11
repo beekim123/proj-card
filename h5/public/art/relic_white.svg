@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_white" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 凑白 ×8</title>
+<g id="root">
+  <!-- 顶部提环与尖顶铜盖 -->
+  <circle cx="48" cy="11" r="5" fill="none" stroke="#1C1412" stroke-width="5.6"/>
+  <circle cx="48" cy="11" r="5" fill="none" stroke="#9A7B46" stroke-width="2.6"/>
+  <polygon points="48,14 68,26 28,26" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+  <polygon points="48,14 68,26 48,26" fill="#6E542B"/>
+  <polygon points="48,14 68,26 28,26" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+  <rect x="22" y="25" width="52" height="6" rx="2" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
+
+  <!-- 灯笼暗色玻璃腔底（衬托里面三色光混成白光） -->
+  <polygon points="25,31 71,31 66,75 30,75" fill="#161221" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+
+  <!-- 灯笼内：红、绿、蓝三色宝石光束交汇混成中心耀眼白光 -->
+  <g id="tri_light_mix">
+    <!-- 上：绿光团 (#1DBF5E) -->
+    <circle cx="48" cy="43" r="13" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="48" cy="43" r="9" fill="#5CE892"/>
+    <!-- 左下：红光团 (#E3263A) -->
+    <circle cx="38" cy="59" r="13" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="38" cy="59" r="9" fill="#FF5C6E"/>
+    <!-- 右下：蓝光团 (#2E66F0) -->
+    <circle cx="58" cy="59" r="13" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="58" cy="59" r="9" fill="#6B9BFF"/>
+
+    <!-- 正中心三色交汇混出的耀眼纯白光核与四角白星芒 (#F4F1FF / #FFFFFF) -->
+    <circle cx="48" cy="53" r="11" fill="#F4F1FF" stroke="#1C1412" stroke-width="2.4"/>
+    <polygon points="48,34 52,49 67,53 52,57 48,72 44,57 29,53 44,49" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="48" cy="53" r="6" fill="#FFFFFF"/>
+  </g>
+
+  <!-- 灯笼外框旧铜立柱与底座 -->
+  <path d="M25,31 L30,75 M71,31 L66,75" stroke="#1C1412" stroke-width="6.4" stroke-linecap="round"/>
+  <path d="M25,31 L30,75" stroke="#9A7B46" stroke-width="3" stroke-linecap="round"/>
+  <path d="M71,31 L66,75" stroke="#6E542B" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- 旧铜底座 -->
+  <polygon points="26,74 70,74 74,84 22,84" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+  <polygon points="48,74 70,74 74,84 48,84" fill="#6E542B"/>
+  <path d="M26,77 H68" stroke="#E2D6BA" stroke-width="1.8" stroke-linecap="round"/>
+  <polygon points="26,74 70,74 74,84 22,84" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+</g>
+</svg>

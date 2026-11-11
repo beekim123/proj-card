@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "card_art_bg"
+svg_fingerprint = "0a413702696d7bf4"
+definition = {"id":"card_art_bg","phase":1,"group":"卡牌","viewBox":"0 0 176 188","load":"img","desc":"原画窗底：放宝石的暗色衬底（比如旧丝绒、首饰盒内衬），中间空出来给宝石，不要抢眼","status":"已有"}
+entries = {"":{"w":176,"h":188,"scale":1.5,"stillScale":2,"still":"card_art_bg.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"0a413702696d7bf4"}}
+animations = {":idle":"res://art/resources/card_art_bg--idle.tres"}

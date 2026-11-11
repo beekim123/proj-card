@@ -1,0 +1,1 @@
+{"file":"rules.test.ts","name":"01 §8 · 大数字表全部用例 > 267100 → 26.71万","passed":true,"table":[[267100]],"calls":[{"module":"index","function":"formatNumber","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":"26.71万"}]}

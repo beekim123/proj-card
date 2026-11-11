@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_heart" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 多一颗心</title>
+<g id="root">
+  <!-- 敞开的上半截旧铜匣盖（后仰打开，衬托匣内红宝石心） -->
+  <polygon points="16,38 24,14 72,14 80,38" fill="#6E542B" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+  <polygon points="48,14 72,14 80,38 48,38" fill="#3B2B14" opacity="0.8"/>
+  <polyline points="20,34 26,18 68,18" fill="none" stroke="#C2A670" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="16,38 24,14 72,14 80,38" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+
+  <!-- 铜匣内暗紫丝绒内衬底槽 -->
+  <polygon points="12,38 84,38 78,60 18,60" fill="#161221" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- 小铜匣下半截盒身（放在心形宝石下沿后面一部分，心形宝石从匣口饱满探出） -->
+  <polygon points="12,48 84,48 78,82 18,82" fill="#9A7B46" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+  <polygon points="48,48 84,48 78,82 48,82" fill="#6E542B" opacity="0.82"/>
+  <path d="M16,52 H80" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
+  <!-- 铜匣正中锁孔座 -->
+  <rect x="41" y="62" width="14" height="14" rx="2" fill="#6E542B" stroke="#1C1412" stroke-width="2.4"/>
+  <circle cx="48" cy="69" r="2.8" fill="#1C1412"/>
+  <polygon points="12,48 84,48 78,82 18,82" fill="none" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+
+  <!-- 躺在铜匣里的硕大鲜艳心形红宝石（全图唯一鲜艳处：#E3263A + #FF5C6E + #9E1424） -->
+  <g id="heart_ruby">
+    <path d="M48,32 L37,24 L24,28 L20,40 L25,53 L48,72 L71,53 L76,40 L72,28 L59,24 Z" fill="#E3263A" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 左上亮刻面 -->
+    <polygon points="48,32 37,24 24,28 20,40 33,45 48,38" fill="#FF5C6E"/>
+    <!-- 右下暗刻面 -->
+    <polygon points="48,32 59,24 72,28 76,40 71,53 48,72 48,38" fill="#9E1424" opacity="0.85"/>
+    <!-- 中央心形台面与高光白斑 -->
+    <polygon points="48,38 35,33 31,42 35,51 48,62 61,51 65,42 61,33" fill="#E3263A" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="31,34 40,32 37,40 29,39" fill="#FFFFFF" opacity="0.95"/>
+    <path d="M48,32 L37,24 L24,28 L20,40 L25,53 L48,72 L71,53 L76,40 L72,28 L59,24 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

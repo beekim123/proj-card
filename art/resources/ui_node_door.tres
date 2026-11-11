@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_node_door"
+svg_fingerprint = "86a02aca11b33229"
+definition = {"id":"ui_node_door","group":"界面","viewBox":"0 0 64 64","load":"img","desc":"一局进度上的一格：两扇门（一个小拱门）。和 ui_node_fight 那一组一个画法","status":"新画","batch":"本体第2批"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"ui_node_door.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"86a02aca11b33229","placeholder":true}}
+animations = {":idle":"res://art/resources/ui_node_door--idle.tres"}

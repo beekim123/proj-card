@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "card_frame"
+svg_fingerprint = "be52f9f826230302"
+definition = {"id":"card_frame","phase":1,"group":"卡牌","viewBox":"0 0 200 300","load":"img","desc":"牌框：整张牌的外框和下半截文字框的底。原画窗（cardLayout.artWindow）必须是透明的洞，框可以压住窗边 2–6。不画任何字和宝石","status":"已有"}
+entries = {"":{"w":200,"h":300,"scale":1.5,"stillScale":2,"still":"card_frame.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"be52f9f826230302"}}
+animations = {":idle":"res://art/resources/card_frame--idle.tres"}

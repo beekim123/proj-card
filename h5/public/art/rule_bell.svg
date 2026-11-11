@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-rule_bell" viewBox="0 0 64 64" width="64" height="64">
+<title>规矩图标 · 敲钟</title>
+<g id="root">
+  <!-- 钟口外侧一圈醒目湊白光环与左右声波（唯一鲜艳亮白处：#F4F1FF + #FFFFFF） -->
+  <g id="white_ring">
+    <!-- 钟口一圈纯白亮光环 -->
+    <ellipse cx="32" cy="46" rx="25" ry="9.5" fill="none" stroke="#1C1412" stroke-width="7.2"/>
+    <ellipse cx="32" cy="46" rx="25" ry="9.5" fill="none" stroke="#F4F1FF" stroke-width="4"/>
+    <!-- 钟口左右震波短弧 -->
+    <path d="M9,26 Q4,36 9,46 M55,26 Q60,36 55,46" fill="none" stroke="#1C1412" stroke-width="5.6" stroke-linecap="round"/>
+    <path d="M9,26 Q4,36 9,46 M55,26 Q60,36 55,46" fill="none" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"/>
+  </g>
+
+  <!-- 小铜钟本体（旧铜 #9A7B46 + 1层暗面 #6E542B + 粗外框） -->
+  <g id="bell_body">
+    <!-- 顶部铜吊环 -->
+    <circle cx="32" cy="11" r="4.5" fill="none" stroke="#1C1412" stroke-width="5.2"/>
+    <circle cx="32" cy="11" r="4.5" fill="none" stroke="#9A7B46" stroke-width="2.4"/>
+
+    <!-- 钟身与外撇钟口 -->
+    <path d="M32,14 C21,14 17,22 16,33 L11,43 C10,45 12,47 16,47 H48 C52,47 54,45 53,43 L48,33 C47,22 43,14 32,14 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 右侧背光暗铜面 -->
+    <path d="M32,14 C43,14 47,22 48,33 L53,43 C54,45 52,47 48,47 H32 V14 Z" fill="#6E542B" opacity="0.82"/>
+    <!-- 左上受光高光弧 -->
+    <path d="M28,17 C22,18 19,24 18,33 L15,40" fill="none" stroke="#E2D6BA" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- 钟腰箍线 -->
+    <line x1="16" y1="35" x2="48" y2="35" stroke="#1C1412" stroke-width="2.6"/>
+    <!-- 外框重描 -->
+    <path d="M32,14 C21,14 17,22 16,33 L11,43 C10,45 12,47 16,47 H48 C52,47 54,45 53,43 L48,33 C47,22 43,14 32,14 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+
+    <!-- 钟舌发出耀眼白光（凑白 #FFFFFF） -->
+    <circle cx="32" cy="49" r="6.5" fill="#FFFFFF" stroke="#1C1412" stroke-width="3"/>
+    <!-- 钟口前景白光弧叠在钟沿前 -->
+    <path d="M10,48 A24,8.5 0 0,0 54,48" fill="none" stroke="#1C1412" stroke-width="6.4" stroke-linecap="round"/>
+    <path d="M10,48 A24,8.5 0 0,0 54,48" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round"/>
+  </g>
+</g>
+</svg>

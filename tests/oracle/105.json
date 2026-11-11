@@ -1,0 +1,1 @@
+{"file":"extra-cards.test.ts","name":"额外牌 · 提示、设置重开与随机流 > 种子随机整数状态可取出和恢复，之后100次抽样逐个一致","passed":true,"table":[[123456],[0]],"calls":[{"module":"index","function":"seededRng","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":{"$rng":123456}},{"module":"index","function":"seededRng","argsBefore":{"$ref":1},"argsAfter":{"$ref":1},"result":{"$rng":0}}]}

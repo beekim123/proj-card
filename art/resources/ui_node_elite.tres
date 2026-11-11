@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_node_elite"
+svg_fingerprint = "af49f3ccad14e823"
+definition = {"id":"ui_node_elite","phase":2,"group":"界面","viewBox":"0 0 64 64","load":"img","desc":"一局进度上的一格：精英（一个钟面）","status":"已有"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"ui_node_elite.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"af49f3ccad14e823"}}
+animations = {":idle":"res://art/resources/ui_node_elite--idle.tres"}

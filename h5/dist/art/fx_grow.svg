@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_grow" viewBox="0 0 160 160" width="160" height="160">
+<title>特效 · 宝石升级</title>
+<style>
+.svg-fx_grow g { transform-box: view-box; }
+.svg-fx_grow #grow_ring, .svg-fx_grow #grow_flash { opacity: 0; transform-origin: 80px 80px; }
+@keyframes svg-fx_grow-ring {
+  0% { opacity: 0; transform: scale(0.45) rotate(-45deg); }
+  22% { opacity: 1; transform: scale(0.88) rotate(0deg); }
+  62% { opacity: 1; transform: scale(1.04) rotate(65deg); }
+  90% { opacity: 0.6; transform: scale(1.16) rotate(90deg); }
+  100% { opacity: 0; transform: scale(1.2) rotate(95deg); }
+}
+@keyframes svg-fx_grow-flash {
+  0%, 25%, 100% { opacity: 0; transform: scale(0.4); }
+  48% { opacity: 1; transform: scale(1.05); }
+  78% { opacity: 0; transform: scale(1.18); }
+}
+.svg-fx_grow[data-anim="play"] #grow_ring { animation: svg-fx_grow-ring 0.8s steps(9, end) both; }
+.svg-fx_grow[data-anim="play"] #grow_flash { animation: svg-fx_grow-flash 0.8s steps(7, end) both; }
+</style>
+<g id="root">
+<!-- pivot: 80,80 -->
+    <g id="grow_flash" opacity="0"><!-- pivot: 80,80 -->
+      <circle cx="80" cy="80" r="42" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="10 8"/>
+      <path d="M80,54 L87,73 L106,80 L87,87 L80,106 L73,87 L54,80 L73,73 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.6"/>
+    </g>
+    <g id="grow_ring" opacity="0"><!-- pivot: 80,80 -->
+      <path d="M80,11 L83.8,20.2 L93,24 L83.8,27.8 L80,37 L76.2,27.8 L67,24 L76.2,20.2 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.5"/>
+      <path d="M128,41 L131.2,48.8 L139,52 L131.2,55.2 L128,63 L124.8,55.2 L117,52 L124.8,48.8 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.4"/>
+      <path d="M128,95 L131.8,104.2 L141,108 L131.8,111.8 L128,121 L124.2,111.8 L115,108 L124.2,104.2 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.5"/>
+      <path d="M80,125 L83.2,132.8 L91,136 L83.2,139.2 L80,147 L76.8,139.2 L69,136 L76.8,132.8 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.4"/>
+      <path d="M32,95 L35.8,104.2 L45,108 L35.8,111.8 L32,121 L28.2,111.8 L19,108 L28.2,104.2 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.5"/>
+      <path d="M32,41 L35.2,48.8 L43,52 L35.2,55.2 L32,63 L28.8,55.2 L21,52 L28.8,48.8 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.4"/>
+      <polygon points="104,34 112,38 106,44" fill="currentColor" stroke="#1C1412" stroke-width="1.2"/>
+      <polygon points="134,80 128,88 124,78" fill="currentColor" stroke="#1C1412" stroke-width="1.2"/>
+      <polygon points="56,126 48,122 54,116" fill="currentColor" stroke="#1C1412" stroke-width="1.2"/>
+      <polygon points="26,80 32,72 36,82" fill="currentColor" stroke="#1C1412" stroke-width="1.2"/>
+    </g>
+</g>
+</svg>

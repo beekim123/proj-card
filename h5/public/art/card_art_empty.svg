@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_empty" viewBox="0 0 176 188" width="176" height="188">
+<title>空托</title>
+<g id="root">
+<!-- 底座暗影 -->
+    <ellipse cx="88" cy="102" rx="44" ry="42" fill="#0D111C" opacity="0.55"/>
+    <!-- 外圈八角旧铜底盘 -->
+    <polygon points="68,54 108,54 130,76 130,116 108,138 68,138 46,116 46,76" fill="#3B2B14" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="71,59 105,59 124,78 124,114 105,133 71,133 52,114 52,78" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <!-- 中央空凹坑（无宝石） -->
+    <circle cx="88" cy="96" r="27" fill="#0D111C" stroke="#1C1412" stroke-width="2.2"/>
+    <path d="M65,86 A25,25 0 0,1 111,86 A25,23 0 0,0 65,86 Z" fill="#1C1412" opacity="0.7"/>
+    <path d="M68,108 A24,24 0 0,0 108,108" fill="none" stroke="#9A7B46" stroke-width="1.4" opacity="0.6"/>
+    <!-- 凹坑内细排线与空托刻痕 -->
+    <path d="M74,90 L86,102 M82,86 L98,102 M92,88 L102,98 M78,100 L86,108" stroke="#4A4742" stroke-width="1.1" stroke-linecap="round" opacity="0.45"/>
+    <!-- 三个空着的哥特金属弯爪（上、左下、右下） -->
+    <g fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round">
+      <!-- 上爪 -->
+      <path d="M81,48 L95,48 L92,72 L88,77 L84,72 Z"/>
+      <!-- 左下爪 -->
+      <path d="M44,114 L52,126 L71,110 L72,104 L66,103 Z"/>
+      <!-- 右下爪 -->
+      <path d="M132,114 L124,126 L105,110 L104,104 L110,103 Z"/>
+    </g>
+    <!-- 爪尖冷高光 -->
+    <path d="M84,50 L86,70 M47,116 L66,105 M128,116 L109,105" stroke="#C2A670" stroke-width="1.2" stroke-linecap="round" opacity="0.75"/>
+</g>
+</svg>

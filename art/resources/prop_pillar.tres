@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "prop_pillar"
+svg_fingerprint = "9659157182dab722"
+definition = {"id":"prop_pillar","phase":2,"group":"场景","viewBox":"0 0 120 240","load":"img","anchor":[60,240],"desc":"古堡里的一截断石柱，柱头上一个空的宝石槽。战斗时放在兵器架的位置（练习时还是兵器架）。不发光","status":"已有"}
+entries = {"":{"w":120,"h":240,"scale":1.5,"stillScale":2,"still":"prop_pillar.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"9659157182dab722"}}
+animations = {":idle":"res://art/resources/prop_pillar--idle.tres"}

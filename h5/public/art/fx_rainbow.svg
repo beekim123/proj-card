@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_rainbow" viewBox="0 0 400 160" width="400" height="160">
+<title>特效 · 彩虹</title>
+<style>
+.svg-fx_rainbow g { transform-box: view-box; }
+.svg-fx_rainbow #rb_arcs, .svg-fx_rainbow #rb_sparks { opacity: 0; transform-origin: 200px 90px; }
+@keyframes svg-fx_rainbow-arcs {
+  0% { opacity: 0; clip-path: inset(0 100% 0 0); }
+  12% { opacity: 1; clip-path: inset(0 70% 0 0); }
+  48% { opacity: 1; clip-path: inset(0 0% 0 0); }
+  75% { opacity: 0.85; clip-path: inset(0 0% 0 35%); }
+  100% { opacity: 0; clip-path: inset(0 0% 0 100%); }
+}
+@keyframes svg-fx_rainbow-sparks {
+  0%, 35% { opacity: 0; transform: translateY(6px) scale(0.6); }
+  55% { opacity: 1; transform: translateY(0px) scale(1); }
+  88% { opacity: 0.8; transform: translateY(-8px) scale(1.08); }
+  100% { opacity: 0; transform: translateY(-12px) scale(0.8); }
+}
+.svg-fx_rainbow[data-anim="play"] #rb_arcs { animation: svg-fx_rainbow-arcs 0.8s steps(10, end) both; }
+.svg-fx_rainbow[data-anim="play"] #rb_sparks { animation: svg-fx_rainbow-sparks 0.8s steps(8, end) both; }
+</style>
+<g id="root">
+<!-- pivot: 200,90 -->
+    <g id="rb_arcs" opacity="0"><!-- pivot: 200,90 -->
+      <path d="M28,126 L105,62 L200,34 L295,62 L372,126" fill="none" stroke="#E3263A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M28,126 L105,62 L200,34 L295,62 L372,126" fill="none" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><path d="M31,124.4 L105,70 L200,42 L295,70 L369,124.4" fill="none" stroke="#FFD84A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M31,124.4 L105,70 L200,42 L295,70 L369,124.4" fill="none" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><path d="M34,122.8 L105,78 L200,50 L295,78 L366,122.8" fill="none" stroke="#1DBF5E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M34,122.8 L105,78 L200,50 L295,78 L366,122.8" fill="none" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><path d="M37,121.2 L105,86 L200,58 L295,86 L363,121.2" fill="none" stroke="#3FE3F0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M37,121.2 L105,86 L200,58 L295,86 L363,121.2" fill="none" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><path d="M40,119.6 L105,94 L200,66 L295,94 L360,119.6" fill="none" stroke="#2E66F0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M40,119.6 L105,94 L200,66 L295,94 L360,119.6" fill="none" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><path d="M43,118 L105,102 L200,74 L295,102 L357,118" fill="none" stroke="#E94FD8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M43,118 L105,102 L200,74 L295,102 L357,118" fill="none" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
+    </g>
+    <g id="rb_sparks" opacity="0"><!-- pivot: 200,90 -->
+      <path d="M58,85 L61,93 L69,96 L61,99 L58,107 L55,99 L47,96 L55,93 Z" fill="#E3263A" stroke="#1C1412" stroke-width="1.3"/>
+      <path d="M116,44 L119.2,52.8 L128,56 L119.2,59.2 L116,68 L112.8,59.2 L104,56 L112.8,52.8 Z" fill="#FFD84A" stroke="#1C1412" stroke-width="1.3"/>
+      <path d="M174,25 L177.5,34.5 L187,38 L177.5,41.5 L174,51 L170.5,41.5 L161,38 L170.5,34.5 Z" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.3"/>
+      <path d="M232,25 L235.5,34.5 L245,38 L235.5,41.5 L232,51 L228.5,41.5 L219,38 L228.5,34.5 Z" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.3"/>
+      <path d="M288,44 L291.2,52.8 L300,56 L291.2,59.2 L288,68 L284.8,59.2 L276,56 L284.8,52.8 Z" fill="#2E66F0" stroke="#1C1412" stroke-width="1.3"/>
+      <path d="M344,85 L347,93 L355,96 L347,99 L344,107 L341,99 L333,96 L341,93 Z" fill="#E94FD8" stroke="#1C1412" stroke-width="1.3"/>
+      <polygon points="84,114 94,108 90,120" fill="#FFD84A" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="148,88 158,82 154,94" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="204,78 214,72 210,84" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="262,90 272,84 268,96" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.1"/>
+      <polygon points="318,114 328,108 324,120" fill="#E94FD8" stroke="#1C1412" stroke-width="1.1"/>
+    </g>
+</g>
+</svg>

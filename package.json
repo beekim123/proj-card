@@ -1,22 +1,10 @@
 {
-  "name": "gemcard-demo",
-  "version": "1.0.0",
+  "name": "gemcard-sprite-tools",
   "private": true,
   "type": "module",
-  "description": "基础宝石卡牌木桩试玩，原生 DOM + TypeScript",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "typecheck": "tsc --noEmit",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --host 0.0.0.0",
-    "test:stress": "node verification/run-independent.mjs",
-    "test:oracle": "node verification/run-independent.mjs independent-oracle.cjs"
-  },
-  "devDependencies": {
-    "typescript": "~5.9.3",
-    "vite": "^7.2.2",
-    "vitest": "^4.0.8"
+    "export:sprites": "node tools/export-sprites.mjs",
+    "import:sprites": "node tools/import-sprites.mjs",
+    "record:audio": "node tools/record-audio.mjs"
   }
 }

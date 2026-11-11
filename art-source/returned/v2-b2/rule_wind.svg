@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-rule_wind" viewBox="0 0 64 64" width="64" height="64">
+<title>规矩图标 · 上发条</title>
+<g id="root">
+  <!-- 发条钥匙主轴与卡齿（下半截：旧铜 #9A7B46 + 1层暗面 #6E542B + 粗外框） -->
+  <g id="key_shaft">
+    <!-- 钥匙侧齿 -->
+    <polygon points="32,44 46,44 46,56 38,56 38,51 32,51" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <!-- 钥匙竖轴杆 -->
+    <rect x="27" y="34" width="10" height="24" rx="2.5" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2"/>
+    <rect x="32" y="34" width="5" height="24" fill="#6E542B"/>
+    <rect x="27" y="34" width="10" height="24" rx="2.5" fill="none" stroke="#1C1412" stroke-width="3.2"/>
+    <!-- 轴环卡箍 -->
+    <rect x="23" y="34" width="18" height="6" rx="2" fill="#C2A670" stroke="#1C1412" stroke-width="2.8"/>
+  </g>
+
+  <!-- 双耳发条钥匙柄（上半截宽大双环：x:6..58, y:8..38） -->
+  <g id="key_bow">
+    <path d="M18,8 C10,8 6,14 6,22 C6,31 12,37 22,37 H42 C52,37 58,31 58,22 C58,14 54,8 46,8 C40,8 36,11 32,14 C28,11 24,8 18,8 Z M17,16 C20,16 22,19 22,22 C22,26 19,28 16,28 C13,28 12,25 12,22 C12,18 14,16 17,16 Z M47,16 C50,16 52,18 52,22 C52,25 51,28 48,28 C45,28 42,26 42,22 C42,19 44,16 47,16 Z" fill="#9A7B46" fill-rule="evenodd" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 右侧背光暗铜面 -->
+    <path d="M32,14 C36,11 40,8 46,8 C54,8 58,14 58,22 C58,31 52,37 42,37 H32 V14 Z M47,16 C44,16 42,19 42,22 C42,26 45,28 48,28 C51,28 52,25 52,22 C52,18 50,16 47,16 Z" fill="#6E542B" fill-rule="evenodd"/>
+    <!-- 左上受光亮边 -->
+    <path d="M10,20 C10,14 13,11 19,11" fill="none" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
+    <!-- 外框重描 -->
+    <path d="M18,8 C10,8 6,14 6,22 C6,31 12,37 22,37 H42 C52,37 58,31 58,22 C58,14 54,8 46,8 C40,8 36,11 32,14 C28,11 24,8 18,8 Z M17,16 C20,16 22,19 22,22 C22,26 19,28 16,28 C13,28 12,25 12,22 C12,18 14,16 17,16 Z M47,16 C50,16 52,18 52,22 C52,25 51,28 48,28 C45,28 42,26 42,22 C42,19 44,16 47,16 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 钥匙柄正中镶嵌的鲜艳蓝色三角宝石（唯一鲜艳处：#2E66F0 + #6B9BFF + #193D9E） -->
+  <g id="gem_blue">
+    <polygon points="32,11 45,33 19,33" fill="#2E66F0" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="32,11 45,33 32,33" fill="#193D9E"/>
+    <polygon points="32,18 39,30 25,30" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+    <polygon points="31,19 35,26 28,27" fill="#FFFFFF" opacity="0.95"/>
+    <polygon points="32,11 45,33 19,33" fill="none" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

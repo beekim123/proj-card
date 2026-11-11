@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "card_art_bg_tool"
+svg_fingerprint = "e8cc6aebbb281f1a"
+definition = {"id":"card_art_bg_tool","phase":1,"group":"卡牌","viewBox":"0 0 176 188","load":"img","desc":"额外牌的原画窗底：比如旧皮革或旧羊皮纸，暗、平；左上角（约 x0–30、y0–90）要特别平，会叠小宝石图标","status":"已有"}
+entries = {"":{"w":176,"h":188,"scale":1.5,"stillScale":2,"still":"card_art_bg_tool.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"e8cc6aebbb281f1a"}}
+animations = {":idle":"res://art/resources/card_art_bg_tool--idle.tres"}

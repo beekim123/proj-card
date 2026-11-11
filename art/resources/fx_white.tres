@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "fx_white"
+svg_fingerprint = "32f6a0d76851f07f"
+definition = {"id":"fx_white","phase":2,"group":"特效","viewBox":"0 0 240 240","load":"inline","events":{"play":700},"desc":"凑白：一团白光炸开（不染色）","status":"已有"}
+entries = {"":{"w":240,"h":240,"scale":1.5,"stillScale":2,"still":"fx_white.png","sheets":[{"f":"fx_white-0.png","w":1248,"h":1394}],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-2,"d":0}]},"play":{"loop":false,"hold":false,"sheets":[0],"frames":[{"s":-2,"d":41.67},{"s":0,"x":0,"y":1306,"w":90,"h":88,"ox":135,"oy":136,"d":41.67},{"s":0,"x":1088,"y":1010,"w":160,"h":156,"ox":100,"oy":102,"d":41.67},{"s":0,"x":856,"y":1010,"w":232,"h":222,"ox":64,"oy":69,"d":41.67},{"s":0,"x":588,"y":1010,"w":268,"h":268,"ox":46,"oy":46,"d":41.67},{"s":0,"x":296,"y":1010,"w":292,"h":292,"ox":34,"oy":34,"d":41.67},{"s":0,"x":0,"y":1010,"w":296,"h":296,"ox":32,"oy":32,"d":41.67},{"s":0,"x":942,"y":690,"w":302,"h":302,"ox":29,"oy":29,"d":41.67},{"s":0,"x":634,"y":690,"w":308,"h":308,"ox":26,"oy":26,"d":41.67},{"s":0,"x":320,"y":690,"w":314,"h":314,"ox":23,"oy":23,"d":41.67},{"s":0,"x":0,"y":690,"w":320,"h":320,"ox":20,"oy":20,"d":41.67},{"s":0,"x":669,"y":350,"w":326,"h":326,"ox":17,"oy":17,"d":41.67},{"s":0,"x":338,"y":350,"w":331,"h":332,"ox":14,"oy":14,"d":41.67},{"s":0,"x":0,"y":350,"w":338,"h":340,"ox":11,"oy":10,"d":41.67},{"s":0,"x":696,"y":0,"w":344,"h":344,"ox":8,"oy":8,"d":41.67},{"s":0,"x":350,"y":0,"w":346,"h":346,"ox":7,"oy":7,"d":41.67},{"s":0,"x":0,"y":0,"w":350,"h":350,"ox":5,"oy":5,"d":33.33}]}},"hash":"32f6a0d76851f07f"}}
+animations = {":idle":"res://art/resources/fx_white--idle.tres",":play":"res://art/resources/fx_white--play.tres"}

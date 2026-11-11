@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_heart_empty" viewBox="0 0 64 64" width="64" height="64">
+<title>空的心形挂坠</title>
+<g id="root">
+  <!-- 与 ui_heart 完全同款的旧铜挂坠外框，严丝合缝对齐；内部宝石缺失，只剩暗色空槽 -->
+  <g id="pendant">
+    <!-- 顶部旧铜挂环 -->
+    <circle cx="32" cy="9.5" r="4.2" fill="none" stroke="#1C1412" stroke-width="4.2"/>
+    <circle cx="32" cy="9.5" r="4.2" fill="none" stroke="#9A7B46" stroke-width="2"/>
+    <path d="M29.2,7.2 A4,4 0 0,1 34.5,7" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/>
+    <rect x="29.5" y="12" width="5" height="4" rx="1" fill="#6E542B" stroke="#1C1412" stroke-width="1.8"/>
+
+    <!-- 旧铜心形外框（与 ui_heart 坐标 100% 一致：x:9..55, y:13..56） -->
+    <path d="M32,18 L24,13 L14,16 L9,26 L12,38 L32,56 L52,38 L55,26 L50,16 L40,13 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <!-- 右下背光铜框暗面 -->
+    <path d="M32,18 L40,13 L50,16 L55,26 L52,38 L32,56 L32,49 L47,35 L49,26 L46,19 L39,17 L32,22 Z" fill="#3B2B14" opacity="0.8"/>
+    <!-- 左上冷受光铜边高光 -->
+    <path d="M30,17 L24,14.8 L15.5,17.5 L11,26.2 L13.5,36.5" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- 内部深暗镶嵌空槽底（宝石没了，露出内凹暗底与空槽刮痕） -->
+    <path d="M32,22 L25,18 L17,20.5 L14,27.5 L16.5,36.5 L32,50.5 L47.5,36.5 L50,27.5 L47,20.5 L39,18 Z" fill="#161221" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <!-- 空槽内侧上方深陷内阴影 -->
+    <path d="M14.5,28 L17,20.5 L25,18 L32,22 L39,18 L47,20.5 L49.5,28 L46,24 L39,21.5 L32,25.5 L25,21.5 L18,24 Z" fill="#0D111C" opacity="0.88"/>
+    <!-- 空槽底部微弱受光铜底缘与残痕 -->
+    <path d="M18,36 L32,48.5 L46,36" fill="none" stroke="#3B2B14" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M24,29 L31,36 M33,28 L39,34 M27,36 L33,42" stroke="#262036" stroke-width="1.2" stroke-linecap="round"/>
+
+    <!-- 三个包边铜爪（与 ui_heart 完全一致） -->
+    <polygon points="12,26 16,25 16,29 12,29" fill="#C2A670" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <polygon points="52,26 48,25 48,29 52,29" fill="#9A7B46" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <polygon points="29.5,53 32,49.5 34.5,53 32,56.5" fill="#9A7B46" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

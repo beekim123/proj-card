@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-rule_bite" viewBox="0 0 64 64" width="64" height="64">
+<title>规矩图标 · 咬手</title>
+<g id="root">
+  <!-- 暗色衬底凹槽感背影，让尖牙与绿方宝石在 18pt 下依然醒目分明 -->
+  <rect x="6" y="6" width="52" height="52" rx="8" fill="#161221" stroke="#1C1412" stroke-width="3.2"/>
+
+  <!-- 正中被死死咬住的鲜艳绿色方宝石（唯一鲜艳处：#1DBF5E + #5CE892 + #117A3B） -->
+  <g id="gem_green">
+    <rect x="18" y="18" width="28" height="28" rx="3.5" fill="#1DBF5E" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 右下背光暗刻面 -->
+    <polygon points="46,18 46,46 18,46 24,40 40,40 40,24" fill="#117A3B"/>
+    <!-- 左上受光亮刻面 -->
+    <polygon points="18,18 46,18 40,24 24,24 24,40 18,46" fill="#5CE892"/>
+    <!-- 中央方台面与高光白斑 -->
+    <rect x="24" y="24" width="16" height="16" rx="1.5" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8"/>
+    <polygon points="26,26 35,26 31,32 26,32" fill="#FFFFFF" opacity="0.95"/>
+    <rect x="18" y="18" width="28" height="28" rx="3.5" fill="none" stroke="#1C1412" stroke-width="3.2"/>
+  </g>
+
+  <!-- 上排三大尖牙（骨白 #E2D6BA + 1层暗面 #9A8968 + 粗外框，狠狠咬进绿宝石上沿） -->
+  <g id="teeth_top" stroke="#1C1412" stroke-width="3" stroke-linejoin="round">
+    <polygon points="8,8 25,8 17,27" fill="#E2D6BA"/>
+    <polygon points="17,8 25,8 17,27" fill="#9A8968"/>
+    <polygon points="23,8 41,8 32,29" fill="#E2D6BA"/>
+    <polygon points="32,8 41,8 32,29" fill="#9A8968"/>
+    <polygon points="39,8 56,8 47,27" fill="#E2D6BA"/>
+    <polygon points="47,8 56,8 47,27" fill="#9A8968"/>
+    <polygon points="8,8 25,8 17,27" fill="none"/>
+    <polygon points="23,8 41,8 32,29" fill="none"/>
+    <polygon points="39,8 56,8 47,27" fill="none"/>
+  </g>
+
+  <!-- 下排三大尖牙（与上牙交错咬合在绿宝石下沿） -->
+  <g id="teeth_bottom" stroke="#1C1412" stroke-width="3" stroke-linejoin="round">
+    <polygon points="8,56 25,56 17,37" fill="#E2D6BA"/>
+    <polygon points="17,56 25,56 17,37" fill="#9A8968"/>
+    <polygon points="23,56 41,56 32,35" fill="#E2D6BA"/>
+    <polygon points="32,56 41,56 32,35" fill="#9A8968"/>
+    <polygon points="39,56 56,56 47,37" fill="#E2D6BA"/>
+    <polygon points="47,56 56,56 47,37" fill="#9A8968"/>
+    <polygon points="8,56 25,56 17,37" fill="none"/>
+    <polygon points="23,56 41,56 32,35" fill="none"/>
+    <polygon points="39,56 56,56 47,37" fill="none"/>
+  </g>
+
+  <!-- 外框重描 -->
+  <rect x="6" y="6" width="52" height="52" rx="8" fill="none" stroke="#1C1412" stroke-width="3.4"/>
+</g>
+</svg>

@@ -1,0 +1,1 @@
+{"file":"rules.test.ts","name":"01 §8 · 大数字表全部用例 > 0 → 0","passed":true,"table":[[0]],"calls":[{"module":"index","function":"formatNumber","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":"0"}]}

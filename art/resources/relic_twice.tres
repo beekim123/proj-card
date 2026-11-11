@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "relic_twice"
+svg_fingerprint = "a9ce6489a7433483"
+definition = {"id":"relic_twice","group":"宝物","viewBox":"0 0 96 96","load":"img","desc":"头一张打两次：一只小铜铃，旁边一个一模一样、淡一点的回声","status":"新画","batch":"本体第2批"}
+entries = {"":{"w":96,"h":96,"scale":1.5,"stillScale":2,"still":"relic_twice.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"a9ce6489a7433483","placeholder":true}}
+animations = {":idle":"res://art/resources/relic_twice--idle.tres"}

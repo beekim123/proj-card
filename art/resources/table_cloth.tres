@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "table_cloth"
+svg_fingerprint = "4228ca5fd7ac918c"
+definition = {"id":"table_cloth","phase":1,"group":"牌桌","viewBox":"0 0 256 256","load":"img","nineSlice":[72,72,72,72],"desc":"桌面排的桌布：暗色绒布 + 四角包铜。会被拉成 1032×330（竖屏）和 1248×330（横屏），角里的花纹不能超过切线","status":"已有"}
+entries = {"":{"w":256,"h":256,"scale":1.5,"stillScale":2,"still":"table_cloth.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"4228ca5fd7ac918c"}}
+animations = {":idle":"res://art/resources/table_cloth--idle.tres"}

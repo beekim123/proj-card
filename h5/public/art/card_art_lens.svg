@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_lens" viewBox="0 0 176 188" width="176" height="188">
+<title>额外牌原画 · 放大镜</title>
+<style>
+.svg-card_art_lens g { transform-box: view-box; }
+.svg-card_art_lens #root { transform-origin: 88px 94px; }
+.svg-card_art_lens #magnifier { transform-origin: 96px 96px; }
+.svg-card_art_lens #lens_bulge { transform-origin: 84px 78px; }
+.svg-card_art_lens #sweep_band { transform-origin: 84px 78px; }
+.svg-card_art_lens #ripple_1,
+.svg-card_art_lens #ripple_2 { transform-origin: 84px 78px; opacity: 0; }
+
+/* 待机（3.0s 循环）：一道光从镜片上扫过，放大镜轻微呼吸 */
+@keyframes svg-card_art_lens-idle-sweep {
+  0%, 15% { transform: translate(-52px, -52px); opacity: 0; }
+  22%, 44% { opacity: 1; }
+  52%, 100% { transform: translate(52px, 52px); opacity: 0; }
+}
+@keyframes svg-card_art_lens-idle-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-2deg) translateY(-1.5px); }
+}
+.svg-card_art_lens:not([data-anim]) #sweep_band,
+.svg-card_art_lens[data-anim="idle"] #sweep_band {
+  animation: svg-card_art_lens-idle-sweep 3s steps(10, end) infinite;
+}
+.svg-card_art_lens:not([data-anim]) #magnifier,
+.svg-card_art_lens[data-anim="idle"] #magnifier {
+  animation: svg-card_art_lens-idle-sway 3s steps(8, end) infinite;
+}
+
+/* play（600ms）：镜片大幅鼓起来再落回，往外荡出两圈环 */
+@keyframes svg-card_art_lens-play-bulge {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(0.9); }
+  36% { transform: scale(1.26); }
+  64% { transform: scale(0.95); }
+  82% { transform: scale(1.04); }
+}
+@keyframes svg-card_art_lens-play-ring1 {
+  0%, 22%, 90%, 100% { opacity: 0; transform: scale(0.72); }
+  36% { opacity: 1; transform: scale(1.02); }
+  66% { opacity: 0.78; transform: scale(1.28); }
+  88% { opacity: 0; transform: scale(1.38); }
+}
+@keyframes svg-card_art_lens-play-ring2 {
+  0%, 34%, 98%, 100% { opacity: 0; transform: scale(0.68); }
+  48% { opacity: 0.95; transform: scale(0.96); }
+  78% { opacity: 0.7; transform: scale(1.24); }
+  96% { opacity: 0; transform: scale(1.34); }
+}
+.svg-card_art_lens[data-anim="play"] #lens_bulge {
+  animation: svg-card_art_lens-play-bulge 0.6s steps(8, end) both;
+}
+.svg-card_art_lens[data-anim="play"] #ripple_1 {
+  animation: svg-card_art_lens-play-ring1 0.6s steps(8, end) both;
+}
+.svg-card_art_lens[data-anim="play"] #ripple_2 {
+  animation: svg-card_art_lens-play-ring2 0.6s steps(8, end) both;
+}
+</style>
+<defs>
+  <clipPath id="card_art_lens-clip">
+    <circle cx="84" cy="78" r="32"/>
+  </clipPath>
+  <radialGradient id="card_art_lens-glass" cx="38%" cy="35%" r="65%">
+    <stop offset="0%" stop-color="#8CAAB5" stop-opacity="0.55"/>
+    <stop offset="65%" stop-color="#5A7682" stop-opacity="0.38"/>
+    <stop offset="100%" stop-color="#1E2C33" stop-opacity="0.65"/>
+  </radialGradient>
+</defs>
+<g id="root">
+  <!-- pivot: 88,94 -->
+  <!-- 左上角 x:0..30, y:0..90 严格留空（镜框左缘 x>=42，波纹最大缩放后仍在 x>=31 或 y>=90） -->
+  <g id="magnifier">
+    <!-- pivot: 96,96 -->
+
+    <!-- 手柄（从镜框右下 (106,100) 斜向右下末端 (152,162)） -->
+    <polygon points="102,102 114,92 124,104 112,114" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="110,112 122,102 152,142 136,154" fill="#3D2212" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="110,112 117,107 145,146 136,154" fill="#704122"/>
+    <path d="M113,114 L138,149" stroke="#C48A5C" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+
+    <!-- 手柄末端旧铜宝石座与蓝色三角宝石（放大镜对应蓝三角宝石） -->
+    <polygon points="128,144 152,132 162,158 134,166" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <polygon points="140,136 158,162 130,162" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="140,136 158,162 144,162" fill="#193D9E"/>
+    <polygon points="140,136 144,162 130,162" fill="#6B9BFF"/>
+    <polygon points="141,143 150,158 135,158" fill="#2E66F0" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="140,145 144,153 137,154" fill="#FFFFFF" opacity="0.92"/>
+
+    <!-- 镜框与镜片组 lens_bulge（中心 84,78，半径 38，左缘 x=46 > 30） -->
+    <g id="lens_bulge">
+      <!-- pivot: 84,78 -->
+      <!-- 旧铜外镜框（带八角哥特折边与铆钉） -->
+      <circle cx="84" cy="78" r="38" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
+      <path d="M111,51 A38,38 0 0,1 57,105 L84,78 Z" fill="#3B2B14" opacity="0.78"/>
+      <path d="M54,96 A35,35 0 0,1 102,48" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round"/>
+      <!-- 镜框哥特耳朵铆钉 -->
+      <polygon points="80,36 88,36 90,42 78,42" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <polygon points="42,74 42,82 48,84 48,72" fill="#C2A670" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <polygon points="126,74 126,82 120,84 120,72" fill="#6E542B" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+
+      <!-- 灰青冷玻璃镜片底 -->
+      <circle cx="84" cy="78" r="32" fill="url(#card_art_lens-glass)" stroke="#1C1412" stroke-width="2.4"/>
+      <!-- 镜片内圈折射环与弧形高光 -->
+      <circle cx="84" cy="78" r="26" fill="none" stroke="#E2D6BA" stroke-width="1.2" stroke-dasharray="10 6" opacity="0.55"/>
+      <path d="M62,68 A24,24 0 0,1 88,54" fill="none" stroke="#E6DEC8" stroke-width="3.2" stroke-linecap="round" opacity="0.85"/>
+      <circle cx="60" cy="76" r="2.4" fill="#E6DEC8" opacity="0.88"/>
+
+      <!-- 待机扫光带（裁剪在镜片圆内） -->
+      <g clip-path="url(#card_art_lens-clip)">
+        <g id="sweep_band">
+          <!-- pivot: 84,78 -->
+          <polygon points="44,108 108,44 120,56 56,120" fill="#E6DEC8" opacity="0.55"/>
+          <polygon points="50,112 112,50 116,54 54,116" fill="#FFFFFF" opacity="0.85"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- play 状态：向外荡出的两圈哥特折角波纹环（平时 opacity="0"，中心 84,78，半径 36，缩放 1.38 后左缘 x=84-49.6=34.4 > 30） -->
+  <g id="ripple_1" opacity="0">
+    <!-- pivot: 84,78 -->
+    <circle cx="84" cy="78" r="35" fill="none" stroke="#6B9BFF" stroke-width="3" stroke-dasharray="18 6"/>
+    <circle cx="84" cy="78" r="32" fill="none" stroke="#E6DEC8" stroke-width="1.6"/>
+  </g>
+  <g id="ripple_2" opacity="0">
+    <!-- pivot: 84,78 -->
+    <circle cx="84" cy="78" r="35" fill="none" stroke="#2E66F0" stroke-width="2.4" stroke-dasharray="12 8"/>
+    <circle cx="84" cy="78" r="37" fill="none" stroke="#E6DEC8" stroke-width="1.2" opacity="0.85"/>
+  </g>
+</g>
+</svg>

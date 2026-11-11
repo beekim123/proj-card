@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArtResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/art_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+art_id = "ui_reward_heal"
+svg_fingerprint = "63a0ea82f8256918"
+definition = {"id":"ui_reward_heal","group":"奖励图标","viewBox":"0 0 64 64","load":"img","desc":"奖励图标·回一颗心：照 ui_heart 的心形挂坠简化，旁边一个小加号。红宝石是这张图里唯一鲜艳的地方","status":"新画","batch":"本体第1批"}
+entries = {"":{"w":64,"h":64,"scale":1.5,"stillScale":2,"still":"ui_reward_heal.png","sheets":[],"actions":{"idle":{"loop":true,"hold":false,"sheets":[],"frames":[{"s":-1,"d":0}]}},"hash":"63a0ea82f8256918"}}
+animations = {":idle":"res://art/resources/ui_reward_heal--idle.tres"}

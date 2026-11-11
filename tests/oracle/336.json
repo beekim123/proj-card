@@ -1,0 +1,1 @@
+{"file":"save-state.test.ts","name":"v4 fields > distinguishes outdated version 0 from corruption","passed":true,"table":[["{\"version\":0,\"state\":{}}"],{"state":null,"clear":true,"reason":"outdated"}],"calls":[{"module":"index","function":"decodeRunSave","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":{"$ref":1}}]}

@@ -1,0 +1,1 @@
+{"file":"rules.test.ts","name":"01 §8 · 大数字表全部用例 > 9999 → 9,999","passed":true,"table":[[9999]],"calls":[{"module":"index","function":"formatNumber","argsBefore":{"$ref":0},"argsAfter":{"$ref":0},"result":"9,999"}]}

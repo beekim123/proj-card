@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-rule_hug" viewBox="0 0 64 64" width="64" height="64">
+<title>规矩图标 · 抱红</title>
+<g id="root">
+  <!-- 正中大号鲜艳红色圆宝石（唯一鲜艳处：#E3263A + #FF5C6E + #9E1424） -->
+  <g id="gem_red">
+    <circle cx="32" cy="30" r="19" fill="#E3263A" stroke="#1C1412" stroke-width="3.2"/>
+    <!-- 右下背光暗刻面 -->
+    <path d="M45,17 A19,19 0 0,1 19,43 L32,30 Z" fill="#9E1424"/>
+    <!-- 中央圆台面与高光白斑 -->
+    <circle cx="32" cy="30" r="11.5" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.8"/>
+    <polygon points="24,22 31,18 36,21 28,28" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="32" cy="30" r="19" fill="none" stroke="#1C1412" stroke-width="3.2"/>
+  </g>
+
+  <!-- 两只布偶胳膊从左右环抱住红宝石（旧褐布 #9E6238 + 1层暗面 #704122 + 粗外框） -->
+  <g id="bear_arms">
+    <!-- 左布偶胳膊 -->
+    <path d="M5,24 C5,14 14,12 18,20 L27,32 C30,36 28,46 21,48 L12,48 C6,46 4,36 5,24 Z" fill="#9E6238" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M5,34 C6,42 8,47 12,48 L21,48 C26,47 28,41 27,36 L14,34 Z" fill="#704122"/>
+    <path d="M8,22 C9,17 13,16 16,21" fill="none" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
+    <path d="M5,24 C5,14 14,12 18,20 L27,32 C30,36 28,46 21,48 L12,48 C6,46 4,36 5,24 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 左爪两颗骨白布爪尖 -->
+    <polygon points="25,31 32,33 26,37" fill="#E2D6BA" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="25,39 32,41 25,45" fill="#E2D6BA" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- 右布偶胳膊 -->
+    <path d="M59,24 C59,14 50,12 46,20 L37,32 C34,36 36,46 43,48 L52,48 C58,46 60,36 59,24 Z" fill="#9E6238" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M46,20 L37,32 C34,36 36,46 43,48 L52,48 C58,46 60,36 59,24 Z" fill="#704122" opacity="0.78"/>
+    <path d="M59,24 C59,14 50,12 46,20 L37,32 C34,36 36,46 43,48 L52,48 C58,46 60,36 59,24 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 右爪两颗骨白布爪尖 -->
+    <polygon points="39,31 32,33 38,37" fill="#C8B894" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="39,39 32,41 39,45" fill="#C8B894" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>
