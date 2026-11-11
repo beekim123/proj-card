@@ -60,6 +60,21 @@
     "same4": {"name": "同色 ×4", "reaction": "same", "damageCoefficient": 4, "art": "relic_same4", "simulationId": "same4"}
   },
   "limits": {"hearts": 3, "handStart": 7, "handMax": 8, "handHardMax": 12, "toolCap": 2, "shopMinDeck": 20, "shopDropMax": 3, "shopCopyCount": 1, "relicOptions": 3, "maxHeldRelicsThisBatch": 5},
-  "batchEnd": {"outcome": "retreat", "fullVictory": false, "ascensionUnlocked": false, "thirdActEnabled": false},
+  "batchEnd": {"phase": "retreat", "outcome": "retreat", "reasons": ["act1", "act2"], "fullVictory": false, "ascensionUnlocked": false, "thirdActEnabled": false},
+  "terminalPhases": ["victory", "defeat", "retreat"],
+  "activePhases": ["relic", "battle", "loot", "doors", "shop", "act_choice"],
+  "resolvedMaskTools": ["mirror", "shadow", "palette"],
+  "monsterState": {
+    "monstersLength": 12,
+    "act1": "沿用现有预抽，随机数消耗与基线一致",
+    "unenteredActPlaceholder": {"elite": "room.monster", "boss": "room.monster", "normal": "normalMonsters[0]", "doors": "normalMonsters[0]"},
+    "dragonLayerRulesField": "layerRules"
+  },
+  "commandLimits": {"function": "can_play_run_card", "returns": {"ok": "bool", "reason": "String"}, "previewWhenBlocked": null},
+  "records": {"farthestMeaning": "clearedFights", "farthestMax": 12, "write": {"defeatOrAbandonAtFight": "fight-1", "retreatAct1": 6, "retreatAct2": 12}, "migrateLegacy": {"7": 6, "1-6": "f-1"}},
+  "legacyRun": {"purpose": "旧黄金回放与v4校验，不进入正常游戏入口", "acts": ["hall"], "tools": 9, "relics": 10, "startPool": 10, "bossRelic": false, "bossOutcome": "victory", "strippedNewFields": ["runId", "relicPurpose", "contentVersion", "layerRules"]},
+  "abandon": {"allowedPhases": ["relic", "battle", "loot", "doors", "shop", "act_choice"], "outcome": "defeat", "decidedBy": "用户 2026-11-11"},
+  "startPoolDifficulty": {"decision": "接受，本批不调整", "decidedBy": "用户 2026-11-11", "sim": {"bot": "跟提示·乱拿", "runs": 400, "act1PassPool10": 48.3, "act1PassInit6": 42.8, "twoActPassInit6": 8.8}},
+  "pendingUserDecisions": [],
   "verification": {"fixedSeedAdventuresMinimum": 100, "workersDefault": 1, "globalResourceHeavyTasksMax": 2, "globalComputeWorkersMax": 2, "screenshotDirections": ["landscape", "portrait"], "screenshotScenesPerDirection": 7}
 }
