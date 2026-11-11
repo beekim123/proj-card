@@ -1,0 +1,65 @@
+{
+  "purpose": "开发期规格，不是已接入运行时的配置",
+  "contentVersion": "body-batch-2",
+  "runSaveVersion": 5,
+  "recordsEnvelopeVersion": 2,
+  "profileVersion": 1,
+  "engine": "4.7.2.stable",
+  "counts": {"acts": 2, "fights": 12, "monsters": 8, "tools": 12, "relics": 15},
+  "acts": [
+    {
+      "id": "hall", "name": "门厅",
+      "normalMonsters": ["chest", "soldier", "bear"],
+      "dragonRules": ["hug", "bite", "bell"],
+      "rooms": [
+        {"type": "normal", "hp": 20000, "countdown": 3},
+        {"type": "doors", "hp": 40000, "countdown": 3},
+        {"type": "elite", "monster": "clock", "hp": 100000, "countdown": 3, "handUp": 1, "healFull": true, "relic": true},
+        {"type": "doors", "hp": 250000, "countdown": 3},
+        {"type": "doors", "hp": 450000, "countdown": 3},
+        {"type": "boss", "monster": "dragon", "hp": 1000000, "countdown": 4, "healFull": true, "relic": true, "afterRelic": "act_choice", "canContinue": true}
+      ]
+    },
+    {
+      "id": "corridor", "name": "长廊",
+      "normalMonsters": ["box", "portrait", "chest", "soldier", "bear"],
+      "dragonRules": ["picky", "duck", "six"],
+      "rooms": [
+        {"type": "normal", "hp": 500000, "countdown": 3},
+        {"type": "doors", "hp": 700000, "countdown": 3},
+        {"type": "elite", "monster": "lock", "hp": 500000, "countdown": 3, "handUp": 0, "healFull": true, "relic": true},
+        {"type": "doors", "hp": 1100000, "countdown": 3},
+        {"type": "doors", "hp": 1700000, "countdown": 3},
+        {"type": "boss", "monster": "dragon", "hp": 3000000, "countdown": 4, "healFull": true, "relic": true, "afterRelic": "act_choice", "canContinue": false}
+      ]
+    }
+  ],
+  "newMonsters": {
+    "box": {"name": "弹簧盒", "rule": "duck", "art": "mon_box"},
+    "portrait": {"name": "画像", "rule": "picky", "art": "mon_portrait"},
+    "lock": {"name": "大挂锁", "rule": "six", "art": "mon_lock"}
+  },
+  "newRules": {
+    "duck": {"name": "缩头", "zeroDamageOnEvenPlayedCard": true, "art": "rule_duck", "event": "duck"},
+    "picky": {"name": "挑食", "zeroGemBaseForMasks": [1, 2, 4], "art": "rule_picky", "event": "refuse"},
+    "six": {"name": "限六张", "limit": 6, "art": "rule_six", "events": ["click", "shut"]}
+  },
+  "toolOrder": ["bag", "lens", "hammer", "mirror", "stone", "hourglass", "seal", "shadow", "whistle", "palette", "potion", "diamond"],
+  "newTools": {
+    "palette": {"name": "调色盘", "v": 0, "copyPreviousMask": true, "forceShunWhenPreviousExists": true, "fillMissingColors": 1, "missingColorOrder": [1, 3, 2, 6, 4, 5], "repeatable": false, "art": "card_art_palette"},
+    "potion": {"name": "药水", "v": 1, "heal": 1, "repeatable": true, "consumable": true, "allowAtFullHearts": true, "art": "card_art_potion"},
+    "diamond": {"name": "钻石", "v": 7, "perGemFactor": 2, "repeatable": false, "art": "card_art_diamond"}
+  },
+  "relicOrder": ["start2", "slow", "first2", "twice", "same", "once", "white", "rainbow", "heart", "grow", "red", "green", "blue", "shun", "same4"],
+  "initialCollection": ["same", "once", "white", "rainbow", "heart", "grow"],
+  "newRelics": {
+    "red": {"name": "红宝石加倍", "gemIndex": 0, "gemFactor": 2, "art": "relic_red", "simulationId": "x2_0"},
+    "green": {"name": "绿宝石加倍", "gemIndex": 1, "gemFactor": 2, "art": "relic_green", "simulationId": "x2_1"},
+    "blue": {"name": "蓝宝石加倍", "gemIndex": 2, "gemFactor": 2, "art": "relic_blue", "simulationId": "x2_2"},
+    "shun": {"name": "顺色 ×3", "reaction": "shun", "damageCoefficient": 3, "art": "relic_shun", "simulationId": "shun3"},
+    "same4": {"name": "同色 ×4", "reaction": "same", "damageCoefficient": 4, "art": "relic_same4", "simulationId": "same4"}
+  },
+  "limits": {"hearts": 3, "handStart": 7, "handMax": 8, "handHardMax": 12, "toolCap": 2, "shopMinDeck": 20, "shopDropMax": 3, "shopCopyCount": 1, "relicOptions": 3, "maxHeldRelicsThisBatch": 5},
+  "batchEnd": {"outcome": "retreat", "fullVictory": false, "ascensionUnlocked": false, "thirdActEnabled": false},
+  "verification": {"fixedSeedAdventuresMinimum": 100, "workersDefault": 1, "globalResourceHeavyTasksMax": 2, "globalComputeWorkersMax": 2, "screenshotDirections": ["landscape", "portrait"], "screenshotScenesPerDirection": 7}
+}

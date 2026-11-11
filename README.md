@@ -32,3 +32,9 @@ node tools/screens.mjs                  # 配对截图；顺序运行Chrome和Go
 素材工作源在 `art/svg/`；美术原件仍在 `art-source/`。占位图生成器与离线音效合成源码已逐字复制到 `tools/`，验收后删除 H5 不会破坏导图、录音或原生测试。重新生成黄金/源用例基准仍需原 H5，仅在确实更新基准时执行 `tools/golden/` 工具。
 
 交付范围、完整验证结果、与 H5 的区别和平台限制见 [HANDOFF.md](HANDOFF.md)，当前执行阶段见 [docs/v2/status.md](docs/v2/status.md)。
+
+## 本体第2批：交给Dot开发
+
+2026-11-11：当前Godot基线完整检查4866项通过、0失败。第二批功能尚未实现；开发要求、数值、存档迁移、实施计划及验收在 [第二批开发包](docs/development/body-batch-2/00-开发说明.md)，可复制的开工提示词见 [给Dot的提示词](docs/development/body-batch-2/06-给Dot的提示词.md)。
+
+本批做第二幕、去留、收藏室、3张新牌和5件宝物；新美术先占位，第三幕和加码留到第3批。引擎二进制不在Git中，接收方提供Godot4.7.2并设GODOT_BIN，先 `bash tools/import.sh`，再 `bash tools/check.sh`。
