@@ -47,7 +47,7 @@ static func run(tree: SceneTree) -> Dictionary:
 	await tree.process_frame
 	_check(result, app.run_state.phase == "relic", "冒险开局宝物界面")
 	var relic_body: Label=app.scene.find_child("RelicDescription0",true,false)
-	_check(result,relic_body!=null and relic_body.clip_text and relic_body.get_parent().clip_contents,"宝物描述限制在三行和卡片内部")
+	_check(result,relic_body!=null and not relic_body.clip_text and relic_body.max_lines_visible == -1 and relic_body.get_parent().size.y >= relic_body.get_minimum_size().y,"宝物完整描述不再三行裁切且容器容纳实际字高")
 	_check(result, _label_contains(app.scene,"第 1 仗 · 第 1 回合"), "选宝物阶段也显示冒险回合计数")
 	Run.choose_relic(app.run_state, 0)
 	app.game_state = app.run_state.game
@@ -153,7 +153,7 @@ static func run(tree: SceneTree) -> Dictionary:
 	_check(result, app.layout.name == "landscape", "横屏原生布局可重建")
 	app.art_mode = true
 	app._render()
-	_check(result, app.scene.get_child(0).asset_buttons.size() == 89, "主入口打开完整素材检查器")
+	_check(result, app.scene.get_child(0).asset_buttons.size() == app.art.catalog().size(), "主入口打开完整素材检查器")
 	app.inspect_id = "mon_clock"
 	app._render()
 	_check(result, app.scene.get_child(0).preview.art_id == "mon_clock", "检查器inspect-id可选择座钟")
@@ -286,9 +286,9 @@ static func run(tree: SceneTree) -> Dictionary:
 	_check(result, not app.transition and app.run_state.cards.size()==deck_before+1, "战利品动画完成后进入规则指定下一阶段")
 	app.go_home(); app.forced_layout="landscape"; app._resize()
 	var home: BoxContainer=app.scene.find_child("HomeRecords",true,false)
-	_check(result, home is HBoxContainer and home.get_child_count()==2 and home.get_theme_constant("separation")==24, "横屏首页纪录以两段横排并间隔24")
+	_check(result, home is VBoxContainer and home.get_child_count()==3 and home.get_theme_constant("separation")==8, "横屏三幕纪录三段纵排并间隔8")
 	app.forced_layout="portrait"; app._resize(); home=app.scene.find_child("HomeRecords",true,false)
-	_check(result, home is VBoxContainer and home.get_child_count()==2 and home.get_theme_constant("separation")==8, "竖屏首页纪录以两段纵排并间隔8")
+	_check(result, home is VBoxContainer and home.get_child_count()==3 and home.get_theme_constant("separation")==8, "竖屏三幕纪录三段纵排并间隔8")
 	var window_size: Vector2i=app.get_window().size
 	app.get_window().size=Vector2i(720,1600); app.forced_layout="portrait"; app._resize()
 	_check(result, app.layout.height>app.L.base("portrait").height and app.layout.growth.centers[0].y>app.L.base("portrait").growth.centers[0].y, "长竖屏运行时实际调用fit分配额外高度")

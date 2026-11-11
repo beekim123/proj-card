@@ -1,0 +1,50 @@
+{
+  "mon_tree": [
+    "mon_bear",
+    "摇钱树"
+  ],
+  "mon_armor": [
+    "mon_clock",
+    "盔甲"
+  ],
+  "rule_regrow": [
+    "rule_hug",
+    "长回去"
+  ],
+  "rule_cap": [
+    "rule_bell",
+    "压倍率"
+  ],
+  "relic_link": [
+    "relic_rainbow",
+    "凑白接链"
+  ],
+  "relic_shine": [
+    "relic_grow",
+    "闪光300"
+  ],
+  "relic_guard": [
+    "relic_heart",
+    "挡一次"
+  ],
+  "relic_rbheal": [
+    "relic_heart",
+    "彩虹回心"
+  ],
+  "relic_biggem": [
+    "title_emblem",
+    "大宝石"
+  ],
+  "bg_tile_vault": [
+    "bg_tile",
+    "宝库"
+  ],
+  "prop_coins": [
+    "prop_pillar",
+    "金币堆"
+  ],
+  "prop_urn": [
+    "prop_rack",
+    "宝瓶"
+  ]
+}

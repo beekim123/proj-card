@@ -8,7 +8,7 @@ const Profile = preload("res://rules/profile.gd")
 const Save: GDScript = preload("res://rules/save_state.gd")
 const Run: GDScript = preload("res://rules/run.gd")
 const DEFAULT_SETTINGS: Dictionary = {"hint": true, "hand": 6, "grow": true, "tools": false, "layout": "auto", "formula": false,
-	"sound": true, "volume": 2, "shake": true, "animationSpeed": "normal"}
+	"tier":0, "sound": true, "volume": 2, "shake": true, "animationSpeed": "normal"}
 const UNAVAILABLE: String = "浏览器未允许保存进度，本次游戏仍可继续"
 const FAILED_CLEAR: String = "上次的进度读不出来，但浏览器未允许清除存档"
 static var _next_generation: int = 1
@@ -17,6 +17,7 @@ static var _storage_runs: Dictionary = {}
 var directory: String = "user://"
 var last_error: String = ""
 var failure_stage: String = ""
+var failure_remaining: int = 1
 
 func _init(custom_directory: String = "") -> void:
 	if not custom_directory.is_empty(): directory = custom_directory.trim_suffix("/") + "/"
@@ -61,6 +62,7 @@ func _settings_of(value: Variant) -> Dictionary:
 	if saved.get("layout") in ["landscape", "portrait"]: settings.layout = saved.layout
 	if saved.get("volume") == 1 or saved.get("volume") == 2 or saved.get("volume") == 3: settings.volume = int(saved.volume)
 	if saved.get("animationSpeed") == "fast": settings.animationSpeed = "fast"
+	if Progression.tier_multiplier(saved.get("tier",0)) >= 0: settings.tier = int(saved.get("tier",0))
 	return settings
 
 func load_settings() -> Dictionary:
@@ -158,7 +160,9 @@ func new_run_id() -> String:
 
 func _fail_io(stage: String) -> bool:
 	if failure_stage != stage: return false
-	failure_stage = ""; last_error = UNAVAILABLE; return true
+	if failure_remaining > 0: failure_remaining -= 1
+	if failure_remaining == 0: failure_stage = ""; failure_remaining = 1
+	last_error = UNAVAILABLE; return true
 
 func load_records() -> Dictionary:
 	last_error = ""

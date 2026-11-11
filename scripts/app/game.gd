@@ -17,6 +17,10 @@ const DRAW: Dictionary = {"interval":90.0,"fly":380.0,"flip":180.0,"arc":140.0}
 const STRIKE: Dictionary = {"lead":80.0,"firstGap":230.0,"decay":0.86,"minGap":110.0,"maxTotal":2600.0,"hold":520.0,"breakHold":700.0,"lift":36.0}
 const DEBUG_SEQUENCES: Dictionary = {1:[1,"lens"],2:[3,"lens"],3:[1,3,"hammer"],4:[1,3,2,6,4,5,"hammer"],5:[1,3,2,6,"lens",5],6:[1,"mirror"],7:[0,"mirror"],8:["mirror"],9:[7,"mirror"],10:[1,"mirror",1],11:["stone",1],12:["hammer","hammer"],13:[1,"bag"],14:[1,3,2,6,4,"mirror"]}
 const TOOL_HELP: Dictionary = {"palette":"跟前张宝石一样，算顺色，再补一种没亮的颜色。第一张为空托。","potion":"冒险回 1 颗心，用完消耗。练习回血无效，仍消耗，可在本回合撤回。","diamond":"本张每颗宝石底数 ×2，成长次数不变。","bag":"打出后从牌库摸 2 张。","lens":"打出后倍率再 ×2。","hammer":"打出后，这回合到这里的伤害 ×3。","hourglass":"倒计时 +1。打穿了就不加。","seal":"从下一张牌起，到这回合结束。","shadow":"宝石和反应都照抄上一张。第一张打它，什么都没有。","whistle":"从牌堆里找最上面的一张额外牌。牌堆里没有就不摸。","mirror":"变成上一张缺的宝石，一定和上一张凑白；这回合第一张打出时没有宝石。","stone":"打出后三颗宝石各长 5 次。"}
+const Progression: GDScript = preload("res://rules/progression.gd")
+var selected_tier: int = 0
+var debug_tuning_scale: float = 1.0
+
 var clock: Variant
 var art: Variant
 var sound: Variant
@@ -338,6 +342,7 @@ func _render() -> void:
 	_round("设置",layout.settings,_show_settings,"ui_icon_settings")
 	if screen == "home": _home(); return
 	if screen == "collection": _collection(); return
+	if screen == "difficulty": _difficulty(); return
 	if screen == "adventure":
 		if run_state.get("result") != null and not attacking: _result(); return
 		_adventure_top()
@@ -357,7 +362,7 @@ func _shader_rect(code: String, uniforms: Dictionary, parent: Control, box: Rect
 	return node
 
 func _scene_background() -> void:
-	var background: TextureRect=TextureRect.new(); background.texture=art.image_texture(art.image_path("bg_tile_hall" if not run_state.is_empty() and run_state.get("act",1) == 2 else "bg_tile")); background.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED; background.expand_mode=TextureRect.EXPAND_IGNORE_SIZE; background.stretch_mode=TextureRect.STRETCH_SCALE; background.size=stage.size; background.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	var background: TextureRect=TextureRect.new(); background.texture=art.image_texture(art.image_path("bg_tile_vault" if not run_state.is_empty() and run_state.get("act",1) == 3 else "bg_tile_hall" if not run_state.is_empty() and run_state.get("act",1) == 2 else "bg_tile")); background.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED; background.expand_mode=TextureRect.EXPAND_IGNORE_SIZE; background.stretch_mode=TextureRect.STRETCH_SCALE; background.size=stage.size; background.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	var shader: Shader=Shader.new()
 	shader.code="shader_type canvas_item; uniform vec2 repeats=vec2(1.0); void fragment(){ COLOR=texture(TEXTURE,UV*repeats); }"
 	var material: ShaderMaterial=ShaderMaterial.new(); material.shader=shader; material.set_shader_parameter("repeats",stage.size/512.0); background.material=material; scene.add_child(background)
@@ -386,24 +391,25 @@ func _home() -> void:
 		label.add_theme_color_override("font_color",Color(art.manifest.palette.text))
 		label.add_theme_color_override("font_outline_color",Color(art.manifest.palette.ink)); label.add_theme_constant_override("outline_size",4)
 	_button("新开一局" if not saved_run.is_empty() else "开始冒险",layout.title.start,func() -> void:
-		if saved_run.is_empty(): start_adventure()
-		else: _confirm("新开一局","现在这局会作废，确定新开一局吗？","新开一局",start_adventure),true)
-	if not saved_run.is_empty(): _button("继续这局（第 %d 仗）" % saved_run.fight,layout.title.resume,resume_adventure)
+		if saved_run.is_empty(): _open_difficulty()
+		else: _confirm("新开一局","现在这局会作废，确定新开一局吗？","新开一局",_open_difficulty),true)
+	if not saved_run.is_empty(): _button("继续 · %s · %s第%d间" % [_tier_text(int(saved_run.get("difficulty",{}).get("tier",0))),RC.RUN.acts[int(saved_run.act)-1].name,saved_run.room],layout.title.resume,resume_adventure)
 	var practice: Dictionary = layout.title.practice.duplicate(); practice.w = (practice.w-24)/2.0
 	_button("练习（木桩）",practice,start_practice)
 	var collection_box: Dictionary = practice.duplicate(); collection_box.x += practice.w+24
 	var profile: Dictionary = storage.load_profile()
-	var collection_button: Button = _button("收藏室 %d/15" % Profile.starting_relics(profile).size(),collection_box,func() -> void: _reset(); screen = "collection"; _render())
+	var collection_button: Button = _button("收藏室 %d/%d" % [Profile.starting_relics(profile).size(),RC.RUN.relicPool.size()],collection_box,func() -> void: _reset(); screen = "collection"; _render())
 	collection_button.name = "CollectionEntry"
-	var home_records: BoxContainer=VBoxContainer.new() if layout.name=="portrait" else HBoxContainer.new()
+	var home_records: BoxContainer=VBoxContainer.new()
 	home_records.name="HomeRecords"; home_records.alignment=BoxContainer.ALIGNMENT_CENTER
-	home_records.add_theme_constant_override("separation",8 if layout.name=="portrait" else 24)
+	home_records.add_theme_constant_override("separation",8)
 	_place(home_records,layout.title.record,scene)
 	var descriptions: Array[String]=["还没有纪录"]
 	if records.played>0:
 		descriptions=["最远：%s · 带回家 %d 次" % [_farthest_text(int(records.farthest)),records.get("retreats",0)],"最高一回合 %s · 最大超杀 %s" % [C.format_full(records.bestTurn),R.format_overkill(records.maxOverkill)]]
+	if RC.is_current(): descriptions.append("三幕通关 %d 次 · 最高 %s" % [records.get("fullWins",0),_tier_text(int(records.bestClearedTier)) if int(records.get("bestClearedTier",-1)) >= 0 else "尚未通关"])
 	for description: String in descriptions:
-		var value: Label=Label.new(); value.add_theme_font_size_override("font_size",28); value.add_theme_color_override("font_color",Color(art.manifest.palette.textDim)); value.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER; value.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
+		var value: Label=Label.new(); value.add_theme_font_size_override("font_size",26); value.add_theme_color_override("font_color",Color(art.manifest.palette.textDim)); value.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER; value.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 		home_records.add_child(value); value.text=description
 	if layout.name == "portrait":
 		var positions: Array = L.hand_positions(5,layout)
@@ -416,7 +422,17 @@ func start_adventure() -> void:
 	_flush_settlements()
 	var profile: Dictionary = storage.load_profile()
 	if profile.is_empty(): _toast(storage.last_error); return
-	_reset(); screen = "adventure"; run_state = R.create_run(_seed(),{"startingRelics":Profile.starting_relics(profile),"runId":storage.new_run_id()}); run_state.game.opts.hint = prefs.hint
+	var options: Dictionary = {"startingRelics":Profile.starting_relics(profile),"runId":storage.new_run_id()}
+	if RC.is_current():
+		records = storage.load_records()
+		if not storage.last_error.is_empty(): _toast(storage.last_error); return
+		var tier: Variant = prefs.get("tier",0)
+		if not Progression.can_start_tier(records,tier).ok:
+			tier = 0; prefs.tier = 0; _toast("记住的难度尚未解锁，已回到基础档")
+		options.merge({"tier":tier,"unlockedTier":Progression.unlocked_tier(records),"tuningScale":debug_tuning_scale if debug_enabled else 1.0})
+	var next: Dictionary = R.create_run(_seed(),options)
+	if next.is_empty(): _toast(R.last_error); return
+	_reset(); screen = "adventure"; run_state = next; run_state.game.opts.hint = prefs.hint
 	game_state = run_state.game; saved_run = run_state
 	selected_exit = ""; selected_relic = -1; selected_loot = -1; selected_door = -1; shop_mode = ""; shop_selected = []; last_loot_fight = -1
 	_persist(); _render()
@@ -474,8 +490,10 @@ func _banner(text: String) -> void:
 	_label(text,layout.banner,46,null,true)
 
 func _adventure_top() -> void:
+	if RC.is_current() and run_state.relics.has("guard"):
+		_label("挡一次：本幕已用" if run_state.guardUsedThisAct else "挡一次：本幕可用",{"x":48 if layout.name == "landscape" else 500,"y":190 if layout.name == "landscape" else 145,"w":390,"h":42},26)
 	_label("第 %d 仗 · 第 %d 回合" % [run_state.fight,game_state.turn],layout.turn,32)
-	_label("%s · 第 %d 间" % [RC.RUN.acts[int(run_state.act)-1].name,run_state.room],layout.actLabel,28)
+	_label("%s · 第%d间 · %s" % [RC.RUN.acts[int(run_state.act)-1].name,run_state.room,_tier_text(int(run_state.get("difficulty",{}).get("tier",0)))],layout.actLabel,28)
 	var progress: Dictionary = layout.progress
 	for index: int in range(RC.RUN.acts[int(run_state.act)-1].rooms.size()):
 		var id: String = "ui_node_boss" if index == 5 else "ui_node_elite" if index == 2 else "ui_node_door" if index in [1,3,4] else "ui_node_fight"
@@ -571,8 +589,8 @@ func _take_relic() -> void:
 func _battle() -> void:
 	var adventure: bool = screen == "adventure"
 	var art_id: String = "mon_"+str(run_state.monster.key) if adventure else "dummy"
-	if not adventure or run_state.monster.key != "dragon": _anchored(("prop_frame" if run_state.act == 2 else "prop_pillar") if adventure else "prop_rack",layout.rackAnchor,layout.rackScale)
-	if adventure and run_state.act == 2: _anchored("prop_curtain",{"x":layout.width-layout.rackAnchor.x,"y":layout.rackAnchor.y},layout.rackScale)
+	if not adventure or run_state.monster.key != "dragon": _anchored(("prop_coins" if run_state.act == 3 else "prop_frame" if run_state.act == 2 else "prop_pillar") if adventure else "prop_rack",layout.rackAnchor,layout.rackScale)
+	if adventure and run_state.act >= 2: _anchored("prop_urn" if run_state.act == 3 else "prop_curtain",{"x":layout.width-layout.rackAnchor.x,"y":layout.rackAnchor.y},layout.rackScale)
 	monster_motion = Control.new(); monster_motion.size = stage.size; monster_motion.pivot_offset = Vector2(layout.dummyAnchor.x, layout.dummyAnchor.y); monster_motion.mouse_filter = Control.MOUSE_FILTER_IGNORE; scene.add_child(monster_motion)
 	monster = _anchored(art_id,layout.dummyAnchor,float(layout.monsterScale.boss if adventure and run_state.monster.key == "dragon" else layout.monsterScale.normal if adventure else layout.dummyScale), monster_motion)
 	if adventure:
@@ -1104,6 +1122,12 @@ func _input(event: InputEvent) -> void:
 	if event.ctrl_pressed or event.meta_pressed or event.alt_pressed or focus is LineEdit or focus is TextEdit or focus is OptionButton: return
 	if event.keycode == KEY_ESCAPE: _cancel_drag(); return
 	if transition: return
+	if screen == "difficulty":
+		if event.keycode >= KEY_0 and event.keycode <= KEY_5:
+			var tier: int = int(event.keycode-KEY_0)
+			if Progression.can_start_tier(records,tier).ok: selected_tier = tier; _render()
+		elif event.keycode in [KEY_ENTER,KEY_SPACE]: _confirm_difficulty()
+		return
 	var phase: String = str(run_state.get("phase", ""))
 	if screen == "adventure" and phase == "act_choice":
 		if event.keycode == KEY_1: _select_exit("retreat")
@@ -1199,6 +1223,8 @@ func play_card(index: int, from: Variant = null) -> void:
 	var painted_score: float = display_score
 	var old_rule: Variant = R.current_rule(run_state) if not run_state.is_empty() else null
 	var countdown_before: int = int(run_state.monster.countdown) if not run_state.is_empty() else 0
+	var hp_before: float = float(run_state.monster.hp) if not run_state.is_empty() else 0
+	var guard_before: bool = bool(run_state.get("guardUsedThisAct",false))
 	var entry: Dictionary = R.play_run_card(run_state,index) if not run_state.is_empty() else C.play_card(game_state,index)
 	if entry.is_empty():
 		if not run_state.is_empty(): _toast(R.last_error)
@@ -1304,7 +1330,7 @@ func _present_effects(entry: Dictionary, countdown_before: int, old_rule: Varian
 	var hastened: bool = false
 	for effect: Dictionary in entry.get("effects", []):
 		var id: String = effect.id
-		if id == "potion": sound.heal()
+		if id in ["potion","rbheal"]: sound.heal()
 		elif id in ["duck","picky"]: _toast(RC.RULES[id].name)
 		elif id == "hourglass": sound.hourglass()
 		elif id == "seal": sound.seal()
@@ -1597,6 +1623,8 @@ func _settle_turn() -> void:
 	var old_hearts: int = int(run_state.hearts) if not run_state.is_empty() else 0
 	var broken: bool = not run_state.is_empty() and bool(run_state.monster.broken)
 	var countdown_before: int = int(run_state.monster.countdown) if not run_state.is_empty() else 0
+	var hp_before: float = float(run_state.monster.hp) if not run_state.is_empty() else 0
+	var guard_before: bool = bool(run_state.get("guardUsedThisAct",false))
 	var fly: Array = row_nodes.values()
 	if broken: fly.append_array(hand_nodes.values())
 	_fly_cards(fly, 60.0 if broken else 30.0)
@@ -1632,6 +1660,9 @@ func _settle_turn() -> void:
 	else:
 		_render(); _draw_animation(_new_cards(old_hand))
 		if not run_state.is_empty() and countdown_before != int(run_state.monster.countdown): _update_countdown(int(run_state.monster.countdown), true)
+		if not run_state.is_empty() and RC.is_current():
+			if float(run_state.monster.hp) > hp_before: _toast("长回去：恢复 "+C.format_full(run_state.monster.hp-hp_before))
+			if not guard_before and run_state.guardUsedThisAct: _toast("挡一次：挡住了这次攻击")
 
 func _death_transition(old_hearts: int) -> void:
 	transition = true
@@ -1966,7 +1997,7 @@ func _result() -> void:
 	content.alignment=BoxContainer.ALIGNMENT_CENTER
 	content.add_theme_constant_override("separation",24 if layout.name=="portrait" else 8)
 	scroll.add_child(content)
-	var knocker: Label=_result_label(content,"老门环：门给你留着，下回再来。" if result.outcome=="retreat" else "老门环：这回龙替你保管。人回来了，就还能再来。",26,Color.WHITE,true)
+	var knocker: Label=_result_label(content,"老门环：这回，最大的那颗也归你了。" if result.outcome=="victory" else "老门环：门给你留着，下回再来。" if result.outcome=="retreat" else "老门环：这回龙替你保管。人回来了，就还能再来。",26,Color.WHITE,true)
 	knocker.add_theme_constant_override("line_spacing",8)
 	var heading: String="带着宝物回家" if result.outcome=="retreat" else "倒在第 %d 仗 · %s" % [result.fight,RC.MONSTERS[result.monster].name] if result.outcome=="defeat" else "通关！ 新纪录" if result.newRecords.farthest else ""
 	if not heading.is_empty():
@@ -1994,10 +2025,18 @@ func _result() -> void:
 	_result_row(rows,"拿到的额外牌","没有" if extras.is_empty() else " · ".join(extras))
 	_result_row(rows,"进了几次工坊",str(run_state.shopsVisited))
 	_result_row(rows,"带了几件宝物",str(run_state.relics.size()),false,true)
-	_result_row(rows,"最远",_farthest_text(int(result.fight) if result.outcome == "retreat" else int(result.fight)-1))
-	if result.outcome == "retreat":
+	_result_row(rows,"最远",_farthest_text(R.cleared_fights(run_state) if RC.is_current() else int(result.fight) if result.outcome == "retreat" else int(result.fight)-1))
+	if result.outcome in ["retreat","victory"]:
 		for id: String in run_state.relics: _result_row(rows,RC.RELICS[id].name,"新收藏" if result.get("newCollection",[]).has(id) else "已带回" if result.recordsApplied else "等待保存")
 	else: _result_label(content,"这趟新宝物没有带回，已有收藏还在。",28)
+	if result.outcome == "victory":
+		var trophy: Label = _result_label(content,"获得大宝石" if result.get("firstBigGem",false) and result.recordsApplied else "大宝石已收藏" if result.recordsApplied else "通关进度尚未保存",30)
+		trophy.name = "BigGem"
+		var emblem: Control = Control.new(); emblem.custom_minimum_size = Vector2(96,96); content.add_child(emblem)
+		_art("relic_biggem",{"x":(scroll.size.x-96)/2.0,"y":0,"w":96,"h":96},emblem)
+		_result_label(content,_tier_text(int(run_state.difficulty.tier)),28)
+		if result.recordsApplied:
+			for tier: Variant in result.get("newUnlockedTiers",[]): _result_label(content,"新解锁："+_tier_text(int(tier)),28)
 	if not result.recordsApplied:
 		_modal_action(content,"重试保存",func() -> void: _settle_records(); _render())
 	_button("回首页",layout.result.home,go_home)
@@ -2005,7 +2044,7 @@ func _result() -> void:
 	var banner: Control=Control.new(); banner.name="ResultBanner"; banner.z_index=20; banner.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	_place(banner,layout.banner,scene)
 	_art("ui_banner",{"x":0,"y":0,"w":layout.banner.w,"h":layout.banner.h},banner)
-	_label("带着宝物回家" if result.outcome=="retreat" else "胜利" if result.outcome=="victory" else "失败",{"x":0,"y":0,"w":layout.banner.w,"h":layout.banner.h},56,banner,true)
+	_label("带着宝物回家" if result.outcome=="retreat" else "通关" if result.outcome=="victory" else "失败",{"x":0,"y":0,"w":layout.banner.w,"h":layout.banner.h},56,banner,true)
 
 func _open_modal(title: String) -> VBoxContainer:
 	var previous_focus: Control = get_viewport().gui_get_focus_owner()
@@ -2062,7 +2101,7 @@ func _show_rules() -> void:
 		_rules_heading(content,str(section[0]))
 		for index: int in range(1,section.size()): _paragraph(content,str(section[index]))
 	_rules_heading(content,"带宝物回家")
-	_paragraph(content,"门厅和长廊各有六间。打赢龙，先挑宝物，再决定去留。长廊已过就带回家。只有门厅精英增加手牌上限，长廊精英不再增加。")
+	_paragraph(content,"门厅、长廊、宝库各有六间。打赢前两条龙，先挑宝物，再决定去留；打赢宝库的龙就是通关。只有门厅精英增加手牌上限。")
 	_paragraph(content,"只有安全带回的宝物才进收藏，下次可选开局宝物。倒下或放弃，不带回本趟新宝物。")
 	for id: String in ["palette","potion","diamond"]: _paragraph(content,C.TOOLS[id].name+"："+TOOL_HELP[id])
 	_rules_heading(content,"怪的规矩")
@@ -2154,10 +2193,10 @@ func _debug_panel(content: VBoxContainer) -> void:
 	_modal_action(content,"重置测试收藏",_debug_collection_reset)
 	for stage: String in ["open","write","rename","delete"]:
 		_modal_action(content,"下次存储失败："+stage,func() -> void: storage.failure_stage = stage; _close_modal(); _toast("已设置一次存储失败"))
-	_paragraph(content,"血量倍数 ×%s（新开一局生效）" % RC.RUN.hpScale)
+	_paragraph(content,"血量倍数 ×%s（新开一局生效）" % debug_tuning_scale)
 	var scale_row: HBoxContainer = HBoxContainer.new(); content.add_child(scale_row)
 	for value: float in [1.0,1.5,2.0,3.0,4.0]:
-		var button: Button = Button.new(); button.text = "×%s" % value; scale_row.add_child(button); button.pressed.connect(func() -> void: RC.RUN.hpScale = value; _show_settings())
+		var button: Button = Button.new(); button.text = "×%s" % value; scale_row.add_child(button); button.pressed.connect(func() -> void: debug_tuning_scale = value; _show_settings())
 	_modal_action(content,"直接进工坊",func() -> void:
 		if run_state.is_empty(): start_adventure()
 		R.debug_enter_shop(run_state); shop_mode = ""; shop_selected = []; _debug_refresh())
@@ -2278,14 +2317,19 @@ func _toast(text: String) -> void:
 
 func _capture_snapshot() -> Dictionary:
 	if art_mode: return {"art":inspect_id}
-	return {"screen":screen,"run":null if run_state.is_empty() else run_state,"game":game_state}
+	var scroll: ScrollContainer = scene.find_child("CollectionScroll",true,false)
+	return {"screen":screen,"run":null if run_state.is_empty() else run_state,"game":game_state,"records":storage.load_records(),"profile":storage.load_profile(),"viewState":{"selectedTier":selected_tier,"collectionScroll":scroll.scroll_vertical if scroll != null else 0,"scenario":capture.get("scenario","")}}
 
 func _capture_scenario() -> void:
 	var scenario: String = capture.get("scenario","home")
+	if scenario.begins_with("batch3-"):
+		debug_enabled = true
+		if not _prepare_batch_three_capture(scenario.substr(7)):
+			push_error("第三批截图场景无效或存档目录未隔离："+scenario); get_tree().quit(2); return
 	if scenario == "collection": screen = "collection"; _render()
 	var result_bottom: bool=scenario=="victory-bottom"
 	if result_bottom: scenario="victory"
-	if scenario not in ["home","collection"] and not art_mode:
+	if scenario not in ["home","collection"] and not scenario.begins_with("batch3-") and not art_mode:
 		debug_enabled = true; start_adventure()
 		if scenario == "practice": start_practice()
 		elif scenario == "relic": pass
@@ -2318,6 +2362,10 @@ func _capture_scenario() -> void:
 	if result_bottom:
 		var scroll: ScrollContainer=scene.find_child("ResultScroll",true,false)
 		if scroll!=null: scroll.scroll_vertical=int(scroll.get_v_scroll_bar().max_value)
+		await get_tree().process_frame
+	if scenario == "batch3-collection-bottom":
+		var collection_scroll: ScrollContainer = scene.find_child("CollectionScroll",true,false)
+		if collection_scroll != null: collection_scroll.scroll_vertical = int(collection_scroll.get_v_scroll_bar().max_value)
 		await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	if capture.has("path"):
@@ -2397,7 +2445,9 @@ class PresentationButton extends Button:
 func _farthest_text(cleared: int) -> String:
 	if cleared <= 0: return "还没有纪录"
 	if cleared == 6: return "门厅已过"
-	if cleared >= 12: return "长廊已过"
+	if cleared >= 18: return "宝库已过"
+	if cleared > 12: return "宝库第 %d 间" % (cleared-11)
+	if cleared == 12: return "长廊已过"
 	return "门厅第 %d 间" % (cleared+1) if cleared < 6 else "长廊第 %d 间" % (cleared-5)
 
 func _collection() -> void:
@@ -2405,27 +2455,29 @@ func _collection() -> void:
 	var profile: Dictionary = storage.load_profile()
 	var owned: Array = Profile.starting_relics(profile)
 	var panel: Control = _panel(_content_panel_box(),scene,48)
-	var count: Label = _label("已收藏 %d/15" % owned.size(),{"x":36,"y":20,"w":panel.size.x-72,"h":56},36,panel,true)
+	var count: Label = _label("已收藏 %d/%d" % [owned.size(),RC.RUN.relicPool.size()],{"x":36,"y":20,"w":panel.size.x-72,"h":56},36,panel,true)
 	count.name = "CollectionCount"
+	if RC.is_current():
+		_label("大宝石 · 已收藏" if Progression.has_big_gem(records) else "大宝石 · 三幕通关后获得",{"x":36,"y":76,"w":panel.size.x-72,"h":44},26,panel,true)
 	if profile.is_empty():
 		_label(storage.last_error,{"x":36,"y":90,"w":panel.size.x-72,"h":160},28,panel,true)
 	else:
 		var items: Array = []
-		for id: String in RC.RELIC_IDS: items.append({"art":"relic_"+id,"name":RC.RELICS[id].name,"text":RC.RELICS[id].text,"collected":owned.has(id)})
+		for id: String in RC.RUN.relicPool: items.append({"art":"relic_"+id,"name":RC.RELICS[id].name,"text":RC.RELICS[id].text,"collected":owned.has(id)})
 		var scroll: ScrollContainer = Collection.new(); panel.add_child(scroll)
-		scroll.position = Vector2(36,90); scroll.size = panel.size-Vector2(72,120); scroll.setup(art,items)
+		scroll.position = Vector2(36,136 if RC.is_current() else 90); scroll.size = panel.size-Vector2(72,166 if RC.is_current() else 120); scroll.setup(art,items)
 	_button("返回",layout.result.home,go_home)
 
 func _act_choice() -> void:
-	_banner("带走，还是继续？" if run_state.act == 1 else "长廊已过")
+	_banner("带走，还是继续？" if run_state.act == 1 or RC.is_current() else "长廊已过")
 	var panel: Control = _panel(_content_panel_box(),scene,48)
 	var scroll: ScrollContainer = ScrollContainer.new(); scroll.name = "ActChoiceScroll"
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.position = Vector2(40,30); scroll.size = panel.size-Vector2(80,60); panel.add_child(scroll)
 	var content: VBoxContainer = VBoxContainer.new(); content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	content.add_theme_constant_override("separation",24); scroll.add_child(content)
-	_paragraph(content,"老门环：现在走，这些就是你的。接着追，里头还有。" if run_state.act == 1 else "老门环：这一趟够沉了，带着宝物回家吧。",30)
-	_paragraph(content,"带出大门才算你的" if run_state.act == 1 else "长廊已过，带着宝物回家吧。",28)
+	_paragraph(content,"老门环：现在走，这些就是你的。接着追，里头还有。" if run_state.act == 1 or RC.is_current() else "老门环：这一趟够沉了，带着宝物回家吧。",30)
+	_paragraph(content,"带出大门才算你的" if run_state.act == 1 or RC.is_current() else "长廊已过，带着宝物回家吧。",28)
 	var names: Array[String] = []
 	for id: String in run_state.relics: names.append(RC.RELICS[id].name)
 	_paragraph(content,"身上带着："+" · ".join(names),26)
@@ -2465,3 +2517,60 @@ func _debug_collection_reset() -> void:
 	envelope.profile = Profile.create_profile()
 	if storage._write_records(envelope.records,envelope.clearedRun,envelope): _toast("测试收藏已重置")
 	else: _toast(storage.last_error)
+
+func _tier_text(tier: int) -> String:
+	return "基础档" if tier == 0 else "加码%d" % tier
+func _open_difficulty() -> void:
+	if not RC.is_current(): start_adventure(); return
+	_reset(); screen = "difficulty"; selected_tier = int(prefs.get("tier",0))
+	if not Progression.can_start_tier(records,selected_tier).ok:
+		selected_tier = 0; prefs.tier = 0; _toast("记住的难度尚未解锁，已回到基础档")
+	_render()
+func _difficulty() -> void:
+	_banner("难度")
+	var panel: Control = _panel(_content_panel_box(),scene,48)
+	for tier: int in range(6):
+		var enabled: bool = Progression.can_start_tier(records,tier).ok
+		var button: Button = _button(("✓ " if selected_tier == tier else "")+_tier_text(tier)+" · 血量×"+str(RC.DIFFICULTY_TIERS[tier])+(" · 锁定" if not enabled else ""),{"x":32+(tier%2)*(panel.size.x/2.0),"y":24+int(tier/2)*104,"w":panel.size.x/2.0-48,"h":88},func() -> void: selected_tier = tier; _render(),false,"",panel)
+		button.name = "Tier"+str(tier); button.disabled = not enabled
+	_label("通关基础档后解锁加码1、2" if not Progression.has_big_gem(records) else "通关可再开放后两档；只增加怪物血量。",{"x":32,"y":356,"w":panel.size.x-64,"h":96},26,panel,true)
+	_button("返回",{"x":panel.position.x,"y":layout.result.home.y,"w":320,"h":layout.result.home.h},go_home)
+	var confirm_box: Dictionary = layout.result.again.duplicate(); confirm_box.x = panel.position.x+panel.size.x-440; confirm_box.w = 440
+	var confirm: Button = _button("以此难度开局",confirm_box,_confirm_difficulty,true)
+	confirm.name = "DifficultyConfirm"; confirm.disabled = not Progression.can_start_tier(records,selected_tier).ok
+func _confirm_difficulty() -> void:
+	if screen != "difficulty" or transition or not Progression.can_start_tier(records,selected_tier).ok: return
+	prefs.tier = selected_tier
+	if not storage.save_settings(prefs): _storage_warning(); return
+	start_adventure()
+
+func _prepare_batch_three_capture(scenario: String) -> bool:
+	if not RC.is_current() or not debug_enabled or not storage.directory.contains("/artifacts/"): return false
+	var allowed: Array = ["difficulty-locked","difficulty-unlocked","vault-regrow","vault-cap","vault-dragon","act2-choice","victory","victory-save-pending","collection-top","collection-bottom"]
+	if scenario not in allowed: return false
+	if scenario.begins_with("difficulty-") or scenario.begins_with("collection-"):
+		var fixture: Dictionary = R.create_records()
+		if scenario != "difficulty-locked": fixture.merge({"played":3,"wins":3,"fullWins":3,"bestClearedTier":4})
+		if not storage.save_records(fixture): return false
+		if scenario.begins_with("collection-"):
+			var envelope: Dictionary = storage._read_records(); envelope.profile = Profile.apply_safe_exit(envelope.profile,RC.RELIC_IDS)
+			if not storage._write_records(fixture,envelope.clearedRun,envelope): return false
+		records = storage.load_records(); selected_tier = 0; screen = "difficulty" if scenario.begins_with("difficulty-") else "collection"; _render(); return true
+	prefs.tier = 0; start_adventure(); R.choose_relic(run_state,0)
+	if scenario == "act2-choice":
+		for spot: Array in [[1,3],[1,6],[2,3],[2,6]]:
+			R.debug_jump_act_room(run_state,spot[0],spot[1]); R.debug_set_monster_hp(run_state,0); R.end_run_turn(run_state); R.choose_relic(run_state,0)
+	elif scenario == "vault-regrow": R.debug_jump_act_room(run_state,3,1); R.start_battle(run_state,"tree")
+	elif scenario == "vault-cap": R.debug_jump_act_room(run_state,3,3); run_state.game.m = 32
+	else:
+		R.debug_jump_act_room(run_state,3,6)
+		for id: String in RC.RELIC_IDS:
+			if run_state.relics.size() >= 6: break
+			R.acquire_relic(run_state,id)
+		R.debug_set_monster_hp(run_state,run_state.monster.maxHp/3.0); run_state.game.m = 32
+		if scenario in ["victory","victory-save-pending"]:
+			if not storage.save_run(run_state): return false
+			if scenario == "victory-save-pending": storage.failure_stage = "write"; storage.failure_remaining = -1
+			R.debug_set_monster_hp(run_state,0); R.end_run_turn(run_state)
+	game_state = run_state.game; _persist(); _render()
+	return true

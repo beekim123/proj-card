@@ -34,6 +34,7 @@ func _run() -> void:
 		if precision.get("failed_names",[]).is_empty(): failures.append("precision: "+str(precision.failed)+" failed")
 	preload("res://rules/run_config.gd").use_batch_two()
 	for name: String in ["cards","run","profile","save","ui","replay"]:
+		preload("res://rules/run_config.gd").use_current() if name == "ui" else preload("res://rules/run_config.gd").use_batch_two()
 		var batch: GDScript = load("res://tests/test_batch_two_"+name+".gd")
 		if batch == null or not batch.can_instantiate(): failures.append("batch_two_"+name+": cannot load"); continue
 		var result: Dictionary = await batch.new().run()
@@ -41,12 +42,20 @@ func _run() -> void:
 		total += int(result.get("passed",0))
 		for failure: Variant in result.get("failures",[]): failures.append("batch_two_"+name+": "+str(failure))
 		print("SUITE batch_two_",name,": ",result.get("passed",0)," passed, ",result.get("failed",0)," failed")
+	preload("res://rules/run_config.gd").use_batch_two()
 	var preflight: Dictionary = await preload("res://tests/test_batch_three_preflight.gd").new().run()
 	report.suites["batch_three_preflight"] = preflight
 	total += int(preflight.passed)
 	for failure: String in preflight.failures: failures.append("preflight: "+failure)
 	print("SUITE preflight: ",preflight.passed," passed, ",preflight.failed," failed")
 	preload("res://rules/run_config.gd").use_current()
+	for name: String in ["effects","run","progression","save","ui","replay"]:
+		var script: GDScript = load("res://tests/test_batch_three_"+name+".gd")
+		if script == null or not script.can_instantiate(): failures.append("batch_three_"+name+": cannot load"); continue
+		var result: Dictionary = await script.new().run()
+		report.suites["batch_three_"+name] = result; total += int(result.get("passed",0))
+		for failure: Variant in result.get("failures",[]): failures.append("batch_three_"+name+": "+str(failure))
+		print("SUITE batch_three_",name,": ",result.get("passed",0)," passed, ",result.get("failed",0)," failed")
 	var smoke: GDScript = load("res://tests/test_ui_smoke.gd") as GDScript
 	if smoke == null: failures.append("UI smoke missing")
 	else:

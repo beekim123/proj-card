@@ -59,6 +59,7 @@ func _init(shared_clock: RefCounted = null) -> void:
 	if bold_font == null: bold_font = font
 	# Explicit native-only aliases, separate from delivered art and fingerprints.
 	var placeholders: Dictionary = _read_json("res://data/body-batch-2-placeholders.json")
+	placeholders.merge(_read_json("res://data/body-batch-3-placeholders.json"))
 	for id: String in placeholders:
 		var source: String = placeholders[id][0]
 		if not assets.has(source): push_error("占位来源缺失："+source); continue
@@ -285,3 +286,9 @@ func dispose() -> void:
 	_texture_cache.clear()
 	_texture_lru.clear()
 	_texture_bytes = 0
+
+func catalog() -> Array:
+	var entries: Array = manifest.get("assets",[]).duplicate(true)
+	for id: String in assets:
+		if assets[id].definition.get("nativePlaceholder",false): entries.append(assets[id].definition.duplicate(true))
+	return entries

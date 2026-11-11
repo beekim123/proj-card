@@ -52,7 +52,7 @@ func setup(art_store: RefCounted) -> void:
 	var root_box: VBoxContainer = VBoxContainer.new()
 	margin.add_child(root_box)
 	var heading: Label = Label.new()
-	heading.text = "素材检查 · %d 项" % store.manifest.get("assets", []).size()
+	heading.text = "素材检查 · %d 项" % store.catalog().size()
 	heading.add_theme_font_size_override("font_size", 36)
 	root_box.add_child(heading)
 	var toolbar: HFlowContainer = HFlowContainer.new(); toolbar.name = "Toolbar"; root_box.add_child(toolbar)
@@ -78,7 +78,7 @@ func setup(art_store: RefCounted) -> void:
 	_list = VBoxContainer.new()
 	_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	list_scroll.add_child(_list)
-	for definition: Dictionary in store.manifest.get("assets", []):
+	for definition: Dictionary in store.catalog():
 		var id: String = definition["id"]
 		var item: Button = Button.new()
 		item.text = id
@@ -100,8 +100,8 @@ func setup(art_store: RefCounted) -> void:
 	_details.add_theme_constant_override("separation", 12)
 	_details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	detail_scroll.add_child(_details)
-	if not store.manifest.get("assets", []).is_empty():
-		select_asset(store.manifest["assets"][0]["id"])
+	if not store.catalog().is_empty():
+		select_asset(store.catalog()[0]["id"])
 	set_filters(_changed_only,_batch); set_light_theme(_light)
 
 func set_filters(changed_only: bool, batch: String = "all") -> void:
@@ -283,7 +283,7 @@ func select_asset(id: String) -> void:
 		var icons: OptionButton = OptionButton.new()
 		icons.name = "IconSlot"
 		var icon_ids: Array[String] = []
-		for candidate: Dictionary in store.manifest.get("assets", []):
+		for candidate: Dictionary in store.catalog():
 			if candidate.get("load", "") == "img":
 				icon_ids.append(candidate["id"])
 				icons.add_item(candidate["id"])

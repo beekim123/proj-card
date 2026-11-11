@@ -23,7 +23,7 @@ func run() -> Dictionary:
 		app.forced_layout = direction; app._resize(); app.go_home()
 		check(app.scene.find_child("CollectionEntry",true,false) != null,direction+" home collection entry")
 		app.screen = "collection"; app._render(); await tree.process_frame
-		check(app.scene.find_child("CollectionScroll",true,false) != null and app.scene.find_child("CollectionCount",true,false).text.contains(str(app.storage.load_profile().collected.size())+"/15"),direction+" collection scroll and initial count")
+		check(app.scene.find_child("CollectionScroll",true,false) != null and app.scene.find_child("CollectionCount",true,false).text.contains(str(app.storage.load_profile().collected.size())+"/"+str(RC.RUN.relicPool.size())),direction+" collection scroll and initial count")
 		app.start_adventure(); R.choose_relic(app.run_state,0)
 		R.debug_jump_act_room(app.run_state,1,6); Helper.new().win(app.run_state); R.choose_relic(app.run_state,0)
 		app.game_state = app.run_state.game; app._render(); await tree.process_frame
@@ -44,7 +44,7 @@ func run() -> Dictionary:
 		app._preview_card(app.game_state.hand[0],500); app._hide_preview()
 		R.debug_jump_act_room(app.run_state,2,6); Helper.new().win(app.run_state); R.choose_relic(app.run_state,0)
 		app.game_state = app.run_state.game; app._render(); await tree.process_frame
-		check(app.scene.find_child("ExitContinue",true,false) == null and app.scene.find_child("ExitRetreat",true,false) != null,direction+" corridor only retreat")
+		check((app.scene.find_child("ExitContinue",true,false) != null if RC.is_current() else app.scene.find_child("ExitContinue",true,false) == null) and app.scene.find_child("ExitRetreat",true,false) != null,direction+" corridor choices follow content version")
 		app._select_exit("retreat"); app._confirm_exit(); app._confirm_exit()
 		check(app.run_state.phase == "retreat" and app.run_state.result.recordsApplied,direction+" retreat settled once")
 		check(app.scene.find_child("ResultBanner",true,false) != null,direction+" retreat result")

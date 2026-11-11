@@ -27,7 +27,7 @@ static func clone_run(state: Dictionary) -> Dictionary:
 	return state.duplicate(true)
 
 static func make_monster(key: String, fight: int, hp_scale: Variant = null) -> Dictionary:
-	var scale: float = float(RC.RUN.hpScale if hp_scale == null else hp_scale)
+	var scale: float = float((1.0 if RC.is_current() else RC.RUN.hpScale) if hp_scale == null else hp_scale)
 	var config: Dictionary = RC.RUN.fights[fight - 1]
 	var result: Dictionary = {"key": key, "hp": config.hp * scale, "maxHp": config.hp * scale,
 		"countdown": config.countdown, "maxCountdown": config.countdown,
@@ -53,7 +53,7 @@ static func create_run(seed: Variant, options: Dictionary = {}) -> Dictionary:
 		if multiplier < 0 or not _integer(unlocked) or unlocked < 0 or unlocked > 5 or tier > unlocked or not (tuning is int or tuning is float) or not is_finite(float(tuning)) or tuning <= 0:
 			_fail("难度未解锁或倍率无效"); return {}
 		scale = multiplier*float(tuning)
-		if not is_finite(scale) or scale <= 0: _fail("血量倍率无效"); return {}
+		if not is_finite(scale) or not is_finite(scale*25000000.0) or scale <= 0: _fail("血量倍率无效"); return {}
 	var game: Dictionary = Core.create_game(seed, {"hand": RC.RUN.handStart, "grow": true, "tools": false})
 	if not Core.last_error.is_empty():
 		_fail(Core.last_error); return {}
@@ -102,6 +102,7 @@ static func choose_relic(state: Dictionary, option_index: Variant) -> Dictionary
 
 static func acquire_relic(state: Dictionary, relic: String) -> void:
 	if state.relics.has(relic): return
+	if RC.is_current() and (not RC.RUN.relicPool.has(relic) or state.relics.size() >= 6): _fail("普通宝物无效或已达6件上限"); return
 	state.relics.append(relic)
 	if state.relic == null: state.relic = relic
 	state.game.relic = state.relic

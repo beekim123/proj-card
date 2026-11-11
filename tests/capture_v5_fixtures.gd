@@ -21,6 +21,8 @@ func capture(label: String, state: Dictionary, commands: String) -> void:
 	var file: FileAccess = FileAccess.open(path,FileAccess.WRITE); file.store_string(raw); file.close()
 	manifest.fixtures[label] = {"commands":commands,"sha256":str(raw).sha256_text(),"phase":state.phase,"rngState":state.game.rngState,"cards":state.cards.size(),"nextCardId":state.nextCardId,"hand":state.game.hand.duplicate(true),"relicOptions":state.relicOptions.duplicate(true)}
 func _run() -> void:
+	if FileAccess.file_exists("res://tests/fixtures/body-batch-3/manifest.json"):
+		printerr("Frozen v5 fixtures already exist; refusing to regenerate expectations"); quit(2); return
 	DirAccess.make_dir_recursive_absolute("res://tests/fixtures/body-batch-3")
 	var s: Dictionary = fresh(); capture("initial-relic",s,"create_run(1979)")
 	R.choose_relic(s,0); capture("battle",s,"choose_relic(0)")

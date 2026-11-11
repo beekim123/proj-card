@@ -23,7 +23,7 @@ func _run_cases(tree: SceneTree) -> Dictionary:
 	tree.root.add_child(inspector)
 	inspector.setup(store)
 	await tree.process_frame
-	_check("preserves all 89 asset choices and selected preview API",inspector.asset_buttons.size() == 89 and inspector.preview != null and inspector.previews.size() > 0)
+	_check("preserves original assets plus explicit native placeholders and selected preview API",inspector.asset_buttons.size() == store.catalog().size() and inspector.preview != null and inspector.previews.size() > 0)
 	for method: String in ["set_filters","set_light_theme","show_composition","play_two_hit_instances"]:
 		_check("inspector exposes "+method,inspector.has_method(method))
 	if not inspector.has_method("show_composition"):
@@ -31,7 +31,7 @@ func _run_cases(tree: SceneTree) -> Dictionary:
 	for batch: String in ["all","第1批","第2批","本体第1批","本体第2批"]:
 		for changed: bool in [false,true]:
 			var expected: int = 0
-			for definition: Dictionary in store.manifest.assets:
+			for definition: Dictionary in store.catalog():
 				if (not changed or definition.get("status","已有") != "已有") and (batch == "all" or definition.get("v2","") == batch or definition.get("batch","") == batch): expected += 1
 			inspector.set_filters(changed,batch)
 			var actual: int = 0
@@ -40,7 +40,7 @@ func _run_cases(tree: SceneTree) -> Dictionary:
 			_check("matches H5 filter and count %s / %s" % [batch,changed],actual == expected and inspector.filtered_count == expected)
 	inspector.set_filters(false,"all")
 	_check("filter treats missing status as 已有",Inspector.matches_asset_filter({},false,"all") and not Inspector.matches_asset_filter({},true,"all"))
-	for definition: Dictionary in store.manifest.assets:
+	for definition: Dictionary in store.catalog():
 		inspector.select_asset(definition.id)
 		_check("every manifest item retains selectable preview: "+definition.id,inspector.selected_id == definition.id and inspector.preview != null and inspector.preview.art_id == definition.id)
 	inspector.set_light_theme(true)

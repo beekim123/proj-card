@@ -349,7 +349,7 @@ static func _v5_details(value: Dictionary) -> bool:
 		if multiplier < 0 or not number(value.difficulty.tuningScale) or value.difficulty.tuningScale <= 0 or value.hpScale != multiplier*value.difficulty.tuningScale: return false
 		if not value.get("guardUsedThisAct") is bool or (not value.relics.has("guard") and value.guardUsedThisAct): return false
 		for history: Dictionary in value.hist:
-			if not history.get("guardUsedThisAct") is bool or (not value.relics.has("guard") and history.guardUsedThisAct): return false
+			if not history.get("guardUsedThisAct") is bool or history.guardUsedThisAct != value.guardUsedThisAct: return false
 	var count: Dictionary = {}
 	for item: Dictionary in value.cards:
 		if item.id >= value.nextCardId: return false

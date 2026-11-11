@@ -110,7 +110,7 @@ static func run() -> Dictionary:
 		var inspector: Control = inspector_script.new()
 		inspector.size = Vector2(1200, 900)
 		inspector.setup(store)
-		_check(result, inspector.asset_buttons.size() == 89, "检查器列出全部89项素材")
+		_check(result, inspector.asset_buttons.size() == store.catalog().size(), "检查器列出原89项与显式原生占位")
 		inspector.select_asset("mon_clock")
 		_check(result, inspector.preview.art_id == "mon_clock" and inspector.find_child("Events", true, false).get_child_count() == 8 and inspector.find_child("Slot_countdown_slot", true, false) != null, "检查器切座钟时提供全部事件和数字槽")
 		inspector.select_asset("ui_rainbow_slot")
