@@ -6,7 +6,7 @@
 
 前置独立提交21220fd6b6de8fe0b843784928ff6e4df4a280db：修debug补牌身份递增与原生文字/容器/限六张提示几何。真实节点→现场→文件→新持久化实例恢复测试通过；L01–L04视觉解除未做。冻结两幕f63c4b4，核心a837437，UI/回归a2bc390，黄金辅助测试冻结c79090a。最后一个提交只明确旧黄金迁移在冻结第二批运行，未改312份黄金原文、比较器或投影。
 
-实现入口：rules/run_config.gd（冻结模式/三幕/加码）、effects.gd与index.gd（四宝物/两规矩）、run.gd（幕生命周期/终局）、progression.gd（派生进度）、save_state.gd（v6及旧档迁移）、app/persistence.gd（records v3原子提交）、app/game.gd及ui（原生接入）。详细测试边界见batch-3-test-migration.md。
+实现入口：rules/run_config.gd（冻结模式/三幕/加码）、effects.gd与index.gd（四宝物/两规矩）、run.gd（幕生命周期/终局）、progression.gd（派生进度）、save_state.gd（v6及旧档迁移）、scripts/app/persistence.gd（records v3原子提交）、scripts/app/game.gd及scripts/ui（原生接入）。详细测试边界见batch-3-test-migration.md。
 
 ## 实际检查记录
 

@@ -1,0 +1,91 @@
+H5 reference unchanged: 1044 files
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SUITE test_core: 91 passed, 0 failed
+Oracle progress: 1 cases, 0 calls; extra-cards.test.ts
+Oracle progress: 26 cases, 200 calls; extra-cards.test.ts
+Oracle progress: 51 cases, 337 calls; rules.test.ts
+Oracle progress: 76 cases, 2536 calls; rules.test.ts
+Oracle progress: 101 cases, 3009 calls; save-state.test.ts
+SUITE test_oracle_remaining: 117 passed, 0 failed
+Oracle progress: 1 cases, 0 calls; batch-one-cards.test.ts
+Oracle progress: 26 cases, 201 calls; batch-one-cards.test.ts
+Oracle progress: 51 cases, 1858 calls; batch-one-run.test.ts
+Oracle progress: 76 cases, 9575 calls; batch-one-save.test.ts
+Oracle progress: 101 cases, 35035 calls; integration.test.ts
+Oracle progress: 126 cases, 57333 calls; integration.test.ts
+Oracle progress: 151 cases, 80565 calls; integration.test.ts
+Oracle progress: 176 cases, 104068 calls; integration.test.ts
+Oracle progress: 201 cases, 120201 calls; run.test.ts
+Oracle progress: 226 cases, 168280 calls; run.test.ts
+Oracle progress: 251 cases, 168703 calls; v2-rules.test.ts
+SUITE test_run: 263 passed, 0 failed
+WARNING: Exponent too high
+     at: built_in_strtod (core/string/ustring.cpp:2553)
+     GDScript backtrace (most recent call first):
+         [0] parse_json_exact (res://rules/save_state.gd:259)
+         [1] decode_run_save (res://rules/save_state.gd:299)
+         [2] run (res://tests/test_save.gd:206)
+         [3] _run (res://tests/run_all.gd:16)
+SUITE test_save: 26 passed, 0 failed
+SUITE test_layout: 90 passed, 0 failed
+SUITE test_art: 209 passed, 0 failed
+SUITE test_persistence: 17 passed, 0 failed
+GOLDEN 25/312 traces; 3412 steps
+GOLDEN 50/312 traces; 6140 steps
+GOLDEN 75/312 traces; 9356 steps
+GOLDEN 100/312 traces; 12543 steps
+GOLDEN 125/312 traces; 15830 steps
+GOLDEN 150/312 traces; 18543 steps
+GOLDEN 175/312 traces; 21154 steps
+GOLDEN 200/312 traces; 24415 steps
+GOLDEN 225/312 traces; 27614 steps
+GOLDEN 250/312 traces; 30265 steps
+GOLDEN 275/312 traces; 33199 steps
+GOLDEN 300/312 traces; 36363 steps
+SUITE test_golden: 312 passed, 0 failed
+HISTORICAL 50/400
+HISTORICAL 100/400
+HISTORICAL 150/400
+HISTORICAL 200/400
+HISTORICAL 250/400
+HISTORICAL 300/400
+HISTORICAL 350/400
+HISTORICAL 400/400
+SUITE test_historical: 400 passed, 0 failed
+SUITE batch_two_cards: 104 passed, 0 failed
+SUITE batch_two_run: 61 passed, 0 failed
+SUITE batch_two_profile: 4 passed, 0 failed
+SUITE batch_two_save: 80 passed, 0 failed
+SUITE batch_two_ui: 59 passed, 0 failed
+BATCH TWO REPLAY 10/100; 1829 commands
+BATCH TWO REPLAY 20/100; 2971 commands
+BATCH TWO REPLAY 30/100; 4645 commands
+BATCH TWO REPLAY 40/100; 5918 commands
+BATCH TWO REPLAY 50/100; 7298 commands
+BATCH TWO REPLAY 60/100; 8787 commands
+BATCH TWO REPLAY 70/100; 10213 commands
+BATCH TWO REPLAY 80/100; 11416 commands
+BATCH TWO REPLAY 90/100; 12710 commands
+BATCH TWO REPLAY 100/100; 13941 commands
+SUITE batch_two_replay: 100 passed, 0 failed
+SUITE preflight: 125 passed, 0 failed
+SUITE batch_three_effects: 35 passed, 0 failed
+SUITE batch_three_run: 21 passed, 0 failed
+SUITE batch_three_progression: 21 passed, 0 failed
+SUITE batch_three_save: 109 passed, 0 failed
+SUITE batch_three_ui: 47 passed, 0 failed
+BATCH THREE REPLAY 10/100; 1095 commands
+BATCH THREE REPLAY 20/100; 1781 commands
+BATCH THREE REPLAY 30/100; 2514 commands
+BATCH THREE REPLAY 40/100; 3819 commands
+BATCH THREE REPLAY 50/100; 4772 commands
+BATCH THREE REPLAY 60/100; 5619 commands
+BATCH THREE REPLAY 70/100; 6676 commands
+BATCH THREE REPLAY 80/100; 7805 commands
+BATCH THREE REPLAY 90/100; 8846 commands
+BATCH THREE REPLAY 100/100; 9840 commands
+SUITE batch_three_replay: 100 passed, 0 failed
+原生检查完成 — 5764 native checks
+H5 reference unchanged: 1044 files
+全部通过
