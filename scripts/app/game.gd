@@ -1,5 +1,7 @@
 extends Control
 ## Native presentation of the unchanged portable rules. All decisions call rules/.
+const Profile: GDScript = preload("res://rules/profile.gd")
+const Collection: GDScript = preload("res://scripts/ui/collection_panel.gd")
 const C: GDScript = preload("res://rules/index.gd")
 const R: GDScript = preload("res://rules/run.gd")
 const RC: GDScript = preload("res://rules/run_config.gd")
@@ -14,7 +16,7 @@ const Display: GDScript = preload("res://scripts/app/display.gd")
 const DRAW: Dictionary = {"interval":90.0,"fly":380.0,"flip":180.0,"arc":140.0}
 const STRIKE: Dictionary = {"lead":80.0,"firstGap":230.0,"decay":0.86,"minGap":110.0,"maxTotal":2600.0,"hold":520.0,"breakHold":700.0,"lift":36.0}
 const DEBUG_SEQUENCES: Dictionary = {1:[1,"lens"],2:[3,"lens"],3:[1,3,"hammer"],4:[1,3,2,6,4,5,"hammer"],5:[1,3,2,6,"lens",5],6:[1,"mirror"],7:[0,"mirror"],8:["mirror"],9:[7,"mirror"],10:[1,"mirror",1],11:["stone",1],12:["hammer","hammer"],13:[1,"bag"],14:[1,3,2,6,4,"mirror"]}
-const TOOL_HELP: Dictionary = {"bag":"打出后从牌库摸 2 张。","lens":"打出后倍率再 ×2。","hammer":"打出后，这回合到这里的伤害 ×3。","hourglass":"倒计时 +1。打穿了就不加。","seal":"从下一张牌起，到这回合结束。","shadow":"宝石和反应都照抄上一张。第一张打它，什么都没有。","whistle":"从牌堆里找最上面的一张额外牌。牌堆里没有就不摸。","mirror":"变成上一张缺的宝石，一定和上一张凑白；这回合第一张打出时没有宝石。","stone":"打出后三颗宝石各长 5 次。"}
+const TOOL_HELP: Dictionary = {"palette":"跟前张宝石一样，算顺色，再补一种没亮的颜色。第一张为空托。","potion":"冒险回 1 颗心，用完消耗。练习回血无效，仍消耗，可在本回合撤回。","diamond":"本张每颗宝石底数 ×2，成长次数不变。","bag":"打出后从牌库摸 2 张。","lens":"打出后倍率再 ×2。","hammer":"打出后，这回合到这里的伤害 ×3。","hourglass":"倒计时 +1。打穿了就不加。","seal":"从下一张牌起，到这回合结束。","shadow":"宝石和反应都照抄上一张。第一张打它，什么都没有。","whistle":"从牌堆里找最上面的一张额外牌。牌堆里没有就不摸。","mirror":"变成上一张缺的宝石，一定和上一张凑白；这回合第一张打出时没有宝石。","stone":"打出后三颗宝石各长 5 次。"}
 var clock: Variant
 var art: Variant
 var sound: Variant
@@ -66,6 +68,7 @@ var hand_labels: Array[Control] = []
 var pending_draw_ids: Dictionary = {}
 var hand_nodes: Dictionary = {}
 var relic_nodes: Dictionary = {}
+var selected_exit: String = ""
 var selected_relic: int = -1
 var selected_loot: int = -1
 var selected_door: int = -1
@@ -111,6 +114,7 @@ func _ready() -> void:
 			var suffix: String = capture_scenario.trim_prefix("art-")
 			inspect_id = {"dragon": "mon_dragon", "clock": "mon_clock", "rainbow": "ui_rainbow_slot", "rule": "ui_rule_sign"}.get(suffix, suffix)
 	var test_directory: String = OS.get_environment("GEMCARD_SAVE_DIR")
+	if debug_enabled and test_directory.is_empty(): test_directory = "user://body-batch-2-debug"
 	storage = Persistence.new(test_directory)
 	prefs = storage.load_settings(); records = storage.load_records()
 	clock = Clock.new(); clock.configure(prefs); art = Store.new(clock)
@@ -333,10 +337,12 @@ func _render() -> void:
 	_round("规则",layout.rules,_show_rules,"ui_icon_rules")
 	_round("设置",layout.settings,_show_settings,"ui_icon_settings")
 	if screen == "home": _home(); return
+	if screen == "collection": _collection(); return
 	if screen == "adventure":
 		if run_state.get("result") != null and not attacking: _result(); return
 		_adventure_top()
 		match str(run_state.phase):
+			"act_choice": _act_choice(); return
 			"relic": _relic_pick(); return
 			"loot": _loot(); return
 			"doors": _doors(); return
@@ -351,7 +357,7 @@ func _shader_rect(code: String, uniforms: Dictionary, parent: Control, box: Rect
 	return node
 
 func _scene_background() -> void:
-	var background: TextureRect=TextureRect.new(); background.texture=art.image_texture(art.image_path("bg_tile")); background.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED; background.expand_mode=TextureRect.EXPAND_IGNORE_SIZE; background.stretch_mode=TextureRect.STRETCH_SCALE; background.size=stage.size; background.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	var background: TextureRect=TextureRect.new(); background.texture=art.image_texture(art.image_path("bg_tile_hall" if not run_state.is_empty() and run_state.get("act",1) == 2 else "bg_tile")); background.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED; background.expand_mode=TextureRect.EXPAND_IGNORE_SIZE; background.stretch_mode=TextureRect.STRETCH_SCALE; background.size=stage.size; background.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	var shader: Shader=Shader.new()
 	shader.code="shader_type canvas_item; uniform vec2 repeats=vec2(1.0); void fragment(){ COLOR=texture(TEXTURE,UV*repeats); }"
 	var material: ShaderMaterial=ShaderMaterial.new(); material.shader=shader; material.set_shader_parameter("repeats",stage.size/512.0); background.material=material; scene.add_child(background)
@@ -383,14 +389,19 @@ func _home() -> void:
 		if saved_run.is_empty(): start_adventure()
 		else: _confirm("新开一局","现在这局会作废，确定新开一局吗？","新开一局",start_adventure),true)
 	if not saved_run.is_empty(): _button("继续这局（第 %d 仗）" % saved_run.fight,layout.title.resume,resume_adventure)
-	_button("练习（打木桩）",layout.title.practice,start_practice)
+	var practice: Dictionary = layout.title.practice.duplicate(); practice.w = (practice.w-24)/2.0
+	_button("练习（木桩）",practice,start_practice)
+	var collection_box: Dictionary = practice.duplicate(); collection_box.x += practice.w+24
+	var profile: Dictionary = storage.load_profile()
+	var collection_button: Button = _button("收藏室 %d/15" % Profile.starting_relics(profile).size(),collection_box,func() -> void: _reset(); screen = "collection"; _render())
+	collection_button.name = "CollectionEntry"
 	var home_records: BoxContainer=VBoxContainer.new() if layout.name=="portrait" else HBoxContainer.new()
 	home_records.name="HomeRecords"; home_records.alignment=BoxContainer.ALIGNMENT_CENTER
 	home_records.add_theme_constant_override("separation",8 if layout.name=="portrait" else 24)
 	_place(home_records,layout.title.record,scene)
 	var descriptions: Array[String]=["还没有纪录"]
 	if records.played>0:
-		descriptions=["最远：%s · 通关 %d 次" % ["已通关" if records.farthest==7 else "第 %d 仗" % records.farthest,records.wins],"最高一回合 %s · 最大超杀 %s" % [C.format_full(records.bestTurn),R.format_overkill(records.maxOverkill)]]
+		descriptions=["最远：%s · 带回家 %d 次" % [_farthest_text(int(records.farthest)),records.get("retreats",0)],"最高一回合 %s · 最大超杀 %s" % [C.format_full(records.bestTurn),R.format_overkill(records.maxOverkill)]]
 	for description: String in descriptions:
 		var value: Label=Label.new(); value.add_theme_font_size_override("font_size",28); value.add_theme_color_override("font_color",Color(art.manifest.palette.textDim)); value.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER; value.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 		home_records.add_child(value); value.text=description
@@ -403,9 +414,11 @@ func _home() -> void:
 func start_adventure() -> void:
 	if not run_state.is_empty() and run_state.get("result") != null: _settle_records()
 	_flush_settlements()
-	_reset(); screen = "adventure"; run_state = R.create_run(_seed()); run_state.game.opts.hint = prefs.hint
+	var profile: Dictionary = storage.load_profile()
+	if profile.is_empty(): _toast(storage.last_error); return
+	_reset(); screen = "adventure"; run_state = R.create_run(_seed(),{"startingRelics":Profile.starting_relics(profile),"runId":storage.new_run_id()}); run_state.game.opts.hint = prefs.hint
 	game_state = run_state.game; saved_run = run_state
-	selected_relic = -1; selected_loot = -1; selected_door = -1; shop_mode = ""; shop_selected = []; last_loot_fight = -1
+	selected_exit = ""; selected_relic = -1; selected_loot = -1; selected_door = -1; shop_mode = ""; shop_selected = []; last_loot_fight = -1
 	_persist(); _render()
 
 func resume_adventure() -> void:
@@ -464,11 +477,11 @@ func _adventure_top() -> void:
 	_label("第 %d 仗 · 第 %d 回合" % [run_state.fight,game_state.turn],layout.turn,32)
 	_label("%s · 第 %d 间" % [RC.RUN.acts[int(run_state.act)-1].name,run_state.room],layout.actLabel,28)
 	var progress: Dictionary = layout.progress
-	for index: int in range(RC.RUN.fights.size()):
+	for index: int in range(RC.RUN.acts[int(run_state.act)-1].rooms.size()):
 		var id: String = "ui_node_boss" if index == 5 else "ui_node_elite" if index == 2 else "ui_node_door" if index in [1,3,4] else "ui_node_fight"
 		if not art.assets.has(id): id = "ui_node_fight"
 		var node: Control = _art(id,{"x":progress.x+index*(progress.w-progress.node)/5.0,"y":progress.y-progress.node/2.0,"w":progress.node,"h":progress.node})
-		if index+1 < run_state.fight: node.modulate = Color(0.7,0.65,0.5,0.8)
+		if index+1 < run_state.room: node.modulate = Color(0.7,0.65,0.5,0.8)
 	for index: int in range(int(run_state.maxHearts)):
 		var heart: Control = _art("ui_heart" if index < run_state.hearts or index == losing_heart else "ui_heart_empty",{"x":layout.hearts.x+index*(layout.hearts.size+layout.hearts.gap),"y":layout.hearts.y,"w":layout.hearts.size,"h":layout.hearts.size})
 		heart_nodes.append(heart)
@@ -481,12 +494,12 @@ func _adventure_top() -> void:
 		relic_nodes[id] = icon
 
 func _relic_pick() -> void:
-	_banner("再挑一件宝物" if not run_state.relics.is_empty() else "选一个宝物带进古堡")
+	_banner("再挑一件宝物" if not run_state.relics.is_empty() else "这次带哪件宝物")
 	if run_state.relics.is_empty():
 		var knocker: Control = _anchored("npc_knocker",layout.knocker,layout.knocker.scale)
 		art.play(knocker, "talk")
-		var lines: Array[String] = ["又来一个找宝石的。老规矩：宝物带出大门才算你的。","挑一件带上吧。里头那条龙，可比你会攒东西。","我赌你过不了门厅。敢不敢？"]
-		_label(lines[int(records.played)%3],layout.knockerSay,30)
+		var lines: Array[String] = ["宝物带出大门才算你的。倒在里面，身上的全归龙。"]
+		_label(lines[int(records.played)%lines.size()],layout.knockerSay,30)
 	for index: int in range(run_state.relicOptions.size()):
 		var id: String = run_state.relicOptions[index]
 		var point: Dictionary = layout.relicPick.points[index]
@@ -542,7 +555,7 @@ func _selectable(node: Control, selected: bool, action: Callable, inspect: Dicti
 		sound.button(); action.call())
 
 func _take_relic() -> void:
-	if transition or selected_relic < 0: return
+	if transition or run_state.get("phase") != "relic" or selected_relic < 0 or selected_relic >= run_state.relicOptions.size(): return
 	var id: String = run_state.relicOptions[selected_relic]
 	var point: Dictionary = layout.relicPick.points[selected_relic]
 	R.choose_relic(run_state,selected_relic); game_state = run_state.game; transition = true; _persist()
@@ -556,7 +569,8 @@ func _take_relic() -> void:
 func _battle() -> void:
 	var adventure: bool = screen == "adventure"
 	var art_id: String = "mon_"+str(run_state.monster.key) if adventure else "dummy"
-	if not adventure or run_state.monster.key != "dragon": _anchored("prop_pillar" if adventure else "prop_rack",layout.rackAnchor,layout.rackScale)
+	if not adventure or run_state.monster.key != "dragon": _anchored(("prop_frame" if run_state.act == 2 else "prop_pillar") if adventure else "prop_rack",layout.rackAnchor,layout.rackScale)
+	if adventure and run_state.act == 2: _anchored("prop_curtain",{"x":layout.width-layout.rackAnchor.x,"y":layout.rackAnchor.y},layout.rackScale)
 	monster_motion = Control.new(); monster_motion.size = stage.size; monster_motion.pivot_offset = Vector2(layout.dummyAnchor.x, layout.dummyAnchor.y); monster_motion.mouse_filter = Control.MOUSE_FILTER_IGNORE; scene.add_child(monster_motion)
 	monster = _anchored(art_id,layout.dummyAnchor,float(layout.monsterScale.boss if adventure and run_state.monster.key == "dragon" else layout.monsterScale.normal if adventure else layout.dummyScale), monster_motion)
 	if adventure:
@@ -859,7 +873,8 @@ func _playing() -> bool:
 
 func _predict_card(card: Dictionary) -> Dictionary:
 	var entry: Variant=R.preview_run_card(run_state,card) if screen=="adventure" and not run_state.is_empty() else null
-	return entry if entry is Dictionary else C.preview_card(game_state,card)
+	if screen == "adventure" and not run_state.is_empty(): return entry if entry is Dictionary else {}
+	return C.preview_card(game_state,card)
 
 func _hand_index(identity: int) -> int:
 	for index: int in range(game_state.hand.size()):
@@ -874,6 +889,8 @@ func _visible_hand() -> Array[Dictionary]:
 	return cards
 
 func _hand() -> void:
+	if screen == "adventure" and not R.can_play_run_card(run_state).ok:
+		var blocked: Label = _label("这回合打满6张了",layout.loot.hint,30,null,true); blocked.name = "SixCardLimit"
 	var previous: Dictionary=hand_nodes.duplicate()
 	hand_nodes.clear()
 	for old: Control in hand_labels:
@@ -886,7 +903,7 @@ func _hand() -> void:
 	for index: int in range(cards.size()):
 		var card: Dictionary=cards[index]
 		var predicted: Dictionary=_predict_card(card)
-		var shown: Dictionary=predicted if card.get("type","") in ["mirror","shadow"] else card
+		var shown: Dictionary=predicted if not predicted.is_empty() and card.get("type","") in preload("res://rules/config.gd").RESOLVED_MASK_TOOLS else card
 		var node: Control=previous.get(card.id)
 		var key: String=_card_face_key(shown)
 		if node==null or not is_instance_valid(node) or node.is_queued_for_deletion():
@@ -1086,6 +1103,12 @@ func _input(event: InputEvent) -> void:
 	if event.keycode == KEY_ESCAPE: _cancel_drag(); return
 	if transition: return
 	var phase: String = str(run_state.get("phase", ""))
+	if screen == "adventure" and phase == "act_choice":
+		if event.keycode == KEY_1: _select_exit("retreat")
+		elif event.keycode == KEY_2 and R.room_config(run_state).get("canContinue",false): _select_exit("continue")
+		elif event.keycode in [KEY_ENTER,KEY_SPACE] and not selected_exit.is_empty(): _confirm_exit()
+		else: return
+		get_viewport().set_input_as_handled(); return
 	if screen == "adventure" and phase in ["doors", "relic", "loot"]:
 		if event.keycode >= KEY_1 and event.keycode <= KEY_4:
 			var index: int = int(event.keycode-KEY_1)
@@ -1143,7 +1166,7 @@ func _preview_card(card: Dictionary, center_x: float) -> void:
 	if card.has("type"): lines.append(TOOL_HELP[card.type]); colors.append(Color(art.manifest.palette.text))
 	if _playing():
 		var entry: Dictionary=_predict_card(card)
-		lines.append("现在打出：%s · 预计 %s" % [C.REACTION_NAMES[entry.k],C.format_full(entry.damage)]); colors.append(Color(art.manifest.palette.accent))
+		lines.append("这回合打满6张了" if entry.is_empty() else "现在打出：%s · 预计 %s" % [C.REACTION_NAMES[entry.k],C.format_full(entry.damage)]); colors.append(Color(art.manifest.palette.accent))
 		for effect: Dictionary in entry.get("effects",[]):
 			if not RC.RULES.has(effect.id): continue
 			var text: String="出手提前 1 回合" if effect.id in ["bite","bell"] else "红宝石算 0" if effect.id=="hug" else str(effect.text)
@@ -1175,7 +1198,9 @@ func play_card(index: int, from: Variant = null) -> void:
 	var old_rule: Variant = R.current_rule(run_state) if not run_state.is_empty() else null
 	var countdown_before: int = int(run_state.monster.countdown) if not run_state.is_empty() else 0
 	var entry: Dictionary = R.play_run_card(run_state,index) if not run_state.is_empty() else C.play_card(game_state,index)
-	if entry.is_empty(): return
+	if entry.is_empty():
+		if not run_state.is_empty(): _toast(R.last_error)
+		return
 	var drawn: Array=_new_cards(prior.hand)
 	for added: Dictionary in drawn: pending_draw_ids[added.id]=true
 	_persist(); _render(); _animate_score(painted_score, float(game_state.turnDmg))
@@ -1223,7 +1248,7 @@ func play_card(index: int, from: Variant = null) -> void:
 				if is_instance_valid(item): item.modulate = Color(1.0+0.8*sin(t*PI),1.0+0.8*sin(t*PI),1.0+0.8*sin(t*PI)), Callable(), chain_index * 60.0)
 		_later(maxf(0.0, (chain.size()-1) * 60.0 + 120.0), func() -> void:
 			_shake("large"); _effect("fx_rainbow", Vector2(layout.width/2.0, layout.height/2.0), "", 2.0)
-			_float_damage("彩虹 +"+C.format_full(entry.rainbow), float(entry.rainbow), Vector2(layout.floating.x, layout.floating.y), true))
+			_float_damage("缩头 · 彩虹效果保留" if float(entry.damage) == 0.0 else "彩虹 +"+C.format_full(entry.rainbow), 0.0 if float(entry.damage) == 0.0 else float(entry.rainbow), Vector2(layout.floating.x, layout.floating.y), true))
 	if entry.get("type", "") == "hammer": _effect("fx_slam", Vector2((layout.rowStart.x+layout.rowRight)/2.0, layout.rowStart.y+L.row_size(layout).h), color, 1.5)
 	for index_grown: int in entry.get("grown", []):
 		_effect("fx_grow", layout.growth.centers[index_grown], art.manifest.palette.gem[C.GEMS[index_grown].key].mid)
@@ -1277,11 +1302,13 @@ func _present_effects(entry: Dictionary, countdown_before: int, old_rule: Varian
 	var hastened: bool = false
 	for effect: Dictionary in entry.get("effects", []):
 		var id: String = effect.id
-		if id == "hourglass": sound.hourglass()
+		if id == "potion": sound.heal()
+		elif id in ["duck","picky"]: _toast(RC.RULES[id].name)
+		elif id == "hourglass": sound.hourglass()
 		elif id == "seal": sound.seal()
 		elif id == "whistle": sound.whistle()
 		if effect.get("text", "") in ["手里拿不下了", "牌堆里没有额外牌"]: _toast(effect.text)
-		if id == "twice":
+		if id == "twice" and entry.get("type") not in ["palette","diamond"]:
 			var node: Control = row_nodes.get(entry.id)
 			_later(150.0, func() -> void: _repeat_tool_feedback(entry, node, game_state.row.size()-1),true,[node])
 		if relic_nodes.has(id):
@@ -1505,7 +1532,7 @@ func _hit_entry(entry: Dictionary, index: int) -> void:
 	if pierce: sound.pierce()
 	if is_instance_valid(monster): art.play(monster, "hit_big" if big else "hit")
 	_float_damage(C.format_full(entry.damage), float(entry.damage), hit)
-	if float(entry.get("rainbow", 0)) > 0.0: _float_damage("彩虹 +" + C.format_full(entry.rainbow), float(entry.rainbow), Vector2(layout.floating.x, layout.floating.y), true)
+	if entry.damage > 0 and float(entry.get("rainbow", 0)) > 0.0: _float_damage("彩虹 +" + C.format_full(entry.rainbow), float(entry.rainbow), Vector2(layout.floating.x, layout.floating.y), true)
 	_effect("fx_hit", hit, art.manifest.palette.mix.get(str(entry.v), art.manifest.palette.text), 1.25 if big else 1.0)
 	if pierce:
 		art.set_stay(monster, "daze"); _effect("fx_kill", hit, "", 1.5)
@@ -1651,6 +1678,7 @@ func _enter_fight_feedback() -> void:
 		_animate(500.0, func(t: float) -> void:
 			if is_instance_valid(motion): motion.modulate.a=t; motion.position.y=40.0*(1.0-t))
 	_banner("第 %d 仗" % run_state.fight)
+	if run_state.act == 2 and run_state.room == 1: _toast("锁还没开，先看看你手里的牌。")
 	_draw_animation(game_state.hand)
 	for id: String in ["start2","slow","first2"]:
 		if relic_nodes.has(id):
@@ -1929,9 +1957,9 @@ func _result() -> void:
 	content.alignment=BoxContainer.ALIGNMENT_CENTER
 	content.add_theme_constant_override("separation",24 if layout.name=="portrait" else 8)
 	scroll.add_child(content)
-	var knocker: Label=_result_label(content,"老门环：行，这回算你的。龙叼着宝石往长廊里跑了，长廊的门过些日子才开。" if result.outcome=="victory" else "老门环：倒在%s手上了。身上的宝物，龙收下了。" % RC.MONSTERS[result.monster].name,26,Color.WHITE,true)
+	var knocker: Label=_result_label(content,"老门环：门给你留着，下回再来。" if result.outcome=="retreat" else "老门环：这回龙替你保管。人回来了，就还能再来。",26,Color.WHITE,true)
 	knocker.add_theme_constant_override("line_spacing",8)
-	var heading: String="倒在第 %d 仗 · %s" % [result.fight,RC.MONSTERS[result.monster].name] if result.outcome=="defeat" else "通关！ 新纪录" if result.newRecords.farthest else ""
+	var heading: String="带着宝物回家" if result.outcome=="retreat" else "倒在第 %d 仗 · %s" % [result.fight,RC.MONSTERS[result.monster].name] if result.outcome=="defeat" else "通关！ 新纪录" if result.newRecords.farthest else ""
 	if not heading.is_empty():
 		var title: Label=_result_label(content,heading,32,Color(art.manifest.palette.accent))
 		if art.bold_font!=null: title.add_theme_font_override("font",art.bold_font)
@@ -1957,12 +1985,18 @@ func _result() -> void:
 	_result_row(rows,"拿到的额外牌","没有" if extras.is_empty() else " · ".join(extras))
 	_result_row(rows,"进了几次工坊",str(run_state.shopsVisited))
 	_result_row(rows,"带了几件宝物",str(run_state.relics.size()),false,true)
+	_result_row(rows,"最远",_farthest_text(int(result.fight) if result.outcome == "retreat" else int(result.fight)-1))
+	if result.outcome == "retreat":
+		for id: String in run_state.relics: _result_row(rows,RC.RELICS[id].name,"新收藏" if result.get("newCollection",[]).has(id) else "已带回" if result.recordsApplied else "等待保存")
+	else: _result_label(content,"这趟新宝物没有带回，已有收藏还在。",28)
+	if not result.recordsApplied:
+		_modal_action(content,"重试保存",func() -> void: _settle_records(); _render())
 	_button("回首页",layout.result.home,go_home)
 	_button("再来一局",layout.result.again,start_adventure,true)
 	var banner: Control=Control.new(); banner.name="ResultBanner"; banner.z_index=20; banner.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	_place(banner,layout.banner,scene)
 	_art("ui_banner",{"x":0,"y":0,"w":layout.banner.w,"h":layout.banner.h},banner)
-	_label("胜利" if result.outcome=="victory" else "失败",{"x":0,"y":0,"w":layout.banner.w,"h":layout.banner.h},56,banner,true)
+	_label("带着宝物回家" if result.outcome=="retreat" else "胜利" if result.outcome=="victory" else "失败",{"x":0,"y":0,"w":layout.banner.w,"h":layout.banner.h},56,banner,true)
 
 func _open_modal(title: String) -> VBoxContainer:
 	var previous_focus: Control = get_viewport().gui_get_focus_owner()
@@ -2018,6 +2052,10 @@ func _show_rules() -> void:
 	for section: Array in copy.sections:
 		_rules_heading(content,str(section[0]))
 		for index: int in range(1,section.size()): _paragraph(content,str(section[index]))
+	_rules_heading(content,"带宝物回家")
+	_paragraph(content,"门厅和长廊各有六间。打赢龙，先挑宝物，再决定去留。长廊已过就带回家。只有门厅精英增加手牌上限，长廊精英不再增加。")
+	_paragraph(content,"只有安全带回的宝物才进收藏，下次可选开局宝物。倒下或放弃，不带回本趟新宝物。")
+	for id: String in ["palette","potion","diamond"]: _paragraph(content,C.TOOLS[id].name+"："+TOOL_HELP[id])
 	_rules_heading(content,"怪的规矩")
 	for id: String in RC.RULES: _paragraph(content,RC.RULES[id].name+"："+RC.RULES[id].text)
 	if not run_state.is_empty() and not run_state.relics.is_empty():
@@ -2028,7 +2066,7 @@ func _show_monster() -> void:
 	var m: Dictionary = run_state.monster
 	var paragraphs: Array = [RC.MONSTERS[m.key].name,RC.MONSTERS[m.key].line,"血量 %s / %s · 每 %d 回合出手一次" % [C.format_full(m.hp),C.format_full(m.maxHp),m.maxCountdown]]
 	var active: Variant = R.current_rule(run_state)
-	var ids: Array = ["hug","bite","bell"] if m.key == "dragon" else [active] if active != null else []
+	var ids: Array = m.layerRules if m.key == "dragon" else [active] if active != null else []
 	for id: String in ids: paragraphs.append(RC.RULES[id].name+(" · 现在" if id == active else "")+"\n"+RC.RULES[id].text)
 	if R.rule_sealed(run_state): paragraphs.append("这回合不算")
 	if m.broken: paragraphs.append("打穿了，这回合规矩不再起作用。")
@@ -2102,6 +2140,11 @@ func _debug_input(content: VBoxContainer, title: String, initial: String, action
 
 func _debug_panel(content: VBoxContainer) -> void:
 	_paragraph(content,"测试入口（仅 debug=1）",36)
+	_modal_action(content,"第一幕去留",_debug_act_exit)
+	_modal_action(content,"查看测试收藏",func() -> void: _close_modal(); screen = "collection"; _render())
+	_modal_action(content,"重置测试收藏",_debug_collection_reset)
+	for stage: String in ["open","write","rename","delete"]:
+		_modal_action(content,"下次存储失败："+stage,func() -> void: storage.failure_stage = stage; _close_modal(); _toast("已设置一次存储失败"))
 	_paragraph(content,"血量倍数 ×%s（新开一局生效）" % RC.RUN.hpScale)
 	var scale_row: HBoxContainer = HBoxContainer.new(); content.add_child(scale_row)
 	for value: float in [1.0,1.5,2.0,3.0,4.0]:
@@ -2114,20 +2157,20 @@ func _debug_panel(content: VBoxContainer) -> void:
 	for index: int in range(2):
 		var row: HBoxContainer = HBoxContainer.new(); content.add_child(row)
 		var mon: OptionButton = OptionButton.new(); var reward: OptionButton = OptionButton.new()
-		for id: String in RC.RUN.normalMonsters: mon.add_item(RC.MONSTERS[id].name)
+		for id: String in RC.RUN.acts[int(run_state.get("act",1))-1].normalMonsters: mon.add_item(RC.MONSTERS[id].name)
 		for text: String in ["额外牌","工坊","回一颗心"]: reward.add_item(text)
 		mon.selected = index; reward.selected = index; row.add_child(mon); row.add_child(reward); door_picks.append({"monster":mon,"reward":reward})
 	_modal_action(content,"指定两扇门",func() -> void:
 		if run_state.is_empty(): start_adventure()
 		var doors: Array = []
 		for pick: Dictionary in door_picks:
-			var id: String = RC.RUN.normalMonsters[pick.monster.selected]; doors.append({"monster":id,"rule":RC.MONSTERS[id].rule,"reward":["card","shop","heal"][pick.reward.selected]})
+			var id: String = RC.RUN.acts[int(run_state.get("act",1))-1].normalMonsters[pick.monster.selected]; doors.append({"monster":id,"rule":RC.MONSTERS[id].rule,"reward":["card","shop","heal"][pick.reward.selected]})
 		R.debug_set_doors(run_state,doors); selected_door = -1; _debug_refresh())
-	for fight: int in range(1,7):
-		_modal_action(content,"第 %d 仗" % fight,func() -> void:
+	for fight: int in range(1,RC.RUN.fights.size()+1):
+		_modal_action(content,"%s 第 %d 间" % [RC.RUN.acts[int((fight-1)/6)].name,(fight-1)%6+1],func() -> void:
 			if run_state.is_empty(): start_adventure()
 			if run_state.relics.is_empty(): R.choose_relic(run_state,0)
-			R.debug_jump_room(run_state,fight); _debug_refresh())
+			R.debug_jump_act_room(run_state,int((fight-1)/6)+1,(fight-1)%6+1); _debug_refresh())
 	if not run_state.is_empty():
 		_debug_input(content,"把手牌加到 N 张（最多 12）",str(game_state.hand.size()),func(value: String) -> void: R.debug_fill_hand(run_state,value.to_int()); _debug_refresh())
 		if run_state.phase == "battle":
@@ -2223,20 +2266,26 @@ func _capture_snapshot() -> Dictionary:
 
 func _capture_scenario() -> void:
 	var scenario: String = capture.get("scenario","home")
+	if scenario == "collection": screen = "collection"; _render()
 	var result_bottom: bool=scenario=="victory-bottom"
 	if result_bottom: scenario="victory"
-	if scenario != "home" and not art_mode:
+	if scenario not in ["home","collection"] and not art_mode:
 		debug_enabled = true; start_adventure()
 		if scenario == "practice": start_practice()
 		elif scenario == "relic": pass
 		else:
 			R.choose_relic(run_state,0); game_state = run_state.game
-			if scenario == "shop": R.debug_enter_shop(run_state)
+			if scenario in ["act1-choice","act2-choice","retreat"]:
+				R.debug_jump_act_room(run_state,1 if scenario == "act1-choice" else 2,6)
+				R.debug_set_monster_hp(run_state,0); R.end_run_turn(run_state); R.choose_relic(run_state,0)
+				if scenario == "retreat": R.choose_act_exit(run_state,"retreat")
+			elif scenario == "corridor": R.debug_jump_act_room(run_state,2,1)
+			elif scenario == "shop": R.debug_enter_shop(run_state)
 			elif scenario == "doors": R.debug_jump_room(run_state,2)
 			elif scenario == "elite-relic":
 				R.debug_jump_room(run_state,3); R.debug_set_monster_hp(run_state,0); R.end_run_turn(run_state)
 			elif scenario in ["victory","defeat"]:
-				if scenario == "victory": R.debug_jump_room(run_state,6); R.debug_set_monster_hp(run_state,0); R.end_run_turn(run_state)
+				if scenario == "victory": R.debug_jump_room(run_state,6); R.debug_set_monster_hp(run_state,0); R.end_run_turn(run_state); R.choose_relic(run_state,0); R.choose_act_exit(run_state,"retreat")
 				else: run_state.hearts = 1; R.debug_set_countdown(run_state,0); R.end_run_turn(run_state)
 			elif scenario == "loot": R.debug_set_monster_hp(run_state,0); R.end_run_turn(run_state)
 			else:
@@ -2328,3 +2377,75 @@ class PresentationButton extends Button:
 		for child: Node in parent.get_children():
 			if child is CanvasItem: child.use_parent_material=true
 			_inherit_material(child)
+
+func _farthest_text(cleared: int) -> String:
+	if cleared <= 0: return "还没有纪录"
+	if cleared == 6: return "门厅已过"
+	if cleared >= 12: return "长廊已过"
+	return "门厅第 %d 间" % (cleared+1) if cleared < 6 else "长廊第 %d 间" % (cleared-5)
+
+func _collection() -> void:
+	_banner("收藏室")
+	var profile: Dictionary = storage.load_profile()
+	var owned: Array = Profile.starting_relics(profile)
+	var panel: Control = _panel(layout.result.panel,scene,48)
+	var count: Label = _label("已收藏 %d/15" % owned.size(),{"x":36,"y":20,"w":panel.size.x-72,"h":56},36,panel,true)
+	count.name = "CollectionCount"
+	if profile.is_empty():
+		_label(storage.last_error,{"x":36,"y":90,"w":panel.size.x-72,"h":160},28,panel,true)
+	else:
+		var items: Array = []
+		for id: String in RC.RELIC_IDS: items.append({"art":"relic_"+id,"name":RC.RELICS[id].name,"text":RC.RELICS[id].text,"collected":owned.has(id)})
+		var scroll: ScrollContainer = Collection.new(); panel.add_child(scroll)
+		scroll.position = Vector2(36,90); scroll.size = panel.size-Vector2(72,120); scroll.setup(art,items)
+	_button("返回",layout.result.home,go_home)
+
+func _act_choice() -> void:
+	_banner("带走，还是继续？" if run_state.act == 1 else "长廊已过")
+	var panel: Control = _panel(layout.result.panel,scene,48)
+	var scroll: ScrollContainer = ScrollContainer.new(); scroll.name = "ActChoiceScroll"
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.position = Vector2(40,30); scroll.size = panel.size-Vector2(80,60); panel.add_child(scroll)
+	var content: VBoxContainer = VBoxContainer.new(); content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	content.add_theme_constant_override("separation",24); scroll.add_child(content)
+	_paragraph(content,"老门环：现在走，这些就是你的。接着追，里头还有。" if run_state.act == 1 else "老门环：这一趟够沉了，带着宝物回家吧。",30)
+	_paragraph(content,"带出大门才算你的" if run_state.act == 1 else "长廊已过，带着宝物回家吧。",28)
+	var names: Array[String] = []
+	for id: String in run_state.relics: names.append(RC.RELICS[id].name)
+	_paragraph(content,"身上带着："+" · ".join(names),26)
+	var retreat: Button = _modal_action(content,("✓ " if selected_exit == "retreat" else "")+"带着宝物回家",func() -> void: _select_exit("retreat"))
+	retreat.name = "ExitRetreat"
+	if R.room_config(run_state).get("canContinue",false) and run_state.act < RC.RUN.acts.size():
+		var onward: Button = _modal_action(content,("✓ " if selected_exit == "continue" else "")+"接着追",func() -> void: _select_exit("continue"))
+		onward.name = "ExitContinue"
+	var confirm: Button = _button("就这么办",layout.result.again,_confirm_exit,true)
+	confirm.name = "ExitConfirm"; confirm.disabled = selected_exit.is_empty() or transition
+
+func _select_exit(choice: String) -> void:
+	if transition or run_state.get("phase") != "act_choice": return
+	selected_exit = choice; _render()
+	var confirm: Control = scene.find_child("ExitConfirm",true,false)
+	if confirm != null: confirm.grab_focus()
+
+func _confirm_exit() -> void:
+	if transition or run_state.get("phase") != "act_choice" or selected_exit.is_empty(): return
+	transition = true
+	R.choose_act_exit(run_state,selected_exit)
+	if not R.last_error.is_empty(): transition = false; _toast(R.last_error); return
+	selected_exit = ""; game_state = run_state.game
+	_reset(); _persist(); _render(); _enter_fight_feedback()
+
+func _debug_act_exit() -> void:
+	if run_state.is_empty(): start_adventure()
+	if run_state.relics.is_empty(): R.choose_relic(run_state,0)
+	R.debug_jump_act_room(run_state,1,6); R.debug_set_monster_hp(run_state,0); R.end_run_turn(run_state); R.choose_relic(run_state,0)
+	selected_exit = ""; _debug_refresh()
+
+func _debug_collection_reset() -> void:
+	if not storage.directory.contains("/artifacts/") and not storage.directory.begins_with("user://body-batch-2-debug"):
+		_toast("请用独立测试存档目录"); return
+	var envelope: Dictionary = storage._read_records()
+	if not storage.last_error.is_empty(): _toast(storage.last_error); return
+	envelope.profile = Profile.create_profile()
+	if storage._write_records(envelope.records,envelope.clearedRun,envelope): _toast("测试收藏已重置")
+	else: _toast(storage.last_error)

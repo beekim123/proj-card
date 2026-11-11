@@ -85,7 +85,7 @@ static func create_deck(tools: bool = false) -> Array:
 	for spec: Dictionary in CONFIG.deck:
 		for _i: int in range(spec.count): cards.append({"id":cards.size()+1,"v":spec.v})
 	if tools:
-		for type: String in TOOL_TYPES: cards.append(create_tool_card(type,cards.size()+1))
+		for type: String in RC.RUN.toolPool: cards.append(create_tool_card(type,cards.size()+1))
 	return cards
 
 static func create_tool_card(type: String, id: Variant) -> Dictionary:
@@ -223,11 +223,14 @@ static func evaluate_card(state: Dictionary, original: Dictionary, monster: Vari
 	entry.dmg = entry.b*state.m*entry.cm
 	entry.m2 = state.m*CONFIG.multiplierDouble if entry.k in ["shun","white"] else state.m+CONFIG.multiplierIncrement
 	E.apply_effects(ids,"multiplier",context); E.apply_effects(ids,"rainbowNeed",context)
-	var chain: Dictionary = next_chain(state,entry.v,entry.k)
+	context.chain = next_chain(state,entry.v,entry.k)
+	E.apply_effects(ids,"chain",context)
+	var chain: Dictionary = context.chain
 	entry.rb = not state.rainbow and chain.colors.size() >= context.need
 	entry.rainbow = (state.turnDmg+entry.dmg)*(CONFIG.rainbowMultiplier-1) if entry.rb else 0
 	E.apply_effects(ids,"rainbow",context); E.apply_effects(ids,"hammer",context)
 	entry.damage = entry.dmg+entry.rainbow+entry.hammer
+	E.apply_effects(ids,"finalDamage",context)
 	if context.has("monster"):
 		context.monster.hp = max(0,context.monster.hp-entry.damage)
 		context.monster.broken = context.monster.hp == 0
@@ -258,7 +261,7 @@ static func play_card(state: Dictionary, hand_index: Variant, monster: Variant =
 	var context: Dictionary = evaluate_card(state,state.hand[int(hand_index)],monster)
 	if context.is_empty(): return {}
 	var entry: Dictionary = context.entry
-	var chain: Dictionary = next_chain(state,entry.v,entry.k)
+	var chain: Dictionary = context.chain
 	state.hist.append(snapshot(state)); state.hand.remove_at(int(hand_index)); state.row.append(entry)
 	state.m = entry.m2; state.turnDmg += entry.damage; state.total += entry.damage
 	state.chain = chain.colors; state.chainIdx = chain.indices
@@ -273,7 +276,9 @@ static func play_card(state: Dictionary, hand_index: Variant, monster: Variant =
 static func end_turn(state: Dictionary, _rng: Variant = null) -> Dictionary:
 	state.last = state.turnDmg; state.best = max(state.best,state.turnDmg)
 	if not state.row.is_empty(): state.turn += 1
-	state.discard.append_array(_copy_cards(state.row)); state.row = []
+	for entry: Dictionary in state.row:
+		if not entry.get("spent",false): state.discard.append(copy_card(entry))
+	state.row = []
 	state.m = CONFIG.multiplierStart; state.turnDmg = 0; state.chain = []; state.chainIdx = []; state.rainbow = false; state.onceUsed = false; state.hist = []
 	refill_hand(state)
 	return state
@@ -380,6 +385,8 @@ static func format_formula(entry: Dictionary, preview: bool = false, formatter: 
 	var pieces: Array[String] = []
 	for index: int in range(GEMS.size()):
 		if int(entry.v) & int(GEMS[index].bit): pieces.append(GEMS[index].shortName+" "+_format(entry.gemValues[index],formatter)+("（抱红）" if index == 0 and _has_effect(entry,"hug") else ""))
+	if _has_effect(entry,"duck"):
+		return ("预计 " if preview else "")+"缩头：本张最终伤害 0，倍率、成长和其他效果照常"
 	var base: String = _format(entry.b,formatter)
 	var composition: String = base
 	if pieces.size() > 1: composition = " + ".join(pieces)+" = "+base

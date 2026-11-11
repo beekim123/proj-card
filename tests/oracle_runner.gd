@@ -3,6 +3,7 @@ extends RefCounted
 ## Executes the original H5 named cases against native GDScript. Each captured
 ## call restores its real input, invokes production code, and compares both the
 ## complete mutated arguments and return value (or exact error diagnostic).
+const LegacyProjection = preload("res://tests/legacy_projection.gd")
 const Core: GDScript = preload("res://rules/index.gd")
 const Run: GDScript = preload("res://rules/run.gd")
 const Save: GDScript = preload("res://rules/save_state.gd")
@@ -70,7 +71,7 @@ func _difference(actual: Variant, expected: Variant, path: String = "$") -> Stri
 		var actual_json: JSON = JSON.new()
 		var expected_json: JSON = JSON.new()
 		if actual_json.parse(actual) == OK and expected_json.parse(expected) == OK:
-			return _difference(Save.parse_json_exact(actual), Save.parse_json_exact(expected), path + "(JSON)")
+			return _difference(LegacyProjection.strip(Save.parse_json_exact(actual)), Save.parse_json_exact(expected), path + "(JSON)")
 	elif typeof(actual) == typeof(expected) and actual == expected: return ""
 	return "%s: %s != %s" % [path, str(actual).left(180), str(expected).left(180)]
 
@@ -90,6 +91,7 @@ func _module(name: String, function: String) -> GDScript:
 func _call(record: Dictionary) -> String:
 	_decode_error = ""
 	var args: Array = _decode(record.argsBefore)
+	LegacyProjection.hydrate(args)
 	var expected_args: Array = _decode(record.argsAfter)
 	var expected: Variant = _decode(record.get("result", {"$undefined": true}))
 	if not _decode_error.is_empty(): return _decode_error
@@ -106,9 +108,9 @@ func _call(record: Dictionary) -> String:
 			return "error: %s != %s" % [str(module.get("last_error")), record.error.message]
 	else:
 		if not str(module.get("last_error")).is_empty(): return "unexpected error: " + str(module.get("last_error"))
-		var result_difference: String = _difference(actual, expected, "$.result")
+		var result_difference: String = _difference(LegacyProjection.strip(actual), expected, "$.result")
 		if not result_difference.is_empty(): return result_difference
-	return _difference(args, expected_args, "$.argsAfter")
+	return _difference(LegacyProjection.strip(args), expected_args, "$.argsAfter")
 
 func run_files(files: Array) -> Dictionary:
 	var passed: int = 0

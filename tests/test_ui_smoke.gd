@@ -116,12 +116,14 @@ static func run(tree: SceneTree) -> Dictionary:
 	Run.debug_jump_room(app.run_state, 6)
 	Run.debug_set_monster_hp(app.run_state, 0)
 	Run.end_run_turn(app.run_state)
+	Run.choose_relic(app.run_state, 0)
+	Run.choose_act_exit(app.run_state, "retreat")
 	app.game_state = app.run_state.game
 	app._persist()
 	app._render()
-	_check(result, app.run_state.result != null and app.run_state.result.outcome == "victory", "胜利结算界面与纪录")
+	_check(result, app.run_state.result != null and app.run_state.result.outcome == "retreat", "安全带走结算界面与纪录")
 	var rows: Node=app.scene.find_child("ResultRows",true,false)
-	_check(result, rows!=null and rows.get_child_count()==8, "结算页按八条独立左右对齐行展示")
+	_check(result, rows!=null and rows.get_child_count()>=9, "结算页保留独立对齐行并新增收藏信息")
 	await tree.process_frame
 	var name_label: Label=rows.get_child(0).get_child(0)
 	_check(result,name_label.autowrap_mode==TextServer.AUTOWRAP_OFF and name_label.size.x>=app.art.font.get_string_size(name_label.text,HORIZONTAL_ALIGNMENT_LEFT,-1,28).x-0.1,"结算行名保留自然最小宽度不逐字竖排")
@@ -341,6 +343,7 @@ static func _label_contains(node: Node, text: String) -> bool:
 static func _new_parity_cases(app: Control, tree: SceneTree, result: Dictionary) -> void:
 	app._reset(); app.start_adventure(); Run.choose_relic(app.run_state,0)
 	Run.debug_set_doors(app.run_state,[{"monster":"bear","reward":"card"},{"monster":"chest","reward":"heal"}]); Run.choose_door(app.run_state,0)
+	Run.debug_give_relic(app.run_state,"start2")
 	app.game_state=app.run_state.game; app.debug_deal([1]); app.play_card(0)
 	var effects: GridContainer=app.scene.find_child("RowEffects"+str(app.game_state.row[0].id),true,false)
 	await tree.process_frame

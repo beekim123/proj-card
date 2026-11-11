@@ -1,0 +1,70 @@
+{
+  "mon_box": [
+    "mon_chest",
+    "弹簧盒"
+  ],
+  "mon_portrait": [
+    "mon_bear",
+    "画像"
+  ],
+  "mon_lock": [
+    "mon_clock",
+    "大挂锁"
+  ],
+  "rule_duck": [
+    "rule_hug",
+    "缩头"
+  ],
+  "rule_picky": [
+    "rule_bite",
+    "挑食"
+  ],
+  "rule_six": [
+    "rule_bell",
+    "限六张"
+  ],
+  "card_art_palette": [
+    "card_art_mirror",
+    "调色盘"
+  ],
+  "card_art_potion": [
+    "card_art_bag",
+    "药水"
+  ],
+  "card_art_diamond": [
+    "card_art_stone",
+    "钻石"
+  ],
+  "relic_red": [
+    "relic_white",
+    "红加倍"
+  ],
+  "relic_green": [
+    "relic_white",
+    "绿加倍"
+  ],
+  "relic_blue": [
+    "relic_white",
+    "蓝加倍"
+  ],
+  "relic_shun": [
+    "relic_rainbow",
+    "顺色×3"
+  ],
+  "relic_same4": [
+    "relic_same",
+    "同色×4"
+  ],
+  "bg_tile_hall": [
+    "bg_tile",
+    "长廊"
+  ],
+  "prop_frame": [
+    "prop_pillar",
+    "画框"
+  ],
+  "prop_curtain": [
+    "prop_rack",
+    "帘幕"
+  ]
+}

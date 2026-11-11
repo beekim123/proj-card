@@ -12,9 +12,9 @@ static func _registry() -> Dictionary:
 		for id: String in source:
 			var definition: Dictionary = source[id].duplicate(true)
 			definition.id = id; definition.hooks = {}; result[id] = definition
-	for id: String in ["hourglass","whistle","hammer","lens","stone","bag"]: result[id].repeatable = true
+	for id: String in ["hourglass","whistle","hammer","lens","stone","bag","potion"]: result[id].repeatable = true
 	result.combat = {"id":"combat","name":"一仗","text":"回合结束结算，打赢精英心回满。","hooks":{}}
-	var hooks: Dictionary = {"hourglass":["afterCard"],"seal":["afterCard"],"shadow":["mask","reaction"],"whistle":["afterCard"],"start2":["prepare"],"twice":["prepare"],"mirror":["mask"],"hammer":["hammer"],"lens":["afterCard"],"stone":["afterCard"],"bag":["afterCard"],"bite":["afterMonster"],"hug":["gemValues"],"wind":["afterMonster"],"bell":["afterMonster"],"layers":["afterLayer"],"same":["multiplier"],"once":["reaction"],"white":["reactionMultiplier"],"rainbow":["rainbowNeed","rainbow"],"grow":["growthThresholds","afterGrowth"]}
+	var hooks: Dictionary = {"palette":["mask","reaction","chain"],"potion":["afterCard"],"diamond":["gemValues"],"red":["gemValues"],"green":["gemValues"],"blue":["gemValues"],"shun":["reactionMultiplier"],"same4":["reactionMultiplier"],"duck":["finalDamage"],"picky":["gemValues"],"hourglass":["afterCard"],"seal":["afterCard"],"shadow":["mask","reaction"],"whistle":["afterCard"],"start2":["prepare"],"twice":["prepare"],"mirror":["mask"],"hammer":["hammer"],"lens":["afterCard"],"stone":["afterCard"],"bag":["afterCard"],"bite":["afterMonster"],"hug":["gemValues"],"wind":["afterMonster"],"bell":["afterMonster"],"layers":["afterLayer"],"same":["multiplier"],"once":["reaction"],"white":["reactionMultiplier"],"rainbow":["rainbowNeed","rainbow"],"grow":["growthThresholds","afterGrowth"]}
 	for id: String in hooks:
 		for hook: String in hooks[id]:
 			result[id].hooks[hook] = func(context: Dictionary) -> void: _apply_effect(id,hook,context)
@@ -23,9 +23,9 @@ static func _registry() -> Dictionary:
 		result[id].lifecycle = {}
 		for hook: String in lifecycle[id]:
 			result[id].lifecycle[hook] = func(run: Dictionary) -> void: _apply_lifecycle_one(id,hook,run)
-	result.layers.ruleFor = func(monster: Dictionary) -> String: return RC.MONSTERS.dragon.rules[int(monster.layer)-1]
+	result.layers.ruleFor = func(monster: Dictionary) -> String: return monster.layerRules[int(monster.layer)-1]
 	var ordered: Dictionary = {}
-	for id: String in ["hourglass","seal","shadow","whistle","start2","slow","first2","twice","mirror","hammer","lens","stone","bag","bite","hug","wind","bell","layers","same","once","white","rainbow","heart","grow","combat"]: ordered[id] = result[id]
+	for id: String in ["hourglass","seal","shadow","whistle","start2","slow","first2","twice","mirror","hammer","lens","stone","bag","bite","hug","wind","bell","layers","same","once","white","rainbow","heart","grow","combat","palette","potion","diamond","red","green","blue","shun","same4","duck","picky","six"]: ordered[id] = result[id]
 	return ordered
 
 static func mark_effect(context: Dictionary, id: String, text: String) -> void:
@@ -73,6 +73,35 @@ static func apply_effects(ids: Array, hook: String, c: Dictionary) -> void:
 
 static func _apply_effect(id: String, hook: String, c: Dictionary) -> void:
 	match id + ":" + hook:
+		"palette:mask":
+			c.entry.v = c.state.row[-1].v if not c.state.row.is_empty() else 0
+		"palette:reaction":
+			c.reactionLocked = true
+			if not c.state.row.is_empty(): c.entry.k = "shun"; mark_effect(c,id,C.TOOLS[id].name)
+		"palette:chain":
+			if not c.state.row.is_empty():
+				for color: int in C.CONFIG.rainbowColors:
+					var present: bool = false
+					for previous: Variant in c.chain.colors:
+						if int(previous) == color: present = true; break
+					if not present: c.chain.colors.append(color); break
+		"potion:afterCard":
+			c.entry.spent = true; c.entry.heal = c.times; mark_effect(c,id,C.TOOLS[id].name)
+		"diamond:gemValues":
+			for i: int in range(3): c.entry.gemValues[i] *= 2
+			mark_effect(c,id,C.TOOLS[id].name)
+		"red:gemValues", "green:gemValues", "blue:gemValues":
+			c.entry.gemValues[["red","green","blue"].find(id)] *= 2
+			mark_effect(c,id,RC.RELICS[id].name)
+		"shun:reactionMultiplier", "same4:reactionMultiplier":
+			if c.entry.k == ("shun" if id == "shun" else "same"):
+				c.entry.cm = 3 if id == "shun" else 4; mark_effect(c,id,RC.RELICS[id].name)
+		"duck:finalDamage":
+			if _live_monster(c) and (c.state.row.size()+1)%2 == 0:
+				c.entry.damage = 0; mark_effect(c,id,RC.RULES[id].name)
+		"picky:gemValues":
+			if _live_monster(c) and int(c.entry.v) in [1,2,4]:
+				c.entry.gemValues = [0,0,0]; mark_effect(c,id,RC.RULES[id].name)
 		"hourglass:afterCard":
 			if _live_monster(c): c.monster.countdown += C.TOOLS.hourglass.countdown*c.times; mark_effect(c,id,C.TOOLS[id].name)
 		"seal:afterCard":

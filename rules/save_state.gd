@@ -6,7 +6,7 @@ const RC: GDScript = preload("res://rules/run_config.gd")
 const Types: GDScript = preload("res://rules/types.gd")
 static var last_error: String = ""
 static var _number_cache: Dictionary = {}
-const ACTIVE_PHASES: Array = ["relic", "battle", "loot", "doors", "shop"]
+const ACTIVE_PHASES: Array = preload("res://rules/run_types.gd").ACTIVE_PHASES
 const MAX_SAFE_INTEGER: int = 9007199254740991
 
 static func object(value: Variant) -> bool:
@@ -19,10 +19,10 @@ static func integer(value: Variant, minimum: float = 0.0) -> bool:
 	return number(value, minimum) and value <= MAX_SAFE_INTEGER and floor(float(value)) == float(value)
 
 static func tool(value: Variant) -> bool:
-	return value is String and Config.TOOL_TYPES.has(value)
+	return value is String and RC.RUN.toolPool.has(value)
 
 static func relic(value: Variant) -> bool:
-	return value is String and RC.RELICS.has(value)
+	return value is String and RC.RUN.relicPool.has(value)
 
 static func _includes(values: Array, value: Variant) -> bool:
 	for item: Variant in values:
@@ -50,8 +50,9 @@ static func numbers(value: Variant, length: int = -1) -> bool:
 
 static func card(value: Variant, row: bool = false) -> bool:
 	if not object(value) or not integer(value.get("id"), 1) or not integer(value.get("v")) or value.v > 7: return false
+	if not RC.RUN.legacy and not row and (value.has("spent") or value.has("heal")): return false
 	if not value.has("type"): return true
-	return tool(value.type) and ((row and value.type in ["mirror", "shadow"]) or value.v == Config.TOOLS[value.type].v)
+	return tool(value.type) and ((row and value.type in Config.RESOLVED_MASK_TOOLS) or value.v == Config.TOOLS[value.type].v)
 
 static func row_entry(value: Variant) -> bool:
 	if not card(value, true): return false
@@ -66,6 +67,12 @@ static func row_entry(value: Variant) -> bool:
 	if not typeof_boolean(value.get("rb")) or not value.get("effects") is Array: return false
 	for effect: Variant in value.effects:
 		if not object(effect) or not effect.get("id") is String or not effect.get("text") is String: return false
+	if not RC.RUN.legacy:
+		if value.get("type") == "potion":
+			if value.get("spent") != true or (not integer(value.get("heal"),1) or value.heal > 2): return false
+		elif value.has("spent") or value.has("heal"): return false
+		for effect: Dictionary in value.effects:
+			if not preload("res://rules/effects.gd").EFFECTS.has(effect.id) and effect.id not in ["handFull","whistleEmpty"]: return false
 	return true
 
 static func game(value: Variant, cards: Array, history: bool) -> bool:
@@ -91,7 +98,7 @@ static func game(value: Variant, cards: Array, history: bool) -> bool:
 		ids.append(item.id)
 		if not canonical.has(int(item.id)): return false
 		var original: Dictionary = canonical[int(item.id)]
-		if original.get("type") != item.get("type") or (item.get("type") not in ["mirror", "shadow"] and original.v != item.v): return false
+		if original.get("type") != item.get("type") or (item.get("type") not in Config.RESOLVED_MASK_TOOLS and original.v != item.v): return false
 	if not integer(value.get("rngState")) or value.rngState > 4294967295 or not number(value.get("m"), 1): return false
 	if not integer(value.get("turn"), 1) or not typeof_boolean(value.get("rainbow")): return false
 	for key: String in ["turnDmg", "total", "best", "last"]:
@@ -144,12 +151,13 @@ static func stats(value: Variant) -> bool:
 
 static func is_active_run_state(value: Variant) -> bool:
 	if not object(value) or value.get("phase") not in ACTIVE_PHASES or not value.get("cards") is Array: return false
+	if RC.RUN.legacy and value.phase == "act_choice": return false
 	var cards: Array = value.cards
 	var card_ids: Array = []
 	for item: Variant in cards:
 		if not card(item): return false
 		card_ids.append(item.id)
-	if cards.size() < RC.RUN.shop.minDeck or not _unique(card_ids): return false
+	if (RC.RUN.legacy and cards.size() < RC.RUN.shop.minDeck) or not _unique(card_ids): return false
 	if not integer(value.get("maxHearts"), RC.RUN.hearts) or value.maxHearts > RC.RUN.hearts + RC.RELICS.heart.hearts: return false
 	if not integer(value.get("hearts"), 1) or value.hearts > value.maxHearts or not _includes([RC.RUN.handStart, RC.RUN.handMax], value.get("handLimit")): return false
 	if not integer(value.get("fight"), 1) or value.fight > RC.RUN.fights.size() or not monster(value.get("monster")): return false
@@ -160,7 +168,11 @@ static func is_active_run_state(value: Variant) -> bool:
 	for option: Variant in value.relicOptions:
 		if not relic(option) or owned.has(option): return false
 	if value.maxHearts != RC.RUN.hearts + (RC.RELICS.heart.hearts if owned.has("heart") else 0): return false
-	if value.phase == "relic" and value.relicOptions.size() != min(RC.RUN.relicOptions, RC.RELICS.size() - owned.size()): return false
+	var pool_size: int = RC.RUN.relicPool.size() - owned.size()
+	if not RC.RUN.legacy and value.get("relicPurpose") == "initial":
+		if not value.get("startingRelics") is Array: return false
+		pool_size = value.startingRelics.size()
+	if value.phase == "relic" and value.relicOptions.size() != min(RC.RUN.relicOptions, pool_size): return false
 	if value.phase != "relic" and not value.relicOptions.is_empty(): return false
 	if owned.is_empty():
 		if value.phase != "relic" or not value.has("relic") or value.relic != null or value.game.has("relic"): return false
@@ -203,7 +215,7 @@ static func is_active_run_state(value: Variant) -> bool:
 		if snapshot.get("relic") != selected_relic or snapshot.get("relics") != selected_relics: return false
 	for entry: Variant in value.hist:
 		if not object(entry) or not monster(entry.get("monster")) or not stats(entry.get("stats")): return false
-	return true
+	return RC.RUN.legacy or _v5_details(value)
 
 static func encode_run_save(state: Dictionary) -> Variant:
 	last_error = ""
@@ -211,7 +223,7 @@ static func encode_run_save(state: Dictionary) -> Variant:
 	if not is_active_run_state(state):
 		last_error = "不能保存不完整的一局"
 		return null
-	return JSON.stringify({"version": 4, "state": state}, "", false, true)
+	return JSON.stringify({"version": 4 if RC.RUN.legacy else 5, "state": state}, "", false, true)
 
 static func _contains_marker(value: Variant, marker: String) -> bool:
 	if value is String: return value.contains(marker)
@@ -275,11 +287,89 @@ static func parse_json_exact(raw: String) -> Variant:
 
 static func decode_run_save(raw: Variant) -> Dictionary:
 	last_error = ""
-	if raw == null: return {"state": null, "clear": false, "reason": "empty"}
+	if raw == null: return {"state":null,"clear":false,"reason":"empty"}
 	if raw is String:
 		var envelope: Variant = parse_json_exact(raw)
-		if object(envelope) and integer(envelope.get("version")) and envelope.version < 4:
-			return {"state": null, "clear": true, "reason": "outdated"}
-		if object(envelope) and envelope.get("version") == 4 and is_active_run_state(envelope.get("state")):
-			return {"state": envelope.state, "clear": false, "reason": "ok"}
-	return {"state": null, "clear": true, "reason": "invalid"}
+		if object(envelope) and integer(envelope.get("version")):
+			if envelope.version < 4: return {"state":null,"clear":true,"reason":"outdated"}
+			if envelope.version > (4 if RC.RUN.legacy else 5): return {"state":null,"clear":false,"reason":"unsupported"} if not RC.RUN.legacy else {"state":null,"clear":true,"reason":"invalid"}
+			if envelope.version == 4:
+				var previous: Dictionary = RC.RUN
+				RC.use_legacy()
+				var valid: bool = is_active_run_state(envelope.get("state"))
+				RC.set("RUN",previous)
+				if valid:
+					if RC.RUN.legacy: return {"state":envelope.state,"clear":false,"reason":"ok"}
+					return {"state":migrate_v4(envelope.state),"clear":false,"reason":"ok","migrated":true}
+			elif envelope.version == 5 and is_active_run_state(envelope.get("state")):
+				return {"state":envelope.state,"clear":false,"reason":"ok"}
+	return {"state":null,"clear":true,"reason":"invalid"}
+
+static func migrate_v4(original: Dictionary) -> Dictionary:
+	var state: Dictionary = original.duplicate(true)
+	state.runId = ""; state.contentVersion = "body-batch-2"
+	state.relicPurpose = "initial" if state.relics.is_empty() else "elite"
+	state.startingRelics = RC.LEGACY_RELIC_POOL.duplicate()
+	state.monsters.append_array(["box","box","lock","box","box","dragon"])
+	if state.monster.key == "dragon": state.monster.layerRules = ["hug","bite","bell"]
+	for history: Dictionary in state.hist:
+		history.hearts = state.hearts
+		if history.monster.key == "dragon": history.monster.layerRules = ["hug","bite","bell"]
+	return state
+
+static func _v5_details(value: Dictionary) -> bool:
+	if not value.get("runId") is String or value.runId.is_empty() or value.get("contentVersion") != "body-batch-2": return false
+	if value.get("relicPurpose") not in ["initial","elite","boss"]: return false
+	if not relic_list(value.get("startingRelics")) or value.startingRelics.is_empty(): return false
+	if value.relics.size() > 5: return false
+	var count: Dictionary = {}
+	for item: Dictionary in value.cards:
+		if item.id >= value.nextCardId: return false
+		if item.has("type"):
+			count[item.type] = int(count.get(item.type,0))+1
+			if count[item.type] > RC.RUN.toolCap: return false
+	var room: Dictionary = RC.RUN.acts[int(value.act)-1].rooms[int(value.room)-1]
+	if value.phase == "relic":
+		if value.relicPurpose == "initial":
+			if value.fight != 1 or not value.relics.is_empty(): return false
+			for id: String in value.relicOptions:
+				if not value.startingRelics.has(id): return false
+		else:
+			if room.type != value.relicPurpose or not room.get("relic",false) or not value.monster.broken: return false
+	if value.phase == "act_choice" and (room.type != "boss" or not room.get("relic",false) or not value.monster.broken or value.relicPurpose != "boss"): return false
+	if value.phase in ["loot","shop"] and room.type not in ["normal","doors"]: return false
+	if value.phase == "shop" and (room.type != "doors" or value.pendingReward != "shop" or not value.monster.broken): return false
+	var index: int = 0
+	for act_index: int in range(RC.RUN.acts.size()):
+		var act: Dictionary = RC.RUN.acts[act_index]
+		for config: Dictionary in act.rooms:
+			var key: String = value.monsters[index]
+			if config.has("monster"):
+				if key != config.monster: return false
+			elif not act.normalMonsters.has(key): return false
+			elif act_index+1 > value.act and key != act.normalMonsters[0]: return false
+			index += 1
+	var monster_fight: int = int(value.fight)-1 if value.phase == "doors" else int(value.fight)
+	if not _monster_at(value.monster,monster_fight,value.hpScale): return false
+	for entry: Dictionary in value.hist:
+		if not integer(entry.get("hearts"),1) or entry.hearts > value.maxHearts or not _monster_at(entry.monster,int(value.fight),value.hpScale): return false
+	var previous: int = 0
+	for fight: Dictionary in value.stats.fights:
+		if fight.fight <= previous or fight.fight > value.fight: return false
+		previous = int(fight.fight)
+		if not _legal_monster(fight.monster,previous): return false
+	return true
+
+static func _legal_monster(key: String, fight: int) -> bool:
+	if fight < 1 or fight > RC.RUN.fights.size(): return false
+	var config: Dictionary = RC.RUN.fights[fight-1]
+	if config.has("monster"): return key == config.monster
+	return RC.RUN.acts[int((fight-1)/6)].normalMonsters.has(key)
+
+static func _monster_at(value: Dictionary, fight: int, scale: Variant) -> bool:
+	if not _legal_monster(value.key,fight): return false
+	if value.maxHp != RC.RUN.fights[fight-1].hp*scale or value.turnStartHp > value.maxHp: return false
+	if value.key == "dragon":
+		if value.get("layerRules") != RC.RUN.acts[int((fight-1)/6)].dragonRules: return false
+		if value.layer != preload("res://rules/effects.gd").monster_layer(value): return false
+	return true

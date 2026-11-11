@@ -109,7 +109,8 @@ func _run_cases(tree: SceneTree) -> Dictionary:
 	inspector.show_composition("tool-cards")
 	await tree.process_frame
 	composition = inspector.composition
-	_check("all nine tools have animated hand and paused table compositions",composition.tool_pairs.size() == 9)
+	var expected_tools: Array = preload("res://rules/run_config.gd").LEGACY_TOOL_POOL + ["palette","potion","diamond"]
+	_check("all nine legacy and three new tools have animated hand and paused table compositions",composition.tool_pairs.size() == 12 and expected_tools.all(func(id: String) -> bool: return composition.tool_pairs.has(id)))
 	for pair: Dictionary in composition.tool_pairs.values(): _check("tool table stays paused after transient play",not pair.hand.static_art and pair.row.static_art and pair.row.card_data.has("k"))
 	composition.set_mirror_mask(1)
 	_check("mirror selector changes resolved table gems while hand remains unknown",composition.tool_pairs.mirror.row.card_data.v == 1 and composition.tool_pairs.mirror.hand.tooltip_text.contains("底数 ?"))

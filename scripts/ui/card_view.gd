@@ -70,7 +70,7 @@ func _text(value: String, settings: Dictionary, palette: Dictionary, font_size: 
 func _badge(type: String, palette: Dictionary) -> void:
 	var labels: Dictionary = {"bag": "+%s 张" % Config.TOOLS.bag.draw, "lens": "倍率×%s" % Config.TOOLS.lens.multiplier,
 		"hammer": "伤害×%s" % Config.TOOLS.hammer.turnMultiplier, "mirror": "变色", "stone": "成长+%s" % Config.TOOLS.stone.xp,
-		"hourglass": "倒计时+1", "seal": "封", "shadow": "照抄", "whistle": "+额外牌"}
+		"hourglass": "倒计时+1", "seal": "封", "shadow": "照抄", "whistle": "+额外牌", "palette":"补色", "potion":"回心·消耗", "diamond":"底数×2"}
 	var text: String = labels.get(type, "")
 	var units: float = 0
 	for index: int in range(text.length()): units += 0.62 if text.unicode_at(index) <= 127 else 1.0

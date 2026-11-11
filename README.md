@@ -1,5 +1,8 @@
 # 新卡牌 · Godot 4.7.2
 
+当前开发分支新增两幕12仗、幕末带走、收藏室及v5存档。见 [本体第2批记录](docs/v2/batch-2-implementation.md) 和 [HANDOFF](HANDOFF.md)。图形截图及用户体验尚未验收；第三幕与加码未开放，H5仍为只读参照。
+
+
 双击根目录 **启动.command**，或运行：
 
 ```sh
@@ -35,6 +38,6 @@ node tools/screens.mjs                  # 配对截图；顺序运行Chrome和Go
 
 ## 本体第2批：交给Dot开发
 
-2026-11-11：当前Godot基线完整检查4866项通过、0失败。第二批功能尚未实现；开发要求、数值、存档迁移、实施计划及验收在 [第二批开发包](docs/development/body-batch-2/00-开发说明.md)，可复制的开工提示词见 [给Dot的提示词](docs/development/body-batch-2/06-给Dot的提示词.md)。
+历史交接（2026-11-11，开发前）：当时Godot基线完整检查4866项通过、0失败。第二批在该次交接时尚未实现；开发要求、数值、存档迁移、实施计划及验收在 [第二批开发包](docs/development/body-batch-2/00-开发说明.md)，可复制的开工提示词见 [给Dot的提示词](docs/development/body-batch-2/06-给Dot的提示词.md)。
 
 本批做第二幕、去留、收藏室、3张新牌和5件宝物；新美术先占位，第三幕和加码留到第3批。引擎二进制不在Git中，接收方提供Godot4.7.2并设GODOT_BIN，先 `bash tools/import.sh`，再 `bash tools/check.sh`。

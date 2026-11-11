@@ -26,6 +26,11 @@ const TOOLS: Dictionary = {
 	"seal":{"name":"封条","v":0,"text":"这回合怪的规矩不算"},
 	"shadow":{"name":"影子","v":0,"text":"跟上一张一模一样"},
 	"whistle":{"name":"哨子","v":3,"text":"叫来 1 张额外牌","drawTool":1},
+	"palette":{"name":"调色盘","v":0,"text":"跟前张顺色，再补一种颜色"},
+	"potion":{"name":"药水","v":1,"text":"回 1 颗心，用完消耗"},
+	"diamond":{"name":"钻石","v":7,"text":"本张宝石底数 ×2"},
 	"stone":{"name":"磨石","v":0,"text":"三颗宝石各长 5 次","xp":5},
 }
-const TOOL_TYPES: Array = ["bag","lens","hammer","mirror","stone","hourglass","seal","shadow","whistle"]
+const TOOL_TYPES: Array = ["bag","lens","hammer","mirror","stone","hourglass","seal","shadow","whistle","palette","potion","diamond"]
+
+const RESOLVED_MASK_TOOLS: Array = ["mirror", "shadow", "palette"]

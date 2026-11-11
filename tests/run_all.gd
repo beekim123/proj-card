@@ -6,6 +6,7 @@ func _init() -> void:
 	_run.call_deferred()
 
 func _run() -> void:
+	preload("res://rules/run_config.gd").use_legacy()
 	var failures: Array[String] = []
 	var total: int = 0
 	var report: Dictionary = {"suites":{},"passed":0,"failed":0}
@@ -31,6 +32,15 @@ func _run() -> void:
 	if int(precision.get("failed",0)) > 0:
 		for case_name: String in precision.get("failed_names",[]): failures.append("precision: "+case_name+": "+str(precision.get("errors",{}).get(case_name,[])))
 		if precision.get("failed_names",[]).is_empty(): failures.append("precision: "+str(precision.failed)+" failed")
+	preload("res://rules/run_config.gd").use_current()
+	for name: String in ["cards","run","profile","save","ui","replay"]:
+		var batch: GDScript = load("res://tests/test_batch_two_"+name+".gd")
+		if batch == null or not batch.can_instantiate(): failures.append("batch_two_"+name+": cannot load"); continue
+		var result: Dictionary = await batch.new().run()
+		report.suites["batch_two_"+name] = result
+		total += int(result.get("passed",0))
+		for failure: Variant in result.get("failures",[]): failures.append("batch_two_"+name+": "+str(failure))
+		print("SUITE batch_two_",name,": ",result.get("passed",0)," passed, ",result.get("failed",0)," failed")
 	var smoke: GDScript = load("res://tests/test_ui_smoke.gd") as GDScript
 	if smoke == null: failures.append("UI smoke missing")
 	else:

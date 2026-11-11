@@ -4,6 +4,7 @@ extends RefCounted
 const Core: GDScript = preload("res://rules/index.gd")
 const Config: GDScript = preload("res://rules/config.gd")
 const RC: GDScript = preload("res://rules/run_config.gd")
+const RunTypes: GDScript = preload("res://rules/run_types.gd")
 const Effects: GDScript = preload("res://rules/effects.gd")
 static var last_error: String = ""
 
@@ -27,12 +28,19 @@ static func clone_run(state: Dictionary) -> Dictionary:
 static func make_monster(key: String, fight: int, hp_scale: Variant = null) -> Dictionary:
 	var scale: float = float(RC.RUN.hpScale if hp_scale == null else hp_scale)
 	var config: Dictionary = RC.RUN.fights[fight - 1]
-	return {"key": key, "hp": config.hp * scale, "maxHp": config.hp * scale,
+	var result: Dictionary = {"key": key, "hp": config.hp * scale, "maxHp": config.hp * scale,
 		"countdown": config.countdown, "maxCountdown": config.countdown,
 		"broken": false, "turnStartHp": config.hp * scale, "overkill": 0,
 		"rule": RC.MONSTERS[key].rule, "layer": 1, "wind": 0, "maxWind": 0, "woundDown": false}
+	if key == "dragon":
+		var position: int = fight - 1
+		for act: Dictionary in RC.RUN.acts:
+			if position < act.rooms.size():
+				result.layerRules = act.get("dragonRules",["hug","bite","bell"]).duplicate(); break
+			position -= act.rooms.size()
+	return result
 
-static func create_run(seed: Variant) -> Dictionary:
+static func create_run(seed: Variant, options: Dictionary = {}) -> Dictionary:
 	last_error = ""
 	Core.set("last_error", "")
 	var game: Dictionary = Core.create_game(seed, {"hand": RC.RUN.handStart, "grow": true, "tools": false})
@@ -43,16 +51,20 @@ static func create_run(seed: Variant) -> Dictionary:
 	for act: Dictionary in RC.RUN.acts:
 		for config: Dictionary in act.rooms:
 			if config.has("monster"): monsters.append(config.monster)
+			elif monsters.size() >= 6: monsters.append(act.normalMonsters[0])
 			else: monsters.append(act.normalMonsters[int(floor(rng.next_value() * act.normalMonsters.size()))])
 	var state: Dictionary = {
 		"act": 1, "room": 1, "doors": [], "pendingReward": "card", "previousNormal": monsters[0],
 		"hpScale": RC.RUN.hpScale, "shopsVisited": 0, "nextCardId": Core.create_deck().size() + 1,
 		"cards": Core.create_deck(), "hearts": RC.RUN.hearts, "maxHearts": RC.RUN.hearts, "handLimit": RC.RUN.handStart,
-		"relicOptions": Core.shuffle(RC.RELIC_IDS.duplicate(), rng).slice(0, RC.RUN.relicOptions), "relic": null, "relics": [],
+		"relicOptions": Core.shuffle(_starting_pool(options), rng).slice(0, RC.RUN.relicOptions), "relic": null, "relics": [],
 		"fight": 1, "monsters": monsters, "monster": make_monster(monsters[0], 1), "game": game,
 		"phase": "relic", "loot": [], "hist": [], "result": null,
 		"stats": {"turns": 0, "bestTurn": 0, "bestFight": 1, "maxOverkill": 0, "totalDamage": 0, "fights": []},
 	}
+	if not RC.RUN.legacy:
+		state.runId = str(options.get("runId","")); state.contentVersion = "body-batch-2"
+		state.relicPurpose = "initial"; state.startingRelics = _starting_pool(options)
 	Effects.apply_lifecycle(state, "fightStart")
 	return state
 
@@ -62,13 +74,14 @@ static func choose_relic(state: Dictionary, option_index: Variant) -> Dictionary
 		_fail("当前不在选宝物阶段"); return state
 	if not _integer(option_index) or option_index < 0 or option_index >= state.relicOptions.size():
 		_fail("宝物索引超出范围"); return state
-	var initial: bool = state.relics.is_empty()
+	var initial: bool = state.get("relicPurpose", "initial" if state.relics.is_empty() else "elite") == "initial"
 	acquire_relic(state, state.relicOptions[int(option_index)])
 	state.relicOptions = []
 	if initial:
 		state.phase = "battle"
 		Effects.apply_lifecycle(state, "fightStart")
 		Effects.apply_lifecycle(state, "turnStart")
+	elif room_config(state).get("afterRelic", "next_fight") == "act_choice": state.phase = "act_choice"
 	else: next_fight(state)
 	clear_undo(state)
 	return state
@@ -93,14 +106,17 @@ static func require_loot(state: Dictionary) -> bool:
 
 static func play_run_card(state: Dictionary, hand_index: Variant) -> Dictionary:
 	last_error = ""
-	if not require_battle(state): return {}
+	var allowed: Dictionary = can_play_run_card(state)
+	if not allowed.ok: _fail(allowed.reason); return {}
 	# Let Core own its exact hand-index diagnostic and leave adventure history alone.
 	var before: Dictionary = {"monster": state.monster.duplicate(true), "stats": copy_stats(state.stats)}
+	if not RC.RUN.legacy: before.hearts = state.hearts
 	Core.set("last_error", "")
 	var entry: Dictionary = Core.play_card(state.game, hand_index, state.monster)
 	if not Core.last_error.is_empty():
 		_fail(Core.last_error); return {}
 	state.hist.append(before)
+	state.hearts = min(state.maxHearts, state.hearts + int(entry.get("heal",0)))
 	if state.monster.broken:
 		state.monster.overkill = float(state.game.turnDmg) / float(state.monster.turnStartHp)
 		state.stats.maxOverkill = max(state.stats.maxOverkill, state.monster.overkill)
@@ -119,6 +135,7 @@ static func undo_run(state: Dictionary) -> bool:
 	state.hist.pop_back()
 	state.monster = previous.monster.duplicate(true)
 	state.stats = copy_stats(previous.stats)
+	if previous.has("hearts"): state.hearts = previous.hearts
 	return true
 
 static func clear_undo(state: Dictionary) -> void:
@@ -151,9 +168,10 @@ static func end_run_turn(state: Dictionary) -> Dictionary:
 	state.game.last = state.game.turnDmg
 	state.game.best = max(state.game.best, state.game.turnDmg)
 	clear_undo(state)
+	consume_potions(state)
 	if state.monster.broken:
 		record_fight(state, true)
-		if state.fight == RC.RUN.fights.size():
+		if state.fight == RC.RUN.fights.size() and not room_config(state).get("relic",false):
 			settle(state, "victory", "boss"); return state
 		Effects.apply_lifecycle(state, "fightWon")
 		var config: Dictionary = RC.RUN.fights[state.fight - 1]
@@ -161,17 +179,18 @@ static func end_run_turn(state: Dictionary) -> Dictionary:
 		var count: int = RC.RUN.lootBonusCount if state.monster.overkill >= RC.RUN.lootBonusOverkill else RC.RUN.lootCount
 		if config.get("relic", false):
 			var options: Array = []
-			for id: String in RC.RELIC_IDS:
+			for id: String in RC.RUN.relicPool:
 				if not state.relics.has(id): options.append(id)
 			state.relicOptions = Core.shuffle(options, Core.random_from_state(state.game)).slice(0, RC.RUN.relicOptions)
 			state.phase = "relic"
+			if not RC.RUN.legacy: state.relicPurpose = "boss" if config.type == "boss" else "elite"
 		elif state.pendingReward == "shop":
 			state.phase = "shop"; state.shopsVisited += 1
 		elif state.pendingReward == "heal":
 			state.hearts = min(state.maxHearts, state.hearts + RC.RUN.healDoor); next_fight(state)
 		else:
 			var options: Array = []
-			for type: String in Config.TOOL_TYPES:
+			for type: String in RC.RUN.toolPool:
 				if tool_count(state, type) < RC.RUN.toolCap: options.append(type)
 			state.loot = Core.shuffle(options, Core.random_from_state(state.game)).slice(0, count)
 			state.phase = "loot"
@@ -345,13 +364,17 @@ static func skip_loot(state: Dictionary) -> Dictionary:
 
 static func abandon_run(state: Dictionary) -> Dictionary:
 	last_error = ""
-	if state.phase in ["victory", "defeat"]: return state
+	if state.phase in RunTypes.TERMINAL_PHASES:
+		if not RC.RUN.legacy: _fail("这局已经结束")
+		return state
 	if state.phase == "battle": state.stats.turns += 1; record_fight(state, false)
 	settle(state, "defeat", "abandoned")
 	return state
 
 static func create_records() -> Dictionary:
-	return {"played": 0, "wins": 0, "farthest": 0, "bestTurn": 0, "maxOverkill": 0}
+	var value: Dictionary = {"played": 0, "wins": 0, "farthest": 0, "bestTurn": 0, "maxOverkill": 0}
+	if not RC.RUN.legacy: value.retreats = 0
+	return value
 
 static func update_records(records: Dictionary, state: Dictionary) -> Dictionary:
 	last_error = ""
@@ -360,6 +383,9 @@ static func update_records(records: Dictionary, state: Dictionary) -> Dictionary
 		_fail("尚未结算，不能更新纪录"); return records
 	if result.recordsApplied: return records
 	var reached: int = RC.RUN.fights.size() + 1 if result.outcome == "victory" else int(result.fight)
+	if not RC.RUN.legacy:
+		reached = int(result.fight) if result.outcome in ["retreat","victory"] else int(result.fight)-1
+		if result.outcome == "retreat": records.retreats = int(records.get("retreats",0))+1
 	result.newRecords = {"farthest": reached > records.farthest, "bestTurn": result.bestTurn > records.bestTurn, "maxOverkill": result.maxOverkill > records.maxOverkill}
 	records.played += 1
 	if result.outcome == "victory": records.wins += 1
@@ -375,13 +401,13 @@ static func _hand_index(state: Dictionary, card: Dictionary) -> int:
 	return -1
 
 static func preview_run_card(state: Dictionary, card: Dictionary) -> Variant:
-	if state.phase != "battle": return null
+	if not can_play_run_card(state).ok: return null
 	var index: int = _hand_index(state, card)
 	if index < 0: return null
 	return play_run_card(clone_run(state), index)
 
 static func displayed_rule(state: Dictionary) -> Variant:
-	if state.monster.get("rule") == "layers": return RC.MONSTERS.dragon.rules[state.monster.layer - 1]
+	if state.monster.get("rule") == "layers": return state.monster.layerRules[state.monster.layer - 1]
 	return state.monster.get("rule")
 
 static func rule_sealed(state: Dictionary) -> bool:
@@ -391,6 +417,7 @@ static func current_rule(state: Dictionary) -> Variant:
 	return Effects.active_monster_rule(state.monster)
 
 static func card_warnings(state: Dictionary, card: Dictionary) -> Dictionary:
+	if not can_play_run_card(state).ok: return {"attack":false,"unwind":false,"blocked":true}
 	if state.phase != "battle" or state.monster.broken: return {"attack": false, "unwind": false}
 	var index: int = _hand_index(state, card)
 	if index < 0: return {"attack": false, "unwind": false}
@@ -400,7 +427,7 @@ static func card_warnings(state: Dictionary, card: Dictionary) -> Dictionary:
 		"unwind": current_rule(state) == "wind" and state.monster.maxWind > 0 and state.monster.wind > 0 and not state.monster.woundDown and (int(entry.v) & 4) != 0}
 
 static func preview_countdown(state: Dictionary, card: Dictionary) -> Variant:
-	if state.phase != "battle": return state.monster.countdown
+	if not can_play_run_card(state).ok: return state.monster.countdown
 	var index: int = _hand_index(state, card)
 	if index < 0: return state.monster.countdown
 	var copy: Dictionary = clone_run(state)
@@ -428,7 +455,7 @@ static func rainbow_status(source: Dictionary) -> Dictionary:
 	var chromatic: Array = []
 	var available: Array = game.chain.duplicate()
 	for card: Dictionary in game.hand:
-		if card.get("type") not in ["mirror", "shadow"] and _includes(Config.CONFIG.rainbowColors, card.v):
+		if card.get("type") not in Config.RESOLVED_MASK_TOOLS and _includes(Config.CONFIG.rainbowColors, card.v):
 			chromatic.append(card)
 			if not _includes(available, card.v): available.append(card.v)
 	var available_count: int = 0
@@ -511,7 +538,7 @@ static func debug_set_wind(state: Dictionary, wind: Variant) -> void:
 
 static func debug_relic_selection(state: Dictionary) -> void:
 	last_error = ""
-	state.merge(create_run(state.game.rngState), true)
+	state.merge(create_run(state.game.rngState,{"runId":state.get("runId",""),"startingRelics":state.get("startingRelics",RC.RUN.startPool)}), true)
 
 static func format_overkill(value: Variant) -> String:
 	last_error = ""
@@ -525,3 +552,47 @@ static func format_monster_hp(hp: Variant, max_hp: Variant) -> String:
 	if not (hp is int or hp is float) or not (max_hp is int or max_hp is float) or not is_finite(float(hp)) or not is_finite(float(max_hp)) or max_hp <= 0:
 		_fail("怪物血量必须是有限数字，满血必须大于 0"); return ""
 	return Core.format_number(max(0, hp)) + " / " + Core.format_number(max_hp)
+
+static func _starting_pool(options: Dictionary) -> Array:
+	var provided: Variant = options.get("startingRelics", RC.RUN.startPool)
+	var result: Array = []
+	if provided is Array:
+		for id: String in RC.RUN.relicPool:
+			if provided.has(id): result.append(id)
+	return result if not result.is_empty() else RC.RUN.startPool.duplicate()
+
+static func can_play_run_card(state: Dictionary) -> Dictionary:
+	if state.get("phase") != "battle": return {"ok":false,"reason":"当前不在打仗阶段"}
+	if current_rule(state) == "six" and state.game.row.size() >= 6:
+		return {"ok":false,"reason":"这回合打满6张了"}
+	return {"ok":true,"reason":""}
+
+static func consume_potions(state: Dictionary) -> void:
+	var spent: Array = []
+	for entry: Dictionary in state.game.row:
+		if entry.get("spent",false): spent.append(entry.id)
+	if spent.is_empty(): return
+	state.cards = state.cards.filter(func(card: Dictionary) -> bool: return not spent.has(card.id))
+	# Commit only after undo is cleared; remove consumed cards from every pile.
+	# The completed row's reaction metadata is cleared with it at turn commit.
+	for pile: String in ["deck","discard","hand","row"]:
+		state.game[pile] = state.game[pile].filter(func(card: Dictionary) -> bool: return not spent.has(card.id))
+	state.game.chain = []; state.game.chainIdx = []; state.game.rainbow = false
+
+static func choose_act_exit(state: Dictionary, choice: String) -> Dictionary:
+	last_error = ""
+	if state.get("phase") != "act_choice": _fail("当前不在去留阶段"); return state
+	if choice not in ["retreat","continue"]: _fail("去留选择无效"); return state
+	if choice == "continue" and (not room_config(state).get("canContinue",false) or state.act >= RC.RUN.acts.size()):
+		_fail("长廊已过，带着宝物回家吧。"); return state
+	if choice == "retreat": settle(state,"retreat","act"+str(int(state.act)))
+	else: next_fight(state)
+	return state
+
+static func debug_jump_act_room(state: Dictionary, act: int, room: int) -> void:
+	last_error = ""
+	if act < 1 or act > RC.RUN.acts.size() or room < 1 or room > RC.RUN.acts[act-1].rooms.size():
+		_fail("幕或房间超出范围"); return
+	var fight: int = room
+	for index: int in range(act-1): fight += RC.RUN.acts[index].rooms.size()
+	debug_jump_room(state,fight)
