@@ -41,3 +41,7 @@ node tools/screens.mjs                  # 配对截图；顺序运行Chrome和Go
 历史交接（2026-11-11，开发前）：当时Godot基线完整检查4866项通过、0失败。第二批在该次交接时尚未实现；开发要求、数值、存档迁移、实施计划及验收在 [第二批开发包](docs/development/body-batch-2/00-开发说明.md)，可复制的开工提示词见 [给Dot的提示词](docs/development/body-batch-2/06-给Dot的提示词.md)。
 
 本批做第二幕、去留、收藏室、3张新牌和5件宝物；新美术先占位，第三幕和加码留到第3批。引擎二进制不在Git中，接收方提供Godot4.7.2并设GODOT_BIN，先 `bash tools/import.sh`，再 `bash tools/check.sh`。
+
+## 本体第3批：编码包已准备
+
+第三幕、最后4件普通宝物、完整通关/大宝石、加码1–5及存档/纪录的 [第三批开发包](docs/development/body-batch-3/00-开发说明.md) 已整理；[开工提示词](docs/development/body-batch-3/06-给Dot的提示词.md) 可交接执行。运行代码仍为第二批，第三批尚未实现。须从第二批开发分支继承并先处理包内07的L01–L05，不能从旧main直接开始；技术、视觉与用户验收分别记录。

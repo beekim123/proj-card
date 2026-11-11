@@ -1,0 +1,713 @@
+{
+  "purpose": "第三批开发期规格，不是已接入运行时的配置",
+  "status": "prepared-not-implemented",
+  "date": "2026-11-11",
+  "timezone": "America/New_York",
+  "contentVersion": "body-batch-3",
+  "runSaveVersion": 6,
+  "recordsEnvelopeVersion": 3,
+  "profileVersion": 1,
+  "engine": "4.7.2.stable",
+  "baseCommit": "e383dba26c696f2f83720ed6b1ecd1dc6b0b4ba0",
+  "baseBranch": "feature/body-batch-2",
+  "developmentBranch": "feature/body-batch-3",
+  "counts": {
+    "acts": 3,
+    "fights": 18,
+    "monsters": 10,
+    "tools": 12,
+    "relics": 19,
+    "maxHeldRelics": 6,
+    "tierCount": 6
+  },
+  "acts": [
+    {
+      "id": "hall",
+      "name": "门厅",
+      "normalMonsters": [
+        "chest",
+        "soldier",
+        "bear"
+      ],
+      "dragonRules": [
+        "hug",
+        "bite",
+        "bell"
+      ],
+      "rooms": [
+        {
+          "type": "normal",
+          "hp": 20000,
+          "countdown": 3
+        },
+        {
+          "type": "doors",
+          "hp": 40000,
+          "countdown": 3
+        },
+        {
+          "type": "elite",
+          "monster": "clock",
+          "hp": 100000,
+          "countdown": 3,
+          "handUp": 1,
+          "healFull": true,
+          "relic": true
+        },
+        {
+          "type": "doors",
+          "hp": 250000,
+          "countdown": 3
+        },
+        {
+          "type": "doors",
+          "hp": 450000,
+          "countdown": 3
+        },
+        {
+          "type": "boss",
+          "monster": "dragon",
+          "hp": 1000000,
+          "countdown": 4,
+          "healFull": true,
+          "relic": true,
+          "afterRelic": "act_choice",
+          "canContinue": true
+        }
+      ]
+    },
+    {
+      "id": "corridor",
+      "name": "长廊",
+      "normalMonsters": [
+        "box",
+        "portrait",
+        "chest",
+        "soldier",
+        "bear"
+      ],
+      "dragonRules": [
+        "picky",
+        "duck",
+        "six"
+      ],
+      "rooms": [
+        {
+          "type": "normal",
+          "hp": 500000,
+          "countdown": 3
+        },
+        {
+          "type": "doors",
+          "hp": 700000,
+          "countdown": 3
+        },
+        {
+          "type": "elite",
+          "monster": "lock",
+          "hp": 500000,
+          "countdown": 3,
+          "handUp": 0,
+          "healFull": true,
+          "relic": true
+        },
+        {
+          "type": "doors",
+          "hp": 1100000,
+          "countdown": 3
+        },
+        {
+          "type": "doors",
+          "hp": 1700000,
+          "countdown": 3
+        },
+        {
+          "type": "boss",
+          "monster": "dragon",
+          "hp": 3000000,
+          "countdown": 4,
+          "healFull": true,
+          "relic": true,
+          "afterRelic": "act_choice",
+          "canContinue": true
+        }
+      ]
+    },
+    {
+      "id": "vault",
+      "name": "宝库",
+      "normalMonsters": [
+        "tree",
+        "box",
+        "portrait",
+        "chest",
+        "bear"
+      ],
+      "dragonRules": [
+        "bell",
+        "duck",
+        "cap"
+      ],
+      "rooms": [
+        {
+          "type": "normal",
+          "hp": 4000000,
+          "countdown": 3
+        },
+        {
+          "type": "doors",
+          "hp": 5500000,
+          "countdown": 3
+        },
+        {
+          "type": "elite",
+          "monster": "armor",
+          "hp": 4000000,
+          "countdown": 3,
+          "handUp": 0,
+          "healFull": true,
+          "relic": true
+        },
+        {
+          "type": "doors",
+          "hp": 9000000,
+          "countdown": 3
+        },
+        {
+          "type": "doors",
+          "hp": 14000000,
+          "countdown": 3
+        },
+        {
+          "type": "boss",
+          "monster": "dragon",
+          "hp": 25000000,
+          "countdown": 4,
+          "healFull": true,
+          "relic": false,
+          "canContinue": false,
+          "outcome": "victory"
+        }
+      ]
+    }
+  ],
+  "newMonsters": {
+    "tree": {
+      "name": "摇钱树",
+      "rule": "regrow",
+      "art": "mon_tree",
+      "simulationId": "plant"
+    },
+    "armor": {
+      "name": "盔甲",
+      "rule": "cap",
+      "art": "mon_armor"
+    }
+  },
+  "newRules": {
+    "regrow": {
+      "name": "长回去",
+      "art": "rule_regrow",
+      "formula": "floor(max(0,turnStartHp-hp)/2)",
+      "hpCeiling": [
+        "turnStartHp",
+        "maxHp"
+      ],
+      "beforeMonsterAttack": true,
+      "disabledWhenKilledOrSealed": true,
+      "damageStatsUnaffected": true
+    },
+    "cap": {
+      "name": "压倍率",
+      "art": "rule_cap",
+      "maximum": 32,
+      "capCurrentMultiplier": true,
+      "capFinalNextMultiplier": true,
+      "crossingCardUsesOldRule": true,
+      "capNextOnLayerEntry": true,
+      "sealCurrentUsesOldRule": true,
+      "noRestorationOfPreviouslyCappedValue": true
+    }
+  },
+  "toolOrder": [
+    "bag",
+    "lens",
+    "hammer",
+    "mirror",
+    "stone",
+    "hourglass",
+    "seal",
+    "shadow",
+    "whistle",
+    "palette",
+    "potion",
+    "diamond"
+  ],
+  "newTools": [],
+  "relicOrder": [
+    "start2",
+    "slow",
+    "first2",
+    "twice",
+    "same",
+    "once",
+    "white",
+    "rainbow",
+    "heart",
+    "grow",
+    "red",
+    "green",
+    "blue",
+    "shun",
+    "same4",
+    "link",
+    "shine",
+    "guard",
+    "rbheal"
+  ],
+  "initialCollection": [
+    "same",
+    "once",
+    "white",
+    "rainbow",
+    "heart",
+    "grow"
+  ],
+  "newRelics": {
+    "link": {
+      "name": "凑白也接链",
+      "art": "relic_link",
+      "simulationId": "whitelink",
+      "keepWhiteChain": true,
+      "keepChainIndices": true,
+      "preserveWhiteReaction": true,
+      "chromaticMasks": [
+        1,
+        3,
+        2,
+        6,
+        4,
+        5
+      ]
+    },
+    "shine": {
+      "name": "闪光300",
+      "art": "relic_shine",
+      "simulationId": "shine300",
+      "gemValues": [
+        100,
+        150,
+        300
+      ],
+      "stage": "baseGemValueBeforeMultipliers"
+    },
+    "guard": {
+      "name": "挡一次",
+      "art": "relic_guard",
+      "chargesPerAct": 1,
+      "availableImmediatelyOnAcquire": true,
+      "stateField": "guardUsedThisAct",
+      "resetOnFight": false,
+      "resetOnAct": true,
+      "blocksAbandon": false,
+      "cancelledAttackConsumes": false
+    },
+    "rbheal": {
+      "name": "彩虹回心",
+      "art": "relic_rbheal",
+      "healPerNewRainbow": 1,
+      "trigger": "entry.rb",
+      "healEvenWhenDuckZeroDamage": true,
+      "twiceDoublesRainbowHeal": false,
+      "combineWithPotion": "add then clamp to maxHearts",
+      "undoRestores": true,
+      "rowField": "rbHeal",
+      "rowHeal": {
+        "nonPotion": 1,
+        "potion": "potionTimes+1 (2..3)"
+      }
+    }
+  },
+  "limits": {
+    "hearts": 3,
+    "handStart": 7,
+    "handMax": 8,
+    "handHardMax": 12,
+    "toolCap": 2,
+    "shopMinDeck": 20,
+    "shopDropMax": 3,
+    "shopCopyCount": 1,
+    "relicOptions": 3,
+    "maxHeldRelicsThisBatch": 6
+  },
+  "difficulty": {
+    "stateField": "difficulty",
+    "tierField": "tier",
+    "tuningScaleField": "tuningScale",
+    "normalTuningScale": 1,
+    "tierMultipliers": [
+      1,
+      1.5,
+      2,
+      3,
+      4,
+      6
+    ],
+    "derivedHpScale": "tierMultiplier * tuningScale",
+    "appliesTo": "allMonsterMaxHpOnly",
+    "runCannotSwitchTier": true,
+    "newProfileUnlockedTier": 0,
+    "unlockedTierFormula": "fullWins==0 ? 0 : min(5,bestClearedTier+2)",
+    "startOptions": [
+      "tier",
+      "unlockedTier",
+      "tuningScale"
+    ],
+    "rememberedSetting": "settings.tier"
+  },
+  "records": {
+    "envelopeVersion": 3,
+    "fields": {
+      "played": 0,
+      "wins": 0,
+      "retreats": 0,
+      "farthest": 0,
+      "bestTurn": 0,
+      "maxOverkill": 0,
+      "fullWins": 0,
+      "bestClearedTier": -1
+    },
+    "winsMeaning": "existing historical journey victories including old one-act victories; not fullClear unlock proof",
+    "fullWinsMeaning": "only body-batch-3 victory at fight18",
+    "bestClearedTierMeaning": "highest fully cleared tier, -1 before full clear",
+    "farthestMeaning": "clearedFights",
+    "farthestMax": 18,
+    "write": {
+      "victory": 18,
+      "retreatAct1": 6,
+      "retreatAct2": 12,
+      "clearedFights": {
+        "function": "Run.cleared_fights",
+        "default": "fight-1",
+        "currentFightConfirmedWon": "fight",
+        "clamp": [
+          0,
+          18
+        ],
+        "confirmedBy": "stats.fights current fight won=true",
+        "examples": {
+          "act1ChoiceAbandon": 6,
+          "act3EliteRewardAbandon": 15
+        },
+        "legacyRecordsNotRecomputed": true
+      }
+    },
+    "legacyMigration": {
+      "v2Farthest": "unchanged",
+      "flatFarthest": "existing one-act conversion only",
+      "newFullWins": 0,
+      "newBestClearedTier": -1
+    },
+    "safeCollectionOutcomes": [
+      "retreat",
+      "victory"
+    ],
+    "atomicFields": [
+      "records",
+      "profile",
+      "settledRunIds",
+      "clearedRun"
+    ],
+    "invariant": "fullWins<=wins<=played"
+  },
+  "trophy": {
+    "id": "biggem",
+    "art": "relic_biggem",
+    "derivedFrom": "records.fullWins > 0",
+    "ordinaryRelic": false,
+    "inStartingPool": false,
+    "combatEffect": false,
+    "repeatedClear": "retain trophy, increment fullWins exactly once",
+    "resultFields": [
+      "firstBigGem",
+      "newUnlockedTiers"
+    ]
+  },
+  "activePhases": [
+    "relic",
+    "battle",
+    "loot",
+    "doors",
+    "shop",
+    "act_choice"
+  ],
+  "terminalPhases": [
+    "victory",
+    "defeat",
+    "retreat"
+  ],
+  "resolvedMaskTools": [
+    "mirror",
+    "shadow",
+    "palette"
+  ],
+  "monsterState": {
+    "monstersLength": 18,
+    "initialAct1Rng": "unchanged from baseline",
+    "futureActsNoRng": true,
+    "v5Append": [
+      "tree",
+      "tree",
+      "armor",
+      "tree",
+      "tree",
+      "dragon"
+    ],
+    "dragonLayerRulesField": "layerRules"
+  },
+  "migration": {
+    "acceptedRunVersions": [
+      4,
+      5,
+      6
+    ],
+    "writeRunVersion": 6,
+    "futureVersionPreserve": true,
+    "v5Validator": "frozen BATCH_TWO_RUN",
+    "v4Validator": "frozen LEGACY_RUN",
+    "preserveV5RunId": true,
+    "noRngConsumption": true,
+    "v5Difficulty": {
+      "tier": 0,
+      "tuningScale": "source.hpScale"
+    },
+    "newGuardUsedThisAct": false,
+    "historyNewGuardUsedThisAct": false,
+    "recordsV2ToV3": "preserve old values/receipts; append only new progress fields",
+    "recordsV2Validator": "frozen records v2: farthest<=12, 15 relic pool, original fields",
+    "modes": {
+      "legacy": {
+        "writeRunVersion": 4,
+        "maxReadableRunVersion": 4,
+        "recordsEnvelope": "flat"
+      },
+      "batchTwo": {
+        "writeRunVersion": 5,
+        "maxReadableRunVersion": 5,
+        "recordsEnvelope": 2
+      },
+      "current": {
+        "writeRunVersion": 6,
+        "maxReadableRunVersion": 6,
+        "recordsEnvelope": 3
+      }
+    },
+    "currentModeFutureVersionTest": 7
+  },
+  "placeholderMap": {
+    "mon_tree": [
+      "mon_bear",
+      "摇钱树"
+    ],
+    "mon_armor": [
+      "mon_clock",
+      "盔甲"
+    ],
+    "rule_regrow": [
+      "rule_hug",
+      "长回去"
+    ],
+    "rule_cap": [
+      "rule_bell",
+      "压倍率"
+    ],
+    "relic_link": [
+      "relic_rainbow",
+      "凑白接链"
+    ],
+    "relic_shine": [
+      "relic_grow",
+      "闪光300"
+    ],
+    "relic_guard": [
+      "relic_heart",
+      "挡一次"
+    ],
+    "relic_rbheal": [
+      "relic_heart",
+      "彩虹回心"
+    ],
+    "relic_biggem": [
+      "title_emblem",
+      "大宝石"
+    ],
+    "bg_tile_vault": [
+      "bg_tile",
+      "宝库"
+    ],
+    "prop_coins": [
+      "prop_pillar",
+      "金币堆"
+    ],
+    "prop_urn": [
+      "prop_rack",
+      "宝瓶"
+    ]
+  },
+  "preflightIssues": [
+    "L01",
+    "L02",
+    "L03",
+    "L04",
+    "L05"
+  ],
+  "abandon": {
+    "allowedPhases": [
+      "relic",
+      "battle",
+      "loot",
+      "doors",
+      "shop",
+      "act_choice"
+    ],
+    "outcome": "defeat",
+    "grantsCollection": false,
+    "unlocksTier": false
+  },
+  "userDecisions": [
+    {
+      "id": "cap-current-and-next-32",
+      "date": "2026-11-11",
+      "status": "confirmed-by-user",
+      "text": "进入压倍率层后的下一张就按最高×32结算"
+    },
+    {
+      "id": "guard-immediate-current-act",
+      "date": "2026-11-11",
+      "status": "confirmed-by-user",
+      "text": "精英拿到挡一次后本幕立即获得一次抵挡"
+    }
+  ],
+  "sourceInterpretations": [
+    {
+      "id": "third-boss-no-ordinary-relic",
+      "basis": "总方案最多6件与模拟仅前两龙给宝物一致",
+      "effect": "第三龙直接胜利和大宝石奖章，不给第7普通宝物"
+    },
+    {
+      "id": "regrow-order-and-rounding",
+      "basis": "本包明确生命周期，沿用half floor参考并加turnStartHp/maxHp上限",
+      "effect": "未击杀未封条，攻击前回半血"
+    }
+  ],
+  "pendingUserDecisions": [],
+  "verification": {
+    "fixedSeeds": {
+      "first": 1,
+      "last": 100,
+      "tierFormula": "(seed-1)%6",
+      "naturalAndStagedSeparated": true
+    },
+    "screenshotDirections": [
+      "landscape",
+      "portrait"
+    ],
+    "screenshotScenesPerDirection": 10,
+    "screenshotCount": 20,
+    "screenshotScenes": [
+      {
+        "id": "difficulty-locked",
+        "screen": "difficulty",
+        "fullWins": 0,
+        "bestClearedTier": -1,
+        "unlockedTier": 0
+      },
+      {
+        "id": "difficulty-unlocked",
+        "screen": "difficulty",
+        "fixture": true,
+        "fullWins": 3,
+        "bestClearedTier": 4,
+        "unlockedTier": 5
+      },
+      {
+        "id": "vault-regrow",
+        "screen": "adventure",
+        "phase": "battle",
+        "act": 3,
+        "room": 1,
+        "monster": "tree",
+        "rule": "regrow"
+      },
+      {
+        "id": "vault-cap",
+        "screen": "adventure",
+        "phase": "battle",
+        "act": 3,
+        "room": 3,
+        "monster": "armor",
+        "rule": "cap",
+        "effectiveMultiplierMax": 32
+      },
+      {
+        "id": "vault-dragon",
+        "screen": "adventure",
+        "phase": "battle",
+        "act": 3,
+        "room": 6,
+        "monster": "dragon",
+        "layer": 3,
+        "rule": "cap",
+        "heldRelics": 6
+      },
+      {
+        "id": "act2-choice",
+        "screen": "adventure",
+        "phase": "act_choice",
+        "act": 2,
+        "room": 6,
+        "heldRelics": 5,
+        "canContinue": true
+      },
+      {
+        "id": "victory",
+        "screen": "adventure",
+        "phase": "victory",
+        "act": 3,
+        "room": 6,
+        "heldRelics": 6,
+        "recordsApplied": true
+      },
+      {
+        "id": "victory-save-pending",
+        "screen": "adventure",
+        "phase": "victory",
+        "act": 3,
+        "room": 6,
+        "heldRelics": 6,
+        "recordsApplied": false,
+        "actualPersistentFailure": true
+      },
+      {
+        "id": "collection-top",
+        "screen": "collection",
+        "fixture": true,
+        "ordinaryRelics": 19,
+        "scroll": "top"
+      },
+      {
+        "id": "collection-bottom",
+        "screen": "collection",
+        "fixture": true,
+        "ordinaryRelics": 19,
+        "scroll": "bottom"
+      }
+    ],
+    "workersDefault": 1,
+    "numericLibraryThreads": 1,
+    "globalResourceHeavyTasksMax": 2,
+    "globalComputeWorkersMax": 2,
+    "windowTarget": "freshly identified Mac built-in display",
+    "noNewSimulationRunForPackage": true
+  }
+}

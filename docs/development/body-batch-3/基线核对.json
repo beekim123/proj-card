@@ -1,0 +1,177 @@
+{
+  "date": "2026-11-11",
+  "timezone": "America/New_York",
+  "status": "第三批开发包准备完成；第三批代码未实现",
+  "repository": "https://github.com/beekim123/proj-card",
+  "handoffCodeBranch": "feature/body-batch-2",
+  "handoffCodeCommit": "e383dba26c696f2f83720ed6b1ecd1dc6b0b4ba0",
+  "localMainCommit": "18aece31cf484d23d8d638cd4cc6daa225b53187",
+  "suggestedDevelopmentBranch": "feature/body-batch-3",
+  "packagePath": "docs/development/body-batch-3",
+  "packageFiles": 10,
+  "packageCommitState": "独立审核修订后，与第二批本地验收文档一起以仅文档提交推送到feature/body-batch-2（e383之后）；运行代码文件不变，以sourceSHA256核对",
+  "currentContent": {
+    "acts": 2,
+    "fights": 12,
+    "monsters": 8,
+    "tools": 12,
+    "relics": 15,
+    "runSaveVersion": 5,
+    "recordsEnvelopeVersion": 2,
+    "profileVersion": 1
+  },
+  "targetContent": {
+    "acts": 3,
+    "fights": 18,
+    "monsters": 10,
+    "tools": 12,
+    "relics": 19,
+    "maxHeldRelics": 6,
+    "tierCount": 6,
+    "runSaveVersion": 6,
+    "recordsEnvelopeVersion": 3,
+    "profileVersion": 1
+  },
+  "verifiedCodeBaseline": {
+    "date": "2026-11-11",
+    "commit": "e383dba26c696f2f83720ed6b1ecd1dc6b0b4ba0",
+    "command": "bash tools/check.sh",
+    "exitCode": 0,
+    "passed": 5277,
+    "failed": 0,
+    "goldenTraces": 312,
+    "goldenSteps": 37575,
+    "historicalRuns": 400,
+    "historicalCommands": 60223,
+    "newFlowSeeds": 100,
+    "newFlowCommands": 13941,
+    "h5FrozenFiles": 1044,
+    "mode": "headless single worker nice10",
+    "reportPath": "artifacts/batch-2/local-final-report.json",
+    "reportSHA256": "5ca042e56b4f032aa1411663a403819e1f163a33bdf1a353d12bc87d9a5df075",
+    "rawLog": "artifacts/logs/batch-2-local-check.log",
+    "reportStatus": "本聊天上一阶段已实际执行；本轮仅准备文档，没有重复运行Godot"
+  },
+  "localAcceptance": {
+    "screens": 14,
+    "macBuiltinVerified": true,
+    "visualAndInteraction": "not_passed",
+    "userExperience": "not_passed",
+    "knownIssues": [
+      "L01",
+      "L02",
+      "L03",
+      "L04",
+      "L05"
+    ],
+    "selfContainedPreflight": "07-第二批前置修复.md",
+    "localReport": "docs/v2/batch-2-local-validation.md",
+    "l05IndependentReproduction": true
+  },
+  "userDecisions": [
+    {
+      "id": "cap-current-and-next-32",
+      "date": "2026-11-11",
+      "status": "confirmed-by-user",
+      "text": "进入压倍率层后的下一张就按最高×32结算"
+    },
+    {
+      "id": "guard-immediate-current-act",
+      "date": "2026-11-11",
+      "status": "confirmed-by-user",
+      "text": "精英拿到挡一次后本幕立即获得一次抵挡"
+    }
+  ],
+  "pendingUserDecisions": [],
+  "packageValidation": {
+    "jsonParsed": true,
+    "actCount": 3,
+    "fightCount": 18,
+    "ordinaryRelicCount": 19,
+    "toolCount": 12,
+    "difficultyTiers": 6,
+    "screenshotCases": 20,
+    "acceptanceItems": 48,
+    "checkboxesAllUnexecuted": true,
+    "placeholderSourceKeysVerified": true,
+    "sourceCodeUnchanged": true,
+    "newGodotTestsRun": false,
+    "newSimulationsRun": false,
+    "staticChecks": 84,
+    "shellSnippetsSyntaxChecked": 5,
+    "internalLinksChecked": 9,
+    "failures": 0
+  },
+  "excludedFromGit": [
+    "Godot.app/",
+    ".godot/",
+    "artifacts/",
+    "exports/",
+    "node_modules/"
+  ],
+  "notPerformedThisRound": [
+    "第三批产品代码实现",
+    "L01–L05修复",
+    "新三幕/加码规则测试或模拟",
+    "新增GPU截图或用户体验验收",
+    "提交/推送/合并main",
+    "删除或修改H5",
+    "安装SDK/JDK/插件"
+  ],
+  "sourceSHA256": {
+    "project.godot": "cb936616b5e65d99fbc41bf45639a839533b7ffd845c8cd31c70d5fc17ac4bcf",
+    "rules/config.gd": "9634ba31f549131f7aa0b65999de71c15d2e83b464e7e7c48651477c63d384c5",
+    "rules/effects.gd": "d8962910684f51f8a134467b17d3a0493e36d9b4bea184703e007e8399f08a3a",
+    "rules/index.gd": "4381786e80cfbdf965d052332a8e8665d7afaa92ba4bdf36b0fc951846b265f4",
+    "rules/run.gd": "c99494e4e607f2b93447d19a233eef800d8a066a4e8bdb773fedeea63666fe14",
+    "rules/run_config.gd": "9f6a00132f9e944e77517760405d4b620127345994ff3f3154bb6cc1bae11ddc",
+    "rules/run_types.gd": "1797d0c9d23000770f8d3a0e33d9b247553e7d06ca7d40e9d46fb9f46295f3c1",
+    "rules/save_state.gd": "cab9084e596b51a826bc94f0de7e5191ffde3e8d7ea14f7795489002ee5faedd",
+    "rules/profile.gd": "811471425a70275dc644f0f45ed874a2c6cd14c43bba31e97ed3a407938e014c",
+    "scripts/app/game.gd": "2af372a2a4955a903f0b6088c169fa2c75888ea07d6abf3831d043d55601dbfa",
+    "scripts/app/persistence.gd": "2e52eaf0d0b92ad49cfab822edc528b13fdf1108b7ae479bed14a220700f9e85",
+    "scripts/app/display.gd": "7e2e5061bcdbb1003e6c9f27682db07d55720fe1bf98efd47e89b87b12e40445",
+    "scripts/art/art_store.gd": "d336788e11f5ffc1fb7b9a80e915b3c6d95213a16736c65435d51468ad0cfd3c",
+    "scripts/ui/collection_panel.gd": "7a788badebfa663dba403950ce78bc579b983a0cb8d76bf3e7ee6ba165191b82",
+    "tests/run_all.gd": "9bd4d5fdb590b541e9a87032f39e6f00e955fc1950464dd36ba9568d11717388",
+    "tests/h5-fingerprints.json": "50c37f4d993589f445e08f50c4f45fad05425e7c0fd4b8929b6aab8f85ea38c2",
+    "tools/check.sh": "397c0b930d734ca8c2633776bc22b63f94553dd68253aafdbe5337cad282ddfe",
+    "tools/common.sh": "d1bd74f6d2d96894f3a3300d802c484e4c53282cb57c48680f7fbedbcc052936",
+    "tools/import.sh": "b67c585bd6fdbff458113551e03d03ccbd5385e168699b21f26f3d4ec41b3b3f",
+    "tools/capture-batch-two.sh": "6323249ccb44c576ec46e63020680d1f6d7c67e501846a36e28fcdc51a77d860",
+    "data/body-batch-2-placeholders.json": "0775dd227c2bb3c8f5ac00eb856ed68cfa37a6755d09d28b534d21d9046d7e75",
+    "h5/design-docs/本体内容方案.md": "301eed6cabec4188786d1ce34f34c9cf9cade92538c6b83553685f35c72fb16b",
+    "h5/design-docs/模拟/内容表.mjs": "a90c8ebbd900145aa2813d6dc3557896476b09785e9f5c49d153c1ab0e5fac7e",
+    "h5/design-docs/模拟/本体.mjs": "7550536078b8094f7436078dfee485cd7164810b0a7942e0f490a5f49bf9d5e4"
+  },
+  "documentSHA256": {
+    "00-开发说明.md": "b94eddf20c4c6ef2d6362a8285fdf326ebfcd3e2daca0f585da76569db7c7d00",
+    "01-规则与数值.md": "c9380ca7e25677b0de083f956bc6ac3816a46cae4e0877a7221ad90779b7cc03",
+    "02-界面与代码接入.md": "9f6ab60572fcfcbedd7eba83f139972a5b6d434f7ac37d62ac7370494f82a68a",
+    "03-存档与回归策略.md": "c5bcaa781b6f8e8f9d1cf6d6c1394a7b2f6c8b0b9776a3455f69e9d97c542445",
+    "04-验收清单.md": "588400d6078f43c20450413ccb42bbc8a8cb8131f03759fc108c183ad8462da0",
+    "05-实施计划.md": "192b79e6c25a93f03a3b91b15027542c654479bc62a0c85a4918c5caeb87b49e",
+    "06-给Dot的提示词.md": "566a4bf3b4c9aae130e1ac84088495ed7bcdd4a45d7509bd0cdb7fd5c9973c69",
+    "07-第二批前置修复.md": "2d570bd7732b8d0af2c39b0515ebe80e8b58f307e5d103c694e85aa1e538ded7",
+    "内容配置.json": "9e194aca81503ba0c44264b0a7c2166e764bd89acf75621bee09c02dcf792dcb"
+  },
+  "reviewRevision": {
+    "date": "2026-11-11",
+    "by": "独立审核（Claude）",
+    "mustFix": [
+      "rbheal行字段rbHeal与row_entry校验",
+      "按模式的run可读上限与纪录外壳版本",
+      "冻结两幕回归提前到Task2第一步"
+    ],
+    "optional": [
+      "debug血量倍数改走tuningScale",
+      "settings.tier与再来一局",
+      "result.firstBigGem/newUnlockedTiers",
+      "第二幕去留与规则页文案",
+      "结算去重测试用结算前克隆",
+      "vault-dragon持6件截图",
+      "读档不按解锁上限清档",
+      "交接改为仓库内仅文档提交"
+    ]
+  }
+}
