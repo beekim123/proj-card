@@ -85,7 +85,8 @@ static func _save_difference(actual: Variant, expected: Variant, path: String, b
 
 static func migration_difference(raw: String) -> String:
 	var previous: Dictionary = RC.RUN
-	RC.use_current()
+	# Preserve the frozen batch-two v4-to-v5 contract; v6 migration has its own suite.
+	RC.use_batch_two()
 	var migrated: Dictionary = Save.decode_run_save(raw)
 	var difference: String = ""
 	if migrated.state == null or not migrated.get("migrated",false): difference = "v4 migration rejected"
