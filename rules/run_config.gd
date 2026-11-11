@@ -18,6 +18,7 @@ const LEGACY_TOOL_POOL: Array = ["bag","lens","hammer","mirror","stone","hourgla
 const LEGACY_RELIC_POOL: Array = ["start2","slow","first2","twice","same","once","white","rainbow","heart","grow"]
 const INITIAL_COLLECTION: Array = ["same","once","white","rainbow","heart","grow"]
 static var LEGACY_RUN: Dictionary = {
+	"saveVersion":4,"contentVersion":"legacy","maxReadableRunVersion":4,"recordsEnvelopeVersion":0,
 	"toolPool":LEGACY_TOOL_POOL, "relicPool":LEGACY_RELIC_POOL, "startPool":LEGACY_RELIC_POOL, "legacy":true,
 	"acts": [HALL], "fights": HALL.rooms, "normalMonsters": HALL.normalMonsters,
 	"doorRewards": ["card", "shop", "heal"], "hearts": 3, "handStart": 7, "handMax": 8, "handHardMax": 12,
@@ -64,10 +65,11 @@ const RELICS: Dictionary = {
 }
 const RELIC_IDS: Array = ["start2", "slow", "first2", "twice", "same", "once", "white", "rainbow", "heart", "grow", "red", "green", "blue", "shun", "same4"]
 
+static var BATCH_TWO_RUN: Dictionary = make_batch_two()
 static var RUN: Dictionary = make_current()
 static func use_legacy() -> void:
 	RUN = LEGACY_RUN.duplicate(true)
-static func make_current() -> Dictionary:
+static func make_batch_two() -> Dictionary:
 	var value: Dictionary = LEGACY_RUN.duplicate(true)
 	var hall: Dictionary = HALL.duplicate(true)
 	hall.dragonRules = ["hug","bite","bell"]
@@ -79,6 +81,7 @@ static func make_current() -> Dictionary:
 		{"type":"doors","hp":1100000,"countdown":3},
 		{"type":"doors","hp":1700000,"countdown":3},
 		{"type":"boss","monster":"dragon","hp":3000000,"countdown":4,"healFull":true,"relic":true,"afterRelic":"act_choice","canContinue":false}]}
+	value.merge({"saveVersion":5,"contentVersion":"body-batch-2","maxReadableRunVersion":5,"recordsEnvelopeVersion":2},true)
 	value.acts = [hall,corridor]; value.fights = []
 	for act: Dictionary in value.acts: value.fights.append_array(act.rooms)
 	value.toolPool = preload("res://rules/config.gd").TOOL_TYPES.duplicate()
@@ -86,3 +89,8 @@ static func make_current() -> Dictionary:
 	return value
 static func use_current() -> void:
 	RUN = make_current()
+
+static func make_current() -> Dictionary:
+	return make_batch_two()
+static func use_batch_two() -> void:
+	RUN = BATCH_TWO_RUN.duplicate(true)

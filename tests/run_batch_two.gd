@@ -1,8 +1,9 @@
 extends SceneTree
-const NAMES: Array[String] = ["cards", "run", "profile", "save", "ui"]
+const NAMES: Array[String] = ["cards", "run", "profile", "save", "ui", "replay"]
 func _init() -> void:
 	_run.call_deferred()
 func _run() -> void:
+	preload("res://rules/run_config.gd").use_batch_two()
 	var selected: Array[String] = NAMES.duplicate()
 	for arg: String in OS.get_cmdline_user_args():
 		if not arg.begins_with("--suite=") or arg.substr(8) not in NAMES:

@@ -32,7 +32,7 @@ func _run() -> void:
 	if int(precision.get("failed",0)) > 0:
 		for case_name: String in precision.get("failed_names",[]): failures.append("precision: "+case_name+": "+str(precision.get("errors",{}).get(case_name,[])))
 		if precision.get("failed_names",[]).is_empty(): failures.append("precision: "+str(precision.failed)+" failed")
-	preload("res://rules/run_config.gd").use_current()
+	preload("res://rules/run_config.gd").use_batch_two()
 	for name: String in ["cards","run","profile","save","ui","replay"]:
 		var batch: GDScript = load("res://tests/test_batch_two_"+name+".gd")
 		if batch == null or not batch.can_instantiate(): failures.append("batch_two_"+name+": cannot load"); continue
@@ -46,6 +46,7 @@ func _run() -> void:
 	total += int(preflight.passed)
 	for failure: String in preflight.failures: failures.append("preflight: "+failure)
 	print("SUITE preflight: ",preflight.passed," passed, ",preflight.failed," failed")
+	preload("res://rules/run_config.gd").use_current()
 	var smoke: GDScript = load("res://tests/test_ui_smoke.gd") as GDScript
 	if smoke == null: failures.append("UI smoke missing")
 	else:
