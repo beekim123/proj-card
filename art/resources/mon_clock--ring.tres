@@ -1,75 +1,89 @@
-[gd_resource type="SpriteFrames" load_steps=12 format=3]
+[gd_resource type="SpriteFrames" load_steps=14 format=3]
 
 [ext_resource type="Texture2D" path="res://art/sprites/mon_clock-8.png" id="t0"]
 
 [sub_resource type="AtlasTexture" id="f0"]
 atlas = ExtResource("t0")
-region = Rect2(270, 786, 254, 379)
-margin = Rect2(33, 21, 66, 21)
+region = Rect2(757, 789, 251, 372)
+margin = Rect2(35, 28, 69, 28)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f1"]
 atlas = ExtResource("t0")
-region = Rect2(0, 0, 258, 398)
-margin = Rect2(27, 1, 62, 2)
+region = Rect2(0, 0, 262, 398)
+margin = Rect2(28, 1, 58, 2)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f2"]
 atlas = ExtResource("t0")
-region = Rect2(552, 0, 260, 390)
-margin = Rect2(32, 10, 60, 10)
+region = Rect2(262, 0, 259, 397)
+margin = Rect2(31, 2, 61, 3)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f3"]
 atlas = ExtResource("t0")
-region = Rect2(0, 398, 263, 388)
-margin = Rect2(32, 12, 57, 12)
+region = Rect2(521, 0, 256, 392)
+margin = Rect2(33, 7, 64, 8)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f4"]
 atlas = ExtResource("t0")
-region = Rect2(549, 398, 266, 387)
-margin = Rect2(29, 13, 54, 13)
+region = Rect2(777, 0, 256, 392)
+margin = Rect2(33, 7, 64, 8)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f5"]
 atlas = ExtResource("t0")
-region = Rect2(0, 786, 270, 384)
-margin = Rect2(25, 16, 50, 16)
+region = Rect2(0, 398, 255, 391)
+margin = Rect2(33, 8, 65, 9)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f6"]
 atlas = ExtResource("t0")
-region = Rect2(815, 398, 278, 386)
-margin = Rect2(21, 14, 42, 14)
+region = Rect2(255, 398, 255, 387)
+margin = Rect2(33, 12, 65, 13)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f7"]
 atlas = ExtResource("t0")
-region = Rect2(263, 398, 286, 388)
-margin = Rect2(17, 12, 34, 12)
+region = Rect2(510, 398, 254, 383)
+margin = Rect2(34, 17, 66, 17)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f8"]
 atlas = ExtResource("t0")
-region = Rect2(812, 0, 290, 389)
-margin = Rect2(15, 11, 30, 11)
+region = Rect2(764, 398, 253, 379)
+margin = Rect2(34, 21, 67, 21)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f9"]
 atlas = ExtResource("t0")
-region = Rect2(258, 0, 294, 391)
-margin = Rect2(13, 9, 26, 9)
+region = Rect2(0, 789, 253, 378)
+margin = Rect2(34, 22, 67, 22)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f10"]
+atlas = ExtResource("t0")
+region = Rect2(504, 789, 253, 376)
+margin = Rect2(34, 24, 67, 24)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f11"]
+atlas = ExtResource("t0")
+region = Rect2(253, 789, 251, 377)
+margin = Rect2(35, 23, 69, 23)
 filter_clip = true
 
 [resource]
-animations = [{ "frames": [{ "duration": 41.67, "texture": SubResource("f0") },
-{ "duration": 41.67, "texture": SubResource("f1") },
-{ "duration": 41.67, "texture": SubResource("f2") },
-{ "duration": 41.67, "texture": SubResource("f3") },
-{ "duration": 41.67, "texture": SubResource("f4") },
-{ "duration": 41.67, "texture": SubResource("f5") },
-{ "duration": 41.67, "texture": SubResource("f6") },
-{ "duration": 41.67, "texture": SubResource("f7") },
-{ "duration": 41.67, "texture": SubResource("f8") },
-{ "duration": 25, "texture": SubResource("f9") }], "loop": false, "name": &"ring", "speed": 1000.0 }]
+animations = [{ "frames": [{ "duration": 33.33, "texture": SubResource("f0") },
+{ "duration": 33.33, "texture": SubResource("f1") },
+{ "duration": 33.33, "texture": SubResource("f2") },
+{ "duration": 33.33, "texture": SubResource("f3") },
+{ "duration": 33.33, "texture": SubResource("f4") },
+{ "duration": 33.33, "texture": SubResource("f5") },
+{ "duration": 33.33, "texture": SubResource("f6") },
+{ "duration": 33.33, "texture": SubResource("f7") },
+{ "duration": 33.33, "texture": SubResource("f8") },
+{ "duration": 33.33, "texture": SubResource("f9") },
+{ "duration": 33.33, "texture": SubResource("f10") },
+{ "duration": 33.33, "texture": SubResource("f11") }], "loop": false, "name": &"ring", "speed": 1000.0 }]

@@ -1,38 +1,59 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-rule_bell" viewBox="0 0 64 64" width="64" height="64">
 <title>规矩图标 · 敲钟</title>
+<style>
+.svg-rule_bell g { transform-box: view-box; }
+.svg-rule_bell #bell_body { transform-origin: 32px 12px; }
+.svg-rule_bell #white_ring { transform-origin: 32px 46px; }
+@keyframes svg-rule_bell-idle-b {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-rule_bell-idle-w {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.85; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.85; }
+}
+.svg-rule_bell:not([data-anim]) #bell_body,
+.svg-rule_bell[data-anim="idle"] #bell_body { animation: svg-rule_bell-idle-b 3s infinite; }
+.svg-rule_bell:not([data-anim]) #white_ring,
+.svg-rule_bell[data-anim="idle"] #white_ring { animation: svg-rule_bell-idle-w 3s infinite; }
+</style>
+<defs>
+  <clipPath id="rule_bell-cbody">
+    <path d="M32,14 C21,14 17,22 16,33 L11,43 C10,45 12,47 16,47 H48 C52,47 54,45 53,43 L48,33 C47,22 43,14 32,14 Z"/>
+  </clipPath>
+</defs>
 <g id="root">
-  <!-- 钟口外侧一圈醒目湊白光环与左右声波（唯一鲜艳亮白处：#F4F1FF + #FFFFFF） -->
-  <g id="white_ring">
-    <!-- 钟口一圈纯白亮光环 -->
-    <ellipse cx="32" cy="46" rx="25" ry="9.5" fill="none" stroke="#1C1412" stroke-width="7.2"/>
-    <ellipse cx="32" cy="46" rx="25" ry="9.5" fill="none" stroke="#F4F1FF" stroke-width="4"/>
-    <!-- 钟口左右震波短弧 -->
-    <path d="M9,26 Q4,36 9,46 M55,26 Q60,36 55,46" fill="none" stroke="#1C1412" stroke-width="5.6" stroke-linecap="round"/>
-    <path d="M9,26 Q4,36 9,46 M55,26 Q60,36 55,46" fill="none" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"/>
+  <!-- 钟口外侧一圈白光与声波 -->
+  <g id="white_ring" opacity="0.85">
+    <ellipse cx="32" cy="46" rx="23.5" ry="8.8" fill="none" stroke="#1C1412" stroke-width="6.6"/>
+    <ellipse cx="32" cy="46" rx="23.5" ry="8.8" fill="none" stroke="#F4F1FF" stroke-width="3.4"/>
+    <path d="M9.5,26 Q5.5,35 9.5,44 M54.5,26 Q58.5,35 54.5,44" fill="none" stroke="#1C1412" stroke-width="5.2" stroke-linecap="round"/>
+    <path d="M9.5,26 Q5.5,35 9.5,44 M54.5,26 Q58.5,35 54.5,44" fill="none" stroke="#F4F1FF" stroke-width="2.4" stroke-linecap="round"/>
   </g>
 
-  <!-- 小铜钟本体（旧铜 #9A7B46 + 1层暗面 #6E542B + 粗外框） -->
-  <g id="bell_body">
-    <!-- 顶部铜吊环 -->
-    <circle cx="32" cy="11" r="4.5" fill="none" stroke="#1C1412" stroke-width="5.2"/>
-    <circle cx="32" cy="11" r="4.5" fill="none" stroke="#9A7B46" stroke-width="2.4"/>
-
-    <!-- 钟身与外撇钟口 -->
-    <path d="M32,14 C21,14 17,22 16,33 L11,43 C10,45 12,47 16,47 H48 C52,47 54,45 53,43 L48,33 C47,22 43,14 32,14 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-    <!-- 右侧背光暗铜面 -->
-    <path d="M32,14 C43,14 47,22 48,33 L53,43 C54,45 52,47 48,47 H32 V14 Z" fill="#6E542B" opacity="0.82"/>
-    <!-- 左上受光高光弧 -->
-    <path d="M28,17 C22,18 19,24 18,33 L15,40" fill="none" stroke="#E2D6BA" stroke-width="2.2" stroke-linecap="round"/>
-    <!-- 钟腰箍线 -->
-    <line x1="16" y1="35" x2="48" y2="35" stroke="#1C1412" stroke-width="2.6"/>
-    <!-- 外框重描 -->
-    <path d="M32,14 C21,14 17,22 16,33 L11,43 C10,45 12,47 16,47 H48 C52,47 54,45 53,43 L48,33 C47,22 43,14 32,14 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-
-    <!-- 钟舌发出耀眼白光（凑白 #FFFFFF） -->
-    <circle cx="32" cy="49" r="6.5" fill="#FFFFFF" stroke="#1C1412" stroke-width="3"/>
-    <!-- 钟口前景白光弧叠在钟沿前 -->
-    <path d="M10,48 A24,8.5 0 0,0 54,48" fill="none" stroke="#1C1412" stroke-width="6.4" stroke-linecap="round"/>
-    <path d="M10,48 A24,8.5 0 0,0 54,48" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round"/>
-  </g>
+  <!-- 小铜钟本体（照 relic_twice 七层画法） -->
+  <g id="bell_body"><g transform="rotate(-2 32 12)">
+    <circle cx="32" cy="11" r="4.2" fill="none" stroke="#1C1412" stroke-width="5"/>
+    <circle cx="32" cy="11" r="4.2" fill="none" stroke="#9A7B46" stroke-width="2.2"/>
+    <path d="M32,14 C21,14 17,22 16,33 L11,43 C10,45 12,47 16,47 H48 C52,47 54,45 53,43 L48,33 C47,22 43,14 32,14 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <path d="M32,14 C21,14 17,22 16,33 L11,43 C10,45 12,47 16,47 H48 C52,47 54,45 53,43 L48,33 C47,22 43,14 32,14 Z" fill="#6E542B"/>
+    <g clip-path="url(#rule_bell-cbody)">
+      <path d="M32,14 C21,14 17,22 16,33 L11,43 C10,45 12,47 16,47 H48 C52,47 54,45 53,43 L48,33 C47,22 43,14 32,14 Z" transform="translate(-3.2 -2)" fill="#9A7B46"/>
+      <path d="M40,14 H54 V47 H36 C42,39 43,26 40,14 Z" fill="#3B2B14" opacity=".7"/>
+      <path d="M18,34 Q20,21 28,16.5 Q22,22 20,34.5 Z" fill="#C2A670"/>
+      <circle cx="25" cy="19" r="1.5" fill="#DDCB9A"/>
+      <path d="M50.5,41 L46.5,24 Q47.5,33 49,41 Z" fill="#8CAAB5" opacity=".82"/>
+    </g>
+    <!-- 钟腰收尖双线与三颗珠点 -->
+    <path d="M16,35 Q32,39 48,35 Q32,37 16,35 Z M14,42 Q32,46 50,42 Q32,44 14,42 Z" fill="#1C1412"/>
+    <circle cx="25" cy="38.5" r="1.1" fill="#1C1412"/><circle cx="32" cy="39.2" r="1.1" fill="#1C1412"/><circle cx="39" cy="38.5" r="1.1" fill="#1C1412"/>
+    <!-- 发光白钟舌与前景光弧 -->
+    <circle cx="32" cy="49" r="6" fill="#F4F1FF" stroke="#1C1412" stroke-width="2.8"/>
+    <circle cx="30.5" cy="47.5" r="2.2" fill="#FFFFFF"/>
+    <path d="M11,48 A22.5,7.8 0 0,0 53,48" fill="none" stroke="#1C1412" stroke-width="5.8" stroke-linecap="round"/>
+    <path d="M11,48 A22.5,7.8 0 0,0 53,48" fill="none" stroke="#F4F1FF" stroke-width="2.8" stroke-linecap="round"/>
+  </g></g>
 </g>
 </svg>

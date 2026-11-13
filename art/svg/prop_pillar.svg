@@ -1,76 +1,152 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-prop_pillar" viewBox="0 0 120 240" width="120" height="240">
-<title>断石柱</title>
+<title>古堡摆件 · 断石柱</title>
+<style>
+.svg-prop_pillar g { transform-box: view-box; }
+.svg-prop_pillar #pillar_charm { transform-origin: 28px 92px; }
+.svg-prop_pillar #sheen { opacity: 0; }
+
+/* 待机 3000：0 静止 → 1500 柱侧旧铜挂环极轻摆动（-2.8°）及空槽铜爪微弱冷泽 → 3000 回到静止 */
+@keyframes svg-prop_pillar-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-2.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_pillar:not([data-anim]) #pillar_charm,
+.svg-prop_pillar[data-anim="idle"] #pillar_charm { animation: svg-prop_pillar-idle-1 3s infinite; }
+
+@keyframes svg-prop_pillar-idle-2 {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 1; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-prop_pillar:not([data-anim]) #sheen,
+.svg-prop_pillar[data-anim="idle"] #sheen { animation: svg-prop_pillar-idle-2 3s infinite; }
+</style>
 <defs>
-  <filter id="prop_pillar-grunge" filterUnits="userSpaceOnUse" x="0" y="0" width="120" height="240" color-interpolation-filters="sRGB">
-    <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="2" seed="31" result="n"/>
-    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0.09 0" result="grain"/>
-    <feComposite in="grain" in2="SourceGraphic" operator="in" result="clippedGrain"/>
-    <feBlend mode="multiply" in="SourceGraphic" in2="clippedGrain"/>
-  </filter>
+  <pattern id="prop_pillar-h" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="4.5" stroke="#1C1412" stroke-width="0.9"/>
+  </pattern>
+  <clipPath id="prop_pillar-cbase">
+    <path d="M18,207 C46,205.5 74,206.5 102,209 L108,232 C76,233.5 44,233.5 12,232 Z"/>
+  </clipPath>
+  <clipPath id="prop_pillar-cplinth">
+    <path d="M26,187 C48,186 72,186.8 94,189 L100,209 C74,208 46,207.2 20,207 Z"/>
+  </clipPath>
+  <clipPath id="prop_pillar-cshaft">
+    <path d="M30,85 L88,93 L90,136 L86,140 L90.5,144 L92,189 L28,187 L29,152 L32.5,148 L29,144 Z"/>
+  </clipPath>
+  <clipPath id="prop_pillar-ccap">
+    <path d="M18,64 C32,54 47,47 62,43 C77,49 90,57 102,68 L94,95 C72,94 48,91 26,87 Z"/>
+  </clipPath>
 </defs>
 <g id="root">
-  <!-- pivot: 60,240 -->
-  <!-- 落地排线暗影（与 prop_rack 落地位置 60,240 完全对齐） -->
-  <ellipse cx="60" cy="232" rx="48" ry="6" fill="#0D111C" opacity="0.65"/>
-  <path d="M20,235 L28,228 M30,236 L38,228 M40,236 L48,228 M50,237 L58,228 M60,237 L68,228 M70,236 L78,228 M80,236 L88,228 M90,235 L98,229" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+  <!-- 落地接触阴影（anchor: 60,240） -->
+  <ellipse cx="60" cy="235.2" rx="49" ry="3.8" fill="#0D111C" opacity="0.64"/>
 
-  <g filter="url(#prop_pillar-grunge)">
-    <!-- 底部宽石阶底座（y:206..232） -->
-    <polygon points="18,208 102,210 108,232 12,232" fill="#4A4742" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <polygon points="62,209 102,210 108,232 60,232" fill="#2E2C28" opacity="0.82"/>
-    <polyline points="15,228 20,211 58,211" fill="none" stroke="#948F86" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- 1. 底部宽石阶底座 -->
+  <path d="M18,207 C46,205.5 74,206.5 102,209 L108,232 C76,233.5 44,233.5 12,232 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+  <path d="M18,207 C46,205.5 74,206.5 102,209 L108,232 C76,233.5 44,233.5 12,232 Z" fill="#2E2C28"/>
+  <g clip-path="url(#prop_pillar-cbase)">
+    <path d="M18,207 C46,205.5 74,206.5 102,209 L108,232 C76,233.5 44,233.5 12,232 Z" transform="translate(-4 -3)" fill="#4A4742"/>
+    <path d="M15,227 L19.5,209.5 Q42,208 64,209 Q42,210.5 21.5,211.5 L17.5,227 Z" fill="#948F86" opacity="0.82"/>
+    <path d="M64,208 L102,209 L108,232 H58 C62,224 64,216 64,208 Z" fill="#1C1412" opacity="0.42"/>
+  </g>
+  <path d="M46,216 Q54,223 58,230 Q51,223 46,216 Z M76,212 Q84,218 90,226 Q82,219 76,212 Z" fill="#1C1412" opacity="0.72"/>
 
-    <!-- 二层八角收腰柱础（y:188..210） -->
-    <polygon points="26,188 94,190 100,210 20,208" fill="#5A7682" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-    <polygon points="62,189 94,190 100,210 60,209" fill="#3B515C"/>
-    <line x1="28" y1="191" x2="60" y2="191" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- 2. 二层八角收腰柱础 -->
+  <path d="M26,187 C48,186 72,186.8 94,189 L100,209 C74,208 46,207.2 20,207 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+  <path d="M26,187 C48,186 72,186.8 94,189 L100,209 C74,208 46,207.2 20,207 Z" fill="#1E2C33"/>
+  <g clip-path="url(#prop_pillar-cplinth)">
+    <path d="M26,187 C48,186 72,186.8 94,189 L100,209 C74,208 46,207.2 20,207 Z" transform="translate(-4 -2.5)" fill="#3B515C"/>
+    <path d="M26,187 H62 L58,207 H20 Z" fill="#5A7682" opacity="0.72"/>
+    <path d="M27,189.2 Q45,188 62,189 Q45,190.5 27,190.8 Z" fill="#8CAAB5"/>
+  </g>
 
-    <!-- 石柱柱身（微歪哥特棱柱 y:86..190，带竖向石槽与断纹） -->
-    <polygon points="30,86 88,94 92,190 28,188" fill="#5A7682" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <!-- 柱身右侧背光暗面 -->
-    <polygon points="62,90 88,94 92,190 60,189" fill="#3B515C"/>
-    <polygon points="75,92 88,94 92,190 76,190" fill="#1E2C33" opacity="0.85"/>
-    <!-- 柱身左侧冷灰青受光轮廓光 -->
-    <line x1="33" y1="90" x2="31" y2="184" stroke="#8CAAB5" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- 3. 石柱柱身（微歪棱柱，带竖向凹槽、崩口与排线） -->
+  <path d="M30,85 L88,93 L90,136 L86,140 L90.5,144 L92,189 L28,187 L29,152 L32.5,148 L29,144 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+  <path d="M30,85 L88,93 L90,136 L86,140 L90.5,144 L92,189 L28,187 L29,152 L32.5,148 L29,144 Z" fill="#1E2C33"/>
+  <g clip-path="url(#prop_pillar-cshaft)">
+    <path d="M30,85 L88,93 L90,136 L86,140 L90.5,144 L92,189 L28,187 L29,152 L32.5,148 L29,144 Z" transform="translate(-4.5 -3)" fill="#3B515C"/>
+    <!-- 左半受光石面 -->
+    <path d="M30,85 L60,89 L58,188 L28,187 Z" fill="#5A7682" opacity="0.75"/>
+    <!-- 柱头上沿压在柱身上的深暗投影 -->
+    <path d="M28,84 L90,92 V103 C68,99 48,96 28,95 Z" fill="#0D111C" opacity="0.65"/>
+    <!-- 右下背光大暗面与 45° 排线 -->
+    <path d="M62,90 L88,93 L92,189 L60,188 Z" fill="#1E2C33" opacity="0.78"/>
+    <path d="M64,124 L91,128 L92,189 L62,188 Z" fill="url(#prop_pillar-h)" opacity="0.4"/>
+    <!-- 左上受光亮边 -->
+    <path d="M31.5,92 Q30.2,118 30.5,142 Q32.2,118 33.2,92 Z M30.5,154 Q29.8,170 29.5,184 Q31.4,170 32,154 Z" fill="#8CAAB5" opacity="0.88"/>
+    <!-- 右侧最外圈背光冷色轮廓光（断成两截） -->
+    <path d="M87.2,98 Q88.2,116 88.6,133 Q86.8,116 87.2,98 Z M89.2,148 Q90.2,168 90.6,185 Q88.8,168 89.2,148 Z" fill="#8CAAB5" opacity="0.8"/>
+  </g>
+  <!-- 柱身三道竖向凹槽（收尖暗谷 + 左侧浅脊）与横向石缝裂纹 -->
+  <path d="M44,94 Q42.2,140 43.5,184 Q45.6,140 44,94 Z M59,96 Q57.2,141 58.5,185 Q60.6,141 59,96 Z M74,98 Q72.4,142 74,186 Q75.8,142 74,98 Z" fill="#1C1412" opacity="0.82"/>
+  <path d="M46,96 Q45,140 45.8,182 Q47,140 46,96 Z M61,98 Q60,141 60.8,183 Q62,141 61,98 Z" fill="#8CAAB5" opacity="0.5"/>
+  <path d="M30,136 Q46,141 60,135 Q74,140 88,139 Q74,142.5 60,137.5 Q46,143.5 30,136 Z M31,164 Q43,159 55,167 Q43,162 31,164 Z" fill="#1C1412"/>
 
-    <!-- 柱身竖向凹槽线与石面裂纹 -->
-    <path d="M45,92 L44,186 M60,94 L60,188 M75,96 L76,188" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
-    <path d="M47,94 L46,184" stroke="#8CAAB5" stroke-width="1.1" stroke-linecap="round" opacity="0.65"/>
-    <!-- 横向石缝与崩裂纹 -->
-    <path d="M29,138 L52,142 L60,136 L90,141 M30,164 L44,160 L54,167" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- 右下背光交叉排线 -->
-    <path d="M66,146 L86,166 M66,160 L88,182 M72,136 L88,152 M64,174 L78,188" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
-    <path d="M86,148 L66,168 M88,162 L68,182" stroke="#1C1412" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+  <!-- 柱身左侧悬挂的旧铜栓环 (#pillar_charm，轻待机微摆) -->
+  <g id="pillar_charm">
+    <circle cx="28" cy="92" r="4.2" fill="#1C1412"/>
+    <circle cx="28" cy="92" r="2.8" fill="#4A4742"/>
+    <path d="M23,95 C19,101 20,110 26,112 C31,113 34,106 31,99 C29.5,104 28,108 25.5,107.5 C23,107 22.5,101 25,96 Z" fill="#1C1412" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M23.5,95.5 C20,101 21,109 26,111 C30,112 32.5,106 30,99.5 C28.8,104.5 27.5,108.5 25.2,108 C22.5,107.5 22,101 24.5,96 Z" fill="#6E542B"/>
+    <path d="M22,99 Q21,104 23,108" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/>
+  </g>
 
-    <!-- 柱头哥特斜向断裂截面与外扩托盘（y:46..98，向正面偏左倾斜以清楚展示空宝石槽） -->
-    <polygon points="18,64 62,44 102,68 94,96 26,88" fill="#3B515C" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <polygon points="60,72 102,68 94,96 60,92" fill="#1E2C33"/>
-    <!-- 柱头顶部断裂面（左高右低斜切面） -->
-    <polygon points="18,64 62,44 102,68 60,84" fill="#6E6A63" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-    <polygon points="62,44 102,68 60,84" fill="#4A4742"/>
-    <polyline points="21,63 62,46.5 76,54" fill="none" stroke="#8CAAB5" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- 4. 柱头哥特斜向断裂截面与外扩托盘 -->
+  <path d="M18,64 C32,54 47,47 62,43 C77,49 90,57 102,68 L94,95 C72,94 48,91 26,87 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+  <path d="M18,64 C32,54 47,47 62,43 C77,49 90,57 102,68 L94,95 C72,94 48,91 26,87 Z" fill="#1E2C33"/>
+  <g clip-path="url(#prop_pillar-ccap)">
+    <!-- 柱头侧面明暗 -->
+    <path d="M18,64 L60,84 L59,93 L26,87 Z" fill="#3B515C"/>
+    <path d="M60,84 L102,68 L94,95 L59,93 Z" fill="#1E2C33"/>
+    <!-- 柱头顶部斜切石面 -->
+    <path d="M18,64 C32,54 47,47 62,43 C77,49 90,57 102,68 L60,84 Z" fill="#4A4742"/>
+    <path d="M18,64 C32,54 47,47 62,43 L60,84 Z" fill="#6E6A63" opacity="0.85"/>
+    <path d="M21,63.5 Q41,51 62,45 Q42,53.5 23,65 Z" fill="#8CAAB5" opacity="0.88"/>
+    <path d="M99.5,71 Q96.5,82 93.5,92 Q95,82 99.5,71 Z" fill="#8CAAB5" opacity="0.78"/>
+  </g>
+  <path d="M19,64 Q40,74.5 60,84 Q81,76.5 101,68 Q81,78.5 60,86.2 Q40,76.5 19,64 Z" fill="#1C1412"/>
 
-    <!-- 柱头正中：空的宝石镶槽（与 card_art_empty 呼应的八角旧铜底座 + 空凹坑 + 三只空弯爪，不发光） -->
-    <g id="empty_socket">
-      <!-- 八角旧铜底座 -->
-      <polygon points="44,53 74,53 86,63 74,77 44,77 32,63" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-      <polygon points="60,53 74,53 86,63 74,77 60,77" fill="#3B2B14" opacity="0.8"/>
-      <!-- 中央深暗空凹槽（无宝石、无发光） -->
-      <ellipse cx="59" cy="65" rx="16" ry="9.5" fill="#0D111C" stroke="#1C1412" stroke-width="2.2"/>
-      <path d="M46,62 A15,8 0 0,1 72,62 A15,6 0 0,0 46,62 Z" fill="#161221"/>
-      <path d="M47,69 A14,7 0 0,0 71,69" fill="none" stroke="#9A7B46" stroke-width="1.2" opacity="0.65"/>
-      <!-- 空槽底部刮痕 -->
-      <path d="M53,63 L61,68 M59,62 L66,67" stroke="#4A4742" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+  <!-- 5. 柱头正中：空的宝石镶槽 (#empty_socket，八角旧铜底座 + 空凹坑 + 三只空弯爪，不发光) -->
+  <g id="empty_socket">
+    <!-- 八角旧铜托座 -->
+    <polygon points="43,52 75,52 87,63 75,77 43,77 31,63" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <polygon points="43,52 75,52 87,63 75,77 43,77 31,63" fill="#3B2B14"/>
+    <polygon points="43,52 75,52 60,65 43,77 31,63" fill="#6E542B"/>
+    <polygon points="43,52 66,52 54,60 33,63" fill="#9A7B46"/>
+    <!-- 凹处铜绿 -->
+    <ellipse cx="73" cy="72" rx="4" ry="1.8" fill="#5F8272" opacity="0.55"/>
+    <!-- 中央深暗空宝石坑（完全无宝石、不发光） -->
+    <ellipse cx="59" cy="64.5" rx="16.5" ry="9.5" fill="#0D111C" stroke="#1C1412" stroke-width="2.4"/>
+    <path d="M44,62 A15.5,8.5 0 0,1 74,62 A15.5,6.5 0 0,0 44,62 Z" fill="#161221"/>
+    <!-- 槽底右下微弱磨损边与旧刮痕 -->
+    <path d="M46,69 A14,7 0 0,0 72,69" fill="none" stroke="#6E542B" stroke-width="1.2" opacity="0.65"/>
+    <path d="M52,62.5 Q57,66 62,68 Q56,64.5 52,62.5 Z M59,61.5 Q63,64.5 67,66.5 Q62,63.5 59,61.5 Z" fill="#4A4742" opacity="0.6"/>
+    <!-- 三只空着的旧铜弯爪（后上、左下、右下） -->
+    <path d="M55,45.5 H63 L61,58 H57 Z" fill="#1C1412" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M55,45.5 H63 L61,58 H57 Z" fill="#9A7B46"/>
+    <path d="M55.5,46 H59 L58.5,57 H57 Z" fill="#C2A670"/>
 
-      <!-- 三只空着的旧铜弯爪（后上爪、左下爪、右下爪） -->
-      <polygon points="55,46 63,46 61,58 57,58" fill="#C2A670" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-      <polygon points="31,66 38,74 49,68 47,63" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-      <polygon points="87,66 80,74 69,68 71,63" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    </g>
+    <path d="M30.5,65.5 L38,74 L49,68 L46.5,62.5 Z" fill="#1C1412" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M30.5,65.5 L38,74 L49,68 L46.5,62.5 Z" fill="#6E542B"/>
+    <path d="M31.5,66 L46,63 L47.5,65.5 L35,70 Z" fill="#9A7B46"/>
 
-    <!-- 掉在柱脚右侧的一小块碎石块 -->
-    <polygon points="94,222 108,218 112,230 92,231" fill="#4A4742" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <line x1="96" y1="222" x2="106" y2="220" stroke="#8CAAB5" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M87.5,65.5 L80,74 L69,68 L71.5,62.5 Z" fill="#1C1412" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M87.5,65.5 L80,74 L69,68 L71.5,62.5 Z" fill="#3B2B14"/>
+    <path d="M86.5,66 L72,63 L70.5,65.5 L81,71 Z" fill="#6E542B"/>
+  </g>
+
+  <!-- 6. 柱脚右侧掉落的碎石块 -->
+  <path d="M93,221 L107,217 L112,230 L91,231 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+  <path d="M93,221 L107,217 L112,230 L91,231 Z" fill="#2E2C28"/>
+  <path d="M93,221 L107,217 L102,225 L92,228 Z" fill="#4A4742"/>
+  <path d="M94,221.5 L105.5,218.2 L104,220.2 L94.5,223 Z" fill="#8CAAB5" opacity="0.8"/>
+
+  <!-- 3000ms 轻待机磨亮边微弱冷泽（静止时 opacity: 0） -->
+  <g id="sheen">
+    <path d="M55.5,46 H59 L58.5,53 H56.5 Z M32,66 L44,63.5 L44.5,65 L34,68.5 Z" fill="#DDCB9A" opacity="0.45"/>
+    <path d="M22,63 Q41,51.5 61,45.5 Q42,53.5 23.5,64.5 Z" fill="#8CAAB5" opacity="0.35"/>
   </g>
 </g>
 </svg>

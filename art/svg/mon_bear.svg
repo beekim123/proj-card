@@ -2,567 +2,621 @@
 <title>布偶熊</title>
 <style>
 .svg-mon_bear g { transform-box: view-box; }
-
 .svg-mon_bear #root { transform-origin: 160px 400px; }
 .svg-mon_bear #shadow { transform-origin: 160px 388px; }
 .svg-mon_bear #body { transform-origin: 160px 380px; }
-.svg-mon_bear #head { transform-origin: 160px 182px; }
+.svg-mon_bear #head { transform-origin: 160px 180px; }
 .svg-mon_bear #ear { transform-origin: 96px 76px; }
-.svg-mon_bear #arms { transform-origin: 160px 248px; }
-.svg-mon_bear .arm-left { transform-origin: 64px 226px; }
-.svg-mon_bear .arm-right { transform-origin: 256px 226px; }
+.svg-mon_bear #arms { transform-origin: 160px 250px; }
+.svg-mon_bear .arm-l { transform-origin: 72px 228px; }
+.svg-mon_bear .arm-r { transform-origin: 248px 228px; }
 .svg-mon_bear #gem { transform-origin: 160px 252px; }
 .svg-mon_bear #face { transform-origin: 160px 132px; }
 .svg-mon_bear #face_hurt { transform-origin: 160px 132px; opacity: 0; }
-.svg-mon_bear #face_daze { transform-origin: 160px 110px; opacity: 0; }
-.svg-mon_bear .daze-stars { transform-origin: 160px 44px; }
+.svg-mon_bear #face_daze { transform-origin: 160px 132px; opacity: 0; }
 .svg-mon_bear .daze-swirl-l { transform-origin: 128px 124px; }
-.svg-mon_bear .daze-swirl-r { transform-origin: 192px 128px; }
-.svg-mon_bear #stuffing { transform-origin: 160px 210px; opacity: 0; }
-.svg-mon_bear .cotton-1 { transform-origin: 72px 156px; }
-.svg-mon_bear .cotton-2 { transform-origin: 242px 84px; }
-.svg-mon_bear .cotton-3 { transform-origin: 256px 190px; }
-.svg-mon_bear .cotton-4 { transform-origin: 160px 186px; }
+.svg-mon_bear .daze-swirl-r { transform-origin: 192px 126px; }
+.svg-mon_bear .daze-stars { transform-origin: 160px 42px; }
+.svg-mon_bear #stuffing { transform-origin: 160px 190px; opacity: 0; }
+.svg-mon_bear .cot-1 { transform-origin: 86px 156px; }
+.svg-mon_bear .cot-2 { transform-origin: 232px 92px; }
+.svg-mon_bear .cot-3 { transform-origin: 242px 188px; }
 
 /* ==========================================================================
-   1. 待机 idle（3000ms 循环）
-   关键时间点：0ms(0%) 低 → 1500ms(50%) 高（头歪4°，左耳耷拉一下） → 3000ms(100%) 低
+   1. 待机 idle（3000ms 循环）：0(0%) 低 → 1500(50%) 头歪4°、耳朵耷拉（缝线眼不眨）→ 3000(100%) 低
    ========================================================================== */
 @keyframes svg-mon_bear-idle-body {
-  0%, 100% { transform: translate(0px, 0px) scale(1, 1); }
-  50% { transform: translate(0px, -8px) scale(0.99, 1.02); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-7px) rotate(0deg) scale(1.01,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-idle-head {
-  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
-  50% { transform: translate(0px, -2px) rotate(-4.2deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(-2px,-2px) rotate(-4deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-idle-ear {
-  0%, 100% { transform: rotate(0deg) translate(0px, 0px); }
-  50% { transform: rotate(-12deg) translate(-2px, 3px); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(-1px,2px) rotate(-8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-idle-arms {
-  0%, 100% { transform: translate(0px, 0px) scale(1, 1); }
-  50% { transform: translate(0px, -3px) scale(0.98, 1.02); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-7px) rotate(0deg) scale(0.99,1.01); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-idle-gem {
-  0%, 100% { transform: translate(0px, 0px); }
-  50% { transform: translate(0px, -8px); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-7px) rotate(1.5deg) scale(1.02,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-idle-shadow {
-  0%, 100% { transform: scale(1, 1); }
-  50% { transform: scale(0.93, 0.93); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(0.94,0.94); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 .svg-mon_bear:not([data-anim]) #body,
-.svg-mon_bear[data-anim="idle"] #body {
-  animation: svg-mon_bear-idle-body 3s ease-in-out infinite;
-}
+.svg-mon_bear[data-anim="idle"] #body { animation: svg-mon_bear-idle-body 3s infinite; }
 .svg-mon_bear:not([data-anim]) #head,
-.svg-mon_bear[data-anim="idle"] #head {
-  animation: svg-mon_bear-idle-head 3s ease-in-out infinite;
-}
+.svg-mon_bear[data-anim="idle"] #head { animation: svg-mon_bear-idle-head 3s infinite; }
 .svg-mon_bear:not([data-anim]) #ear,
-.svg-mon_bear[data-anim="idle"] #ear {
-  animation: svg-mon_bear-idle-ear 3s ease-in-out infinite;
-}
+.svg-mon_bear[data-anim="idle"] #ear { animation: svg-mon_bear-idle-ear 3s infinite; }
 .svg-mon_bear:not([data-anim]) #arms,
-.svg-mon_bear[data-anim="idle"] #arms {
-  animation: svg-mon_bear-idle-arms 3s ease-in-out infinite;
-}
+.svg-mon_bear[data-anim="idle"] #arms { animation: svg-mon_bear-idle-arms 3s infinite; }
 .svg-mon_bear:not([data-anim]) #gem,
-.svg-mon_bear[data-anim="idle"] #gem {
-  animation: svg-mon_bear-idle-gem 3s ease-in-out infinite;
-}
+.svg-mon_bear[data-anim="idle"] #gem { animation: svg-mon_bear-idle-gem 3s infinite; }
 .svg-mon_bear:not([data-anim]) #shadow,
-.svg-mon_bear[data-anim="idle"] #shadow {
-  animation: svg-mon_bear-idle-shadow 3s ease-in-out infinite;
-}
+.svg-mon_bear[data-anim="idle"] #shadow { animation: svg-mon_bear-idle-shadow 3s infinite; }
 
 /* ==========================================================================
-   2. 轻击 hit（400ms）
-   关键时间点：0ms(0%) → 50ms(12.5%) 被打得往后歪8.5°+压扁9%，两只胳膊往里收6px把宝石抱得更紧，宝石不动
-               → 130ms(32.5%) 停住 → 330ms(82.5%) 弹回过头 → 400ms(100%) 静止姿势
+   2. 轻击 hit（400ms）：0(0%) → 50(12.5%) → 130(32.5%) → 330(82.5%) → 400(100%)
    ========================================================================== */
 @keyframes svg-mon_bear-hit-body {
-  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  12.5% { transform: translate(-12px, -8px) rotate(8.5deg) scale(1.04, 0.91); animation-timing-function: linear; }
-  32.5% { transform: translate(-12px, -8px) rotate(8.5deg) scale(1.04, 0.91); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  82.5% { transform: translate(3px, -1px) rotate(-2deg) scale(0.98, 1.02); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-10px,-6px) rotate(7.5deg) scale(1.06,0.91); animation-timing-function: linear; }
+  32.5% { transform: translate(-10px,-6px) rotate(7.5deg) scale(1.06,0.91); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(3px,-1px) rotate(-2deg) scale(0.98,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-hit-head {
-  0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  12.5% { transform: rotate(6deg); animation-timing-function: linear; }
-  32.5% { transform: rotate(6deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  82.5% { transform: rotate(-2deg); animation-timing-function: ease-in-out; }
-  100% { transform: rotate(0deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-3px,4px) rotate(6deg) scale(1,1); animation-timing-function: linear; }
+  32.5% { transform: translate(-3px,4px) rotate(6deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(1px,-1px) rotate(-2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-mon_bear-hit-face {
-  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  12.5% { transform: scale(1.12, 0.68); animation-timing-function: linear; }
-  32.5% { transform: scale(1.12, 0.68); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  82.5% { transform: scale(0.96, 1.04); animation-timing-function: ease-in-out; }
-  100% { transform: scale(1, 1); }
+@keyframes svg-mon_bear-hit-ear {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,0px) rotate(-14deg) scale(1,1); animation-timing-function: linear; }
+  32.5% { transform: translate(0px,0px) rotate(-14deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(0px,0px) rotate(5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-mon_bear-hit-arml {
-  0% { transform: translate(0px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  12.5% { transform: translate(7px, -2px); animation-timing-function: linear; }
-  32.5% { transform: translate(7px, -2px); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  82.5% { transform: translate(-1px, 0px); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px); }
+@keyframes svg-mon_bear-hit-arms {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-8px,6px) rotate(6deg) scale(0.95,0.95); animation-timing-function: linear; }
+  32.5% { transform: translate(-8px,6px) rotate(6deg) scale(0.95,0.95); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(2px,-1px) rotate(-1.5deg) scale(1.02,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-mon_bear-hit-armr {
-  0% { transform: translate(0px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  12.5% { transform: translate(-7px, -2px); animation-timing-function: linear; }
-  32.5% { transform: translate(-7px, -2px); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  82.5% { transform: translate(1px, 0px); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px); }
+@keyframes svg-mon_bear-hit-gem {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-8px,6px) rotate(5deg) scale(1,1); animation-timing-function: linear; }
+  32.5% { transform: translate(-8px,6px) rotate(5deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(2px,-1px) rotate(-1.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-hit-shadow {
-  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  12.5% { transform: scale(1.05, 0.92); animation-timing-function: linear; }
-  32.5% { transform: scale(1.05, 0.92); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  82.5% { transform: scale(0.98, 1.02); animation-timing-function: ease-in-out; }
-  100% { transform: scale(1, 1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,0px) rotate(0deg) scale(1.06,0.92); animation-timing-function: linear; }
+  32.5% { transform: translate(0px,0px) rotate(0deg) scale(1.06,0.92); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(0px,0px) rotate(0deg) scale(0.98,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 .svg-mon_bear[data-anim="hit"] #body { animation: svg-mon_bear-hit-body 0.4s both; }
 .svg-mon_bear[data-anim="hit"] #head { animation: svg-mon_bear-hit-head 0.4s both; }
-.svg-mon_bear[data-anim="hit"] #face { animation: svg-mon_bear-hit-face 0.4s both; }
-.svg-mon_bear[data-anim="hit"] .arm-left { animation: svg-mon_bear-hit-arml 0.4s both; }
-.svg-mon_bear[data-anim="hit"] .arm-right { animation: svg-mon_bear-hit-armr 0.4s both; }
+.svg-mon_bear[data-anim="hit"] #ear { animation: svg-mon_bear-hit-ear 0.4s both; }
+.svg-mon_bear[data-anim="hit"] #arms { animation: svg-mon_bear-hit-arms 0.4s both; }
+.svg-mon_bear[data-anim="hit"] #gem { animation: svg-mon_bear-hit-gem 0.4s both; }
 .svg-mon_bear[data-anim="hit"] #shadow { animation: svg-mon_bear-hit-shadow 0.4s both; }
 
 /* ==========================================================================
-   3. 重击 hit_big（700ms）
-   关键时间点：0ms(0%) → 60ms(8.5714%) 压扁16%+后歪13.5°、换face_hurt、飞出棉花，宝石仍在怀里
-               → 200ms(28.5714%) 停住 → 500ms(71.4286%) 弹回过头、棉花落下淡出 → 700ms(100%) 静止姿势
+   3. 重击 hit_big（700ms）：0(0%) → 60(8.57%) → 200(28.57%) → 500(71.43%) → 700(100%)
+   压扁16%、显face_hurt、崩出棉花团 stuffing
    ========================================================================== */
 @keyframes svg-mon_bear-hitbig-body {
-  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  8.5714% { transform: translate(-20px, -18px) rotate(13.5deg) scale(1.05, 0.84); animation-timing-function: linear; }
-  28.5714% { transform: translate(-20px, -18px) rotate(13.5deg) scale(1.05, 0.84); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  71.4286% { transform: translate(4px, -2px) rotate(-3deg) scale(0.97, 1.03); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-14px,-12px) rotate(11.5deg) scale(1.08,0.84); animation-timing-function: linear; }
+  28.57% { transform: translate(-14px,-12px) rotate(11.5deg) scale(1.08,0.84); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(4px,-2px) rotate(-3deg) scale(0.97,1.04); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-mon_bear-hitbig-gem {
-  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  8.5714% { transform: translate(-8px, 6px) rotate(8deg); animation-timing-function: linear; }
-  28.5714% { transform: translate(-8px, 6px) rotate(8deg); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  71.4286% { transform: translate(2px, -2px) rotate(-2deg); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px) rotate(0deg); }
+@keyframes svg-mon_bear-hitbig-head {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-4px,6px) rotate(7deg) scale(1,1); animation-timing-function: linear; }
+  28.57% { transform: translate(-4px,6px) rotate(7deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(2px,-2px) rotate(-2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-mon_bear-hitbig-arml {
-  0% { transform: translate(0px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  8.5714% { transform: translate(8px, -2px); animation-timing-function: linear; }
-  28.5714% { transform: translate(8px, -2px); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  71.4286% { transform: translate(-1px, 0px); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px); }
+@keyframes svg-mon_bear-hitbig-ear {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(0px,0px) rotate(-22deg) scale(1,1); animation-timing-function: linear; }
+  28.57% { transform: translate(0px,0px) rotate(-22deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(0px,0px) rotate(6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-mon_bear-hitbig-armr {
-  0% { transform: translate(0px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  8.5714% { transform: translate(-8px, -2px); animation-timing-function: linear; }
-  28.5714% { transform: translate(-8px, -2px); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  71.4286% { transform: translate(1px, 0px); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px); }
-}
-@keyframes svg-mon_bear-hitbig-face-hide {
-  0% { opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  8.5714% { opacity: 0; animation-timing-function: linear; }
-  28.5714% { opacity: 0; animation-timing-function: ease-in-out; }
-  71.4286% { opacity: 1; animation-timing-function: linear; }
-  100% { opacity: 1; }
+@keyframes svg-mon_bear-hitbig-face {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.2); opacity: 0; animation-timing-function: linear; }
+  28.57% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.2); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 @keyframes svg-mon_bear-hitbig-hurt {
-  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  8.5714% { opacity: 1; animation-timing-function: linear; }
-  28.5714% { opacity: 1; animation-timing-function: ease-in-out; }
-  71.4286% { opacity: 0.08; animation-timing-function: linear; }
-  100% { opacity: 0; }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.85); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 1; animation-timing-function: linear; }
+  28.57% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 1; animation-timing-function: ease-in-out; }
+  71.43% { transform: translate(0px,0px) rotate(0deg) scale(0.9,0.9); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.85); opacity: 0; }
+}
+@keyframes svg-mon_bear-hitbig-arms {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-10px,10px) rotate(9deg) scale(0.94,0.94); animation-timing-function: linear; }
+  28.57% { transform: translate(-10px,10px) rotate(9deg) scale(0.94,0.94); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(3px,-2px) rotate(-2deg) scale(1.02,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_bear-hitbig-gem {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-10px,10px) rotate(8deg) scale(1,1); animation-timing-function: linear; }
+  28.57% { transform: translate(-10px,10px) rotate(8deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(3px,-2px) rotate(-2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-hitbig-stuffing {
-  0% { opacity: 0; transform: translate(0px, 10px) scale(0.5); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  8.5714% { opacity: 1; transform: translate(0px, -10px) scale(1.06); animation-timing-function: linear; }
-  28.5714% { opacity: 1; transform: translate(0px, -10px) scale(1.06); animation-timing-function: ease-in-out; }
-  71.4286% { opacity: 0.15; transform: translate(6px, 26px) scale(0.9); animation-timing-function: linear; }
-  100% { opacity: 0; transform: translate(6px, 34px) scale(0.84); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(6px,-16px) rotate(10deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  28.57% { transform: translate(14px,-28px) rotate(22deg) scale(1.06,1.06); opacity: 1; animation-timing-function: ease-in-out; }
+  71.43% { transform: translate(18px,46px) rotate(45deg) scale(0.85,0.85); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; }
 }
 @keyframes svg-mon_bear-hitbig-shadow {
-  0% { transform: scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  8.5714% { transform: scale(1.08, 0.88); animation-timing-function: linear; }
-  28.5714% { transform: scale(1.08, 0.88); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  71.4286% { transform: scale(0.97, 1.03); animation-timing-function: ease-in-out; }
-  100% { transform: scale(1, 1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(0px,0px) rotate(0deg) scale(1.09,0.88); animation-timing-function: linear; }
+  28.57% { transform: translate(0px,0px) rotate(0deg) scale(1.09,0.88); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(0px,0px) rotate(0deg) scale(0.97,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 .svg-mon_bear[data-anim="hit_big"] #body { animation: svg-mon_bear-hitbig-body 0.7s both; }
-.svg-mon_bear[data-anim="hit_big"] #gem { animation: svg-mon_bear-hitbig-gem 0.7s both; }
-.svg-mon_bear[data-anim="hit_big"] .arm-left { animation: svg-mon_bear-hitbig-arml 0.7s both; }
-.svg-mon_bear[data-anim="hit_big"] .arm-right { animation: svg-mon_bear-hitbig-armr 0.7s both; }
-.svg-mon_bear[data-anim="hit_big"] #face { animation: svg-mon_bear-hitbig-face-hide 0.7s both; }
+.svg-mon_bear[data-anim="hit_big"] #head { animation: svg-mon_bear-hitbig-head 0.7s both; }
+.svg-mon_bear[data-anim="hit_big"] #ear { animation: svg-mon_bear-hitbig-ear 0.7s both; }
+.svg-mon_bear[data-anim="hit_big"] #face { animation: svg-mon_bear-hitbig-face 0.7s both; }
 .svg-mon_bear[data-anim="hit_big"] #face_hurt { animation: svg-mon_bear-hitbig-hurt 0.7s both; }
+.svg-mon_bear[data-anim="hit_big"] #arms { animation: svg-mon_bear-hitbig-arms 0.7s both; }
+.svg-mon_bear[data-anim="hit_big"] #gem { animation: svg-mon_bear-hitbig-gem 0.7s both; }
 .svg-mon_bear[data-anim="hit_big"] #stuffing { animation: svg-mon_bear-hitbig-stuffing 0.7s both; }
 .svg-mon_bear[data-anim="hit_big"] #shadow { animation: svg-mon_bear-hitbig-shadow 0.7s both; }
 
 /* ==========================================================================
-   4. 出手 attack（800ms）
-   关键时间点：0ms(0%) → 250ms(31.25%) 蓄力（往下缩12%，右胳膊抡到后面，左胳膊还抱着宝石）
-               → 330ms(41.25%) 出手拍中（右巴掌猛拍出来，左胳膊护住宝石）
-               → 450ms(56.25%) 停住 → 800ms(100%) 回到静止姿势
+   4. 出手 attack（800ms）：0(0%) → 250(31.25%) → 330(41.25%) → 450(56.25%) → 800(100%)
+   250ms下缩蓄力12%，330ms熊爪挥拍出手，怀中红宝石全程可见
    ========================================================================== */
 @keyframes svg-mon_bear-attack-body {
-  0% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); animation-timing-function: ease-in-out; }
-  31.25% { transform: translate(6px, 14px) scale(1.06, 0.88) rotate(4deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  41.25% { transform: translate(-8px, -6px) scale(0.97, 1.05) rotate(-5deg); animation-timing-function: linear; }
-  56.25% { transform: translate(-8px, -6px) scale(0.97, 1.05) rotate(-5deg); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(2px,-2px) rotate(2.5deg) scale(1.07,0.88); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-8px,-8px) rotate(-5deg) scale(0.96,1.06); animation-timing-function: linear; }
+  56.25% { transform: translate(-8px,-8px) rotate(-5deg) scale(0.96,1.06); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-attack-head {
-  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: ease-in-out; }
-  31.25% { transform: translate(4px, 6px) rotate(5deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  41.25% { transform: translate(-6px, -4px) rotate(-6deg); animation-timing-function: linear; }
-  56.25% { transform: translate(-6px, -4px) rotate(-6deg); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px) rotate(0deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(2px,6px) rotate(4deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-2px,-4px) rotate(-3.5deg) scale(1.03,1.03); animation-timing-function: linear; }
+  56.25% { transform: translate(-2px,-4px) rotate(-3.5deg) scale(1.03,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_bear-attack-ear {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(0px,0px) rotate(-10deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(0px,0px) rotate(12deg) scale(1,1); animation-timing-function: linear; }
+  56.25% { transform: translate(0px,0px) rotate(12deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-attack-arml {
-  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: ease-in-out; }
-  31.25% { transform: translate(8px, 0px) rotate(-4deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  41.25% { transform: translate(10px, 2px) rotate(-6deg); animation-timing-function: linear; }
-  56.25% { transform: translate(10px, 2px) rotate(-6deg); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px) rotate(0deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(6px,12px) rotate(14deg) scale(0.96,0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-12px,-10px) rotate(-24deg) scale(1.08,1.08); animation-timing-function: linear; }
+  56.25% { transform: translate(-12px,-10px) rotate(-24deg) scale(1.08,1.08); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-attack-armr {
-  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: ease-in-out; }
-  31.25% { transform: translate(16px, -28px) rotate(36deg) scale(0.95, 0.95); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  41.25% { transform: translate(-44px, 28px) rotate(-42deg) scale(1.24, 1.24); animation-timing-function: linear; }
-  56.25% { transform: translate(-44px, 28px) rotate(-42deg) scale(1.24, 1.24); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(-4px,12px) rotate(-8deg) scale(0.96,0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-8px,-6px) rotate(12deg) scale(1.04,1.04); animation-timing-function: linear; }
+  56.25% { transform: translate(-8px,-6px) rotate(12deg) scale(1.04,1.04); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-attack-gem {
-  0% { transform: translate(0px, 0px); animation-timing-function: ease-in-out; }
-  31.25% { transform: translate(2px, 12px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  41.25% { transform: translate(-10px, -4px); animation-timing-function: linear; }
-  56.25% { transform: translate(-10px, -4px); animation-timing-function: ease-in-out; }
-  100% { transform: translate(0px, 0px); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(2px,12px) rotate(2deg) scale(0.98,0.95); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-8px,-8px) rotate(-5deg) scale(1.05,1.05); animation-timing-function: linear; }
+  56.25% { transform: translate(-8px,-8px) rotate(-5deg) scale(1.05,1.05); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-attack-shadow {
-  0% { transform: scale(1, 1); animation-timing-function: ease-in-out; }
-  31.25% { transform: scale(1.08, 0.92); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  41.25% { transform: scale(0.94, 0.94); animation-timing-function: linear; }
-  56.25% { transform: scale(0.94, 0.94); animation-timing-function: ease-in-out; }
-  100% { transform: scale(1, 1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(0px,0px) rotate(0deg) scale(1.08,0.92); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(0px,0px) rotate(0deg) scale(0.93,0.93); animation-timing-function: linear; }
+  56.25% { transform: translate(0px,0px) rotate(0deg) scale(0.93,0.93); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 .svg-mon_bear[data-anim="attack"] #body { animation: svg-mon_bear-attack-body 0.8s both; }
 .svg-mon_bear[data-anim="attack"] #head { animation: svg-mon_bear-attack-head 0.8s both; }
-.svg-mon_bear[data-anim="attack"] .arm-left { animation: svg-mon_bear-attack-arml 0.8s both; }
-.svg-mon_bear[data-anim="attack"] .arm-right { animation: svg-mon_bear-attack-armr 0.8s both; }
+.svg-mon_bear[data-anim="attack"] #ear { animation: svg-mon_bear-attack-ear 0.8s both; }
+.svg-mon_bear[data-anim="attack"] .arm-l { animation: svg-mon_bear-attack-arml 0.8s both; }
+.svg-mon_bear[data-anim="attack"] .arm-r { animation: svg-mon_bear-attack-armr 0.8s both; }
 .svg-mon_bear[data-anim="attack"] #gem { animation: svg-mon_bear-attack-gem 0.8s both; }
 .svg-mon_bear[data-anim="attack"] #shadow { animation: svg-mon_bear-attack-shadow 0.8s both; }
 
 /* ==========================================================================
-   5. 发晕 daze（600ms 进场 + 2000ms 循环，stay）
-   进场：0ms(0%) → 600ms(100%) 歪坐下去，头耷拉，还抱着宝石，换 face_daze
-   循环：0ms(0%) → 1000ms(50%) → 2000ms(100%) 慢慢左右晃，小星绕圈
+   5. 眩晕 daze（600ms 进场 + 2000ms 循环，stay）
    ========================================================================== */
 @keyframes svg-mon_bear-daze-in-body {
-  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); }
-  100% { transform: translate(-4px, -8px) rotate(-6deg) scale(1.02, 0.92); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-4px,-4px) rotate(-5.5deg) scale(1,0.97); }
 }
 @keyframes svg-mon_bear-daze-loop-body {
-  0%, 100% { transform: translate(-4px, -8px) rotate(-6deg) scale(1.02, 0.92); }
-  50% { transform: translate(4px, -8px) rotate(6.2deg) scale(1.02, 0.92); }
+  0% { transform: translate(-4px,-4px) rotate(-5.5deg) scale(1,0.97); animation-timing-function: ease-in-out; }
+  50% { transform: translate(4px,-4px) rotate(5.5deg) scale(1,0.97); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-4px,-4px) rotate(-5.5deg) scale(1,0.97); }
 }
 @keyframes svg-mon_bear-daze-in-head {
-  0% { transform: translate(0px, 0px) rotate(0deg); }
-  100% { transform: translate(-2px, 10px) rotate(-7deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-3px,4px) rotate(-4deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-daze-loop-head {
-  0%, 100% { transform: translate(-2px, 10px) rotate(-7deg); }
-  50% { transform: translate(2px, 10px) rotate(7deg); }
-}
-@keyframes svg-mon_bear-daze-in-gem {
-  0% { transform: translate(0px, 0px) rotate(0deg); }
-  100% { transform: translate(-6px, 8px) rotate(-5deg); }
-}
-@keyframes svg-mon_bear-daze-loop-gem {
-  0%, 100% { transform: translate(-6px, 8px) rotate(-5deg); }
-  50% { transform: translate(6px, 8px) rotate(5deg); }
+  0% { transform: translate(-3px,4px) rotate(-4deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(3px,4px) rotate(4deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-3px,4px) rotate(-4deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-daze-in-face {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.2); opacity: 0; }
 }
 @keyframes svg-mon_bear-daze-loop-face {
-  0%, 50%, 100% { opacity: 0; }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.2); opacity: 0; animation-timing-function: linear; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.2); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.2); opacity: 0; }
 }
 @keyframes svg-mon_bear-daze-in-daze {
-  0% { opacity: 0; transform: translateY(6px) scale(0.88); }
-  100% { opacity: 1; transform: translateY(0px) scale(1); }
+  0% { transform: translate(0px,4px) rotate(0deg) scale(0.88,0.88); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 @keyframes svg-mon_bear-daze-loop-daze {
-  0%, 100% { opacity: 1; transform: translateY(0px) scale(1); }
-  50% { opacity: 1; transform: translateY(1px) scale(1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,1px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 @keyframes svg-mon_bear-daze-in-swirl {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(120deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(0px,0px) rotate(120deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-daze-loop-swirl {
-  0% { transform: rotate(120deg); }
-  50% { transform: rotate(300deg); }
-  100% { transform: rotate(480deg); }
+  0% { transform: translate(0px,0px) rotate(120deg) scale(1,1); animation-timing-function: linear; }
+  50% { transform: translate(0px,0px) rotate(300deg) scale(1,1); animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(480deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-daze-in-stars {
-  0% { transform: translate(-6px, 4px) scale(0.85); }
-  100% { transform: translate(-6px, 0px) scale(1); }
+  0% { transform: translate(-5px,2px) rotate(0deg) scale(0.85,0.85); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-daze-loop-stars {
-  0%, 100% { transform: translate(-6px, 0px) scale(1); }
-  50% { transform: translate(6px, -2px) scale(1); }
+  0% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,-2px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); }
 }
-.svg-mon_bear[data-anim="daze"] #body {
-  animation: svg-mon_bear-daze-in-body 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_bear-daze-loop-body 2s ease-in-out 0.6s infinite;
+@keyframes svg-mon_bear-daze-in-arms {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-6px,6px) rotate(-6deg) scale(1,1); }
 }
-.svg-mon_bear[data-anim="daze"] #head {
-  animation: svg-mon_bear-daze-in-head 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_bear-daze-loop-head 2s ease-in-out 0.6s infinite;
+@keyframes svg-mon_bear-daze-loop-arms {
+  0% { transform: translate(-6px,6px) rotate(-6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(6px,6px) rotate(6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-6px,6px) rotate(-6deg) scale(1,1); }
 }
-.svg-mon_bear[data-anim="daze"] #gem {
-  animation: svg-mon_bear-daze-in-gem 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_bear-daze-loop-gem 2s ease-in-out 0.6s infinite;
-}
-.svg-mon_bear[data-anim="daze"] #face {
-  animation: svg-mon_bear-daze-in-face 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_bear-daze-loop-face 2s ease-in-out 0.6s infinite;
-}
-.svg-mon_bear[data-anim="daze"] #face_daze {
-  animation: svg-mon_bear-daze-in-daze 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_bear-daze-loop-daze 2s ease-in-out 0.6s infinite;
-}
+.svg-mon_bear[data-anim="daze"] #body { animation: svg-mon_bear-daze-in-body 0.6s forwards, svg-mon_bear-daze-loop-body 2s 0.6s infinite; }
+.svg-mon_bear[data-anim="daze"] #head { animation: svg-mon_bear-daze-in-head 0.6s forwards, svg-mon_bear-daze-loop-head 2s 0.6s infinite; }
+.svg-mon_bear[data-anim="daze"] #face { animation: svg-mon_bear-daze-in-face 0.6s forwards, svg-mon_bear-daze-loop-face 2s 0.6s infinite; }
+.svg-mon_bear[data-anim="daze"] #face_daze { animation: svg-mon_bear-daze-in-daze 0.6s forwards, svg-mon_bear-daze-loop-daze 2s 0.6s infinite; }
 .svg-mon_bear[data-anim="daze"] .daze-swirl-l,
-.svg-mon_bear[data-anim="daze"] .daze-swirl-r {
-  animation: svg-mon_bear-daze-in-swirl 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_bear-daze-loop-swirl 2s ease-in-out 0.6s infinite;
-}
-.svg-mon_bear[data-anim="daze"] .daze-stars {
-  animation: svg-mon_bear-daze-in-stars 0.6s cubic-bezier(.2,.8,.2,1) forwards, svg-mon_bear-daze-loop-stars 2s ease-in-out 0.6s infinite;
-}
+.svg-mon_bear[data-anim="daze"] .daze-swirl-r { animation: svg-mon_bear-daze-in-swirl 0.6s forwards, svg-mon_bear-daze-loop-swirl 2s 0.6s infinite; }
+.svg-mon_bear[data-anim="daze"] .daze-stars { animation: svg-mon_bear-daze-in-stars 0.6s forwards, svg-mon_bear-daze-loop-stars 2s 0.6s infinite; }
+.svg-mon_bear[data-anim="daze"] #arms,
+.svg-mon_bear[data-anim="daze"] #gem { animation: svg-mon_bear-daze-in-arms 0.6s forwards, svg-mon_bear-daze-loop-arms 2s 0.6s infinite; }
 
 /* ==========================================================================
-   6. 死亡 die（1000ms）
-   关键时间点：0ms(0%) → 150ms(15%) 猛一抖 → 300ms(30%) 缝线全崩开、棉花喷出、熊瘪下去
-               → 600ms(60%) 红宝石滚到前面的地上(y:348..388，位移>115px) → 1000ms(100%) 全部淡出
+   6. 死亡 die（1000ms）：0(0%) → 150(15%) → 300(30%) → 600(60%) → 1000(100%)
+   怀中红宝石在死时滚落到框内地面，棉花飞出，1000ms 全透明
    ========================================================================== */
 @keyframes svg-mon_bear-die-root {
-  0% { opacity: 1; transform: translate(0px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  15% { opacity: 1; transform: translate(-4px, 2px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  30% { opacity: 1; transform: translate(2px, 0px); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  60% { opacity: 1; transform: translate(0px, 0px); animation-timing-function: linear; }
-  100% { opacity: 0; transform: translate(0px, 4px); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-2px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(2px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
 }
 @keyframes svg-mon_bear-die-body {
-  0% { transform: translate(0px, 0px) scale(1, 1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  15% { transform: translate(-4px, 4px) scale(1.04, 0.93); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  30% { transform: translate(0px, 10px) scale(1.05, 0.64); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  60% { transform: translate(0px, 14px) scale(1.06, 0.56); animation-timing-function: linear; }
-  100% { transform: translate(0px, 16px) scale(1.06, 0.54); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-2px,-2px) rotate(-3.5deg) scale(1.04,0.93); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-6px,-6px) rotate(6.5deg) scale(1.06,0.78); animation-timing-function: ease-in-out; }
+  60% { transform: translate(-8px,-8px) rotate(8deg) scale(1.08,0.74); animation-timing-function: linear; }
+  100% { transform: translate(-8px,-8px) rotate(8deg) scale(1.08,0.74); }
 }
 @keyframes svg-mon_bear-die-head {
-  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  15% { transform: translate(-4px, -4px) rotate(-5deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  30% { transform: translate(-12px, 28px) rotate(-16deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  60% { transform: translate(-14px, 36px) rotate(-20deg); animation-timing-function: linear; }
-  100% { transform: translate(-15px, 38px) rotate(-21deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-4px,-4px) rotate(-6deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-6px,18px) rotate(12deg) scale(1,1); animation-timing-function: ease-in-out; }
+  60% { transform: translate(-8px,28px) rotate(16deg) scale(1,1); animation-timing-function: linear; }
+  100% { transform: translate(-8px,28px) rotate(16deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-die-arml {
-  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  15% { transform: translate(-6px, -4px) rotate(-8deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  30% { transform: translate(-18px, 16px) rotate(-26deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  60% { transform: translate(-22px, 24px) rotate(-32deg); animation-timing-function: linear; }
-  100% { transform: translate(-23px, 26px) rotate(-33deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-4px,-4px) rotate(-10deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-12px,24px) rotate(-32deg) scale(1,1); animation-timing-function: ease-in-out; }
+  60% { transform: translate(-16px,46px) rotate(-42deg) scale(1,1); animation-timing-function: linear; }
+  100% { transform: translate(-16px,46px) rotate(-42deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-die-armr {
-  0% { transform: translate(0px, 0px) rotate(0deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  15% { transform: translate(6px, -4px) rotate(8deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  30% { transform: translate(18px, 16px) rotate(26deg); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  60% { transform: translate(22px, 24px) rotate(32deg); animation-timing-function: linear; }
-  100% { transform: translate(23px, 26px) rotate(33deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(4px,-4px) rotate(10deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(12px,24px) rotate(32deg) scale(1,1); animation-timing-function: ease-in-out; }
+  60% { transform: translate(16px,46px) rotate(42deg) scale(1,1); animation-timing-function: linear; }
+  100% { transform: translate(16px,46px) rotate(42deg) scale(1,1); }
 }
 @keyframes svg-mon_bear-die-gem {
-  0% { transform: translate(0px, 0px) rotate(0deg) scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  15% { transform: translate(8px, -16px) rotate(12deg) scale(1.03); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  30% { transform: translate(34px, -28px) rotate(32deg) scale(1.05); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  60% { transform: translate(56px, 98px) rotate(68deg) scale(0.95); animation-timing-function: linear; }
-  100% { transform: translate(60px, 100px) rotate(74deg) scale(0.95); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(0px,-8px) rotate(12deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(12px,42px) rotate(55deg) scale(0.95,0.95); animation-timing-function: ease-in-out; }
+  60% { transform: translate(26px,94px) rotate(115deg) scale(0.9,0.9); animation-timing-function: linear; }
+  100% { transform: translate(26px,94px) rotate(115deg) scale(0.9,0.9); }
 }
 @keyframes svg-mon_bear-die-stuffing {
-  0% { opacity: 0; transform: translate(0px, 12px) scale(0.5); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  15% { opacity: 0.9; transform: translate(0px, -14px) scale(0.95); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  30% { opacity: 1; transform: translate(0px, -32px) scale(1.08); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  60% { opacity: 1; transform: translate(-18px, 148px) scale(1); animation-timing-function: linear; }
-  100% { opacity: 0; transform: translate(-20px, 152px) scale(0.95); }
+  0% { transform: translate(0px,8px) rotate(0deg) scale(0.5,0.5); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(0px,-14px) rotate(10deg) scale(0.95,0.95); opacity: 0.9; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-6px,-28px) rotate(24deg) scale(1.06,1.06); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(-14px,116px) rotate(22deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  100% { transform: translate(-14px,116px) rotate(22deg) scale(1,1); opacity: 0; }
 }
 .svg-mon_bear[data-anim="die"] #root { animation: svg-mon_bear-die-root 1s both; }
 .svg-mon_bear[data-anim="die"] #body { animation: svg-mon_bear-die-body 1s both; }
 .svg-mon_bear[data-anim="die"] #head { animation: svg-mon_bear-die-head 1s both; }
-.svg-mon_bear[data-anim="die"] .arm-left { animation: svg-mon_bear-die-arml 1s both; }
-.svg-mon_bear[data-anim="die"] .arm-right { animation: svg-mon_bear-die-armr 1s both; }
+.svg-mon_bear[data-anim="die"] .arm-l { animation: svg-mon_bear-die-arml 1s both; }
+.svg-mon_bear[data-anim="die"] .arm-r { animation: svg-mon_bear-die-armr 1s both; }
 .svg-mon_bear[data-anim="die"] #gem { animation: svg-mon_bear-die-gem 1s both; }
 .svg-mon_bear[data-anim="die"] #stuffing { animation: svg-mon_bear-die-stuffing 1s both; }
 </style>
 
+<defs>
+  <pattern id="mon_bear-h" width="4.8" height="4.8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="4.8" stroke="#1C1412" stroke-width="0.95"/>
+  </pattern>
+  <clipPath id="mon_bear-cbody">
+    <path d="M84,176 C124,168 196,168 236,176 C264,218 270,286 254,342 C214,358 106,358 66,342 C50,286 56,218 84,176 Z"/>
+  </clipPath>
+  <clipPath id="mon_bear-chead">
+    <path d="M86,62 C126,50 194,50 234,64 C254,100 252,148 234,178 C194,192 126,192 86,176 C68,146 66,98 86,62 Z"/>
+  </clipPath>
+</defs>
+
 <g id="root">
-  <!-- pivot: 160,400 -->
-  <!-- 落地暗影 shadow -->
+  <!-- 1. 落地接触阴影 shadow -->
   <g id="shadow">
-    <!-- pivot: 160,388 -->
-    <ellipse cx="160" cy="388" rx="114" ry="11" fill="#0D111C" opacity="0.65"/>
-    <ellipse cx="160" cy="388" rx="84" ry="6.5" fill="#1C1412" opacity="0.5"/>
-    <path d="M62,392 L76,381 M82,393 L96,380 M102,394 L116,379 M122,395 L136,379 M142,395 L156,379 M162,395 L176,379 M182,395 L196,379 M202,394 L216,380 M222,393 L236,381 M242,392 L256,382" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.65"/>
+    <ellipse cx="160" cy="388" rx="110" ry="10.5" fill="#0D111C" opacity="0.62"/>
+    <path d="M68,390 l14,-5 M112,392 l16,-5 M168,392 l16,-5 M222,390 l14,-5" stroke="#1C1412" stroke-width="1.1" opacity="0.5" fill="none"/>
   </g>
 
-  <!-- 旧布偶熊主体 body（无滤镜，去除沸腾描边） -->
+  <!-- 2. 旧布偶熊粗短双腿与圆滚躯干 body（七层画法 + 缝线与补丁） -->
   <g id="body">
-    <!-- pivot: 160,380 -->
+    <!-- 左粗短布偶腿与脚掌肉垫 -->
+    <path d="M56,318 C82,316 108,318 130,322 C128,348 125,368 120,384 C94,387 68,386 48,382 C48,360 51,338 56,318 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.2" stroke-linejoin="round"/>
+    <path d="M56,318 C82,316 108,318 130,322 C128,348 125,368 120,384 C94,387 68,386 48,382 C48,360 51,338 56,318 Z" fill="#704122"/>
+    <path d="M56,318 C78,317 98,318 114,321 L108,383 L49,381 C49,360 52,338 56,318 Z" fill="#9E6238"/>
+    <ellipse cx="82" cy="364" rx="21" ry="14.5" fill="#C8B894" stroke="#1C1412" stroke-width="2.6"/>
+    <path d="M96,356 A21,14.5 0 0,1 68,374 Q86,372 96,356 Z" fill="#9A8968"/>
 
-    <!-- 两只粗短旧布熊腿与脚掌补丁 -->
-    <polygon points="56,318 132,320 124,386 44,384" fill="#704122" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <polygon points="188,320 264,318 276,384 196,386" fill="#3D2212" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <ellipse cx="80" cy="364" rx="22" ry="16" fill="#C8B894" stroke="#1C1412" stroke-width="2.4"/>
-    <ellipse cx="240" cy="364" rx="22" ry="16" fill="#9A8968" stroke="#1C1412" stroke-width="2.4"/>
+    <!-- 右粗短布偶腿与脚掌肉垫 -->
+    <path d="M190,322 C212,318 238,316 264,318 C269,338 272,360 272,382 C252,386 226,387 200,384 C195,368 192,348 190,322 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.2" stroke-linejoin="round"/>
+    <path d="M190,322 C212,318 238,316 264,318 C269,338 272,360 272,382 C252,386 226,387 200,384 C195,368 192,348 190,322 Z" fill="#3D2212"/>
+    <path d="M190,322 C208,319 228,318 246,319 L252,382 L201,383 Z" fill="#704122"/>
+    <path d="M266,332 Q269,356 269,378 Q265,356 266,332 Z" fill="#8CAAB5" opacity="0.8"/>
+    <ellipse cx="238" cy="364" rx="21" ry="14.5" fill="#9A8968" stroke="#1C1412" stroke-width="2.6"/>
+    <path d="M252,356 A21,14.5 0 0,1 224,374 Q242,372 252,356 Z" fill="#524531" opacity="0.7"/>
 
-    <!-- 圆滚滚缝满补丁的麻布躯干 -->
-    <path d="M84,178 L236,180 L272,248 L258,342 L160,356 L62,340 L48,246 Z" fill="#9E6238" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
-    <path d="M162,179 L236,180 L272,248 L258,342 L160,356 Q172,268 162,179 Z" fill="#704122" opacity="0.8"/>
-    <path d="M86,182 L53,246 L66,336" fill="none" stroke="#E2D6BA" stroke-width="2.6" stroke-linecap="round" opacity="0.88"/>
-    <!-- 肚皮羊皮纸补丁与中缝粗针脚 -->
-    <polygon points="96,196 224,198 234,296 160,334 86,294" fill="#C8B894" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-    <polygon points="160,197 224,198 234,296 160,334" fill="#9A8968" opacity="0.72"/>
-    <path d="M160,182 V352 M148,204 L172,208 M146,312 L174,316" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
-    <!-- 左下灰青旧布补丁 -->
-    <polygon points="62,282 96,276 102,318 68,324" fill="#5A7682" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M58,288 L68,286 M60,302 L70,300 M62,316 L72,314" stroke="#1C1412" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M214,226 L256,268 M208,244 L254,290 M202,264 L248,310 M196,284 L238,326" stroke="#1C1412" stroke-width="1.2" opacity="0.45"/>
-    <path d="M84,178 L236,180 L272,248 L258,342 L160,356 L62,340 L48,246 Z" fill="none" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <!-- 圆滚滚的梨形布偶肚皮躯干（七层画法） -->
+    <path d="M84,176 C124,168 196,168 236,176 C264,218 270,286 254,342 C214,358 106,358 66,342 C50,286 56,218 84,176 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.4" stroke-linejoin="round"/>
+    <path d="M84,176 C124,168 196,168 236,176 C264,218 270,286 254,342 C214,358 106,358 66,342 C50,286 56,218 84,176 Z" fill="#704122"/>
+    <g clip-path="url(#mon_bear-cbody)">
+      <path d="M84,176 C124,168 196,168 236,176 C264,218 270,286 254,342 C214,358 106,358 66,342 C50,286 56,218 84,176 Z" transform="translate(-9 -7)" fill="#9E6238"/>
+      <!-- 右侧弧形背光暗面与45°排线 -->
+      <path d="M174,170 C206,218 212,282 194,354 H270 V170 Z" fill="#3D2212" opacity="0.82"/>
+      <path d="M192,178 C218,224 222,284 208,350 H268 V178 Z" fill="url(#mon_bear-h)" opacity="0.38"/>
+      <!-- 大熊头压在胸口上的加深阴影 -->
+      <path d="M80,170 H240 V192 C192,202 128,202 80,192 Z" fill="#3D2212" opacity="0.82"/>
+      <!-- 左上受光亮边 -->
+      <path d="M84,186 C64,224 60,276 70,328 C64,276 68,226 88,188 Z" fill="#C48A5C"/>
+      <!-- 右下外缘冷轮廓光 -->
+      <path d="M256,232 C262,268 259,306 250,336 C256,306 258,268 253,232 Z" fill="#8CAAB5" opacity="0.82"/>
+    </g>
 
-    <!-- 布偶熊大脑袋 head（掉了一只右耳只剩缝线，左耳是独立 #ear） -->
+    <!-- 浅麻布肚皮补丁与中缝针脚 -->
+    <path d="M98,196 C136,192 184,192 222,196 C234,238 232,286 218,324 C182,340 138,340 102,324 C88,286 86,238 98,196 Z" fill="#C8B894" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M160,193 C184,193 206,194 222,196 C234,238 232,286 218,324 C196,334 176,338 160,338 C172,290 172,240 160,193 Z" fill="#9A8968" opacity="0.78"/>
+    <!-- 宝石压在肚皮正中的暗托影 -->
+    <circle cx="162" cy="256" r="42" fill="#524531" opacity="0.65"/>
+    <!-- 肚皮中线粗缝线 -->
+    <path d="M160,180 V350" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M150,198 L170,201 M148,314 L172,317 M150,332 L170,335" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+    <!-- 左下暗紫小方块补丁（照指南 5.5 节） -->
+    <path d="M64,282 C76,279 90,278 100,280 C103,294 103,308 100,320 C88,323 76,323 66,320 C63,308 63,294 64,282 Z" fill="#3A324D" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M60,290 L70,288 M60,302 L70,300 M62,314 L72,312 M96,288 L105,286 M96,304 L105,302" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- 3. 布偶熊大脑袋 head（掉了一只右耳只剩缝线，左耳是独立 #ear） -->
     <g id="head">
-      <!-- pivot: 160,182 -->
-
-      <!-- 左耳 ear -->
+      <!-- 左耳 ear（圆润七层画法） -->
       <g id="ear">
-        <!-- pivot: 96,76 -->
-        <polygon points="54,54 74,34 108,42 114,78 72,88 48,74" fill="#9E6238" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-        <polygon points="66,56 80,46 100,52 102,74 74,78" fill="#704122" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-        <path d="M58,54 L75,38 L104,44" fill="none" stroke="#E2D6BA" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M56,68 C48,48 64,30 86,34 C104,37 116,54 110,76 C94,86 70,84 56,68 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M56,68 C48,48 64,30 86,34 C104,37 116,54 110,76 C94,86 70,84 56,68 Z" fill="#704122"/>
+        <path d="M56,68 C49,49 64,32 84,35 C96,37 104,48 102,64 C88,74 68,74 56,68 Z" fill="#9E6238"/>
+        <path d="M66,64 C62,52 72,42 86,45 C96,47 102,56 98,68 C88,74 74,73 66,64 Z" fill="#524531" stroke="#1C1412" stroke-width="2.2"/>
+        <path d="M59,54 Q66,38 84,38 Q68,42 61,56 Z" fill="#C48A5C"/>
       </g>
 
-      <!-- 右耳缺失处：只剩扯断的粗缝线茬 -->
-      <path d="M214,62 L238,76" stroke="#1C1412" stroke-width="4" stroke-linecap="round"/>
-      <path d="M218,56 L224,72 M226,60 L232,76 M234,64 L242,78 M222,52 L236,58" stroke="#E2D6BA" stroke-width="2.4" stroke-linecap="round"/>
-      <path d="M218,56 L224,72 M226,60 L232,76 M234,64 L242,78" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round"/>
+      <!-- 右耳缺失处：只剩扯断的粗缝线茬与线头 -->
+      <path d="M210,58 C222,62 232,68 240,76" fill="none" stroke="#1C1412" stroke-width="4.4" stroke-linecap="round"/>
+      <path d="M216,52 L222,68 M225,56 L231,72 M234,62 L242,76" stroke="#1C1412" stroke-width="3.6" stroke-linecap="round"/>
+      <path d="M216,52 L222,68 M225,56 L231,72 M234,62 L242,76" stroke="#E2D6BA" stroke-width="1.8" stroke-linecap="round"/>
 
-      <!-- 歪斜缝补的大熊头主体 -->
-      <path d="M88,62 L160,54 L230,66 L252,122 L238,178 L160,190 L82,176 L68,120 Z" fill="#9E6238" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-      <path d="M160,54 L230,66 L252,122 L238,178 L160,190 Z" fill="#704122" opacity="0.78"/>
-      <polygon points="178,62 228,70 238,112 184,106" fill="#9A8968" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M90,66 L72,120 L85,172" fill="none" stroke="#E2D6BA" stroke-width="2.6" stroke-linecap="round" opacity="0.88"/>
-      <path d="M156,56 L164,134 M146,74 L170,72 M148,92 L172,90 M150,110 L174,108" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- 圆润微歪的旧布偶熊头（七层画法） -->
+      <path d="M86,62 C126,50 194,50 234,64 C254,100 252,148 234,178 C194,192 126,192 86,176 C68,146 66,98 86,62 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.4" stroke-linejoin="round"/>
+      <path d="M86,62 C126,50 194,50 234,64 C254,100 252,148 234,178 C194,192 126,192 86,176 C68,146 66,98 86,62 Z" fill="#704122"/>
+      <g clip-path="url(#mon_bear-chead)">
+        <path d="M86,62 C126,50 194,50 234,64 C254,100 252,148 234,178 C194,192 126,192 86,176 C68,146 66,98 86,62 Z" transform="translate(-8 -6)" fill="#9E6238"/>
+        <!-- 右脸颊弧形背光暗面与排线 -->
+        <path d="M172,52 C202,92 204,142 186,190 H252 V68 Z" fill="#3D2212" opacity="0.8"/>
+        <path d="M188,60 C214,98 216,144 202,188 H250 V70 Z" fill="url(#mon_bear-h)" opacity="0.36"/>
+        <!-- 左上受光亮边與右下冷轮廓光 -->
+        <path d="M88,68 C73,98 72,138 86,168 C76,138 77,98 92,70 Z" fill="#C48A5C"/>
+        <path d="M242,96 C248,124 244,152 232,174 C241,152 244,124 239,96 Z" fill="#8CAAB5" opacity="0.82"/>
+        <!-- 右额头旧麻布补丁 -->
+        <path d="M180,62 C198,63 216,67 228,73 C234,86 236,98 234,110 C216,109 198,107 184,104 C182,90 180,76 180,62 Z" fill="#9A8968" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      </g>
 
-      <!-- 吻部浅色麻布包与歪嘴缝线 -->
-      <ellipse cx="160" cy="154" rx="38" ry="24" fill="#C8B894" stroke="#1C1412" stroke-width="2.6"/>
-      <polygon points="160,136 174,148 160,156 146,148" fill="#3D2212" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M136,164 Q160,174 184,162 M144,158 L142,170 M160,156 L160,172 M176,158 L178,169" fill="none" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- 额头中缝针脚（收尖结构线 + 缝线） -->
+      <path d="M157,54 Q162,92 162,132 Q158,92 157,54 Z" fill="#1C1412"/>
+      <path d="M148,74 L170,72 M149,92 L171,90 M150,110 L172,108" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
 
-      <!-- 正常表情 face：两只眼睛是两种不一样的缝线 -->
+      <!-- 圆鼓鼓的吻部鼻包与歪缝线嘴 -->
+      <ellipse cx="160" cy="153" rx="39" ry="24" transform="translate(.5 .8)" fill="#1C1412"/>
+      <ellipse cx="160" cy="153" rx="37" ry="22.5" fill="#C8B894" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M184,136 A37,22.5 0 0,1 136,170 Q168,170 184,136 Z" fill="#9A8968" opacity="0.78"/>
+      <path d="M128,144 Q142,134 164,134 Q142,137 128,144 Z" fill="#E2D6BA"/>
+      <!-- 倒三角布鼻头与高光点 -->
+      <path d="M147,144 C155,140 165,140 173,144 C170,151 164,156 160,157 C156,156 150,151 147,144 Z" fill="#3D2212" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="155" cy="145" r="2" fill="#C48A5C"/>
+      <!-- 缝线嘴 -->
+      <path d="M136,162 Q160,173 184,160" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M144,158 L142,169 M160,157 L160,171 M176,157 L178,168" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- 正常表情 face：两只眼睛是两种完全不同的缝线（左眼深窝大叉缝线，右眼横缝四竖针脚） -->
       <g id="face">
-        <!-- pivot: 160,132 -->
-        <path d="M110,108 L144,138 M144,108 L110,138" stroke="#E2D6BA" stroke-width="5.5" stroke-linecap="round"/>
-        <path d="M110,108 L144,138 M144,108 L110,138" stroke="#1C1412" stroke-width="2.6" stroke-linecap="round"/>
-        <circle cx="110" cy="108" r="2.5" fill="#1C1412"/>
-        <circle cx="144" cy="138" r="2.5" fill="#1C1412"/>
-        <circle cx="144" cy="108" r="2.5" fill="#1C1412"/>
-        <circle cx="110" cy="138" r="2.5" fill="#1C1412"/>
+        <!-- 左眼：压暗衬底圆窝 + 粗麻线大 X -->
+        <ellipse cx="127" cy="122" rx="18" ry="16" fill="#524531" opacity="0.65"/>
+        <circle cx="111" cy="108" r="2.8" fill="#1C1412"/>
+        <circle cx="143" cy="136" r="2.8" fill="#1C1412"/>
+        <circle cx="143" cy="108" r="2.8" fill="#1C1412"/>
+        <circle cx="111" cy="136" r="2.8" fill="#1C1412"/>
+        <path d="M111,108 L143,136 M143,108 L111,136" stroke="#1C1412" stroke-width="6.2" stroke-linecap="round"/>
+        <path d="M111,108 L143,136 M143,108 L111,136" stroke="#E2D6BA" stroke-width="2.8" stroke-linecap="round"/>
 
-        <path d="M174,126 L216,122" stroke="#1C1412" stroke-width="4.5" stroke-linecap="round"/>
-        <path d="M180,112 L182,138 M190,110 L192,140 M200,112 L202,138 M210,114 L212,134" stroke="#E2D6BA" stroke-width="3.8" stroke-linecap="round"/>
-        <path d="M180,112 L182,138 M190,110 L192,140 M200,112 L202,138 M210,114 L212,134" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- 右眼：一道紧闭横缝 + 四根不等长竖向缝针 -->
+        <path d="M174,125 Q195,121 216,123" fill="none" stroke="#1C1412" stroke-width="4.6" stroke-linecap="round"/>
+        <path d="M180,112 L182,137 M190,109 L192,139 M200,111 L202,137 M210,114 L211,134" stroke="#1C1412" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M180,112 L182,137 M190,109 L192,139 M200,111 L202,137 M210,114 L211,134" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
       </g>
 
-      <!-- 重击表情 face_hurt（平时 opacity="0"） -->
+      <!-- 重击表情 face_hurt（平时 opacity: 0） -->
       <g id="face_hurt" opacity="0">
-        <!-- pivot: 160,132 -->
-        <path d="M108,114 L142,126 L108,138 M214,114 L180,126 L214,138" fill="none" stroke="#E2D6BA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M108,114 L142,126 L108,138 M214,114 L180,126 L214,138" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M108,113 L142,124 L108,136 M214,113 L180,124 L214,136" fill="none" stroke="#1C1412" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M108,113 L142,124 L108,136 M214,113 L180,124 L214,136" fill="none" stroke="#E2D6BA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
       </g>
 
-      <!-- 眩晕表情 face_daze（平时 opacity="0"） -->
+      <!-- 眩晕表情 face_daze（平时 opacity: 0） -->
       <g id="face_daze" opacity="0">
-        <!-- pivot: 160,110 -->
         <g class="daze-swirl-l">
-          <!-- pivot: 128,124 -->
-          <path d="M128,124 m-3,0 a3,3 0 1,0 6,0 a7,7 0 1,0 -14,0 a11,11 0 1,0 22,0" fill="none" stroke="#E2D6BA" stroke-width="3.6" stroke-dasharray="5 2" stroke-linecap="round"/>
-          <path d="M128,124 m-3,0 a3,3 0 1,0 6,0 a7,7 0 1,0 -14,0 a11,11 0 1,0 22,0" fill="none" stroke="#1C1412" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M128,124 m-3,0 a3,3 0 1,0 6,0 a7,7 0 1,0 -14,0 a11,11 0 1,0 22,0" fill="none" stroke="#1C1412" stroke-width="4.2" stroke-linecap="round"/>
+          <path d="M128,124 m-3,0 a3,3 0 1,0 6,0 a7,7 0 1,0 -14,0 a11,11 0 1,0 22,0" fill="none" stroke="#E2D6BA" stroke-width="2" stroke-dasharray="5 2" stroke-linecap="round"/>
         </g>
         <g class="daze-swirl-r">
-          <!-- pivot: 192,128 -->
-          <path d="M192,128 m-3,0 a3,3 0 1,0 6,0 a6.5,6.5 0 1,0 -13,0 a10,10 0 1,0 20,0" fill="none" stroke="#E2D6BA" stroke-width="3.6" stroke-dasharray="5 2" stroke-linecap="round"/>
-          <path d="M192,128 m-3,0 a3,3 0 1,0 6,0 a6.5,6.5 0 1,0 -13,0 a10,10 0 1,0 20,0" fill="none" stroke="#1C1412" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M192,126 m-3,0 a3,3 0 1,0 6,0 a6.5,6.5 0 1,0 -13,0 a10,10 0 1,0 20,0" fill="none" stroke="#1C1412" stroke-width="4.2" stroke-linecap="round"/>
+          <path d="M192,126 m-3,0 a3,3 0 1,0 6,0 a6.5,6.5 0 1,0 -13,0 a10,10 0 1,0 20,0" fill="none" stroke="#E2D6BA" stroke-width="2" stroke-dasharray="5 2" stroke-linecap="round"/>
         </g>
         <g class="daze-stars">
-          <!-- pivot: 160,44 -->
-          <ellipse cx="160" cy="44" rx="52" ry="10" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-dasharray="6 5" opacity="0.78"/>
-          <path d="M108,42 L111,48 L117,51 L111,54 L108,60 L105,54 L99,51 L105,48 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M212,42 L215,48 L221,51 L215,54 L212,60 L209,54 L203,51 L209,48 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+          <ellipse cx="160" cy="42" rx="50" ry="9.5" fill="none" stroke="#8CAAB5" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.78"/>
+          <polygon points="110,40 113,34 116,40 122,42 116,45 113,51 110,45 104,42" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+          <polygon points="210,40 213,34 216,40 222,42 216,45 213,51 210,45 204,42" fill="#C8B894" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
         </g>
       </g>
     </g>
   </g>
 
-  <!-- 怀里死死抱着的超大鲜艳切好红宝石 gem（直径 84px：x:118..202, y:210..294，远超60px下限，独立于 #body 缩放使死亡滚地时保持饱满正圆） -->
+  <!-- 4. 怀里死死抱着的切好圆红宝石 gem（直径 82px >= 60px，中心 160,252，照 gem_red_shine.svg 五档刻面画法） -->
   <g id="gem">
-    <!-- pivot: 160,252 -->
-    <polygon points="160,210 183,216 196,230 202,252 196,274 183,288 160,294 137,288 124,274 118,252 124,230 137,216" fill="#E3263A" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-    <!-- 冠部左上亮刻面与右下暗刻面 -->
-    <polygon points="160,210 183,216 172,232 148,232 137,216" fill="#FF5C6E"/>
-    <polygon points="137,216 148,232 134,246 124,230" fill="#FFD6DC"/>
-    <polygon points="183,216 196,230 202,252 184,260 184,244 172,232" fill="#9E1424"/>
-    <polygon points="202,252 196,274 183,288 160,294 148,272 172,272 184,260" fill="#5C0A14"/>
-    <!-- 中央大八角台面 -->
-    <polygon points="148,232 172,232 184,244 184,260 172,272 148,272 136,260 136,244" fill="#E3263A" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-    <polygon points="141,244 153,234 168,234 151,254" fill="#FFFFFF" opacity="0.95"/>
-    <circle cx="139" cy="228" r="3.6" fill="#FFFFFF" opacity="0.98"/>
-    <polygon points="160,210 183,216 196,230 202,252 196,274 183,288 160,294 137,288 124,274 118,252 124,230 137,216" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 1. 墨色垫底 -->
+    <circle cx="160" cy="252" r="41" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6"/>
+    <!-- 2. 外圈冠部刻面底色 -->
+    <circle cx="160" cy="252" r="41" fill="#E3263A" stroke="#1C1412" stroke-width="3.2"/>
+    <!-- 左上亮刻面与最亮星面 -->
+    <polygon points="160,211 188,223 176,235 144,235 132,223" fill="#F4566A"/>
+    <polygon points="132,223 144,235 135,268 119,252" fill="#FFA3AB"/>
+    <polygon points="119,252 135,268 144,269 132,281" fill="#F4566A"/>
+    <!-- 右下暗刻面、最暗刻面与一块背光内反光亮面 -->
+    <polygon points="188,223 201,252 185,268 176,235" fill="#A8172A"/>
+    <polygon points="201,252 188,281 160,293 144,269 176,269 185,268" fill="#6B0E1C"/>
+    <polygon points="176,269 188,281 160,293" fill="#F4566A" opacity="0.72"/>
+    <!-- 中央八边形台面 -->
+    <polygon points="144,235 176,235 185,244 185,260 176,269 144,269 135,260 135,244" fill="#E3263A"/>
+    <polygon points="144,235 176,235 162,252 135,244" fill="#FFA3AB" opacity="0.85"/>
+    <!-- 刻面之间的高光细棱线（不用墨线，照指南 5.7 节） -->
+    <path d="M144,235 L176,235 L185,244 L185,260 L176,269 L144,269 L135,260 L135,244 Z M132,223 L144,235 M188,223 L176,235 M119,252 L135,244 M201,252 L185,244 M132,281 L144,269 M188,281 L176,269" fill="none" stroke="#FFA3AB" stroke-width="0.9" opacity="0.65"/>
+    <!-- 左上沿白亮边与最亮高光点 -->
+    <path d="M124,244 A37,37 0 0,1 154,215" fill="none" stroke="#F4F1FF" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="141" cy="231" r="3.4" fill="#F4F1FF"/>
+    <circle cx="150" cy="242" r="2" fill="#F4F1FF"/>
   </g>
 
-  <!-- 死死抱住宝石的两只旧布熊爪 arms（左右分立 .arm-left 与 .arm-right：hit时各往里收7px抱紧，attack时左臂护宝石、右臂抡起拍出） -->
+  <!-- 5. 死死抱住红宝石的两只旧布熊爪 arms（左右分立，中间留出整颗红宝石不遮挡） -->
   <g id="arms">
-    <!-- pivot: 160,248 -->
-    <g class="arm-left">
-      <!-- pivot: 64,226 -->
-      <path d="M62,196 L36,238 L62,278 L128,270 L126,240 L84,232 Z" fill="#9E6238" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M62,196 L40,236 L64,272" fill="none" stroke="#E2D6BA" stroke-width="2.2" stroke-linecap="round"/>
-      <polygon points="124,240 138,244 126,250" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <polygon points="126,252 140,257 126,262" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <polygon points="124,264 136,269 122,272" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <!-- 左熊臂 .arm-l（圆管七层 + 一道缝线 + 三颗旧纸色小尖爪） -->
+    <g class="arm-l">
+      <path d="M74,186 C54,206 42,228 46,248 C54,266 86,274 124,270 C130,262 130,248 124,242 C98,240 82,232 82,216 C82,204 80,192 74,186 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M74,186 C54,206 42,228 46,248 C54,266 86,274 124,270 C130,262 130,248 124,242 C98,240 82,232 82,216 C82,204 80,192 74,186 Z" fill="#704122"/>
+      <path d="M74,186 C56,204 45,224 48,242 C56,256 86,262 122,260 L122,243 C96,240 80,232 80,214 Z" fill="#9E6238"/>
+      <path d="M70,194 C54,210 47,226 50,240 C52,226 58,210 72,196 Z" fill="#C48A5C"/>
+      <!-- 左臂缝线 -->
+      <path d="M64,234 Q86,248 110,252" fill="none" stroke="#1C1412" stroke-width="2" stroke-dasharray="3 2.5" stroke-linecap="round"/>
+      <!-- 三颗小布爪尖 -->
+      <polygon points="122,240 135,244 122,249" fill="#C8B894" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="124,251 137,255 124,260" fill="#C8B894" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="121,262 134,266 121,271" fill="#9A8968" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
     </g>
-    <g class="arm-right">
-      <!-- pivot: 256,226 -->
-      <path d="M258,198 L284,240 L258,280 L192,272 L194,242 L236,234 Z" fill="#704122" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-      <polygon points="196,242 182,246 194,252" fill="#C8B894" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <polygon points="194,254 180,259 194,264" fill="#C8B894" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <polygon points="196,266 184,271 198,274" fill="#C8B894" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+
+    <!-- 右熊臂 .arm-r（圆管七层 + 一块补丁 + 三颗小尖爪） -->
+    <g class="arm-r">
+      <path d="M246,186 C266,206 278,228 274,248 C266,266 234,274 196,270 C190,262 190,248 196,242 C222,240 238,232 238,216 C238,204 240,192 246,186 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M246,186 C266,206 278,228 274,248 C266,266 234,274 196,270 C190,262 190,248 196,242 C222,240 238,232 238,216 C238,204 240,192 246,186 Z" fill="#3D2212"/>
+      <path d="M246,186 C262,204 272,222 269,240 C260,254 232,260 198,258 L198,243 C224,240 238,232 238,214 Z" fill="#704122"/>
+      <path d="M270,224 Q274,238 268,250 Q271,238 268,224 Z" fill="#8CAAB5" opacity="0.8"/>
+      <!-- 右臂小补丁 -->
+      <polygon points="236,232 254,228 256,246 238,249" fill="#9A8968" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <!-- 三颗小布爪尖 -->
+      <polygon points="198,240 185,244 198,249" fill="#C8B894" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="196,251 183,255 196,260" fill="#C8B894" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="199,262 186,266 199,271" fill="#9A8968" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
     </g>
   </g>
 
-  <!-- 重击与死亡时从崩开的缝线飞出的白棉花团 stuffing（平时 opacity="0"，不是血） -->
+  <!-- 6. 重击与死亡崩出的旧棉花团 stuffing（替代血，平时 opacity: 0） -->
   <g id="stuffing" opacity="0">
-    <!-- pivot: 160,210 -->
-    <g class="cotton-1">
-      <path d="M56,162 Q48,148 64,144 Q74,134 86,146 Q96,154 84,168 Q68,174 56,162 Z" fill="#E6DEC8" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <g class="cot-1">
+      <path d="M74,154 C70,146 80,138 88,144 C96,138 106,146 100,156 C104,164 92,170 84,164 C76,168 68,162 74,154 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M84,152 A8,8 0 0,1 96,160" fill="none" stroke="#9A8968" stroke-width="2" stroke-linecap="round"/>
     </g>
-    <g class="cotton-2">
-      <path d="M220,128 Q232,114 246,124 Q260,128 250,144 Q236,152 220,142 Z" fill="#E6DEC8" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <g class="cot-2">
+      <path d="M220,86 C216,78 226,70 234,76 C242,72 250,80 244,90 C248,98 236,102 228,96 C220,100 214,94 220,86 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
     </g>
-    <g class="cotton-3">
-      <path d="M236,182 Q250,170 262,182 Q270,196 254,204 Q238,206 236,182 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <g class="cot-3">
+      <path d="M232,184 C228,176 238,170 246,176 C254,172 260,180 254,188 C256,196 244,200 238,194 C230,196 226,190 232,184 Z" fill="#C8B894" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
     </g>
-    <g class="cotton-4">
-      <path d="M138,186 Q150,172 166,180 Q180,174 184,190 Q172,202 152,198 Z" fill="#E6DEC8" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    </g>
-    <path d="M76,136 L60,124 M242,158 L258,148 M54,202 L40,196" stroke="#E2D6BA" stroke-width="2.4" stroke-linecap="round"/>
   </g>
 </g>
 </svg>

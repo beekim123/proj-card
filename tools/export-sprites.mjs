@@ -29,6 +29,9 @@ if (!fs.existsSync(CHROME)) { console.error(`找不到 Chrome：${CHROME}（可�
 const only = process.argv.slice(2);
 const manifest = JSON.parse(fs.readFileSync(path.join(PUBLIC, 'art-manifest.json'), 'utf8'));
 const missing = manifest.assets.filter(def => !fs.existsSync(path.join(PUBLIC, 'svg', `${def.id}.svg`)));
+if (manifest.artStyle === 'fable-carbon-remake' && (GENERATED || missing.length)) {
+  throw new Error('新版完整素材禁止退回旧占位生成器；请补齐交稿SVG后重导。' + missing.map(a => a.id).join(' '));
+}
 const generatedDefinitions = INSPECTOR_SAMPLES ? manifest.assets.filter(def => ['mon_chest', 'mon_bear'].includes(def.id)) : missing;
 let placeholderSvgs = {};
 if (GENERATED) {

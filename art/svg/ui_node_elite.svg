@@ -1,42 +1,90 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_node_elite" viewBox="0 0 64 64" width="64" height="64">
 <title>进度节点 · 精英</title>
+<style>
+.svg-ui_node_elite g { transform-box: view-box; }
+.svg-ui_node_elite #root { transform-origin: 32px 32px; }
+.svg-ui_node_elite #clock_face { transform-origin: 32px 34px; }
+.svg-ui_node_elite #sheen { opacity: 0; }
+
+/* idle 3000ms: 0 -> 1500 -> 3000 */
+@keyframes svg-ui_node_elite-idle-clock {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-0.5px) rotate(-1.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-ui_node_elite-idle-sheen {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 0.85; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-ui_node_elite:not([data-anim]) #clock_face,
+.svg-ui_node_elite[data-anim="idle"] #clock_face {
+  animation: svg-ui_node_elite-idle-clock 3s infinite;
+}
+.svg-ui_node_elite:not([data-anim]) #sheen,
+.svg-ui_node_elite[data-anim="idle"] #sheen {
+  animation: svg-ui_node_elite-idle-sheen 3s infinite;
+}
+</style>
+<defs>
+  <clipPath id="ui_node_elite-cbase">
+    <path d="M32,7 C46,7 57,18 57,32 C57,46 46,57 32,57 C18,57 7,46 7,32 C7,18 18,7 32,7 Z"/>
+  </clipPath>
+  <clipPath id="ui_node_elite-cdial">
+    <circle cx="32" cy="34.5" r="13.5"/>
+  </clipPath>
+</defs>
 <g id="root">
-  <!-- 统一规格暗色小圆底（与 ui_node_fight 完全同款的 12 边形哥特旧铜圆章） -->
-  <polygon points="32,8 44,11 53,20 56,32 53,44 44,53 32,56 20,53 11,44 8,32 11,20 20,11" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-  <!-- 右下背光铜暗面 -->
-  <polygon points="44,11 53,20 56,32 53,44 44,53 32,56 20,53 32,32" fill="#3B2B14" opacity="0.82"/>
-  <!-- 左上冷受光亮边 -->
-  <polyline points="11,42 9.5,32 12.2,20.8 20.8,12.2 32,9.5 42,11.5" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 统一规格暗色小圆底（七层画法，与 ui_node_fight 完全同款同粗线宽） -->
+  <path d="M32,7 C46,7 57,18 57,32 C57,46 46,57 32,57 C18,57 7,46 7,32 C7,18 18,7 32,7 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+  <path d="M32,7 C46,7 57,18 57,32 C57,46 46,57 32,57 C18,57 7,46 7,32 C7,18 18,7 32,7 Z" fill="#6E542B"/>
+  <g clip-path="url(#ui_node_elite-cbase)">
+    <path d="M32,7 C46,7 57,18 57,32 C57,46 46,57 32,57 C18,57 7,46 7,32 C7,18 18,7 32,7 Z" transform="translate(-3 -3)" fill="#9A7B46"/>
+    <path d="M57,28 C57,45 45,57 28,57 C43,53 53,43 57,28 Z" fill="#3B2B14" opacity="0.8"/>
+    <path d="M9.2,27 C11.2,15.5 20.5,8.8 31,8.5 C21.5,11 13.5,17.5 9.2,27 Z" fill="#C2A670"/>
+    <path d="M54.8,37 C52.8,47.5 44,54.5 34,55.5 C43,52.8 50.8,46.2 54.8,37 Z" fill="#8CAAB5" opacity="0.82"/>
+    <circle cx="17" cy="15" r="1.4" fill="#DDCB9A"/>
+    <path d="M44,50 C48,48 51,44 52.5,40" fill="none" stroke="#5F8272" stroke-width="2" stroke-linecap="round" opacity="0.52"/>
+  </g>
+  <path d="M46,9.2 Q47.2,11.8 48.8,9.5 Q47.2,10.2 46,9.2 Z" fill="#1C1412"/>
 
   <!-- 内部暗夜紫凹盘 -->
-  <circle cx="32" cy="32" r="18.5" fill="#161221" stroke="#1C1412" stroke-width="2.4"/>
-  <path d="M18,22 A17,17 0 0,1 46,22 A17,15 0 0,0 18,22 Z" fill="#0D111C" opacity="0.8"/>
+  <circle cx="32" cy="32" r="18.8" fill="#161221" stroke="#1C1412" stroke-width="2.4"/>
+  <path d="M16,40 A18,18 0 0 1 40,16 A17.5,16.5 0 0 0 16,40 Z" fill="#0D111C" opacity="0.82"/>
 
   <!-- 四方铆钉 -->
-  <circle cx="32" cy="11" r="1.6" fill="#C2A670" stroke="#1C1412" stroke-width="1"/>
-  <circle cx="53" cy="32" r="1.6" fill="#9A7B46" stroke="#1C1412" stroke-width="1"/>
-  <circle cx="32" cy="53" r="1.6" fill="#9A7B46" stroke="#1C1412" stroke-width="1"/>
-  <circle cx="11" cy="32" r="1.6" fill="#C2A670" stroke="#1C1412" stroke-width="1"/>
+  <circle cx="32.3" cy="10.4" r="2.1" fill="#1C1412"/><circle cx="32" cy="10" r="1.4" fill="#C2A670"/><circle cx="31.5" cy="9.5" r="0.55" fill="#DDCB9A"/>
+  <circle cx="54.3" cy="32.4" r="2.1" fill="#1C1412"/><circle cx="54" cy="32" r="1.4" fill="#9A7B46"/>
+  <circle cx="32.3" cy="54.4" r="2.1" fill="#1C1412"/><circle cx="32" cy="54" r="1.4" fill="#6E542B"/>
+  <circle cx="10.3" cy="32.4" r="2.1" fill="#1C1412"/><circle cx="10" cy="32" r="1.4" fill="#C2A670"/>
 
-  <!-- 中央图案：老座钟钟面（带上方双小窗眉与哥特指针，粗外框 + 一层暗面 + 高光） -->
+  <!-- 中央图案：老座钟钟面 clock_face -->
   <g id="clock_face">
-    <!-- 表盘上方老座钟标志性双拱眉冠 -->
-    <path d="M21,21 L24,15 L30,17 L32,19 L34,17 L40,15 L43,21 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <!-- 旧羊皮纸圆钟盘 -->
-    <circle cx="32" cy="34" r="13.5" fill="#C8B894" stroke="#1C1412" stroke-width="2.6"/>
-    <!-- 钟盘右下暗面弯月 -->
-    <path d="M41,24 A13,13 0 0,1 22,43 A12,12 0 0,0 41,24 Z" fill="#9A8968"/>
-    <!-- 钟盘左上亮高光弧 -->
-    <path d="M21,31 A11,11 0 0,1 34,23" fill="none" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
-
-    <!-- 四正刻度（粗短清晰） -->
-    <path d="M32,22.5 V25.5 M32,42.5 V45.5 M20.5,34 H23.5 M40.5,34 H43.5" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
-
-    <!-- 分针（指向右上 2 点方向）与时针（指向左上 10 点方向） -->
-    <polygon points="32,34 39,25 41,29 33,36" fill="#1C1412"/>
-    <polygon points="32,34 24,28 26,33 32,36" fill="#5E242C" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    <!-- 墨色垫底 -->
+    <path d="M20.5,21.5 C21.8,17 24.5,14.8 28.5,16.2 C30.2,16.8 31.2,17.8 32,18.8 C32.8,17.8 33.8,16.8 35.5,16.2 C39.5,14.8 42.2,17 43.5,21.5 A13.5,13.5 0 1 1 20.5,21.5 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+    <!-- 表盘上方老座钟标志性双拱铜眉冠 -->
+    <path d="M20.5,22 C21.8,17 24.5,14.8 28.5,16.2 C30.2,16.8 31.2,17.8 32,18.8 C32.8,17.8 33.8,16.8 35.5,16.2 C39.5,14.8 42.2,17 43.5,22 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M22.2,20.2 C23.2,17.5 25.5,16.2 28.5,17.2" fill="none" stroke="#DDCB9A" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- 旧羊皮纸圆钟盘（错位亮面 + 左上高光弧） -->
+    <circle cx="32" cy="34.5" r="13.5" fill="#9A8968" stroke="#1C1412" stroke-width="2.4"/>
+    <g clip-path="url(#ui_node_elite-cdial)">
+      <circle cx="32" cy="34.5" r="13.5" transform="translate(-2.2 -2.2)" fill="#C8B894"/>
+      <path d="M20.5,32 A11.8,11.8 0 0 1 34,22.8" fill="none" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
+      <!-- 钟面一道细裂纹 -->
+      <path d="M40.5,41.5 Q37.5,39.5 35.8,40.2 Q38,40.8 40.5,41.5 Z" fill="#524531"/>
+    </g>
+    <circle cx="32" cy="34.5" r="13.5" fill="none" stroke="#1C1412" stroke-width="2.4"/>
+    <!-- 四正刻度（收尖短楔形） -->
+    <path d="M31.2,22.6 H32.8 L32.4,25.8 H31.6 Z M31.6,43.2 H32.4 L32.8,46.4 H31.2 Z M20.1,33.7 V35.3 L23.3,34.9 V34.1 Z M40.7,34.1 V34.9 L43.9,35.3 V33.7 Z" fill="#1C1412"/>
+    <!-- 分针与时针 -->
+    <path d="M32,34.5 L39.2,25.2 L40.8,29.2 L33.2,36.2 Z" fill="#1C1412"/>
+    <path d="M32,34.5 L24.2,28.5 L25.8,33.2 L32,36.2 Z" fill="#5E242C" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
     <!-- 中心铜轴钉 -->
-    <circle cx="32" cy="34" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.8"/>
+    <circle cx="32" cy="34.5" r="2.6" fill="#C2A670" stroke="#1C1412" stroke-width="1.6"/>
+    <circle cx="31.3" cy="33.8" r="0.8" fill="#DDCB9A"/>
   </g>
+
+  <!-- 待机独立冷光层 -->
+  <path id="sheen" opacity="0" d="M10.5,26 A22,22 0 0 1 30,9.5" fill="none" stroke="#DDCB9A" stroke-width="1.6" stroke-linecap="round"/>
 </g>
 </svg>

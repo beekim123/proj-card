@@ -4,85 +4,140 @@
 .svg-ui_countdown g { transform-box: view-box; }
 .svg-ui_countdown #root { transform-origin: 48px 48px; }
 .svg-ui_countdown #badge { transform-origin: 48px 48px; }
-.svg-ui_countdown #sand_stream { transform-origin: 82px 49px; }
+.svg-ui_countdown #hourglass { transform-origin: 81px 48px; }
+.svg-ui_countdown #sand_stream { transform-origin: 81px 48px; }
+.svg-ui_countdown #sheen { opacity: 0; }
 
-/* 待机（2.2s 循环）：边上小沙漏里的沙粒慢慢往下漏 */
+/* idle 3000ms: 0 -> 1500 -> 3000 */
 @keyframes svg-ui_countdown-idle-sand {
-  0%, 100% { opacity: 0.95; transform: translateY(0px) scaleY(1); }
-  50% { opacity: 0.35; transform: translateY(3px) scaleY(0.82); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.92; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,2.2px) rotate(0deg) scale(1,0.84); opacity: 0.38; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.92; }
+}
+@keyframes svg-ui_countdown-idle-sheen {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 0.85; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
 }
 .svg-ui_countdown:not([data-anim]) #sand_stream,
 .svg-ui_countdown[data-anim="idle"] #sand_stream {
-  animation: svg-ui_countdown-idle-sand 2.2s steps(6, end) infinite;
+  animation: svg-ui_countdown-idle-sand 3s infinite;
+}
+.svg-ui_countdown:not([data-anim]) #sheen,
+.svg-ui_countdown[data-anim="idle"] #sheen {
+  animation: svg-ui_countdown-idle-sheen 3s infinite;
 }
 
-/* tick（500ms）：倒计时少 1 时整枚圆章像沙漏一样翻一下 */
-@keyframes svg-ui_countdown-tick-flip {
-  0% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(-14deg) scale(1.06); }
-  72% { transform: rotate(192deg) scale(1.04); }
-  88% { transform: rotate(175deg) scale(0.98); }
-  100% { transform: rotate(180deg) scale(1); }
+/* tick 500ms: 0 -> 100 (20%) -> 250 (50%) -> 350 (70%) -> 500 (100%) */
+@keyframes svg-ui_countdown-tick-badge {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  20% { transform: translate(0px,-1px) rotate(-4deg) scale(1.04,0.97); animation-timing-function: linear; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(0.08,1.03); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  70% { transform: translate(0px,0px) rotate(2deg) scale(1.03,0.99); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 .svg-ui_countdown[data-anim="tick"] #badge {
-  animation: svg-ui_countdown-tick-flip 0.5s steps(8, end) both;
+  animation: svg-ui_countdown-tick-badge 0.5s both;
 }
 
-/* warn（800ms 进场 + 无限循环）：只剩 1 回合时一直轻轻抖 */
-@keyframes svg-ui_countdown-warn-jitter {
-  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
-  20% { transform: translate(-2px, -1px) rotate(-4.5deg); }
-  40% { transform: translate(2px, 1px) rotate(4.5deg); }
-  60% { transform: translate(-2px, 1px) rotate(-3.5deg); }
-  80% { transform: translate(2px, -1px) rotate(3.8deg); }
+/* warn: 800ms entrance (0, 200, 400, 600, 800) + 2000ms stay loop (0, 500, 1000, 1500, 2000) */
+@keyframes svg-ui_countdown-warn-enter {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(-1.5px,0px) rotate(-4.5deg) scale(1.02,1.02); animation-timing-function: ease-in-out; }
+  50% { transform: translate(1.5px,0px) rotate(4.5deg) scale(1.02,1.02); animation-timing-function: ease-in-out; }
+  75% { transform: translate(-0.5px,0px) rotate(-1.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-ui_countdown-warn-loop {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  25% { transform: translate(-1.2px,0px) rotate(-3.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  75% { transform: translate(1.2px,0px) rotate(3.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 .svg-ui_countdown[data-anim="warn"] #badge {
-  animation: svg-ui_countdown-warn-jitter 0.4s steps(5, end) infinite;
-  animation-iteration-count: infinite;
+  animation: svg-ui_countdown-warn-enter 0.8s forwards, svg-ui_countdown-warn-loop 2s 0.8s infinite;
 }
 </style>
+<defs>
+  <clipPath id="ui_countdown-cring">
+    <circle cx="46" cy="48" r="38"/>
+  </clipPath>
+</defs>
 <g id="root">
-  <!-- pivot: 48,48 -->
   <g id="badge">
-    <!-- pivot: 48,48 -->
-    <!-- 四角哥特小铜齿凸耳 -->
-    <polygon points="44,5 52,5 54,12 42,12" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <polygon points="44,91 52,91 54,84 42,84" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <polygon points="5,44 5,52 12,54 12,42" fill="#C2A670" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <!-- 顶部、底部、左侧哥特铜齿耳座（预留旋转安全边距） -->
+    <path d="M41,7 L46,5.2 L51,7 L53,12.5 H39 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/>
+    <path d="M41,7 L46,5.2 L51,7 L53,12.5 H39 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M41,89 L46,90.8 L51,89 L53,83.5 H39 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/>
+    <path d="M41,89 L46,90.8 L51,89 L53,83.5 H39 Z" fill="#6E542B" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M6.8,43.5 L5.2,48 L6.8,52.5 L11.5,54.5 V41.5 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/>
+    <path d="M6.8,43.5 L5.2,48 L6.8,52.5 L11.5,54.5 V41.5 Z" fill="#C2A670" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
 
-    <!-- 旧铜圆章主体外圈（中心 48,48，外半径 39） -->
-    <circle cx="48" cy="48" r="39" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
-    <path d="M76,20 A39,39 0 0,1 20,76 L48,48 Z" fill="#3B2B14" opacity="0.78"/>
-    <!-- 左上冷受光铜边 -->
-    <path d="M16,66 A36,36 0 0,1 66,16" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round"/>
-    <!-- 铜章刻度铆钉 -->
-    <circle cx="23" cy="23" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="73" cy="23" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="23" cy="73" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="73" cy="73" r="2.2" fill="#6E542B" stroke="#1C1412" stroke-width="1.2"/>
+    <!-- 旧铜圆章主体外圈（七层画法，中心 46,48，外半径 38） -->
+    <!-- 第1层：墨色垫底 -->
+    <circle cx="46" cy="48" r="38" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6"/>
+    <!-- 第2层：铺旧铜“暗”一档 -->
+    <circle cx="46" cy="48" r="38" fill="#6E542B"/>
+    <g clip-path="url(#ui_countdown-cring)">
+      <!-- 第3层：错位亮面 -->
+      <circle cx="46" cy="48" r="38" transform="translate(-3.5 -3.5)" fill="#9A7B46"/>
+      <!-- 第4层：右下加深 -->
+      <path d="M84,42 C84,66 68,86 40,86 C64,81 78,66 84,42 Z" fill="#3B2B14" opacity="0.78"/>
+      <!-- 第5层：左上受光边与右下冷色轮廓光 -->
+      <path d="M10.5,42 C12.8,23.5 27.5,11.5 45,10.5 C30,13.5 16.5,25 10.5,42 Z" fill="#C2A670"/>
+      <path d="M81.5,56 C78.2,71.5 65.5,82.2 49,84.2 C63.5,80.5 76.2,70 81.5,56 Z" fill="#8CAAB5" opacity="0.82"/>
+      <!-- 第6层：珠边铸纹与铜绿污渍 -->
+      <circle cx="46.4" cy="48.5" r="33.5" pathLength="36" fill="none" stroke="#3B2B14" stroke-width="2.6" stroke-dasharray="0.02 0.98" stroke-linecap="round"/>
+      <circle cx="46" cy="48" r="33.5" pathLength="36" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-dasharray="0.02 0.98" stroke-linecap="round"/>
+      <path d="M62,77 C68,74 73,69 75,63" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity="0.55"/>
+      <circle cx="22" cy="21" r="1.8" fill="#DDCB9A"/>
+    </g>
+    <!-- 第7层：外圈磕痕 -->
+    <path d="M25,10.5 Q26.8,13.8 28.5,10.2 Q26.8,11.5 25,10.5 Z M66,82.5 Q67.2,79.2 69.2,81.8 Q67.5,80.8 66,82.5 Z" fill="#1C1412"/>
 
-    <!-- 正中直径 56（半径 28）平整深暗底盘（代码在正中写 40 号浅色数字，完全无杂纹干扰） -->
-    <circle cx="48" cy="48" r="29" fill="#0D111C" stroke="#1C1412" stroke-width="2.6"/>
-    <circle cx="48" cy="48" r="27" fill="#161221"/>
-    <circle cx="48" cy="48" r="28" fill="none" stroke="#9A7B46" stroke-width="1.2" opacity="0.7"/>
+    <!-- 四角铆钉 -->
+    <circle cx="22.4" cy="24.5" r="2.8" fill="#1C1412"/><circle cx="22" cy="24" r="1.9" fill="#C2A670"/><circle cx="21.4" cy="23.4" r="0.7" fill="#DDCB9A"/>
+    <circle cx="70.4" cy="24.5" r="2.8" fill="#1C1412"/><circle cx="70" cy="24" r="1.9" fill="#9A7B46"/><circle cx="69.4" cy="23.4" r="0.7" fill="#DDCB9A"/>
+    <circle cx="22.4" cy="72.5" r="2.8" fill="#1C1412"/><circle cx="22" cy="72" r="1.9" fill="#9A7B46"/><circle cx="21.4" cy="71.4" r="0.7" fill="#C2A670"/>
+    <circle cx="70.4" cy="72.5" r="2.8" fill="#1C1412"/><circle cx="70" cy="72" r="1.9" fill="#6E542B"/><circle cx="69.4" cy="71.4" r="0.7" fill="#C2A670"/>
 
-    <!-- 圆章右侧边上的哥特小沙漏（x:73..91, y:32..64，不遮挡中间 r=28 数字区） -->
+    <!-- 正中平整深暗圆盘（r=27，供代码在正中写40号数字，完全平整无杂纹） -->
+    <circle cx="46" cy="48" r="28" fill="#0D111C" stroke="#1C1412" stroke-width="2.6"/>
+    <circle cx="46" cy="48" r="26.2" fill="#161221"/>
+    <path d="M23,60 A26,26 0 0 1 59,25.5 A25.5,24.5 0 0 0 23,60 Z" fill="#0D111C" opacity="0.82"/>
+    <circle cx="46" cy="48" r="27" fill="none" stroke="#6E542B" stroke-width="1.1" opacity="0.72"/>
+
+    <!-- 待机独立铜边冷亮反光层 -->
+    <path id="sheen" opacity="0" d="M12,40 A35,35 0 0 1 44,13" fill="none" stroke="#DDCB9A" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- 圆章右侧边上的哥特小沙漏（x:71..91, y:30..66，不侵入中间数字区） -->
     <g id="hourglass">
-      <!-- 沙漏上下铜盖与立柱 -->
-      <rect x="73" y="32" width="18" height="4" rx="1" fill="#C2A670" stroke="#1C1412" stroke-width="1.8"/>
-      <rect x="73" y="60" width="18" height="4" rx="1" fill="#6E542B" stroke="#1C1412" stroke-width="1.8"/>
-      <path d="M75,36 V60 M89,36 V60" stroke="#9A7B46" stroke-width="1.6"/>
-      <!-- 沙漏上下玻璃囊 -->
-      <polygon points="76,36 88,36 83,47 81,47" fill="#1E2C33" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <polygon points="81,49 83,49 88,60 76,60" fill="#1E2C33" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <!-- 上半部余沙与下半部积沙 -->
-      <polygon points="78,41 86,41 83,46.5 81,46.5" fill="#C8B894"/>
-      <polygon points="82,53 87,59 77,59" fill="#C8B894"/>
+      <!-- 墨色垫底 -->
+      <path d="M72,31 H90 V35.5 H88.5 V60.5 H90 V65 H72 V60.5 H73.5 V35.5 H72 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="3.8" stroke-linejoin="round"/>
+      <!-- 沙漏立柱与暗底 -->
+      <path d="M74.5,35 V61 M87.5,35 V61" stroke="#1C1412" stroke-width="3.4"/>
+      <path d="M74.5,35 V61" stroke="#C2A670" stroke-width="1.6"/>
+      <path d="M87.5,35 V61" stroke="#6E542B" stroke-width="1.6"/>
+      <!-- 沙漏上下玻璃囊（冷色暗玻璃 + 斜反光） -->
+      <path d="M75.5,35 H86.5 L82.3,46.8 H79.7 Z" fill="#1E2C33" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M79.7,49.2 H82.3 L86.5,61 H75.5 Z" fill="#1E2C33" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <!-- 上半部余沙与下半部积沙（旧纸浅木色阶） -->
+      <polygon points="77.2,40.5 84.8,40.5 82,46.4 80,46.4" fill="#C8B894"/>
+      <polygon points="81,40.5 84.8,40.5 82,46.4 81,46.4" fill="#9A8968"/>
+      <polygon points="81,53.2 85.4,60 76.6,60" fill="#C8B894"/>
+      <polygon points="81,53.2 85.4,60 81,60" fill="#9A8968"/>
       <!-- 待机往下漏的沙粒流 sand_stream -->
       <g id="sand_stream">
-        <!-- pivot: 82,49 -->
-        <line x1="82" y1="46.5" x2="82" y2="54.5" stroke="#E2D6BA" stroke-width="1.8" stroke-dasharray="2 1.5" stroke-linecap="round"/>
+        <line x1="81" y1="46.2" x2="81" y2="54.5" stroke="#E2D6BA" stroke-width="1.7" stroke-dasharray="1.8 1.4" stroke-linecap="round"/>
       </g>
+      <!-- 玻璃囊高光 -->
+      <path d="M77,36.8 L79.5,44 M77.2,58.5 L79.5,51.5" stroke="#8CAAB5" stroke-width="1.1" stroke-linecap="round" opacity="0.75"/>
+      <!-- 沙漏上下旧铜盖 -->
+      <rect x="72" y="31" width="18" height="4.5" rx="1.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8"/>
+      <path d="M73.2,32.2 H85" stroke="#DDCB9A" stroke-width="1.1" stroke-linecap="round"/>
+      <rect x="72" y="60.5" width="18" height="4.5" rx="1.2" fill="#6E542B" stroke="#1C1412" stroke-width="1.8"/>
+      <path d="M73.2,61.8 H83" stroke="#C2A670" stroke-width="1" stroke-linecap="round"/>
     </g>
   </g>
 </g>

@@ -1,35 +1,93 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_heart" viewBox="0 0 96 96" width="96" height="96">
 <title>宝物 · 多一颗心</title>
+<style>
+.svg-relic_heart g { transform-box: view-box; }
+.svg-relic_heart .lid { transform-origin: 48px 38px; }
+.svg-relic_heart #heart_ruby { transform-origin: 48px 46px; }
+@keyframes svg-relic_heart-idle-lid {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1px) rotate(-1.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_heart-idle-gem {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.8px) rotate(1.2deg) scale(1.03,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_heart:not([data-anim]) .lid,
+.svg-relic_heart[data-anim="idle"] .lid { animation: svg-relic_heart-idle-lid 3s infinite; }
+.svg-relic_heart:not([data-anim]) #heart_ruby,
+.svg-relic_heart[data-anim="idle"] #heart_ruby { animation: svg-relic_heart-idle-gem 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_heart-clid">
+    <path d="M16,38 C18,28 21,19 25,14 C38,12.5 58,12.5 71,14 C75,19 78,28 80,38 Z"/>
+  </clipPath>
+  <clipPath id="relic_heart-cbody">
+    <path d="M12,48 H84 L78,82 C60,84 36,84 18,82 Z"/>
+  </clipPath>
+  <clipPath id="relic_heart-cruby">
+    <path d="M48,31 C40,21 21,23 20,38 C19,51 34,62 48,72 C62,62 77,51 76,38 C75,23 56,21 48,31 Z"/>
+  </clipPath>
+</defs>
 <g id="root">
-  <!-- 敞开的上半截旧铜匣盖（后仰打开，衬托匣内红宝石心） -->
-  <polygon points="16,38 24,14 72,14 80,38" fill="#6E542B" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-  <polygon points="48,14 72,14 80,38 48,38" fill="#3B2B14" opacity="0.8"/>
-  <polyline points="20,34 26,18 68,18" fill="none" stroke="#C2A670" stroke-width="2" stroke-linecap="round"/>
-  <polygon points="16,38 24,14 72,14 80,38" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+  <ellipse cx="48" cy="85" rx="33" ry="4.5" fill="#0D111C" opacity=".6"/>
+  <g transform="rotate(-1.2 48 50)">
+    <!-- 敞开的旧铜匣盖 -->
+    <g class="lid">
+      <path d="M16,38 C18,28 21,19 25,14 C38,12.5 58,12.5 71,14 C75,19 78,28 80,38 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+      <path d="M16,38 C18,28 21,19 25,14 C38,12.5 58,12.5 71,14 C75,19 78,28 80,38 Z" fill="#3B2B14"/>
+      <g clip-path="url(#relic_heart-clid)">
+        <path d="M16,38 C18,28 21,19 25,14 C38,12.5 58,12.5 71,14 C75,19 78,28 80,38 Z" transform="translate(-4 -2.5)" fill="#6E542B"/>
+        <path d="M19,35 Q22,22 27,16 Q42,14.5 58,15.5 Q38,17.5 28,19.5 Q23,24 19,35 Z" fill="#9A7B46"/>
+        <circle cx="28" cy="18" r="1.6" fill="#DDCB9A"/>
+      </g>
+      <circle cx="26" cy="20" r="2" fill="#1C1412"/><circle cx="70" cy="20" r="2" fill="#1C1412"/>
+    </g>
 
-  <!-- 铜匣内暗紫丝绒内衬底槽 -->
-  <polygon points="12,38 84,38 78,60 18,60" fill="#161221" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <!-- 铜匣内暗紫丝绒内衬槽 -->
+    <path d="M12,38 H84 L79,58 H17 Z" fill="#161221" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M16,41 H80 L77,53 H19 Z" fill="#262036"/>
 
-  <!-- 小铜匣下半截盒身（放在心形宝石下沿后面一部分，心形宝石从匣口饱满探出） -->
-  <polygon points="12,48 84,48 78,82 18,82" fill="#9A7B46" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
-  <polygon points="48,48 84,48 78,82 48,82" fill="#6E542B" opacity="0.82"/>
-  <path d="M16,52 H80" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
-  <!-- 铜匣正中锁孔座 -->
-  <rect x="41" y="62" width="14" height="14" rx="2" fill="#6E542B" stroke="#1C1412" stroke-width="2.4"/>
-  <circle cx="48" cy="69" r="2.8" fill="#1C1412"/>
-  <polygon points="12,48 84,48 78,82 18,82" fill="none" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <!-- 小铜匣下半截盒身（七层画法） -->
+    <path d="M12,48 H84 L78,82 C60,84 36,84 18,82 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M12,48 H84 L78,82 C60,84 36,84 18,82 Z" fill="#6E542B"/>
+    <g clip-path="url(#relic_heart-cbody)">
+      <path d="M12,48 H84 L78,82 C60,84 36,84 18,82 Z" transform="translate(-4.5 -3)" fill="#9A7B46"/>
+      <path d="M56,48 H84 L78,82 H48 C56,74 58,60 56,48 Z" fill="#3B2B14" opacity=".72"/>
+      <path d="M14,51 H54 Q32,53.5 16,54 Z" fill="#C2A670"/>
+      <path d="M81.5,54 L76.8,80.2 Q66,81.8 54,81.8 Q66,80.2 75.2,79 L80,54 Z" fill="#8CAAB5" opacity=".82"/>
+      <path d="M62,74 C66,73 70,70 72,66" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity=".55"/>
+    </g>
+    <!-- 铜匣锁孔座与铆钉 -->
+    <rect x="41" y="63" width="14" height="14" rx="2.5" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6"/>
+    <rect x="42.5" y="64.5" width="10" height="10" rx="1.8" fill="#6E542B"/>
+    <circle cx="48" cy="68.5" r="2.4" fill="#1C1412"/>
+    <path d="M46.5,69.5 L45.5,74 H50.5 L49.5,69.5 Z" fill="#1C1412"/>
+    <circle cx="22" cy="76" r="2.2" fill="#1C1412"/><circle cx="21.7" cy="75.7" r="1.4" fill="#C2A670"/>
+    <circle cx="74" cy="76" r="2.2" fill="#1C1412"/><circle cx="73.7" cy="75.7" r="1.4" fill="#6E542B"/>
 
-  <!-- 躺在铜匣里的硕大鲜艳心形红宝石（全图唯一鲜艳处：#E3263A + #FF5C6E + #9E1424） -->
-  <g id="heart_ruby">
-    <path d="M48,32 L37,24 L24,28 L20,40 L25,53 L48,72 L71,53 L76,40 L72,28 L59,24 Z" fill="#E3263A" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-    <!-- 左上亮刻面 -->
-    <polygon points="48,32 37,24 24,28 20,40 33,45 48,38" fill="#FF5C6E"/>
-    <!-- 右下暗刻面 -->
-    <polygon points="48,32 59,24 72,28 76,40 71,53 48,72 48,38" fill="#9E1424" opacity="0.85"/>
-    <!-- 中央心形台面与高光白斑 -->
-    <polygon points="48,38 35,33 31,42 35,51 48,62 61,51 65,42 61,33" fill="#E3263A" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-    <polygon points="31,34 40,32 37,40 29,39" fill="#FFFFFF" opacity="0.95"/>
-    <path d="M48,32 L37,24 L24,28 L20,40 L25,53 L48,72 L71,53 L76,40 L72,28 L59,24 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 躺在匣内的多刻面心形红宝石（照 ui_heart 刻面法） -->
+    <g id="heart_ruby">
+      <path d="M48,31 C40,21 21,23 20,38 C19,51 34,62 48,72 C62,62 77,51 76,38 C75,23 56,21 48,31 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+      <path d="M48,31 C40,21 21,23 20,38 C19,51 34,62 48,72 C62,62 77,51 76,38 C75,23 56,21 48,31 Z" fill="#A8172A"/>
+      <g clip-path="url(#relic_heart-cruby)">
+        <!-- 左上受光亮刻面 -->
+        <polygon points="48,31 36,22 21,26 19,40 31,45 48,38" fill="#F4566A"/>
+        <!-- 右下最暗刻面与内反光 -->
+        <polygon points="48,31 60,22 75,26 77,42 62,56 48,38" fill="#6B0E1C"/>
+        <polygon points="48,59 63,48 74,47 48,72" fill="#E3263A"/>
+        <!-- 中央心形八角台面 -->
+        <polygon points="48,37 36,31 30,39 34,50 48,60 62,50 66,39 60,31" fill="#E3263A"/>
+        <polygon points="48,37 36,31 30,39 34,48 46,44" fill="#F4566A" opacity=".65"/>
+        <!-- 刻面高光色细棱线（不用墨线） -->
+        <path d="M48,37 L36,31 L30,39 L34,50 L48,60 L62,50 L66,39 L60,31 Z M48,31 L48,37 M36,31 L27,24 M30,39 L20,38 M34,50 L24,54 M48,60 L48,72 M62,50 L72,54 M66,39 L76,38 M60,31 L69,24" fill="none" stroke="#FFA3AB" stroke-width="0.85" stroke-linecap="round" opacity=".8"/>
+        <!-- 左上白亮边 -->
+        <path d="M22,38 C22,27 33,24 43,28 C34,26.5 25,30 23.5,38.5 Z" fill="#F4F1FF" opacity=".92"/>
+      </g>
+      <circle cx="34" cy="34" r="2.8" fill="#F4F1FF"/>
+      <circle cx="38.5" cy="37.5" r="1.3" fill="#F4F1FF"/>
+    </g>
   </g>
 </g>
 </svg>

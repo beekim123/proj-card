@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-prop_curtain" viewBox="0 0 120 240" width="120" height="240">
+<title>长廊摆件 · 旧窗帘</title>
+<style>
+.svg-prop_curtain g { transform-box: view-box; }
+.svg-prop_curtain .skirt { transform-origin: 48px 130px; }
+.svg-prop_curtain .tassel-a { transform-origin: 24px 131px; }
+.svg-prop_curtain .tassel-b { transform-origin: 29px 132px; }
+
+/* 待机 3000：0 静止 → 1500 下摆和流苏摆到最大（不到 3 像素）→ 3000 回到静止。上半截不动，流苏比下摆多晃一点 */
+@keyframes svg-prop_curtain-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(1.3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_curtain:not([data-anim]) .skirt,
+.svg-prop_curtain[data-anim="idle"] .skirt { animation: svg-prop_curtain-idle-1 3s infinite; }
+@keyframes svg-prop_curtain-idle-2 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-3.4deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_curtain:not([data-anim]) .tassel-a,
+.svg-prop_curtain[data-anim="idle"] .tassel-a { animation: svg-prop_curtain-idle-2 3s infinite; }
+@keyframes svg-prop_curtain-idle-3 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_curtain:not([data-anim]) .tassel-b,
+.svg-prop_curtain[data-anim="idle"] .tassel-b { animation: svg-prop_curtain-idle-3 3s infinite; }
+</style>
+<defs>
+
+<pattern id="prop_curtain-h" width="4.4" height="4.4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="4.4" stroke="#1C1412" stroke-width="0.9"/></pattern>
+<clipPath id="prop_curtain-cu"><path d="M13,14 Q20,11.6 28,15 Q36,11.6 44,15 Q52,11.6 60,15 Q68,11.6 76,15 Q84,11.6 92,15 Q100,11.6 107,14 C109,44 106,74 94,98 C86,113 74,122 66,127 L30,128 C22,116 15,96 13,66 C12,48 12,30 13,14 Z M68,56 C72,53 77,55 78,60 C79,65 75,70 71,69 C67,68 65,60 68,56 Z" clip-rule="evenodd"/></clipPath>
+<clipPath id="prop_curtain-cl"><path d="M30,129 L66,129 C71,158 84,194 99,220 C104,228 110,233 116,236 C108,239.4 100,232 91,236.6 C82,239.6 74,232.6 64,236.8 C54,239.6 46,233 36,237 C28,239.4 20,234 12,237 L5,236.6 C9,231 13,223 15,213 C18,186 24,158 30,129 Z M38,184 C42,180 50,181 52,186 C53,191 47,195 42,194 C38,193 36,188 38,184 Z" clip-rule="evenodd"/></clipPath>
+<clipPath id="prop_curtain-ct"><path d="M27,123.4 C40,127 56,127 69,122.6 L70,130.4 C56,135 40,135 26,131.4 Z"/></clipPath>
+</defs>
+
+<g id="root">
+  <!-- 拖地处的接触阴影 -->
+  <ellipse cx="60" cy="236.6" rx="57" ry="2.8" fill="#0D111C" opacity=".6"/>
+  <!-- 旧铁杆和挂环 -->
+  <path d="M7,9 H113" stroke="#1C1412" stroke-width="7.4" stroke-linecap="round" fill="none"/>
+  <path d="M7,9 H113" stroke="#4A4742" stroke-width="4.4" stroke-linecap="round" fill="none"/>
+  <path d="M8,7.8 H112" stroke="#948F86" stroke-width="1" stroke-linecap="round" fill="none" opacity=".8"/>
+  <path d="M2.4,9 L7,4.8 L10.6,9 L7,13.2Z M117.6,9 L113,4.8 L109.4,9 L113,13.2Z" fill="#6E6A63" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+  <ellipse cx="20.3" cy="9.6" rx="4.5" ry="6" fill="#1C1412"/><ellipse cx="20" cy="9.2" rx="3.3" ry="4.8" fill="#6E542B"/><path d="M17.8,6.6 A3.3,4.8 0 0 1 20.6,4.5" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="36.3" cy="9.6" rx="4.5" ry="6" fill="#1C1412"/><ellipse cx="36" cy="9.2" rx="3.3" ry="4.8" fill="#6E542B"/><path d="M33.8,6.6 A3.3,4.8 0 0 1 36.6,4.5" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="52.3" cy="9.6" rx="4.5" ry="6" fill="#1C1412"/><ellipse cx="52" cy="9.2" rx="3.3" ry="4.8" fill="#6E542B"/><path d="M49.8,6.6 A3.3,4.8 0 0 1 52.6,4.5" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="68.3" cy="9.6" rx="4.5" ry="6" fill="#1C1412"/><ellipse cx="68" cy="9.2" rx="3.3" ry="4.8" fill="#6E542B"/><path d="M65.8,6.6 A3.3,4.8 0 0 1 68.6,4.5" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="84.3" cy="9.6" rx="4.5" ry="6" fill="#1C1412"/><ellipse cx="84" cy="9.2" rx="3.3" ry="4.8" fill="#6E542B"/><path d="M81.8,6.6 A3.3,4.8 0 0 1 84.6,4.5" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="100.3" cy="9.6" rx="4.5" ry="6" fill="#1C1412"/><ellipse cx="100" cy="9.2" rx="3.3" ry="4.8" fill="#6E542B"/><path d="M97.8,6.6 A3.3,4.8 0 0 1 100.6,4.5" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/>
+
+  <!-- 下摆（待机时极慢地摆） -->
+  <g class="skirt">
+    <path d="M30,129 L66,129 C71,158 84,194 99,220 C104,228 110,233 116,236 C108,239.4 100,232 91,236.6 C82,239.6 74,232.6 64,236.8 C54,239.6 46,233 36,237 C28,239.4 20,234 12,237 L5,236.6 C9,231 13,223 15,213 C18,186 24,158 30,129 Z M38,184 C42,180 50,181 52,186 C53,191 47,195 42,194 C38,193 36,188 38,184 Z" transform="translate(.6 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <path d="M30,129 L66,129 C71,158 84,194 99,220 C104,228 110,233 116,236 C108,239.4 100,232 91,236.6 C82,239.6 74,232.6 64,236.8 C54,239.6 46,233 36,237 C28,239.4 20,234 12,237 L5,236.6 C9,231 13,223 15,213 C18,186 24,158 30,129 Z M38,184 C42,180 50,181 52,186 C53,191 47,195 42,194 C38,193 36,188 38,184 Z" fill="#5E242C" fill-rule="evenodd"/>
+    <g clip-path="url(#prop_curtain-cl)">
+      <path d="M36,130 Q27,184 23,234 L31,234 Q30,184 37.2,130ZM44,130 Q45,184 44.4,234 L53.6,234 Q48,184 45.2,130ZM52,130 Q62.5,184 64.8,234 L75.2,234 Q65.5,184 53.2,130ZM60,130 Q81,184 87.2,234 L98.8,234 Q84,184 61.2,130Z" fill="#381318"/>
+      <path d="M62,130 C68,160 82,196 98,222 C104,229 109,233 113,235 L113,130Z" fill="#381318" opacity=".8"/>
+      <path d="M70,150 C78,180 90,206 104,228 L113,234 V150Z" fill="url(#prop_curtain-h)" opacity=".4"/>
+      <path d="M28,130 H68 V142 C56,147 40,147 28,142Z" fill="#1C1412" opacity=".5"/>
+      <path d="M40,136Q37.1,185.9 37,226Q41.9,186.1 40,136ZM48,136Q52.1,186.3 59,226Q56.9,185.7 48,136ZM56,136Q66.7,186.6 80,226Q71.3,185.4 56,136ZM33,136Q23.6,185.6 17,226Q28.4,186.4 33,136Z" fill="#8C3B45" opacity=".85"/>
+      <!-- 下摆的旧金线边 -->
+      <path d="M12,229.6 C20,226.6 28,231.6 36,229 C46,225.4 54,232 64,228.8 C74,225 82,232 91,228.6 C99,226 106,229.4 113,232" fill="none" stroke="#6E542B" stroke-width="1.5" stroke-dasharray="5 3.2" opacity=".85"/>
+      <path d="M13,225.6 C21,222.6 28,227.6 36,225 C46,221.4 54,228 64,224.8 C74,221 82,228 91,224.6 C98,222.4 104,224.6 110,227.6" fill="none" stroke="#3B2B14" stroke-width="1" opacity=".9"/>
+      <path d="M8,231 C16,234 22,231 30,233 C40,235 50,231 60,233 C72,235 84,230 94,233 C102,235 108,233 112,234 V236 H8Z" fill="#1C1412" opacity=".4"/>
+      <path d="M66.7,138.8L67.4,142.1L68.2,145.4L69.1,148.7L70,152.1L71,155.5L72,158.9L73,162.3L74.1,165.8L75.2,169.2L76.4,172.6L77.6,176L78.9,179.4L80.2,182.8L80.2,182.8L78.2,179.7L76.6,176.4L75.2,173L73.9,169.7L72.6,166.2L71.5,162.8L70.4,159.4L69.5,155.9L68.6,152.5L67.9,149.1L67.2,145.6L66.8,142.2L66.7,138.8ZM82.9,189.5L84.3,192.9L85.7,196.1L87.1,199.4L88.6,202.6L90.1,205.7L91.6,208.8L93.2,211.9L94.8,214.8L96.4,217.8L96.4,217.8L94,215.3L92.1,212.4L90.3,209.5L88.7,206.4L87.2,203.3L85.8,200L84.5,196.7L83.4,193.2L82.9,189.5Z" fill="#62577D" opacity=".8"/>
+      <path d="M6.1,236.2L7.5,235L9,232.6L10.5,229.8L11.8,226.9L13.1,223.8L14.3,220.5L15.3,217L16.2,213.2L16.6,209.9L17,206.7L17.4,203.4L17.8,200.1L18.3,196.9L18.8,193.6L19.3,190.3L19.9,187L20.4,183.7L21,180.3L21.6,177L22.2,173.6L22.9,170.3L23.5,166.9L24.2,163.6L24.8,160.2L25.5,156.8L26.2,153.4L26.9,149.9L27.6,146.5L28.3,143.1L29,139.6L29.7,136.2L30.5,132.7L31.2,129.2L31.2,129.2L31,132.8L30.5,136.4L30,139.8L29.5,143.3L28.9,146.8L28.3,150.2L27.7,153.7L27.1,157.1L26.5,160.5L25.9,163.9L25.4,167.3L24.8,170.6L24.2,174L23.6,177.3L23,180.7L22.4,184L21.9,187.3L21.3,190.6L20.8,193.9L20.2,197.1L19.7,200.4L19.2,203.6L18.7,206.9L18.2,210.1L17.8,213.5L16.8,217.3L15.6,220.9L14.3,224.2L12.8,227.4L11.3,230.3L9.6,232.9L7.9,235.3L6.1,236.2Z" fill="#8C3B45" opacity=".9"/>
+    </g>
+    <!-- 破洞边上磨出来的毛边 -->
+    <path d="M38,184 C42,180 50,181 52,186 C53,191 47,195 42,194 C38,193 36,188 38,184 Z" fill="none" stroke="#8C3B45" stroke-width="1" opacity=".8"/>
+    <path d="M51.6,190.9Q48.1,191.2 47.1,189.7Q47.7,192.9 51.6,190.9ZM45.5,195.9Q43.5,192.7 44.2,191Q41.8,193.1 45.5,195.9ZM38.5,192.6Q40,189 41.7,188.9Q38.6,187.9 38.5,192.6ZM37.6,184.3Q41.1,184 42.1,185.5Q41.5,182.3 37.6,184.3ZM43.7,179.3Q45.7,182.5 45,184.2Q47.4,182.1 43.7,179.3ZM50.7,182.6Q49.2,186.2 47.5,186.3Q50.6,187.3 50.7,182.6Z" fill="#1C1412"/>
+    <path d="M54,150Q56.8,176.3 66,204Q59.2,175.7 54,150ZM40,146Q35.9,169.8 31,198Q38.1,170.2 40,146ZM78,196Q83.1,210.4 92,224Q84.9,209.6 78,196Z" fill="#1C1412" opacity=".8"/>
+  </g>
+
+  <!-- 上半截（不动） -->
+  <path d="M13,14 Q20,11.6 28,15 Q36,11.6 44,15 Q52,11.6 60,15 Q68,11.6 76,15 Q84,11.6 92,15 Q100,11.6 107,14 C109,44 106,74 94,98 C86,113 74,122 66,127 L30,128 C22,116 15,96 13,66 C12,48 12,30 13,14 Z M68,56 C72,53 77,55 78,60 C79,65 75,70 71,69 C67,68 65,60 68,56 Z" transform="translate(.6 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+  <path d="M13,14 Q20,11.6 28,15 Q36,11.6 44,15 Q52,11.6 60,15 Q68,11.6 76,15 Q84,11.6 92,15 Q100,11.6 107,14 C109,44 106,74 94,98 C86,113 74,122 66,127 L30,128 C22,116 15,96 13,66 C12,48 12,30 13,14 Z M68,56 C72,53 77,55 78,60 C79,65 75,70 71,69 C67,68 65,60 68,56 Z" fill="#5E242C" fill-rule="evenodd"/>
+  <g clip-path="url(#prop_curtain-cu)">
+    <path d="M28,15 Q45,74 36.6,128 L33.4,128 Q37,74 28,15ZM44,15 Q55.5,74 43.6,128 L40.4,128 Q47.5,74 44,15ZM60,15 Q66,74 50.6,128 L47.4,128 Q58,74 60,15ZM76,15 Q76.5,74 57.6,128 L54.4,128 Q68.5,74 76,15ZM92,15 Q86.5,74 63.6,128 L60.4,128 Q78.5,74 92,15Z" fill="#381318"/>
+    <path d="M96,14 C100,44 97,72 86,96 C79,110 70,120 62,128 L110,128 V14Z" fill="#381318" opacity=".8"/>
+    <path d="M102,30 C103,58 98,82 88,100 C82,110 76,118 70,124 L110,124 V30Z" fill="url(#prop_curtain-h)" opacity=".4"/>
+    <path d="M10,12 H110 V19 Q100,16 92,19.6 Q84,16 76,19.6 Q68,16 60,19.6 Q52,16 44,19.6 Q36,16 28,19.6 Q20,16 10,19Z" fill="#1C1412" opacity=".5"/>
+    <path d="M20,20Q31.2,76.3 31.6,124Q36.4,75.7 20,20ZM36,20Q42,76.1 38.6,124Q46.6,75.9 36,20ZM52,20Q52.7,75.9 45.6,124Q56.9,76.1 52,20ZM68,20Q63.5,75.7 52.6,124Q67.1,76.3 68,20ZM84,20Q73.9,75.6 59,124Q77.1,76.4 84,20Z" fill="#8C3B45" opacity=".85"/>
+    <path d="M26,112 C36,118 58,118 70,112 L70,130 H26Z" fill="#1C1412" opacity=".45"/>
+    <path d="M106.3,24.8L106.4,28.4L106.4,31.9L106.3,35.5L106.2,39L106.1,42.5L105.8,46L105.5,49.5L105.2,53L104.8,56.4L104.3,59.8L103.8,63.1L103.2,66.5L102.5,69.8L101.7,73L100.9,76.2L100.9,76.2L101.1,72.9L101.5,69.6L102,66.2L102.4,62.9L102.9,59.6L103.3,56.2L103.6,52.8L104,49.4L104.3,45.9L104.6,42.5L104.8,39L105.1,35.5L105.4,31.9L105.7,28.4L106.3,24.8ZM98,85.6L96.8,88.7L95.6,91.7L94.3,94.6L92.9,97.4L90.9,101L88.7,104.3L86.4,107.4L84.1,110.3L81.6,112.9L79.2,115.4L76.7,117.6L74.3,119.7L71.9,121.5L71.9,121.5L73.9,119.1L76.1,116.9L78.3,114.5L80.6,112L82.9,109.3L85.2,106.4L87.4,103.4L89.6,100.2L91.7,96.8L93.2,94.1L94.7,91.3L96.2,88.4L98,85.6Z" fill="#62577D" opacity=".8"/>
+    <path d="M29.8,125.4L28.6,123.4L27.4,121.2L26.2,118.8L25.1,116.3L24,113.7L22.9,111L21.9,108.1L20.9,105L19.9,101.8L19.1,98.4L18.2,94.9L17.4,91.3L16.7,87.4L16.1,83.5L15.5,79.3L15,75L14.6,70.6L14.2,65.9L14,62.3L13.9,58.8L13.7,55.2L13.6,51.6L13.5,48.1L13.5,44.5L13.5,41L13.5,37.5L13.5,34L13.5,30.6L13.6,27.2L13.7,23.9L13.9,20.6L14,17.3L14.2,14.1L14.2,14.1L14.5,17.3L14.6,20.6L14.7,23.9L14.7,27.3L14.8,30.6L14.9,34.1L15,37.5L15.1,41L15.2,44.5L15.3,48L15.5,51.6L15.6,55.1L15.8,58.7L16,62.2L16.2,65.8L16.5,70.4L17,74.8L17.5,79.1L18,83.2L18.6,87.1L19.2,90.9L19.9,94.5L20.7,98L21.5,101.4L22.3,104.6L23.2,107.6L24.1,110.5L25,113.3L26,115.9L27,118.5L28,120.8L28.9,123.1L29.8,125.4Z" fill="#8C3B45" opacity=".9"/>
+  </g>
+  <path d="M68,56 C72,53 77,55 78,60 C79,65 75,70 71,69 C67,68 65,60 68,56 Z" fill="none" stroke="#8C3B45" stroke-width="1" opacity=".8"/>
+  <path d="M78.7,64.5Q75.6,64.7 74.7,63.5Q75.1,66.5 78.7,64.5ZM73.2,69Q71.5,66.1 72,64.6Q69.8,66.6 73.2,69ZM67,66.1Q68.4,62.9 69.8,62.8Q67,61.8 67,66.1ZM66.1,58.7Q69.2,58.5 70.1,59.7Q69.7,56.7 66.1,58.7ZM71.6,54.2Q73.3,57.1 72.8,58.6Q75,56.6 71.6,54.2ZM77.8,57.1Q76.4,60.3 75,60.4Q77.8,61.4 77.8,57.1Z" fill="#1C1412"/>
+  <!-- 褶子的结构线：细，起收笔削尖 -->
+  <path d="M28,15.6Q38.7,70.1 36,122Q41.3,69.9 28,15.6ZM60,15.6Q60.7,69.9 49.6,122Q63.3,70.1 60,15.6ZM92,15.6Q84.7,71.7 62.6,121Q87.3,72.3 92,15.6ZM44,16Q49,50.1 48,84Q51,49.9 44,16ZM76,16Q76,49.9 70,84Q78,50.1 76,16Z" fill="#1C1412" opacity=".85"/>
+
+  <!-- 旧绳挽住一半：绳带、绳结、两只流苏 -->
+  
+    <g class="tassel-a">
+      <path d="M24,131 Q18.5,144.5 19,158" fill="none" stroke="#1C1412" stroke-width="3.8" stroke-linecap="round"/>
+      <path d="M24,131 Q18.5,144.5 19,158" fill="none" stroke="#6E542B" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M15.4,161 L13.4,175 L24.2,175 L22.4,161 Z" fill="#6E542B" stroke="#1C1412" stroke-width="1.9" stroke-linejoin="round"/>
+      <path d="M15.4,161.4 L14,174.4 L17,174.4 L17.6,161.4Z" fill="#9A7B46"/>
+      <path d="M17.4,163 L16.8,175 M20.2,163 L20.6,175" stroke="#1C1412" stroke-width=".9" fill="none"/>
+      <circle cx="19.3" cy="159.6" r="4.3" fill="#1C1412"/><circle cx="19" cy="159.2" r="3.1" fill="#9A7B46"/><circle cx="18" cy="158.2" r="1" fill="#C2A670"/>
+    </g>
+  
+    <g class="tassel-b">
+      <path d="M29,132 Q27,140.5 31,149" fill="none" stroke="#1C1412" stroke-width="3.8" stroke-linecap="round"/>
+      <path d="M29,132 Q27,140.5 31,149" fill="none" stroke="#6E542B" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M27.4,152 L25.4,163 L36.2,163 L34.4,152 Z" fill="#6E542B" stroke="#1C1412" stroke-width="1.9" stroke-linejoin="round"/>
+      <path d="M27.4,152.4 L26,162.4 L29,162.4 L29.6,152.4Z" fill="#9A7B46"/>
+      <path d="M29.4,154 L28.8,163 M32.2,154 L32.6,163" stroke="#1C1412" stroke-width=".9" fill="none"/>
+      <circle cx="31.3" cy="150.6" r="4.3" fill="#1C1412"/><circle cx="31" cy="150.2" r="3.1" fill="#9A7B46"/><circle cx="30" cy="149.2" r="1" fill="#C2A670"/>
+    </g>
+  <path d="M27,123.4 C40,127 56,127 69,122.6 L70,130.4 C56,135 40,135 26,131.4 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+  <path d="M27,123.4 C40,127 56,127 69,122.6 L70,130.4 C56,135 40,135 26,131.4 Z" fill="#6E542B"/>
+  <g clip-path="url(#prop_curtain-ct)">
+    <path d="M26,122 C40,126 56,126 70,121 L70,125 C56,129.6 40,129.6 26,126Z" fill="#9A7B46"/>
+    <path d="M30,120 l4,16 M37,121 l4,16 M44,121.6 l4,16 M51,121.6 l4,16 M58,121 l4,16 M65,120 l4,16" stroke="#1C1412" stroke-width="1.1" fill="none"/>
+    <path d="M56,120 H72 V136 H60Z" fill="#1C1412" opacity=".3"/>
+  </g>
+  <circle cx="26.6" cy="128.4" r="6.2" fill="#1C1412"/><circle cx="26" cy="127.6" r="4.6" fill="#6E542B"/>
+  <path d="M22.8,126 A4.6,4.6 0 0 1 27.4,123.2" fill="none" stroke="#C2A670" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M23,129Q25.9,128.1 29.4,129.4Q26.1,125.9 23,129Z" fill="#1C1412"/>
+</g>
+</svg>

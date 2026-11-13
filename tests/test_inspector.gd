@@ -128,7 +128,7 @@ func _run_cases(tree: SceneTree) -> Dictionary:
 	await tree.process_frame
 	composition = inspector.composition
 	_check("door compositions cover both exact layout tables",composition.door_scenes.size() == 2)
-	_check("original H5 door placeholder atlases are delivered",composition.issues.is_empty())
+	_check("door compositions contain delivered new artwork",composition.issues.is_empty())
 	for key: String in ["portrait","landscape"]:
 		var scene: Dictionary = composition.door_scenes[key]
 		var layout: Dictionary = Layout.base(key)
@@ -136,10 +136,11 @@ func _run_cases(tree: SceneTree) -> Dictionary:
 		_check("right door remains open and can replay "+key,store.get_stay(scene.doors[1]) == "open" and composition.replay_right_door(key) == 600.0)
 		_check("door rewards use H5 card/heal labels "+key,scene.rewards[0].get_meta("reward_text") == "额外牌" and scene.rewards[1].get_meta("reward_text") == "回一颗心")
 		if scene.monsters.size() == 2:
-			_check("door monsters use original generated placeholders "+key,scene.monsters[0].get_meta("inspector_placeholder",false) and scene.monsters[1].get_meta("inspector_placeholder",false))
-		else: _check("missing original door placeholders are explicitly reported "+key,composition.issues.size() == 2)
+			_check("door monsters use delivered new style "+key,scene.monsters.all(func(node: Control) -> bool: return node.definition.get("artStyle", "") == "fable-carbon-remake" and not node.get_meta("inspector_placeholder",false)))
+		else: _check("both delivered monsters are present "+key,false)
 	inspector.select_asset("ui_rainbow_slot")
-	_check("composition navigation preserves six-color asset preview API",inspector.preview != null and inspector.previews.size() == 6 and inspector.selected_id == "ui_rainbow_slot")
+	var rainbow_live: Array[Control] = inspector.previews.filter(func(item: Control) -> bool: return not item.get_meta("sample_static",false))
+	_check("composition navigation preserves six colors and the new idle static comparison",inspector.preview != null and inspector.selected_id == "ui_rainbow_slot" and rainbow_live.map(func(item: Control) -> String: return item.entry_key) == ["1","3","2","6","4","5"] and inspector.previews.size() == 7 and inspector.previews[6].static_art)
 	inspector.play_asset_event("out")
 	_check("rainbow out clears every persistent light state as H5",inspector.previews.all(func(item: Control) -> bool: return store.get_stay(item).is_empty()))
 	inspector.free(); store.dispose()

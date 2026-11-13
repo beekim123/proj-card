@@ -1,36 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_same" viewBox="0 0 120 120" width="120" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_same" viewBox="0 0 120 120" width="120" height="120" style="color:#E6DEC8">
 <title>特效 · 同色</title>
 <style>
 .svg-fx_same g { transform-box: view-box; }
-.svg-fx_same #ding_star, .svg-fx_same #ding_sparks { opacity: 0; transform-origin: 60px 60px; }
-@keyframes svg-fx_same-star {
-  0%, 100% { opacity: 0; transform: scale(0.2) rotate(-15deg); }
-  20% { opacity: 1; transform: scale(1.08) rotate(0deg); }
-  55% { opacity: 0.95; transform: scale(0.86) rotate(8deg); }
-  90% { opacity: 0; transform: scale(0.3) rotate(15deg); }
+.svg-fx_same #ding_star,
+.svg-fx_same #ding_sparks {
+  opacity: 0;
+  transform-origin: 60px 60px;
 }
-@keyframes svg-fx_same-sparks {
-  0%, 12% { opacity: 0; transform: scale(0.4); }
-  30% { opacity: 1; transform: scale(0.95); }
-  75% { opacity: 0.85; transform: scale(1.14); }
-  100% { opacity: 0; transform: scale(1.2); }
+
+/* play 500ms：0(0%) 全透明 → 60(12%) 快速显形 → 160(32%) 峰值保持/功能到位 → 300(60%) 扩散衰减 → 500(100%) 全透明 */
+@keyframes svg-fx_same-play-star {
+  0% { transform: translate(0px,0px) rotate(-18deg) scale(0.25,0.25); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(0px,0px) rotate(-2deg) scale(1.06,1.06); opacity: 1; animation-timing-function: linear; }
+  32% { transform: translate(0px,0px) rotate(4deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,0px) rotate(12deg) scale(0.76,0.76); opacity: 0.72; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(22deg) scale(0.28,0.28); opacity: 0; }
 }
-.svg-fx_same[data-anim="play"] #ding_star { animation: svg-fx_same-star 0.5s steps(7, end) both; }
-.svg-fx_same[data-anim="play"] #ding_sparks { animation: svg-fx_same-sparks 0.5s steps(7, end) both; }
+.svg-fx_same[data-anim="play"] #ding_star { animation: svg-fx_same-play-star 0.5s both; }
+
+@keyframes svg-fx_same-play-sparks {
+  0% { transform: translate(0px,0px) rotate(-12deg) scale(0.35,0.35); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(0px,0px) rotate(0deg) scale(0.92,0.92); opacity: 0.95; animation-timing-function: linear; }
+  32% { transform: translate(0px,0px) rotate(6deg) scale(1.02,1.02); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,0px) rotate(14deg) scale(1.12,1.12); opacity: 0.78; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(20deg) scale(1.18,1.18); opacity: 0; }
+}
+.svg-fx_same[data-anim="play"] #ding_sparks { animation: svg-fx_same-play-sparks 0.5s both; }
 </style>
 <g id="root">
-<!-- pivot: 60,60 -->
-    <g id="ding_sparks" opacity="0"><!-- pivot: 60,60 -->
-      <polygon points="26,28 38,32 32,40 22,34" fill="currentColor" stroke="#1C1412" stroke-width="1.5"/>
-      <polygon points="94,26 88,38 80,32 88,22" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.5"/>
-      <polygon points="96,90 82,86 86,78 98,82" fill="currentColor" stroke="#1C1412" stroke-width="1.5"/>
-      <polygon points="24,92 32,80 40,86 30,96" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.5"/>
-      <path d="M60,11 L62,16 L67,18 L62,20 L60,25 L58,20 L53,18 L58,16 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.2"/>
-      <path d="M60,96 L61.8,100.2 L66,102 L61.8,103.8 L60,108 L58.2,103.8 L54,102 L58.2,100.2 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.2"/>
-    </g>
-    <g id="ding_star" opacity="0"><!-- pivot: 60,60 -->
-      <path d="M60,22 L70,50 L98,60 L70,70 L60,98 L50,70 L22,60 L50,50 Z" fill="currentColor" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-      <path d="M60,38 L66,54 L82,60 L66,66 L60,82 L54,66 L38,60 L54,54 Z" fill="#FFFFFF"/>
-    </g>
+  <!-- 外圈刀锋碎弧与带刻面的小碎光 (#ding_sparks) -->
+  <g id="ding_sparks">
+    <!-- 两道收尖刀锋弧线（不画平滑通用圆光圈） -->
+    <path d="M24,46 C29,31 42,22 57,21 C44,25 33,34 28,47 Z M96,74 C91,89 78,98 63,99 C76,95 87,86 92,73 Z" fill="#1C1412" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M24,46 C29,31 42,22 57,21 C44,25 33,34 28,47 Z M96,74 C91,89 78,98 63,99 C76,95 87,86 92,73 Z" fill="currentColor"/>
+
+    <!-- 左上刻面碎晶 -->
+    <polygon points="24,26 38,30 33,41 21,35" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="24,26 38,30 33,41 21,35" fill="currentColor"/>
+    <polygon points="24,26 38,30 29,34 21,35" fill="#F4F1FF" opacity="0.62"/>
+    <polygon points="38,30 33,41 21,35 29,34" fill="#1C1412" opacity="0.34"/>
+
+    <!-- 右上刻面碎晶 -->
+    <polygon points="95,25 89,39 79,33 87,22" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="95,25 89,39 79,33 87,22" fill="currentColor"/>
+    <polygon points="95,25 85,30 79,33 87,22" fill="#F4F1FF" opacity="0.65"/>
+    <polygon points="95,25 89,39 79,33 85,30" fill="#1C1412" opacity="0.35"/>
+
+    <!-- 右下刻面碎晶 -->
+    <polygon points="97,91 82,87 86,77 98,82" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="97,91 82,87 86,77 98,82" fill="currentColor"/>
+    <polygon points="82,87 86,77 92,83" fill="#F4F1FF" opacity="0.58"/>
+    <polygon points="97,91 82,87 92,83 98,82" fill="#1C1412" opacity="0.36"/>
+
+    <!-- 左下刻面碎晶 -->
+    <polygon points="23,93 31,80 41,86 30,97" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="23,93 31,80 41,86 30,97" fill="currentColor"/>
+    <polygon points="23,93 31,80 34,88" fill="#F4F1FF" opacity="0.62"/>
+    <polygon points="23,93 34,88 41,86 30,97" fill="#1C1412" opacity="0.35"/>
+
+    <!-- 上下两颗小尖星 -->
+    <path d="M60,12 L62.2,17.2 L67.5,19.5 L62.2,21.8 L60,27 L57.8,21.8 L52.5,19.5 L57.8,17.2 Z M60,93 L62,97.8 L67,100 L62,102.2 L60,107 L58,102.2 L53,100 L58,97.8 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 中心「叮」一下的八芒刻面尖星 (#ding_star) -->
+  <g id="ding_star">
+    <path d="M60,18 L67,46 L84,36 L74,53 L102,60 L74,67 L84,84 L67,74 L60,102 L53,74 L36,84 L46,67 L18,60 L46,53 L36,36 L53,46 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/>
+    <path d="M60,18 L67,46 L84,36 L74,53 L102,60 L74,67 L84,84 L67,74 L60,102 L53,74 L36,84 L46,67 L18,60 L46,53 L36,36 L53,46 Z" fill="currentColor"/>
+    <!-- 左上亮刻面与右下暗刻面 -->
+    <path d="M60,18 L60,60 L18,60 L46,53 L36,36 L53,46 Z" fill="#F4F1FF" opacity="0.48"/>
+    <path d="M102,60 L74,67 L84,84 L67,74 L60,102 L60,60 Z" fill="#1C1412" opacity="0.28"/>
+    <!-- 中心高光白核与八角台面 -->
+    <path d="M60,34 L65,53 L86,60 L65,67 L60,86 L55,67 L34,60 L55,53 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
 </g>
 </svg>

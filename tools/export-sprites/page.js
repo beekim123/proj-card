@@ -1,10 +1,10 @@
 // 在无头 Chrome 里跑：把 art/svg/*.svg 逐帧冻住、画成 PNG、拼成大图，传回 tools/export-sprites.mjs。
 // 参数（2026-11-10 第一次导出后按内存定，见 新卡牌/精灵图规范.md 第 2 节）：
 // - 静止图（待机第 0 帧，给 <img>、九宫格、图标用）一律 2 倍；
-// - 会动的帧：事件 24 帧/秒，循环 12 帧/秒；大件（怪、木桩、门、战利品宝箱、徽记、牌背、门环）1 倍，其余 1.5 倍；
+// - 新画法会动的帧：事件 30 帧/秒，循环 15 帧/秒；大件（怪、木桩、门、战利品宝箱、徽记、牌背、门环）1 倍，其余 1.5 倍；
 // - 每个动作单独拼一组大图，游戏里用到哪个动作才加载哪组。
-const EVENT_FPS = 24;
-const LOOP_FPS = 12;
+const EVENT_FPS = 30;
+const LOOP_FPS = 15;
 const MAX_SHEET = 4096;
 const STILL_SCALE = 2;
 const BIG = new Set(['dummy', 'ui_door', 'loot_chest', 'title_emblem', 'card_back', 'npc_knocker']);

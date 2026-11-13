@@ -1,0 +1,474 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-mon_armor" viewBox="0 0 320 400" width="320" height="400">
+<title>盔甲</title>
+<style>
+.svg-mon_armor g { transform-box: view-box; }
+.svg-mon_armor #root { transform-origin: 160px 400px; }
+.svg-mon_armor #shadow { transform-origin: 160px 390px; }
+.svg-mon_armor #legs { transform-origin: 160px 390px; }
+.svg-mon_armor #body { transform-origin: 160px 268px; }
+.svg-mon_armor #helmet { transform-origin: 160px 126px; }
+.svg-mon_armor #visor { transform-origin: 160px 88px; }
+.svg-mon_armor #eyes { transform-origin: 160px 95px; }
+.svg-mon_armor #face_hurt { transform-origin: 160px 95px; opacity: 0; }
+.svg-mon_armor #face_daze { transform-origin: 160px 95px; opacity: 0; }
+.svg-mon_armor .daze-stars { transform-origin: 160px 42px; }
+.svg-mon_armor #shield { transform-origin: 92px 218px; }
+.svg-mon_armor .cap-wave { transform-origin: 92px 280px; opacity: 0; }
+.svg-mon_armor #sword { transform-origin: 236px 230px; }
+.svg-mon_armor #plates { transform-origin: 160px 210px; opacity: 0; }
+
+/* ==========================================================================
+   1. 待机 idle（3000ms 循环）：0(0%) 低 → 1500(50%) 高 → 3000(100%) 低
+   空的旧骑士盔甲自己站着轻呼吸 6px，面罩微动，圆盾与长剑协同轻晃
+   ========================================================================== */
+@keyframes svg-mon_armor-idle-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-6px) rotate(-1deg) scale(1,1.01); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-idle-helmet {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-8px) rotate(1.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-idle-shield {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-7px) rotate(-3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-idle-sword {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-3px) rotate(1.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-idle-shadow {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(0.95,0.95); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_armor:not([data-anim]) #body,
+.svg-mon_armor[data-anim="idle"] #body { animation: svg-mon_armor-idle-body 3s infinite; }
+.svg-mon_armor:not([data-anim]) #helmet,
+.svg-mon_armor[data-anim="idle"] #helmet,
+.svg-mon_armor:not([data-anim]) #visor,
+.svg-mon_armor[data-anim="idle"] #visor,
+.svg-mon_armor:not([data-anim]) #eyes,
+.svg-mon_armor[data-anim="idle"] #eyes { animation: svg-mon_armor-idle-helmet 3s infinite; }
+.svg-mon_armor:not([data-anim]) #shield,
+.svg-mon_armor[data-anim="idle"] #shield { animation: svg-mon_armor-idle-shield 3s infinite; }
+.svg-mon_armor:not([data-anim]) #sword,
+.svg-mon_armor[data-anim="idle"] #sword { animation: svg-mon_armor-idle-sword 3s infinite; }
+.svg-mon_armor:not([data-anim]) #shadow,
+.svg-mon_armor[data-anim="idle"] #shadow { animation: svg-mon_armor-idle-shadow 3s infinite; }
+
+/* ==========================================================================
+   2. 轻击 hit（400ms）：0(0%) → 50(12.5%) → 130(32.5%) → 330(82.5%) → 400(100%)
+   ========================================================================== */
+@keyframes svg-mon_armor-hit-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-8px,-4px) rotate(7deg) scale(1.04,0.91); animation-timing-function: linear; }
+  32.5% { transform: translate(-8px,-4px) rotate(7deg) scale(1.04,0.91); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(2px,-1px) rotate(-2deg) scale(0.99,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-hit-helmet {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-4px,6px) rotate(9deg) scale(1,1); animation-timing-function: linear; }
+  32.5% { transform: translate(-4px,6px) rotate(9deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(2px,-2px) rotate(-2.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-hit-shield {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-10px,6px) rotate(-12deg) scale(1,1); animation-timing-function: linear; }
+  32.5% { transform: translate(-10px,6px) rotate(-12deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(3px,-2px) rotate(3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-hit-sword {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(4px,2px) rotate(5deg) scale(1,1); animation-timing-function: linear; }
+  32.5% { transform: translate(4px,2px) rotate(5deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(-1px,0px) rotate(-1.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_armor[data-anim="hit"] #body { animation: svg-mon_armor-hit-body 0.4s both; }
+.svg-mon_armor[data-anim="hit"] #helmet,
+.svg-mon_armor[data-anim="hit"] #visor,
+.svg-mon_armor[data-anim="hit"] #eyes { animation: svg-mon_armor-hit-helmet 0.4s both; }
+.svg-mon_armor[data-anim="hit"] #shield { animation: svg-mon_armor-hit-shield 0.4s both; }
+.svg-mon_armor[data-anim="hit"] #sword { animation: svg-mon_armor-hit-sword 0.4s both; }
+
+/* ==========================================================================
+   3. 重击 hit_big（700ms）：0(0%) → 60(8.57%) → 200(28.57%) → 500(71.43%) → 700(100%)
+   ========================================================================== */
+@keyframes svg-mon_armor-hitbig-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-12px,-8px) rotate(11deg) scale(1.06,0.84); animation-timing-function: linear; }
+  28.57% { transform: translate(-12px,-8px) rotate(11deg) scale(1.06,0.84); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(3px,-2px) rotate(-3deg) scale(0.98,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-hitbig-helmet {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-6px,-12px) rotate(15deg) scale(1,1); animation-timing-function: linear; }
+  28.57% { transform: translate(-6px,-12px) rotate(15deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(2px,3px) rotate(-4deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-hitbig-eyes {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-6px,-12px) rotate(15deg) scale(0.8,0.2); opacity: 0; animation-timing-function: linear; }
+  28.57% { transform: translate(-6px,-12px) rotate(15deg) scale(0.8,0.2); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(2px,3px) rotate(-4deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
+}
+@keyframes svg-mon_armor-hitbig-hurt {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.85); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-6px,-12px) rotate(15deg) scale(1.04,1.04); opacity: 1; animation-timing-function: linear; }
+  28.57% { transform: translate(-6px,-12px) rotate(15deg) scale(1.04,1.04); opacity: 1; animation-timing-function: ease-in-out; }
+  71.43% { transform: translate(2px,3px) rotate(-4deg) scale(0.9,0.9); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.85); opacity: 0; }
+}
+@keyframes svg-mon_armor-hitbig-plates {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(10px,-16px) rotate(16deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  28.57% { transform: translate(20px,-28px) rotate(32deg) scale(1.06,1.06); opacity: 1; animation-timing-function: ease-in-out; }
+  71.43% { transform: translate(26px,56px) rotate(68deg) scale(0.85,0.85); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; }
+}
+.svg-mon_armor[data-anim="hit_big"] #body { animation: svg-mon_armor-hitbig-body 0.7s both; }
+.svg-mon_armor[data-anim="hit_big"] #helmet,
+.svg-mon_armor[data-anim="hit_big"] #visor { animation: svg-mon_armor-hitbig-helmet 0.7s both; }
+.svg-mon_armor[data-anim="hit_big"] #eyes { animation: svg-mon_armor-hitbig-eyes 0.7s both; }
+.svg-mon_armor[data-anim="hit_big"] #face_hurt { animation: svg-mon_armor-hitbig-hurt 0.7s both; }
+.svg-mon_armor[data-anim="hit_big"] #plates { animation: svg-mon_armor-hitbig-plates 0.7s both; }
+
+/* ==========================================================================
+   4. 出手 attack（800ms）：0(0%) → 250(31.25%) → 330(41.25%) → 450(56.25%) → 800(100%)
+   ========================================================================== */
+@keyframes svg-mon_armor-attack-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(4px,12px) rotate(4deg) scale(1.05,0.89); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-10px,-6px) rotate(-6deg) scale(0.97,1.05); animation-timing-function: linear; }
+  56.25% { transform: translate(-10px,-6px) rotate(-6deg) scale(0.97,1.05); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-attack-shield {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(8px,10px) rotate(8deg) scale(0.96,0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-12px,-8px) rotate(-14deg) scale(1.08,1.08); animation-timing-function: linear; }
+  56.25% { transform: translate(-12px,-8px) rotate(-14deg) scale(1.08,1.08); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-attack-sword {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(6px,-12px) rotate(12deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-24px,-16px) rotate(-32deg) scale(1,1); animation-timing-function: linear; }
+  56.25% { transform: translate(-24px,-16px) rotate(-32deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_armor[data-anim="attack"] #body,
+.svg-mon_armor[data-anim="attack"] #helmet,
+.svg-mon_armor[data-anim="attack"] #visor,
+.svg-mon_armor[data-anim="attack"] #eyes { animation: svg-mon_armor-attack-body 0.8s both; }
+.svg-mon_armor[data-anim="attack"] #shield { animation: svg-mon_armor-attack-shield 0.8s both; }
+.svg-mon_armor[data-anim="attack"] #sword { animation: svg-mon_armor-attack-sword 0.8s both; }
+
+/* ==========================================================================
+   5. 压倍率 cap（500ms）：0(0%) → 80(16%) → 250(50%) → 500(100%)
+   盾下压，身体下沉 6px，短冲击弧显现
+   ========================================================================== */
+@keyframes svg-mon_armor-cap-shield {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16% { transform: translate(0px,22px) rotate(-10deg) scale(1.06,0.94); animation-timing-function: linear; }
+  50% { transform: translate(0px,22px) rotate(-10deg) scale(1.06,0.94); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-cap-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16% { transform: translate(0px,6px) rotate(-2deg) scale(1.03,0.96); animation-timing-function: linear; }
+  50% { transform: translate(0px,6px) rotate(-2deg) scale(1.03,0.96); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-cap-wave {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.8,0.8); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16% { transform: translate(0px,8px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  50% { transform: translate(0px,10px) rotate(0deg) scale(1.05,1.05); opacity: 0.85; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.8,0.8); opacity: 0; }
+}
+.svg-mon_armor[data-anim="cap"] #shield { animation: svg-mon_armor-cap-shield 0.5s both; }
+.svg-mon_armor[data-anim="cap"] #body,
+.svg-mon_armor[data-anim="cap"] #helmet,
+.svg-mon_armor[data-anim="cap"] #visor,
+.svg-mon_armor[data-anim="cap"] #eyes { animation: svg-mon_armor-cap-body 0.5s both; }
+.svg-mon_armor[data-anim="cap"] .cap-wave { animation: svg-mon_armor-cap-wave 0.5s both; }
+
+/* ==========================================================================
+   6. 眩晕 daze（600ms 进场 + 2000ms 循环，stay）
+   ========================================================================== */
+@keyframes svg-mon_armor-daze-in-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,0.97); }
+}
+@keyframes svg-mon_armor-daze-loop-body {
+  0% { transform: translate(-5px,4px) rotate(-6deg) scale(1,0.97); animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,4px) rotate(6deg) scale(1,0.97); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,0.97); }
+}
+@keyframes svg-mon_armor-daze-in-face {
+  0% { transform: translate(0px,4px) rotate(0deg) scale(0.88,0.88); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,1); opacity: 1; }
+}
+@keyframes svg-mon_armor-daze-loop-face {
+  0% { transform: translate(-5px,4px) rotate(-6deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,4px) rotate(6deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,1); opacity: 1; }
+}
+@keyframes svg-mon_armor-daze-in-stars {
+  0% { transform: translate(-5px,2px) rotate(0deg) scale(0.85,0.85); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-daze-loop-stars {
+  0% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,-2px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_armor[data-anim="daze"] #body,
+.svg-mon_armor[data-anim="daze"] #helmet,
+.svg-mon_armor[data-anim="daze"] #visor,
+.svg-mon_armor[data-anim="daze"] #eyes,
+.svg-mon_armor[data-anim="daze"] #shield { animation: svg-mon_armor-daze-in-body 0.6s forwards, svg-mon_armor-daze-loop-body 2s 0.6s infinite; }
+.svg-mon_armor[data-anim="daze"] #face_daze { animation: svg-mon_armor-daze-in-face 0.6s forwards, svg-mon_armor-daze-loop-face 2s 0.6s infinite; }
+.svg-mon_armor[data-anim="daze"] .daze-stars { animation: svg-mon_armor-daze-in-stars 0.6s forwards, svg-mon_armor-daze-loop-stars 2s 0.6s infinite; }
+
+/* ==========================================================================
+   7. 死亡 die（1000ms）：0(0%) → 150(15%) → 300(30%) → 600(60%) → 1000(100%)
+   散架显出盔甲内部为空，长剑斜靠倒在地面且剑尖不插出画框
+   ========================================================================== */
+@keyframes svg-mon_armor-die-root {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-2px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(2px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
+}
+@keyframes svg-mon_armor-die-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-3px,4px) rotate(-3deg) scale(1.03,0.94); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-8px,26px) rotate(12deg) scale(0.98,0.88); animation-timing-function: ease-in-out; }
+  60% { transform: translate(-10px,46px) rotate(16deg) scale(0.96,0.85); animation-timing-function: linear; }
+  100% { transform: translate(-10px,46px) rotate(16deg) scale(0.96,0.85); }
+}
+@keyframes svg-mon_armor-die-helmet {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-4px,-10px) rotate(-8deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(12px,48px) rotate(22deg) scale(1,1); animation-timing-function: ease-in-out; }
+  60% { transform: translate(18px,182px) rotate(36deg) scale(1,1); animation-timing-function: linear; }
+  100% { transform: translate(18px,182px) rotate(36deg) scale(1,1); }
+}
+@keyframes svg-mon_armor-die-shield {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-6px,-6px) rotate(-10deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-12px,46px) rotate(-28deg) scale(0.96,0.96); animation-timing-function: ease-in-out; }
+  60% { transform: translate(-14px,112px) rotate(-42deg) scale(0.94,0.86); animation-timing-function: linear; }
+  100% { transform: translate(-14px,112px) rotate(-42deg) scale(0.94,0.86); }
+}
+@keyframes svg-mon_armor-die-sword {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(4px,-6px) rotate(6deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-28px,18px) rotate(-32deg) scale(0.96,0.96); animation-timing-function: ease-in-out; }
+  60% { transform: translate(-48px,42px) rotate(-56deg) scale(0.92,0.92); animation-timing-function: linear; }
+  100% { transform: translate(-48px,42px) rotate(-56deg) scale(0.92,0.92); }
+}
+@keyframes svg-mon_armor-die-plates {
+  0% { transform: translate(0px,6px) rotate(0deg) scale(0.5,0.5); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-6px,-12px) rotate(-16deg) scale(0.95,0.95); opacity: 0.9; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-14px,-24px) rotate(-36deg) scale(1.05,1.05); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(-20px,148px) rotate(-78deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  100% { transform: translate(-20px,148px) rotate(-78deg) scale(1,1); opacity: 0; }
+}
+.svg-mon_armor[data-anim="die"] #root { animation: svg-mon_armor-die-root 1s both; }
+.svg-mon_armor[data-anim="die"] #body { animation: svg-mon_armor-die-body 1s both; }
+.svg-mon_armor[data-anim="die"] #helmet,
+.svg-mon_armor[data-anim="die"] #visor,
+.svg-mon_armor[data-anim="die"] #eyes { animation: svg-mon_armor-die-helmet 1s both; }
+.svg-mon_armor[data-anim="die"] #shield { animation: svg-mon_armor-die-shield 1s both; }
+.svg-mon_armor[data-anim="die"] #sword { animation: svg-mon_armor-die-sword 1s both; }
+.svg-mon_armor[data-anim="die"] #plates { animation: svg-mon_armor-die-plates 1s both; }
+</style>
+
+<defs>
+  <pattern id="mon_armor-h" width="4.8" height="4.8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="4.8" stroke="#1C1412" stroke-width="0.95"/>
+  </pattern>
+  <clipPath id="mon_armor-cbody">
+    <path d="M96,132 C128,128 192,128 224,132 C220,178 216,222 210,262 C184,274 136,274 110,262 C104,222 100,178 96,132 Z"/>
+  </clipPath>
+</defs>
+
+<g id="root">
+  <!-- 1. 落地接触阴影 shadow -->
+  <g id="shadow">
+    <ellipse cx="160" cy="390" rx="106" ry="9.5" fill="#0D111C" opacity="0.62"/>
+    <path d="M74,392 l12,-4 M118,394 l14,-5 M168,394 l14,-5 M216,392 l12,-4" stroke="#1C1412" stroke-width="1.1" opacity="0.5" fill="none"/>
+  </g>
+
+  <!-- 2. 两条空心冷灰铁腿 legs（顶部画深黑空腔，散架时显出内部是空的） -->
+  <g id="legs">
+    <!-- 左铁腿与铁靴（圆管七层画法） -->
+    <ellipse cx="132" cy="268" rx="18" ry="6.5" fill="#0D111C" stroke="#1C1412" stroke-width="2.6"/>
+    <path d="M114,268 L150,268 L146,368 L118,368 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M114,268 L150,268 L146,368 L118,368 Z" fill="#3B515C"/>
+    <path d="M114,268 L134,268 L132,368 L118,368 Z" fill="#5A7682"/>
+    <path d="M120,276 L122,358" stroke="#8CAAB5" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M110,312 C124,309 138,309 152,312 L148,332 C136,330 124,330 114,332 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+    <path d="M110,312 C124,309 138,309 152,312 L148,332 C136,330 124,330 114,332 Z" fill="#5A7682"/>
+    <path d="M104,366 L150,366 L154,390 L98,390 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <path d="M104,366 L150,366 L154,390 L98,390 Z" fill="#3B515C"/>
+    <path d="M104,366 L132,366 L134,389 L99,389 Z" fill="#5A7682"/>
+
+    <!-- 右铁腿与铁靴 -->
+    <ellipse cx="188" cy="268" rx="18" ry="6.5" fill="#0D111C" stroke="#1C1412" stroke-width="2.6"/>
+    <path d="M170,268 L206,268 L202,368 L174,368 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M170,268 L206,268 L202,368 L174,368 Z" fill="#1E2C33"/>
+    <path d="M170,268 L188,268 L186,368 L174,368 Z" fill="#3B515C"/>
+    <path d="M168,312 C182,309 196,309 210,312 L206,332 C194,330 182,330 172,332 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+    <path d="M168,312 C182,309 196,309 210,312 L206,332 C194,330 182,330 172,332 Z" fill="#3B515C"/>
+    <path d="M170,366 L216,366 L222,390 L166,390 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <path d="M170,366 L216,366 L222,390 L166,390 Z" fill="#1E2C33"/>
+    <path d="M170,366 L194,366 L196,389 L167,389 Z" fill="#3B515C"/>
+    <path d="M214,370 L219,387" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+  </g>
+
+  <!-- 3. 空心胸甲与肩甲 body（领口与腰口画深黑空洞，七层铁质 + 凹痕与铁锈） -->
+  <g id="body">
+    <ellipse cx="160" cy="264" rx="46" ry="13" fill="#0D111C" stroke="#1C1412" stroke-width="3"/>
+    <ellipse cx="160" cy="132" rx="38" ry="11" fill="#0D111C" stroke="#1C1412" stroke-width="3"/>
+
+    <path d="M96,132 C128,128 192,128 224,132 C220,178 216,222 210,262 C184,274 136,274 110,262 C104,222 100,178 96,132 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.2" stroke-linejoin="round"/>
+    <path d="M96,132 C128,128 192,128 224,132 C220,178 216,222 210,262 C184,274 136,274 110,262 C104,222 100,178 96,132 Z" fill="#3B515C"/>
+    <g clip-path="url(#mon_armor-cbody)">
+      <path d="M96,132 C128,128 192,128 224,132 C220,178 216,222 210,262 C184,274 136,274 110,262 Z" transform="translate(-8 -6)" fill="#5A7682"/>
+      <!-- 右侧背光暗面与45°排线 -->
+      <path d="M160,128 L226,132 L212,266 L160,276 Z" fill="#1E2C33" opacity="0.82"/>
+      <path d="M176,132 L224,134 L212,262 L176,270 Z" fill="url(#mon_armor-h)" opacity="0.38"/>
+      <!-- 左上受光亮边 -->
+      <path d="M102,140 L108,248" stroke="#8CAAB5" stroke-width="2.6" stroke-linecap="round"/>
+      <!-- 铁锈斑与凹痕收尖线 -->
+      <polygon points="172,174 196,170 192,192 168,188" fill="#7A4A2E" opacity="0.55"/>
+      <path d="M136,180 Q148,186 156,192 Q146,188 136,180 Z M174,212 Q186,206 198,204 Q186,210 174,212 Z" fill="#1C1412"/>
+      <!-- 胸甲中脊与腹甲分节线（收尖结构线） -->
+      <path d="M159,134 Q161,204 160,272 Q158,204 159,134 Z M104,224 Q160,238 216,224 Q160,233 104,224 Z M106,244 Q160,258 214,244 Q160,253 106,244 Z" fill="#1C1412"/>
+    </g>
+
+    <!-- 左右铁肩甲 -->
+    <path d="M68,158 C68,124 96,118 118,132 L112,182 C88,182 68,174 68,158 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M68,158 C68,124 96,118 118,132 L112,182 C88,182 68,174 68,158 Z" fill="#5A7682"/>
+    <path d="M74,154 C76,132 96,126 112,134" fill="none" stroke="#8CAAB5" stroke-width="2.6" stroke-linecap="round"/>
+
+    <path d="M252,158 C252,124 224,118 202,132 L208,182 C232,182 252,174 252,158 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M252,158 C252,124 224,118 202,132 L208,182 C232,182 252,174 252,158 Z" fill="#3B515C"/>
+    <path d="M224,126 C240,130 252,142 252,158 C252,172 236,180 216,181 Z" fill="#1E2C33" opacity="0.82"/>
+
+    <!-- 领口重描显出内部深黑空洞 -->
+    <ellipse cx="160" cy="132" rx="34" ry="9" fill="#0D111C" stroke="#1C1412" stroke-width="2.8"/>
+  </g>
+
+  <!-- 4. 骑士头盔本体 helmet（无脖子，底下与面罩内均为空心黑洞） -->
+  <g id="helmet">
+    <ellipse cx="160" cy="126" rx="38" ry="10" fill="#0D111C" stroke="#1C1412" stroke-width="2.8"/>
+    <polygon points="152,32 168,32 174,64 146,64" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+    <polygon points="152,32 168,32 174,64 146,64" fill="#3B515C"/>
+    <path d="M114,82 C114,48 134,38 160,38 C186,38 206,48 206,82 L202,126 L160,134 L118,126 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M114,82 C114,48 134,38 160,38 C186,38 206,48 206,82 L202,126 L160,134 L118,126 Z" fill="#5A7682"/>
+    <path d="M160,38 C186,38 206,48 206,82 L202,126 L160,134 Z" fill="#3B515C"/>
+    <path d="M122,78 C122,54 138,44 156,44" fill="none" stroke="#8CAAB5" stroke-width="2.6" stroke-linecap="round"/>
+    <!-- 面罩内部深黑空腔 -->
+    <polygon points="122,78 198,78 194,116 160,124 126,116" fill="#0D111C" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 5. 面罩缝里两点很小的绿宝石色光 eyes（唯一鲜艳的地方，不发大光） -->
+  <g id="eyes">
+    <circle cx="144" cy="95" r="4.6" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.6"/>
+    <circle cx="144" cy="95" r="2.2" fill="#A6F5C6"/>
+    <circle cx="176" cy="95" r="4.6" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.6"/>
+    <circle cx="176" cy="95" r="2.2" fill="#A6F5C6"/>
+  </g>
+
+  <!-- 6. 头盔面罩 visor -->
+  <g id="visor">
+    <path d="M112,72 L160,64 L208,72 L204,89 L160,85 L116,89 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M112,72 L160,64 L208,72 L204,89 L160,85 L116,89 Z" fill="#5A7682"/>
+    <polygon points="160,64 208,72 204,89 160,85" fill="#3B515C"/>
+    <path d="M116,101 L160,97 L204,101 L198,124 L160,134 L122,124 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M116,101 L160,97 L204,101 L198,124 L160,134 L122,124 Z" fill="#5A7682"/>
+    <polygon points="160,97 204,101 198,124 160,134" fill="#3B515C"/>
+    <path d="M136,109 V119 M148,111 V121 M172,111 V121 M184,109 V119" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="116" cy="88" r="4.2" fill="#8CAAB5" stroke="#1C1412" stroke-width="2"/>
+    <circle cx="204" cy="88" r="4.2" fill="#3B515C" stroke="#1C1412" stroke-width="2"/>
+  </g>
+
+  <!-- 7. 重击表情 face_hurt（平时 opacity: 0） -->
+  <g id="face_hurt" opacity="0">
+    <rect x="134" y="92" width="18" height="5.5" rx="2" fill="#4FDB85" stroke="#1C1412" stroke-width="1.6"/>
+    <rect x="173" y="86" width="5.5" height="18" rx="2" fill="#4FDB85" stroke="#1C1412" stroke-width="1.6"/>
+  </g>
+
+  <!-- 8. 眩晕表情 face_daze（平时 opacity: 0） -->
+  <g id="face_daze" opacity="0">
+    <g class="daze-stars">
+      <ellipse cx="160" cy="42" rx="50" ry="10" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-dasharray="6 5" opacity="0.8"/>
+      <polygon points="110,40 113,34 116,40 122,42 116,45 113,51 110,45 104,42" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="210,40 213,34 216,40 222,42 216,45 213,51 210,45 204,42" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- 9. 左手大圆铁盾 shield（独立成组，带凹痕和锈斑） -->
+  <g id="shield">
+    <circle cx="92" cy="218" r="51" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6"/>
+    <circle cx="92" cy="218" r="51" fill="#3B515C"/>
+    <path d="M56,182 A51,51 0 0,1 128,182 A51,48 0 0,0 56,254 A51,51 0 0,1 56,182 Z" fill="#5A7682"/>
+    <circle cx="92" cy="218" r="39" fill="#3B515C" stroke="#1C1412" stroke-width="2.8"/>
+    <path d="M120,190 A39,39 0 0,1 64,246 L92,218 Z" fill="#1E2C33" opacity="0.82"/>
+    <path d="M48,200 A45,45 0 0,1 108,173" fill="none" stroke="#8CAAB5" stroke-width="2.6" stroke-linecap="round"/>
+    <!-- 盾面铁锈与凹痕 -->
+    <polygon points="102,196 120,204 114,222 96,214" fill="#7A4A2E" opacity="0.55"/>
+    <polygon points="72,208 92,202 98,220 84,234 68,224" fill="#1E2C33" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <circle cx="92" cy="218" r="9" fill="#8CAAB5" stroke="#1C1412" stroke-width="2.6"/>
+    <circle cx="92" cy="173" r="3" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.5"/>
+    <circle cx="92" cy="263" r="3" fill="#3B515C" stroke="#1C1412" stroke-width="1.5"/>
+    <circle cx="47" cy="218" r="3" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.5"/>
+    <circle cx="137" cy="218" r="3" fill="#3B515C" stroke="#1C1412" stroke-width="1.5"/>
+  </g>
+
+  <!-- cap 事件下压盾时的短冲击弧 .cap-wave（平时 opacity: 0） -->
+  <g class="cap-wave" opacity="0">
+    <path d="M44,276 Q92,296 144,276" fill="none" stroke="#1C1412" stroke-width="6.4" stroke-linecap="round"/>
+    <path d="M44,276 Q92,296 144,276" fill="none" stroke="#E2D6BA" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- 10. 右手长剑 sword（独立成组，转轴 236,230，拄在地上 y:86..386，die 时斜靠地面绝不出框） -->
+  <g id="sword">
+    <rect x="228" y="96" width="16" height="30" rx="3" fill="#3B515C" stroke="#1C1412" stroke-width="2.8"/>
+    <circle cx="236" cy="88" r="9" fill="#5A7682" stroke="#1C1412" stroke-width="2.8"/>
+    <polygon points="210,126 262,126 258,138 214,138" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <polygon points="210,126 262,126 258,138 214,138" fill="#5A7682"/>
+    <polygon points="236,126 262,126 258,138 236,138" fill="#3B515C"/>
+    <!-- 宽厚长剑剑身（带刃口磕痕与右侧冷轮廓光） -->
+    <path d="M224,138 L248,138 L246,354 L236,384 L226,354 L225,248 L229,244 L225,240 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M224,138 L248,138 L246,354 L236,384 L226,354 L225,248 L229,244 L225,240 Z" fill="#6E6A63"/>
+    <polygon points="236,138 248,138 246,354 236,384" fill="#4A4742"/>
+    <path d="M228,146 L229,346" stroke="#948F86" stroke-width="2" stroke-linecap="round"/>
+    <path d="M245,152 L244,344" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round" opacity="0.82"/>
+    <path d="M236,142 V376" stroke="#1C1412" stroke-width="2.2"/>
+  </g>
+
+  <!-- 11. 重击与死亡崩飞的铁甲片 plates（平时 opacity: 0） -->
+  <g id="plates" opacity="0">
+    <polygon points="136,198 154,192 150,208 132,206" fill="#5A7682" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="172,194 190,200 184,214 168,208" fill="#3B515C" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <circle cx="160" cy="216" r="5.5" fill="#8CAAB5" stroke="#1C1412" stroke-width="2.2"/>
+  </g>
+</g>
+</svg>

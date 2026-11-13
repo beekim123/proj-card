@@ -1,18 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_icon_deck" viewBox="0 0 64 64" width="64" height="64">
 <title>牌库</title>
+<style>
+.svg-ui_icon_deck g { transform-box: view-box; }
+.svg-ui_icon_deck .card-top { transform-origin: 28px 31px; }
+.svg-ui_icon_deck .card-mid { transform-origin: 31px 33px; }
+@keyframes svg-ui_icon_deck-idle-t {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(-1px,-1.2px) rotate(-1.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-ui_icon_deck-idle-m {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0.6px,-0.5px) rotate(1deg) scale(1,1); animation-timing-function: ease-in-out; }}
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-ui_icon_deck:not([data-anim]) .card-top,
+.svg-ui_icon_deck[data-anim="idle"] .card-top { animation: svg-ui_icon_deck-idle-t 3s infinite; }
+.svg-ui_icon_deck:not([data-anim]) .card-mid,
+.svg-ui_icon_deck[data-anim="idle"] .card-mid { animation: svg-ui_icon_deck-idle-m 3s infinite; }
+</style>
+<defs>
+  <clipPath id="ui_icon_deck-ctop"><rect x="12" y="10" width="32" height="42" rx="4"/></clipPath>
+</defs>
 <g id="root">
-<!-- 底层牌 -->
-    <rect x="18" y="14" width="32" height="42" rx="4" transform="rotate(8 34 35)" fill="#262036" stroke="#1C1412" stroke-width="2.8"/>
-    <!-- 中层牌 -->
-    <rect x="15" y="12" width="32" height="42" rx="4" transform="rotate(2 31 33)" fill="#9A8968" stroke="#1C1412" stroke-width="2.6"/>
-    <!-- 顶层牌背 -->
-    <g transform="rotate(-5 28 31)">
-      <rect x="12" y="10" width="32" height="42" rx="4" fill="#3A324D" stroke="#1C1412" stroke-width="3"/>
-      <polygon points="44,10 44,52 12,52 28,31" fill="#262036"/>
-      <rect x="16" y="14" width="24" height="34" rx="2" fill="none" stroke="#9A7B46" stroke-width="1.8"/>
-      <polygon points="28,22 34,31 28,40 22,31" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <circle cx="27" cy="29" r="2" fill="#E6DEC8"/>
-      <path d="M14,46 V12 H38" fill="none" stroke="#62577D" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- 底层牌 -->
+  <g transform="rotate(8 34 35)">
+    <rect x="18" y="14" width="32" height="42" rx="4" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5"/>
+    <rect x="18" y="14" width="32" height="42" rx="4" fill="#161221"/>
+    <path d="M48,18 V52 A2.5,2.5 0 0,1 45.5,54.5 H34" fill="none" stroke="#62577D" stroke-width="1.5" stroke-linecap="round" opacity=".85"/>
+  </g>
+  <!-- 中层牌 -->
+  <g class="card-mid"><g transform="rotate(2 31 33)">
+    <rect x="15" y="12" width="32" height="42" rx="4" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5"/>
+    <rect x="15" y="12" width="32" height="42" rx="4" fill="#9A8968"/>
+  </g></g>
+  <!-- 顶层牌背（暗紫丝绒与旧铜纹章七层画法） -->
+  <g class="card-top"><g transform="rotate(-5 28 31)">
+    <rect x="12" y="10" width="32" height="42" rx="4" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2"/>
+    <rect x="12" y="10" width="32" height="42" rx="4" fill="#262036"/>
+    <g clip-path="url(#ui_icon_deck-ctop)">
+      <rect x="9.5" y="7.5" width="32" height="42" rx="4" fill="#3A324D"/>
+      <path d="M32,10 H44 V52 H24 C30,42 33,26 32,10 Z" fill="#161221" opacity=".75"/>
+      <path d="M14,45 V12.5 H37" fill="none" stroke="#62577D" stroke-width="1.8" stroke-linecap="round"/>
     </g>
+    <rect x="16" y="14" width="24" height="34" rx="2" fill="none" stroke="#9A7B46" stroke-width="1.8"/>
+    <polygon points="28,22 34.5,31 28,40 21.5,31" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="28,22 34.5,31 28,40" fill="#6E542B"/>
+    <circle cx="26.8" cy="29" r="1.8" fill="#DDCB9A"/>
+  </g></g>
 </g>
 </svg>

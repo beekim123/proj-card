@@ -1,0 +1,160 @@
+{
+  "date": "2026-11-12",
+  "branch": "codex/body-batch-3-new-art",
+  "stage": "local-candidate-integrated-and-technically-verified",
+  "source_svg_untouched_after_copy": true,
+  "source_assets": {
+    "mon_tree": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_tree.svg",
+      "svg_sha256": "7c92db6de196e72fec128136b92c6c459093643822af2b98e324382b09384ca4"
+    },
+    "mon_chest": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_chest.svg",
+      "svg_sha256": "9c0b837815ca75dbeafcecd050e701a06c02bcd974485acca126a563c454bd57"
+    },
+    "card_art_mirror": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_mirror.svg",
+      "svg_sha256": "2a0d6ad02c27f9a8fb7a5b429348de2a5e007948507c0d2c1585a872cf5e8156"
+    },
+    "card_art_lens": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_lens.svg",
+      "svg_sha256": "b18a2f222a22517ab10f2c95e9135f6a1101224e02f58054214353a0471d4239"
+    },
+    "card_art_hammer": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_hammer.svg",
+      "svg_sha256": "dccddb00ab67f67f3670f60ee316f5e483ffab948350db8249f9d9db30256972"
+    },
+    "card_art_diamond": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_diamond.svg",
+      "svg_sha256": "15142acc9823fef6e068a888c07aa22a3094b82720d77a94f1c8dbad786aa7b7"
+    },
+    "card_art_whistle": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_whistle.svg",
+      "svg_sha256": "dd5289557d200895734a908488712d13eabe2e2f567f2393163f5cf5fa1c9f44"
+    },
+    "mon_soldier": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_soldier.svg",
+      "svg_sha256": "3de1f2b3832433c0362834d37c44a43298a078ef18d7c563aee47f437801d8e1"
+    },
+    "mon_portrait": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_portrait.svg",
+      "svg_sha256": "851ebb9862af31d11c2cfef5dc85934fc89052bf5914dae57ab776c2e73a13c1"
+    },
+    "mon_lock": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_lock.svg",
+      "svg_sha256": "4f605e96653412adad60e7f9683c6134e3824490046d0d2901344dbad7ef5cc9"
+    },
+    "dummy": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/dummy.svg",
+      "svg_sha256": "8201129301327f29b0f98b4359495cc4ba5bbf0aebd73160140411ce6796f3c4"
+    },
+    "mon_clock": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_clock.svg",
+      "svg_sha256": "4c397e17e350b60778bf1b688755c24d2bf6a83371bd7acc8910af33c21dcf73"
+    },
+    "mon_box": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_box.svg",
+      "svg_sha256": "3a3936e3f44a900460bc08d662fa5f5ed6a3ccfb3e93f6822916cef4d4467b76"
+    },
+    "title_emblem": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/title_emblem.svg",
+      "svg_sha256": "ef5e1379974aadbb1a7fa7b6a52d8d348db0de54aa97b49c95d7b5191404b03f"
+    },
+    "relic_biggem": {
+      "package": "09-第08包返修",
+      "source": "style-lab/practice/gemcard-remake-09/art/svg/relic_biggem.svg",
+      "svg_sha256": "5440a4724a7a738e7a369803101504f387f6b79ff52387f1c86fc1045dd8d504"
+    },
+    "prop_coins": {
+      "package": "09-第08包返修",
+      "source": "style-lab/practice/gemcard-remake-09/art/svg/prop_coins.svg",
+      "svg_sha256": "1019cfe8141048fd4d426d46c0c4b45b66568d640e2fae5966e8d821dd01d308"
+    },
+    "card_art_empty": {
+      "package": "09-第08包返修",
+      "source": "style-lab/practice/gemcard-remake-09/art/svg/card_art_empty.svg",
+      "svg_sha256": "6b712f96ddfcfa13b2840e49903d0adf144144b79157df25b286de50e6e14652"
+    }
+  },
+  "other_101_assets_including_imports_unchanged": true,
+  "variants": 25,
+  "actions": 92,
+  "frame_segments": 2412,
+  "unique_export_frames": 1943,
+  "png_count": 117,
+  "obsolete_png_count": 0,
+  "final_gate": {
+    "passed": 6129,
+    "failed": 0,
+    "exit_code": 0,
+    "log": "artifacts/art-rework-08-09/final-check.log",
+    "report": "artifacts/art-rework-08-09/final-test-report.json"
+  },
+  "original_test_assertions_changed": [],
+  "frozen_inputs_count": 3234,
+  "frozen_inputs_unchanged_after_export": true,
+  "exit_codes": {
+    "final_import": 0,
+    "final_check": 0,
+    "gpu_capture": 0,
+    "export": 0,
+    "verify_exports": 0,
+    "macos_pack": 0,
+    "windows_pack": 0,
+    "macos_actual_app": 0
+  },
+  "required_gpu_png_count": 30,
+  "actual_macos_package_gpu_png_count": 1,
+  "gpu": "Apple M3 / OpenGL 4.1 Metal / gl_compatibility",
+  "gallery": "artifacts/art-rework-08-09/index.html",
+  "screens": "artifacts/art-rework-08-09/screens/run-20261112-103453-71268",
+  "packages": {
+    "macos_app": "/Users/key_/Desktop/CURRGO/game/gemcard-demo/exports/macos/新卡牌.app",
+    "macos_zip": {
+      "path": "/Users/key_/Desktop/CURRGO/game/gemcard-demo/exports/macos/新卡牌.zip",
+      "bytes": 155477457,
+      "sha256": "67c5983eb4beca5d348b221d48bfb23c5e863dc60b87aa85cf419541e456caf8"
+    },
+    "macos_signature_verified": true,
+    "macos_launcher": "GemcardLauncher",
+    "macos_native_engine": "新卡牌",
+    "macos_pack": "/Users/key_/Desktop/CURRGO/game/gemcard-demo/exports/macos/新卡牌.app/Contents/Resources/新卡牌.pck",
+    "windows": {
+      "path": "/Users/key_/Desktop/CURRGO/game/gemcard-demo/exports/windows/新卡牌.exe",
+      "architecture": "x86_64",
+      "embedded_pck_verified": true,
+      "bytes": 550983896,
+      "sha256": "8fb42d2455577c319bcf65ea023938c727bbc95529675df7a7ee08ea5af1c458"
+    },
+    "windows_os_runtime_tested": false
+  },
+  "not_done_or_questions": [
+    "mon_soldier hit_big100ms body/left-leg seam requires art review; source not edited",
+    "collection UI has ownership text only, so big-gem artwork screenshot is unavailable without prohibited UI change",
+    "mirror/whistle preview tooltip panel top edge exceeds viewport; UI unchanged",
+    "large poses selected manually from SVG CSS; no exhaustive maximum search or whole-animation visual acceptance",
+    "Windows OS runtime and user subjective acceptance not performed"
+  ],
+  "committed": false,
+  "pushed": false,
+  "next": {
+    "owner": "none-for-this-authorized-integration",
+    "action": "Current authorized integration finished. Optional art/UI follow-up requires a new scope; details in integration record."
+  },
+  "own_compute_processes_remaining_at_finish": 0,
+  "cleanup": "All owned export/import/gate/capture/pack-probe/app-smoke processes exited; no process termination needed; other apps untouched."
+}

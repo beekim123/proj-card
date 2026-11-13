@@ -1,0 +1,467 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-mon_lock" viewBox="0 0 320 400" width="320" height="400">
+<title>大挂锁</title>
+<style>
+.svg-mon_lock g { transform-box: view-box; }
+.svg-mon_lock #root { transform-origin: 160px 400px; }
+.svg-mon_lock #shadow { transform-origin: 160px 390px; }
+.svg-mon_lock #body { transform-origin: 160px 388px; }
+.svg-mon_lock .body-l { transform-origin: 104px 386px; }
+.svg-mon_lock .body-r { transform-origin: 216px 386px; }
+.svg-mon_lock #shackle { transform-origin: 96px 174px; }
+.svg-mon_lock #keyhole { transform-origin: 160px 294px; }
+.svg-mon_lock .keyhole-flash { transform-origin: 160px 286px; opacity: 0; }
+.svg-mon_lock .shut-arc { transform-origin: 160px 34px; opacity: 0; }
+.svg-mon_lock #eyes { transform-origin: 160px 220px; }
+.svg-mon_lock #face_hurt { transform-origin: 160px 220px; opacity: 0; }
+.svg-mon_lock #face_daze { transform-origin: 160px 220px; opacity: 0; }
+.svg-mon_lock .daze-swirl-l { transform-origin: 122px 220px; }
+.svg-mon_lock .daze-swirl-r { transform-origin: 198px 220px; }
+.svg-mon_lock .daze-stars { transform-origin: 160px 36px; }
+.svg-mon_lock #bolts { transform-origin: 160px 210px; opacity: 0; }
+
+/* ==========================================================================
+   1. 待机 idle（3000ms 循环）：0(0%) 低 → 1500(50%) 高 → 3000(100%) 低
+   ========================================================================== */
+@keyframes svg-mon_lock-idle-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-6px) rotate(-0.8deg) scale(0.99,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-idle-shackle {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-8px) rotate(-2.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-idle-shadow {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(0.94,0.94); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_lock:not([data-anim]) #body,
+.svg-mon_lock[data-anim="idle"] #body,
+.svg-mon_lock:not([data-anim]) #keyhole,
+.svg-mon_lock[data-anim="idle"] #keyhole,
+.svg-mon_lock:not([data-anim]) #eyes,
+.svg-mon_lock[data-anim="idle"] #eyes { animation: svg-mon_lock-idle-body 3s infinite; }
+.svg-mon_lock:not([data-anim]) #shackle,
+.svg-mon_lock[data-anim="idle"] #shackle { animation: svg-mon_lock-idle-shackle 3s infinite; }
+.svg-mon_lock:not([data-anim]) #shadow,
+.svg-mon_lock[data-anim="idle"] #shadow { animation: svg-mon_lock-idle-shadow 3s infinite; }
+
+/* ==========================================================================
+   2. 轻击 hit（400ms）：0(0%) → 50(12.5%) → 130(32.5%) → 330(82.5%) → 400(100%)
+   ========================================================================== */
+@keyframes svg-mon_lock-hit-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-10px,-5px) rotate(7deg) scale(1.05,0.91); animation-timing-function: linear; }
+  32.5% { transform: translate(-10px,-5px) rotate(7deg) scale(1.05,0.91); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(3px,-1px) rotate(-2deg) scale(0.98,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-hit-shackle {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-6px,-8px) rotate(11deg) scale(1,1); animation-timing-function: linear; }
+  32.5% { transform: translate(-6px,-8px) rotate(11deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(2px,2px) rotate(-3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-hit-shadow {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,0px) rotate(0deg) scale(1.06,0.92); animation-timing-function: linear; }
+  32.5% { transform: translate(0px,0px) rotate(0deg) scale(1.06,0.92); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(0px,0px) rotate(0deg) scale(0.98,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_lock[data-anim="hit"] #body,
+.svg-mon_lock[data-anim="hit"] #keyhole,
+.svg-mon_lock[data-anim="hit"] #eyes { animation: svg-mon_lock-hit-body 0.4s both; }
+.svg-mon_lock[data-anim="hit"] #shackle { animation: svg-mon_lock-hit-shackle 0.4s both; }
+.svg-mon_lock[data-anim="hit"] #shadow { animation: svg-mon_lock-hit-shadow 0.4s both; }
+
+/* ==========================================================================
+   3. 重击 hit_big（700ms）：0(0%) → 60(8.57%) → 200(28.57%) → 500(71.43%) → 700(100%)
+   ========================================================================== */
+@keyframes svg-mon_lock-hitbig-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-12px,-14px) rotate(9.5deg) scale(1.07,0.84); animation-timing-function: linear; }
+  28.57% { transform: translate(-12px,-14px) rotate(9.5deg) scale(1.07,0.84); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(4px,-2px) rotate(-2.5deg) scale(0.97,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-hitbig-shackle {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-8px,-12px) rotate(16deg) scale(1,1); animation-timing-function: linear; }
+  28.57% { transform: translate(-8px,-12px) rotate(16deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(3px,3px) rotate(-4deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-hitbig-eyes {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-14px,-10px) rotate(10.5deg) scale(0.85,0.2); opacity: 0; animation-timing-function: linear; }
+  28.57% { transform: translate(-14px,-10px) rotate(10.5deg) scale(0.85,0.2); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(4px,-2px) rotate(-2.5deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
+}
+@keyframes svg-mon_lock-hitbig-hurt {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.85); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-14px,-10px) rotate(10.5deg) scale(1.04,1.04); opacity: 1; animation-timing-function: linear; }
+  28.57% { transform: translate(-14px,-10px) rotate(10.5deg) scale(1.04,1.04); opacity: 1; animation-timing-function: ease-in-out; }
+  71.43% { transform: translate(4px,-2px) rotate(-2.5deg) scale(0.9,0.9); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.85); opacity: 0; }
+}
+@keyframes svg-mon_lock-hitbig-bolts {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(12px,-16px) rotate(16deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  28.57% { transform: translate(24px,-28px) rotate(32deg) scale(1.06,1.06); opacity: 1; animation-timing-function: ease-in-out; }
+  71.43% { transform: translate(30px,54px) rotate(68deg) scale(0.85,0.85); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; }
+}
+.svg-mon_lock[data-anim="hit_big"] #body,
+.svg-mon_lock[data-anim="hit_big"] #keyhole { animation: svg-mon_lock-hitbig-body 0.7s both; }
+.svg-mon_lock[data-anim="hit_big"] #shackle { animation: svg-mon_lock-hitbig-shackle 0.7s both; }
+.svg-mon_lock[data-anim="hit_big"] #eyes { animation: svg-mon_lock-hitbig-eyes 0.7s both; }
+.svg-mon_lock[data-anim="hit_big"] #face_hurt { animation: svg-mon_lock-hitbig-hurt 0.7s both; }
+.svg-mon_lock[data-anim="hit_big"] #bolts { animation: svg-mon_lock-hitbig-bolts 0.7s both; }
+
+/* ==========================================================================
+   4. 出手 attack（800ms）：0(0%) → 250(31.25%) → 330(41.25%) → 450(56.25%) → 800(100%)
+   ========================================================================== */
+@keyframes svg-mon_lock-attack-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(2px,-4px) rotate(2.5deg) scale(1.06,0.89); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-10px,-10px) rotate(-5.5deg) scale(1.04,1.05); animation-timing-function: linear; }
+  56.25% { transform: translate(-10px,-10px) rotate(-5.5deg) scale(1.04,1.05); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-attack-shackle {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(4px,6px) rotate(-10deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-10px,10px) rotate(8deg) scale(1,1); animation-timing-function: linear; }
+  56.25% { transform: translate(-10px,10px) rotate(8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_lock[data-anim="attack"] #body,
+.svg-mon_lock[data-anim="attack"] #keyhole,
+.svg-mon_lock[data-anim="attack"] #eyes { animation: svg-mon_lock-attack-body 0.8s both; }
+.svg-mon_lock[data-anim="attack"] #shackle { animation: svg-mon_lock-attack-shackle 0.8s both; }
+
+/* ==========================================================================
+   5. 锁芯轻顿 click（250ms）：0(0%) → 40(16%) → 120(48%) → 250(100%)
+   ========================================================================== */
+@keyframes svg-mon_lock-click-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16% { transform: translate(0px,4px) rotate(0deg) scale(1.01,0.98); animation-timing-function: linear; }
+  48% { transform: translate(0px,4px) rotate(0deg) scale(1.01,0.98); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-click-flash {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.7,0.7); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16% { transform: translate(0px,4px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  48% { transform: translate(0px,4px) rotate(0deg) scale(1.05,1.05); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.7,0.7); opacity: 0; }
+}
+.svg-mon_lock[data-anim="click"] #body,
+.svg-mon_lock[data-anim="click"] #shackle,
+.svg-mon_lock[data-anim="click"] #keyhole,
+.svg-mon_lock[data-anim="click"] #eyes { animation: svg-mon_lock-click-body 0.25s both; }
+.svg-mon_lock[data-anim="click"] .keyhole-flash { animation: svg-mon_lock-click-flash 0.25s both; }
+
+/* ==========================================================================
+   6. 扣死锁梁 shut（500ms）：0(0%) → 60(12%) → 200(40%) → 500(100%)
+   ========================================================================== */
+@keyframes svg-mon_lock-shut-shackle {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(0px,22px) rotate(4deg) scale(1,0.96); animation-timing-function: linear; }
+  40% { transform: translate(0px,22px) rotate(4deg) scale(1,0.96); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-shut-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(0px,6px) rotate(0deg) scale(1.04,0.94); animation-timing-function: linear; }
+  40% { transform: translate(0px,6px) rotate(0deg) scale(1.04,0.94); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-shut-arc {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.8,0.8); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(0px,14px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  40% { transform: translate(0px,12px) rotate(0deg) scale(1.05,1.05); opacity: 0.85; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.8,0.8); opacity: 0; }
+}
+.svg-mon_lock[data-anim="shut"] #shackle { animation: svg-mon_lock-shut-shackle 0.5s both; }
+.svg-mon_lock[data-anim="shut"] #body,
+.svg-mon_lock[data-anim="shut"] #keyhole,
+.svg-mon_lock[data-anim="shut"] #eyes { animation: svg-mon_lock-shut-body 0.5s both; }
+.svg-mon_lock[data-anim="shut"] .shut-arc { animation: svg-mon_lock-shut-arc 0.5s both; }
+
+/* ==========================================================================
+   7. 眩晕 daze（600ms 进场 + 2000ms 循环，stay）
+   ========================================================================== */
+@keyframes svg-mon_lock-daze-in-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-4px,-6px) rotate(-5.5deg) scale(1,0.97); }
+}
+@keyframes svg-mon_lock-daze-loop-body {
+  0% { transform: translate(-4px,-6px) rotate(-5.5deg) scale(1,0.97); animation-timing-function: ease-in-out; }
+  50% { transform: translate(4px,-6px) rotate(5.5deg) scale(1,0.97); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-4px,-6px) rotate(-5.5deg) scale(1,0.97); }
+}
+@keyframes svg-mon_lock-daze-in-eyes {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(0.85,0.2); opacity: 0; }
+}
+@keyframes svg-mon_lock-daze-loop-eyes {
+  0% { transform: translate(-5px,4px) rotate(-6deg) scale(0.85,0.2); opacity: 0; animation-timing-function: linear; }
+  50% { transform: translate(5px,4px) rotate(6deg) scale(0.85,0.2); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(0.85,0.2); opacity: 0; }
+}
+@keyframes svg-mon_lock-daze-in-face {
+  0% { transform: translate(0px,4px) rotate(0deg) scale(0.88,0.88); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,1); opacity: 1; }
+}
+@keyframes svg-mon_lock-daze-loop-face {
+  0% { transform: translate(-5px,4px) rotate(-6deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,4px) rotate(6deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,1); opacity: 1; }
+}
+@keyframes svg-mon_lock-daze-in-swirl {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(0px,0px) rotate(120deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-daze-loop-swirl {
+  0% { transform: translate(0px,0px) rotate(120deg) scale(1,1); animation-timing-function: linear; }
+  50% { transform: translate(0px,0px) rotate(300deg) scale(1,1); animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(480deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-daze-in-stars {
+  0% { transform: translate(-5px,2px) rotate(0deg) scale(0.85,0.85); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_lock-daze-loop-stars {
+  0% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,-2px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_lock[data-anim="daze"] #body,
+.svg-mon_lock[data-anim="daze"] #shackle,
+.svg-mon_lock[data-anim="daze"] #keyhole { animation: svg-mon_lock-daze-in-body 0.6s forwards, svg-mon_lock-daze-loop-body 2s 0.6s infinite; }
+.svg-mon_lock[data-anim="daze"] #eyes { animation: svg-mon_lock-daze-in-eyes 0.6s forwards, svg-mon_lock-daze-loop-eyes 2s 0.6s infinite; }
+.svg-mon_lock[data-anim="daze"] #face_daze { animation: svg-mon_lock-daze-in-face 0.6s forwards, svg-mon_lock-daze-loop-face 2s 0.6s infinite; }
+.svg-mon_lock[data-anim="daze"] .daze-swirl-l,
+.svg-mon_lock[data-anim="daze"] .daze-swirl-r { animation: svg-mon_lock-daze-in-swirl 0.6s forwards, svg-mon_lock-daze-loop-swirl 2s 0.6s infinite; }
+.svg-mon_lock[data-anim="daze"] .daze-stars { animation: svg-mon_lock-daze-in-stars 0.6s forwards, svg-mon_lock-daze-loop-stars 2s 0.6s infinite; }
+
+/* ==========================================================================
+   8. 死亡 die（1000ms）：0(0%) → 150(15%) → 300(30%) → 600(60%) → 1000(100%)
+   ========================================================================== */
+@keyframes svg-mon_lock-die-root {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-2px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(2px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
+}
+@keyframes svg-mon_lock-die-bodyl {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-3px,-2px) rotate(-2deg) scale(1,0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-10px,-4px) rotate(-7deg) scale(1,0.92); animation-timing-function: ease-in-out; }
+  60% { transform: translate(-14px,-4px) rotate(-8.5deg) scale(1,0.9); animation-timing-function: linear; }
+  100% { transform: translate(-14px,-4px) rotate(-8.5deg) scale(1,0.9); }
+}
+@keyframes svg-mon_lock-die-bodyr {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(3px,-2px) rotate(2deg) scale(1,0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(10px,-4px) rotate(7deg) scale(1,0.92); animation-timing-function: ease-in-out; }
+  60% { transform: translate(14px,-4px) rotate(8.5deg) scale(1,0.9); animation-timing-function: linear; }
+  100% { transform: translate(14px,-4px) rotate(8.5deg) scale(1,0.9); }
+}
+@keyframes svg-mon_lock-die-shackle {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(0px,-8px) rotate(-6deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(8px,58px) rotate(12deg) scale(0.96,0.96); animation-timing-function: ease-in-out; }
+  60% { transform: translate(12px,142px) rotate(18deg) scale(0.94,0.94); animation-timing-function: linear; }
+  100% { transform: translate(12px,142px) rotate(18deg) scale(0.94,0.94); }
+}
+@keyframes svg-mon_lock-die-keyhole {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(0px,4px) rotate(2deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(0px,18px) rotate(8deg) scale(0.95,0.95); animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,28px) rotate(12deg) scale(0.92,0.92); animation-timing-function: linear; }
+  100% { transform: translate(0px,28px) rotate(12deg) scale(0.92,0.92); }
+}
+@keyframes svg-mon_lock-die-bolts {
+  0% { transform: translate(0px,6px) rotate(0deg) scale(0.5,0.5); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-6px,-14px) rotate(-18deg) scale(0.95,0.95); opacity: 0.9; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-16px,-26px) rotate(-42deg) scale(1.05,1.05); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(-24px,154px) rotate(-88deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  100% { transform: translate(-24px,154px) rotate(-88deg) scale(1,1); opacity: 0; }
+}
+.svg-mon_lock[data-anim="die"] #root { animation: svg-mon_lock-die-root 1s both; }
+.svg-mon_lock[data-anim="die"] .body-l { animation: svg-mon_lock-die-bodyl 1s both; }
+.svg-mon_lock[data-anim="die"] .body-r { animation: svg-mon_lock-die-bodyr 1s both; }
+.svg-mon_lock[data-anim="die"] #shackle { animation: svg-mon_lock-die-shackle 1s both; }
+.svg-mon_lock[data-anim="die"] #keyhole,
+.svg-mon_lock[data-anim="die"] #eyes { animation: svg-mon_lock-die-keyhole 1s both; }
+.svg-mon_lock[data-anim="die"] #bolts { animation: svg-mon_lock-die-bolts 1s both; }
+</style>
+
+<defs>
+  <pattern id="mon_lock-h" width="4.8" height="4.8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="4.8" stroke="#1C1412" stroke-width="0.95"/>
+  </pattern>
+  <!-- 整块锁身全形裁切 -->
+  <clipPath id="mon_lock-cbody-full">
+    <path d="M68,168 H252 L268,188 V370 L254,388 H66 L52,370 V188 Z"/>
+  </clipPath>
+  <!-- 左右两半顺着裂纹折线切分（左半往右多叠 1.2px，静止时完全无缝，交界处不描墨线） -->
+  <clipPath id="mon_lock-csplit-l">
+    <path d="M44,160 H161 L154,196 L166,228 L155,262 L168,302 L154,344 L163,396 H44 Z"/>
+  </clipPath>
+  <clipPath id="mon_lock-csplit-r">
+    <path d="M158,160 H276 V396 H160 L151,344 L165,302 L152,262 L163,228 L151,196 Z"/>
+  </clipPath>
+</defs>
+
+<g id="root">
+  <!-- 1. 落地接触阴影 shadow -->
+  <g id="shadow">
+    <ellipse cx="160" cy="390" rx="98" ry="8.5" fill="#0D111C" opacity="0.64"/>
+    <path d="M84,392 l12,-4 M130,394 l14,-5 M178,394 l14,-5 M222,392 l12,-4" stroke="#1C1412" stroke-width="1.1" opacity="0.5" fill="none"/>
+  </g>
+
+  <!-- 2. 头顶大 U 形铁环锁梁 shackle -->
+  <g id="shackle">
+    <!-- shut 扣死时的短冲击弧线 -->
+    <g class="shut-arc" opacity="0">
+      <path d="M112,28 Q160,14 208,28" fill="none" stroke="#1C1412" stroke-width="6.4" stroke-linecap="round"/>
+      <path d="M112,28 Q160,14 208,28" fill="none" stroke="#E2D6BA" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <path d="M96,196 V104 C96,42 224,42 224,104 V196" fill="none" stroke="#1C1412" stroke-width="34" stroke-linecap="round"/>
+    <path d="M96,196 V104 C96,42 224,42 224,104 V196" fill="none" stroke="#3B515C" stroke-width="25" stroke-linecap="round"/>
+    <path d="M93,192 V102 C93,42 218,42 220,102" fill="none" stroke="#5A7682" stroke-width="15" stroke-linecap="round"/>
+    <path d="M88,166 V102 C88,58 124,46 158,46" fill="none" stroke="#8CAAB5" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M233,108 V164" fill="none" stroke="#8CAAB5" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <polygon points="81,126 89,129 81,133" fill="#1C1412"/>
+  </g>
+
+  <!-- 3. 厚重旧铁锁身 body（整块锁身用一次错位法做明暗，再按折线分给两半，静止时无拆缝，铁锈改成挨着铆钉和边的小块） -->
+  <g id="body">
+    <!-- 右半锁身 .body-r（先画右半，再画左半叠合 1.2px 盖住折线中缝） -->
+    <g class="body-r">
+      <!-- 外轮廓墨色垫底（仅走右半外轮廓，中缝折线处会被左半内部填色完全盖住） -->
+      <path d="M158,168 H252 L268,188 V370 L254,388 H160" transform="translate(.6 .9)" fill="none" stroke="#1C1412" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <g clip-path="url(#mon_lock-csplit-r)">
+        <!-- 整块锁身统一的暗色底 -->
+        <path d="M68,168 H252 L268,188 V370 L254,388 H66 L52,370 V188 Z" fill="#3B515C"/>
+        <g clip-path="url(#mon_lock-cbody-full)">
+          <!-- 整块锁身统一的一次错位亮面（往左上移 -10,-8，自然留出右下弧形暗面） -->
+          <path d="M68,168 H252 L268,188 V370 L254,388 H66 L52,370 V188 Z" transform="translate(-10 -8)" fill="#5A7682"/>
+          <!-- 右下弧形转折暗面与 45° 排线 -->
+          <path d="M196,168 H252 L268,188 V370 L254,388 H172 C202,324 206,242 196,168 Z" fill="#1E2C33" opacity="0.82"/>
+          <path d="M204,174 H250 L264,192 V366 L250,384 H184 C208,320 212,244 204,174 Z" fill="url(#mon_lock-h)" opacity="0.38"/>
+          <!-- 左上受光亮边（跨过中缝自然收尖） -->
+          <path d="M57,360 V190 L70,173 H188 L182,177 H72 L60,192 V360 Z" fill="#8CAAB5"/>
+          <!-- 右下外缘两段冷轮廓光 -->
+          <path d="M264,202 V276 M264,296 V362" stroke="#8CAAB5" stroke-width="2" stroke-linecap="round" opacity="0.82"/>
+          <!-- 挨着右侧铆钉和边的几小块不规则铁锈（照指南 5.2 节，透明度 0.58） -->
+          <path d="M244,234 C251,231 258,235 257,243 C255,250 245,248 242,241 Z" fill="#7A4A2E" opacity="0.58"/>
+          <path d="M236,249 C240,247 244,251 241,255 C237,257 234,253 236,249 Z" fill="#7A4A2E" opacity="0.55"/>
+          <path d="M245,286 C253,283 261,288 259,298 C255,305 244,302 243,293 Z" fill="#7A4A2E" opacity="0.6"/>
+          <path d="M224,366 C232,363 242,367 244,376 C238,382 226,381 222,374 Z" fill="#7A4A2E" opacity="0.58"/>
+        </g>
+        <!-- 右侧一圈立体铆钉 -->
+        <circle cx="251" cy="196" r="6" fill="#1C1412"/><circle cx="250.5" cy="195.5" r="4.5" fill="#3B515C"/><circle cx="249" cy="194" r="1.5" fill="#8CAAB5"/>
+        <circle cx="251" cy="246" r="6" fill="#1C1412"/><circle cx="250.5" cy="245.5" r="4.5" fill="#3B515C"/><circle cx="249" cy="244" r="1.5" fill="#8CAAB5"/>
+        <circle cx="251" cy="296" r="6" fill="#1C1412"/><circle cx="250.5" cy="295.5" r="4.5" fill="#3B515C"/><circle cx="249" cy="294" r="1.5" fill="#8CAAB5"/>
+        <circle cx="251" cy="346" r="6" fill="#1C1412"/><circle cx="250.5" cy="345.5" r="4.5" fill="#3B515C"/><circle cx="249" cy="344" r="1.5" fill="#8CAAB5"/>
+        <circle cx="234" cy="374" r="6" fill="#1C1412"/><circle cx="233.5" cy="373.5" r="4.5" fill="#3B515C"/><circle cx="232" cy="372" r="1.5" fill="#8CAAB5"/>
+      </g>
+    </g>
+
+    <!-- 左半锁身 .body-l -->
+    <g class="body-l">
+      <!-- 外轮廓墨色垫底（仅在外侧边有描边，中缝不描线） -->
+      <path d="M158,168 H68 L52,188 V370 L66,388 H160" fill="none" transform="translate(.6 .9)" stroke="#1C1412" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <g clip-path="url(#mon_lock-csplit-l)">
+        <!-- 与右半完全同一套整块锁身七层明暗，交界处同色叠加零抗锯齿接缝 -->
+        <g clip-path="url(#mon_lock-cbody-full)">
+          <path d="M68,168 H252 L268,188 V370 L254,388 H66 L52,370 V188 Z" fill="#5A7682"/>
+          <path d="M52,362 L66,380 H254 V388 H66 L52,370 Z" fill="#3B515C"/>
+          <path d="M196,168 H252 L268,188 V370 L254,388 H172 C202,324 206,242 196,168 Z" fill="#1E2C33" opacity="0.82"/>
+          <path d="M57,360 V190 L70,173 H188 L182,177 H72 L60,192 V360 Z" fill="#8CAAB5"/>
+          <!-- 挨着左侧铆钉和边的几小块不规则铁锈（照指南 5.2 节，透明度 0.58） -->
+          <path d="M58,198 C64,195 72,199 71,206 C68,212 59,210 57,203 Z" fill="#7A4A2E" opacity="0.58"/>
+          <path d="M61,248 C68,245 77,249 76,257 C73,263 62,261 60,254 Z" fill="#7A4A2E" opacity="0.6"/>
+          <path d="M75,259 C79,257 82,261 80,264 C76,266 73,262 75,259 Z" fill="#7A4A2E" opacity="0.55"/>
+          <path d="M62,348 C70,345 79,349 78,358 C74,364 63,362 61,355 Z" fill="#7A4A2E" opacity="0.58"/>
+          <!-- 锁身上沿与下沿顺着折线裂口走的两道短收尖裂纹（旧痕） -->
+          <path d="M153,356 L151,370 L160,388 L154,370 Z" fill="#1C1412" opacity="0.65"/>
+        </g>
+        <!-- 左侧一圈立体铆钉 -->
+        <circle cx="69" cy="196" r="6" fill="#1C1412"/><circle cx="68.5" cy="195.5" r="4.5" fill="#5A7682"/><circle cx="67" cy="194" r="1.6" fill="#8CAAB5"/>
+        <circle cx="69" cy="246" r="6" fill="#1C1412"/><circle cx="68.5" cy="245.5" r="4.5" fill="#5A7682"/><circle cx="67" cy="244" r="1.6" fill="#8CAAB5"/>
+        <circle cx="69" cy="296" r="6" fill="#1C1412"/><circle cx="68.5" cy="295.5" r="4.5" fill="#5A7682"/><circle cx="67" cy="294" r="1.6" fill="#8CAAB5"/>
+        <circle cx="69" cy="346" r="6" fill="#1C1412"/><circle cx="68.5" cy="345.5" r="4.5" fill="#5A7682"/><circle cx="67" cy="344" r="1.6" fill="#8CAAB5"/>
+        <circle cx="86" cy="374" r="6" fill="#1C1412"/><circle cx="85.5" cy="373.5" r="4.5" fill="#5A7682"/><circle cx="84" cy="372" r="1.6" fill="#8CAAB5"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- 4. 锁身正面的钥匙孔嘴 keyhole -->
+  <g id="keyhole">
+    <path d="M160,246 L194,262 L198,304 L184,356 H136 L122,304 L126,262 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <path d="M160,246 L194,262 L198,304 L184,356 H136 L122,304 L126,262 Z" fill="#6E542B"/>
+    <path d="M160,246 L176,254 L168,354 H136 L122,304 L126,262 Z" fill="#9A7B46"/>
+    <path d="M130,264 L158,250" stroke="#C2A670" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M160,258 C142,258 132,272 136,290 C138,298 144,302 146,306 L138,346 H182 L174,306 C176,302 182,298 184,290 C188,272 178,258 160,258 Z" fill="#0D111C" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <g class="keyhole-flash" opacity="0">
+      <circle cx="160" cy="284" r="14" fill="#8CAAB5" opacity="0.75"/>
+      <polygon points="160,264 165,279 180,284 165,289 160,304 155,289 140,284 155,279" fill="#DDCB9A"/>
+    </g>
+  </g>
+
+  <!-- 5. 钥匙孔上方两颗大铆钉眼睛 eyes -->
+  <g id="eyes">
+    <circle cx="122" cy="220" r="16.5" transform="translate(.5 .8)" fill="#1C1412"/>
+    <circle cx="122" cy="220" r="15" fill="#1E2C33" stroke="#1C1412" stroke-width="2.8"/>
+    <circle cx="122" cy="220" r="10.5" fill="#8CAAB5" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="124" cy="220" r="4.2" fill="#1C1412"/>
+    <circle cx="119" cy="216.5" r="2.2" fill="#F4F1FF"/>
+
+    <circle cx="198" cy="220" r="16.5" transform="translate(.5 .8)" fill="#1C1412"/>
+    <circle cx="198" cy="220" r="15" fill="#1E2C33" stroke="#1C1412" stroke-width="2.8"/>
+    <circle cx="198" cy="220" r="10.5" fill="#8CAAB5" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="196" cy="221" r="4.2" fill="#1C1412"/>
+    <circle cx="193" cy="217.5" r="2.2" fill="#F4F1FF"/>
+    <path d="M187,213 Q198,218 209,214 L207,209 H189 Z" fill="#3B515C" stroke="#1C1412" stroke-width="1.8"/>
+  </g>
+
+  <!-- 6. 重击表情 face_hurt -->
+  <g id="face_hurt" opacity="0">
+    <path d="M106,210 L134,220 L106,230 M214,210 L186,220 L214,230" fill="none" stroke="#1C1412" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M106,210 L134,220 L106,230 M214,210 L186,220 L214,230" fill="none" stroke="#E2D6BA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 7. 眩晕表情 face_daze -->
+  <g id="face_daze" opacity="0">
+    <g class="daze-swirl-l">
+      <circle cx="122" cy="220" r="12" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M122,220 m-2,0 a2,2 0 1,0 4,0 a4.5,4.5 0 1,0 -9,0 a7,7 0 1,0 14,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g class="daze-swirl-r">
+      <circle cx="198" cy="220" r="12" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M198,220 m-2,0 a2,2 0 1,0 4,0 a4.5,4.5 0 1,0 -9,0 a7,7 0 1,0 14,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g class="daze-stars">
+      <polygon points="120,34 123,28 126,34 132,36 126,39 123,45 120,39 114,36" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+      <polygon points="200,34 203,28 206,34 212,36 206,39 203,45 200,39 194,36" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- 8. 崩出的铆钉与铁片 bolts -->
+  <g id="bolts" opacity="0">
+    <circle cx="144" cy="204" r="7" fill="#8CAAB5" stroke="#1C1412" stroke-width="2.4"/>
+    <circle cx="176" cy="200" r="6.5" fill="#5A7682" stroke="#1C1412" stroke-width="2.4"/>
+    <polygon points="154,212 168,208 164,222 150,220" fill="#3B515C" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

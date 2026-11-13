@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_guard" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 挡一次</title>
+<style>
+.svg-relic_guard g { transform-box: view-box; }
+.svg-relic_guard #copper_shield { transform-origin: 48px 48px; }
+@keyframes svg-relic_guard-idle-s {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.2px) rotate(1.6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_guard:not([data-anim]) #copper_shield,
+.svg-relic_guard[data-anim="idle"] #copper_shield { animation: svg-relic_guard-idle-s 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_guard-cshield"><circle cx="48" cy="48" r="38"/></clipPath>
+</defs>
+<g id="root">
+  <!-- 小圆铜盾（七层画法） -->
+  <g id="copper_shield"><g transform="rotate(-2 48 48)">
+    <!-- 第1层：墨色垫底 -->
+    <circle cx="48.6" cy="48.9" r="40.9" fill="#1C1412"/>
+    <!-- 第2层：铺旧铜暗色 -->
+    <circle cx="48" cy="48" r="38" fill="#6E542B"/>
+    <g clip-path="url(#relic_guard-cshield)">
+      <!-- 第3层：错位亮面 -->
+      <circle cx="43.5" cy="43.5" r="38" fill="#9A7B46"/>
+      <!-- 第4层：右下加深 -->
+      <path d="M86,38 C86,66 66,86 38,86 C60,81 76,65 86,38 Z" fill="#3B2B14" opacity=".78"/>
+      <!-- 第5层：左上受光边与右下冷色轮廓光 -->
+      <path d="M13,39 Q18,17 41,12.5 Q22,19 15.5,39.5 Z" fill="#C2A670"/>
+      <path d="M82.8,56 Q77,75 58,82.8 Q74,74 80.6,56 Z" fill="#8CAAB5" opacity=".82"/>
+      <!-- 第6层：高光点与铜绿 -->
+      <circle cx="26" cy="24" r="2.4" fill="#DDCB9A"/>
+      <path d="M64,74 C69,71 73,66 75,61" fill="none" stroke="#5F8272" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
+    </g>
+
+    <!-- 盾面内盘与铆钉圈 -->
+    <circle cx="48" cy="48" r="28" fill="#6E542B" stroke="#1C1412" stroke-width="2.8"/>
+    <path d="M23,41 A26,26 0 0,1 69,33 A27,27 0 0,1 33,69 A26,26 0 0,1 23,41 Z" fill="#9A7B46"/>
+    <!-- 8颗七层铆钉 -->
+    <g>
+      <circle cx="48.4" cy="14.6" r="3.4" fill="#1C1412"/><circle cx="48" cy="14" r="2.3" fill="#C2A670"/><circle cx="47.3" cy="13.3" r="0.9" fill="#DDCB9A"/>
+      <circle cx="48.4" cy="82.6" r="3.4" fill="#1C1412"/><circle cx="48" cy="82" r="2.3" fill="#6E542B"/>
+      <circle cx="14.4" cy="48.6" r="3.4" fill="#1C1412"/><circle cx="14" cy="48" r="2.3" fill="#C2A670"/><circle cx="13.3" cy="47.3" r="0.9" fill="#DDCB9A"/>
+      <circle cx="82.4" cy="48.6" r="3.4" fill="#1C1412"/><circle cx="82" cy="48" r="2.3" fill="#6E542B"/>
+      <circle cx="24.4" cy="24.6" r="3.4" fill="#1C1412"/><circle cx="24" cy="24" r="2.3" fill="#C2A670"/><circle cx="23.3" cy="23.3" r="0.9" fill="#DDCB9A"/>
+      <circle cx="72.4" cy="24.6" r="3.4" fill="#1C1412"/><circle cx="72" cy="24" r="2.3" fill="#9A7B46"/>
+      <circle cx="24.4" cy="72.6" r="3.4" fill="#1C1412"/><circle cx="24" cy="72" r="2.3" fill="#9A7B46"/>
+      <circle cx="72.4" cy="72.6" r="3.4" fill="#1C1412"/><circle cx="72" cy="72" r="2.3" fill="#3B2B14"/>
+    </g>
+
+    <!-- 盾面上被打凹了一块的深坑（上暗下亮反光，体现内陷体积） -->
+    <g id="shield_dent">
+      <!-- 凹坑下沿受光高光唇 -->
+      <path d="M31,52 C35,65 51,69 62,59 C68,53 69,41 61,34" fill="none" stroke="#DDCB9A" stroke-width="2.8" stroke-linecap="round"/>
+      <!-- 凹坑主体 -->
+      <path d="M34,36 C41,31 49,30 61,35 C65,42 66,48 56,61 C47,63 39,62 30,50 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <!-- 凹坑下半部受光反光面 -->
+      <path d="M30,50 C39,62 47,63 56,61 L64,49 L48,47 Z" fill="#6E542B"/>
+      <!-- 凹坑中心最深重击坑 -->
+      <polygon points="39,41 50,37 57,44 52,53 41,52" fill="#1C1412"/>
+      <!-- 撞击处向四周伸出的收尖裂纹 -->
+      <path d="M47,30 Q44.5,25 45,21 Q47,25 48.5,30 Z M61,35 Q65.5,31.5 69,30 Q65.5,33.5 62,36.5 Z M65,49 Q69.5,50 73,52 Q68.5,51.5 64.5,50.5 Z M30,50 Q26,52.5 23,54 Q26.5,51 30.5,48.5 Z M40,62 Q38,66.5 37,70 Q39.5,66 41.5,62 Z" fill="#1C1412"/>
+    </g>
+  </g></g>
+</g>
+</svg>

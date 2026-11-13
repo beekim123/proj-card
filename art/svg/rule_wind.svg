@@ -1,36 +1,70 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-rule_wind" viewBox="0 0 64 64" width="64" height="64">
 <title>规矩图标 · 上发条</title>
+<style>
+.svg-rule_wind g { transform-box: view-box; }
+.svg-rule_wind #root { transform-origin: 32px 32px; }
+@keyframes svg-rule_wind-idle-r {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1px) rotate(3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-rule_wind:not([data-anim]) #root,
+.svg-rule_wind[data-anim="idle"] #root { animation: svg-rule_wind-idle-r 3s infinite; }
+</style>
+<defs>
+  <clipPath id="rule_wind-cbow">
+    <path d="M18,8 C10,8 6,14 6,22 C6,31 12,37 22,37 H42 C52,37 58,31 58,22 C58,14 54,8 46,8 C40,8 36,11 32,14 C28,11 24,8 18,8 Z M17,16 C20,16 22,19 22,22 C22,26 19,28 16,28 C13,28 12,25 12,22 C12,18 14,16 17,16 Z M47,16 C50,16 52,18 52,22 C52,25 51,28 48,28 C45,28 42,26 42,22 C42,19 44,16 47,16 Z" clip-rule="evenodd"/>
+  </clipPath>
+</defs>
 <g id="root">
-  <!-- 发条钥匙主轴与卡齿（下半截：旧铜 #9A7B46 + 1层暗面 #6E542B + 粗外框） -->
+  <!-- 钥匙主轴与卡齿 -->
   <g id="key_shaft">
-    <!-- 钥匙侧齿 -->
-    <polygon points="32,44 46,44 46,56 38,56 38,51 32,51" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <!-- 钥匙竖轴杆 -->
-    <rect x="27" y="34" width="10" height="24" rx="2.5" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2"/>
-    <rect x="32" y="34" width="5" height="24" fill="#6E542B"/>
-    <rect x="27" y="34" width="10" height="24" rx="2.5" fill="none" stroke="#1C1412" stroke-width="3.2"/>
-    <!-- 轴环卡箍 -->
+    <polygon points="32,44 46,44 46,56 38,56 38,51 32,51" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <polygon points="32,44 46,44 46,56 38,56 38,51 32,51" fill="#6E542B"/>
+    <rect x="27" y="34" width="10" height="24" rx="2.5" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2"/>
+    <rect x="27" y="34" width="10" height="24" rx="2.5" fill="#9A7B46"/>
+    <rect x="32" y="34" width="5" height="24" rx="1.5" fill="#6E542B"/>
+    <path d="M29,55 V38" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
     <rect x="23" y="34" width="18" height="6" rx="2" fill="#C2A670" stroke="#1C1412" stroke-width="2.8"/>
   </g>
 
-  <!-- 双耳发条钥匙柄（上半截宽大双环：x:6..58, y:8..38） -->
+  <!-- 双耳发条钥匙柄（七层画法） -->
   <g id="key_bow">
-    <path d="M18,8 C10,8 6,14 6,22 C6,31 12,37 22,37 H42 C52,37 58,31 58,22 C58,14 54,8 46,8 C40,8 36,11 32,14 C28,11 24,8 18,8 Z M17,16 C20,16 22,19 22,22 C22,26 19,28 16,28 C13,28 12,25 12,22 C12,18 14,16 17,16 Z M47,16 C50,16 52,18 52,22 C52,25 51,28 48,28 C45,28 42,26 42,22 C42,19 44,16 47,16 Z" fill="#9A7B46" fill-rule="evenodd" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-    <!-- 右侧背光暗铜面 -->
-    <path d="M32,14 C36,11 40,8 46,8 C54,8 58,14 58,22 C58,31 52,37 42,37 H32 V14 Z M47,16 C44,16 42,19 42,22 C42,26 45,28 48,28 C51,28 52,25 52,22 C52,18 50,16 47,16 Z" fill="#6E542B" fill-rule="evenodd"/>
-    <!-- 左上受光亮边 -->
-    <path d="M10,20 C10,14 13,11 19,11" fill="none" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
-    <!-- 外框重描 -->
-    <path d="M18,8 C10,8 6,14 6,22 C6,31 12,37 22,37 H42 C52,37 58,31 58,22 C58,14 54,8 46,8 C40,8 36,11 32,14 C28,11 24,8 18,8 Z M17,16 C20,16 22,19 22,22 C22,26 19,28 16,28 C13,28 12,25 12,22 C12,18 14,16 17,16 Z M47,16 C50,16 52,18 52,22 C52,25 51,28 48,28 C45,28 42,26 42,22 C42,19 44,16 47,16 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M18,8 C10,8 6,14 6,22 C6,31 12,37 22,37 H42 C52,37 58,31 58,22 C58,14 54,8 46,8 C40,8 36,11 32,14 C28,11 24,8 18,8 Z M17,16 C20,16 22,19 22,22 C22,26 19,28 16,28 C13,28 12,25 12,22 C12,18 14,16 17,16 Z M47,16 C50,16 52,18 52,22 C52,25 51,28 48,28 C45,28 42,26 42,22 C42,19 44,16 47,16 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <path d="M18,8 C10,8 6,14 6,22 C6,31 12,37 22,37 H42 C52,37 58,31 58,22 C58,14 54,8 46,8 C40,8 36,11 32,14 C28,11 24,8 18,8 Z M17,16 C20,16 22,19 22,22 C22,26 19,28 16,28 C13,28 12,25 12,22 C12,18 14,16 17,16 Z M47,16 C50,16 52,18 52,22 C52,25 51,28 48,28 C45,28 42,26 42,22 C42,19 44,16 47,16 Z" fill="#6E542B" fill-rule="evenodd"/>
+    <g clip-path="url(#rule_wind-cbow)">
+      <path d="M18,8 C10,8 6,14 6,22 C6,31 12,37 22,37 H42 C52,37 58,31 58,22 C58,14 54,8 46,8 C40,8 36,11 32,14 C28,11 24,8 18,8 Z M17,16 C20,16 22,19 22,22 C22,26 19,28 16,28 C13,28 12,25 12,22 C12,18 14,16 17,16 Z M47,16 C50,16 52,18 52,22 C52,25 51,28 48,28 C45,28 42,26 42,22 C42,19 44,16 47,16 Z" transform="translate(-2.4 -2)" fill="#9A7B46" fill-rule="evenodd"/>
+      <path d="M40,8 H58 V37 H36 C42,30 43,18 40,8 Z" fill="#3B2B14" opacity=".68"/>
+      <path d="M8,21 Q9,11 19,10 Q12,13 9.8,21.5 Z" fill="#C2A670"/>
+      <path d="M56.2,22 Q55,32 45,35.2 Q53,31 54.6,22 Z" fill="#8CAAB5" opacity=".82"/>
+    </g>
+    <circle cx="15" cy="11.5" r="1.4" fill="#DDCB9A"/>
   </g>
 
-  <!-- 钥匙柄正中镶嵌的鲜艳蓝色三角宝石（唯一鲜艳处：#2E66F0 + #6B9BFF + #193D9E） -->
+  <!-- 钥匙柄正中镶嵌的蓝色三角宝石 -->
   <g id="gem_blue">
-    <polygon points="32,11 45,33 19,33" fill="#2E66F0" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <polygon points="32,11 45,33 32,33" fill="#193D9E"/>
-    <polygon points="32,18 39,30 25,30" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
-    <polygon points="31,19 35,26 28,27" fill="#FFFFFF" opacity="0.95"/>
-    <polygon points="32,11 45,33 19,33" fill="none" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    
+      <clipPath id="rule_wind-cgem"><polygon points="32.0,11.5 44.2,33.0 19.8,33.0"/></clipPath>
+      <polygon points="32.0,11.5 44.2,33.0 19.8,33.0" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="32.0,11.5 44.2,33.0 19.8,33.0" fill="#1D45B8"/>
+      <g clip-path="url(#rule_wind-cgem)">
+        <!-- 左侧受光亮刻面 -->
+        <polygon points="32.0,11.5 19.8,33.0 25.7,30.0 32.0,17.9" fill="#6A93F8"/>
+        <!-- 右侧背光最暗刻面与底边内反光 -->
+        <polygon points="32.0,11.5 44.2,33.0 38.3,30.0 32.0,17.9" fill="#122A78"/>
+        <polygon points="19.8,33.0 44.2,33.0 38.3,30.0 25.7,30.0" fill="#1D45B8"/>
+        <polygon points="32.0,30.0 38.3,30.0 39.9,33.0 30.8,33.0" fill="#2E66F0"/>
+        <!-- 中央三角台面 -->
+        <polygon points="32.0,17.9 38.3,30.0 25.7,30.0" fill="#2E66F0"/>
+        <polygon points="32.0,17.9 34.2,28.0 25.7,30.0" fill="#6A93F8" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M32.0,11.5 L32.0,17.9 M19.8,33.0 L25.7,30.0 M44.2,33.0 L38.3,30.0" stroke="#B4C8FF" stroke-width="0.75" opacity=".8"/>
+        <polygon points="32.0,17.9 38.3,30.0 25.7,30.0" fill="none" stroke="#B4C8FF" stroke-width="0.75" opacity=".85"/>
+        <!-- 左上白亮边 -->
+        <path d="M30.8,14.0 L22.6,30.5" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" opacity=".9"/>
+      </g>
+      <circle cx="30.0" cy="23.0" r="1.5" fill="#F4F1FF"/>
+    
   </g>
 </g>
 </svg>

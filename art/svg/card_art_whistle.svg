@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_whistle" viewBox="0 0 176 188" width="176" height="188">
+<title>额外牌原画 · 哨子</title>
+<style>
+.svg-card_art_whistle g { transform-box: view-box; }
+.svg-card_art_whistle #whistle_body { transform-origin: 76px 112px; }
+.svg-card_art_whistle #sound_arcs { transform-origin: 118px 66px; opacity: 0; }
+.svg-card_art_whistle #called_card { transform-origin: 132px 136px; opacity: 0; }
+
+/* 待机 3000ms：0(0%) 静止/低位 → 1500(50%) 哨子轻轻晃 → 3000(100%) 与0帧一致 */
+@keyframes svg-card_art_whistle-idle-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-3px) rotate(-3.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-card_art_whistle:not([data-anim]) #whistle_body,
+.svg-card_art_whistle[data-anim="idle"] #whistle_body { animation: svg-card_art_whistle-idle-body 3s infinite; }
+
+/* play 600ms：0(0%) 静止 → 100(16.67%) 哨口冒出三道短弧线 → 250(41.67%) 额外牌背从下沿飞上来停在哨子旁 → 400(66.67%) 停住 → 600(100%) 落回去 */
+@keyframes svg-card_art_whistle-play-body {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(-6px,-4px) rotate(-11deg) scale(1.04,0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(-8px,-3px) rotate(-7deg) scale(1.02,1); animation-timing-function: linear; }
+  66.67% { transform: translate(-8px,-3px) rotate(-7deg) scale(1.02,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-card_art_whistle-play-arcs {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(3px,-3px) rotate(0deg) scale(1.1,1.1); opacity: 1; animation-timing-function: linear; }
+  66.67% { transform: translate(3px,-3px) rotate(0deg) scale(1.1,1.1); opacity: 0.85; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
+}
+@keyframes svg-card_art_whistle-play-card {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,-16px) rotate(3deg) scale(0.94,0.94); opacity: 0.7; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  41.67% { transform: translate(0px,-42px) rotate(-3deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  66.67% { transform: translate(0px,-42px) rotate(-3deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
+}
+.svg-card_art_whistle[data-anim="play"] #whistle_body { animation: svg-card_art_whistle-play-body 0.6s both; }
+.svg-card_art_whistle[data-anim="play"] #sound_arcs { animation: svg-card_art_whistle-play-arcs 0.6s both; }
+.svg-card_art_whistle[data-anim="play"] #called_card { animation: svg-card_art_whistle-play-card 0.6s both; }
+</style>
+<defs>
+  <clipPath id="card_art_whistle-cbody">
+    <path d="M72,86 C78,86 83.5,87.8 88,90.5 C97,83.5 107,75.8 116.5,68.8 C120.5,72.5 124.2,77 126.5,81.5 C121.5,85.5 116.5,89.2 111.5,92.8 C108.5,91.2 106,88.8 104.2,86.2 L97.2,93.8 C100,99.8 101,106.8 100,114 C98,130 85,142 70,142 C55,142 44,130 44,114 C44,98 56,86 72,86 Z"/>
+  </clipPath>
+  <clipPath id="card_art_whistle-choop">
+    <path d="M87.2,87.2 Q96.8,91.2 101.8,99.2 C104.5,97.4 106.8,95.4 108.8,93.2 Q103.2,84.4 93.4,81.2 C91.2,83 89,85 87.2,87.2 Z"/>
+  </clipPath>
+  <clipPath id="card_art_whistle-clip-lip">
+    <path d="M113.5,67.5 Q122.2,72.2 127.8,81.2 C126.2,83 124.2,84.6 122.2,85.8 Q116.8,76.8 108.5,71.8 C110.2,70.2 111.8,68.8 113.5,67.5 Z"/>
+  </clipPath>
+</defs>
+
+<g id="root">
+  <!-- 左上角 x:0..30, y:0..90 严格留空 -->
+  <ellipse cx="88" cy="166" rx="48" ry="8" fill="#0D111C" opacity="0.58"/>
+
+  <!-- 1. 被叫来的额外牌牌背 called_card -->
+  <g id="called_card" opacity="0">
+    <rect x="106" y="100" width="50" height="76" rx="5" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <rect x="106" y="100" width="50" height="76" rx="5" fill="#262036"/>
+    <rect x="109.5" y="103.5" width="43" height="69" rx="3.5" fill="#161221" stroke="#8CAAB5" stroke-width="1.6"/>
+    <path d="M108,110 V102 H116 M146,102 H154 V110 M108,166 V174 H116 M146,174 H154 V166" fill="none" stroke="#8CAAB5" stroke-width="1.8" stroke-linecap="round"/>
+    <polygon points="131,108 148,138 131,168 114,138" fill="none" stroke="#3A324D" stroke-width="1.1"/>
+    <polygon points="131,115 145,126 147,143 139,156 131,161 123,156 115,143 117,126" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="131,119 141,128 142,142 131,156 120,142 121,128" fill="#161221" stroke="#9A7B46" stroke-width="1.1"/>
+    <circle cx="131" cy="130" r="5" fill="#E3263A" stroke="#1C1412" stroke-width="1.4"/>
+    <circle cx="129.6" cy="128.6" r="1.3" fill="#F4F1FF"/>
+    <rect x="120.5" y="139" width="8.5" height="8.5" rx="1.2" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.4"/>
+    <polygon points="136.5,138 142,148 131,148" fill="#2E66F0" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 2. 旧铜哨本体 whistle_body（吹管从哨身自然长出 + 弧形立体管箍盖住接口，去掉原来的直边黑方块） -->
+  <g id="whistle_body">
+    <!-- 左下尾端旧铜挂环与短麻绳头 -->
+    <path d="M44,136 C39,144 37,151 39,157" fill="none" stroke="#1C1412" stroke-width="5" stroke-linecap="round"/>
+    <path d="M44,136 C39,144 37,151 39,157" fill="none" stroke="#9A8968" stroke-width="2.2" stroke-dasharray="3.5 2.5" stroke-linecap="round"/>
+    <circle cx="45" cy="132" r="8.5" fill="none" stroke="#1C1412" stroke-width="5.6"/>
+    <circle cx="45" cy="132" r="8.5" fill="none" stroke="#9A7B46" stroke-width="2.6"/>
+    <path d="M38.5,128 A8,8 0 0 1 49,124.5" fill="none" stroke="#DDCB9A" stroke-width="1.2" stroke-linecap="round"/>
+
+    <!-- 哨身与吹管一体七层构建 -->
+    <path d="M72,86 C78,86 83.5,87.8 88,90.5 C97,83.5 107,75.8 116.5,68.8 C120.5,72.5 124.2,77 126.5,81.5 C121.5,85.5 116.5,89.2 111.5,92.8 C108.5,91.2 106,88.8 104.2,86.2 L97.2,93.8 C100,99.8 101,106.8 100,114 C98,130 85,142 70,142 C55,142 44,130 44,114 C44,98 56,86 72,86 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <path d="M72,86 C78,86 83.5,87.8 88,90.5 C97,83.5 107,75.8 116.5,68.8 C120.5,72.5 124.2,77 126.5,81.5 C121.5,85.5 116.5,89.2 111.5,92.8 C108.5,91.2 106,88.8 104.2,86.2 L97.2,93.8 C100,99.8 101,106.8 100,114 C98,130 85,142 70,142 C55,142 44,130 44,114 C44,98 56,86 72,86 Z" fill="#6E542B"/>
+    <g clip-path="url(#card_art_whistle-cbody)">
+      <path d="M72,86 C78,86 83.5,87.8 88,90.5 C97,83.5 107,75.8 116.5,68.8 C120.5,72.5 124.2,77 126.5,81.5 C121.5,85.5 116.5,89.2 111.5,92.8 C108.5,91.2 106,88.8 104.2,86.2 L97.2,93.8 C100,99.8 101,106.8 100,114 C98,130 85,142 70,142 C55,142 44,130 44,114 C44,98 56,86 72,86 Z" transform="translate(-4 -4)" fill="#9A7B46"/>
+      <!-- 音窗内凹暗影（弧边过渡，非外露直边方块） -->
+      <path d="M97,94 C99,88 103,85 108,86 L104.2,86.2 L97.2,93.8 Z" fill="#161221"/>
+      <!-- 右下背光加深暗面 -->
+      <path d="M126.5,81.5 L111.5,92.8 L104.2,86.2 L97.2,93.8 C100,99.8 101,106.8 100,114 C98,130 85,142 70,142 L56,138 C80,136 94,122 92,94 L118,74 Z" fill="#3B2B14" opacity="0.82"/>
+      <!-- 左上受光亮边（鼓包上沿 + 吹管上沿） -->
+      <path d="M46.5,112 C47,98 57,88.5 72,88.2 L86,92.5 L116.5,71.2 L118,73.2 L86.5,95 L72,90.8 C58.5,91 49.5,99.5 48.8,112 Z" fill="#C2A670"/>
+      <!-- 右下冷色轮廓光 -->
+      <path d="M98,116 C96.5,128 87,137.5 74,139.8 C85.5,136.5 94.5,127 96,115.5 Z" fill="#8CAAB5" opacity="0.82"/>
+      <!-- 铜绿污渍 -->
+      <path d="M84,132 C88,129 92,125 94,120 M54,130 C58,134 63,136 68,137" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity="0.55"/>
+    </g>
+
+    <!-- 吹管口沿弧形包箍（错位明暗 + 弧形气孔，替换原直边多边形） -->
+    <path d="M113.5,67.5 Q122.2,72.2 127.8,81.2 C126.2,83 124.2,84.6 122.2,85.8 Q116.8,76.8 108.5,71.8 C110.2,70.2 111.8,68.8 113.5,67.5 Z" transform="translate(.4 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M113.5,67.5 Q122.2,72.2 127.8,81.2 C126.2,83 124.2,84.6 122.2,85.8 Q116.8,76.8 108.5,71.8 C110.2,70.2 111.8,68.8 113.5,67.5 Z" fill="#3B2B14"/>
+    <g clip-path="url(#card_art_whistle-clip-lip)">
+      <path d="M113.5,67.5 Q122.2,72.2 127.8,81.2 C126.2,83 124.2,84.6 122.2,85.8 Q116.8,76.8 108.5,71.8 C110.2,70.2 111.8,68.8 113.5,67.5 Z" transform="translate(-2 -1.6)" fill="#6E542B"/>
+      <path d="M108.5,71.8 L113.5,67.5 Q118,70.2 121.2,74.2 L116.2,78.5 Z" fill="#9A7B46"/>
+    </g>
+    <path d="M111,71.2 Q115,73.5 117.8,77" fill="none" stroke="#C2A670" stroke-width="1.2" stroke-linecap="round"/>
+
+    <!-- 吹管和哨身接口处的真管箍（照 3.9 节代码③：上下沿顺管身往下弓，两头宽出吹管，错位明暗左亮右暗，盖住接口） -->
+    <path d="M87.2,87.2 Q96.8,91.2 101.8,99.2 C104.5,97.4 106.8,95.4 108.8,93.2 Q103.2,84.4 93.4,81.2 C91.2,83 89,85 87.2,87.2 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <path d="M87.2,87.2 Q96.8,91.2 101.8,99.2 C104.5,97.4 106.8,95.4 108.8,93.2 Q103.2,84.4 93.4,81.2 C91.2,83 89,85 87.2,87.2 Z" fill="#6E542B"/>
+    <g clip-path="url(#card_art_whistle-choop)">
+      <path d="M87.2,87.2 Q96.8,91.2 101.8,99.2 C104.5,97.4 106.8,95.4 108.8,93.2 Q103.2,84.4 93.4,81.2 C91.2,83 89,85 87.2,87.2 Z" transform="translate(-2.6 -2)" fill="#9A7B46"/>
+      <path d="M98,89 L108.8,93.2 L101.8,99.2 C100.5,95.5 99.2,92 98,89 Z" fill="#3B2B14" opacity="0.78"/>
+    </g>
+    <path d="M89.8,86.6 Q94.5,88.6 97.8,92.2" fill="none" stroke="#C2A670" stroke-width="1.3" stroke-linecap="round"/>
+
+    <!-- 哨身外圈珠边与四颗铜铆钉 -->
+    <circle cx="72" cy="114" r="21.5" fill="none" stroke="#3B2B14" stroke-width="2.6" stroke-dasharray="0.1 5.5287" stroke-linecap="round"/>
+    <circle cx="71.6" cy="113.6" r="21.5" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-dasharray="0.1 5.5287" stroke-linecap="round"/>
+    <circle cx="53" cy="102" r="2" fill="#DDCB9A" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="72" cy="91" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="91" cy="114" r="2" fill="#6E542B" stroke="#1C1412" stroke-width="1.1"/>
+    <circle cx="72" cy="136" r="2" fill="#6E542B" stroke="#1C1412" stroke-width="1.1"/>
+
+    <!-- 哨身正中镶嵌的鲜艳黄色宝石 yellow_gem -->
+    <g id="yellow_gem">
+      <circle cx="72" cy="114" r="16.5" fill="#3B2B14" stroke="#1C1412" stroke-width="2.4"/>
+      <circle cx="72" cy="114" r="13.8" fill="#FFD84A" stroke="#1C1412" stroke-width="2.2"/>
+      <path d="M72,100.2 A13.8,13.8 0 0 0 58.2,114 L65,114 L67,106 Z" fill="#FFF2A6"/>
+      <path d="M72,100.2 A13.8,13.8 0 0 1 85.8,114 L79,114 L77,106 Z" fill="#FFD84A"/>
+      <path d="M85.8,114 A13.8,13.8 0 0 1 58.2,114 L65,114 L72,121 L79,114 Z" fill="#B88214"/>
+      <polygon points="72,126.5 81,122 77,118 72,121" fill="#FFF2A6" opacity="0.72"/>
+      <polygon points="67,106 77,106 80,114 77,121 67,121 64,114" fill="#FFD84A"/>
+      <polygon points="67,106 77,106 72,114 64,114" fill="#FFF2A6" opacity="0.72"/>
+      <path d="M67,106 L77,106 L80,114 L77,121 L67,121 L64,114 Z M72,100.2 L72,106 M58.2,114 L64,114 M85.8,114 L80,114 M72,127.8 L72,121" fill="none" stroke="#FFF2A6" stroke-width="0.6" opacity="0.75"/>
+      <circle cx="67.5" cy="108.5" r="2.1" fill="#F4F1FF"/>
+    </g>
+  </g>
+
+  <!-- 3. 哨口冒出的三道短弧线 sound_arcs -->
+  <g id="sound_arcs" opacity="0" fill="none" stroke-linecap="round">
+    <path d="M116,58 Q128,60 128,72" stroke="#1C1412" stroke-width="5.4"/>
+    <path d="M116,58 Q128,60 128,72" stroke="#FFD84A" stroke-width="2.6"/>
+    <path d="M122,48 Q138,52 138,68" stroke="#1C1412" stroke-width="5.2"/>
+    <path d="M122,48 Q138,52 138,68" stroke="#FFF2A6" stroke-width="2.4"/>
+    <path d="M128,38 Q148,44 148,64" stroke="#1C1412" stroke-width="4.8"/>
+    <path d="M128,38 Q148,44 148,64" stroke="#E2D6BA" stroke-width="2.2"/>
+  </g>
+</g>
+</svg>

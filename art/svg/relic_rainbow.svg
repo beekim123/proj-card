@@ -1,49 +1,218 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_rainbow" viewBox="0 0 96 96" width="96" height="96">
 <title>宝物 · 五色彩虹</title>
+<style>
+.svg-relic_rainbow g { transform-box: view-box; }
+.svg-relic_rainbow .box { transform-origin: 48px 50px; }
+.svg-relic_rainbow .gl2,
+.svg-relic_rainbow .gl3,
+.svg-relic_rainbow .gl4,
+.svg-relic_rainbow .gl5 { opacity: 0; }
+
+/* 待机 3000：五颗宝石依次微微亮一下（0、500、1000、1500、2000 各一颗），空格不动；盒子在 1500 极轻呼吸 */
+@keyframes svg-relic_rainbow-idle-box {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  16.67% { transform: translate(0px,-0.3px) rotate(0.3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  33.33% { transform: translate(0px,-0.7px) rotate(0.7deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1px) rotate(1deg) scale(1,1); animation-timing-function: ease-in-out; }
+  66.67% { transform: translate(0px,-0.7px) rotate(0.7deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_rainbow:not([data-anim]) .box,
+.svg-relic_rainbow[data-anim="idle"] .box { animation: svg-relic_rainbow-idle-box 3s infinite; }
+
+@keyframes svg-relic_rainbow-idle-g1 {
+  0% { opacity: 1; animation-timing-function: ease-in-out; }
+  16.67% { opacity: 0; animation-timing-function: linear; }
+  33.33% { opacity: 0; animation-timing-function: linear; }
+  50% { opacity: 0; animation-timing-function: linear; }
+  66.67% { opacity: 0; animation-timing-function: ease-in-out; }
+  100% { opacity: 1; }
+}
+.svg-relic_rainbow:not([data-anim]) .gl1,
+.svg-relic_rainbow[data-anim="idle"] .gl1 { animation: svg-relic_rainbow-idle-g1 3s infinite; }
+
+@keyframes svg-relic_rainbow-idle-g2 {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  16.67% { opacity: 1; animation-timing-function: ease-in-out; }
+  33.33% { opacity: 0; animation-timing-function: linear; }
+  50% { opacity: 0; animation-timing-function: linear; }
+  66.67% { opacity: 0; animation-timing-function: linear; }
+  100% { opacity: 0; }
+}
+.svg-relic_rainbow:not([data-anim]) .gl2,
+.svg-relic_rainbow[data-anim="idle"] .gl2 { animation: svg-relic_rainbow-idle-g2 3s infinite; }
+
+@keyframes svg-relic_rainbow-idle-g3 {
+  0% { opacity: 0; animation-timing-function: linear; }
+  16.67% { opacity: 0; animation-timing-function: ease-in-out; }
+  33.33% { opacity: 1; animation-timing-function: ease-in-out; }
+  50% { opacity: 0; animation-timing-function: linear; }
+  66.67% { opacity: 0; animation-timing-function: linear; }
+  100% { opacity: 0; }
+}
+.svg-relic_rainbow:not([data-anim]) .gl3,
+.svg-relic_rainbow[data-anim="idle"] .gl3 { animation: svg-relic_rainbow-idle-g3 3s infinite; }
+
+@keyframes svg-relic_rainbow-idle-g4 {
+  0% { opacity: 0; animation-timing-function: linear; }
+  16.67% { opacity: 0; animation-timing-function: linear; }
+  33.33% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 1; animation-timing-function: ease-in-out; }
+  66.67% { opacity: 0; animation-timing-function: linear; }
+  100% { opacity: 0; }
+}
+.svg-relic_rainbow:not([data-anim]) .gl4,
+.svg-relic_rainbow[data-anim="idle"] .gl4 { animation: svg-relic_rainbow-idle-g4 3s infinite; }
+
+@keyframes svg-relic_rainbow-idle-g5 {
+  0% { opacity: 0; animation-timing-function: linear; }
+  16.67% { opacity: 0; animation-timing-function: linear; }
+  33.33% { opacity: 0; animation-timing-function: linear; }
+  50% { opacity: 0; animation-timing-function: ease-in-out; }
+  66.67% { opacity: 1; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-relic_rainbow:not([data-anim]) .gl5,
+.svg-relic_rainbow[data-anim="idle"] .gl5 { animation: svg-relic_rainbow-idle-g5 3s infinite; }
+</style>
+<defs>
+<clipPath id="relic_rainbow-cbox">
+  <path d="M13,16.5 C35,15.6 61,15.6 83,16.5 C86.5,16.8 88.5,19 88.8,22.5 C89.4,40 89.4,58 88.6,76.5 C88.3,80 86,82.2 82.5,82.5 C60,83.4 36,83.4 13.5,82.5 C10,82.2 7.8,80 7.4,76.5 C6.6,58 6.6,40 7.2,22.5 C7.5,19 9.5,16.8 13,16.5 Z"/>
+</clipPath>
+</defs>
+
 <g id="root">
-  <!-- 六格旧铜镶边木宝石盒（3列×2行，外框 x:8..88, y:18..82） -->
-  <rect x="8" y="18" width="80" height="64" rx="6" fill="#704122" stroke="#1C1412" stroke-width="3.4"/>
-  <!-- 右下背光暗面 -->
-  <path d="M48,18 H82 A6,6 0 0,1 88,24 V76 A6,6 0 0,1 82,82 H48 Z" fill="#3D2212" opacity="0.8"/>
-  <!-- 左上受光亮边 -->
-  <path d="M12,76 V22 H80" fill="none" stroke="#C48A5C" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- 静态微偏 -1.2°，四边留足 6 像素以上余量 -->
+  <g class="box"><g transform="rotate(-1.2 48 50)">
+    <!-- 第 1 层：墨色垫底 -->
+    <path d="M13,16.5 C35,15.6 61,15.6 83,16.5 C86.5,16.8 88.5,19 88.8,22.5 C89.4,40 89.4,58 88.6,76.5 C88.3,80 86,82.2 82.5,82.5 C60,83.4 36,83.4 13.5,82.5 C10,82.2 7.8,80 7.4,76.5 C6.6,58 6.6,40 7.2,22.5 C7.5,19 9.5,16.8 13,16.5 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <!-- 第 2 层：铺旧木“最暗” -->
+    <path d="M13,16.5 C35,15.6 61,15.6 83,16.5 C86.5,16.8 88.5,19 88.8,22.5 C89.4,40 89.4,58 88.6,76.5 C88.3,80 86,82.2 82.5,82.5 C60,83.4 36,83.4 13.5,82.5 C10,82.2 7.8,80 7.4,76.5 C6.6,58 6.6,40 7.2,22.5 C7.5,19 9.5,16.8 13,16.5 Z" fill="#3D2212"/>
 
-  <!-- 盒内暗绒底槽与六宫格旧铜隔板 -->
-  <rect x="14" y="24" width="68" height="52" rx="3" fill="#161221" stroke="#1C1412" stroke-width="2.8"/>
-  <path d="M36.6,24 V76 M59.3,24 V76 M14,50 H82" stroke="#9A7B46" stroke-width="4"/>
-  <path d="M36.6,24 V76 M59.3,24 V76 M14,50 H82" stroke="#1C1412" stroke-width="2"/>
+    <g clip-path="url(#relic_rainbow-cbox)">
+      <!-- 第 3 层：错位亮面 -->
+      <path d="M13,16.5 C35,15.6 61,15.6 83,16.5 C86.5,16.8 88.5,19 88.8,22.5 C89.4,40 89.4,58 88.6,76.5 C88.3,80 86,82.2 82.5,82.5 C60,83.4 36,83.4 13.5,82.5 C10,82.2 7.8,80 7.4,76.5 C6.6,58 6.6,40 7.2,22.5 C7.5,19 9.5,16.8 13,16.5 Z" transform="translate(-3.6 -3.6)" fill="#704122"/>
+      <!-- 左上木框受光边 -->
+      <path d="M8.6,68 V22.5 C8.8,19.5 10.6,17.8 14,17.5 H74 C52,18.8 22,19 13.5,21.5 C10.8,23 10.2,42 8.6,68 Z" fill="#9E6238"/>
+      <path d="M9.2,48 V22.5 C9.4,20 11,18.4 14,18.2 H52 C34,19.2 16,19.6 12,22.2 C10.5,23.5 10,34 9.2,48 Z" fill="#C48A5C" opacity="0.85"/>
+      <!-- 右下冷色轮廓光 -->
+      <path d="M87.4,34 Q87.6,56 87,75.5 Q86.5,79.2 82.5,80.4 Q68,81.4 52,81.2 Q68,79.8 81.5,79 Q85,78 85.6,74.5 Q86.4,56 87.4,34 Z" fill="#8CAAB5" opacity="0.8"/>
+    </g>
 
-  <!-- 五格亮着的鲜艳宝石（红、黄、绿、青、蓝）+ 第六格（右下）明显空缺 -->
-  <!-- 1. 左上格：红宝石 (#E3263A) -->
-  <circle cx="25.3" cy="37" r="8.2" fill="#E3263A" stroke="#1C1412" stroke-width="2.4"/>
-  <circle cx="23.5" cy="35" r="2.8" fill="#FFFFFF"/>
+    <!-- 盒内暗紫丝绒底槽（6 格，x:13.5..82.5, y:22.5..76.5） -->
+    <rect x="13.5" y="22.5" width="69" height="54" rx="3.2" fill="#161221" stroke="#1C1412" stroke-width="2.4"/>
+    <path d="M14.5,23.5 H81.5 V26.5 H17.5 V75.5 H14.5 Z" fill="#0D111C" opacity="0.7"/>
 
-  <!-- 2. 中上格：黄宝石 (#FFD84A) -->
-  <polygon points="48,28 56.5,37 48,46 39.5,37" fill="#FFD84A" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-  <circle cx="46.5" cy="35" r="2.5" fill="#FFFFFF"/>
+    <!-- 格子之间的旧铜隔条（竖隔条 x=36.5, 59.5；横隔条 y=49.5） -->
+    <path d="M36.5,22.5 V76.5 M59.5,22.5 V76.5 M13.5,49.5 H82.5" stroke="#1C1412" stroke-width="4.8"/>
+    <path d="M36.5,22.5 V76.5 M59.5,22.5 V76.5 M13.5,49.5 H82.5" stroke="#6E542B" stroke-width="2.6"/>
+    <path d="M35.9,23.5 V75.5 M58.9,23.5 V75.5 M14.5,48.9 H81.5" stroke="#C2A670" stroke-width="0.9" opacity="0.85"/>
 
-  <!-- 3. 右上格：绿宝石 (#1DBF5E) -->
-  <rect x="62.5" y="29" width="16" height="16" rx="2.5" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.4"/>
-  <rect x="65" y="31.5" width="5" height="5" fill="#FFFFFF"/>
+    <!-- 四角旧铜包角与铜绿、铆钉 -->
+    <g stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round">
+      <path d="M7.2,27 L7.2,19 C7.2,17.2 8.8,16.2 11,16.2 L20,16.2 L16.5,20.5 L11.8,20.5 L11.8,24 Z" fill="#C2A670"/>
+      <path d="M88.8,27 L88.8,19 C88.8,17.2 87.2,16.2 85,16.2 L76,16.2 L79.5,20.5 L84.2,20.5 L84.2,24 Z" fill="#9A7B46"/>
+      <path d="M7.2,72 L7.2,80 C7.2,81.8 8.8,82.8 11,82.8 L20,82.8 L16.5,78.5 L11.8,78.5 L11.8,75 Z" fill="#9A7B46"/>
+      <path d="M88.8,72 L88.8,80 C88.8,81.8 87.2,82.8 85,82.8 L76,82.8 L79.5,78.5 L84.2,78.5 L84.2,75 Z" fill="#6E542B"/>
+    </g>
+    <circle cx="10.2" cy="18.8" r="1.2" fill="#DDCB9A"/>
+    <path d="M80,79.5 C82.5,79.5 84.5,78 85.5,76" fill="none" stroke="#5F8272" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
 
-  <!-- 4. 左下格：青宝石 (#3FE3F0) -->
-  <polygon points="25.3,54 34,63 25.3,72 16.6,63" fill="#3FE3F0" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-  <circle cx="24" cy="61" r="2.5" fill="#FFFFFF"/>
+    <!-- ===== 五格亮着的宝石 + 右下一格空凹槽 ===== -->
+    <!-- 1. 左上格 (25, 36)：红宝石（圆） -->
+    <g transform="translate(25 36)">
+      <circle cx=".4" cy=".6" r="9.8" fill="#1C1412"/>
+      <circle r="8.2" fill="#E3263A"/>
+      <path d="M7.4,-3.2 A8.2,8.2 0 0 1 -3.2,7.4 L0,0 Z" fill="#A8172A"/>
+      <path d="M5.8,5.8 A8.2,8.2 0 0 1 -5.8,5.8 L0,2 Z" fill="#6B0E1C"/>
+      <polygon points="-7.5,-1 -4,-6.8 2,-7.8 3.5,-3 -2,2" fill="#F4566A"/>
+      <polygon points="-3.8,-3.8 3.8,-3.8 3.8,3.8 -3.8,3.8" fill="#E3263A"/>
+      <polygon points="-3.8,-3.8 3.8,-3.8 -3.8,3.8" fill="#FFA3AB" opacity="0.65"/>
+      <circle cx="-2.8" cy="-3" r="1.6" fill="#F4F1FF"/>
+      <g class="gl1">
+        <circle r="8.2" fill="#F4F1FF" opacity="0.28"/>
+        <path d="M-3,-8.5 Q-2.2,-4.2 2,-3.5 Q-2.2,-2.8 -3,1.5 Q-3.8,-2.8 -8,-3.5 Q-3.8,-4.2 -3,-8.5 Z" fill="#F4F1FF"/>
+      </g>
+    </g>
 
-  <!-- 5. 中下格：蓝宝石 (#2E66F0) -->
-  <polygon points="48,54 57,71 39,71" fill="#2E66F0" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-  <circle cx="47" cy="65" r="2.3" fill="#FFFFFF"/>
+    <!-- 2. 中上格 (48, 36)：黄宝石（菱形） -->
+    <g transform="translate(48 36)">
+      <polygon points="0,-9.2 9.2,0 0,9.2 -9.2,0" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <polygon points="0,-9.2 9.2,0 0,9.2 -9.2,0" fill="#FFD84A"/>
+      <polygon points="0,-9.2 9.2,0 0,0 -9.2,0" fill="#FFF3B4"/>
+      <polygon points="9.2,0 0,9.2 -9.2,0 0,0" fill="#D9A21E"/>
+      <polygon points="9.2,0 0,9.2 0,0" fill="#9E6E08"/>
+      <polygon points="0,-4.6 4.6,0 0,4.6 -4.6,0" fill="#FFD84A"/>
+      <polygon points="0,-4.6 4.6,0 -4.6,0" fill="#FFF3B4" opacity="0.8"/>
+      <circle cx="-2.2" cy="-2.6" r="1.5" fill="#F4F1FF"/>
+      <g class="gl2">
+        <polygon points="0,-9.2 9.2,0 0,9.2 -9.2,0" fill="#F4F1FF" opacity="0.32"/>
+        <path d="M-2.2,-8 Q-1.4,-3.8 2.8,-3 Q-1.4,-2.2 -2.2,2 Q-3,-2.2 -7.2,-3 Q-3,-3.8 -2.2,-8 Z" fill="#F4F1FF"/>
+      </g>
+    </g>
 
-  <!-- 6. 右下格：空的凹槽（缺了一格，只有暗底与空爪托） -->
-  <circle cx="70.6" cy="63" r="6.5" fill="#0D111C" stroke="#3B515C" stroke-width="2" stroke-dasharray="3 2"/>
+    <!-- 3. 右上格 (71, 36)：绿宝石（切角方） -->
+    <g transform="translate(71 36)">
+      <polygon points="-5.6,-8.2 5.6,-8.2 8.2,-5.6 8.2,5.6 5.6,8.2 -5.6,8.2 -8.2,5.6 -8.2,-5.6" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <polygon points="-5.6,-8.2 5.6,-8.2 8.2,-5.6 8.2,5.6 5.6,8.2 -5.6,8.2 -8.2,5.6 -8.2,-5.6" fill="#1DBF5E"/>
+      <polygon points="-5.6,-8.2 5.6,-8.2 4.2,-4.2 -4.2,-4.2" fill="#A6F5C6"/>
+      <polygon points="-8.2,5.6 -8.2,-5.6 -4.2,-4.2 -4.2,4.2" fill="#4FDB85"/>
+      <polygon points="8.2,-5.6 8.2,5.6 4.2,4.2 4.2,-4.2" fill="#128A43"/>
+      <polygon points="5.6,8.2 -5.6,8.2 -4.2,4.2 4.2,4.2" fill="#0A5A2B"/>
+      <rect x="-4.2" y="-4.2" width="8.4" height="8.4" fill="#1DBF5E"/>
+      <polygon points="-4.2,-4.2 4.2,-4.2 -4.2,4.2" fill="#4FDB85" opacity="0.75"/>
+      <circle cx="-2.4" cy="-2.6" r="1.5" fill="#F4F1FF"/>
+      <g class="gl3">
+        <rect x="-8" y="-8" width="16" height="16" rx="2" fill="#F4F1FF" opacity="0.3"/>
+        <path d="M-2.5,-8 Q-1.7,-3.8 2.5,-3 Q-1.7,-2.2 -2.5,2 Q-3.3,-2.2 -7.5,-3 Q-3.3,-3.8 -2.5,-8 Z" fill="#F4F1FF"/>
+      </g>
+    </g>
 
-  <!-- 四角旧铜包角与外框重描 -->
-  <g fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round">
-    <polygon points="8,24 14,18 20,18 8,30"/>
-    <polygon points="88,24 82,18 76,18 88,30"/>
-    <polygon points="8,76 14,82 20,82 8,70"/>
-    <polygon points="88,76 82,82 76,82 88,70"/>
-  </g>
-  <rect x="8" y="18" width="80" height="64" rx="6" fill="none" stroke="#1C1412" stroke-width="3.4"/>
+    <!-- 4. 左下格 (25, 63)：青宝石（八角菱形） -->
+    <g transform="translate(25 63)">
+      <polygon points="0,-9.2 9.2,0 0,9.2 -9.2,0" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <polygon points="0,-9.2 9.2,0 0,9.2 -9.2,0" fill="#3FE3F0"/>
+      <polygon points="0,-9.2 9.2,0 0,0 -9.2,0" fill="#C2F8FC"/>
+      <polygon points="9.2,0 0,9.2 -9.2,0 0,0" fill="#1FA9B8"/>
+      <polygon points="9.2,0 0,9.2 0,0" fill="#116873"/>
+      <polygon points="0,-4.6 4.6,0 0,4.6 -4.6,0" fill="#3FE3F0"/>
+      <polygon points="0,-4.6 4.6,0 -4.6,0" fill="#C2F8FC" opacity="0.8"/>
+      <circle cx="-2.2" cy="-2.6" r="1.5" fill="#F4F1FF"/>
+      <g class="gl4">
+        <polygon points="0,-9.2 9.2,0 0,9.2 -9.2,0" fill="#F4F1FF" opacity="0.32"/>
+        <path d="M-2.2,-8 Q-1.4,-3.8 2.8,-3 Q-1.4,-2.2 -2.2,2 Q-3,-2.2 -7.2,-3 Q-3,-3.8 -2.2,-8 Z" fill="#F4F1FF"/>
+      </g>
+    </g>
+
+    <!-- 5. 中下格 (48, 63)：蓝宝石（三角） -->
+    <g transform="translate(48 64)">
+      <polygon points="0,-10.2 9.5,6.8 -9.5,6.8" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+      <polygon points="0,-10.2 9.5,6.8 -9.5,6.8" fill="#2E66F0"/>
+      <polygon points="0,-10.2 0,-3.2 -4.2,3.8 -9.5,6.8" fill="#6A93F8"/>
+      <polygon points="0,-10.2 9.5,6.8 4.2,3.8 0,-3.2" fill="#1D45B8"/>
+      <polygon points="-9.5,6.8 -4.2,3.8 4.2,3.8 9.5,6.8" fill="#122A78"/>
+      <polygon points="0,-3.2 4.2,3.8 -4.2,3.8" fill="#2E66F0"/>
+      <polygon points="0,-3.2 2.1,0.3 -4.2,3.8" fill="#B4C8FF" opacity="0.8"/>
+      <circle cx="-1.8" cy="-0.5" r="1.4" fill="#F4F1FF"/>
+      <g class="gl5">
+        <polygon points="0,-10.2 9.5,6.8 -9.5,6.8" fill="#F4F1FF" opacity="0.32"/>
+        <path d="M-1.8,-7.5 Q-1,-3.3 3.2,-2.5 Q-1,-1.7 -1.8,2.5 Q-2.6,-1.7 -6.8,-2.5 Q-2.6,-3.3 -1.8,-7.5 Z" fill="#F4F1FF"/>
+      </g>
+    </g>
+
+    <!-- 6. 右下格 (71, 63)：空的暗凹槽（缺了一格，只有深陷暗窝与三个空铜爪） -->
+    <g transform="translate(71 63)">
+      <circle r="7.5" fill="#0D111C" stroke="#1C1412" stroke-width="2"/>
+      <path d="M-5.5,-5.5 A7.5,7.5 0 0 1 5.5,-5.5 A7,7 0 0 0 -5.5,5.5 Z" fill="#1C1412" opacity="0.7"/>
+      <path d="M5.2,5.2 A7.2,7.2 0 0 1 -4.5,5.8" fill="none" stroke="#3A324D" stroke-width="1" stroke-linecap="round"/>
+      <!-- 三个空着的旧铜小爪 -->
+      <polygon points="0,-8.5 -1.8,-5.2 1.8,-5.2" fill="#6E542B" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+      <polygon points="-7.2,4.5 -4.2,2.5 -3.5,5.5" fill="#6E542B" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+      <polygon points="7.2,4.5 4.2,2.5 3.5,5.5" fill="#3B2B14" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+    </g>
+
+    <!-- 盒边两处旧磕痕缺口 -->
+    <path d="M31,15.8 L33,18.4 L35.2,15.8 Z M88.8,44 L86.2,45.5 L88.8,47 Z" fill="#1C1412"/>
+  </g></g>
 </g>
 </svg>

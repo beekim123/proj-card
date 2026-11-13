@@ -1,9 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_icon_undo" viewBox="0 0 64 64" width="64" height="64">
 <title>撤回</title>
+<style>
+.svg-ui_icon_undo g { transform-box: view-box; }
+.svg-ui_icon_undo .arrow { transform-origin: 34px 36px; }
+@keyframes svg-ui_icon_undo-idle-a {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(-1.4px,0px) rotate(-2.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-ui_icon_undo:not([data-anim]) .arrow,
+.svg-ui_icon_undo[data-anim="idle"] .arrow { animation: svg-ui_icon_undo-idle-a 3s infinite; }
+</style>
+<defs>
+  <clipPath id="ui_icon_undo-carrow">
+    <path d="M26,12 L8.5,26 L26,40 V31 C39.5,31 45.5,37 43.5,48.5 C42.5,52.5 39.5,55.5 35.5,56.5 C47.5,55.5 55.5,45.5 55.5,33 C55.5,20.5 43.5,17 26,19 Z"/>
+  </clipPath>
+</defs>
 <g id="root">
-<path d="M26,12 L8,26 L26,40 L26,31 C40,31 46,37 44,49 C43,53 40,56 36,57 C48,56 56,46 56,33 C56,20 44,17 26,19 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M8,26 L26,40 L26,31 C40,31 46,37 44,49 C51,46 55,39 55,32 L24,26 Z" fill="#6E542B"/>
-    <path d="M12,25 L24,15" stroke="#C2A670" stroke-width="2.2" stroke-linecap="round"/>
-    <circle cx="22" cy="23" r="2.2" fill="#E6DEC8"/>
+  <g class="arrow">
+    <!-- 第1层：墨色垫底 -->
+    <path d="M26,12 L8.5,26 L26,40 V31 C39.5,31 45.5,37 43.5,48.5 C42.5,52.5 39.5,55.5 35.5,56.5 C47.5,55.5 55.5,45.5 55.5,33 C55.5,20.5 43.5,17 26,19 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <!-- 第2层：旧铜暗部 -->
+    <path d="M26,12 L8.5,26 L26,40 V31 C39.5,31 45.5,37 43.5,48.5 C42.5,52.5 39.5,55.5 35.5,56.5 C47.5,55.5 55.5,45.5 55.5,33 C55.5,20.5 43.5,17 26,19 Z" fill="#6E542B"/>
+    <g clip-path="url(#ui_icon_undo-carrow)">
+      <!-- 第3层：错位亮面 -->
+      <path d="M26,12 L8.5,26 L26,40 V31 C39.5,31 45.5,37 43.5,48.5 C42.5,52.5 39.5,55.5 35.5,56.5 C47.5,55.5 55.5,45.5 55.5,33 C55.5,20.5 43.5,17 26,19 Z" transform="translate(-2.5 -2.5)" fill="#9A7B46"/>
+      <!-- 第4层：右下加深 -->
+      <path d="M42,20 H56 V57 H34 C44,50 48,34 42,20 Z" fill="#3B2B14" opacity=".72"/>
+      <!-- 第5层：左上受光边与右下冷光 -->
+      <path d="M11.5,25.5 L24.5,15 V19.5 C38,18.5 46,20.5 50,25 C44,22 36,21 23,22 V18 Z" fill="#C2A670"/>
+      <path d="M53.8,34 Q53,48 41,54.5 Q50.5,47.5 52,34 Z" fill="#8CAAB5" opacity=".82"/>
+      <!-- 铜绿记号 -->
+      <path d="M46,45 C49,43 51,39 51.5,35" fill="none" stroke="#5F8272" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+    </g>
+    <circle cx="21" cy="22.5" r="2" fill="#DDCB9A"/>
+    <circle cx="48" cy="29" r="1.6" fill="#1C1412"/><circle cx="47.7" cy="28.7" r="1" fill="#C2A670"/>
+  </g>
 </g>
 </svg>

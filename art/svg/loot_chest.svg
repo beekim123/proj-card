@@ -7,249 +7,249 @@
 .svg-loot_chest #chest_body { transform-origin: 120px 186px; }
 .svg-loot_chest #lid_closed { transform-origin: 120px 122px; }
 .svg-loot_chest #open_state { transform-origin: 120px 118px; opacity: 0; }
-.svg-loot_chest #open_sparkles { transform-origin: 120px 96px; opacity: 0; }
-.svg-loot_chest #lock_glint { transform-origin: 120px 134px; opacity: 0; }
+.svg-loot_chest #open_sparkles { transform-origin: 120px 92px; opacity: 0; }
+.svg-loot_chest #lock_glint { transform-origin: 120px 132px; opacity: 0; }
 
-/* 待机（2.6s 循环）：平时安静停放，偶尔轻轻一颠，锁扣三色小宝石微闪一下 */
+/* idle 3000ms: 0 -> 1500 (50%) -> 3000 (100%) */
 @keyframes svg-loot_chest-idle-body {
-  0%, 66%, 100% { transform: translate(0px, 0px) scale(1, 1) rotate(0deg); }
-  72% { transform: translate(0px, 2px) scale(1.03, 0.96) rotate(0deg); }
-  79% { transform: translate(0px, -5px) scale(0.98, 1.03) rotate(-1.2deg); }
-  86% { transform: translate(0px, 1px) scale(1.02, 0.98) rotate(0.8deg); }
-  92% { transform: translate(0px, -1.5px) scale(0.99, 1.01) rotate(0deg); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-2.2px) rotate(-0.8deg) scale(1.01,0.99); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-loot_chest-idle-shadow {
-  0%, 66%, 100% { transform: scale(1); opacity: 1; }
-  79% { transform: scale(0.9); opacity: 0.75; }
-  86% { transform: scale(1.04); opacity: 1; }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(0.95,0.95); opacity: 0.82; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 @keyframes svg-loot_chest-idle-glint {
-  0%, 20%, 58%, 100% { opacity: 0; transform: scale(0.5); }
-  32% { opacity: 1; transform: scale(1.05); }
-  44% { opacity: 0.7; transform: scale(0.92); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 0.92; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; }
 }
 .svg-loot_chest:not([data-anim]) #chest_body,
 .svg-loot_chest[data-anim="idle"] #chest_body {
-  animation: svg-loot_chest-idle-body 2.6s steps(9, end) infinite;
+  animation: svg-loot_chest-idle-body 3s infinite;
 }
 .svg-loot_chest:not([data-anim]) #shadow,
 .svg-loot_chest[data-anim="idle"] #shadow {
-  animation: svg-loot_chest-idle-shadow 2.6s steps(9, end) infinite;
+  animation: svg-loot_chest-idle-shadow 3s infinite;
 }
 .svg-loot_chest:not([data-anim]) #lock_glint,
 .svg-loot_chest[data-anim="idle"] #lock_glint {
-  animation: svg-loot_chest-idle-glint 2.6s steps(8, end) infinite;
+  animation: svg-loot_chest-idle-glint 3s infinite;
 }
 
-/* drop（500ms）：从画框上沿内侧一边淡入一边掉到底，弹一下（全程严格在 240×200 画框内） */
+/* drop 500ms: 0 -> 100 (20%) -> 300 (60%) -> 400 (80%) -> 500 (100%) */
 @keyframes svg-loot_chest-drop-body {
-  0% { opacity: 0; transform: translateY(-56px) scale(0.95, 1.05); }
-  18% { opacity: 1; transform: translateY(-34px) scale(0.97, 1.04); }
-  45% { opacity: 1; transform: translateY(2px) scale(1.08, 0.9); }
-  66% { opacity: 1; transform: translateY(-12px) scale(0.97, 1.03); }
-  84% { opacity: 1; transform: translateY(1px) scale(1.03, 0.97); }
-  100% { opacity: 1; transform: translateY(0px) scale(1, 1); }
+  0% { transform: translate(0px,-22px) rotate(0deg) scale(0.96,1.03); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  20% { transform: translate(0px,-12px) rotate(-0.8deg) scale(0.98,1.02); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(0px,2.5px) rotate(0deg) scale(1.05,0.94); opacity: 1; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  80% { transform: translate(0px,-4.5px) rotate(0.5deg) scale(0.98,1.02); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 @keyframes svg-loot_chest-drop-shadow {
-  0% { opacity: 0.15; transform: scale(0.55); }
-  45% { opacity: 1; transform: scale(1.1); }
-  66% { opacity: 0.75; transform: scale(0.88); }
-  84%, 100% { opacity: 1; transform: scale(1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.55,0.55); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  20% { transform: translate(0px,0px) rotate(0deg) scale(0.75,0.75); opacity: 0.55; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  60% { transform: translate(0px,0px) rotate(0deg) scale(1.08,1.08); opacity: 1; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  80% { transform: translate(0px,0px) rotate(0deg) scale(0.92,0.92); opacity: 0.82; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 .svg-loot_chest[data-anim="drop"] #chest_body {
-  animation: svg-loot_chest-drop-body 0.5s steps(8, end) both;
+  animation: svg-loot_chest-drop-body 0.5s both;
 }
 .svg-loot_chest[data-anim="drop"] #shadow {
-  animation: svg-loot_chest-drop-shadow 0.5s steps(8, end) both;
+  animation: svg-loot_chest-drop-shadow 0.5s both;
 }
 
-/* open（800ms，stay 挂着）：蓄力弹开箱盖，冒出一团红绿蓝三色碎光，并停在打开的样子（forwards） */
+/* open 800ms (stay: true, forwards): 0 -> 100 (12.5%) -> 300 (37.5%) -> 500 (62.5%) -> 800 (100%) */
 @keyframes svg-loot_chest-open-body {
-  0% { transform: translate(0px, 0px) scale(1, 1); }
-  16% { transform: translate(0px, 3px) scale(1.06, 0.93); }
-  32% { transform: translate(0px, -6px) scale(0.97, 1.04); }
-  52% { transform: translate(0px, 1px) scale(1.02, 0.98); }
-  70%, 100% { transform: translate(0px, 0px) scale(1, 1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,2.5px) rotate(0deg) scale(1.05,0.94); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  37.5% { transform: translate(0px,-4px) rotate(0deg) scale(0.98,1.03); animation-timing-function: ease-in-out; }
+  62.5% { transform: translate(0px,0.5px) rotate(0deg) scale(1.01,0.99); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-loot_chest-open-lid-hide {
-  0%, 18% { opacity: 1; transform: translateY(0px) scale(1, 1); }
-  26% { opacity: 1; transform: translateY(-6px) scale(1.02, 0.95); }
-  28%, 100% { opacity: 0; transform: translateY(-10px) scale(1, 0.9); }
+@keyframes svg-loot_chest-open-lid {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,1px) rotate(0deg) scale(1.02,0.97); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  37.5% { transform: translate(0px,-8px) rotate(0deg) scale(0.98,0.9); opacity: 0; animation-timing-function: linear; }
+  62.5% { transform: translate(0px,-8px) rotate(0deg) scale(0.98,0.9); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,-8px) rotate(0deg) scale(0.98,0.9); opacity: 0; }
 }
-@keyframes svg-loot_chest-open-state-show {
-  0%, 26% { opacity: 0; transform: translateY(8px) scale(0.94); }
-  34% { opacity: 1; transform: translateY(-3px) scale(1.03); }
-  56%, 100% { opacity: 1; transform: translateY(0px) scale(1); }
+@keyframes svg-loot_chest-open-state {
+  0% { transform: translate(0px,6px) rotate(0deg) scale(0.94,0.94); opacity: 0; animation-timing-function: linear; }
+  12.5% { transform: translate(0px,4px) rotate(0deg) scale(0.96,0.96); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  37.5% { transform: translate(0px,-2px) rotate(0deg) scale(1.02,1.02); opacity: 1; animation-timing-function: ease-in-out; }
+  62.5% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 @keyframes svg-loot_chest-open-sparkles {
-  0%, 24% { opacity: 0; transform: translateY(18px) scale(0.45); }
-  42% { opacity: 1; transform: translateY(-4px) scale(1.06); }
-  68% { opacity: 0.95; transform: translateY(-1px) scale(0.98); }
-  100% { opacity: 1; transform: translateY(0px) scale(1); }
+  0% { transform: translate(0px,12px) rotate(0deg) scale(0.45,0.45); opacity: 0; animation-timing-function: linear; }
+  12.5% { transform: translate(0px,8px) rotate(0deg) scale(0.6,0.6); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  37.5% { transform: translate(0px,-2px) rotate(0deg) scale(1.04,1.04); opacity: 1; animation-timing-function: ease-in-out; }
+  62.5% { transform: translate(0px,-5px) rotate(0deg) scale(0.92,0.92); opacity: 0.28; animation-timing-function: linear; }
+  100% { transform: translate(0px,-6px) rotate(0deg) scale(0.85,0.85); opacity: 0; }
 }
 .svg-loot_chest[data-anim="open"] #chest_body {
-  animation: svg-loot_chest-open-body 0.8s steps(9, end) forwards;
+  animation: svg-loot_chest-open-body 0.8s forwards;
 }
 .svg-loot_chest[data-anim="open"] #lid_closed {
-  animation: svg-loot_chest-open-lid-hide 0.8s linear forwards;
+  animation: svg-loot_chest-open-lid 0.8s forwards;
 }
 .svg-loot_chest[data-anim="open"] #open_state {
-  animation: svg-loot_chest-open-state-show 0.8s steps(8, end) forwards;
+  animation: svg-loot_chest-open-state 0.8s forwards;
 }
 .svg-loot_chest[data-anim="open"] #open_sparkles {
-  animation: svg-loot_chest-open-sparkles 0.8s steps(9, end) forwards;
+  animation: svg-loot_chest-open-sparkles 0.8s forwards;
 }
 </style>
 <defs>
-  <linearGradient id="loot_chest-velvet" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#3A324D"/>
-    <stop offset="55%" stop-color="#262036"/>
-    <stop offset="100%" stop-color="#161221"/>
-  </linearGradient>
-  <linearGradient id="loot_chest-brass" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#C2A670"/>
-    <stop offset="45%" stop-color="#9A7B46"/>
-    <stop offset="100%" stop-color="#6E542B"/>
-  </linearGradient>
+  <clipPath id="loot_chest-cbody">
+    <path d="M44,122 H196 L190,180 H50 Z"/>
+  </clipPath>
+  <clipPath id="loot_chest-clid">
+    <path d="M42,122 C44,104 48,92 54,86 C64,80 74,78 84,78 H156 C166,78 176,80 186,86 C192,92 196,104 198,122 Z"/>
+  </clipPath>
 </defs>
 <g id="root">
-  <!-- pivot: 120,200 -->
   <!-- 落地暗影（底边中点 120,200 落地） -->
   <g id="shadow">
-    <!-- pivot: 120,190 -->
-    <ellipse cx="120" cy="190" rx="82" ry="8" fill="#0D111C" opacity="0.65"/>
-    <ellipse cx="120" cy="190" rx="60" ry="4.5" fill="#1C1412" opacity="0.5"/>
-    <path d="M52,193 L62,185 M68,194 L78,185 M84,195 L94,185 M100,195 L110,185 M116,195 L126,185 M132,195 L142,185 M148,195 L158,185 M164,194 L174,185 M180,193 L190,186" stroke="#1C1412" stroke-width="1.3" stroke-linecap="round" opacity="0.62"/>
+    <ellipse cx="120" cy="190" rx="80" ry="7.5" fill="#0D111C" opacity="0.65"/>
+    <ellipse cx="120" cy="190" rx="58" ry="4.2" fill="#1C1412" opacity="0.5"/>
   </g>
 
-  <!-- 精致战利品宝箱主体（宽扁贵族珠宝首饰箱造型，严丝合缝无牙无眼，与高耸张嘴的木箱宝箱怪一眼区分） -->
+  <!-- 精致战利品宝箱主体（干净的贵族珠宝箱，严丝合缝无牙无眼，与宝箱怪一眼区分） -->
   <g id="chest_body">
-    <!-- pivot: 120,186 -->
-
-    <!-- open 状态专属：向后掀开的箱盖与箱内金铜内衬 + 卡牌宝物（平时 opacity="0"，open 时显示并保持） -->
+    <!-- open 状态专属：向后掀开的箱盖与箱内卡牌宝物（平时 opacity: 0） -->
     <g id="open_state" opacity="0">
-      <!-- pivot: 120,118 -->
-      <!-- 向后翻开的拱顶箱盖背面（y:46..122） -->
-      <polygon points="48,82 64,50 120,44 176,50 192,82 184,120 56,120" fill="#262036" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-      <!-- 掀开箱盖的铜包边与内壁暗绒 -->
-      <polygon points="56,84 70,58 120,52 170,58 184,84 176,116 64,116" fill="#5E242C" stroke="#9A7B46" stroke-width="2" stroke-linejoin="round"/>
-      <!-- 盖内十字铜筋 -->
+      <path d="M48,82 C54,64 60,54 66,50 C82,45 100,44 120,44 C140,44 158,45 174,50 C180,54 186,64 192,82 L184,120 H56 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+      <path d="M48,82 C54,64 60,54 66,50 C82,45 100,44 120,44 C140,44 158,45 174,50 C180,54 186,64 192,82 L184,120 H56 Z" fill="#262036" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M56,84 C61,68 66,60 71,57 C86,53 102,52 120,52 C138,52 154,53 169,57 C174,60 179,68 184,84 L176,116 H64 Z" fill="#5E242C" stroke="#9A7B46" stroke-width="2" stroke-linejoin="round"/>
       <path d="M120,52 V116 M62,86 H178" stroke="#6E542B" stroke-width="2.2"/>
-      <polyline points="51,80 66,53 120,47" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M51,80 C56,64 61,56 67,52 C82,48 100,47 120,47" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
 
-      <!-- 箱口敞开的内膛与露出的战利品卡牌金边和宝石（y:98..128） -->
+      <!-- 箱口敞开的内膛与露出的战利品卡牌金边和三色刻面宝石 -->
       <polygon points="46,114 194,114 188,132 52,132" fill="#161221" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-      <!-- 箱膛里斜露出一角的战利品新卡牌与三色宝石微光 -->
       <polygon points="88,92 142,86 148,124 94,126" fill="#3A324D" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
       <polygon points="92,96 138,91 142,121 97,122" fill="none" stroke="#C2A670" stroke-width="1.5"/>
-      <!-- 箱内两侧簇拥的红绿蓝宝石亮块 -->
+      <!-- 箱内左红圆、中蓝三角、右绿方三颗鲜艳宝石 -->
       <circle cx="76" cy="114" r="9" fill="#E3263A" stroke="#1C1412" stroke-width="2"/>
-      <circle cx="73" cy="111" r="2.5" fill="#FFFFFF"/>
+      <path d="M70,109 A7,7 0 0 1 80,108" fill="none" stroke="#FFA3AB" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="73" cy="111" r="2.2" fill="#F4F1FF"/>
       <rect x="150" y="104" width="16" height="16" rx="2" transform="rotate(14 158 112)" fill="#1DBF5E" stroke="#1C1412" stroke-width="2"/>
+      <circle cx="155" cy="109" r="2" fill="#F4F1FF"/>
       <polygon points="118,98 130,120 106,120" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-      <polygon points="118,103 123,114 114,115" fill="#FFFFFF" opacity="0.9"/>
+      <polygon points="118,103 123,114 114,115" fill="#B4C8FF" opacity="0.9"/>
     </g>
 
-    <!-- 下箱身底座脚垫（旧铜卷云矮脚 y:172..190） -->
-    <polygon points="46,174 74,174 70,190 40,190" fill="#9A7B46" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <polygon points="166,174 194,174 200,190 170,190" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <path d="M44,185 H66 M174,185 H196" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- 下箱身底座旧铜矮脚（y:172..190） -->
+    <path d="M46,174 H74 L70,190 H40 Z M166,174 H194 L200,190 H170 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <polygon points="46,174 74,174 70,190 40,190" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="166,174 194,174 200,190 170,190" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M44,185 H66 M174,185 H195" stroke="#C2A670" stroke-width="1.5" stroke-linecap="round"/>
 
-    <!-- 下箱身主体（暗夜紫丝绒镶板 + 厚重旧铜包角 y:122..180, x:44..196） -->
-    <polygon points="44,122 196,122 190,180 50,180" fill="url(#loot_chest-velvet)" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <!-- 右侧背光暗面 -->
-    <polygon points="124,122 196,122 190,180 120,180" fill="#161221" opacity="0.72"/>
-    <!-- 下箱身暗酒红丝绒内芯嵌板 -->
-    <polygon points="64,130 176,130 172,170 68,170" fill="#5E242C" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <polygon points="120,130 176,130 172,170 120,170" fill="#381318" opacity="0.75"/>
-    <!-- 丝绒菱格压纹 -->
-    <path d="M84,130 L104,170 M136,130 L156,170 M104,130 L84,170 M156,130 L136,170" stroke="#262036" stroke-width="1.3" opacity="0.65"/>
-
-    <!-- 下箱身旧铜包角与底边铜箍 -->
-    <polygon points="44,122 66,122 69,180 50,180" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-    <polygon points="174,122 196,122 190,180 171,180" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-    <polygon points="50,168 190,168 190,180 50,180" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-    <line x1="47" y1="126" x2="52" y2="176" stroke="#C2A670" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- 下箱身主体（七层画法：暗紫丝绒镶板 + 厚重旧铜包角 y:122..180, x:44..196） -->
+    <path d="M44,122 H196 L190,180 H50 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <path d="M44,122 H196 L190,180 H50 Z" fill="#262036"/>
+    <g clip-path="url(#loot_chest-cbody)">
+      <path d="M44,122 H196 L190,180 H50 Z" transform="translate(-8 -5)" fill="#3A324D"/>
+      <path d="M124,122 H196 L190,180 H116 C132,162 134,142 124,122 Z" fill="#161221" opacity="0.82"/>
+      <!-- 下箱身暗酒红丝绒内芯嵌板 -->
+      <polygon points="64,130 176,130 172,170 68,170" fill="#5E242C" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M120,130 H176 L172,170 H116 C126,156 126,142 120,130 Z" fill="#381318" opacity="0.78"/>
+      <path d="M84,130 L104,170 M136,130 L156,170 M104,130 L84,170 M156,130 L136,170" stroke="#262036" stroke-width="1.2" opacity="0.6"/>
+      <!-- 下箱身旧铜包角与底边铜箍 -->
+      <polygon points="44,122 66,122 69,180 50,180" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="174,122 196,122 190,180 171,180" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="50,168 190,168 190,180 50,180" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M130,168 H190 V180 H130 Z" fill="#3B2B14" opacity="0.75"/>
+      <line x1="47.5" y1="126" x2="52" y2="176" stroke="#DDCB9A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M193.5,130 L189.2,176" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round" opacity="0.82"/>
+      <!-- 铜绿污渍 -->
+      <path d="M164,175 C170,176 176,175 182,172" fill="none" stroke="#5F8272" stroke-width="2" stroke-linecap="round" opacity="0.52"/>
+    </g>
+    <path d="M44,122 H196 L190,180 H50 Z" fill="none" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
     <!-- 包角铜铆钉 -->
-    <circle cx="56" cy="136" r="2.4" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="58" cy="158" r="2.4" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="184" cy="136" r="2.4" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="182" cy="158" r="2.4" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
+    <circle cx="56.4" cy="136.4" r="2.8" fill="#1C1412"/><circle cx="56" cy="136" r="2" fill="#C2A670"/><circle cx="55.3" cy="135.3" r="0.75" fill="#DDCB9A"/>
+    <circle cx="58.4" cy="158.4" r="2.8" fill="#1C1412"/><circle cx="58" cy="158" r="2" fill="#C2A670"/>
+    <circle cx="184.4" cy="136.4" r="2.8" fill="#1C1412"/><circle cx="184" cy="136" r="2" fill="#9A7B46"/>
+    <circle cx="182.4" cy="158.4" r="2.8" fill="#1C1412"/><circle cx="182" cy="158" r="2" fill="#6E542B"/>
 
-    <!-- 闭合状态的箱盖 lid_closed（严丝合缝扣在下箱身上 y:78..126） -->
+    <!-- 闭合状态的拱顶箱盖 lid_closed（y:78..125） -->
     <g id="lid_closed">
-      <!-- pivot: 120,122 -->
-      <!-- 八角拱顶箱盖主轮廓 -->
-      <polygon points="42,122 52,88 84,78 156,78 188,88 198,122" fill="#3A324D" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-      <!-- 右半侧背光暗面 -->
-      <polygon points="120,78 156,78 188,88 198,122 120,122" fill="#262036"/>
-      <!-- 箱盖左右旧铜宽包角箍 -->
-      <polygon points="42,122 52,88 74,81 66,122" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-      <polygon points="198,122 188,88 166,81 174,122" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-      <!-- 箱盖顶脊铜冠与左上冷受光边 -->
-      <polygon points="82,78 158,78 164,86 76,86" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-      <polyline points="45,118 54,90 84,80.5 148,80.5" fill="none" stroke="#C2A670" stroke-width="2" stroke-linecap="round"/>
-      <!-- 箱盖下沿厚铜压条（把上下箱缝彻底封死，绝无牙齿或眼睛） -->
-      <rect x="40" y="116" width="160" height="9" rx="2" fill="url(#loot_chest-brass)" stroke="#1C1412" stroke-width="2.6"/>
-      <line x1="44" y1="119" x2="196" y2="119" stroke="#E2D6BA" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+      <path d="M42,122 C44,104 48,92 54,86 C64,80 74,78 84,78 H156 C166,78 176,80 186,86 C192,92 196,104 198,122 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+      <path d="M42,122 C44,104 48,92 54,86 C64,80 74,78 84,78 H156 C166,78 176,80 186,86 C192,92 196,104 198,122 Z" fill="#262036"/>
+      <g clip-path="url(#loot_chest-clid)">
+        <path d="M42,122 C44,104 48,92 54,86 C64,80 74,78 84,78 H156 C166,78 176,80 186,86 C192,92 196,104 198,122 Z" transform="translate(-8 -4)" fill="#3A324D"/>
+        <!-- 箱盖左右旧铜宽包角箍 -->
+        <path d="M42,122 C44,104 48,92 54,86 L74,80 L66,122 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M198,122 C196,104 192,92 186,86 L166,80 L174,122 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M80,78 H160 L164,86 H76 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M45,118 C47,102 51,92 56,87 C66,81.5 76,80.2 146,80.2" fill="none" stroke="#DDCB9A" stroke-width="2" stroke-linecap="round"/>
+        <path d="M195,118 C193,104 189,93 184,88" fill="none" stroke="#8CAAB5" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+      </g>
+      <path d="M42,122 C44,104 48,92 54,86 C64,80 74,78 84,78 H156 C166,78 176,80 186,86 C192,92 196,104 198,122 Z" fill="none" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <!-- 箱盖下沿厚铜压条（严丝合缝封住箱口） -->
+      <rect x="40" y="116" width="160" height="9" rx="2" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4"/>
+      <rect x="124" y="117.2" width="74.8" height="6.6" fill="#6E542B"/>
+      <line x1="44" y1="118.8" x2="178" y2="118.8" stroke="#DDCB9A" stroke-width="1.3" stroke-linecap="round"/>
     </g>
 
-    <!-- 正中横置三宝石黄金铜锁扣大铭牌（镶嵌红圆、绿方、蓝三角三颗鲜艳小宝石，x:72..168, y:108..154） -->
+    <!-- 正中横置三宝石黄金铜锁扣大铭牌 gem_lock（红圆、绿方、蓝三角三颗刻面小宝石，无墨线棱） -->
     <g id="gem_lock">
-      <!-- 锁扣八角铜底盘 -->
-      <polygon points="82,110 158,110 168,120 168,144 158,154 82,154 72,144 72,120" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-      <polygon points="85,114 155,114 163,122 163,142 155,150 85,150 77,142 77,122" fill="#3B2B14" stroke="#9A7B46" stroke-width="1.4" stroke-linejoin="round"/>
-      <polyline points="75,140 75,121 83,113 154,113" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+      <polygon points="82,110 158,110 168,120 168,144 158,154 82,154 72,144 72,120" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+      <polygon points="82,110 158,110 168,120 168,144 158,154 82,154 72,144 72,120" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="82,110 154,110 144,148 72,144 72,120" fill="#9A7B46"/>
+      <polygon points="85,114 155,114 163,122 163,142 155,150 85,150 77,142 77,122" fill="#3B2B14" stroke="#9A7B46" stroke-width="1.3" stroke-linejoin="round"/>
+      <polyline points="75,140 75,121 83,113 152,113" fill="none" stroke="#DDCB9A" stroke-width="1.6" stroke-linecap="round"/>
 
       <!-- 左：红圆宝石 (93,132) -->
-      <circle cx="93" cy="132" r="10.5" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
-      <path d="M100,125 A10,10 0 0,1 86,139 L93,132 Z" fill="#9E1424"/>
-      <circle cx="93" cy="132" r="5.5" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.1"/>
-      <circle cx="90" cy="129" r="2.2" fill="#FFFFFF"/>
+      <circle cx="93" cy="132" r="11.2" fill="#161221"/>
+      <circle cx="93" cy="132" r="10" fill="#E3263A" stroke="#1C1412" stroke-width="2"/>
+      <path d="M100,125 A10,10 0 0 1 86,139 L93,132 Z" fill="#A8172A"/>
+      <polygon points="88,125 97,125 99,131 93,136 86,132" fill="#F4566A"/>
+      <circle cx="93" cy="132" r="5.2" fill="#E3263A" stroke="#FFA3AB" stroke-width="0.7"/>
+      <circle cx="89.5" cy="128.5" r="2" fill="#F4F1FF"/>
 
-      <!-- 中：绿方宝石 (120,132) -->
-      <rect x="110" y="122" width="20" height="20" rx="2" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2"/>
-      <polygon points="130,122 130,142 110,142 115,137 125,137 125,127" fill="#117A3B"/>
-      <rect x="114.5" y="126.5" width="11" height="11" rx="1" fill="#5CE892" stroke="#1C1412" stroke-width="1.1"/>
-      <rect x="116" y="128" width="4.5" height="4.5" fill="#FFFFFF"/>
+      <!-- 中：绿方切角宝石 (120,132) -->
+      <rect x="109" y="121" width="22" height="22" rx="3" fill="#161221"/>
+      <polygon points="113,122 127,122 130,125 130,139 127,142 113,142 110,139 110,125" fill="#1DBF5E" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="130,125 130,139 127,142 113,142 115,136 125,136" fill="#128A43"/>
+      <polygon points="113,122 127,122 125,128 115,128 110,125" fill="#4FDB85"/>
+      <rect x="115" y="127" width="10" height="10" rx="1" fill="#1DBF5E" stroke="#A6F5C6" stroke-width="0.7"/>
+      <circle cx="117" cy="129" r="1.8" fill="#F4F1FF"/>
 
       <!-- 右：蓝三角宝石 (147,132) -->
-      <polygon points="147,120 158,142 136,142" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-      <polygon points="147,120 158,142 147,142" fill="#193D9E"/>
-      <polygon points="147,126 153,139 141,139" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
-      <circle cx="145.5" cy="131" r="2" fill="#FFFFFF"/>
+      <polygon points="147,118 160,143 134,143" fill="#161221"/>
+      <polygon points="147,120 158,142 136,142" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="147,120 158,142 147,142" fill="#1D45B8"/>
+      <polygon points="147,120 147,136 136,142" fill="#6A93F8"/>
+      <polygon points="147,126 152.5,139 141.5,139" fill="#2E66F0" stroke="#B4C8FF" stroke-width="0.7" stroke-linejoin="round"/>
+      <circle cx="145.5" cy="130.5" r="1.8" fill="#F4F1FF"/>
 
-      <!-- 待机锁扣宝石闪光（平时 opacity="0"） -->
-      <g id="lock_glint" opacity="0"><!-- pivot: 120,134 -->
-        <path d="M93,115 L95,121 L101,123 L95,125 L93,131 L91,125 L85,123 L91,121 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1"/>
-        <path d="M126,115 L128,120 L133,122 L128,124 L126,129 L124,124 L119,122 L124,120 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1"/>
-        <path d="M153,117 L154.8,122 L160,124 L154.8,126 L153,131 L151.2,126 L146,124 L151.2,122 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1"/>
+      <!-- 待机锁扣宝石闪光（平时 opacity: 0） -->
+      <g id="lock_glint" opacity="0">
+        <path d="M93,115 L94.8,120.5 L100.5,122.5 L94.8,124.5 L93,130 L91.2,124.5 L85.5,122.5 L91.2,120.5 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="0.9"/>
+        <path d="M126,115 L127.6,119.8 L132.5,121.5 L127.6,123.2 L126,128 L124.4,123.2 L119.5,121.5 L124.4,119.8 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="0.9"/>
+        <path d="M153,117 L154.6,121.8 L159.5,123.5 L154.6,125.2 L153,130 L151.4,125.2 L146.5,123.5 L151.4,121.8 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="0.9"/>
       </g>
     </g>
 
-    <!-- open 状态冒出并保持的三色宝石碎光（平时 opacity="0"，范围 x:48..192, y:18..112，全部严格在 240×200 内） -->
+    <!-- open 状态冒出的三色宝石碎光（300ms 峰值，500ms 散去，范围 x:48..192, y:20..110，严格在 240×200 内） -->
     <g id="open_sparkles" opacity="0">
-      <!-- pivot: 120,96 -->
-      <!-- 红宝石碎光与四角星（左侧） -->
+      <!-- 红宝石碎光 -->
       <polygon points="68,68 78,56 84,72 72,78" fill="#E3263A" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <polygon points="70,68 77,59 79,68" fill="#FF5C6E"/>
-      <path d="M58,40 L61,49 L70,52 L61,55 L58,64 L55,55 L46,52 L55,49 Z" fill="#E3263A" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
-      <polygon points="88,36 95,30 93,42" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.3"/>
-
-      <!-- 绿宝石碎光与四角星（正中偏上） -->
-      <rect x="112" y="26" width="16" height="16" rx="2" transform="rotate(45 120 34)" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8"/>
-      <rect x="115" y="29" width="8" height="8" transform="rotate(45 119 33)" fill="#5CE892"/>
-      <path d="M104,52 L107.5,61.5 L117,65 L107.5,68.5 L104,78 L100.5,68.5 L91,65 L100.5,61.5 Z" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
-      <path d="M138,44 L141,52 L149,55 L141,58 L138,66 L135,58 L127,55 L135,52 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
-
-      <!-- 蓝宝石碎光与四角星（右侧） -->
+      <polygon points="70,68 77,59 79,68" fill="#F4566A"/>
+      <path d="M58,40 L61,48.5 L69.5,51.5 L61,54.5 L58,63 L55,54.5 L46.5,51.5 L55,48.5 Z" fill="#F4566A" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+      <!-- 绿宝石碎光 -->
+      <polygon points="120,30 130,40 120,50 110,40" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <polygon points="120,33.5 125.5,39 120,44.5 114.5,39" fill="#4FDB85"/>
+      <path d="M104,52 L107.2,61 L116,64 L107.2,67 L104,76 L100.8,67 L92,64 L100.8,61 Z" fill="#4FDB85" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+      <!-- 蓝宝石碎光与白星 -->
       <polygon points="166,52 178,72 154,70" fill="#2E66F0" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <polygon points="166,56 173,69 160,68" fill="#6B9BFF"/>
-      <path d="M180,34 L183,43 L192,46 L183,49 L180,58 L177,49 L168,46 L177,43 Z" fill="#2E66F0" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
-      <polygon points="150,28 158,24 155,36" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.3"/>
-
-      <!-- 顶部白色高光星点 -->
-      <path d="M98,18 L100.2,24.8 L107,27 L100.2,29.2 L98,36 L95.8,29.2 L89,27 L95.8,24.8 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round"/>
+      <polygon points="166,56 173,69 160,68" fill="#6A93F8"/>
+      <path d="M180,34 L182.8,42.5 L191.5,45.5 L182.8,48.5 L180,57 L177.2,48.5 L168.5,45.5 L177.2,42.5 Z" fill="#6A93F8" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M138,44 L140.8,51.5 L148.5,54.5 L140.8,57.5 L138,65 L135.2,57.5 L127.5,54.5 L135.2,51.5 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round"/>
     </g>
   </g>
 </g>

@@ -40,6 +40,21 @@
     "relic_slow",
     "relic_first2",
     "relic_twice",
-    "ui_node_door"
+    "ui_node_door",
+    "rule_duck",
+    "rule_picky",
+    "rule_six",
+    "rule_regrow",
+    "rule_cap",
+    "relic_red",
+    "relic_green",
+    "relic_blue",
+    "relic_shun",
+    "relic_same4",
+    "relic_link",
+    "relic_shine",
+    "relic_guard",
+    "relic_rbheal",
+    "relic_biggem"
   ]
 }

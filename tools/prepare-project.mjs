@@ -4,5 +4,9 @@ import path from 'node:path';
 const root=process.cwd(),stage=path.join(root,'artifacts/godot-project');
 fs.mkdirSync(stage,{recursive:true});
 for(const name of ['project.godot','export_presets.cfg','ASSET-NOTICES.md'])fs.copyFileSync(path.join(root,name),path.join(stage,name));
-for(const name of ['scripts','rules','scenes','data','art','audio','fonts'])fs.cpSync(path.join(root,name),path.join(stage,name),{recursive:true});
+for(const name of ['scripts','rules','scenes','data','art','audio','fonts']) {
+  // Remove prior generated art: cp alone leaves deleted old atlases in export builds.
+  if(name==='art')fs.rmSync(path.join(stage,name),{recursive:true,force:true});
+  fs.cpSync(path.join(root,name),path.join(stage,name),{recursive:true});
+}
 console.log(stage);

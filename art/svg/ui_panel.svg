@@ -1,25 +1,80 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_panel" viewBox="0 0 192 192" width="192" height="192">
 <title>通用底板</title>
+<style>
+.svg-ui_panel g { transform-box: view-box; }
+.svg-ui_panel #sheen { opacity: 0; }
+
+/* idle 3000ms: 0 -> 1500 -> 3000 (九宫格几何与切线完全固定，仅独立冷亮反光轻变化) */
+@keyframes svg-ui_panel-idle-sheen {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 0.82; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-ui_panel:not([data-anim]) #sheen,
+.svg-ui_panel[data-anim="idle"] #sheen {
+  animation: svg-ui_panel-idle-sheen 3s infinite;
+}
+</style>
+<defs>
+  <linearGradient id="ui_panel-sheen-grad" x1="8" y1="8" x2="184" y2="184" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#DDCB9A" stop-opacity="0"/>
+    <stop offset="0.25" stop-color="#DDCB9A" stop-opacity="0.85"/>
+    <stop offset="0.55" stop-color="#8CAAB5" stop-opacity="0"/>
+  </linearGradient>
+</defs>
 <g id="root">
-<rect x="3" y="3" width="186" height="186" rx="12" fill="#161221" stroke="#1C1412" stroke-width="3"/>
-    <rect x="8" y="8" width="176" height="176" rx="8" fill="none" stroke="#6E542B" stroke-width="2"/>
-    <rect x="13" y="13" width="166" height="166" rx="5" fill="none" stroke="#3A324D" stroke-width="1.2"/>
-    <path d="M6,178 V14 A8,8 0 0,1 14,6 H178" fill="none" stroke="#62577D" stroke-width="1.4" opacity="0.65"/>
-    <g>
-    <polygon points="4,4 42,4 36,12 12,12 12,36 4,42" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="14,14 28,14 24,19 19,19 19,24 14,28" fill="#C2A670" opacity="0.85"/>
+  <!-- 九宫格 [48,48,48,48]：角花严格在四角 48×48 内；x=48..144 与 y=48..144 边带严格为顺拉伸方向直线；中间平暗 -->
+  <!-- 外框暗紫底板与墨线边框 -->
+  <rect x="3" y="3" width="186" height="186" rx="12" fill="#161221" stroke="#1C1412" stroke-width="3.2"/>
+  <!-- 四周内侧低对比暗阶（顺边直线，不在拉伸区放会被拉坏的斜纹） -->
+  <path d="M5,180 V14 A9,9 0 0 1 14,5 H180" fill="none" stroke="#3A324D" stroke-width="2"/>
+  <path d="M187,14 V178 A9,9 0 0 1 178,187 H14" fill="none" stroke="#0D111C" stroke-width="2.6"/>
+
+  <!-- 旧铜线脚外框与内框（直线走通拉伸区 48..144） -->
+  <rect x="8" y="8" width="176" height="176" rx="8" fill="none" stroke="#1C1412" stroke-width="2.8"/>
+  <rect x="8" y="8" width="176" height="176" rx="8" fill="none" stroke="#6E542B" stroke-width="1.8"/>
+  <path d="M8,168 V16 A8,8 0 0 1 16,8 H168" fill="none" stroke="#C2A670" stroke-width="1.2"/>
+  <path d="M184,24 V176 A8,8 0 0 1 176,184 H24" fill="none" stroke="#3B2B14" stroke-width="1.3"/>
+  <rect x="13" y="13" width="166" height="166" rx="5" fill="#161221" stroke="#3A324D" stroke-width="1.2"/>
+
+  <!-- 四个角的大体量哥特旧铜角花（严格在 0..46 与 146..192 角区内，缩到 24px 一半大小时剪影依然极清楚，统一左上受光、右下暗面） -->
+  <!-- 1. 左上角花 (x:3..45, y:3..45) -->
+  <g>
+    <path d="M3.5,12 C3.5,6.8 6.8,3.5 12,3.5 H44 L37,11.5 H19 C15,11.5 12.8,13 11.5,16.5 V37 L3.5,44 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M41.5,4.8 L36.5,10.5 H18.5 C14,10.5 11.5,12.5 10.5,16.5 V36.5 L4.8,41.5 L6.2,37.5 L8.8,34.5 V16 C8.8,11.5 11.5,8.8 16,8.8 H34.5 L37.5,6.2 Z" fill="#3B2B14" opacity="0.78"/>
+    <path d="M5,40 V12 C5,8 8,5 12,5 H40" fill="none" stroke="#DDCB9A" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M14,14 L26,14 L21,19 L19,21 L14,26 Z" fill="#C2A670" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <circle cx="10" cy="10" r="2.2" fill="#1C1412"/><circle cx="9.7" cy="9.7" r="1.4" fill="#DDCB9A"/>
   </g>
-    <g transform="translate(192, 0) scale(-1, 1)">
-    <polygon points="4,4 42,4 36,12 12,12 12,36 4,42" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="14,14 28,14 24,19 19,19 19,24 14,28" fill="#C2A670" opacity="0.85"/>
+
+  <!-- 2. 右上角花 (x:147..189, y:3..45，注意受光仍在左上、暗面在右下) -->
+  <g>
+    <path d="M188.5,12 C188.5,6.8 185.2,3.5 180,3.5 H148 L155,11.5 H173 C177,11.5 179.2,13 180.5,16.5 V37 L188.5,44 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M187.2,12 V41.5 L181.2,36 V16.5 C180,12.5 177.5,10.8 173,10.8 H155.5 L151,5.8 H155 L157,8.8 H174 C179.5,8.8 183,11.8 183.5,17 V35.5 L187.2,39 Z" fill="#3B2B14" opacity="0.82"/>
+    <path d="M151,5 H180 C183.5,5 186,7 186.8,10.5" fill="none" stroke="#C2A670" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M178,14 L166,14 L171,19 L173,21 L178,26 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <circle cx="182" cy="10" r="2.2" fill="#1C1412"/><circle cx="181.7" cy="9.7" r="1.4" fill="#C2A670"/>
   </g>
-    <g transform="translate(0, 192) scale(1, -1)">
-    <polygon points="4,4 42,4 36,12 12,12 12,36 4,42" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="14,14 28,14 24,19 19,19 19,24 14,28" fill="#C2A670" opacity="0.85"/>
+
+  <!-- 3. 左下角花 (x:3..45, y:147..189，受光在左上、暗面在右下) -->
+  <g>
+    <path d="M3.5,180 C3.5,185.2 6.8,188.5 12,188.5 H44 L37,180.5 H19 C15,180.5 12.8,179 11.5,175.5 V155 L3.5,148 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M11.5,175.5 C12.8,179 15,180.5 19,180.5 H37 L42.5,187.2 H12 C7.5,187.2 4.8,184.5 4.8,180 V172 C6.5,178 9.5,182 15,183 H35 L32,180.5 H18 Z" fill="#3B2B14" opacity="0.85"/>
+    <path d="M5,151 V180 C5,182.5 6.2,184.5 8.2,185.8" fill="none" stroke="#C2A670" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M14,178 L26,178 L21,173 L19,171 L14,166 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <circle cx="10" cy="182" r="2.2" fill="#1C1412"/><circle cx="9.7" cy="181.7" r="1.4" fill="#C2A670"/>
   </g>
-    <g transform="translate(192, 192) scale(-1, -1)">
-    <polygon points="4,4 42,4 36,12 12,12 12,36 4,42" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="14,14 28,14 24,19 19,19 19,24 14,28" fill="#C2A670" opacity="0.85"/>
+
+  <!-- 4. 右下角花 (x:147..189, y:147..189，背光暗档 + 右下冷轮廓光) -->
+  <g>
+    <path d="M188.5,180 C188.5,185.2 185.2,188.5 180,188.5 H148 L155,180.5 H173 C177,180.5 179.2,179 180.5,175.5 V155 L188.5,148 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M187.2,150 V180 C187.2,184.5 184.5,187.2 180,187.2 H150 L155.5,181.5 H173.5 C178,181.5 181,178.5 181.5,174 V155.5 Z" fill="#3B2B14" opacity="0.85"/>
+    <path d="M187.2,158 V179.5 C187.2,183.8 183.8,187.2 179.5,187.2 H158" fill="none" stroke="#8CAAB5" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+    <path d="M178,178 L166,178 L171,173 L173,171 L178,166 Z" fill="#6E542B" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <circle cx="182" cy="182" r="2.2" fill="#1C1412"/><circle cx="181.7" cy="181.7" r="1.4" fill="#9A7B46"/>
   </g>
+
+  <!-- 待机独立冷亮光泽层 -->
+  <rect id="sheen" opacity="0" x="8" y="8" width="176" height="176" rx="8" fill="none" stroke="url(#ui_panel-sheen-grad)" stroke-width="2"/>
 </g>
 </svg>

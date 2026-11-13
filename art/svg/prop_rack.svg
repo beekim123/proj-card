@@ -1,57 +1,175 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-prop_rack" viewBox="0 0 120 240" width="120" height="240">
-<title>兵器架</title>
+<title>练习场摆件 · 兵器架</title>
+<style>
+.svg-prop_rack g { transform-box: view-box; }
+.svg-prop_rack #sword_mid { transform-origin: 56px 152px; }
+.svg-prop_rack #sword_left { transform-origin: 38px 162px; }
+.svg-prop_rack #rack_tag { transform-origin: 58px 160px; }
+
+/* 待机 3000：0 静止 → 1500 木剑极轻晃动（不超过1.5°）、剑柄布条随动（-3.2°）→ 3000 回到静止 */
+@keyframes svg-prop_rack-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(1.1deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_rack:not([data-anim]) #sword_mid,
+.svg-prop_rack[data-anim="idle"] #sword_mid { animation: svg-prop_rack-idle-1 3s infinite; }
+
+@keyframes svg-prop_rack-idle-2 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-1.2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_rack:not([data-anim]) #sword_left,
+.svg-prop_rack[data-anim="idle"] #sword_left { animation: svg-prop_rack-idle-2 3s infinite; }
+
+@keyframes svg-prop_rack-idle-3 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-3.2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_rack:not([data-anim]) #rack_tag,
+.svg-prop_rack[data-anim="idle"] #rack_tag { animation: svg-prop_rack-idle-3 3s infinite; }
+</style>
 <defs>
-<filter id="prop_rack-grunge" filterUnits="userSpaceOnUse" x="0" y="0" width="120" height="240" color-interpolation-filters="sRGB">
-    <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="2" seed="23" result="n"/>
-    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0.09 0" result="grain"/>
-    <feComposite in="grain" in2="SourceGraphic" operator="in" result="clippedGrain"/>
-    <feBlend mode="multiply" in="SourceGraphic" in2="clippedGrain"/>
-  </filter>
+  <pattern id="prop_rack-h" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="4.5" stroke="#1C1412" stroke-width="0.9"/>
+  </pattern>
+  <clipPath id="prop_rack-cstaff">
+    <path d="M78,24 C81,23 85,25 86,28 L66,226 C64,228 59,227 58,224 C64,158 71,90 78,24 Z"/>
+  </clipPath>
+  <clipPath id="prop_rack-cmidblade">
+    <path d="M56,16 C61,19 65,26 66,34 L64,92 L61,95 L63,99 L62,150 H49 L48,34 C49,26 52,19 56,16 Z"/>
+  </clipPath>
+  <clipPath id="prop_rack-cleftblade">
+    <path d="M27,46 C32,48 36,53 38,60 L46,162 L35,164 L24,60 C23,53 24,48 27,46 Z"/>
+  </clipPath>
+  <clipPath id="prop_rack-ctopbar">
+    <path d="M12,96 Q60,94.5 108,98 L106,111 Q60,109.5 14,109 Z"/>
+  </clipPath>
+  <clipPath id="prop_rack-cbotbar">
+    <path d="M10,191 Q60,189.5 110,193 L108,208 Q60,206.5 12,206 Z"/>
+  </clipPath>
 </defs>
 <g id="root">
-<!-- pivot: 60,240 -->
-    <!-- 落地排线暗影 -->
-    <ellipse cx="60" cy="232" rx="48" ry="6" fill="#0D111C" opacity="0.65"/>
-    <path d="M20,235 L28,228 M30,236 L38,228 M40,236 L48,228 M50,237 L58,228 M60,237 L68,228 M70,236 L78,228 M80,236 L88,228 M90,235 L98,229" stroke="#1C1412" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+  <!-- 落地接触阴影（anchor: 60,240） -->
+  <ellipse cx="60" cy="235.2" rx="49" ry="3.8" fill="#0D111C" opacity="0.64"/>
 
-    <g filter="url(#prop_rack-grunge)">
-      <!-- 后排右侧：练习长木棍 -->
-      <path d="M78,26 L86,28 L66,226 L58,224 Z" fill="#704122" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-      <path d="M80,28 L60,224" stroke="#9A8968" stroke-width="1.4" opacity="0.7"/>
-
-      <!-- 中间：阔刃练习木剑（带羊皮纸缠柄） -->
-      <polygon points="56,18 66,30 62,150 50,150 48,30" fill="#9A8968" stroke="#1C1412" stroke-width="2.5" stroke-linejoin="round"/>
-      <polygon points="56,18 66,30 62,150 56,150" fill="#704122" opacity="0.75"/>
-      <path d="M50,32 L56,20" stroke="#E2D6BA" stroke-width="1.6" stroke-linecap="round"/>
-      <!-- 护手与剑柄 -->
-      <polygon points="38,148 74,150 72,158 40,156" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-      <rect x="52" y="156" width="8" height="22" fill="#5E242C" stroke="#1C1412" stroke-width="2"/>
-      <circle cx="56" cy="182" r="5" fill="#6E542B" stroke="#1C1412" stroke-width="2"/>
-
-      <!-- 左侧：歪斜短木剑 -->
-      <polygon points="28,48 38,56 46,162 36,164 24,58" fill="#9A8968" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-      <polygon points="28,48 38,56 46,162 41,163" fill="#704122" opacity="0.75"/>
-      <polygon points="26,160 54,156 55,164 27,168" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M38,164 L42,184" stroke="#3D2212" stroke-width="6" stroke-linecap="round"/>
-      <path d="M38,164 L42,184" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
-
-      <!-- 兵器架木框主体（A字立柱 + 上下横档） -->
-      <!-- 左立柱 -->
-      <polygon points="18,74 26,74 22,232 12,232" fill="#704122" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-      <path d="M19,76 L14,230" stroke="#9A8968" stroke-width="1.5" opacity="0.75"/>
-      <!-- 右立柱 -->
-      <polygon points="94,76 102,76 108,232 98,232" fill="#3D2212" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-      <!-- 上横档 -->
-      <polygon points="12,96 108,98 106,110 14,108" fill="#9E6238" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-      <path d="M14,98 H106" stroke="#9A8968" stroke-width="1.5" opacity="0.8"/>
-      <!-- 下横档 -->
-      <polygon points="10,192 110,194 108,208 12,206" fill="#704122" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-      <path d="M14,202 L106,204" stroke="#3D2212" stroke-width="3"/>
-      <!-- 铁箍铆钉 -->
-      <circle cx="22" cy="102" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
-      <circle cx="98" cy="104" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
-      <circle cx="18" cy="199" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
-      <circle cx="102" cy="201" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2"/>
+  <!-- 1. 后排右侧：练习长木棍 (#staff_right) -->
+  <g id="staff_right">
+    <path d="M78,24 C81,23 85,25 86,28 L66,226 C64,228 59,227 58,224 C64,158 71,90 78,24 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M78,24 C81,23 85,25 86,28 L66,226 C64,228 59,227 58,224 C64,158 71,90 78,24 Z" fill="#3D2212"/>
+    <g clip-path="url(#prop_rack-cstaff)">
+      <path d="M78,24 C81,23 85,25 86,28 L66,226 C64,228 59,227 58,224 C64,158 71,90 78,24 Z" transform="translate(-2.4 -1.5)" fill="#704122"/>
+      <path d="M79,26 Q70,118 60,220 Q68,118 77,26 Z" fill="#9E6238" opacity="0.82"/>
+      <!-- 棍身外侧两段冷色轮廓光 -->
+      <path d="M84.8,32 Q81,68 77.5,104 Q79.5,68 83.2,32 Z M74.2,138 Q70.5,176 66.8,214 Q68.8,176 72.6,138 Z" fill="#8CAAB5" opacity="0.78"/>
     </g>
+    <!-- 棍上端旧麻绳缠圈 -->
+    <path d="M74.5,52 L83.5,54 L82.5,64 L73.5,62 Z" fill="#9A8968" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M74.5,55.5 L83,57.5 M74,59 L82.5,61" stroke="#524531" stroke-width="1.2"/>
+  </g>
+
+  <!-- 2. 中间：阔刃练习木剑 (#sword_mid) -->
+  <g id="sword_mid">
+    <!-- 木剑刃七层 -->
+    <path d="M56,16 C61,19 65,26 66,34 L64,92 L61,95 L63,99 L62,150 H49 L48,34 C49,26 52,19 56,16 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M56,16 C61,19 65,26 66,34 L64,92 L61,95 L63,99 L62,150 H49 L48,34 C49,26 52,19 56,16 Z" fill="#524531"/>
+    <g clip-path="url(#prop_rack-cmidblade)">
+      <path d="M56,16 C61,19 65,26 66,34 L64,92 L61,95 L63,99 L62,150 H49 L48,34 C49,26 52,19 56,16 Z" transform="translate(-3.2 -2)" fill="#9A8968"/>
+      <!-- 左半剑脊亮面与左上受光边 -->
+      <path d="M56,17 L55.5,148 H49 L48.5,34 C49.5,26 52.5,19.5 56,17 Z" fill="#C8B894" opacity="0.72"/>
+      <path d="M49.5,72 Q49.2,46 50,33 Q51.5,24 55.5,18.5 Q52.8,25 51.6,34 Q50.8,48 49.5,72 Z" fill="#E2D6BA"/>
+      <!-- 遮挡加深 -->
+      <rect x="47" y="92" width="20" height="22" fill="#3D2212" opacity="0.65"/>
+    </g>
+    <!-- 剑脊中线与木纹收尖线 -->
+    <path d="M56,22 Q56.9,84 55.5,146 Q54.5,84 56,22 Z M52,48 Q51.2,72 52,92 Q52.6,72 52,48 Z" fill="#1C1412" opacity="0.75"/>
+    <!-- 剑柄悬挂的旧红布条 (#rack_tag) -->
+    <g id="rack_tag">
+      <path d="M58,158 C64,164 67,174 65,186 L61,182 L58,187 C59,176 58,166 56,158 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M58,158 C64,164 67,174 65,186 L61,182 L58,187 C59,176 58,166 56,158 Z" fill="#5E242C"/>
+      <path d="M58,159 C61.5,165 63,173 62,182 L58.8,184 C59.5,175 59,166 57,159 Z" fill="#8C3B45"/>
+    </g>
+    <!-- 旧铜护手与缠柄、圆首 -->
+    <path d="M38,147 C49,145.5 63,146 74,149 L72,157 C61,155 49,154.5 40,155 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+    <path d="M38,147 C49,145.5 63,146 74,149 L72,157 C61,155 49,154.5 40,155 Z" fill="#6E542B"/>
+    <path d="M39.5,148.5 Q55,147 68,149.2 Q55,149.8 39.5,151 Z" fill="#9A7B46"/>
+    <rect x="51.5" y="155" width="8.5" height="22" rx="2" fill="#1C1412" stroke="#1C1412" stroke-width="3.6"/>
+    <rect x="51.5" y="155" width="8.5" height="22" rx="2" fill="#5E242C"/>
+    <path d="M52,156 H55.5 V176 H52 Z" fill="#8C3B45"/>
+    <path d="M51.5,161 L60,162.5 M51.5,167 L60,168.5 M51.5,173 L60,174.5" stroke="#1C1412" stroke-width="1.3"/>
+    <circle cx="55.8" cy="181.5" r="5.6" fill="#1C1412"/>
+    <circle cx="55.5" cy="181" r="4.2" fill="#6E542B"/>
+    <path d="M52.8,179 A3.6,3.6 0 0,1 57,177.6" fill="none" stroke="#C2A670" stroke-width="1.3" stroke-linecap="round"/>
+  </g>
+
+  <!-- 3. 左侧：歪斜短木剑 (#sword_left) -->
+  <g id="sword_left">
+    <path d="M27,46 C32,48 36,53 38,60 L46,162 L35,164 L24,60 C23,53 24,48 27,46 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M27,46 C32,48 36,53 38,60 L46,162 L35,164 L24,60 C23,53 24,48 27,46 Z" fill="#524531"/>
+    <g clip-path="url(#prop_rack-cleftblade)">
+      <path d="M27,46 C32,48 36,53 38,60 L46,162 L35,164 L24,60 C23,53 24,48 27,46 Z" transform="translate(-2.5 -1.5)" fill="#9A8968"/>
+      <path d="M27,47.5 L39.5,162 L35,164 L24.5,60 C23.8,53 24.8,49 27,47.5 Z" fill="#C8B894" opacity="0.68"/>
+      <path d="M25.5,82 Q24.5,64 25.2,56 Q25.8,50 27.6,48 Q26.8,53 26.8,59 Q26.6,68 25.5,82 Z" fill="#E2D6BA"/>
+      <rect x="24" y="94" width="22" height="20" fill="#3D2212" opacity="0.65"/>
+    </g>
+    <path d="M28.5,52 Q35.2,106 40.5,158 Q33.8,106 28.5,52 Z" fill="#1C1412" opacity="0.72"/>
+    <path d="M25,160 L54,156 L55,163 L26,167 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4.2" stroke-linejoin="round"/>
+    <path d="M25,160 L54,156 L55,163 L26,167 Z" fill="#6E542B"/>
+    <path d="M26,161 L46,158.2 L46.5,160.5 L26.5,163.2 Z" fill="#9A7B46"/>
+    <path d="M36,165 L43,164 L46,184 L39,185 Z" fill="#1C1412" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/>
+    <path d="M36,165 L43,164 L46,184 L39,185 Z" fill="#3D2212"/>
+    <path d="M36.5,165.5 L40,165 L42.5,184 L39,184.5 Z" fill="#704122"/>
+  </g>
+
+  <!-- 4. 兵器架木框主体 (#rack_frame：左右立柱 + 上下横档 + 铁箍铆钉) -->
+  <g id="rack_frame">
+    <!-- 左立柱 -->
+    <path d="M18,73 C21,72.5 24,73 26,74 L22,232 C19,233 15,233 12,232 C14,179 16,126 18,73 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <path d="M18,73 C21,72.5 24,73 26,74 L22,232 C19,233 15,233 12,232 C14,179 16,126 18,73 Z" fill="#3D2212"/>
+    <path d="M18,73 L22.5,73.5 L18.5,232 L12,232 Z" fill="#704122"/>
+    <path d="M18.8,76 Q16.5,132 14.5,186 Q17.8,132 19.8,76 Z" fill="#9E6238"/>
+    <path d="M19.2,78 Q18.2,94 17.8,108 Q19,94 19.8,78 Z" fill="#C48A5C"/>
+
+    <!-- 右立柱（背光暗木 + 45°排线 + 右侧外缘两段冷光） -->
+    <path d="M94,75 C97,74.5 100,75 102,76 L108,232 C105,233 101,233 98,232 C96.5,180 95,128 94,75 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <path d="M94,75 C97,74.5 100,75 102,76 L108,232 C105,233 101,233 98,232 C96.5,180 95,128 94,75 Z" fill="#3D2212"/>
+    <path d="M94,75 L98,75.5 L103,232 L98,232 Z" fill="#704122" opacity="0.82"/>
+    <path d="M98,112 L103,112 L107.5,230 L99,230 Z" fill="url(#prop_rack-h)" opacity="0.38"/>
+    <path d="M101.2,82 Q102.8,118 104,152 Q102.2,118 100.2,82 Z M104.8,166 Q106,196 107,224 Q105.2,196 103.8,166 Z" fill="#8CAAB5" opacity="0.8"/>
+
+    <!-- 上横档（带磕痕缺口与木节） -->
+    <path d="M12,96 L42,96.5 L45,99.5 L48,96.6 L108,98 L106,111 L14,109 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <path d="M12,96 L42,96.5 L45,99.5 L48,96.6 L108,98 L106,111 L14,109 Z" fill="#704122"/>
+    <g clip-path="url(#prop_rack-ctopbar)">
+      <path d="M12,96 L42,96.5 L45,99.5 L48,96.6 L108,98 L106,111 L14,109 Z" transform="translate(-2.5 -2.2)" fill="#9E6238"/>
+      <path d="M14,97.6 H41 L39,99.8 H15 Z M50,98.2 H96 L92,100.2 H50 Z" fill="#C48A5C"/>
+      <path d="M14,106.5 H106 V111 H14 Z" fill="#3D2212" opacity="0.85"/>
+    </g>
+    <!-- 上横档两端旧铁箍与铆钉、锈迹 -->
+    <path d="M13,96 H26 V109.2 H13.8 Z M94,97.6 H107.2 V110.8 H94 Z" fill="#4A4742" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <ellipse cx="28" cy="105" rx="3.2" ry="2" fill="#7A4A2E" opacity="0.55"/>
+    <ellipse cx="91" cy="106" rx="3.5" ry="2.2" fill="#7A4A2E" opacity="0.55"/>
+    <path d="M32,103 Q52,101.4 72,103.5 Q52,103.6 32,103 Z M64,105 Q78,103.8 90,105.5 Q78,105.8 64,105 Z" fill="#3D2212"/>
+    <circle cx="20.5" cy="102.8" r="3" fill="#1C1412"/><circle cx="20" cy="102.4" r="2" fill="#948F86"/><circle cx="19.3" cy="101.7" r="0.8" fill="#E2D6BA"/>
+    <circle cx="100.5" cy="104.2" r="3" fill="#1C1412"/><circle cx="100" cy="103.8" r="2" fill="#6E6A63"/><circle cx="99.3" cy="103.1" r="0.8" fill="#948F86"/>
+
+    <!-- 下横档 -->
+    <path d="M10,191 L76,192.2 L79,195 L82,192.4 L110,193 L108,208 L12,206 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <path d="M10,191 L76,192.2 L79,195 L82,192.4 L110,193 L108,208 L12,206 Z" fill="#3D2212"/>
+    <g clip-path="url(#prop_rack-cbotbar)">
+      <path d="M10,191 L76,192.2 L79,195 L82,192.4 L110,193 L108,208 L12,206 Z" transform="translate(-2.5 -2.5)" fill="#704122"/>
+      <path d="M12,192.5 H74 L72,194.8 H13 Z" fill="#9E6238"/>
+      <path d="M12,203 H108 V208 H12 Z" fill="#1C1412" opacity="0.55"/>
+    </g>
+    <!-- 下横档木节、裂缝与两端铁箍铆钉 -->
+    <ellipse cx="64" cy="199" rx="5.5" ry="2.8" fill="#3D2212"/>
+    <ellipse cx="64" cy="199" rx="2.6" ry="1.3" fill="#1C1412"/>
+    <path d="M28,198 Q42,196.4 54,198.5 Q42,198.6 28,198 Z" fill="#3D2212"/>
+    <path d="M11,191 H24 V206.2 H11.8 Z M96,192.6 H109.2 V207.8 H96 Z" fill="#4A4742" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="18" cy="198.8" r="3" fill="#1C1412"/><circle cx="17.5" cy="198.4" r="2" fill="#948F86"/><circle cx="16.8" cy="197.7" r="0.8" fill="#E2D6BA"/>
+    <circle cx="102.5" cy="200.2" r="3" fill="#1C1412"/><circle cx="102" cy="199.8" r="2" fill="#6E6A63"/><circle cx="101.3" cy="199.1" r="0.8" fill="#948F86"/>
+  </g>
 </g>
 </svg>

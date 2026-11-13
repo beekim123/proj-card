@@ -11,6 +11,11 @@ static func run() -> Dictionary:
 		return result
 	var clock: RefCounted = clock_script.new()
 	var store: RefCounted = store_script.new(clock)
+	_check(result, store.assets.size() == 118 and store.catalog().size() == 118, "新版118项完整清单，不使用占位别名")
+	var provenance: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://art/new-art-provenance.json"))
+	for id: String in store.assets:
+		var delivered: Dictionary = store.assets[id]
+		_check(result, delivered.definition.get("artStyle", "") == "fable-carbon-remake" and not delivered.definition.get("nativePlaceholder", false) and not delivered.entries.is_empty() and delivered.entries[""].hash == str(provenance.get("assets", {}).get(id, {}).get("svg_sha256", "")).substr(0,16), "运行节点使用交付新版原稿：" + id)
 	var action: Dictionary = {"loop": false, "frames": [{"d": 100}, {"d": 100}, {"d": 100}]}
 	_check(result, store_script.frame_at(action, 0.0) == 0 and store_script.frame_at(action, 150.0) == 1 and store_script.frame_at(action, 999.0) == 2, "按时间找帧，不循环的停在最后一帧")
 	action["loop"] = true
@@ -110,7 +115,7 @@ static func run() -> Dictionary:
 		var inspector: Control = inspector_script.new()
 		inspector.size = Vector2(1200, 900)
 		inspector.setup(store)
-		_check(result, inspector.asset_buttons.size() == store.catalog().size(), "检查器列出原89项与显式原生占位")
+		_check(result, inspector.asset_buttons.size() == store.catalog().size(), "检查器列出新版118项")
 		inspector.select_asset("mon_clock")
 		_check(result, inspector.preview.art_id == "mon_clock" and inspector.find_child("Events", true, false).get_child_count() == 8 and inspector.find_child("Slot_countdown_slot", true, false) != null, "检查器切座钟时提供全部事件和数字槽")
 		inspector.select_asset("ui_rainbow_slot")

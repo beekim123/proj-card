@@ -1,9 +1,9 @@
 {
-  "name": "新卡牌 第一版 · 素材清单（代码和美术共用）",
+  "name": "新卡牌 · 新画法完整素材清单",
   "codename": "gemcard",
-  "version": 4,
+  "version": 5,
   "date": "2026-11-10",
-  "about": "本体第 1 批：在第二版 75 个素材上加 14 个（门、奖励图标、老门环、4 张新额外牌原画、4 个新宝物图标、进度上的门），一共 89 个。batch 字段写了「本体第1批」的 7 个是这次的样稿；「本体第2批」的 7 个代码先用占位图。以前的说明照旧：第二版：手感 + 每局不一样（怪的规矩、开局宝物、彩虹进度）。在第一版 63 个素材上返修和加新的。美术按这份交 SVG，代码按这份读 SVG。id 就是文件名：out/<id>.svg。v2 字段写了「第1批」「第2批」的是这次要画的，没写的这次不动。",
+  "about": "118个唯一ID：Fable/Carbon 22件及03–07包96件；全部采用新版交付SVG，其中 14 件用第08包、3 件用第09包返修稿。运行目录不使用旧稿或占位别名。交付齐全不代表用户视觉验收通过。",
   "fields": {
     "id": "文件名，也是代码里找素材用的名字",
     "phase": "第一版的批次编号（0/1/2），第二版不用看这个，看 v2",
@@ -22,7 +22,7 @@
     "monster": "怪的体型：normal = 小怪和精英，画框 320×400；boss = 首领，画框 520×400。布局按体型给显示倍数",
     "inner": "九宫格框里代码要填东西的槽，离四边多远 [上, 右, 下, 左]（素材坐标，九宫格按 1:1 显示）",
     "v2": "第二版里哪一批交：第1批 = 样稿（宝箱怪返修 + 口袋、磨石重画），第2批 = 其余。没有这个字段 = 这次不动",
-    "batch": "本体新画的素材哪一批交：本体第1批 = 样稿（门、3 个奖励图标、老门环、沙漏、封条）；本体第2批 = 之后。没有这个字段 = 不是本体这次新加的（第二版剩下的那 16 个还是看 v2: 第2批）"
+    "batch": "本体新画的素材哪一批交：本体第1批 = 样稿（门、3 个奖励图标、老门环、沙漏、封条，已交）；本体第2批 = 第二幕（19 个）；本体第3批 = 第三幕（17 个）。没有这个字段 = 不是本体新加的"
   },
   "palette": {
     "about": "界面上代码自己画的东西（字、进度条、标签、血条）只用这些颜色。宝石色是唯一的饱和色。hpFill 是血条：压暗的酒红，不发光；hpChip 是刚掉的那截血（浅色，代码让它慢一拍缩回去）",
@@ -226,7 +226,9 @@
       "viewBox": "0 0 200 300",
       "load": "img",
       "desc": "牌框：整张牌的外框和下半截文字框的底。原画窗（cardLayout.artWindow）必须是透明的洞，框可以压住窗边 2–6。不画任何字和宝石",
-      "status": "已有"
+      "status": "已有",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "card_art_bg",
@@ -235,7 +237,9 @@
       "viewBox": "0 0 176 188",
       "load": "img",
       "desc": "原画窗底：放宝石的暗色衬底（比如旧丝绒、首饰盒内衬），中间空出来给宝石，不要抢眼",
-      "status": "已有"
+      "status": "已有",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "card_art_empty",
@@ -244,7 +248,10 @@
       "viewBox": "0 0 176 188",
       "load": "img",
       "desc": "空托（黑牌的原画）：叠在 card_art_bg 上面，一个空的宝石托，三个爪子空着，没有宝石。不发光",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "card_gem_bar",
@@ -253,7 +260,10 @@
       "viewBox": "0 0 132 34",
       "load": "img",
       "desc": "宝石栏：一条金属条，上面三个空槽，从左到右是圆槽、方槽、三角槽，槽中心在栏坐标 (30,17) (66,17) (102,17)，槽大小能放下 24 的小图标",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_red_rough",
@@ -261,9 +271,11 @@
       "group": "宝石",
       "viewBox": "0 0 100 100",
       "load": "img",
-      "desc": "红宝石 · 原石（圆）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3–6 秒一次，一次不超过 0.4 秒）",
-      "status": "已有",
-      "idle": true
+      "desc": "红宝石 · 原石（圆）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3000ms一轮，1200ms开始、1400ms最亮、1600ms结束，单次400ms）",
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_red_cut",
@@ -271,9 +283,11 @@
       "group": "宝石",
       "viewBox": "0 0 100 100",
       "load": "img",
-      "desc": "红宝石 · 切好（圆）。这次重画成会动的：每 3–4 秒一道光从刻面上扫过，带一颗小星闪一下",
-      "status": "已有",
-      "idle": true
+      "desc": "红宝石 · 切好（圆）。这次重画成会动的：每3000ms一轮，一道光从刻面上扫过，带一颗小星闪一下",
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_red_shine",
@@ -283,7 +297,8 @@
       "load": "img",
       "desc": "红宝石 · 闪光（圆）。这次重画成会动的：两三颗四角星轮流闪，外面那圈淡光慢慢一呼一吸（一直在动，但很轻）",
       "status": "已有",
-      "idle": true
+      "idle": true,
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_green_rough",
@@ -291,9 +306,11 @@
       "group": "宝石",
       "viewBox": "0 0 100 100",
       "load": "img",
-      "desc": "绿宝石 · 原石（方）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3–6 秒一次，一次不超过 0.4 秒）",
-      "status": "已有",
-      "idle": true
+      "desc": "绿宝石 · 原石（方）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3000ms一轮，1200ms开始、1400ms最亮、1600ms结束，单次400ms）",
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_green_cut",
@@ -301,9 +318,11 @@
       "group": "宝石",
       "viewBox": "0 0 100 100",
       "load": "img",
-      "desc": "绿宝石 · 切好（方）。这次重画成会动的：每 3–4 秒一道光从刻面上扫过，带一颗小星闪一下",
-      "status": "已有",
-      "idle": true
+      "desc": "绿宝石 · 切好（方）。这次重画成会动的：每3000ms一轮，一道光从刻面上扫过，带一颗小星闪一下",
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_green_shine",
@@ -312,8 +331,10 @@
       "viewBox": "0 0 100 100",
       "load": "img",
       "desc": "绿宝石 · 闪光（方）。这次重画成会动的：两三颗四角星轮流闪，外面那圈淡光慢慢一呼一吸（一直在动，但很轻）",
-      "status": "已有",
-      "idle": true
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_blue_rough",
@@ -323,7 +344,8 @@
       "load": "img",
       "desc": "蓝宝石 · 原石（三角）。这次重画成会动的：石皮裂缝里偶尔透出一道暗光（3–6 秒一次，一次不超过 0.4 秒）",
       "status": "已有",
-      "idle": true
+      "idle": true,
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_blue_cut",
@@ -331,9 +353,11 @@
       "group": "宝石",
       "viewBox": "0 0 100 100",
       "load": "img",
-      "desc": "蓝宝石 · 切好（三角）。这次重画成会动的：每 3–4 秒一道光从刻面上扫过，带一颗小星闪一下",
-      "status": "已有",
-      "idle": true
+      "desc": "蓝宝石 · 切好（三角）。这次重画成会动的：每3000ms一轮，一道光从刻面上扫过，带一颗小星闪一下",
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_blue_shine",
@@ -342,8 +366,10 @@
       "viewBox": "0 0 100 100",
       "load": "img",
       "desc": "蓝宝石 · 闪光（三角）。这次重画成会动的：两三颗四角星轮流闪，外面那圈淡光慢慢一呼一吸（一直在动，但很轻）",
-      "status": "已有",
-      "idle": true
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_icon_red",
@@ -352,7 +378,10 @@
       "viewBox": "0 0 32 32",
       "load": "img",
       "desc": "红宝石小图标（圆），显示 18–34，只看颜色和形状",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_icon_green",
@@ -361,7 +390,10 @@
       "viewBox": "0 0 32 32",
       "load": "img",
       "desc": "绿宝石小图标（方）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "gem_icon_blue",
@@ -370,7 +402,10 @@
       "viewBox": "0 0 32 32",
       "load": "img",
       "desc": "蓝宝石小图标（三角）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "dummy",
@@ -398,7 +433,10 @@
         "hit_big": 700
       },
       "desc": "练习木桩：插在地上的木桩 + 横木当手臂 + 麻布袋脑袋，胸口画着靶子。idle 像被线吊着轻晃；hit 被打一下往后一歪再回来；hit_big 重击，歪得更狠，换 face_hurt，草屑 straw_fly 飞出来。木桩不会死，不倒地",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "table_cloth",
@@ -413,7 +451,10 @@
         72
       ],
       "desc": "桌面排的桌布：暗色绒布 + 四角包铜。会被拉成 1032×330（竖屏）和 1248×330（横屏），角里的花纹不能超过切线",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "bg_tile",
@@ -422,7 +463,10 @@
       "viewBox": "0 0 512 512",
       "load": "img",
       "desc": "整屏背景，可以无缝平铺：练习场的暗石墙或旧墙纸。很暗、很平，不画具体东西，代码会再压暗边缘",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "prop_rack",
@@ -435,7 +479,10 @@
         240
       ],
       "desc": "木桩旁边的兵器架，插着两三把练习用的木剑木棍。表示这里是练习场。不发光",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_panel",
@@ -450,7 +497,10 @@
         48
       ],
       "desc": "通用底板：顶栏、宝石成长条、弹窗都用它。代码会按 24–48 的边宽显示（小的条子用 24），所以角花缩到一半也要好看",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_btn",
@@ -465,7 +515,10 @@
         32
       ],
       "desc": "普通按钮底（撤回、牌库）。按下、不能点的样子由代码做（压暗、下沉、变灰）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_btn_primary",
@@ -480,7 +533,10 @@
         32
       ],
       "desc": "主按钮底（结束回合）：比 ui_btn 醒目，旧铜色",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_mult_badge",
@@ -492,8 +548,11 @@
         "up": 300,
         "double": 600
       },
-      "desc": "倍率牌子：一块小铜牌，中间空着给代码写「×48」。up = 倍率 +1，一道光扫过；double = 倍率翻倍，边上迸几颗火星。整体弹一下由代码做，事件里只做牌子自己的光和火星，不要缩放整个 root",
-      "status": "已有"
+      "desc": "倍率牌子：一块小铜牌，中间空着给代码写「×48」。up = 倍率 +1，一道光扫过；double = 倍率翻倍，边上迸几颗冷色宝石碎光。整体弹一下由代码做，事件里只做牌子自己的光和冷色宝石碎光，不要缩放整个 root",
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_icon_rules",
@@ -502,7 +561,10 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "规则（一本旧书 / 一卷纸）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_icon_settings",
@@ -511,7 +573,10 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "设置（齿轮或钥匙）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_icon_undo",
@@ -520,7 +585,10 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "撤回（往回弯的箭头）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_icon_deck",
@@ -529,7 +597,10 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "牌库（一叠牌背）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "fx_hit",
@@ -542,7 +613,9 @@
         "play": 400
       },
       "desc": "打中木桩：一团碎光炸开，颜色用 currentColor（代码染成这张牌的混色；黑牌染成 text 色）",
-      "status": "已有"
+      "status": "已有",
+      "artStyle": "fable-carbon-remake",
+      "idle": false
     },
     {
       "id": "fx_same",
@@ -555,7 +628,10 @@
         "play": 500
       },
       "desc": "同色：两张牌叠住的地方「叮」一下，几颗小碎光",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": false,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "fx_shun",
@@ -568,7 +644,10 @@
         "play": 500
       },
       "desc": "顺色：两张挨紧的牌中间一道竖光从下往上走",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": false,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "fx_white",
@@ -580,7 +659,10 @@
         "play": 700
       },
       "desc": "凑白：一团白光炸开（不染色）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": false,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "fx_rainbow",
@@ -592,7 +674,9 @@
         "play": 800
       },
       "desc": "彩虹：一道六色的弧从左到右划过（红、黄、绿、青、蓝、品红，用 palette.mix 的颜色），划完散成碎光",
-      "status": "已有"
+      "status": "已有",
+      "artStyle": "fable-carbon-remake",
+      "idle": false
     },
     {
       "id": "fx_grow",
@@ -605,7 +689,10 @@
         "play": 800
       },
       "desc": "宝石长了一级：一圈星光转一下再散开",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": false,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "mon_chest",
@@ -647,7 +734,9 @@
       ],
       "desc": "宝箱怪（小怪）：一只旧木箱，铁箍包边，箱盖就是嘴，里面一排尖牙和一条长舌头，箱缝里两只小眼睛。贪心、爱咬人。死的时候箱子散架，吐出几颗宝石。【第二版】动法按第二版规则（美术包需求.md 第 2 节）：同一动作所有部件同一时间点换姿势；待机顺滑呼吸、不用 steps()；受击 50ms 到位、停 80ms、250ms 弹回带一次过头；出手蓄力 250ms → 80ms 扑出（第 330ms 咬中）→ 停到 450ms → 退回。整只怪的位移、放大扑向镜头由代码做，画里每一帧都不出画框。新事件 bite（规矩「咬手」：你打出带绿的牌时播）：箱盖猛地合上咬一下，牙齿上闪一下绿色碎光，0.3 秒，比 attack 小得多，不往前冲。",
       "status": "返修",
-      "v2": "第1批"
+      "v2": "第1批",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "mon_soldier",
@@ -690,9 +779,12 @@
         "daze",
         "wound_down"
       ],
-      "desc": "发条兵（小怪）：一个铁皮玩具兵，圆筒身子、高帽子、大方下巴，背后插一把发条钥匙一直在转，手里一杆长枪。动作一顿一顿的。死的时候弹簧、齿轮崩出来，整个倒下。【第二版】动法按第二版规则（美术包需求.md 第 2 节）：同一动作所有部件同一时间点换姿势；待机顺滑呼吸、不用 steps()；受击 50ms 到位、停 80ms、250ms 弹回带一次过头；出手蓄力 250ms → 80ms 扑出（第 330ms 咬中）→ 停到 450ms → 退回。整只怪的位移、放大扑向镜头由代码做，画里每一帧都不出画框。规矩「上发条」：背后的钥匙就是发条。unwind（你打出带蓝的牌时播）：钥匙倒着转四分之一圈，身子一歪，0.3 秒。wound_down（松完 4 圈，这次出手作废）：钥匙停住、身子垮下来、枪尖垂到地上，0.6 秒进场后一直保持，直到下回合代码去掉。",
-      "status": "返修",
-      "v2": "第2批"
+      "desc": "发条兵（小怪）：一个铁皮玩具兵，圆筒身子、高帽子、大方下巴，背后插一把发条钥匙一直在转，手里一杆长枪。动作一顿一顿的。死的时候弹簧、齿轮崩出来，整个倒下。",
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "mon_bear",
@@ -732,9 +824,12 @@
       "stay": [
         "daze"
       ],
-      "desc": "布偶熊（小怪）：一只缝过很多次的旧布偶熊，掉了一只耳朵（剩缝线），眼睛是两种不一样的缝线，怀里死死抱着一颗切好的红宝石。被重击时缝线崩开、飞出棉花（不是血）。【第二版】动法按第二版规则（美术包需求.md 第 2 节）：同一动作所有部件同一时间点换姿势；待机顺滑呼吸、不用 steps()；受击 50ms 到位、停 80ms、250ms 弹回带一次过头；出手蓄力 250ms → 80ms 扑出（第 330ms 咬中）→ 停到 450ms → 退回。整只怪的位移、放大扑向镜头由代码做，画里每一帧都不出画框。规矩「抱红」：怀里那颗红宝石要一直看得见、比现在再大一点；受击时熊把宝石抱得更紧（手臂收一下），不松手。",
-      "status": "返修",
-      "v2": "第2批"
+      "desc": "布偶熊（小怪）：一只缝过很多次的旧布偶熊，掉了一只耳朵（剩缝线），眼睛是两种不一样的缝线，怀里死死抱着一颗切好的红宝石。被重击时缝线崩开、飞出棉花（不是血）。",
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "mon_clock",
@@ -784,9 +879,12 @@
           64
         ]
       },
-      "desc": "老座钟（精英）：一座高高的落地钟，表盘就是脸（表盘上方两扇小窗是眼睛），肚子里的玻璃后面钟摆在晃。表盘中心必须在 (160,140)、半径约 56：代码把倒计时数字写在表盘正中（countdown_slot），所以表盘中间要空、要浅。tick = 倒计时少 1 时指针跳一下、钟身一震。【第二版】动法按第二版规则（美术包需求.md 第 2 节）：同一动作所有部件同一时间点换姿势；待机顺滑呼吸、不用 steps()；受击 50ms 到位、停 80ms、250ms 弹回带一次过头；出手蓄力 250ms → 80ms 扑出（第 330ms 咬中）→ 停到 450ms → 退回。整只怪的位移、放大扑向镜头由代码做，画里每一帧都不出画框。新事件 ring（规矩「敲钟」：你凑白时播）：整座钟往上一顿、钟身一震，表盘上方冒出两圈声波弧线，0.4 秒。和 tick（指针跳一下）要一眼分得开。",
-      "status": "返修",
-      "v2": "第2批"
+      "desc": "老座钟（精英）：一座高高的落地钟，表盘就是脸（表盘上方两扇小窗是眼睛），肚子里的玻璃后面钟摆在晃。表盘中心必须在 (160,140)、半径约 56：代码把倒计时数字写在表盘正中（countdown_slot），所以表盘中间要空、要浅。tick = 倒计时少 1 时指针跳一下、钟身一震。",
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "mon_dragon",
@@ -830,7 +928,9 @@
       ],
       "desc": "宝石龙（首领）：一条胖胖的龙趴在一堆宝石上，肚皮上嵌着三颗大宝石（红圆、绿方、蓝三角），小翅膀、卷尾巴、两只角、睡不醒的厚眼皮。只有宝石鲜艳发亮，龙身压暗。不喷火（不要火光），出手是扑上来咬、喷一团宝石碎屑。【第二版】动法按第二版规则（美术包需求.md 第 2 节）：同一动作所有部件同一时间点换姿势；待机顺滑呼吸、不用 steps()；受击 50ms 到位、停 80ms、250ms 弹回带一次过头；出手蓄力 250ms → 80ms 扑出（第 330ms 咬中）→ 停到 450ms → 退回。整只怪的位移、放大扑向镜头由代码做，画里每一帧都不出画框。新事件 layer（血掉一层、换规矩时播）：龙抬头吼一声，肚皮上的三颗宝石依次闪一下，0.8 秒。",
       "status": "返修",
-      "v2": "第2批"
+      "v2": "第2批",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "card_art_bag",
@@ -841,9 +941,12 @@
       "events": {
         "play": 600
       },
-      "desc": "口袋（摸 2 张）：一只旧皮口袋，袋口的扣子是一颗绿色方宝石。【第二版重画】从原画上要一眼看出「摸 2 张」：袋口敞开，露出两张牌背的上半截（牌背照 card_back 的样子缩小）。待机：两张牌在袋口一起一伏。play：两张牌一前一后从袋里弹出来、飞出画框上沿",
-      "status": "重画",
-      "v2": "第1批"
+      "desc": "口袋（摸 2 张）：一只旧皮口袋，袋口的扣子是一颗绿色方宝石。从原画上要一眼看出「摸 2 张」：袋口敞开，露出两张牌背的上半截（牌背照 card_back 的样子缩小）。待机：两张牌在袋口一起一伏。play：两张牌在画框内从袋口弹起，250ms到最高且完整在框内，400ms保持，600ms回到袋口静止；全程不出画框",
+      "status": "新画法重制",
+      "v2": "第1批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "card_art_lens",
@@ -855,7 +958,10 @@
         "play": 600
       },
       "desc": "放大镜（倍率再 ×2）：一把旧铜框放大镜，手柄末端镶一颗蓝色三角宝石。待机：一道光从镜片上扫过。play：镜片鼓起来再落回，向外荡出两圈环",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "card_art_hammer",
@@ -867,7 +973,10 @@
         "play": 600
       },
       "desc": "锤子（这回合伤害 ×2）：一把战锤，锤头正中镶一颗红色圆宝石。待机：像被人握着轻轻晃。play：往后一扬，重重砸下，带几道冲击线",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "card_art_mirror",
@@ -880,7 +989,9 @@
       },
       "tint": true,
       "desc": "镜子（变成上一张缺的宝石）：一面椭圆手镜，哥特镜框。镜面用 currentColor 画（代码按它变成的颜色染），上面一层淡淡的倒影。待机：倒影慢慢荡。play：镜面一闪白，再荡开成新颜色",
-      "status": "已有"
+      "status": "已有",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "card_art_stone",
@@ -891,9 +1002,12 @@
       "events": {
         "play": 600
       },
-      "desc": "磨石（三颗宝石各长 5 次）：小木架上一只圆磨石轮，带摇把。【第二版重画】要一眼看出「磨宝石、让宝石长大」：轮上正压着一颗宝石在磨，磨的地方迸出光，旁边摆着磨亮了的红、绿、蓝三颗小宝石。待机：轮子慢转、宝石边上偶尔闪一下。play：飞快地转，三颗小宝石依次亮起变大一圈",
-      "status": "重画",
-      "v2": "第1批"
+      "desc": "磨石（三颗宝石各长 5 次）：小木架上一只圆磨石轮，带摇把。要一眼看出「磨宝石、让宝石长大」：轮上正压着一颗宝石在磨，磨的地方迸出光，旁边摆着磨亮了的红、绿、蓝三颗小宝石。待机：轮子慢转、宝石边上偶尔闪一下。play：飞快地转，三颗小宝石依次亮起变大一圈",
+      "status": "新画法重制",
+      "v2": "第1批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "card_frame_tool",
@@ -902,7 +1016,9 @@
       "viewBox": "0 0 200 300",
       "load": "img",
       "desc": "额外牌的牌框：和 card_frame 同样的结构（原画窗是透明的洞、文字框平而暗），但一眼能看出是另一类牌：比如骨白 / 旧银色的边，角花换一种。不画字",
-      "status": "已有"
+      "status": "已有",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "card_art_bg_tool",
@@ -911,7 +1027,9 @@
       "viewBox": "0 0 176 188",
       "load": "img",
       "desc": "额外牌的原画窗底：比如旧皮革或旧羊皮纸，暗、平；左上角（约 x0–30、y0–90）要特别平，会叠小宝石图标",
-      "status": "已有"
+      "status": "已有",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "card_back",
@@ -920,8 +1038,10 @@
       "viewBox": "0 0 200 300",
       "load": "img",
       "idle": true,
-      "desc": "牌背：暗色哥特花纹，正中三颗宝石（红圆、绿方、蓝三角）的徽记。待机：中间的宝石每 5 秒左右轮流闪一下",
-      "status": "已有"
+      "desc": "牌背：暗色哥特花纹，正中三颗宝石（红圆、绿方、蓝三角）的徽记。待机：中间的宝石每3000ms一轮，按本批完整时间格轮流闪",
+      "status": "新画法重制",
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_heart",
@@ -934,7 +1054,9 @@
         "gain": 500
       },
       "desc": "心（一局 3 颗）：一个心形挂坠，铜边，里面嵌一颗心形红宝石。待机：很轻的心跳。lose：宝石裂开、碎片掉下、整个暗掉，最后全透明（代码随后换成 ui_heart_empty）。gain：从小弹出来，闪一下",
-      "status": "已有"
+      "status": "已有",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "ui_heart_empty",
@@ -943,7 +1065,10 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "空的心形挂坠：和 ui_heart 同一个铜边，宝石没了，只剩暗的空槽",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_countdown",
@@ -959,7 +1084,10 @@
         "warn"
       ],
       "desc": "怪的出手倒计时：一枚旧铜圆章，边上一个小沙漏的样子，中间平、暗，代码在正中写数字（40 号）。待机：沙粒慢慢往下漏。tick：数字变小时整枚翻一下。warn：只剩 1 回合时一直轻轻抖",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_hp_frame",
@@ -980,7 +1108,10 @@
         8
       ],
       "desc": "血条框：一条细长的铁 / 旧铜槽，九宫格。中间的槽是暗的空槽，代码往里画血（hpFill）和字。会被拉成约 460×40",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_node_fight",
@@ -989,7 +1120,10 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "一局进度上的一格：普通一仗（一把小剑）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_node_elite",
@@ -998,7 +1132,10 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "一局进度上的一格：精英（一个钟面）",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_node_boss",
@@ -1007,7 +1144,10 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "一局进度上的一格：首领（龙头剪影）。打过的、正在打的、还没打的由代码压暗、加圈",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_banner",
@@ -1016,7 +1156,10 @@
       "viewBox": "0 0 600 140",
       "load": "img",
       "desc": "横幅：一条破旧的暗色绶带 / 牌匾，两头铜饰。中间平、暗，代码写大字（「第 3 仗」「战利品」「胜利」「失败」，56 号）。不拉伸",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "loot_chest",
@@ -1036,7 +1179,10 @@
         "open"
       ],
       "desc": "战利品宝箱：小一号的精致宝箱，铜包角，锁扣上三颗小宝石（和宝箱怪要一眼分开：这个是死的、干净的）。待机：偶尔轻轻一颠。drop：从上面掉下来弹一下。open：箱盖打开，冒出一小团三色碎光，然后停在打开的样子",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "title_emblem",
@@ -1050,7 +1196,9 @@
         340
       ],
       "desc": "首页徽记：一块立着的哥特纹章 / 牌匾，嵌着红圆、绿方、蓝三角三颗宝石。待机：三颗宝石轮流闪。不写字（游戏名由代码写）",
-      "status": "已有"
+      "status": "新画法重制",
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "prop_pillar",
@@ -1063,7 +1211,10 @@
         240
       ],
       "desc": "古堡里的一截断石柱，柱头上一个空的宝石槽。战斗时放在兵器架的位置（练习时还是兵器架）。不发光",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "fx_attack",
@@ -1075,7 +1226,10 @@
         "play": 500
       },
       "desc": "怪出手打到你：三道爪痕 / 划痕横扫过去，墨色带一点浅边，不要血、不要红",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": false,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "fx_kill",
@@ -1087,7 +1241,10 @@
         "play": 900
       },
       "desc": "血打空（打穿了）：一圈裂纹 + 一把三色宝石碎片炸开",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": false,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "fx_overkill",
@@ -1099,7 +1256,10 @@
         "play": 1000
       },
       "desc": "超杀：一个很大的锯齿星爆，带三色宝石碎片，垫在「超杀 ×37」大字后面",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": false,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "fx_slam",
@@ -1112,7 +1272,10 @@
         "play": 500
       },
       "desc": "锤子砸下：贴着桌面的一圈冲击波 + 尘土，颜色用 currentColor",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": false,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "fx_heal",
@@ -1124,7 +1287,10 @@
         "play": 700
       },
       "desc": "回 1 颗心：一小股红色碎光往上旋，收进心里",
-      "status": "已有"
+      "status": "新画法重制",
+      "idle": false,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_rule_sign",
@@ -1150,7 +1316,9 @@
       ],
       "desc": "规矩牌子：挂在怪头顶的一块旧木牌，两根绳吊着。代码在 rule_text 写规矩名（2–3 个字，30 号），左边 icon_slot 放规矩图标（56×56，代码放）。待机：轻轻晃。flip：整块翻一面（宝石龙换规矩时播），翻到一半时代码换字",
       "status": "新画",
-      "v2": "第2批"
+      "v2": "第2批",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "rule_bite",
@@ -1158,8 +1326,11 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "咬手：一排尖牙咬住一颗绿色方宝石",
-      "status": "新画",
-      "v2": "第2批"
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "rule_hug",
@@ -1168,7 +1339,9 @@
       "load": "img",
       "desc": "抱红：两只布偶手臂抱着一颗红色圆宝石",
       "status": "新画",
-      "v2": "第2批"
+      "v2": "第2批",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "rule_wind",
@@ -1176,8 +1349,11 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "上发条：一把发条钥匙，钥匙柄上嵌一颗蓝色三角宝石",
-      "status": "新画",
-      "v2": "第2批"
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "rule_bell",
@@ -1185,8 +1361,11 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "敲钟：一只小铜钟，钟边一圈白光",
-      "status": "新画",
-      "v2": "第2批"
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "relic_same",
@@ -1194,8 +1373,11 @@
       "viewBox": "0 0 96 96",
       "load": "img",
       "desc": "同色也翻倍：一对一模一样的耳坠，两颗同色宝石",
-      "status": "新画",
-      "v2": "第2批"
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "relic_once",
@@ -1203,8 +1385,11 @@
       "viewBox": "0 0 96 96",
       "load": "img",
       "desc": "断一次不算：一条断了又接上的项链，接口处一个小铜扣",
-      "status": "新画",
-      "v2": "第2批"
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "relic_white",
@@ -1212,8 +1397,11 @@
       "viewBox": "0 0 96 96",
       "load": "img",
       "desc": "凑白 ×8：一盏小灯笼，里面三色光混成白光",
-      "status": "新画",
-      "v2": "第2批"
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "relic_rainbow",
@@ -1222,7 +1410,9 @@
       "load": "img",
       "desc": "五色彩虹：一只缺了一格的六格宝石盒，五格亮着",
       "status": "新画",
-      "v2": "第2批"
+      "v2": "第2批",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "relic_heart",
@@ -1230,8 +1420,11 @@
       "viewBox": "0 0 96 96",
       "load": "img",
       "desc": "多一颗心：一只小铜匣，里面躺着一颗心形红宝石",
-      "status": "新画",
-      "v2": "第2批"
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "relic_grow",
@@ -1239,8 +1432,11 @@
       "viewBox": "0 0 96 96",
       "load": "img",
       "desc": "宝石长得快：一把小铜锉刀，锉下一缕宝石粉",
-      "status": "新画",
-      "v2": "第2批"
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_rainbow_slot",
@@ -1256,8 +1452,11 @@
       ],
       "tint": true,
       "desc": "彩虹进度的一格：一个小宝石槽。平时是暗的空槽。light：亮起来，里面的宝石用 currentColor（代码按红、黄、绿、青、蓝、品红染色）发光，播完一直亮着；out：灭掉回到空槽",
-      "status": "新画",
-      "v2": "第2批"
+      "status": "新画法重制",
+      "v2": "第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_door",
@@ -1280,9 +1479,12 @@
       "stay": [
         "open"
       ],
-      "desc": "门：古堡里的一扇旧木门。尖拱石门框（frame），门洞是一块近黑的暗色（dark），门扇（leaf）是深色旧木板竖着拼的，左边两道铁合页，右边一只铁门环，上半截一排门钉。挑门的画面上并排摆两扇，每扇门前站着一只怪（代码放，会挡住门的下半截），门楣上方由代码挂一块牌子，所以：认得出是门的东西（拱顶、合页、门钉）要画在上半截和两侧；门框顶上不要再画装饰。待机：不动。open：门扇往里一顿，再绕左边的合页转开（用 scaleX 把门扇横向压到 12% 来做，转轴在左门框），露出后面的 dark，播完停在开着的样子（animation-fill-mode: forwards）。关着、开着两个样子都要好看。每一帧都不出画框",
-      "status": "新画",
-      "batch": "本体第1批"
+      "desc": "门：古堡里的一扇旧木门。尖拱石门框（frame），门洞是一块近黑的暗色（dark），门扇（leaf）是深色旧木板竖着拼的，左边两道铁合页，右边一只铁门环，上半截一排门钉。挑门的画面上并排摆两扇，每扇门前站着一只怪（代码放，会挡住门的下半截），门楣上方由代码挂一块牌子，所以：认得出是门的东西（拱顶、合页、门钉）要画在上半截和两侧；门框顶上不要再画装饰。待机：门扇、门框和铰链位置不动，仅独立材质反光3000ms轻变化。open：门扇往里一顿，再绕左边的合页转开（用 scaleX 把门扇横向压到 12% 来做，转轴在左门框），露出后面的 dark，播完停在开着的样子（animation-fill-mode: forwards）。关着、开着两个样子都要好看。每一帧都不出画框",
+      "status": "新画法重制",
+      "batch": "本体第1批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_reward_card",
@@ -1290,8 +1492,11 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "奖励图标·额外牌：一张斜放的额外牌牌背（照 card_back 缩小、简化），右上角一个小加号。要和基础牌分得开：用额外牌牌框的颜色",
-      "status": "新画",
-      "batch": "本体第1批"
+      "status": "新画法重制",
+      "batch": "本体第1批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_reward_shop",
@@ -1299,8 +1504,11 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "奖励图标·工坊：一把旧剪刀和一支羽毛笔交叉（剪刀 = 扔牌，笔 = 抄牌）。线要粗，28 像素大小也认得出",
-      "status": "新画",
-      "batch": "本体第1批"
+      "status": "新画法重制",
+      "batch": "本体第1批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "ui_reward_heal",
@@ -1308,8 +1516,11 @@
       "viewBox": "0 0 64 64",
       "load": "img",
       "desc": "奖励图标·回一颗心：照 ui_heart 的心形挂坠简化，旁边一个小加号。红宝石是这张图里唯一鲜艳的地方",
-      "status": "新画",
-      "batch": "本体第1批"
+      "status": "新画法重制",
+      "batch": "本体第1批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "npc_knocker",
@@ -1334,7 +1545,8 @@
       },
       "desc": "老门环：大门上的一只旧铜门环，会说话，话多、爱打赌，诡萌不吓人。一块圆形铜底板（plate），上面是一张老头脸（face）：粗眉毛、圆鼻子、两只小眼睛（eyes），嘴（mouth）里叼着一只大铜环（ring），铜环垂在下巴下面。铜是压暗的旧铜色，不发光；眼睛里各一点很小的绿宝石色，是唯一鲜艳的地方。待机：铜环极慢地左右晃（3 秒一轮），偶尔眨眼。talk：嘴一张一合 4 次，铜环跟着上下颠，眉毛挑一下，1.2 秒，播完回到待机。它只出现在开局选宝物的画面左上角，显示出来大约 150 像素宽",
       "status": "新画",
-      "batch": "本体第1批"
+      "batch": "本体第1批",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "card_art_hourglass",
@@ -1345,8 +1557,11 @@
         "play": 600
       },
       "desc": "沙漏（怪出手推后 1 回合）：一只旧铜架沙漏，里面流的不是沙，是青色的小宝石碎粒（青 = 绿 + 蓝）。上半截还剩一大半。待机：碎粒一粒一粒往下掉，上下两堆的高度不变。play：整只一震、停流，然后一串碎粒从下半截倒着飞回上半截，上面那堆明显长高一截，闪一下青光，再回到待机的高度。要一眼看出\"时间倒回去了一点\"",
-      "status": "新画",
-      "batch": "本体第1批"
+      "status": "新画法重制",
+      "batch": "本体第1批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "card_art_seal",
@@ -1357,8 +1572,11 @@
         "play": 600
       },
       "desc": "封条（这回合怪的规矩不算）：一块旧木牌子（怪头顶挂的规矩牌子那种），上面斜贴着两条交叉的旧纸封条，交叉的地方盖一个蜡印，牌子上原来的字被盖住。这张牌没有宝石，画面里不出现宝石色。待机：封条的一个角轻轻翘起又落下。play：两条封条和蜡印先弹起来离开牌子，再一条、两条啪啪拍回去，蜡印最后按下",
-      "status": "新画",
-      "batch": "本体第1批"
+      "status": "新画法重制",
+      "batch": "本体第1批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "card_art_shadow",
@@ -1368,9 +1586,12 @@
       "events": {
         "play": 600
       },
-      "desc": "影子（跟上一张一模一样）：一张牌立着，身后拖着一个和它一模一样的黑影，黑影自己站了起来。待机：黑影轻轻晃。play：黑影从地上立起来，和前面那张牌并排",
-      "status": "新画",
-      "batch": "本体第2批"
+      "desc": "影子（跟上一张一模一样：宝石一样，反应也一样）：一张立着的旧牌（牌背朝外，看不到牌面），身后地上拖着一个和它一模一样的黑影。待机：黑影轻轻晃，像烛光下的影子。play：黑影从地上立起来，变成第二张一模一样的牌，和前面那张并排站一下，再躺回地上。黑影是近黑的冷灰，不是纯黑",
+      "status": "新画法重制",
+      "batch": "本体第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "card_art_whistle",
@@ -1380,54 +1601,605 @@
       "events": {
         "play": 600
       },
-      "desc": "哨子（叫来 1 张额外牌）：一只旧铜哨，哨身嵌一颗黄色宝石（黄 = 红 + 绿）。play：哨子一吹，一张额外牌牌背从画框下沿飞上来",
-      "status": "新画",
-      "batch": "本体第2批"
+      "desc": "哨子（从牌堆里叫来 1 张额外牌）：一只旧铜哨，哨身嵌一颗黄色宝石（黄 = 红 + 绿）。待机：哨子轻轻晃。play：哨子一吹（哨口冒出三道短弧线），一张额外牌的牌背从画框下沿飞上来，停在哨子旁边，再落回去",
+      "status": "新画法重制",
+      "batch": "本体第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "relic_start2",
       "group": "宝物",
       "viewBox": "0 0 96 96",
       "load": "img",
-      "desc": "倍率从 2 起：一只小砝码，上面刻着\"×2\"的样子（两道杠）",
-      "status": "新画",
-      "batch": "本体第2批"
+      "desc": "倍率从 2 起：一只旧铜砝码，正面刻两道竖杠（表示 2，不写字），砝码顶上嵌一颗小白宝石",
+      "status": "新画法重制",
+      "batch": "本体第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "relic_slow",
       "group": "宝物",
       "viewBox": "0 0 96 96",
       "load": "img",
-      "desc": "慢一拍：一只走得慢的旧怀表，表针弯了",
-      "status": "新画",
-      "batch": "本体第2批"
+      "desc": "慢一拍：一只旧怀表，表盖打开，表针弯了一根，表链垂下来",
+      "status": "新画法重制",
+      "batch": "本体第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "relic_first2",
       "group": "宝物",
       "viewBox": "0 0 96 96",
       "load": "img",
-      "desc": "开打多摸两张：一只手套，指缝里夹着两张牌",
-      "status": "新画",
-      "batch": "本体第2批"
+      "desc": "开打多摸两张：一只旧皮手套，食指和中指之间夹着两张牌（牌背朝外，错开一点）",
+      "status": "新画法重制",
+      "batch": "本体第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     },
     {
       "id": "relic_twice",
       "group": "宝物",
       "viewBox": "0 0 96 96",
       "load": "img",
-      "desc": "头一张打两次：一只小铜铃，旁边一个一模一样、淡一点的回声",
+      "desc": "头一张打两次：一只小铜铃，右边一个一模一样、淡一半的\"回声\"铃，中间两道短弧线",
       "status": "新画",
-      "batch": "本体第2批"
+      "batch": "本体第2批",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
     },
     {
       "id": "ui_node_door",
       "group": "界面",
       "viewBox": "0 0 64 64",
       "load": "img",
-      "desc": "一局进度上的一格：两扇门（一个小拱门）。和 ui_node_fight 那一组一个画法",
+      "desc": "一局进度上的一格：挑门（一扇小尖拱门，门半开，门缝里一点暗）。和 ui_node_fight、ui_node_elite、ui_node_boss 一个画法、一样粗的线",
+      "status": "新画法重制",
+      "batch": "本体第2批",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "额外牌原画",
+      "viewBox": "0 0 176 188",
+      "load": "inline",
+      "events": {
+        "play": 600
+      },
       "status": "新画",
-      "batch": "本体第2批"
+      "id": "card_art_palette",
+      "tint": true,
+      "batch": "本体第2批",
+      "desc": "调色盘（跟上一张的颜色，一定算顺色，还给顺色链补上一种缺的颜色）：一块旧木调色盘，上面五团\"颜料\"其实是五小堆宝石碎；还有一个空着的凹坑。用 currentColor 画一层宝石光（代码按上一张牌的混色染）；五堆宝石碎本身是固定的红、黄、绿、青、蓝。待机：宝石碎微微闪。play：一支旧画笔从右上角伸进来，在空凹坑里点一下，凹坑里长出一堆品红宝石碎，闪一下，画笔收回",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
+    },
+    {
+      "group": "额外牌原画",
+      "viewBox": "0 0 176 188",
+      "load": "inline",
+      "events": {
+        "play": 600
+      },
+      "status": "新画法重制",
+      "id": "card_art_potion",
+      "batch": "本体第2批",
+      "desc": "药水（回 1 颗心，用过就没了）：一只圆肚旧玻璃药瓶，软木塞，瓶里是红宝石色的液体（红 #E3263A 附近，是画里唯一鲜艳的东西），瓶颈挂一块小木牌（不写字）。待机：液面轻轻晃。play：塞子\"啵\"地弹起来，一颗红色心形的光从瓶口冒出来往上飘、淡出，液面降到瓶底（播完回到待机：满瓶）",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "额外牌原画",
+      "viewBox": "0 0 176 188",
+      "load": "inline",
+      "events": {
+        "play": 600
+      },
+      "status": "新画法重制",
+      "id": "card_art_diamond",
+      "batch": "本体第2批",
+      "desc": "钻石（这张的每颗宝石算双倍）：一颗大的白钻石（白 = 三色混合，#F4F1FF 附近，切面里隐约透出一点红、绿、蓝），放在一只旧铜爪托上。待机：切面上一道亮光慢慢扫过。play：钻石一震，右边弹出一个一模一样的半透明\"分身\"，两颗并排停一下，分身再叠回本体",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "怪",
+      "viewBox": "0 0 320 400",
+      "load": "inline",
+      "monster": "normal",
+      "anchor": [
+        160,
+        400
+      ],
+      "stay": [
+        "daze"
+      ],
+      "status": "新画法重制",
+      "id": "mon_box",
+      "hitPoint": [
+        160,
+        200
+      ],
+      "batch": "本体第2批",
+      "parts": [
+        "root",
+        "shadow",
+        "box",
+        "lid",
+        "crank",
+        "spring",
+        "head",
+        "eyes",
+        "face_hurt",
+        "face_daze",
+        "bits"
+      ],
+      "events": {
+        "hit": 400,
+        "hit_big": 700,
+        "attack": 800,
+        "daze": 600,
+        "die": 1000,
+        "duck": 300
+      },
+      "desc": "弹簧盒（第二、三幕小怪）：一只旧玩具弹簧盒。方木盒（box）漆面剥落，四角包铁；盒盖（lid）掀开立在后面；侧面一根摇柄（crank）；盒里一根粗弹簧（spring）顶着一颗布做的圆脑袋（head），戴一顶尖尖的旧布帽，两只纽扣眼睛（eyes），嘴是一道缝线，咧着笑。诡萌，不吓人，不要画成恐怖小丑。规矩\"缩头\"：每回合你打的第 2、4、6…张牌打不着它。duck（300，打不着时播）：脑袋猛地缩进盒子，盒盖啪地扣上，再弹出来",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "怪",
+      "viewBox": "0 0 320 400",
+      "load": "inline",
+      "monster": "normal",
+      "anchor": [
+        160,
+        400
+      ],
+      "stay": [
+        "daze"
+      ],
+      "status": "新画",
+      "id": "mon_portrait",
+      "hitPoint": [
+        160,
+        190
+      ],
+      "batch": "本体第2批",
+      "parts": [
+        "root",
+        "shadow",
+        "legs",
+        "frame",
+        "canvas",
+        "figure",
+        "eyes",
+        "hand",
+        "face_hurt",
+        "face_daze",
+        "shards"
+      ],
+      "events": {
+        "hit": 400,
+        "hit_big": 700,
+        "attack": 800,
+        "daze": 600,
+        "die": 1000,
+        "refuse": 300
+      },
+      "desc": "画像（第二、三幕小怪）：一幅旧油画自己站了起来。厚厚的旧金画框（frame，压暗的旧金，不发光），画框下面伸出两条细细的弯木腿（legs）站在地上；画布（canvas）是深色底，画里是一位戴高领的老夫人半身像（figure），眼睛（eyes）会转，一只手（hand）捏着一把小银叉，翘着小指，一脸嫌弃。规矩\"挑食\"：只带一颗宝石的牌打它算 0。refuse（300，挑食生效时播）：画里的老夫人把头一扭，拿叉子的手往外一推",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
+    },
+    {
+      "group": "怪",
+      "viewBox": "0 0 320 400",
+      "load": "inline",
+      "monster": "normal",
+      "anchor": [
+        160,
+        400
+      ],
+      "stay": [
+        "daze"
+      ],
+      "status": "新画法重制",
+      "id": "mon_lock",
+      "hitPoint": [
+        160,
+        230
+      ],
+      "batch": "本体第2批",
+      "parts": [
+        "root",
+        "shadow",
+        "body",
+        "shackle",
+        "keyhole",
+        "eyes",
+        "face_hurt",
+        "face_daze",
+        "bolts"
+      ],
+      "events": {
+        "hit": 400,
+        "hit_big": 700,
+        "attack": 800,
+        "daze": 600,
+        "die": 1000,
+        "click": 250,
+        "shut": 500
+      },
+      "desc": "大挂锁（第二幕精英）：一把比人还高的旧铁挂锁，长廊尽头宝库门上的那把。锁身（body）厚重，铆钉一圈；锁梁（shackle）是头顶一个大 U 形铁环；锁身正面的钥匙孔（keyhole）就是它的嘴；钥匙孔上方两颗铆钉是眼睛（eyes）。冷灰铁色，有锈斑。规矩\"限六张\"：每回合最多打 6 张牌。click（250，你每打一张牌播）：锁芯\"咔\"一声，锁身往下一顿，钥匙孔里闪一下。shut（500，打到第 6 张时播）：锁梁猛地往下扣死，整把锁一震，\"这回合不能再打了\"",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "规矩图标",
+      "viewBox": "0 0 64 64",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "rule_duck",
+      "batch": "本体第2批",
+      "desc": "缩头：一只小方盒，盒盖半掀，盖缝里露出两只眼睛",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "规矩图标",
+      "viewBox": "0 0 64 64",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "rule_picky",
+      "batch": "本体第2批",
+      "desc": "挑食：一把小银叉，把一颗单独的红色圆宝石拨到一边",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "规矩图标",
+      "viewBox": "0 0 64 64",
+      "load": "img",
+      "status": "新画",
+      "id": "rule_six",
+      "batch": "本体第2批",
+      "desc": "限六张：一把小挂锁，锁身上刻六道竖杠",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
+    },
+    {
+      "group": "背景",
+      "viewBox": "0 0 512 512",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "bg_tile_hall",
+      "batch": "本体第2批",
+      "desc": "第二幕\"长廊\"的整屏背景，可以无缝平铺：暗色旧壁纸，竖条纹加一点藤蔓暗花，很暗、很平，不画具体东西。和现在的 bg_tile 一样暗，色调偏暗酒红 / 暗紫",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "场景",
+      "viewBox": "0 0 120 240",
+      "load": "img",
+      "anchor": [
+        60,
+        240
+      ],
+      "status": "新画",
+      "id": "prop_frame",
+      "batch": "本体第2批",
+      "desc": "长廊里的一只空画框，斜靠在一个矮木架上。旧金框，压暗，不发光；框里是空的（看得见后面的墙）。放在怪旁边当摆件",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
+    },
+    {
+      "group": "场景",
+      "viewBox": "0 0 120 240",
+      "load": "img",
+      "anchor": [
+        60,
+        240
+      ],
+      "status": "新画",
+      "id": "prop_curtain",
+      "batch": "本体第2批",
+      "desc": "长廊里一截旧天鹅绒窗帘，从画框顶上垂下来，下摆拖在地上，用一根旧绳挽住一半。暗酒红，压低饱和，有破洞。放在怪旁边当摆件",
+      "artStyle": "fable-carbon-remake",
+      "idle": true
+    },
+    {
+      "group": "怪",
+      "viewBox": "0 0 320 400",
+      "load": "inline",
+      "monster": "normal",
+      "anchor": [
+        160,
+        400
+      ],
+      "stay": [
+        "daze"
+      ],
+      "status": "新画法重制",
+      "id": "mon_tree",
+      "hitPoint": [
+        160,
+        220
+      ],
+      "batch": "本体第3批",
+      "parts": [
+        "root",
+        "shadow",
+        "pot",
+        "trunk",
+        "branches",
+        "coins",
+        "eyes",
+        "face_hurt",
+        "face_daze",
+        "coins_fall"
+      ],
+      "events": {
+        "hit": 400,
+        "hit_big": 700,
+        "attack": 800,
+        "daze": 600,
+        "die": 1000,
+        "regrow": 800
+      },
+      "desc": "摇钱树（第三幕小怪）：一棵种在旧陶盆（pot）里的小铜树。树干（trunk）是扭着长的旧铜，树干上两个树洞是眼睛（eyes）；枝条（branches）上挂的叶子是一枚枚旧金币（coins，压暗的旧金，不发光），中间夹着几颗小宝石。规矩\"长回去\"：回合结束时，这回合掉的血长回一半。regrow（800，长回去时播）：树干一挺，掉了的金币叶一片片从枝头冒出来、长大",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "怪",
+      "viewBox": "0 0 320 400",
+      "load": "inline",
+      "monster": "normal",
+      "anchor": [
+        160,
+        400
+      ],
+      "stay": [
+        "daze"
+      ],
+      "status": "新画法重制",
+      "id": "mon_armor",
+      "hitPoint": [
+        160,
+        180
+      ],
+      "batch": "本体第3批",
+      "parts": [
+        "root",
+        "shadow",
+        "legs",
+        "body",
+        "helmet",
+        "visor",
+        "eyes",
+        "shield",
+        "sword",
+        "face_hurt",
+        "face_daze",
+        "plates"
+      ],
+      "events": {
+        "hit": 400,
+        "hit_big": 700,
+        "attack": 800,
+        "daze": 600,
+        "die": 1000,
+        "cap": 500
+      },
+      "desc": "盔甲（第三幕精英）：一副空的旧骑士盔甲自己站着。头盔（helmet）的面罩（visor）缝里两点很小的绿宝石色光是眼睛（eyes，唯一鲜艳的地方，不发大光）；左手一面大圆盾（shield），右手一把长剑（sword）拄在地上。冷灰铁色，有凹痕和锈。规矩\"压倍率\"：倍率最高到 ×32。cap（500，倍率到顶时播）：盔甲举起盾往下一压，\"当\"一声，整副盔甲往下一沉",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "规矩图标",
+      "viewBox": "0 0 64 64",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "rule_regrow",
+      "batch": "本体第3批",
+      "desc": "长回去：一根小铜树枝，枝头冒出一片新的金币叶",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "规矩图标",
+      "viewBox": "0 0 64 64",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "rule_cap",
+      "batch": "本体第3批",
+      "desc": "压倍率：一只铁护手掌心朝下，压住一颗白色宝石，宝石只露出一半",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 96 96",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_red",
+      "batch": "本体第3批",
+      "desc": "红宝石加倍：一只旧银双联戒托（两个小戒托连在一起），托里两颗一样的红色圆宝石",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 96 96",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_green",
+      "batch": "本体第3批",
+      "desc": "绿宝石加倍：和 relic_red 同一个银托，托里两颗一样的绿色方宝石",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 96 96",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_blue",
+      "batch": "本体第3批",
+      "desc": "蓝宝石加倍：和 relic_red 同一个银托，托里两颗一样的蓝色三角宝石",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 96 96",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_shun",
+      "batch": "本体第3批",
+      "desc": "顺色 ×3：一条短项链，依次串着红、绿、蓝三颗不同颜色的宝石，链子末端一只三齿小钩",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 96 96",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_same4",
+      "batch": "本体第3批",
+      "desc": "同色 ×4：一枚四瓣花形旧银胸针，四瓣是四颗一样的绿色方宝石",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 96 96",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_link",
+      "batch": "本体第3批",
+      "desc": "凑白也接链：一条项链，红、绿、蓝三颗宝石中间夹着一颗白宝石，链子连得好好的",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 96 96",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_shine",
+      "batch": "本体第3批",
+      "desc": "闪光 300：一只小铜磨轮，轮边抵着一颗切好的蓝宝石，宝石角上一个四角小星芒",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 96 96",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_guard",
+      "batch": "本体第3批",
+      "desc": "挡一次：一面小圆铜盾，盾面上被打凹了一块",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 96 96",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_rbheal",
+      "batch": "本体第3批",
+      "desc": "彩虹回心：一只心形的小玻璃瓶，瓶里六色细条纹（红、黄、绿、青、蓝、品红）",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "宝物",
+      "viewBox": "0 0 192 192",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "relic_biggem",
+      "batch": "本体第3批",
+      "desc": "大宝石：古堡里最大的那颗宝石，龙肚子里那颗。一颗多切面的大白宝石（白 = 三色混合），切面里透出红、绿、蓝三色的光，嵌在一只旧金爪托上。通关画面放大显示，收藏室里缩到 96。画框 192×192，比别的宝物大一倍",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "背景",
+      "viewBox": "0 0 512 512",
+      "load": "img",
+      "status": "新画法重制",
+      "id": "bg_tile_vault",
+      "batch": "本体第3批",
+      "desc": "第三幕\"宝库\"的整屏背景，可以无缝平铺：大块旧石砖，砖缝里零星嵌着几粒很暗的小宝石碎（压暗，不发光）。很暗、很平，和现在的 bg_tile 一样暗",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "场景",
+      "viewBox": "0 0 120 240",
+      "load": "img",
+      "anchor": [
+        60,
+        240
+      ],
+      "status": "新画法重制",
+      "id": "prop_coins",
+      "batch": "本体第3批",
+      "desc": "宝库里的一堆旧金币，堆在地上，上面斜插一只倒了的高脚杯。压暗的旧金，不发光；堆的高度大约到画框一半，上半截空着",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
+    },
+    {
+      "group": "场景",
+      "viewBox": "0 0 120 240",
+      "load": "img",
+      "anchor": [
+        60,
+        240
+      ],
+      "status": "新画法重制",
+      "id": "prop_urn",
+      "batch": "本体第3批",
+      "desc": "宝库里一只大陶瓶，双耳，暗色釉，瓶身一道裂纹。欧式古堡里的样子，不要画成青花瓷",
+      "idle": true,
+      "production_note": "画法、时间点与静态例外以本包需求.md/制作规范.md/动作时间表.json为准。",
+      "artStyle": "fable-carbon-remake"
     }
-  ]
+  ],
+  "artStyle": "fable-carbon-remake"
 }

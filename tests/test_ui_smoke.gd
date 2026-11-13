@@ -159,7 +159,9 @@ static func run(tree: SceneTree) -> Dictionary:
 	_check(result, app.scene.get_child(0).preview.art_id == "mon_clock", "检查器inspect-id可选择座钟")
 	app.inspect_id = "ui_rainbow_slot"
 	app._render()
-	_check(result, app.scene.get_child(0).previews.size() == 6, "检查器彩虹六色同屏")
+	var rainbow_previews: Array[Control] = app.scene.get_child(0).previews
+	var rainbow_live: Array[Control] = rainbow_previews.filter(func(item: Control) -> bool: return not item.get_meta("sample_static",false))
+	_check(result, rainbow_live.map(func(item: Control) -> String: return item.entry_key) == ["1","3","2","6","4","5"] and rainbow_previews.size() == 7 and rainbow_previews[6].static_art, "检查器彩虹六色同屏并附新待机静止对照")
 	_check(result, app._capture_snapshot()=={"art":"ui_rainbow_slot"}, "素材截图旁车只记录所选素材")
 	app.art_mode = false
 	app.inspect_id = ""

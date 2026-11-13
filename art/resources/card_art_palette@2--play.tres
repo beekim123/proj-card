@@ -1,0 +1,131 @@
+[gd_resource type="SpriteFrames" load_steps=20 format=3]
+
+[ext_resource type="Texture2D" path="res://art/sprites/card_art_palette@2-1.png" id="t0"]
+
+[sub_resource type="AtlasTexture" id="f0"]
+atlas = ExtResource("t0")
+region = Rect2(216, 943, 204, 198)
+margin = Rect2(49, 70, 60, 84)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 207, 246)
+margin = Rect2(49, 22, 57, 36)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2"]
+atlas = ExtResource("t0")
+region = Rect2(207, 0, 208, 246)
+margin = Rect2(49, 22, 56, 36)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3"]
+atlas = ExtResource("t0")
+region = Rect2(415, 0, 208, 246)
+margin = Rect2(49, 22, 56, 36)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4"]
+atlas = ExtResource("t0")
+region = Rect2(632, 246, 214, 230)
+margin = Rect2(46, 38, 50, 52)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5"]
+atlas = ExtResource("t0")
+region = Rect2(647, 488, 216, 226)
+margin = Rect2(46, 42, 48, 56)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f6"]
+atlas = ExtResource("t0")
+region = Rect2(432, 717, 216, 224)
+margin = Rect2(46, 44, 48, 58)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f7"]
+atlas = ExtResource("t0")
+region = Rect2(648, 717, 216, 224)
+margin = Rect2(46, 44, 48, 58)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f8"]
+atlas = ExtResource("t0")
+region = Rect2(0, 943, 216, 224)
+margin = Rect2(46, 44, 48, 58)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f9"]
+atlas = ExtResource("t0")
+region = Rect2(216, 717, 216, 225)
+margin = Rect2(46, 43, 48, 57)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f10"]
+atlas = ExtResource("t0")
+region = Rect2(0, 717, 216, 226)
+margin = Rect2(46, 42, 48, 56)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f11"]
+atlas = ExtResource("t0")
+region = Rect2(431, 488, 216, 227)
+margin = Rect2(46, 41, 48, 55)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f12"]
+atlas = ExtResource("t0")
+region = Rect2(215, 488, 216, 228)
+margin = Rect2(46, 40, 48, 54)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f13"]
+atlas = ExtResource("t0")
+region = Rect2(0, 488, 215, 229)
+margin = Rect2(46, 39, 49, 53)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f14"]
+atlas = ExtResource("t0")
+region = Rect2(418, 246, 214, 232)
+margin = Rect2(46, 36, 50, 50)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f15"]
+atlas = ExtResource("t0")
+region = Rect2(207, 246, 211, 237)
+margin = Rect2(47, 31, 53, 45)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f16"]
+atlas = ExtResource("t0")
+region = Rect2(0, 246, 207, 242)
+margin = Rect2(48, 26, 57, 40)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f17"]
+atlas = ExtResource("t0")
+region = Rect2(623, 0, 211, 245)
+margin = Rect2(48, 23, 53, 37)
+filter_clip = true
+
+[resource]
+animations = [{ "frames": [{ "duration": 33.33, "texture": SubResource("f0") },
+{ "duration": 33.33, "texture": SubResource("f1") },
+{ "duration": 33.33, "texture": SubResource("f2") },
+{ "duration": 33.33, "texture": SubResource("f3") },
+{ "duration": 33.33, "texture": SubResource("f4") },
+{ "duration": 33.33, "texture": SubResource("f5") },
+{ "duration": 33.33, "texture": SubResource("f6") },
+{ "duration": 33.33, "texture": SubResource("f7") },
+{ "duration": 33.33, "texture": SubResource("f8") },
+{ "duration": 33.33, "texture": SubResource("f9") },
+{ "duration": 33.33, "texture": SubResource("f10") },
+{ "duration": 33.33, "texture": SubResource("f11") },
+{ "duration": 33.33, "texture": SubResource("f12") },
+{ "duration": 33.33, "texture": SubResource("f13") },
+{ "duration": 33.33, "texture": SubResource("f14") },
+{ "duration": 33.33, "texture": SubResource("f15") },
+{ "duration": 33.33, "texture": SubResource("f16") },
+{ "duration": 33.33, "texture": SubResource("f17") }], "loop": false, "name": &"play", "speed": 1000.0 }]

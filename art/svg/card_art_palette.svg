@@ -1,0 +1,305 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_palette" viewBox="0 0 176 188" width="176" height="188" style="color:#E6DEC8">
+<title>额外牌原画 · 调色盘</title>
+<style>
+.svg-card_art_palette g { transform-box: view-box; }
+.svg-card_art_palette #palette_board { transform-origin: 98px 118px; }
+.svg-card_art_palette #tint_glow { transform-origin: 98px 114px; }
+.svg-card_art_palette #gem_glints { transform-origin: 96px 104px; }
+.svg-card_art_palette #brush { transform-origin: 142px 52px; opacity: 0; }
+.svg-card_art_palette #magenta_pile { transform-origin: 118px 132px; opacity: 0; }
+.svg-card_art_palette #play_burst { transform-origin: 118px 132px; opacity: 0; }
+
+/* 待机 3000：0 → 1500 → 3000。宝石碎微微闪，调色盘轻轻晃 1.5° */
+@keyframes svg-card_art_palette-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-2px) rotate(-1.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-card_art_palette:not([data-anim]) #palette_board,
+.svg-card_art_palette[data-anim="idle"] #palette_board { animation: svg-card_art_palette-idle-1 3s infinite; }
+
+@keyframes svg-card_art_palette-idle-2 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.9,0.9); opacity: 0.45; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1.06,1.06); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.9,0.9); opacity: 0.45; }
+}
+.svg-card_art_palette:not([data-anim]) #gem_glints,
+.svg-card_art_palette[data-anim="idle"] #gem_glints { animation: svg-card_art_palette-idle-2 3s infinite; }
+
+@keyframes svg-card_art_palette-idle-3 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.98,0.98); opacity: 0.65; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1.02,1.02); opacity: 0.95; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.98,0.98); opacity: 0.65; }
+}
+.svg-card_art_palette:not([data-anim]) #tint_glow,
+.svg-card_art_palette[data-anim="idle"] #tint_glow { animation: svg-card_art_palette-idle-3 3s infinite; }
+
+/* play 600：0 静止 → 100 画笔从右上角伸进来起手到位 → 250 在空凹坑里点一下，长出一堆品红宝石碎、闪一下 → 400 停住 → 600 画笔收回、品红那堆淡掉 */
+@keyframes svg-card_art_palette-play-4 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,-2px) rotate(-1.5deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(0px,4px) rotate(2.5deg) scale(1.03,0.96); animation-timing-function: linear; }
+  66.67% { transform: translate(0px,4px) rotate(2.5deg) scale(1.03,0.96); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-card_art_palette[data-anim="play"] #palette_board { animation: svg-card_art_palette-play-4 0.6s both; }
+
+@keyframes svg-card_art_palette-play-5 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.98,0.98); opacity: 0.65; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(0deg) scale(1.01,1.01); opacity: 0.8; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(0px,0px) rotate(0deg) scale(1.06,1.06); opacity: 1; animation-timing-function: linear; }
+  66.67% { transform: translate(0px,0px) rotate(0deg) scale(1.06,1.06); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.98,0.98); opacity: 0.65; }
+}
+.svg-card_art_palette[data-anim="play"] #tint_glow { animation: svg-card_art_palette-play-5 0.6s both; }
+
+@keyframes svg-card_art_palette-play-6 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.9,0.9); opacity: 0.45; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.75; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(0px,0px) rotate(0deg) scale(1.12,1.12); opacity: 1; animation-timing-function: linear; }
+  66.67% { transform: translate(0px,0px) rotate(0deg) scale(1.12,1.12); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.9,0.9); opacity: 0.45; }
+}
+.svg-card_art_palette[data-anim="play"] #gem_glints { animation: svg-card_art_palette-play-6 0.6s both; }
+
+@keyframes svg-card_art_palette-play-7 {
+  0% { transform: translate(6px,-8px) rotate(10deg) scale(0.92,0.92); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(2px,-4px) rotate(4deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(-10px,14px) rotate(-8deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  66.67% { transform: translate(-8px,11px) rotate(-6deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(6px,-8px) rotate(10deg) scale(0.92,0.92); opacity: 0; }
+}
+.svg-card_art_palette[data-anim="play"] #brush { animation: svg-card_art_palette-play-7 0.6s both; }
+
+@keyframes svg-card_art_palette-play-8 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.2,0.2); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(0deg) scale(0.35,0.35); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  41.67% { transform: translate(0px,0px) rotate(0deg) scale(1.12,1.12); opacity: 1; animation-timing-function: linear; }
+  66.67% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.2,0.2); opacity: 0; }
+}
+.svg-card_art_palette[data-anim="play"] #magenta_pile { animation: svg-card_art_palette-play-8 0.6s both; }
+
+@keyframes svg-card_art_palette-play-9 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.3,0.3); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(0deg) scale(0.4,0.4); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(0px,0px) rotate(15deg) scale(1.15,1.15); opacity: 1; animation-timing-function: linear; }
+  66.67% { transform: translate(0px,0px) rotate(25deg) scale(1,1); opacity: 0.6; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(40deg) scale(0.4,0.4); opacity: 0; }
+}
+.svg-card_art_palette[data-anim="play"] #play_burst { animation: svg-card_art_palette-play-9 0.6s both; }
+</style>
+<defs>
+<pattern id="card_art_palette-h" width="4.6" height="4.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+  <line x1="0" y1="0" x2="0" y2="4.6" stroke="#1C1412" stroke-width="0.9"/>
+</pattern>
+<clipPath id="card_art_palette-cboard">
+  <path d="M98,64 C138,62 164,84 162,116 C160,148 130,166 92,164 C62,162 40,148 36,126 C33,108 46,96 54,90 C62,84 68,66 98,64 Z M60,126 C53,126 48,131 48,138 C48,145 54,150 61,150 C68,150 73,144 73,137 C73,130 67,126 60,126 Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="card_art_palette-chandle">
+  <path d="M158,20 C161,21 163,24 161,27 L135,84 L126,79 L154,22 C155,20 156.5,19.5 158,20 Z"/>
+</clipPath>
+</defs>
+
+<g id="root">
+  <!-- 左上角 x 0–30, y 0–90 留空；底部落地接触阴影 -->
+  <ellipse cx="98" cy="171" rx="54" ry="6.5" fill="#0D111C" opacity="0.6"/>
+
+  <!-- 另画一层宝石光 tint_glow：只用 currentColor 做纯色填充和描边（代码按上一张牌的颜色染） -->
+  <g id="tint_glow">
+    <path d="M40,94 C50,62 82,48 118,52 C148,56 168,80 166,112" fill="none" stroke="currentColor" stroke-width="6.5" stroke-linecap="round" opacity="0.38"/>
+    <path d="M44,92 C54,64 84,52 118,56 C145,60 163,82 162,110" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="10 7" stroke-linecap="round"/>
+    <!-- 四颗染色四角星芒 -->
+    <path d="M44,72 Q45.2,77.8 51,79 Q45.2,80.2 44,86 Q42.8,80.2 37,79 Q42.8,77.8 44,72 Z M88,46 Q89.2,51.8 95,53 Q89.2,54.2 88,60 Q86.8,54.2 81,53 Q86.8,51.8 88,46 Z M138,52 Q139.2,57.8 145,59 Q139.2,60.2 138,66 Q136.8,60.2 131,59 Q136.8,57.8 138,52 Z M164,90 Q165,94.5 169.5,95.5 Q165,96.5 164,101 Q163,96.5 158.5,95.5 Q163,94.5 164,90 Z" fill="currentColor"/>
+  </g>
+
+  <!-- 旧木调色盘与五小堆宝石碎 palette_board -->
+  <g id="palette_board">
+    <!-- 第 1 层：墨色垫底（往右下错开 0.6, 0.9） -->
+    <path d="M98,64 C138,62 164,84 162,116 C160,148 130,166 92,164 C62,162 40,148 36,126 C33,108 46,96 54,90 C62,84 68,66 98,64 Z M60,126 C53,126 48,131 48,138 C48,145 54,150 61,150 C68,150 73,144 73,137 C73,130 67,126 60,126 Z" transform="translate(.6 .9)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <!-- 第 2 层：铺木头“最暗”一档（露出底边厚度） -->
+    <path d="M98,64 C138,62 164,84 162,116 C160,148 130,166 92,164 C62,162 40,148 36,126 C33,108 46,96 54,90 C62,84 68,66 98,64 Z M60,126 C53,126 48,131 48,138 C48,145 54,150 61,150 C68,150 73,144 73,137 C73,130 67,126 60,126 Z" fill="#3D2212" fill-rule="evenodd"/>
+
+    <g clip-path="url(#card_art_palette-cboard)">
+      <!-- 第 3 层：错位亮面（往左上挪 -4, -4.5） -->
+      <path d="M98,64 C138,62 164,84 162,116 C160,148 130,166 92,164 C62,162 40,148 36,126 C33,108 46,96 54,90 C62,84 68,66 98,64 Z M60,126 C53,126 48,131 48,138 C48,145 54,150 61,150 C68,150 73,144 73,137 C73,130 67,126 60,126 Z" transform="translate(-4 -4.5)" fill="#704122" fill-rule="evenodd"/>
+      <!-- 盘面左上受光面 -->
+      <path d="M38,120 C36,104 48,94 56,88 C64,81 72,66 102,65 C118,65 132,70 142,78 C126,74 106,74 88,82 C68,90 50,104 38,120 Z" fill="#9E6238" opacity="0.85"/>
+      <!-- 右下弧形暗面与 45° 细排线 -->
+      <path d="M136,74 C152,90 156,116 140,138 C124,156 96,162 68,158 L164,166 L166,80 Z" fill="#3D2212" opacity="0.72"/>
+      <path d="M144,86 C156,104 154,130 134,148 L164,160 L166,86 Z" fill="url(#card_art_palette-h)" opacity="0.35"/>
+      <!-- 木纹（顺着木盘弧度走的长收尖线，用木头自己的暗色 #3D2212，只画在边上） -->
+      <path d="M56,112 Q84,102 118,108 Q84,105 56,112 Z M76,146 Q104,152 134,142 Q104,149 76,146 Z M78,74 Q102,69 128,74 Q102,72 78,74 Z" fill="#3D2212" opacity="0.75"/>
+      <!-- 一个木节 -->
+      <ellipse cx="88" cy="151" rx="4.8" ry="2.2" fill="#3D2212" opacity="0.75"/>
+      <ellipse cx="88" cy="151" rx="2.2" ry="0.9" fill="#1C1412" opacity="0.75"/>
+      <!-- 边缘旧颜料干掉的痕迹（暗紫、暗铜绿、暗褐干斑，不鲜艳） -->
+      <path d="M40,114 C43,111 48,113 47,118 C45,121 39,119 40,114 Z" fill="#5E242C" opacity="0.55"/>
+      <path d="M114,67 C119,66 124,68 122,72 C119,74 113,71 114,67 Z" fill="#5F8272" opacity="0.5"/>
+      <path d="M150,126 C154,124 158,128 156,133 C153,136 148,132 150,126 Z" fill="#3A324D" opacity="0.6"/>
+      <!-- 第 5 层：左上受光亮边与右下冷色轮廓光（断成两截） -->
+      <path d="M37.5,118 C36.5,106 46,96 55,89.5 C63,83 70,67.5 96,65.5 C72,69 65,84 56.5,91 C48,97.5 39,106.5 37.5,118 Z" fill="#C48A5C"/>
+      <path d="M160.2,106 Q160.5,122 154,135 Q158.5,122 158.6,106 Z M147,144 Q134,156 114,160.5 Q133,154.5 145.8,142.8 Z" fill="#8CAAB5" opacity="0.82"/>
+    </g>
+
+    <!-- 拇指孔边缘磨得发亮（左上与右下月牙磨亮边 + 高光点） -->
+    <path d="M46.5,136 A13.5,12.5 0 0 1 63,124.5" fill="none" stroke="#C48A5C" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M49,132 A12,11 0 0 1 59,125.2" fill="none" stroke="#E2D6BA" stroke-width="1.3" stroke-linecap="round"/>
+    <circle cx="52.5" cy="127.2" r="1.4" fill="#E2D6BA"/>
+
+    <!-- 盘面连接五堆宝石碎与空凹坑的染色光轨（currentColor 纯色描边 + 固定白亮芯） -->
+    <path d="M54,104 C62,86 84,78 110,82 C134,86 146,104 136,124 C128,136 110,140 90,136" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M54,104 C62,86 84,78 110,82 C134,86 146,104 136,124" fill="none" stroke="#F4F1FF" stroke-width="1.1" stroke-dasharray="6 8" stroke-linecap="round" opacity="0.75"/>
+
+    <!-- ===== 五小堆宝石碎（红、黄、绿、青、蓝，鲜艳，不用 currentColor；每堆有大有小、带刻面） ===== -->
+    <!-- 1. 红宝石碎堆 (54, 105) -->
+    <g id="pile_red">
+      <ellipse cx="54" cy="106" rx="12.5" ry="8.5" fill="#3D2212"/>
+      <!-- 大颗红晶 -->
+      <polygon points="44,107 49,95 60,97 62,107 52,111" fill="#1C1412" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <polygon points="44,107 49,95 60,97 62,107 52,111" fill="#E3263A"/>
+      <polygon points="44,107 49,95 55,101 52,111" fill="#F4566A"/>
+      <polygon points="49,95 60,97 55,101" fill="#FFA3AB"/>
+      <polygon points="60,97 62,107 52,111 55,101" fill="#A8172A"/>
+      <!-- 右侧小颗红晶 -->
+      <polygon points="57,108 62,101 67,105 64,111" fill="#1C1412" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="57,108 62,101 67,105 64,111" fill="#E3263A"/>
+      <polygon points="57,108 62,101 63,106" fill="#F4566A"/>
+      <polygon points="62,101 67,105 64,111 63,106" fill="#6B0E1C"/>
+      <!-- 左侧碎粒 -->
+      <polygon points="41,109 44,105 47,109 43,112" fill="#F4566A" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+      <circle cx="50.5" cy="99" r="1.5" fill="#F4F1FF"/>
+    </g>
+
+    <!-- 2. 黄宝石碎堆 (76, 86) -->
+    <g id="pile_yellow">
+      <ellipse cx="76" cy="87" rx="12.5" ry="8.5" fill="#3D2212"/>
+      <!-- 大颗黄晶 -->
+      <polygon points="66,88 73,76 84,79 85,89 75,93" fill="#1C1412" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <polygon points="66,88 73,76 84,79 85,89 75,93" fill="#FFD84A"/>
+      <polygon points="66,88 73,76 77,83 75,93" fill="#FFF3B4"/>
+      <polygon points="73,76 84,79 77,83" fill="#F4F1FF" opacity="0.8"/>
+      <polygon points="84,79 85,89 75,93 77,83" fill="#D9A21E"/>
+      <!-- 小颗黄晶 -->
+      <polygon points="80,90 85,83 90,87 86,93" fill="#1C1412" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="80,90 85,83 90,87 86,93" fill="#FFD84A"/>
+      <polygon points="80,90 85,83 85,88" fill="#FFF3B4"/>
+      <polygon points="64,90 67,86 70,90 66,93" fill="#FFF3B4" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+      <circle cx="73.5" cy="80.5" r="1.5" fill="#F4F1FF"/>
+    </g>
+
+    <!-- 3. 绿宝石碎堆 (105, 81) -->
+    <g id="pile_green">
+      <ellipse cx="105" cy="82" rx="13" ry="8.5" fill="#3D2212"/>
+      <!-- 大颗绿晶 -->
+      <polygon points="95,83 102,71 114,74 116,84 105,88" fill="#1C1412" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <polygon points="95,83 102,71 114,74 116,84 105,88" fill="#1DBF5E"/>
+      <polygon points="95,83 102,71 106,78 105,88" fill="#4FDB85"/>
+      <polygon points="102,71 114,74 106,78" fill="#A6F5C6"/>
+      <polygon points="114,74 116,84 105,88 106,78" fill="#128A43"/>
+      <!-- 小颗绿晶 -->
+      <polygon points="110,85 116,78 120,83 116,88" fill="#1C1412" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="110,85 116,78 120,83 116,88" fill="#1DBF5E"/>
+      <polygon points="110,85 116,78 115,84" fill="#4FDB85"/>
+      <polygon points="92,85 95,81 98,85 95,88" fill="#4FDB85" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+      <circle cx="102.5" cy="75.5" r="1.6" fill="#F4F1FF"/>
+    </g>
+
+    <!-- 4. 青宝石碎堆 (131, 90) -->
+    <g id="pile_cyan">
+      <ellipse cx="131" cy="91" rx="12.5" ry="8.5" fill="#3D2212"/>
+      <!-- 大颗青晶 -->
+      <polygon points="121,92 128,80 140,83 141,93 130,97" fill="#1C1412" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <polygon points="121,92 128,80 140,83 141,93 130,97" fill="#3FE3F0"/>
+      <polygon points="121,92 128,80 132,87 130,97" fill="#C2F8FC"/>
+      <polygon points="128,80 140,83 132,87" fill="#F4F1FF" opacity="0.85"/>
+      <polygon points="140,83 141,93 130,97 132,87" fill="#1FA9B8"/>
+      <!-- 小颗青晶 -->
+      <polygon points="135,94 141,88 145,92 141,97" fill="#1C1412" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+      <polygon points="135,94 141,88 145,92 141,97" fill="#3FE3F0"/>
+      <polygon points="135,94 141,88 140,93" fill="#C2F8FC"/>
+      <circle cx="128.5" cy="84.5" r="1.5" fill="#F4F1FF"/>
+    </g>
+
+    <!-- 5. 蓝宝石碎堆 (144, 113) -->
+    <g id="pile_blue">
+      <ellipse cx="144" cy="114" rx="12.5" ry="8.5" fill="#3D2212"/>
+      <!-- 大颗蓝晶 -->
+      <polygon points="134,115 142,102 153,106 155,116 144,120" fill="#1C1412" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <polygon points="134,115 142,102 153,106 155,116 144,120" fill="#2E66F0"/>
+      <polygon points="134,115 142,102 145,110 144,120" fill="#6A93F8"/>
+      <polygon points="142,102 153,106 145,110" fill="#B4C8FF"/>
+      <polygon points="153,106 155,116 144,120 145,110" fill="#1D45B8"/>
+      <!-- 小颗蓝晶 -->
+      <polygon points="131,117 135,111 139,116 135,120" fill="#6A93F8" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="142.5" cy="107" r="1.5" fill="#F4F1FF"/>
+    </g>
+
+    <!-- 6. 空着的凹坑 empty_pit (118, 134) -->
+    <g id="empty_pit">
+      <ellipse cx="118" cy="134" rx="14.5" ry="9.5" fill="#1C1412"/>
+      <ellipse cx="118" cy="134.5" rx="12.8" ry="7.8" fill="#2A180E"/>
+      <path d="M106,133 C108,128 118,126 129,129 C122,130 112,132 106,136 Z" fill="#1C1412" opacity="0.8"/>
+      <path d="M108,138 C113,141.5 123,141.5 128,138" fill="none" stroke="#704122" stroke-width="1.2" stroke-linecap="round"/>
+      <!-- 凹坑里两道刮痕 -->
+      <path d="M113,132 Q118,134.8 123,133 Q118,133.2 113,132 Z" fill="#1C1412"/>
+    </g>
+
+    <!-- 待机微闪的四芒星点 gem_glints -->
+    <g id="gem_glints" fill="#F4F1FF">
+      <path d="M49,91 Q49.8,94.8 53.5,95.5 Q49.8,96.2 49,100 Q48.2,96.2 44.5,95.5 Q48.2,94.8 49,91 Z"/>
+      <path d="M73,72 Q73.8,75.8 77.5,76.5 Q73.8,77.2 73,81 Q72.2,77.2 68.5,76.5 Q72.2,75.8 73,72 Z"/>
+      <path d="M102,67 Q102.9,71.2 107,72 Q102.9,72.8 102,77 Q101.1,72.8 97,72 Q101.1,71.2 102,67 Z"/>
+      <path d="M128,76 Q128.8,79.8 132.5,80.5 Q128.8,81.2 128,85 Q127.2,81.2 123.5,80.5 Q127.2,79.8 128,76 Z"/>
+      <path d="M142,98 Q142.8,101.8 146.5,102.5 Q142.8,103.2 142,107 Q141.2,103.2 137.5,102.5 Q141.2,101.8 142,98 Z"/>
+    </g>
+
+    <!-- play 时在空凹坑里长出的品红宝石碎堆 magenta_pile（平时 opacity: 0） -->
+    <g id="magenta_pile">
+      <polygon points="105,136 113,121 127,124 130,136 118,142" fill="#1C1412" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <polygon points="105,136 113,121 127,124 130,136 118,142" fill="#E94FD8"/>
+      <polygon points="105,136 113,121 118,130 118,142" fill="#FAB2F1"/>
+      <polygon points="113,121 127,124 118,130" fill="#F4F1FF" opacity="0.85"/>
+      <polygon points="127,124 130,136 118,142 118,130" fill="#B02CA2"/>
+      <!-- 旁边两颗小品红晶粒 -->
+      <polygon points="124,137 130,130 135,135 130,141" fill="#E94FD8" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="101,138 105,132 109,137 105,141" fill="#FAB2F1" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="114" cy="126.5" r="1.8" fill="#F4F1FF"/>
+    </g>
+
+    <!-- play 时点下闪出的星芒 play_burst（平时 opacity: 0） -->
+    <g id="play_burst">
+      <circle cx="118" cy="132" r="22" fill="none" stroke="#FAB2F1" stroke-width="2" stroke-dasharray="6 5"/>
+      <path d="M118,108 Q120,126 138,128 Q120,130 118,148 Q116,130 98,128 Q116,126 118,108 Z" fill="#F4F1FF"/>
+    </g>
+
+    <!-- 盘边两处旧磕痕缺口 -->
+    <path d="M82,64.8 L84.5,68.2 L87,64.5 Z M159,130 L155.5,131.2 L157.5,134 Z" fill="#1C1412"/>
+  </g>
+
+  <!-- play 时从右上角伸进来的旧画笔 brush（全程严格在 x:104..166, y:12..134 画框内，绝不出框） -->
+  <g id="brush">
+    <!-- 旧木笔杆（七层画法：渐细圆管） -->
+    <path d="M158,20 C161,21 163,24 161,27 L135,84 L126,79 L154,22 C155,20 156.5,19.5 158,20 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+    <path d="M158,20 C161,21 163,24 161,27 L135,84 L126,79 L154,22 C155,20 156.5,19.5 158,20 Z" fill="#3D2212"/>
+    <g clip-path="url(#card_art_palette-chandle)">
+      <path d="M158,20 C161,21 163,24 161,27 L135,84 L126,79 L154,22 C155,20 156.5,19.5 158,20 Z" transform="translate(-2.4 -1.6)" fill="#704122"/>
+      <path d="M128,79 L155,22 L157.5,23 L130.5,80 Z" fill="#C48A5C"/>
+    </g>
+    <!-- 旧铜笔箍（带两道箍线和高光） -->
+    <polygon points="126,79 135,84 129,96 120,91" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <polygon points="126,79 135,84 129,96 120,91" fill="#6E542B"/>
+    <polygon points="126,79 131,82 125,94 120,91" fill="#9A7B46"/>
+    <path d="M121.5,90 L126.5,80" stroke="#DDCB9A" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M124.5,83 L133.5,88 M122,88 L131,93" stroke="#1C1412" stroke-width="1.1"/>
+    <!-- 画笔的笔毛（分出三簇，笔尖蘸着品红宝石光） -->
+    <path d="M120,91 L129,96 C127,104 124,111 119,116 L121,111 L116,117 C114,110 116,100 120,91 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <path d="M120,91 L129,96 C127,104 124,111 119,116 L121,111 L116,117 C114,110 116,100 120,91 Z" fill="#524531"/>
+    <path d="M120,91 L125,94 C122,102 119,109 116,115 C115,108 116.5,99 120,91 Z" fill="#9A8968"/>
+    <!-- 笔尖品红颜料与分簇毛丝线 -->
+    <path d="M117,104 C120,103 124,104 126,106 C124,111 121,114 119,116 L121,111 L116,117 C115,113 115.5,108 117,104 Z" fill="#E94FD8"/>
+    <path d="M117.5,105 C119.5,105 121,106 121.5,108 C119.5,112 117.5,115 116,117 C115.5,113 116,109 117.5,105 Z" fill="#FAB2F1"/>
+    <path d="M123,93 Q120,102 118,111 Q121.5,102 123,93 Z M126,95 Q123.5,103 121,111 Q125,103 126,95 Z" fill="#1C1412"/>
+  </g>
+</g>
+</svg>

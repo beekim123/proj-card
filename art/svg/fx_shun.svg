@@ -1,48 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_shun" viewBox="0 0 60 240" width="60" height="240">
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_shun" viewBox="0 0 60 240" width="60" height="240" style="color:#E6DEC8">
 <title>特效 · 顺色</title>
 <style>
 .svg-fx_shun g { transform-box: view-box; }
-.svg-fx_shun #beam_wrap { opacity: 0; }
+.svg-fx_shun #beam_wrap { opacity: 0; transform-origin: 30px 120px; }
 .svg-fx_shun #beam_bolt { transform-origin: 30px 120px; }
 .svg-fx_shun #beam_motes { opacity: 0; transform-origin: 30px 120px; }
-@keyframes svg-fx_shun-wrap {
-  0%, 100% { opacity: 0; }
-  10%, 82% { opacity: 1; }
+
+/* play 500ms：0(0%) 全透明 → 60(12%) 快速显形上冲 → 160(32%) 峰值贯通 → 300(60%) 继续上掠衰减 → 500(100%) 全透明 */
+@keyframes svg-fx_shun-play-wrap {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  32% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.78; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
 }
-@keyframes svg-fx_shun-bolt {
-  0% { transform: translateY(65px) scaleY(0.45); }
-  45% { transform: translateY(0px) scaleY(1); }
-  85% { transform: translateY(-55px) scaleY(0.6); }
-  100% { transform: translateY(-65px) scaleY(0.3); }
+.svg-fx_shun[data-anim="play"] #beam_wrap { animation: svg-fx_shun-play-wrap 0.5s both; }
+
+@keyframes svg-fx_shun-play-bolt {
+  0% { transform: translate(0px,36px) rotate(0deg) scale(0.72,0.52); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(0px,12px) rotate(0deg) scale(0.95,0.88); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  32% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,-22px) rotate(0deg) scale(0.86,0.82); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,-38px) rotate(0deg) scale(0.55,0.48); }
 }
-@keyframes svg-fx_shun-motes {
-  0%, 18% { opacity: 0; transform: translateY(20px); }
-  45% { opacity: 1; transform: translateY(0px); }
-  88% { opacity: 0.7; transform: translateY(-20px); }
-  100% { opacity: 0; transform: translateY(-28px); }
+.svg-fx_shun[data-anim="play"] #beam_bolt { animation: svg-fx_shun-play-bolt 0.5s both; }
+
+@keyframes svg-fx_shun-play-motes {
+  0% { transform: translate(0px,24px) rotate(0deg) scale(0.65,0.65); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(0px,8px) rotate(0deg) scale(0.94,0.94); opacity: 0.9; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  32% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,-16px) rotate(0deg) scale(0.96,1.04); opacity: 0.75; animation-timing-function: linear; }
+  100% { transform: translate(0px,-28px) rotate(0deg) scale(0.8,0.85); opacity: 0; }
 }
-.svg-fx_shun[data-anim="play"] #beam_wrap { animation: svg-fx_shun-wrap 0.5s linear both; }
-.svg-fx_shun[data-anim="play"] #beam_bolt { animation: svg-fx_shun-bolt 0.5s steps(7, end) both; }
-.svg-fx_shun[data-anim="play"] #beam_motes { animation: svg-fx_shun-motes 0.5s steps(7, end) both; }
+.svg-fx_shun[data-anim="play"] #beam_motes { animation: svg-fx_shun-play-motes 0.5s both; }
 </style>
-<defs>
-<clipPath id="fx_shun-clip">
-      <rect x="2" y="4" width="56" height="232"/>
-    </clipPath>
-</defs>
 <g id="root">
-<!-- pivot: 30,120 -->
-    <g id="beam_wrap" opacity="0" clip-path="url(#fx_shun-clip)">
-      <g id="beam_bolt"><!-- pivot: 30,120 -->
-        <polygon points="30,18 44,64 36,112 46,162 30,222 16,166 24,116 14,68" fill="currentColor" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-        <polygon points="30,32 37,72 32,116 38,158 30,204 23,160 28,116 22,74" fill="#FFFFFF"/>
-      </g>
-      <g id="beam_motes" opacity="0"><!-- pivot: 30,120 -->
-        <path d="M16,49 L18,54 L23,56 L18,58 L16,63 L14,58 L9,56 L14,54 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.1"/>
-        <path d="M44,88 L46.2,93.8 L52,96 L46.2,98.2 L44,104 L41.8,98.2 L36,96 L41.8,93.8 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.1"/>
-        <path d="M18,141 L20,146 L25,148 L20,150 L18,155 L16,150 L11,148 L16,146 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.1"/>
-        <path d="M42,177.5 L43.8,182.2 L48.5,184 L43.8,185.8 L42,190.5 L40.2,185.8 L35.5,184 L40.2,182.2 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.1"/>
-      </g>
+  <!-- 严格收在 60×240 画框内的竖向宝石刀锋光束 (x: 10..50, y: 26..214) -->
+  <g id="beam_wrap">
+    <!-- 主竖光刀锋与矛头尖星 (#beam_bolt) -->
+    <g id="beam_bolt">
+      <!-- 墨色错位垫底 -->
+      <path d="M30,26 L38,54 L46,50 L36,68 L43,108 L37,144 L44,174 L30,214 L16,174 L23,144 L17,108 L24,68 L14,50 L22,54 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+      <!-- 染色主光刃 -->
+      <path d="M30,26 L38,54 L46,50 L36,68 L43,108 L37,144 L44,174 L30,214 L16,174 L23,144 L17,108 L24,68 L14,50 L22,54 Z" fill="currentColor"/>
+      <!-- 左半受光亮刻面与右半背光暗刻面 -->
+      <path d="M30,26 L30,214 L16,174 L23,144 L17,108 L24,68 L14,50 L22,54 Z" fill="#F4F1FF" opacity="0.46"/>
+      <path d="M30,26 L38,54 L46,50 L36,68 L43,108 L37,144 L44,174 L30,214 Z" fill="#1C1412" opacity="0.26"/>
+      <!-- 中轴白亮锋脊 -->
+      <polygon points="30,36 35,66 32,110 35,154 30,198 25,154 28,110 25,66" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
     </g>
+
+    <!-- 两侧随竖光上掠的窄幅宝石碎晶与尖星 (#beam_motes，横向严格在 x: 11..49 内) -->
+    <g id="beam_motes">
+      <!-- 左上碎晶 -->
+      <polygon points="15,68 21,76 16,86 11,78" fill="currentColor" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <polygon points="15,68 21,76 16,77" fill="#F4F1FF" opacity="0.7"/>
+      <!-- 右中上尖星 -->
+      <path d="M44,86 L46,92 L50,94 L46,96 L44,102 L42,96 L38,94 L42,92 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- 左中下尖星 -->
+      <path d="M16,126 L18,132 L22,134 L18,136 L16,142 L14,136 L10,134 L14,132 Z" fill="currentColor" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- 右下碎晶 -->
+      <polygon points="45,146 49,156 43,164 39,154" fill="currentColor" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+      <polygon points="45,146 43,155 39,154" fill="#F4F1FF" opacity="0.7"/>
+      <!-- 底部尾迹小星 -->
+      <path d="M20,180 L21.6,184.4 L25,186 L21.6,187.6 L20,192 L18.4,187.6 L15,186 L18.4,184.4 Z M41,176 L42.5,180 L46,181.5 L42.5,183 L41,187 L39.5,183 L36,181.5 L39.5,180 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+    </g>
+  </g>
 </g>
 </svg>

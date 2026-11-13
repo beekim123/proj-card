@@ -23,7 +23,7 @@ tools/check.sh
 Godot 编辑器会自动生成导入旁文件。为保护 H5，本项目工具先在 `artifacts/godot-project/` 建只含原生资源的镜像，再导入和出包，最后同步原生导入缓存；保留 H5 期间请用这些工具，避免直接对根目录执行 `--editor` 扫描。
 
 ```sh
-npm run export:sprites                  # 全部SVG逐帧导出，参数与H5一致
+npm run export:sprites                  # 全部新版SVG逐帧导出：事件30fps/循环15fps
 npm run export:sprites mon_clock        # 指定素材
 npm run import:sprites                  # 生成原生资源及导入策略
 npm run record:audio                    # Chrome离线录制原合成器
@@ -32,7 +32,7 @@ tools/export.sh                         # macOS和Windows
 node tools/screens.mjs                  # 配对截图；顺序运行Chrome和Godot
 ```
 
-素材工作源在 `art/svg/`；美术原件仍在 `art-source/`。占位图生成器与离线音效合成源码已逐字复制到 `tools/`，验收后删除 H5 不会破坏导图、录音或原生测试。重新生成黄金/源用例基准仍需原 H5，仅在确实更新基准时执行 `tools/golden/` 工具。
+素材工作源在 `art/svg/`，118件新画法交稿的来源与SHA-256在 `art/new-art-provenance.json`，`node tools/check-new-art.mjs` 核对完整覆盖、动画、染色和文字槽。当前游戏不使用旧占位图；`art-source/` 保留旧交接历史，不参与打包。离线音效合成源码在 `tools/`；重新生成黄金/源用例基准仍需原 H5，仅在确实更新基准时执行 `tools/golden/` 工具。
 
 交付范围、完整验证结果、与 H5 的区别和平台限制见 [HANDOFF.md](HANDOFF.md)，当前执行阶段见 [docs/v2/status.md](docs/v2/status.md)。
 

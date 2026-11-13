@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-prop_urn" viewBox="0 0 120 240" width="120" height="240">
+<title>宝库摆件 · 双耳暗釉大陶瓶</title>
+<style>
+.svg-prop_urn g { transform-box: view-box; }
+.svg-prop_urn #urn_tag { transform-origin: 21px 96px; }
+.svg-prop_urn #sheen { opacity: 0; }
+
+/* 待机 3000：0 静止 → 1500 左耳柄旧铜挂牌极轻摆动（-3.1°）及暗釉反光微变 → 3000 回到静止 */
+@keyframes svg-prop_urn-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-3.1deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_urn:not([data-anim]) #urn_tag,
+.svg-prop_urn[data-anim="idle"] #urn_tag { animation: svg-prop_urn-idle-1 3s infinite; }
+
+@keyframes svg-prop_urn-idle-2 {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 1; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-prop_urn:not([data-anim]) #sheen,
+.svg-prop_urn[data-anim="idle"] #sheen { animation: svg-prop_urn-idle-2 3s infinite; }
+</style>
+<defs>
+  <pattern id="prop_urn-h" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="4.5" stroke="#1C1412" stroke-width="0.9"/>
+  </pattern>
+  <clipPath id="prop_urn-cbelly">
+    <path d="M38,88 L82,90 C102,114 100,164 82,195 L38,194 C20,164 18,112 38,88 Z"/>
+  </clipPath>
+  <clipPath id="prop_urn-cfoot">
+    <path d="M38,194 L82,195 L88,215 L32,214 Z"/>
+  </clipPath>
+  <clipPath id="prop_urn-cped">
+    <path d="M28,214 L92,215 L96,232 L24,232 Z"/>
+  </clipPath>
+</defs>
+<g id="root">
+  <!-- 落地接触阴影（anchor: 60,240） -->
+  <ellipse cx="60" cy="235.2" rx="46" ry="3.8" fill="#0D111C" opacity="0.65"/>
+
+  <!-- 1. 欧式古堡双耳弯曲陶柄 (#twin_handles) -->
+  <g id="twin_handles">
+    <!-- 左耳柄（圆管七层：墨底 + 暗铁褐 + 左上三分之一错位亮面） -->
+    <path d="M37,85 C14,75 10,114 25,137 L29,132 C18,113 21,85 38,91 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M37,85 C14,75 10,114 25,137 L29,132 C18,113 21,85 38,91 Z" fill="#2E2C28"/>
+    <path d="M36,85.5 C16,77 12,112 25,134 L27,131 C16,112 19,82 37,88.5 Z" fill="#6E6A63"/>
+    <path d="M33,84.8 C19,81 14,98 17,114 C16,98 21,84 33,84.8 Z" fill="#948F86"/>
+
+    <!-- 左耳柄下挂着的一枚旧铜封铅小吊牌 (#urn_tag，轻待机微晃) -->
+    <g id="urn_tag">
+      <circle cx="21" cy="96" r="2.8" fill="#1C1412"/>
+      <circle cx="21" cy="96" r="1.8" fill="#6E542B"/>
+      <path d="M19,98 L23,98.5 L24.5,112 L21,115.5 L17.5,111.5 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="M19,98 L23,98.5 L24.5,112 L21,115.5 L17.5,111.5 Z" fill="#6E542B"/>
+      <path d="M19,98 L21.2,98.2 L21,114.5 L17.8,111.2 Z" fill="#9A7B46"/>
+      <circle cx="20" cy="107" r="0.9" fill="#DDCB9A"/>
+    </g>
+
+    <!-- 右耳柄（背光暗铁褐 + 最外圈冷色轮廓光） -->
+    <path d="M83,87 C106,77 110,116 95,139 L91,134 C102,115 99,87 82,93 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M83,87 C106,77 110,116 95,139 L91,134 C102,115 99,87 82,93 Z" fill="#2E2C28"/>
+    <path d="M84,88 C101,81 105,110 93,134 L91,132 C101,113 98,86 83,92 Z" fill="#4A4742"/>
+    <path d="M102.5,94 Q106.5,108 101,125 Q104.5,108 102.5,94 Z" fill="#8CAAB5" opacity="0.8"/>
+  </g>
+
+  <!-- 2. 底部欧式石座与收腰瓶足 -->
+  <path d="M28,214 L92,215 L96,232 L24,232 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+  <path d="M28,214 L92,215 L96,232 L24,232 Z" fill="#2E2C28"/>
+  <g clip-path="url(#prop_urn-cped)">
+    <path d="M28,214 L92,215 L96,232 L24,232 Z" transform="translate(-4 -2.5)" fill="#4A4742"/>
+    <path d="M27,228 L29.5,216 H58 L56,218 H31 L29,228 Z" fill="#948F86" opacity="0.75"/>
+    <path d="M62,214.5 L92,215 L96,232 H58 Z" fill="#1C1412" opacity="0.45"/>
+  </g>
+
+  <path d="M38,194 L82,195 L88,215 L32,214 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+  <path d="M38,194 L82,195 L88,215 L32,214 Z" fill="#161221"/>
+  <g clip-path="url(#prop_urn-cfoot)">
+    <path d="M38,194 L82,195 L88,215 L32,214 Z" transform="translate(-4 -2)" fill="#262036"/>
+    <path d="M38,194 H58 L55,214 H32 Z" fill="#3A324D" opacity="0.8"/>
+  </g>
+
+  <!-- 3. 大陶瓶暗色釉瓶身（欧式古堡哥特暗紫灰釉 #161221 / #262036 / #3A324D，绝非青花瓷） -->
+  <path d="M38,88 L82,90 C102,114 100,164 82,195 L38,194 C20,164 18,112 38,88 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+  <path d="M38,88 L82,90 C102,114 100,164 82,195 L38,194 C20,164 18,112 38,88 Z" fill="#161221"/>
+  <g clip-path="url(#prop_urn-cbelly)">
+    <!-- 第 3 层：错位亮面（暗档 #262036 作主色） -->
+    <path d="M38,88 L82,90 C102,114 100,164 82,195 L38,194 C20,164 18,112 38,88 Z" transform="translate(-5.5 -4)" fill="#262036"/>
+    <!-- 左上鼓起受光面（底色 #3A324D，弧形边界跟着瓶腹走） -->
+    <path d="M38,88 L64,89 C52,118 50,158 58,194 L38,194 C20,164 18,112 38,88 Z" fill="#3A324D" opacity="0.85"/>
+    <!-- 第 4 层：右下背光弧形加深与 45° 排线 -->
+    <path d="M68,89 L82,90 C102,114 100,164 82,195 L64,195 C80,164 82,116 68,89 Z" fill="#161221" opacity="0.88"/>
+    <path d="M66,126 L98,126 L86,195 L60,195 Z" fill="url(#prop_urn-h)" opacity="0.42"/>
+    <!-- 瓶颈压在瓶肩上的深暗投影 -->
+    <path d="M36,87 L84,89 V97 C68,94 52,93 36,95 Z" fill="#0D111C" opacity="0.65"/>
+
+    <!-- 第 5-6 层：左上暗釉长弧受光边、高光点与右下两段冷色轮廓光 -->
+    <path d="M36,96 C24,118 24,156 36,184 C28,156 28,118 39,96 Z" fill="#62577D" opacity="0.88"/>
+    <ellipse cx="34" cy="110" rx="2.2" ry="5.5" transform="rotate(14 34 110)" fill="#8C82A6" opacity="0.75"/>
+    <path d="M93.5,112 Q96.8,130 94.5,148 Q94.8,130 92,112 Z M92.5,156 Q89.5,174 83.5,189 Q87.5,174 91,156 Z" fill="#62577D" opacity="0.85"/>
+
+    <!-- 欧式古堡浮雕旧铜横箍带（上下两道，带珠点铆钉与铜绿） -->
+    <path d="M22,117 C48,120 72,120.5 98,118 L98,126.5 C72,129 48,128.5 22,125.5 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2"/>
+    <path d="M22,117 C40,119 52,119.5 64,119.5 V127 C52,127 40,126.5 22,125.5 Z" fill="#6E542B"/>
+    <path d="M24,118.5 Q42,120.5 58,120.5" fill="none" stroke="#9A7B46" stroke-width="1.3"/>
+    <path d="M26,121.8 Q60,124.5 94,122.5" fill="none" stroke="#C2A670" stroke-width="2.2" stroke-dasharray="0.1 6.5" stroke-linecap="round"/>
+    <ellipse cx="76" cy="123" rx="4.5" ry="2" fill="#5F8272" opacity="0.52"/>
+
+    <path d="M25,167 C48,169.5 72,170 95,168 L94,174 C72,176 48,175.5 26,173 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2"/>
+    <path d="M25,167 C42,168.8 52,169.2 62,169.2 V174.5 C52,174.5 42,174 26,173 Z" fill="#6E542B"/>
+  </g>
+
+  <!-- 4. 瓶颈与外翻宽瓶口（右上口沿带一处磕缺旧痕） -->
+  <path d="M40,64 L80,66 L82,90 L38,88 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+  <path d="M40,64 L80,66 L82,90 L38,88 Z" fill="#161221"/>
+  <path d="M40,64 L60,65 L59,89 L38,88 Z" fill="#262036"/>
+  <path d="M42,67 Q41,77 40.5,86 Q42.5,77 43,67 Z" fill="#62577D" opacity="0.75"/>
+
+  <path d="M32,52 L74,53.5 L77,57 L80,53.8 L88,54 L84,67 L36,65 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+  <path d="M32,52 L74,53.5 L77,57 L80,53.8 L88,54 L84,67 L36,65 Z" fill="#2E2C28"/>
+  <path d="M32,52 L64,53.2 L62,66 L36,65 Z" fill="#4A4742"/>
+  <path d="M34.5,54.5 Q48,55 62,55.5 Q48,57 35.5,56.5 Z" fill="#948F86" opacity="0.85"/>
+
+  <!-- 5. 瓶身正面一道醒目的贯穿裂纹 (#urn_crack，两头收尖柳叶形 + 右侧裂口受光浅边 + 三道分叉细纹) -->
+  <g id="urn_crack">
+    <!-- 裂口右侧受光浅釉边 -->
+    <path d="M57.5,89 L52,112 L64.8,132 L54,158 L62.5,183 L60.5,183 L51.5,158 L62.2,132 L49.5,112 L55.5,89 Z" fill="#8C82A6" opacity="0.78"/>
+    <!-- 主裂纹墨色收尖核心 -->
+    <path d="M56,88 L48.5,112.5 L61.2,132.5 L50.2,158.5 L61,184 L54,158 L64.8,132 L52,111.5 L56,88 Z" fill="#1C1412"/>
+    <!-- 三条分叉收尖细裂纹 -->
+    <path d="M50,112 Q44,116 39,121 Q45,117.5 51,113.5 Z M63,132 Q69,136 75,141 Q68,137.5 62,133.5 Z M52,158 Q46,162 41,166 Q47,163 53,159.5 Z" fill="#1C1412"/>
+  </g>
+
+  <!-- 3000ms 轻待机暗釉微光层（静止时 opacity: 0） -->
+  <g id="sheen">
+    <path d="M35,98 C25,118 25,152 35,178 C28,152 28,118 38,98 Z" fill="#8C82A6" opacity="0.32"/>
+    <ellipse cx="34" cy="110" rx="2.6" ry="6.2" transform="rotate(14 34 110)" fill="#E6DEC8" opacity="0.35"/>
+  </g>
+</g>
+</svg>

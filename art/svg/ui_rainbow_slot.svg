@@ -1,25 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_rainbow_slot" viewBox="0 0 48 48" width="48" height="48">
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_rainbow_slot" viewBox="0 0 48 48" width="48" height="48" style="color:#E6DEC8">
 <title>彩虹格</title>
 <style>
 .svg-ui_rainbow_slot g { transform-box: view-box; }
 .svg-ui_rainbow_slot #root { transform-origin: 24px 24px; }
+.svg-ui_rainbow_slot #sheen { opacity: 0; }
 .svg-ui_rainbow_slot #gem_lit { transform-origin: 24px 24px; opacity: 0; }
 .svg-ui_rainbow_slot .slot-glow { transform-origin: 24px 24px; opacity: 0; }
 
-/* ==========================================================================
-   1. 点亮 light（300ms，stay，播完用 forwards 停在 300ms）
-   关键时间点：0ms(0%) 空槽 → 100ms(33.3333%) 宝石从中心一下胀出来（比槽还大一点，外面一圈光）
-               → 300ms(100%) 缩回到槽里，亮着停住
-   ========================================================================== */
+/* idle 3000ms: 0 -> 1500 -> 3000 (平时为空槽静止状态，仅铜框微反光) */
+@keyframes svg-ui_rainbow_slot-idle-sheen {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 0.82; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-ui_rainbow_slot:not([data-anim]) #sheen,
+.svg-ui_rainbow_slot[data-anim="idle"] #sheen {
+  animation: svg-ui_rainbow_slot-idle-sheen 3s infinite;
+}
+
+/* light 300ms (stay: true, forwards): 0 -> 100 (33.33%) -> 300 (100%) */
 @keyframes svg-ui_rainbow_slot-light-gem {
-  0% { opacity: 0; transform: scale(0.2); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  33.3333% { opacity: 1; transform: scale(1.24); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
-  100% { opacity: 1; transform: scale(1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.25,0.25); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.33% { transform: translate(0px,0px) rotate(0deg) scale(1.18,1.18); opacity: 1; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 @keyframes svg-ui_rainbow_slot-light-glow {
-  0% { opacity: 0; transform: scale(0.5); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  33.3333% { opacity: 1; transform: scale(1.12); animation-timing-function: ease-in-out; }
-  100% { opacity: 0.75; transform: scale(1); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.5,0.5); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.33% { transform: translate(0px,0px) rotate(0deg) scale(1.08,1.08); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.78; }
 }
 .svg-ui_rainbow_slot[data-anim="light"] #gem_lit {
   animation: svg-ui_rainbow_slot-light-gem 0.3s forwards;
@@ -28,19 +36,16 @@
   animation: svg-ui_rainbow_slot-light-glow 0.3s forwards;
 }
 
-/* ==========================================================================
-   2. 熄灭 out（300ms，从亮着开始，到空槽结束）
-   关键时间点：0ms(0%) 亮着 → 100ms(33.3333%) 宝石一缩，光灭 → 300ms(100%) 空槽
-   ========================================================================== */
+/* out 300ms (starts from lit slot, ends at empty slot): 0 -> 100 (33.33%) -> 300 (100%) */
 @keyframes svg-ui_rainbow_slot-out-gem {
-  0% { opacity: 1; transform: scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  33.3333% { opacity: 0.7; transform: scale(0.62); animation-timing-function: ease-in-out; }
-  100% { opacity: 0; transform: scale(0.2); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.33% { transform: translate(0px,0px) rotate(0deg) scale(0.62,0.62); opacity: 0.68; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.25,0.25); opacity: 0; }
 }
 @keyframes svg-ui_rainbow_slot-out-glow {
-  0% { opacity: 0.75; transform: scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-  33.3333% { opacity: 0; transform: scale(0.65); animation-timing-function: linear; }
-  100% { opacity: 0; transform: scale(0.5); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.78; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  33.33% { transform: translate(0px,0px) rotate(0deg) scale(0.65,0.65); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.5,0.5); opacity: 0; }
 }
 .svg-ui_rainbow_slot[data-anim="out"] #gem_lit {
   animation: svg-ui_rainbow_slot-out-gem 0.3s both;
@@ -49,36 +54,76 @@
   animation: svg-ui_rainbow_slot-out-glow 0.3s both;
 }
 </style>
-
+<defs>
+  <clipPath id="ui_rainbow_slot-cring">
+    <circle cx="24" cy="24" r="18.5"/>
+  </clipPath>
+  <clipPath id="ui_rainbow_slot-cgem">
+    <circle cx="24" cy="24" r="13"/>
+  </clipPath>
+</defs>
 <g id="root">
-  <!-- 1. 平时静止状态：暗色空宝石槽 + 圆形旧铜边（不用 currentColor） -->
+  <!-- 1. 平时静止状态：暗色空宝石槽 + 七层旧铜圆框（不染 currentColor） -->
   <g id="empty_socket">
-    <circle cx="24" cy="24" r="19" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
-    <path d="M37.4,10.6 A19,19 0 0,1 10.6,37.4 L24,24 Z" fill="#3B2B14" opacity="0.82"/>
-    <path d="M11,17 A16,16 0 0,1 33,10" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
-    <circle cx="24" cy="24" r="13.5" fill="#161221" stroke="#1C1412" stroke-width="2.4"/>
-    <path d="M14,29 A11.5,11.5 0 0,1 29,14" fill="none" stroke="#0D111C" stroke-width="2.2" stroke-linecap="round"/>
-    <circle cx="24" cy="6.5" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.4"/>
-    <circle cx="24" cy="41.5" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4"/>
-    <circle cx="6.5" cy="24" r="2.2" fill="#C2A670" stroke="#1C1412" stroke-width="1.4"/>
-    <circle cx="41.5" cy="24" r="2.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.4"/>
+    <!-- 第1层：墨色垫底 -->
+    <circle cx="24" cy="24" r="18.5" transform="translate(.45 .65)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2"/>
+    <!-- 第2层：铺旧铜“暗”一档 -->
+    <circle cx="24" cy="24" r="18.5" fill="#6E542B"/>
+    <g clip-path="url(#ui_rainbow_slot-cring)">
+      <!-- 第3层：错位亮面 -->
+      <circle cx="24" cy="24" r="18.5" transform="translate(-2.4 -2.4)" fill="#9A7B46"/>
+      <!-- 第4层：右下加深 -->
+      <path d="M42.5,20 C42.5,33 33,42.5 20,42.5 C31.5,39.5 39.5,31.5 42.5,20 Z" fill="#3B2B14" opacity="0.8"/>
+      <!-- 第5层：左上受光边与右下冷色轮廓光 -->
+      <path d="M7.2,20 C8.8,11.5 15.5,6.8 23.5,6.5 C16.5,8.2 10.5,13 7.2,20 Z" fill="#C2A670"/>
+      <path d="M40.8,28 C39.2,36 33,41 25,41.5 C32,39.5 37.8,35 40.8,28 Z" fill="#8CAAB5" opacity="0.82"/>
+      <!-- 第6层：铜绿与高光点 -->
+      <path d="M33,38 C36,36.5 38.2,34 39.2,31" fill="none" stroke="#5F8272" stroke-width="1.8" stroke-linecap="round" opacity="0.52"/>
+      <circle cx="13" cy="12" r="1.2" fill="#DDCB9A"/>
+    </g>
+
+    <!-- 内部深陷暗色空槽 -->
+    <circle cx="24" cy="24" r="13.2" fill="#161221" stroke="#1C1412" stroke-width="2.2"/>
+    <path d="M13,30 A12.2,12.2 0 0 1 30,13 A11.8,11 0 0 0 13,30 Z" fill="#0D111C" opacity="0.88"/>
+    <path d="M16,32.5 A11,11 0 0 0 32.5,16" fill="none" stroke="#3A324D" stroke-width="1.1" stroke-linecap="round"/>
+
+    <!-- 四方小铜爪铆钉 -->
+    <circle cx="24.2" cy="6.8" r="2" fill="#1C1412"/><circle cx="24" cy="6.5" r="1.3" fill="#C2A670"/>
+    <circle cx="41.7" cy="24.2" r="2" fill="#1C1412"/><circle cx="41.5" cy="24" r="1.3" fill="#9A7B46"/>
+    <circle cx="24.2" cy="41.7" r="2" fill="#1C1412"/><circle cx="24" cy="41.5" r="1.3" fill="#6E542B"/>
+    <circle cx="6.8" cy="24.2" r="2" fill="#1C1412"/><circle cx="6.5" cy="24" r="1.3" fill="#C2A670"/>
+
+    <!-- 待机独立铜边冷亮反光层 -->
+    <path id="sheen" opacity="0" d="M8,19 A16.8,16.8 0 0 1 22,7.2" fill="none" stroke="#DDCB9A" stroke-width="1.5" stroke-linecap="round"/>
   </g>
 
-  <!-- 2. 外圈发光环 .slot-glow（用 currentColor 描边） -->
+  <!-- 2. 槽内发光环 .slot-glow（纯色 currentColor 描边，收在空槽内缘 r=13.6，绝不把外圈旧铜边染红） -->
   <g class="slot-glow" opacity="0">
-    <!-- pivot: 24,24 -->
-    <circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="3.2" opacity="0.85"/>
-    <circle cx="24" cy="24" r="15.5" fill="none" stroke="#FFFFFF" stroke-width="1.4" opacity="0.65"/>
+    <circle cx="24" cy="24" r="13.6" fill="none" stroke="currentColor" stroke-width="2.2" opacity="0.88"/>
+    <circle cx="24" cy="24" r="11.8" fill="none" stroke="#F4F1FF" stroke-width="1.1" opacity="0.72"/>
   </g>
 
-  <!-- 3. 槽内发光宝石 #gem_lit（宝石本体用 currentColor 纯色填充） -->
+  <!-- 3. 槽内发光宝石 #gem_lit（底层纯色 currentColor，固定刻面明暗与高光棱线压在上面） -->
   <g id="gem_lit" opacity="0">
-    <!-- pivot: 24,24 -->
-    <circle cx="24" cy="24" r="13" fill="currentColor" stroke="#1C1412" stroke-width="2.6"/>
-    <path d="M33.2,14.8 A13,13 0 0,1 14.8,33.2 L24,24 Z" fill="#1C1412" opacity="0.28"/>
-    <circle cx="24" cy="24" r="8" fill="currentColor" stroke="#FFFFFF" stroke-width="1.2" stroke-opacity="0.65"/>
-    <polygon points="18,18 23,15 26,18 20,23" fill="#FFFFFF" opacity="0.92"/>
-    <circle cx="24" cy="24" r="13" fill="none" stroke="#1C1412" stroke-width="2.6"/>
+    <!-- 宝石底色唯一染色层 currentColor -->
+    <circle cx="24" cy="24" r="13" fill="currentColor"/>
+    <g clip-path="url(#ui_rainbow_slot-cgem)">
+      <!-- 固定左上提亮刻面与右下压暗刻面（不放入 currentColor 渐变，保持染色纯粹） -->
+      <polygon points="24,11 14,15 11,24 17,24 19,18" fill="#F4F1FF" opacity="0.32"/>
+      <polygon points="37,24 34,33 24,37 24,30 30,29" fill="#1C1412" opacity="0.34"/>
+      <polygon points="34,15 37,24 30,24 29,18" fill="#1C1412" opacity="0.16"/>
+      <polygon points="14,33 24,37 24,30 18,29" fill="#1C1412" opacity="0.22"/>
+      <!-- 右下内反光刻面 -->
+      <polygon points="33,31 27,35.5 25.5,31 30.5,28.5" fill="#F4F1FF" opacity="0.28"/>
+      <!-- 中央八角台面与高光色细棱线 -->
+      <polygon points="20,17.2 28,17.2 30.8,20 30.8,28 28,30.8 20,30.8 17.2,28 17.2,20" fill="#F4F1FF" opacity="0.14" stroke="#F4F1FF" stroke-width="0.65" stroke-opacity="0.65"/>
+      <path d="M20,17.2 L14.5,14.5 M28,17.2 L33.5,14.5 M30.8,20 L36.5,20 M30.8,28 L36.5,28 M28,30.8 L33.5,33.5 M20,30.8 L14.5,33.5 M17.2,28 L11.5,28 M17.2,20 L11.5,20" stroke="#F4F1FF" stroke-width="0.6" opacity="0.58"/>
+      <!-- 左上白亮边与高光点 -->
+      <path d="M12.5,22 C13.2,16.5 17.2,12.8 22.8,12.2 C18.2,13.6 14.5,17 12.5,22 Z" fill="#F4F1FF" opacity="0.9"/>
+    </g>
+    <circle cx="24" cy="24" r="13" fill="none" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="18.5" cy="18.2" r="2" fill="#F4F1FF"/>
+    <circle cx="21.8" cy="20.8" r="0.9" fill="#F4F1FF" opacity="0.88"/>
   </g>
 </g>
 </svg>

@@ -1,0 +1,601 @@
+{
+  "style": "fable-carbon-remake",
+  "date": "2026-11-12",
+  "scope": 118,
+  "source_manifest_sha256": "2a090685763b92bdaa409750fb8395983af3f5480b7d0ff21723ff6d2b5f287f",
+  "stage": "received-candidate",
+  "event_fps": 30,
+  "loop_fps": 15,
+  "assets": {
+    "mon_dragon": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/mon_dragon.svg",
+      "svg_sha256": "742747c6b1548174188a6177d1057a5214771e50b3e74face769af9283cfba3b"
+    },
+    "npc_knocker": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/npc_knocker.svg",
+      "svg_sha256": "0bed41565c39b435ba8bf13becc4813fd963bb3ca85b8900e0c662608854717f"
+    },
+    "card_frame": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/card_frame.svg",
+      "svg_sha256": "5cdfeb4aeb69acc6c85b0cd86aa771dc4be235365188965f766b4c15e5049f19"
+    },
+    "card_art_bg": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/card_art_bg.svg",
+      "svg_sha256": "837c188bb06afa1d6a18d5942efbce32c7a7e8525d19c9289d8cd1a0fa8a8e5a"
+    },
+    "gem_red_shine": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/gem_red_shine.svg",
+      "svg_sha256": "e37987eeeb472db04bc4bcd0efe2bc2f421954c7d4064e9304e7cb6a9528e286"
+    },
+    "card_art_mirror": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_mirror.svg",
+      "svg_sha256": "2a0d6ad02c27f9a8fb7a5b429348de2a5e007948507c0d2c1585a872cf5e8156"
+    },
+    "relic_twice": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/relic_twice.svg",
+      "svg_sha256": "c13859b6f7612ab83c2f3eaadf6fa4ada4b683734eaf7a808cee866494e7cca7"
+    },
+    "rule_hug": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/rule_hug.svg",
+      "svg_sha256": "5344721c27eae1c1d639f11f78a5e8429a25038f13bff2f6d3b1eaf687483cbe"
+    },
+    "ui_rule_sign": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/ui_rule_sign.svg",
+      "svg_sha256": "42a35f92e4346ea76c589bb0e4bbc6b0facf397ec89613ae2aee42728945af50"
+    },
+    "fx_rainbow": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/fx_rainbow.svg",
+      "svg_sha256": "5489f75db60dcf76d41488673dda480a102b2a28a4606efa4febc152f19cb974"
+    },
+    "prop_curtain": {
+      "package": "01-fable",
+      "source": "style-lab/practice/gemcard-gothic-ref-fable/art/svg/prop_curtain.svg",
+      "svg_sha256": "81f15091078a1dd873720efc4d3b256d18951254787c3315a67e2e065609316c"
+    },
+    "mon_chest": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_chest.svg",
+      "svg_sha256": "9c0b837815ca75dbeafcecd050e701a06c02bcd974485acca126a563c454bd57"
+    },
+    "mon_portrait": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_portrait.svg",
+      "svg_sha256": "851ebb9862af31d11c2cfef5dc85934fc89052bf5914dae57ab776c2e73a13c1"
+    },
+    "gem_blue_rough": {
+      "package": "02-carbon",
+      "source": "style-lab/practice/gemcard-gothic-ref-carbon/art/svg/gem_blue_rough.svg",
+      "svg_sha256": "bf6d04b3eb80dfe6eb1af128968ecc0c85e7de2793a9445cab6c8bd32c804895"
+    },
+    "card_frame_tool": {
+      "package": "02-carbon",
+      "source": "style-lab/practice/gemcard-gothic-ref-carbon/art/svg/card_frame_tool.svg",
+      "svg_sha256": "90f78335cac20a7687d868bb658af1b6f82232cc2071303c4e22df8ac5c21494"
+    },
+    "card_art_bg_tool": {
+      "package": "02-carbon",
+      "source": "style-lab/practice/gemcard-gothic-ref-carbon/art/svg/card_art_bg_tool.svg",
+      "svg_sha256": "982f6ae23c3bd033dd4514f3aec63ff79147b22d6b2201a333d7cb0ebe73019c"
+    },
+    "card_art_palette": {
+      "package": "02-carbon",
+      "source": "style-lab/practice/gemcard-gothic-ref-carbon/art/svg/card_art_palette.svg",
+      "svg_sha256": "755d97a810556465c68947afe79c11f3b74f979beed91c2d20a477f5daa1e5f9"
+    },
+    "relic_rainbow": {
+      "package": "02-carbon",
+      "source": "style-lab/practice/gemcard-gothic-ref-carbon/art/svg/relic_rainbow.svg",
+      "svg_sha256": "5f800da00d331119338363a504ef82c1bbebf0e04ab74d56a118f2c4137300a1"
+    },
+    "rule_six": {
+      "package": "02-carbon",
+      "source": "style-lab/practice/gemcard-gothic-ref-carbon/art/svg/rule_six.svg",
+      "svg_sha256": "75567d1f472412f8768d781e813db6178c4be895b178cb2090ed272da138c662"
+    },
+    "ui_heart": {
+      "package": "02-carbon",
+      "source": "style-lab/practice/gemcard-gothic-ref-carbon/art/svg/ui_heart.svg",
+      "svg_sha256": "3d1b0454006cdbe90366b91be7a26d8fb6c949fcb9374dc9227222df9bce2408"
+    },
+    "fx_hit": {
+      "package": "02-carbon",
+      "source": "style-lab/practice/gemcard-gothic-ref-carbon/art/svg/fx_hit.svg",
+      "svg_sha256": "e959409fa4b867a4221807e65b7ff21910e1b0e0c1a62a33acc0a186013f88b6"
+    },
+    "prop_frame": {
+      "package": "02-carbon",
+      "source": "style-lab/practice/gemcard-gothic-ref-carbon/art/svg/prop_frame.svg",
+      "svg_sha256": "769c7008d54b3ae501ff6c8713643ca0b2373b9df8439a54b1ed30470516df4f"
+    },
+    "mon_soldier": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_soldier.svg",
+      "svg_sha256": "3de1f2b3832433c0362834d37c44a43298a078ef18d7c563aee47f437801d8e1"
+    },
+    "mon_bear": {
+      "package": "03-角色",
+      "source": "style-lab/practice/gemcard-remake-03/art/svg/mon_bear.svg",
+      "svg_sha256": "d91cbf3da459761665134a095fb4ed78f57e58bd570f8521522a1f7bdf174249"
+    },
+    "mon_clock": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_clock.svg",
+      "svg_sha256": "4c397e17e350b60778bf1b688755c24d2bf6a83371bd7acc8910af33c21dcf73"
+    },
+    "dummy": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/dummy.svg",
+      "svg_sha256": "8201129301327f29b0f98b4359495cc4ba5bbf0aebd73160140411ce6796f3c4"
+    },
+    "mon_box": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_box.svg",
+      "svg_sha256": "3a3936e3f44a900460bc08d662fa5f5ed6a3ccfb3e93f6822916cef4d4467b76"
+    },
+    "mon_lock": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_lock.svg",
+      "svg_sha256": "4f605e96653412adad60e7f9683c6134e3824490046d0d2901344dbad7ef5cc9"
+    },
+    "mon_tree": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/mon_tree.svg",
+      "svg_sha256": "7c92db6de196e72fec128136b92c6c459093643822af2b98e324382b09384ca4"
+    },
+    "mon_armor": {
+      "package": "03-角色",
+      "source": "style-lab/practice/gemcard-remake-03/art/svg/mon_armor.svg",
+      "svg_sha256": "0214057626572f17307a693341b6b0bb422c3feb9ca1e4409244bc103faf78cd"
+    },
+    "gem_red_rough": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_red_rough.svg",
+      "svg_sha256": "1aba66f78c434d09263fea2a396373aa30a731e59f9db2fa93a8b625d3981fb3"
+    },
+    "gem_red_cut": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_red_cut.svg",
+      "svg_sha256": "c789cf70de225a514e7dee3a949f2d585331997658a5b5d65bc1bcb0f31baf05"
+    },
+    "gem_green_rough": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_green_rough.svg",
+      "svg_sha256": "3123dd2ebbe05a253228500197e54a3c4bcb9bc730092f8ae268dea4bde40e58"
+    },
+    "gem_green_cut": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_green_cut.svg",
+      "svg_sha256": "734341d2b42e09ca217ce9fb922194abc92a80142f657f83f2cf4059ef49a3ee"
+    },
+    "gem_green_shine": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_green_shine.svg",
+      "svg_sha256": "0c09e5a673dcda67770fcf9ccd5dc70b253f67cf6873ae81f3d8690bfa45eb2b"
+    },
+    "gem_blue_cut": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_blue_cut.svg",
+      "svg_sha256": "04ee5e70a6e323a351c30198b9c432ed9fc8766844f3c823e9f813f3f1ae7bb2"
+    },
+    "gem_blue_shine": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_blue_shine.svg",
+      "svg_sha256": "cd6098853a50f11cea41934d53c3b525ad6f338f4cc289dfcdf3d1ec8c77bcf8"
+    },
+    "gem_icon_red": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_icon_red.svg",
+      "svg_sha256": "0d34a03342a118148917749d6185253e1b956b702932a3b5d0f277ffe8c04acd"
+    },
+    "gem_icon_green": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_icon_green.svg",
+      "svg_sha256": "5b0725f5a66198ad8b735a480afeb3f665cbf25890b557bc9f672356e67afe31"
+    },
+    "gem_icon_blue": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/gem_icon_blue.svg",
+      "svg_sha256": "c4b3b1a5bc7ec8b59c9082952f0c45c9de75f49403136aa2db2e337b4cfb23eb"
+    },
+    "card_art_empty": {
+      "package": "09-第08包返修",
+      "source": "style-lab/practice/gemcard-remake-09/art/svg/card_art_empty.svg",
+      "svg_sha256": "6b712f96ddfcfa13b2840e49903d0adf144144b79157df25b286de50e6e14652"
+    },
+    "card_gem_bar": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/card_gem_bar.svg",
+      "svg_sha256": "879ad2d144df547f2ec7bf3c2f5a41c01f5d9e6715a8a796cc3f1cde7581a5ac"
+    },
+    "card_back": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/card_back.svg",
+      "svg_sha256": "6231752c585043522c7b2386d2708835341f3bdcd563b2c9d615c513e56b00bd"
+    },
+    "card_art_bag": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/card_art_bag.svg",
+      "svg_sha256": "51b5765646bab2637ff6835970e3672cc4387e07eba00183e112e823fedc38b2"
+    },
+    "card_art_lens": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_lens.svg",
+      "svg_sha256": "b18a2f222a22517ab10f2c95e9135f6a1101224e02f58054214353a0471d4239"
+    },
+    "card_art_hammer": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_hammer.svg",
+      "svg_sha256": "dccddb00ab67f67f3670f60ee316f5e483ffab948350db8249f9d9db30256972"
+    },
+    "card_art_stone": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/card_art_stone.svg",
+      "svg_sha256": "40ff24b6d1df4aba5fc0e6ee0e87bdbcc2f0b05ad356e3c1a1d90e8fac20dfdd"
+    },
+    "card_art_hourglass": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/card_art_hourglass.svg",
+      "svg_sha256": "a6a99042724ad9759576a97bdd8fef077b4002f489ac8f8948eef4d4770d0686"
+    },
+    "card_art_seal": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/card_art_seal.svg",
+      "svg_sha256": "86e5e90ab9cfc58d046f9ac78f289e23feff6dd7aee118f791764966b87ed346"
+    },
+    "card_art_shadow": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/card_art_shadow.svg",
+      "svg_sha256": "1a42782d66239f428666683241922068a3e1dead09ba2e0c1b0847e480fd46eb"
+    },
+    "card_art_whistle": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_whistle.svg",
+      "svg_sha256": "dd5289557d200895734a908488712d13eabe2e2f567f2393163f5cf5fa1c9f44"
+    },
+    "card_art_potion": {
+      "package": "04-宝石卡牌",
+      "source": "style-lab/practice/gemcard-remake-04/art/svg/card_art_potion.svg",
+      "svg_sha256": "66e95ddab8fd2e609102a2cb3f4e469958290c00e642dfe95eb283461b4b68df"
+    },
+    "card_art_diamond": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/card_art_diamond.svg",
+      "svg_sha256": "15142acc9823fef6e068a888c07aa22a3094b82720d77a94f1c8dbad786aa7b7"
+    },
+    "relic_same": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_same.svg",
+      "svg_sha256": "3948eb88aa77fceeb727f2ef6c6946ca2317b61edc29ed82001be355efc3ba65"
+    },
+    "relic_once": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_once.svg",
+      "svg_sha256": "4d8fd86c4763846f74fb180b79a8822e63d967c80b5658f9e1204cc5cba87a5b"
+    },
+    "relic_white": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_white.svg",
+      "svg_sha256": "43d6b2954e6a656579e67ca57a1fdbc05af8023249b5a9ac70820a1060f5c8d9"
+    },
+    "relic_heart": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_heart.svg",
+      "svg_sha256": "a6890c322d9a3d716c2c2f8a8367d6eb1b50743c9a972e0e4428e2a81817189f"
+    },
+    "relic_grow": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_grow.svg",
+      "svg_sha256": "4c2f0bdc8bc0233cd4f336b63d4aa3d2a23b893247fef65beb3b18f0166f7646"
+    },
+    "relic_start2": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_start2.svg",
+      "svg_sha256": "77f4e7d552fa814ba9da5b1c89f57b73a97a9c88952f3c85d2aae7a5af4d4608"
+    },
+    "relic_slow": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_slow.svg",
+      "svg_sha256": "a5a397c00f7e06bce692165fb5c83636e926ddbcf87799f8dfb67ab20cd7d7dd"
+    },
+    "relic_first2": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_first2.svg",
+      "svg_sha256": "49e8206d71dfd94c5d117a8fc373f53bc658286af18a18d0e14b984dbbb4ca9b"
+    },
+    "relic_red": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_red.svg",
+      "svg_sha256": "f9c9029bf5ed3d837adbe557726afb9af111553846080489b38acc56bad803bb"
+    },
+    "relic_green": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_green.svg",
+      "svg_sha256": "1790d01bebecd0dd56ab68256b95a38218632ce868e066498818b86a4dee9b4b"
+    },
+    "relic_blue": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_blue.svg",
+      "svg_sha256": "3afb5810a30600bf516eeab5da97b0af61c1e36a8d5d3fc3a99215e740d289d3"
+    },
+    "relic_shun": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_shun.svg",
+      "svg_sha256": "1a565e0a9b2fdead483cd8dad20dbaa2096364d5e9f211879216ea913fe08959"
+    },
+    "relic_same4": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_same4.svg",
+      "svg_sha256": "b2af40ad03d4835d82a768c12c51c2635f00121948652a794d0a60858c1f2644"
+    },
+    "relic_link": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_link.svg",
+      "svg_sha256": "bee2e41b912162c3cb2dbb0e8eed25b0ce06faa2d2e762579fa58c58c59e4640"
+    },
+    "relic_shine": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_shine.svg",
+      "svg_sha256": "cfcb17fd9e0a1b272b86d853d281396ebc6a710f65385891af38074003eb6181"
+    },
+    "relic_guard": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_guard.svg",
+      "svg_sha256": "7285130624ee9bb0a762658c6048437a76228a3ab10a0cd82cdb7ca7e592b1c6"
+    },
+    "relic_rbheal": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/relic_rbheal.svg",
+      "svg_sha256": "7ca1e4017072537711ae6f3e93dab0d198b01f0c428da71b62407fae23465366"
+    },
+    "rule_bite": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/rule_bite.svg",
+      "svg_sha256": "7fbd9fc2b7e3d8c59a7ceeb43f1af7f44e362b819d2161d21a7c3316611eef40"
+    },
+    "rule_wind": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/rule_wind.svg",
+      "svg_sha256": "92fa2e17f7a2597e0d5c5e400c31dd7f5f8417f9dfbd101b36973e6d5f9addf6"
+    },
+    "rule_bell": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/rule_bell.svg",
+      "svg_sha256": "b4fe030115f1d451b3e24988c6b6ef39f8068ac3546ad2a190811bfc830f43be"
+    },
+    "rule_duck": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/rule_duck.svg",
+      "svg_sha256": "9b3844da920368830e5b7b2190c7517912af5543b28b5f77d7a8d7ffd0502ec0"
+    },
+    "rule_picky": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/rule_picky.svg",
+      "svg_sha256": "037323a2aba5201a1bfacb63cc8fb6f6d7e8b24a7611d97b975927fc9a9df840"
+    },
+    "rule_regrow": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/rule_regrow.svg",
+      "svg_sha256": "2b2271f70af910bc1476e43712910ef93be39af46caa11384ef9a0b0403215be"
+    },
+    "rule_cap": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/rule_cap.svg",
+      "svg_sha256": "37eeb76c3dbd56481c34f63be78c1827e7328d342ef15322537932afbf90431e"
+    },
+    "ui_icon_rules": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/ui_icon_rules.svg",
+      "svg_sha256": "2dff6a26df95c2b174353034ab9ec44d05a626d596a9ea88d59b6a2f386b1b48"
+    },
+    "ui_icon_settings": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/ui_icon_settings.svg",
+      "svg_sha256": "aa49c22700e00e6ee3c324c15ed6d00836435d004526becf14a22edebc82e85d"
+    },
+    "ui_icon_undo": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/ui_icon_undo.svg",
+      "svg_sha256": "1b527d37be50866c75e7307de3b362b5a22a3f8111eb93f243e7c45bcbba4f74"
+    },
+    "ui_icon_deck": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/ui_icon_deck.svg",
+      "svg_sha256": "38ac776db54c60da6b2be5bfb89a086bd5719cc2b085d820c664416cd0f20a01"
+    },
+    "ui_reward_card": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/ui_reward_card.svg",
+      "svg_sha256": "a71dda8aed199f5e00e0aa1c545b1fd6c35fd195c6843aa59c09ef256a19414a"
+    },
+    "ui_reward_shop": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/ui_reward_shop.svg",
+      "svg_sha256": "358ef4c96b7d68cc5e0433169c691b784d8e1a7fc69923f751dcb6ec81df622d"
+    },
+    "ui_reward_heal": {
+      "package": "05-宝物图标",
+      "source": "style-lab/practice/gemcard-remake-05/art/svg/ui_reward_heal.svg",
+      "svg_sha256": "a7b325e3d4dc7f9ef93b37c6c20f25cccb574f97479a73cfbf7ccfdb6f0535c5"
+    },
+    "ui_mult_badge": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_mult_badge.svg",
+      "svg_sha256": "195ef0d3502d82af4872a758f6d87c602ad155cd956e09ae82b06547c059c198"
+    },
+    "ui_heart_empty": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_heart_empty.svg",
+      "svg_sha256": "d91f997254ccfc330db9c40e15d5e26184567f60f4f504d4125eeb606413ee3a"
+    },
+    "ui_countdown": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_countdown.svg",
+      "svg_sha256": "d24b6be301add89467a3de8ab7eaf41c6b0620441d79eb54ea35fab6d3af109a"
+    },
+    "ui_hp_frame": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_hp_frame.svg",
+      "svg_sha256": "6d186dac1609733ffcf80afb82945265d969acd963a23ec5178e2eb3e22538ea"
+    },
+    "ui_node_fight": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_node_fight.svg",
+      "svg_sha256": "e73edb71ecf0b5b77e04b296aaca6328cc3d5576d7e7a34dc53be723ad7a9890"
+    },
+    "ui_node_elite": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_node_elite.svg",
+      "svg_sha256": "a45ddc944c491b165f618184dfaf364dd6de0ba6d5d76868e0e6bf25822ac3e5"
+    },
+    "ui_node_boss": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_node_boss.svg",
+      "svg_sha256": "06179d21e98a07e1a6e9bcea715b7036730527393bf68e298d4fcb10ab3ec283"
+    },
+    "ui_node_door": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_node_door.svg",
+      "svg_sha256": "2200f365a3ec67d7c0971945b24a8931919e37e850657f5802bfe4a6c262a0e9"
+    },
+    "ui_rainbow_slot": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_rainbow_slot.svg",
+      "svg_sha256": "e092dd0ae6af56bf7bbbebeed0089f02ad0c2ea1749a55c37740e17985e1be35"
+    },
+    "ui_panel": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_panel.svg",
+      "svg_sha256": "f78f4603d833e1291acd889bb117a30f4fd158c04c0ceed2e4971da0cb6003a5"
+    },
+    "ui_btn": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_btn.svg",
+      "svg_sha256": "c5ef752aa67953e9d4994cce3823d3658596efe30896518db776d5a1f3866e6a"
+    },
+    "ui_btn_primary": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_btn_primary.svg",
+      "svg_sha256": "b3db51cad72692be11dd8d4c305c5109c3c01e41063637ac57aec6df8e6fe55d"
+    },
+    "ui_banner": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_banner.svg",
+      "svg_sha256": "f2e3d8c748245ce240592edb2ff6ca5a695105e46d47e9eb87a9b0c4edb55011"
+    },
+    "ui_door": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/ui_door.svg",
+      "svg_sha256": "d2d53b8ae0effa16d1df99bef76044ce2974dbef67982ba8f934442a4dcc8dab"
+    },
+    "loot_chest": {
+      "package": "06-界面奖励",
+      "source": "style-lab/practice/gemcard-remake-06/art/svg/loot_chest.svg",
+      "svg_sha256": "bbfb4db4cd628b17631ee837a8ee2d1226278da5646f948f0090acf38eb3d0f8"
+    },
+    "title_emblem": {
+      "package": "08-细节重做",
+      "source": "style-lab/practice/gemcard-remake-08/art/svg/title_emblem.svg",
+      "svg_sha256": "ef5e1379974aadbb1a7fa7b6a52d8d348db0de54aa97b49c95d7b5191404b03f"
+    },
+    "relic_biggem": {
+      "package": "09-第08包返修",
+      "source": "style-lab/practice/gemcard-remake-09/art/svg/relic_biggem.svg",
+      "svg_sha256": "5440a4724a7a738e7a369803101504f387f6b79ff52387f1c86fc1045dd8d504"
+    },
+    "bg_tile": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/bg_tile.svg",
+      "svg_sha256": "9df5e048f2ca4f7d7add2e01af2d2d0abcaa2758f8e27442471265cc02589517"
+    },
+    "bg_tile_hall": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/bg_tile_hall.svg",
+      "svg_sha256": "047366fe6f4091962526df8106d1741dd89a59cd16f42561b8fbe9fc835f8e48"
+    },
+    "bg_tile_vault": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/bg_tile_vault.svg",
+      "svg_sha256": "03547060f315e0e31dd22fec379f950f7b69937538096e626fcc4d3286afa5a2"
+    },
+    "table_cloth": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/table_cloth.svg",
+      "svg_sha256": "790242507ce76c7699016317e2642a7ab4458526841e8065678cacd43ea64e0b"
+    },
+    "prop_rack": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/prop_rack.svg",
+      "svg_sha256": "b65808d4d8b22c9dc2942d285aebb76c548d42135a9ab6f890007e6d0feed059"
+    },
+    "prop_pillar": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/prop_pillar.svg",
+      "svg_sha256": "2428d482d7b363b336e62614a8f81367e629e602adb83b59fbbd40037f6e7c6d"
+    },
+    "prop_coins": {
+      "package": "09-第08包返修",
+      "source": "style-lab/practice/gemcard-remake-09/art/svg/prop_coins.svg",
+      "svg_sha256": "1019cfe8141048fd4d426d46c0c4b45b66568d640e2fae5966e8d821dd01d308"
+    },
+    "prop_urn": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/prop_urn.svg",
+      "svg_sha256": "c8f55e84d1d5faafeaab55078f0299ccda2dbd1b4364cfa931517be0c415ce26"
+    },
+    "fx_same": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/fx_same.svg",
+      "svg_sha256": "78647be44e9fdcad2dac0610d6176e293307a03c1ff6c7acbb7f282da4ceb9c5"
+    },
+    "fx_shun": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/fx_shun.svg",
+      "svg_sha256": "3bff178796194b274387f622a92a1b0965d8e7dfc7afafa674e21522ae5b594a"
+    },
+    "fx_white": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/fx_white.svg",
+      "svg_sha256": "fcfad4e92c6dc7f26f0b6baba88496bdbdae5b246f5ad3542d15044d007b3df3"
+    },
+    "fx_grow": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/fx_grow.svg",
+      "svg_sha256": "1da702a8c1ca5958127e269e54ebf117d618dda06ac8ec8ee3f54ec8cfbc8f55"
+    },
+    "fx_attack": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/fx_attack.svg",
+      "svg_sha256": "9e969a7ba4f3e8ddef413cf0f148da8af3bdca6eb1e797c1882ec660a30aa325"
+    },
+    "fx_kill": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/fx_kill.svg",
+      "svg_sha256": "a180b92d6bb1a48a0a946016662bbca442b1f5a3cd39b87a0d9aaceff0da57af"
+    },
+    "fx_overkill": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/fx_overkill.svg",
+      "svg_sha256": "5d7fa85fffc19b0fcf4363b63c3cfe1a0fe274233590d3193031c57ea7987407"
+    },
+    "fx_slam": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/fx_slam.svg",
+      "svg_sha256": "57e8f0ffb28c2cea93ab1d4ffe02210dec52b602869531373f4ab9ea4b3b1862"
+    },
+    "fx_heal": {
+      "package": "07-场景特效",
+      "source": "style-lab/practice/gemcard-remake-07/art/svg/fx_heal.svg",
+      "svg_sha256": "6f8b3ed625a8efae7bdec2e64d2af7840189929c56bef633531d25ca3d9ddefd"
+    }
+  }
+}

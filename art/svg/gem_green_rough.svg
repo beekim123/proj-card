@@ -2,54 +2,121 @@
 <title>绿宝石 · 原石</title>
 <style>
 .svg-gem_green_rough g { transform-box: view-box; }
-.svg-gem_green_rough #root { transform-origin: 50px 50px; }
-.svg-gem_green_rough #crack_glint { transform-origin: 46px 46px; opacity: 0; }
+.svg-gem_green_rough #crack_glint { transform-origin: 50px 50px; opacity: 0; }
 
-/* 待机（5.2s 循环）：石皮裂缝里偶尔透出一道暗暗的光，一次不超过 0.4s（7% * 5.2s = 0.364s） */
-@keyframes svg-gem_green_rough-glint {
-  0%, 24%, 31%, 100% { opacity: 0; transform: scale(0.94); }
-  26.5% { opacity: 0.85; transform: scale(1.02); }
-  29% { opacity: 0.55; transform: scale(1); }
+/* 待机 3000ms：0 → 1200 反光开始 → 1400 反光峰值 → 1600 反光消失 → 3000 与0帧一致 */
+@keyframes svg-gem_green_rough-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: linear; }
+  40% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: ease-in-out; }
+  46.67% { transform: translate(0px,0px) rotate(0deg) scale(1.02,1.02); opacity: 1; animation-timing-function: ease-in-out; }
+  53.33% { transform: translate(0px,0px) rotate(0deg) scale(0.96,0.96); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
 }
 .svg-gem_green_rough:not([data-anim]) #crack_glint,
-.svg-gem_green_rough[data-anim="idle"] #crack_glint {
-  animation: svg-gem_green_rough-glint 5.2s steps(4, end) infinite;
-}
+.svg-gem_green_rough[data-anim="idle"] #crack_glint { animation: svg-gem_green_rough-idle-1 3s infinite; }
 </style>
 <defs>
-<linearGradient id="gem_green_rough-stone" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#6E6A63"/>
-        <stop offset="60%" stop-color="#4A4742"/>
-        <stop offset="100%" stop-color="#524531"/>
-      </linearGradient>
+  <clipPath id="gem_green_rough-cstone">
+    <path d="M24,13 C38,12 62,12 76,13.5 C81,16 85,20 86.5,25 L83.5,28.5 L87,31.5 C88,45 87.5,61 86,75 C84,80 80,84 74,86.5 L61,86.5 L58.5,83.5 L55.5,86.8 C41,87.2 29,86.8 23,85.5 C18,83 14.5,79 13,74 C12,59 12,43 13.2,29 L16.8,26.8 L13.8,24 C15.5,19 19.5,15 24,13 Z"/>
+  </clipPath>
+  <clipPath id="gem_green_rough-cmain">
+    <path d="M26,25 L60,23 L63,56 L28,59 Z"/>
+  </clipPath>
+  <clipPath id="gem_green_rough-csub">
+    <path d="M55,63 L75,59 L76,75 L54,76 Z"/>
+  </clipPath>
+  <radialGradient id="gem_green_rough-glow" cx="49" cy="49" r="35" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#4FDB85" stop-opacity="0.58"/>
+    <stop offset="0.65" stop-color="#1DBF5E" stop-opacity="0.22"/>
+    <stop offset="1" stop-color="#0A5A2B" stop-opacity="0"/>
+  </radialGradient>
 </defs>
+
 <g id="root">
-  <!-- pivot: 50,50 -->
-<!-- 方形石皮底 -->
-        <path d="M22,14 L78,14 L86,22 L86,78 L78,86 L22,86 L14,78 L14,22 Z" fill="url(#gem_green_rough-stone)"/>
-        <!-- 背光暗部石皮 -->
-        <path d="M86,22 L86,78 L78,86 L22,86 L14,78 L46,56 L68,32 Z" fill="#2E2C28" opacity="0.78"/>
-        <!-- 左上冷受光边 -->
-        <path d="M14,68 L14,22 L22,14 L72,14" fill="none" stroke="#948F86" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- 裂隙露出的方形阶梯绿宝石原矿 -->
-        <polygon points="24,26 62,24 64,58 26,62" fill="#117A3B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-        <polygon points="28,30 56,28 52,50 30,52" fill="#1DBF5E"/>
-        <polygon points="32,33 48,32 45,42 33,43" fill="#5CE892" opacity="0.75"/>
-        <polygon points="56,64 76,58 76,76 54,76" fill="#117A3B" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-        <polygon points="59,66 72,62 71,72 58,72" fill="#1DBF5E"/>
-        <!-- 石皮裂缝偶尔透出的暗绿微光（平时 opacity="0"，动画关闭时完全隐藏） -->
-        <g id="crack_glint" opacity="0">
-          <!-- pivot: 46,46 -->
-          <polygon points="26,28 60,26 61,56 28,59" fill="#5CE892" opacity="0.45"/>
-          <polygon points="31,32 52,30 48,46 32,48" fill="#D4FFEA" opacity="0.72"/>
-          <polygon points="58,65 73,61 72,73 57,73" fill="#5CE892" opacity="0.65"/>
-          <path d="M62,24 L74,16 M26,62 L17,71 M64,58 L81,53 M54,76 L48,83" stroke="#5CE892" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.75"/>
-        </g>
-        <!-- 石皮裂纹与排线 -->
-        <path d="M62,24 L78,14 M26,62 L14,74 M64,58 L86,52 M54,76 L46,86" stroke="#1C1412" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <path d="M26,82 L38,70 M34,84 L46,72 M42,84 L52,74 M72,48 L84,36 M74,54 L84,44" stroke="#1C1412" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
-        <!-- 外轮廓手绘线 -->
-        <path d="M22,14 L78,14 L86,22 L86,78 L78,86 L22,86 L14,78 L14,22 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-        <path d="M21.5,13.6 L78.4,14.3 L86.4,22.3 L85.7,78.2 L77.7,86.4 L22.2,85.7 L13.6,77.7 L14.3,21.8 Z" fill="none" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round" opacity="0.65"/>
+  <!-- 第 1 层：墨色垫底（往右下错开 0.6, 0.9） -->
+  <path d="M24,13 C38,12 62,12 76,13.5 C81,16 85,20 86.5,25 L83.5,28.5 L87,31.5 C88,45 87.5,61 86,75 C84,80 80,84 74,86.5 L61,86.5 L58.5,83.5 L55.5,86.8 C41,87.2 29,86.8 23,85.5 C18,83 14.5,79 13,74 C12,59 12,43 13.2,29 L16.8,26.8 L13.8,24 C15.5,19 19.5,15 24,13 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.2" stroke-linejoin="round"/>
+
+  <!-- 第 2 层：铺石皮“暗”一档 -->
+  <path d="M24,13 C38,12 62,12 76,13.5 C81,16 85,20 86.5,25 L83.5,28.5 L87,31.5 C88,45 87.5,61 86,75 C84,80 80,84 74,86.5 L61,86.5 L58.5,83.5 L55.5,86.8 C41,87.2 29,86.8 23,85.5 C18,83 14.5,79 13,74 C12,59 12,43 13.2,29 L16.8,26.8 L13.8,24 C15.5,19 19.5,15 24,13 Z" fill="#4A4742"/>
+
+  <!-- 第 3、4、5、6 层：裁在石皮轮廓内 -->
+  <g clip-path="url(#gem_green_rough-cstone)">
+    <!-- 第 3 层：错位亮面（往左上挪 -4.5, -4） -->
+    <path d="M24,13 C38,12 62,12 76,13.5 C81,16 85,20 86.5,25 L83.5,28.5 L87,31.5 C88,45 87.5,61 86,75 C84,80 80,84 74,86.5 L61,86.5 L58.5,83.5 L55.5,86.8 C41,87.2 29,86.8 23,85.5 C18,83 14.5,79 13,74 C12,59 12,43 13.2,29 L16.8,26.8 L13.8,24 C15.5,19 19.5,15 24,13 Z" transform="translate(-4.5 -4)" fill="#6E6A63"/>
+    <!-- 右侧与右下转过去的弧边暗面 -->
+    <path d="M74,14 C78,34 74,56 58,68 C42,78 26,82 14,79 L22,87 L86,86 L88,24 Z" fill="#4A4742" opacity="0.88"/>
+    <!-- 第 4 层：加深 -->
+    <path d="M87,52 C87,74 79,85 58,87 L30,86 C60,83 78,75 83,50 Z" fill="#2E2C28" opacity="0.85"/>
+    <path d="M19,63 C24,60 31,64 29,70 C27,75 18,73 17,68 Z M71,36 C76,34 81,38 79,44 C77,48 70,46 69,41 Z" fill="#2E2C28" opacity="0.6"/>
+    <!-- 第 6 层：石皮旧褐矿斑与颗粒 -->
+    <path d="M22,71 C26,69 31,72 29,76 C27,79 21,78 20,74 Z M69,24 C73,23 77,26 75,30 C73,32 69,31 68,27 Z M37,78 C42,76 46,79 44,83 C41,85 36,83 37,78 Z" fill="#524531" opacity="0.65"/>
+    <circle cx="22" cy="20" r="1.5" fill="#2E2C28" opacity="0.65"/>
+    <circle cx="18" cy="48" r="1.4" fill="#2E2C28" opacity="0.6"/>
+    <circle cx="81" cy="49" r="1.7" fill="#2E2C28" opacity="0.65"/>
+    <circle cx="46" cy="70" r="1.4" fill="#2E2C28" opacity="0.65"/>
+    <circle cx="20" cy="34" r="1.1" fill="#948F86" opacity="0.78"/>
+    <circle cx="34" cy="18" r="1.2" fill="#948F86" opacity="0.72"/>
+    <!-- 第 5 层：左上受光边（#948F86 削尖月牙） -->
+    <path d="M14.5,64 Q14,42 15.2,24.5 Q18.5,16.5 26,14.8 Q44,13.5 66,14.5 Q44,15.8 27,16.8 Q20.5,18.5 17.5,25.5 Q16.2,42 16.5,64 Z" fill="#948F86"/>
+    <!-- 第 5 层：右下冷色轮廓光（#8CAAB5，断成两截） -->
+    <path d="M84.8,44 Q85.5,58 84,72 Q83.2,58 83,44.5 Z M74,84.2 Q64,85.2 48,84.8 Q63,83.4 73.2,82.5 Z" fill="#8CAAB5" opacity="0.82"/>
+  </g>
+
+  <!-- 主裂口：方形阶梯绿宝石原矿（先垫最暗石皮凹座） -->
+  <path d="M24.2,23.2 L61.8,21.2 L65,57.8 L26.2,61 Z" fill="#1C1412"/>
+  <path d="M26,25 L60,23 L63,56 L28,59 Z" fill="#0A5A2B"/>
+  <g clip-path="url(#gem_green_rough-cmain)">
+    <!-- 阶梯刻面（左上亮、右下暗、中央台面、右下内反光） -->
+    <polygon points="26,25 60,23 53,31 33,32" fill="#A6F5C6"/>
+    <polygon points="26,25 33,32 34,49 28,59" fill="#4FDB85"/>
+    <polygon points="60,23 63,56 54,48 53,31" fill="#128A43"/>
+    <polygon points="28,59 34,49 54,48 63,56" fill="#0A5A2B"/>
+    <!-- 中央方形台面 -->
+    <polygon points="33,32 53,31 54,48 34,49" fill="#1DBF5E"/>
+    <polygon points="33,32 53,31 46,41 34,49" fill="#4FDB85" opacity="0.85"/>
+    <!-- 背光侧内反光刻面 -->
+    <polygon points="45,48.5 54,48 63,56 47,57.5" fill="#4FDB85" opacity="0.75"/>
+    <!-- 刻面高光细棱线（#A6F5C6） -->
+    <path d="M26,25 L33,32 M60,23 L53,31 M63,56 L54,48 M28,59 L34,49 M33,32 L53,31 L54,48 L34,49 Z" fill="none" stroke="#A6F5C6" stroke-width="0.65" stroke-linejoin="round" opacity="0.68"/>
+    <!-- 左上沿白亮边 -->
+    <path d="M28.2,55 L26.8,26.2 L57.5,24.4 L57,26.4 L28.8,28 L30,54.5 Z" fill="#F4F1FF" opacity="0.9"/>
+    <!-- 石皮压在宝石左上沿的薄暗影 -->
+    <path d="M26,25 L60,23 L59.5,25.5 L28.2,27.5 L29.8,59 L28,59 Z" fill="#1C1412" opacity="0.32"/>
+  </g>
+  <circle cx="37" cy="35" r="2.1" fill="#F4F1FF"/>
+  <circle cx="34" cy="39" r="0.95" fill="#F4F1FF" opacity="0.85"/>
+  <path d="M26,25 L60,23 L63,56 L28,59 Z" fill="none" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+
+  <!-- 右下副裂口：较小的一块方形绿宝石原矿 -->
+  <path d="M53.2,61.5 L76.5,57.2 L77.8,76.8 L52.2,77.8 Z" fill="#1C1412"/>
+  <path d="M55,63 L75,59 L76,75 L54,76 Z" fill="#128A43"/>
+  <g clip-path="url(#gem_green_rough-csub)">
+    <polygon points="55,63 75,59 69,66 60,67" fill="#4FDB85"/>
+    <polygon points="55,63 60,67 60,72 54,76" fill="#1DBF5E"/>
+    <polygon points="60,67 69,66 70,71 60,72" fill="#1DBF5E"/>
+    <polygon points="69,66 75,59 76,75 70,71" fill="#0A5A2B"/>
+    <polygon points="54,76 60,72 70,71 76,75" fill="#0A5A2B"/>
+    <polygon points="64,71.5 70,71 76,75 65,75.5" fill="#4FDB85" opacity="0.68"/>
+    <path d="M55,63 L60,67 M75,59 L69,66 M76,75 L70,71 M54,76 L60,72 M60,67 L69,66 L70,71 L60,72 Z" fill="none" stroke="#A6F5C6" stroke-width="0.6" opacity="0.62"/>
+  </g>
+  <circle cx="61.5" cy="66.5" r="1.3" fill="#F4F1FF"/>
+  <path d="M55,63 L75,59 L76,75 L54,76 Z" fill="none" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- 第 7 层：石皮裂缝（收尖线） -->
+  <path d="M60,23 Q65.5,18.2 70,14.2 Q64.2,17.5 58.5,23 Z M63,56 Q72.5,53.2 83.5,50.5 Q72.2,55.2 62.5,57.5 Z M72.5,53.5 Q76.5,48.5 79.5,46.5 Q75.5,50.8 72.5,53.5 Z M28,59 Q21.5,65.5 14.8,72.5 Q22.8,66.5 29.5,59.8 Z M22.5,65.5 Q18.2,63.2 15,63.8 Q18.8,65.2 22.5,65.5 Z M63,56 Q59.5,59.5 55,63 Q58,59 61.5,55.5 Z M54,76 Q49.5,80.5 45.5,85.5 Q51.2,81.2 55.5,76.5 Z M26,25 Q20.5,22.2 15.5,21.5 Q20.8,23.8 25.8,26.5 Z" fill="#1C1412"/>
+
+  <!-- 裂缝深处静态暗绿矿丝 -->
+  <path d="M60,23 Q64.8,18.8 68.8,15.2 M63,56.2 Q71.5,53.8 81,51.2 M28.2,59.2 Q22.2,65 16.5,70.8 M62,56.2 L55.8,62.5 M54.2,76.2 L47,84" fill="none" stroke="#1DBF5E" stroke-width="0.9" stroke-linecap="round" opacity="0.55"/>
+
+  <!-- 待机事件层：1200 → 1400 → 1600 裂缝里透出暗绿光（平时 opacity: 0） -->
+  <g id="crack_glint" opacity="0">
+    <circle cx="49" cy="49" r="35" fill="url(#gem_green_rough-glow)"/>
+    <polygon points="27,26 59,24 61.8,55 29,57.8" fill="#4FDB85" opacity="0.52"/>
+    <polygon points="33,32 53,31 54,48 34,49" fill="#A6F5C6" opacity="0.78"/>
+    <polygon points="55.8,63.6 74,60 75,74.2 55,75.2" fill="#4FDB85" opacity="0.62"/>
+    <path d="M60,23 Q64.8,18.8 69.2,14.8 M63,56.2 Q72,53.5 82,50.8 M26,25.5 Q20.8,22.8 16.5,22 M28.2,59.2 Q21.8,65.2 15.8,71.5 M62,56.2 L55.8,62.5 M54.2,76.2 L46.2,84.8" fill="none" stroke="#4FDB85" stroke-width="2.2" stroke-linecap="round" opacity="0.92"/>
+    <path d="M60,23 Q64.8,18.8 69.2,14.8 M63,56.2 Q72,53.5 82,50.8 M28.2,59.2 Q21.8,65.2 15.8,71.5 M62,56.2 L55.8,62.5" fill="none" stroke="#F4F1FF" stroke-width="1.0" stroke-linecap="round" opacity="0.95"/>
+    <path d="M43,27 Q44,31.5 48.5,32.5 Q44,33.5 43,38 Q42,33.5 37.5,32.5 Q42,31.5 43,27 Z" fill="#F4F1FF" opacity="0.92"/>
+  </g>
 </g>
 </svg>

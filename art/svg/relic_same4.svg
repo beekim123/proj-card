@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_same4" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 同色 ×4</title>
+<style>
+.svg-relic_same4 g { transform-box: view-box; }
+.svg-relic_same4 #root { transform-origin: 48px 48px; }
+.svg-relic_same4 #brooch_center { transform-origin: 48px 48px; }
+@keyframes svg-relic_same4-idle-r {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1px) rotate(1.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_same4-idle-c {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-3deg) scale(1.04,1.04); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_same4:not([data-anim]) #root,
+.svg-relic_same4[data-anim="idle"] #root { animation: svg-relic_same4-idle-r 3s infinite; }
+.svg-relic_same4:not([data-anim]) #brooch_center,
+.svg-relic_same4[data-anim="idle"] #brooch_center { animation: svg-relic_same4-idle-c 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_same4-cbase">
+    <path d="M35,9 C43,8 53,8 61,9 L66,29 L87,35 C88,43 88,53 87,61 L66,67 L61,87 C53,88 43,88 35,87 L29,67 L9,61 C8,53 8,43 9,35 L29,29 Z"/>
+  </clipPath>
+</defs>
+<g id="root">
+  <!-- 四瓣花形旧银胸针底托（七层画法） -->
+  <g id="brooch_base">
+    <!-- 对角哥特银尖叶衬底 -->
+    <polygon points="48,30 76,19 66,48 76,77 48,66 20,77 30,48 20,19" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <polygon points="48,30 76,19 66,48 76,77 48,66 20,77 30,48 20,19" fill="#1E2C33"/>
+    <!-- 四瓣花托主盘 -->
+    <path d="M35,9 C43,8 53,8 61,9 L66,29 L87,35 C88,43 88,53 87,61 L66,67 L61,87 C53,88 43,88 35,87 L29,67 L9,61 C8,53 8,43 9,35 L29,29 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M35,9 C43,8 53,8 61,9 L66,29 L87,35 C88,43 88,53 87,61 L66,67 L61,87 C53,88 43,88 35,87 L29,67 L9,61 C8,53 8,43 9,35 L29,29 Z" fill="#3B515C"/>
+    <g clip-path="url(#relic_same4-cbase)">
+      <path d="M35,9 C43,8 53,8 61,9 L66,29 L87,35 C88,43 88,53 87,61 L66,67 L61,87 C53,88 43,88 35,87 L29,67 L9,61 C8,53 8,43 9,35 L29,29 Z" transform="translate(-3.4 -3.2)" fill="#5A7682"/>
+      <path d="M52,8 H88 V88 H48 C56,72 58,40 52,8 Z" fill="#1E2C33" opacity=".68"/>
+      <path d="M11,57 V37 L30.5,31 L36.5,11 H56 Q40,13 38,15 L32,33 L13,38.5 Z" fill="#8CAAB5"/>
+      <path d="M85,42 V59 L65,65 L59.5,85 H44 Q56,83.5 58,82 L63.5,63.5 L83,57.5 Z" fill="#8CAAB5" opacity=".82"/>
+    </g>
+  </g>
+
+  <!-- 四瓣是四颗一模一样的绿色切角方宝石 -->
+  <g id="four_green_gems">
+    <g id="petal_top">
+      
+      <clipPath id="relic_same4-cgt"><polygon points="40.4,11.5 55.6,11.5 58.5,14.4 58.5,29.6 55.6,32.5 40.4,32.5 37.5,29.6 37.5,14.4"/></clipPath>
+      <polygon points="40.4,11.5 55.6,11.5 58.5,14.4 58.5,29.6 55.6,32.5 40.4,32.5 37.5,29.6 37.5,14.4" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="40.4,11.5 55.6,11.5 58.5,14.4 58.5,29.6 55.6,32.5 40.4,32.5 37.5,29.6 37.5,14.4" fill="#128A43"/>
+      <g clip-path="url(#relic_same4-cgt)">
+        <!-- 左上亮梯形刻面 -->
+        <polygon points="37.5,29.6 37.5,14.4 40.4,11.5 55.6,11.5 52.1,16.5 43.9,16.5 42.5,17.9 42.5,26.1" fill="#4FDB85"/>
+        <!-- 右下最暗刻面与内反光 -->
+        <polygon points="55.6,11.5 58.5,14.4 58.5,29.6 55.6,32.5 40.4,32.5 43.9,27.5 52.1,27.5 53.5,26.1 53.5,17.9" fill="#0A5A2B"/>
+        <polygon points="43.9,27.5 52.1,27.5 55.6,32.5 40.4,32.5" fill="#1DBF5E" opacity=".75"/>
+        <!-- 中央切角方台面 -->
+        <polygon points="43.9,16.5 52.1,16.5 53.5,17.9 53.5,26.1 52.1,27.5 43.9,27.5 42.5,26.1 42.5,17.9" fill="#1DBF5E"/>
+        <polygon points="43.9,16.5 52.1,16.5 50.2,22.5 42.5,23.6 42.5,17.9" fill="#4FDB85" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M43.9,16.5 L40.4,11.5 M52.1,16.5 L55.6,11.5 M53.5,26.1 L58.5,29.6 M42.5,26.1 L37.5,29.6" stroke="#A6F5C6" stroke-width="0.75" opacity=".75"/>
+        <polygon points="43.9,16.5 52.1,16.5 53.5,17.9 53.5,26.1 52.1,27.5 43.9,27.5 42.5,26.1 42.5,17.9" fill="none" stroke="#A6F5C6" stroke-width="0.75" opacity=".8"/>
+        <!-- 左上白亮边 -->
+        <polyline points="38.9,25.1 38.9,15.0 41.0,12.9 51.7,12.9" fill="none" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+      </g>
+      <circle cx="45.5" cy="19.5" r="1.5" fill="#F4F1FF"/>
+    
+    </g>
+    <g id="petal_bottom">
+      
+      <clipPath id="relic_same4-cgb"><polygon points="40.4,63.5 55.6,63.5 58.5,66.4 58.5,81.6 55.6,84.5 40.4,84.5 37.5,81.6 37.5,66.4"/></clipPath>
+      <polygon points="40.4,63.5 55.6,63.5 58.5,66.4 58.5,81.6 55.6,84.5 40.4,84.5 37.5,81.6 37.5,66.4" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="40.4,63.5 55.6,63.5 58.5,66.4 58.5,81.6 55.6,84.5 40.4,84.5 37.5,81.6 37.5,66.4" fill="#128A43"/>
+      <g clip-path="url(#relic_same4-cgb)">
+        <!-- 左上亮梯形刻面 -->
+        <polygon points="37.5,81.6 37.5,66.4 40.4,63.5 55.6,63.5 52.1,68.5 43.9,68.5 42.5,69.9 42.5,78.1" fill="#4FDB85"/>
+        <!-- 右下最暗刻面与内反光 -->
+        <polygon points="55.6,63.5 58.5,66.4 58.5,81.6 55.6,84.5 40.4,84.5 43.9,79.5 52.1,79.5 53.5,78.1 53.5,69.9" fill="#0A5A2B"/>
+        <polygon points="43.9,79.5 52.1,79.5 55.6,84.5 40.4,84.5" fill="#1DBF5E" opacity=".75"/>
+        <!-- 中央切角方台面 -->
+        <polygon points="43.9,68.5 52.1,68.5 53.5,69.9 53.5,78.1 52.1,79.5 43.9,79.5 42.5,78.1 42.5,69.9" fill="#1DBF5E"/>
+        <polygon points="43.9,68.5 52.1,68.5 50.2,74.5 42.5,75.6 42.5,69.9" fill="#4FDB85" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M43.9,68.5 L40.4,63.5 M52.1,68.5 L55.6,63.5 M53.5,78.1 L58.5,81.6 M42.5,78.1 L37.5,81.6" stroke="#A6F5C6" stroke-width="0.75" opacity=".75"/>
+        <polygon points="43.9,68.5 52.1,68.5 53.5,69.9 53.5,78.1 52.1,79.5 43.9,79.5 42.5,78.1 42.5,69.9" fill="none" stroke="#A6F5C6" stroke-width="0.75" opacity=".8"/>
+        <!-- 左上白亮边 -->
+        <polyline points="38.9,77.2 38.9,67.0 41.0,64.9 51.7,64.9" fill="none" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+      </g>
+      <circle cx="45.5" cy="71.5" r="1.5" fill="#F4F1FF"/>
+    
+    </g>
+    <g id="petal_left">
+      
+      <clipPath id="relic_same4-cgl"><polygon points="14.4,37.5 29.6,37.5 32.5,40.4 32.5,55.6 29.6,58.5 14.4,58.5 11.5,55.6 11.5,40.4"/></clipPath>
+      <polygon points="14.4,37.5 29.6,37.5 32.5,40.4 32.5,55.6 29.6,58.5 14.4,58.5 11.5,55.6 11.5,40.4" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="14.4,37.5 29.6,37.5 32.5,40.4 32.5,55.6 29.6,58.5 14.4,58.5 11.5,55.6 11.5,40.4" fill="#128A43"/>
+      <g clip-path="url(#relic_same4-cgl)">
+        <!-- 左上亮梯形刻面 -->
+        <polygon points="11.5,55.6 11.5,40.4 14.4,37.5 29.6,37.5 26.1,42.5 17.9,42.5 16.5,43.9 16.5,52.1" fill="#4FDB85"/>
+        <!-- 右下最暗刻面与内反光 -->
+        <polygon points="29.6,37.5 32.5,40.4 32.5,55.6 29.6,58.5 14.4,58.5 17.9,53.5 26.1,53.5 27.5,52.1 27.5,43.9" fill="#0A5A2B"/>
+        <polygon points="17.9,53.5 26.1,53.5 29.6,58.5 14.4,58.5" fill="#1DBF5E" opacity=".75"/>
+        <!-- 中央切角方台面 -->
+        <polygon points="17.9,42.5 26.1,42.5 27.5,43.9 27.5,52.1 26.1,53.5 17.9,53.5 16.5,52.1 16.5,43.9" fill="#1DBF5E"/>
+        <polygon points="17.9,42.5 26.1,42.5 24.2,48.5 16.5,49.6 16.5,43.9" fill="#4FDB85" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M17.9,42.5 L14.4,37.5 M26.1,42.5 L29.6,37.5 M27.5,52.1 L32.5,55.6 M16.5,52.1 L11.5,55.6" stroke="#A6F5C6" stroke-width="0.75" opacity=".75"/>
+        <polygon points="17.9,42.5 26.1,42.5 27.5,43.9 27.5,52.1 26.1,53.5 17.9,53.5 16.5,52.1 16.5,43.9" fill="none" stroke="#A6F5C6" stroke-width="0.75" opacity=".8"/>
+        <!-- 左上白亮边 -->
+        <polyline points="12.9,51.1 12.9,41.0 15.0,38.9 25.7,38.9" fill="none" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+      </g>
+      <circle cx="19.5" cy="45.5" r="1.5" fill="#F4F1FF"/>
+    
+    </g>
+    <g id="petal_right">
+      
+      <clipPath id="relic_same4-cgr"><polygon points="66.4,37.5 81.6,37.5 84.5,40.4 84.5,55.6 81.6,58.5 66.4,58.5 63.5,55.6 63.5,40.4"/></clipPath>
+      <polygon points="66.4,37.5 81.6,37.5 84.5,40.4 84.5,55.6 81.6,58.5 66.4,58.5 63.5,55.6 63.5,40.4" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="66.4,37.5 81.6,37.5 84.5,40.4 84.5,55.6 81.6,58.5 66.4,58.5 63.5,55.6 63.5,40.4" fill="#128A43"/>
+      <g clip-path="url(#relic_same4-cgr)">
+        <!-- 左上亮梯形刻面 -->
+        <polygon points="63.5,55.6 63.5,40.4 66.4,37.5 81.6,37.5 78.1,42.5 69.9,42.5 68.5,43.9 68.5,52.1" fill="#4FDB85"/>
+        <!-- 右下最暗刻面与内反光 -->
+        <polygon points="81.6,37.5 84.5,40.4 84.5,55.6 81.6,58.5 66.4,58.5 69.9,53.5 78.1,53.5 79.5,52.1 79.5,43.9" fill="#0A5A2B"/>
+        <polygon points="69.9,53.5 78.1,53.5 81.6,58.5 66.4,58.5" fill="#1DBF5E" opacity=".75"/>
+        <!-- 中央切角方台面 -->
+        <polygon points="69.9,42.5 78.1,42.5 79.5,43.9 79.5,52.1 78.1,53.5 69.9,53.5 68.5,52.1 68.5,43.9" fill="#1DBF5E"/>
+        <polygon points="69.9,42.5 78.1,42.5 76.2,48.5 68.5,49.6 68.5,43.9" fill="#4FDB85" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M69.9,42.5 L66.4,37.5 M78.1,42.5 L81.6,37.5 M79.5,52.1 L84.5,55.6 M68.5,52.1 L63.5,55.6" stroke="#A6F5C6" stroke-width="0.75" opacity=".75"/>
+        <polygon points="69.9,42.5 78.1,42.5 79.5,43.9 79.5,52.1 78.1,53.5 69.9,53.5 68.5,52.1 68.5,43.9" fill="none" stroke="#A6F5C6" stroke-width="0.75" opacity=".8"/>
+        <!-- 左上白亮边 -->
+        <polyline points="64.9,51.1 64.9,41.0 67.0,38.9 77.7,38.9" fill="none" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+      </g>
+      <circle cx="71.5" cy="45.5" r="1.5" fill="#F4F1FF"/>
+    
+    </g>
+  </g>
+
+  <!-- 胸针中心旧银花心铆扣座 -->
+  <g id="brooch_center">
+    <polygon points="48,36.5 59.5,48 48,59.5 36.5,48" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <polygon points="48,36.5 59.5,48 48,59.5 36.5,48" fill="#5A7682"/>
+    <polygon points="48,36.5 59.5,48 48,59.5" fill="#3B515C"/>
+    <polygon points="48,38.5 38.5,48 48,45" fill="#8CAAB5"/>
+    <circle cx="48" cy="48" r="4.5" fill="#1C1412"/><circle cx="47.6" cy="47.6" r="3" fill="#E2D6BA"/><circle cx="46.6" cy="46.6" r="1.1" fill="#FFFFFF"/>
+  </g>
+</g>
+</svg>

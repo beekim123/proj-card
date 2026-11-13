@@ -1,54 +1,137 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-table_cloth" viewBox="0 0 256 256" width="256" height="256">
-<title>桌布</title>
+<title>桌面排桌布 · 暗绒布四角包铜</title>
+<style>
+.svg-table_cloth g { transform-box: view-box; }
+.svg-table_cloth #sheen { opacity: 0; }
+
+/* 待机 3000：0 静止 → 1500 四角包铜磨亮处与绒布压边微光最亮 → 3000 回到静止。nineSlice 切线与角完全不动 */
+@keyframes svg-table_cloth-idle-1 {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 1; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-table_cloth:not([data-anim]) #sheen,
+.svg-table_cloth[data-anim="idle"] #sheen { animation: svg-table_cloth-idle-1 3s infinite; }
+</style>
+<defs>
+  <clipPath id="table_cloth-cbase">
+    <rect x="4" y="4" width="248" height="248" rx="12"/>
+  </clipPath>
+  <clipPath id="table_cloth-ctl">
+    <path d="M4,14 C4,8 8,4 14,4 H64 L56,15 H23 L15,23 V56 L4,64 Z"/>
+  </clipPath>
+  <clipPath id="table_cloth-ctr">
+    <path d="M192,4 H242 C248,4 252,8 252,14 V64 L241,56 V23 L233,15 H200 Z"/>
+  </clipPath>
+  <clipPath id="table_cloth-cbl">
+    <path d="M4,192 L15,200 V233 L23,241 H56 L64,252 H14 C8,252 4,248 4,242 Z"/>
+  </clipPath>
+  <clipPath id="table_cloth-cbr">
+    <path d="M241,200 L252,192 V242 C252,248 248,252 242,252 H192 L200,241 H233 L241,233 Z"/>
+  </clipPath>
+</defs>
 <g id="root">
-<!-- 绒布主底（外圈深暗，内衬暗夜紫绒布） -->
-    <rect x="3" y="3" width="250" height="250" rx="14" fill="#161221" stroke="#1C1412" stroke-width="3.2"/>
-    <rect x="14" y="14" width="228" height="228" rx="6" fill="#262036"/>
-    <rect x="22" y="22" width="212" height="212" rx="4" fill="#161221"/>
+  <!-- 第 1 层：墨色错位垫底外框（控制在 256×256 画框内） -->
+  <rect x="4.6" y="4.9" width="247" height="247" rx="12" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+  <!-- 第 2 层：暗紫丝绒桌布主底 -->
+  <rect x="4" y="4" width="248" height="248" rx="12" fill="#161221"/>
 
-    <!-- 四边顺着拉伸方向的平直双线铜边与暗酒红压线（72..184 绝无圆点或斜花纹） -->
-    <rect x="10" y="10" width="236" height="236" rx="8" fill="none" stroke="#6E542B" stroke-width="2"/>
-    <rect x="18" y="18" width="220" height="220" rx="4" fill="none" stroke="#5E242C" stroke-width="1.5"/>
-    <rect x="22" y="22" width="212" height="212" rx="3" fill="none" stroke="#1C1412" stroke-width="1.6"/>
-    <!-- 左上冷受光细边 -->
-    <path d="M6,242 V16 A10,10 0 0,1 16,6 H242" fill="none" stroke="#62577D" stroke-width="1.5" opacity="0.55"/>
+  <g clip-path="url(#table_cloth-cbase)">
+    <!-- 第 3-4 层：内层绒布边框与中心平整深暗台面（72..184 拉伸段绝对平直无花纹） -->
+    <rect x="8" y="8" width="240" height="240" rx="9" fill="#262036"/>
+    <!-- 右下背光暗边 -->
+    <path d="M248,8 V248 H8 L18,238 H238 V18 Z" fill="#161221" opacity="0.85"/>
+    <!-- 左上受光微亮绒边 -->
+    <path d="M8,248 V8 H248 L238,18 H18 V238 Z" fill="#3A324D" opacity="0.35"/>
 
-    <!-- 四角包铜角花（严格在 72×72 角区内） -->
-    <g>
-    <polygon points="4,4 64,4 56,14 22,14 14,22 14,56 4,64" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-    <polygon points="8,8 46,8 40,12 12,12 12,40 8,46" fill="#C2A670" opacity="0.65"/>
-    <polygon points="18,18 48,18 42,24 24,24 24,42 18,48" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="52" cy="9" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
-    <circle cx="9" cy="52" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
-    <path d="M26,26 L38,38 M38,26 L26,38" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
+    <!-- 平直拉伸双线旧铜嵌条与暗酒红内压边（72..184 完全为直线） -->
+    <rect x="11" y="11" width="234" height="234" rx="7" fill="none" stroke="#1C1412" stroke-width="3.2"/>
+    <rect x="11" y="11" width="234" height="234" rx="7" fill="none" stroke="#6E542B" stroke-width="1.6"/>
+    <path d="M12,236 V18 A6,6 0 0,1 18,12 H236" fill="none" stroke="#9A7B46" stroke-width="1" opacity="0.7"/>
+
+    <rect x="17" y="17" width="222" height="222" rx="5" fill="#381318"/>
+    <rect x="21" y="21" width="214" height="214" rx="4" fill="#161221" stroke="#1C1412" stroke-width="1.8"/>
+    <path d="M22,228 V24 H228" fill="none" stroke="#0D111C" stroke-width="1.6" opacity="0.75"/>
+    <path d="M24,233 H233 V24" fill="none" stroke="#262036" stroke-width="1.2" opacity="0.65"/>
+
+    <!-- 四角内侧低调哥特角花（严格在 24..64 与 192..232 角区内，绝不越过 72/184 切线） -->
+    <path d="M26,48 V26 H48 Q34,28 28,34 Q28,40 26,48 Z M230,48 V26 H208 Q222,28 228,34 Q228,40 230,48 Z M26,208 V230 H48 Q34,228 28,222 Q28,216 26,208 Z M230,208 V230 H208 Q222,228 228,222 Q228,216 230,208 Z" fill="#262036"/>
+    <path d="M28,58 Q29.2,39 29,29 Q39,29.2 58,28 Q37,27 27,27 Q27,37 28,58 Z M228,58 Q226.8,39 227,29 Q217,29.2 198,28 Q219,27 229,27 Q229,37 228,58 Z M28,198 Q29.2,217 29,227 Q39,226.8 58,228 Q37,229 27,229 Q27,219 28,198 Z M228,198 Q226.8,217 227,227 Q217,226.8 198,228 Q219,229 229,229 Q229,219 228,198 Z" fill="#6E542B" opacity="0.55"/>
   </g>
-    <g transform="translate(256, 0) scale(-1, 1)">
-    <polygon points="4,4 64,4 56,14 22,14 14,22 14,56 4,64" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-    <polygon points="8,8 46,8 40,12 12,12 12,40 8,46" fill="#C2A670" opacity="0.65"/>
-    <polygon points="18,18 48,18 42,24 24,24 24,42 18,48" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="52" cy="9" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
-    <circle cx="9" cy="52" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
-    <path d="M26,26 L38,38 M38,26 L26,38" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- 四角包铜护角（全部严格收在 x,y 不超过 66 及 >= 190 内，遵循左上主光、右下暗面与冷光） -->
+  <!-- 1. 左上包铜角 (TL) -->
+  <g id="corner_tl">
+    <path d="M4,14 C4,8 8,4 14,4 H64 L56,15 H23 L15,23 V56 L4,64 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <path d="M4,14 C4,8 8,4 14,4 H64 L56,15 H23 L15,23 V56 L4,64 Z" fill="#6E542B"/>
+    <g clip-path="url(#table_cloth-ctl)">
+      <path d="M4,14 C4,8 8,4 14,4 H64 L56,15 H23 L15,23 V56 L4,64 Z" transform="translate(-2.2 -2.2)" fill="#9A7B46"/>
+      <path d="M56,15 L64,4 H48 L52,15 Z M15,56 L4,64 V48 L15,52 Z" fill="#3B2B14" opacity="0.72"/>
+      <path d="M6,38 V14 C6,9.5 9.5,6 14,6 H42 C24,7.5 14,8.5 10,12.5 C7.5,15 7,24 6,38 Z" fill="#C2A670"/>
+      <circle cx="19" cy="19" r="3" fill="#5F8272" opacity="0.52"/>
+    </g>
+    <!-- 内部哥特卷草收尖刻纹与铆钉 -->
+    <path d="M18,12 Q32,9.2 46,11 Q32,11.6 18,12 Z M12,18 Q9.2,32 11,46 Q11.6,32 12,18 Z" fill="#1C1412"/>
+    <circle cx="11.5" cy="11.5" r="3.4" fill="#1C1412"/><circle cx="11" cy="11" r="2.4" fill="#9A7B46"/><circle cx="10.2" cy="10.2" r="0.9" fill="#DDCB9A"/>
+    <circle cx="51.5" cy="9.8" r="2.6" fill="#1C1412"/><circle cx="51" cy="9.4" r="1.8" fill="#9A7B46"/><circle cx="50.4" cy="8.8" r="0.7" fill="#DDCB9A"/>
+    <circle cx="9.8" cy="51.5" r="2.6" fill="#1C1412"/><circle cx="9.4" cy="51" r="1.8" fill="#9A7B46"/><circle cx="8.8" cy="50.4" r="0.7" fill="#DDCB9A"/>
   </g>
-    <g transform="translate(0, 256) scale(1, -1)">
-    <polygon points="4,4 64,4 56,14 22,14 14,22 14,56 4,64" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-    <polygon points="8,8 46,8 40,12 12,12 12,40 8,46" fill="#C2A670" opacity="0.65"/>
-    <polygon points="18,18 48,18 42,24 24,24 24,42 18,48" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="52" cy="9" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
-    <circle cx="9" cy="52" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
-    <path d="M26,26 L38,38 M38,26 L26,38" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- 2. 右上包铜角 (TR) -->
+  <g id="corner_tr">
+    <path d="M192,4 H242 C248,4 252,8 252,14 V64 L241,56 V23 L233,15 H200 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <path d="M192,4 H242 C248,4 252,8 252,14 V64 L241,56 V23 L233,15 H200 Z" fill="#6E542B"/>
+    <g clip-path="url(#table_cloth-ctr)">
+      <path d="M192,4 H242 C248,4 252,8 252,14 V64 L241,56 V23 L233,15 H200 Z" transform="translate(-2.2 -2.2)" fill="#9A7B46"/>
+      <path d="M241,23 L252,14 V64 L241,56 Z" fill="#3B2B14" opacity="0.68"/>
+      <path d="M196,6 H238 C224,7.5 208,7.8 196,6 Z" fill="#C2A670"/>
+      <path d="M250.2,24 Q249.5,38 250,52 Q248.4,38 250.2,24 Z" fill="#8CAAB5" opacity="0.75"/>
+    </g>
+    <path d="M210,11 Q224,9.2 238,12 Q224,11.6 210,11 Z M244,18 Q246.8,32 245,46 Q244.4,32 244,18 Z" fill="#1C1412"/>
+    <circle cx="245.5" cy="11.5" r="3.4" fill="#1C1412"/><circle cx="245" cy="11" r="2.4" fill="#9A7B46"/><circle cx="244.2" cy="10.2" r="0.9" fill="#DDCB9A"/>
+    <circle cx="205.5" cy="9.8" r="2.6" fill="#1C1412"/><circle cx="205" cy="9.4" r="1.8" fill="#9A7B46"/><circle cx="204.4" cy="8.8" r="0.7" fill="#DDCB9A"/>
+    <circle cx="246.8" cy="51.5" r="2.6" fill="#1C1412"/><circle cx="246.4" cy="51" r="1.8" fill="#6E542B"/><circle cx="245.8" cy="50.4" r="0.7" fill="#C2A670"/>
   </g>
-    <g transform="translate(256, 256) scale(-1, -1)">
-    <polygon points="4,4 64,4 56,14 22,14 14,22 14,56 4,64" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-    <polygon points="8,8 46,8 40,12 12,12 12,40 8,46" fill="#C2A670" opacity="0.65"/>
-    <polygon points="18,18 48,18 42,24 24,24 24,42 18,48" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="52" cy="9" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
-    <circle cx="9" cy="52" r="2" fill="#C2A670" stroke="#1C1412" stroke-width="1.1"/>
-    <path d="M26,26 L38,38 M38,26 L26,38" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- 3. 左下包铜角 (BL) -->
+  <g id="corner_bl">
+    <path d="M4,192 L15,200 V233 L23,241 H56 L64,252 H14 C8,252 4,248 4,242 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <path d="M4,192 L15,200 V233 L23,241 H56 L64,252 H14 C8,252 4,248 4,242 Z" fill="#6E542B"/>
+    <g clip-path="url(#table_cloth-cbl)">
+      <path d="M4,192 L15,200 V233 L23,241 H56 L64,252 H14 C8,252 4,248 4,242 Z" transform="translate(-2.2 -2.2)" fill="#9A7B46"/>
+      <path d="M15,241 H56 L64,252 H14 Z" fill="#3B2B14" opacity="0.68"/>
+      <path d="M6,196 V238 C7.5,224 7.8,208 6,196 Z" fill="#C2A670"/>
+      <path d="M24,250.2 Q38,249.5 52,250 Q38,248.4 24,250.2 Z" fill="#8CAAB5" opacity="0.72"/>
+    </g>
+    <path d="M11,210 Q9.2,224 12,238 Q11.6,224 11,210 Z M18,244 Q32,246.8 46,245 Q32,244.4 18,244 Z" fill="#1C1412"/>
+    <circle cx="11.5" cy="245.5" r="3.4" fill="#1C1412"/><circle cx="11" cy="245" r="2.4" fill="#9A7B46"/><circle cx="10.2" cy="244.2" r="0.9" fill="#DDCB9A"/>
+    <circle cx="9.8" cy="205.5" r="2.6" fill="#1C1412"/><circle cx="9.4" cy="205" r="1.8" fill="#9A7B46"/><circle cx="8.8" cy="204.4" r="0.7" fill="#DDCB9A"/>
+    <circle cx="51.5" cy="246.8" r="2.6" fill="#1C1412"/><circle cx="51" cy="246.4" r="1.8" fill="#6E542B"/><circle cx="50.4" cy="245.8" r="0.7" fill="#C2A670"/>
+  </g>
+
+  <!-- 4. 右下包铜角 (BR) -->
+  <g id="corner_br">
+    <path d="M241,200 L252,192 V242 C252,248 248,252 242,252 H192 L200,241 H233 L241,233 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <path d="M241,200 L252,192 V242 C252,248 248,252 242,252 H192 L200,241 H233 L241,233 Z" fill="#3B2B14"/>
+    <g clip-path="url(#table_cloth-cbr)">
+      <path d="M241,200 L252,192 V242 C252,248 248,252 242,252 H192 L200,241 H233 L241,233 Z" transform="translate(-2.2 -2.2)" fill="#6E542B"/>
+      <path d="M241,202 V233 L233,241 H202 L200,243 H235 L243,235 V200 Z" fill="#9A7B46" opacity="0.8"/>
+      <!-- 最外圈右下背光冷色轮廓光（断成两截） -->
+      <path d="M250.2,202 Q249.6,218 250,234 Q248.4,218 250.2,202 Z M234,250 Q218,249.6 202,250.2 Q218,248.4 234,250 Z" fill="#8CAAB5" opacity="0.82"/>
+      <path d="M236,238 C239,237 241,234 242,231" fill="none" stroke="#5F8272" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+    </g>
+    <path d="M245,210 Q246.8,224 244,238 Q244.4,224 245,210 Z M210,245 Q224,246.8 238,244 Q224,244.4 210,245 Z" fill="#1C1412"/>
+    <circle cx="245.5" cy="245.5" r="3.4" fill="#1C1412"/><circle cx="245" cy="245" r="2.4" fill="#6E542B"/><circle cx="244.2" cy="244.2" r="0.9" fill="#C2A670"/>
+    <circle cx="246.8" cy="205.5" r="2.6" fill="#1C1412"/><circle cx="246.4" cy="205" r="1.8" fill="#6E542B"/><circle cx="245.8" cy="204.4" r="0.7" fill="#C2A670"/>
+    <circle cx="205.5" cy="246.8" r="2.6" fill="#1C1412"/><circle cx="205" cy="246.4" r="1.8" fill="#6E542B"/><circle cx="204.4" cy="245.8" r="0.7" fill="#C2A670"/>
+  </g>
+
+  <!-- 3000ms 轻待机包铜磨亮微光（静止时 opacity: 0） -->
+  <g id="sheen">
+    <path d="M7,34 V14 C7,10 10,7 14,7 H36 C22,8.5 14,9.5 10.5,13 C8,15.5 7.5,22 7,34 Z" fill="#DDCB9A" opacity="0.45"/>
+    <circle cx="10.2" cy="10.2" r="1.4" fill="#DDCB9A" opacity="0.7"/>
+    <circle cx="244.2" cy="10.2" r="1.2" fill="#DDCB9A" opacity="0.55"/>
+    <circle cx="10.2" cy="244.2" r="1.2" fill="#DDCB9A" opacity="0.55"/>
   </g>
 </g>
 </svg>

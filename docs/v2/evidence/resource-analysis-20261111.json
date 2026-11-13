@@ -1,0 +1,781 @@
+{
+  "date": "2026-11-11",
+  "units": "bytes; MiB=1048576 bytes",
+  "scope": "analysis only; game code/import settings/resources/exports unchanged",
+  "package": {
+    "packages": {
+      "mac_zip": 154703039,
+      "mac_app_logical": 614125432,
+      "mac_app_allocated": 614146048,
+      "windows_exe": 552068712,
+      "pck": 442851928,
+      "mac_engine_and_launchers": 170409120,
+      "windows_engine_prefix": 109216768
+    },
+    "pck": {
+      "version": 4,
+      "entries": 2436,
+      "directory_offset": 442612272,
+      "directory_bytes": 239656,
+      "file_base": 112,
+      "pack_start": 0
+    },
+    "pck_equal_both_platforms": true,
+    "categories": {
+      "原生资源/动画": {
+        "files": 483,
+        "bytes": 3584658
+      },
+      "映射/其他": {
+        "files": 1216,
+        "bytes": 250793
+      },
+      "字体": {
+        "files": 2,
+        "bytes": 29419585
+      },
+      "无损纹理": {
+        "files": 152,
+        "bytes": 12473704
+      },
+      "纹理S3TC": {
+        "files": 344,
+        "bytes": 393826976
+      },
+      "音频": {
+        "files": 204,
+        "bytes": 1789892
+      },
+      "JSON": {
+        "files": 10,
+        "bytes": 802631
+      },
+      "原PNG": {
+        "files": 1,
+        "bytes": 153956
+      },
+      "脚本字节码": {
+        "files": 24,
+        "bytes": 290709
+      }
+    },
+    "pck_overhead": 259024,
+    "zip_parts": {
+      "其他": {
+        "files": 5,
+        "uncompressed": 864384,
+        "compressed": 858442
+      },
+      "引擎/启动器": {
+        "files": 3,
+        "uncompressed": 170409120,
+        "compressed": 59647669
+      },
+      "PCK": {
+        "files": 1,
+        "uncompressed": 442851928,
+        "compressed": 94194272
+      }
+    },
+    "source_file_copies": {
+      "wav": 0,
+      "otf": 0,
+      "png": 1,
+      "svg": 0
+    },
+    "largest_texture_assets": [
+      {
+        "id": "mon_dragon",
+        "bytes": 33274948
+      },
+      {
+        "id": "card_art_palette",
+        "bytes": 19708524
+      },
+      {
+        "id": "mon_soldier",
+        "bytes": 19497096
+      },
+      {
+        "id": "mon_clock",
+        "bytes": 19265208
+      },
+      {
+        "id": "card_art_mirror",
+        "bytes": 18798732
+      },
+      {
+        "id": "mon_tree",
+        "bytes": 18256148
+      },
+      {
+        "id": "mon_chest",
+        "bytes": 17334404
+      },
+      {
+        "id": "mon_lock",
+        "bytes": 16918856
+      },
+      {
+        "id": "mon_portrait",
+        "bytes": 16310484
+      },
+      {
+        "id": "mon_box",
+        "bytes": 16271220
+      },
+      {
+        "id": "mon_bear",
+        "bytes": 15813664
+      },
+      {
+        "id": "mon_armor",
+        "bytes": 15278516
+      },
+      {
+        "id": "bg_tile_hall",
+        "bytes": 15269992
+      },
+      {
+        "id": "bg_tile_vault",
+        "bytes": 15269992
+      },
+      {
+        "id": "fx_slam",
+        "bytes": 14203080
+      },
+      {
+        "id": "fx_grow",
+        "bytes": 11048616
+      },
+      {
+        "id": "fx_overkill",
+        "bytes": 8327272
+      },
+      {
+        "id": "ui_door",
+        "bytes": 7222556
+      },
+      {
+        "id": "title_emblem",
+        "bytes": 5303656
+      },
+      {
+        "id": "fx_hit",
+        "bytes": 4940136
+      },
+      {
+        "id": "fx_kill",
+        "bytes": 4911624
+      },
+      {
+        "id": "dummy",
+        "bytes": 4324704
+      },
+      {
+        "id": "ui_banner",
+        "bytes": 4048904
+      },
+      {
+        "id": "table_cloth",
+        "bytes": 3917992
+      },
+      {
+        "id": "fx_same",
+        "bytes": 3724776
+      },
+      {
+        "id": "card_frame",
+        "bytes": 3480104
+      },
+      {
+        "id": "card_frame_tool",
+        "bytes": 3480104
+      },
+      {
+        "id": "fx_rainbow",
+        "bytes": 2979720
+      },
+      {
+        "id": "card_art_stone",
+        "bytes": 2944348
+      },
+      {
+        "id": "npc_knocker",
+        "bytes": 2875772
+      },
+      {
+        "id": "card_back",
+        "bytes": 2760104
+      },
+      {
+        "id": "fx_shun",
+        "bytes": 2680488
+      },
+      {
+        "id": "fx_attack",
+        "bytes": 2607752
+      },
+      {
+        "id": "fx_white",
+        "bytes": 2384136
+      },
+      {
+        "id": "card_art_seal",
+        "bytes": 2287052
+      },
+      {
+        "id": "card_art_hammer",
+        "bytes": 2196572
+      },
+      {
+        "id": "card_art_lens",
+        "bytes": 2142604
+      },
+      {
+        "id": "card_art_hourglass",
+        "bytes": 1936524
+      },
+      {
+        "id": "card_art_bg",
+        "bytes": 1930120
+      },
+      {
+        "id": "card_art_bg_tool",
+        "bytes": 1930120
+      },
+      {
+        "id": "prop_curtain",
+        "bytes": 1903848
+      },
+      {
+        "id": "card_art_bag",
+        "bytes": 1895420
+      },
+      {
+        "id": "loot_chest",
+        "bytes": 1792800
+      },
+      {
+        "id": "card_art_whistle",
+        "bytes": 1667916
+      },
+      {
+        "id": "prop_rack",
+        "bytes": 1649384
+      },
+      {
+        "id": "card_art_potion",
+        "bytes": 1616972
+      },
+      {
+        "id": "card_art_diamond",
+        "bytes": 1534684
+      },
+      {
+        "id": "prop_pillar",
+        "bytes": 1468904
+      },
+      {
+        "id": "card_art_shadow",
+        "bytes": 1463260
+      },
+      {
+        "id": "prop_frame",
+        "bytes": 1437224
+      },
+      {
+        "id": "prop_urn",
+        "bytes": 1254728
+      },
+      {
+        "id": "ui_rainbow_slot",
+        "bytes": 1176516
+      },
+      {
+        "id": "gem_red_shine",
+        "bytes": 1032056
+      },
+      {
+        "id": "gem_green_shine",
+        "bytes": 1024024
+      },
+      {
+        "id": "gem_blue_shine",
+        "bytes": 938664
+      },
+      {
+        "id": "ui_countdown",
+        "bytes": 872878
+      },
+      {
+        "id": "prop_coins",
+        "bytes": 848968
+      },
+      {
+        "id": "card_art_empty",
+        "bytes": 791224
+      },
+      {
+        "id": "gem_blue_cut",
+        "bytes": 722184
+      },
+      {
+        "id": "gem_green_cut",
+        "bytes": 712504
+      },
+      {
+        "id": "relic_biggem",
+        "bytes": 631288
+      },
+      {
+        "id": "gem_red_cut",
+        "bytes": 611640
+      },
+      {
+        "id": "ui_mult_badge",
+        "bytes": 594680
+      },
+      {
+        "id": "relic_rainbow",
+        "bytes": 571174
+      },
+      {
+        "id": "gem_green_rough",
+        "bytes": 507336
+      },
+      {
+        "id": "gem_red_rough",
+        "bytes": 506344
+      },
+      {
+        "id": "ui_rule_sign",
+        "bytes": 485874
+      },
+      {
+        "id": "fx_heal",
+        "bytes": 451368
+      },
+      {
+        "id": "relic_link",
+        "bytes": 346998
+      },
+      {
+        "id": "relic_same",
+        "bytes": 341700
+      },
+      {
+        "id": "relic_red",
+        "bytes": 328432
+      },
+      {
+        "id": "bg_tile",
+        "bytes": 303834
+      },
+      {
+        "id": "relic_same4",
+        "bytes": 301196
+      },
+      {
+        "id": "relic_blue",
+        "bytes": 297346
+      },
+      {
+        "id": "relic_green",
+        "bytes": 292280
+      },
+      {
+        "id": "ui_heart",
+        "bytes": 273110
+      },
+      {
+        "id": "relic_first2",
+        "bytes": 264546
+      },
+      {
+        "id": "relic_shun",
+        "bytes": 264530
+      },
+      {
+        "id": "relic_rbheal",
+        "bytes": 250730
+      },
+      {
+        "id": "relic_grow",
+        "bytes": 244928
+      },
+      {
+        "id": "relic_twice",
+        "bytes": 239196
+      },
+      {
+        "id": "relic_guard",
+        "bytes": 237100
+      },
+      {
+        "id": "relic_white",
+        "bytes": 236344
+      },
+      {
+        "id": "relic_heart",
+        "bytes": 226890
+      },
+      {
+        "id": "relic_once",
+        "bytes": 222694
+      },
+      {
+        "id": "relic_shine",
+        "bytes": 204586
+      },
+      {
+        "id": "relic_start2",
+        "bytes": 186952
+      },
+      {
+        "id": "rule_bell",
+        "bytes": 155840
+      },
+      {
+        "id": "rule_wind",
+        "bytes": 150046
+      },
+      {
+        "id": "ui_heart_empty",
+        "bytes": 149510
+      },
+      {
+        "id": "ui_reward_card",
+        "bytes": 145002
+      },
+      {
+        "id": "ui_node_boss",
+        "bytes": 144492
+      },
+      {
+        "id": "ui_node_elite",
+        "bytes": 142940
+      },
+      {
+        "id": "gem_blue_rough",
+        "bytes": 138904
+      },
+      {
+        "id": "ui_node_fight",
+        "bytes": 132916
+      },
+      {
+        "id": "rule_picky",
+        "bytes": 132322
+      },
+      {
+        "id": "ui_reward_shop",
+        "bytes": 131528
+      },
+      {
+        "id": "ui_icon_settings",
+        "bytes": 130232
+      },
+      {
+        "id": "relic_slow",
+        "bytes": 128740
+      },
+      {
+        "id": "rule_cap",
+        "bytes": 125526
+      },
+      {
+        "id": "ui_reward_heal",
+        "bytes": 121962
+      },
+      {
+        "id": "ui_icon_rules",
+        "bytes": 114790
+      },
+      {
+        "id": "ui_node_door",
+        "bytes": 114394
+      },
+      {
+        "id": "rule_hug",
+        "bytes": 114168
+      },
+      {
+        "id": "ui_icon_undo",
+        "bytes": 111862
+      },
+      {
+        "id": "rule_regrow",
+        "bytes": 96582
+      },
+      {
+        "id": "ui_panel",
+        "bytes": 94354
+      },
+      {
+        "id": "rule_bite",
+        "bytes": 90540
+      },
+      {
+        "id": "card_gem_bar",
+        "bytes": 85630
+      },
+      {
+        "id": "ui_icon_deck",
+        "bytes": 84838
+      },
+      {
+        "id": "rule_duck",
+        "bytes": 80058
+      },
+      {
+        "id": "ui_btn_primary",
+        "bytes": 74324
+      },
+      {
+        "id": "rule_six",
+        "bytes": 70500
+      },
+      {
+        "id": "ui_btn",
+        "bytes": 60904
+      },
+      {
+        "id": "ui_hp_frame",
+        "bytes": 41830
+      },
+      {
+        "id": "gem_icon_red",
+        "bytes": 25956
+      },
+      {
+        "id": "gem_icon_blue",
+        "bytes": 14762
+      },
+      {
+        "id": "gem_icon_green",
+        "bytes": 11354
+      }
+    ],
+    "texture_groups": {
+      "背景/摆件": 47649570,
+      "卡牌/宝石": 78895742,
+      "特效": 58258968,
+      "界面/宝物": 33275856,
+      "怪物": 188220544
+    }
+  },
+  "comparison_20261110": {
+    "pck_bytes_delta": 178879920,
+    "texture_bytes_delta": 176233524,
+    "texture_share_of_growth": 0.9852057402530144
+  },
+  "engine_rendering_metrics": [
+    {
+      "stage": "home_cold",
+      "context": "debug executable, unchanged source game/imported textures, not release RAM",
+      "texture_bytes_median": 32635107.0,
+      "texture_bytes_max": 32635107.0,
+      "render_bytes_median": 39084643.0,
+      "render_bytes_max": 39084643.0,
+      "rss_median": 153452544,
+      "footprint_median": 391188224
+    },
+    {
+      "stage": "initial_relic",
+      "context": "debug executable, unchanged source game/imported textures, not release RAM",
+      "texture_bytes_median": 45929267.0,
+      "texture_bytes_max": 45929267.0,
+      "render_bytes_median": 52378147.0,
+      "render_bytes_max": 52378147.0,
+      "rss_median": 178323456,
+      "footprint_median": 409227072
+    },
+    {
+      "stage": "act1_battle_idle",
+      "context": "debug executable, unchanged source game/imported textures, not release RAM",
+      "texture_bytes_median": 74212721.0,
+      "texture_bytes_max": 74212721.0,
+      "render_bytes_median": 80812433.0,
+      "render_bytes_max": 80812433.0,
+      "rss_median": 174899200,
+      "footprint_median": 454119232
+    },
+    {
+      "stage": "combat_animation",
+      "context": "debug executable, unchanged source game/imported textures, not release RAM",
+      "texture_bytes_median": 85386753.0,
+      "texture_bytes_max": 89406799.0,
+      "render_bytes_median": 92054973.0,
+      "render_bytes_max": 96067903.0,
+      "rss_median": 186187776,
+      "footprint_median": 409096064
+    },
+    {
+      "stage": "vault_dragon_six_relics",
+      "context": "debug executable, unchanged source game/imported textures, not release RAM",
+      "texture_bytes_median": 82137275.0,
+      "texture_bytes_max": 82137275.0,
+      "render_bytes_median": 88736987.0,
+      "render_bytes_max": 88736987.0,
+      "rss_median": 115195904,
+      "footprint_median": 407801664
+    },
+    {
+      "stage": "collection_19_bottom",
+      "context": "debug executable, unchanged source game/imported textures, not release RAM",
+      "texture_bytes_median": 72889771.0,
+      "texture_bytes_max": 72889771.0,
+      "render_bytes_median": 79345995.0,
+      "render_bytes_max": 79345995.0,
+      "rss_median": 107233280,
+      "footprint_median": 399232832
+    },
+    {
+      "stage": "home_after_gameplay",
+      "context": "debug executable, unchanged source game/imported textures, not release RAM",
+      "texture_bytes_median": 40966775.0,
+      "texture_bytes_max": 40966775.0,
+      "render_bytes_median": 47416639.0,
+      "render_bytes_max": 47416639.0,
+      "rss_median": 133439488.0,
+      "footprint_median": 371691328.0
+    },
+    {
+      "stage": "inspector_dragon",
+      "context": "debug executable, unchanged source game/imported textures, not release RAM",
+      "texture_bytes_median": 45126291.0,
+      "texture_bytes_max": 45126291.0,
+      "render_bytes_median": 53458699.0,
+      "render_bytes_max": 53458699.0,
+      "rss_median": 108871680,
+      "footprint_median": 379703104
+    },
+    {
+      "stage": "home_after_inspector",
+      "context": "debug executable, unchanged source game/imported textures, not release RAM",
+      "texture_bytes_median": 45126291.0,
+      "texture_bytes_max": 45126291.0,
+      "render_bytes_median": 51576155.0,
+      "render_bytes_max": 51576155.0,
+      "rss_median": 116719616,
+      "footprint_median": 377884480
+    }
+  ],
+  "method_limits": [
+    "3 independent actual release processes, 1600x900, 8 seconds each; steady window seconds4-8; not long-run maxima",
+    "OS memory via proc_pid_rusage V2; CPU mach ticks corrected using measured125/3 timebase, 100% means one CPU core",
+    "physical footprint includes dirty and compressed/swapped memory charges; RSS is different",
+    "GPU allocations sampled separately with official debug executable running unchanged source/imported assets; not claimed exact released-app VRAM",
+    "M3 unified CPU/GPU memory; do not add OS footprint and rendering allocation",
+    "other desktop applications had high system load, so no exclusive FPS/CPU benchmark conclusion",
+    "release external-script attempt did not produce valid stage data and was stopped at90s; partial results retained and excluded",
+    "no leak/Windows OS/Android runtime conclusions"
+  ],
+  "prior_incomplete": "artifacts/resource-analysis/release-custom-profile-incomplete",
+  "sources": [
+    "https://docs.godotengine.org/en/stable/classes/class_performance.html",
+    "https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/importing_images.html",
+    "https://developer.apple.com/videos/play/wwdc2022/10106/"
+  ],
+  "package_and_frozen_runtime_unchanged": true,
+  "short_sample_peaks": {
+    "home": {
+      "footprint_bytes": 361057728,
+      "rss_bytes": 289816576
+    },
+    "vault_dragon_six_relics": {
+      "footprint_bytes": 425954880,
+      "rss_bytes": 307363840
+    },
+    "collection_19": {
+      "footprint_bytes": 396545472,
+      "rss_bytes": 291930112
+    }
+  },
+  "actual_release_memory": {
+    "home": {
+      "duration_s": 8,
+      "steady_median_window_s": [
+        4,
+        8
+      ],
+      "proof": {},
+      "steady": {
+        "resident_bytes": {
+          "min": 135331840,
+          "median": 143581184.0,
+          "max": 162070528
+        },
+        "physical_footprint_bytes": {
+          "min": 361041344,
+          "median": 361057728.0,
+          "max": 361057728
+        },
+        "cpu_pct_one_core": {
+          "min": 10.341172760691752,
+          "median": 15.452954283658087,
+          "max": 18.58310538258999
+        }
+      }
+    },
+    "vault_dragon_six_relics": {
+      "duration_s": 8,
+      "steady_median_window_s": [
+        4,
+        8
+      ],
+      "proof": {
+        "act": 3,
+        "room": 6,
+        "phase": "battle",
+        "relic_count": 6
+      },
+      "steady": {
+        "resident_bytes": {
+          "min": 189562880,
+          "median": 190906368.0,
+          "max": 237764608
+        },
+        "physical_footprint_bytes": {
+          "min": 425397824,
+          "median": 425823808.0,
+          "max": 425954880
+        },
+        "cpu_pct_one_core": {
+          "min": 29.04023272518818,
+          "median": 31.997197248823802,
+          "max": 37.79271333076112
+        }
+      }
+    },
+    "collection_19": {
+      "duration_s": 8,
+      "steady_median_window_s": [
+        4,
+        8
+      ],
+      "proof": {
+        "collection_count": 19,
+        "fullWins": 3
+      },
+      "steady": {
+        "resident_bytes": {
+          "min": 130859008,
+          "median": 131121152.0,
+          "max": 155451392
+        },
+        "physical_footprint_bytes": {
+          "min": 396529088,
+          "median": 396545472.0,
+          "max": 396545472
+        },
+        "cpu_pct_one_core": {
+          "min": 15.50822478151143,
+          "median": 16.997019352690906,
+          "max": 24.794962097100058
+        }
+      }
+    }
+  }
+}

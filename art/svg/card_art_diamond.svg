@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_diamond" viewBox="0 0 176 188" width="176" height="188">
+<title>额外牌原画 · 钻石</title>
+<style>
+.svg-card_art_diamond g { transform-box: view-box; }
+.svg-card_art_diamond #claw_base { transform-origin: 96px 146px; }
+.svg-card_art_diamond #diamond_main { transform-origin: 96px 94px; }
+.svg-card_art_diamond #facet_glint { transform-origin: 96px 84px; opacity: 0.65; }
+.svg-card_art_diamond #diamond_clone { transform-origin: 96px 94px; opacity: 0; }
+
+/* 待机 3000ms：0(0%) 静止/低位 → 1500(50%) 切面上一道亮光慢慢扫过 → 3000(100%) 与0帧一致 */
+@keyframes svg-card_art_diamond-idle-glint {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.65; animation-timing-function: ease-in-out; }
+  50% { transform: translate(8px,-3px) rotate(0deg) scale(1.1,1.1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.65; }
+}
+@keyframes svg-card_art_diamond-idle-main {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-2px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-card_art_diamond:not([data-anim]) #facet_glint,
+.svg-card_art_diamond[data-anim="idle"] #facet_glint { animation: svg-card_art_diamond-idle-glint 3s infinite; }
+.svg-card_art_diamond:not([data-anim]) #diamond_main,
+.svg-card_art_diamond[data-anim="idle"] #diamond_main,
+.svg-card_art_diamond:not([data-anim]) #claw_base,
+.svg-card_art_diamond[data-anim="idle"] #claw_base { animation: svg-card_art_diamond-idle-main 3s infinite; }
+
+/* play 600ms：0(0%) 静止 → 100(16.67%) 钻石一震 → 250(41.67%) 右边弹出半透明分身并排 → 400(66.67%) 停住 → 600(100%) 分身叠回本体 */
+@keyframes svg-card_art_diamond-play-base {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(-3px,3px) rotate(-1.5deg) scale(1.04,0.94); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  41.67% { transform: translate(-8px,-2px) rotate(-1.5deg) scale(0.97,0.97); animation-timing-function: linear; }
+  66.67% { transform: translate(-8px,-2px) rotate(-1.5deg) scale(0.97,0.97); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-card_art_diamond-play-main {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(-3px,3px) rotate(-1.5deg) scale(1.04,0.94); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  41.67% { transform: translate(-8px,-2px) rotate(-1.5deg) scale(0.97,0.97); animation-timing-function: linear; }
+  66.67% { transform: translate(-8px,-2px) rotate(-1.5deg) scale(0.97,0.97); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-card_art_diamond-play-clone {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(6px,2px) rotate(2deg) scale(0.94,0.94); opacity: 0.45; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  41.67% { transform: translate(22px,-3px) rotate(3deg) scale(0.96,0.96); opacity: 0.82; animation-timing-function: linear; }
+  66.67% { transform: translate(22px,-3px) rotate(3deg) scale(0.96,0.96); opacity: 0.82; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
+}
+@keyframes svg-card_art_diamond-play-glint {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.65; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(0deg) scale(1.15,1.15); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(8px,-3px) rotate(0deg) scale(1.2,1.2); opacity: 1; animation-timing-function: linear; }
+  66.67% { transform: translate(8px,-3px) rotate(0deg) scale(1.15,1.15); opacity: 0.9; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.65; }
+}
+.svg-card_art_diamond[data-anim="play"] #claw_base { animation: svg-card_art_diamond-play-base 0.6s both; }
+.svg-card_art_diamond[data-anim="play"] #diamond_main { animation: svg-card_art_diamond-play-main 0.6s both; }
+.svg-card_art_diamond[data-anim="play"] #diamond_clone { animation: svg-card_art_diamond-play-clone 0.6s both; }
+.svg-card_art_diamond[data-anim="play"] #facet_glint { animation: svg-card_art_diamond-play-glint 0.6s both; }
+</style>
+<defs>
+  <clipPath id="card_art_diamond-cdiam">
+    <polygon points="72,54 120,54 138,80 96,134 54,80"/>
+  </clipPath>
+  <clipPath id="card_art_diamond-cneck">
+    <path d="M74,126 C88,124.5 104,124.5 118,126 C121,131 123,137 125,143 H67 C69,137 71,131 74,126 Z"/>
+  </clipPath>
+  <clipPath id="card_art_diamond-cbase">
+    <path d="M63,141.5 C85,139.8 107,139.8 129,141.5 C133,148.5 136.5,155.5 138.5,162 C110,164.2 82,164.2 53.5,162 C55.5,155.5 59,148.5 63,141.5 Z"/>
+  </clipPath>
+  <clipPath id="card_art_diamond-cclawl">
+    <path d="M68,136 C51,123 46,98 51.5,77.5 C53,73.5 58.5,73.5 64.5,77.5 C66.5,79 65.5,82.5 62,83 C59,83.4 56.5,82.8 55,84.5 C52.5,100 57.5,117 75.5,128 Z"/>
+  </clipPath>
+  <clipPath id="card_art_diamond-cclawr">
+    <path d="M124,136 C141,123 146,98 140.5,77.5 C139,73.5 133.5,73.5 127.5,77.5 C125.5,79 126.5,82.5 130,83 C133,83.4 135.5,82.8 137,84.5 C139.5,100 134.5,117 116.5,128 Z"/>
+  </clipPath>
+</defs>
+
+<g id="root">
+  <!-- 左上角 x:0..30, y:0..90 严格留空 -->
+  <ellipse cx="96" cy="168" rx="48" ry="8" fill="#0D111C" opacity="0.6"/>
+
+  <!-- 1. play 时向右边弹出的半透明钻石分身 diamond_clone -->
+  <g id="diamond_clone" opacity="0">
+    <polygon points="72,54 120,54 138,80 96,134 54,80" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <polygon points="72,54 120,54 112,78 80,78" fill="#F4F1FF"/>
+    <polygon points="54,80 72,54 80,78" fill="#FFA3AB" opacity="0.85"/>
+    <polygon points="120,54 138,80 112,78" fill="#6A93F8" opacity="0.82"/>
+    <polygon points="54,80 80,78 96,134" fill="#A6F5C6" opacity="0.78"/>
+    <polygon points="80,78 112,78 96,134" fill="#B4C8FF" opacity="0.85"/>
+    <polygon points="112,78 138,80 96,134" fill="#5A7682" opacity="0.82"/>
+    <path d="M72,54 L80,78 L96,134 L112,78 L120,54 M54,80 H138" fill="none" stroke="#F4F1FF" stroke-width="1.2"/>
+  </g>
+
+  <!-- 2. 大白钻石本体 diamond_main（白 = 三色混合 #F4F1FF，切面里隐约透出红、绿、蓝三色火彩，内部无墨线） -->
+  <g id="diamond_main">
+    <!-- 托盘中颈（在钻石亭部尖底后面，用错位法做明暗） -->
+    <path d="M74,126 C88,124.5 104,124.5 118,126 C121,131 123,137 125,143 H67 C69,137 71,131 74,126 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+    <path d="M74,126 C88,124.5 104,124.5 118,126 C121,131 123,137 125,143 H67 C69,137 71,131 74,126 Z" fill="#3B2B14"/>
+    <g clip-path="url(#card_art_diamond-cneck)">
+      <path d="M74,126 C88,124.5 104,124.5 118,126 C121,131 123,137 125,143 H67 C69,137 71,131 74,126 Z" transform="translate(-4 -2.5)" fill="#6E542B"/>
+      <path d="M74,126 C84,125 94,125 102,126 L98,142 H67 Z" fill="#9A7B46" opacity="0.65"/>
+      <!-- 钻石尖底压在托座上的接触加深 -->
+      <ellipse cx="96" cy="133" rx="16" ry="6" fill="#1C1412" opacity="0.65"/>
+    </g>
+
+    <!-- 钻石本体 -->
+    <polygon points="72,54 120,54 138,80 96,134 54,80" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <polygon points="72,54 120,54 138,80 96,134 54,80" fill="#B4C8FF"/>
+
+    <g clip-path="url(#card_art_diamond-cdiam)">
+      <!-- 冠部左、中、右刻面 -->
+      <polygon points="72,54 120,54 112,78 80,78" fill="#F4F1FF"/>
+      <polygon points="54,80 72,54 80,78" fill="#F4F1FF"/>
+      <polygon points="54,80 72,54 75,68 62,79" fill="#FFA3AB" opacity="0.72"/>
+      <polygon points="120,54 138,80 112,78" fill="#B4C8FF"/>
+      <polygon points="120,54 132,72 116,76" fill="#6A93F8" opacity="0.68"/>
+
+      <!-- 亭部左、中、右大刻面 -->
+      <polygon points="54,80 80,78 96,134" fill="#E2D6BA"/>
+      <polygon points="58,82 78,80 92,122 68,96" fill="#A6F5C6" opacity="0.68"/>
+      <polygon points="80,78 112,78 96,134" fill="#F4F1FF"/>
+      <polygon points="80,78 96,78 96,134" fill="#FFA3AB" opacity="0.45"/>
+      <polygon points="96,78 112,78 96,134" fill="#B4C8FF" opacity="0.72"/>
+      <polygon points="112,78 138,80 96,134" fill="#5A7682"/>
+      <polygon points="114,80 132,81 104,122" fill="#6A93F8" opacity="0.58"/>
+      <!-- 背光侧内反光刻面 -->
+      <polygon points="104,114 126,95 96,134" fill="#F4F1FF" opacity="0.75"/>
+
+      <!-- 刻面高光细棱线 -->
+      <path d="M54,80 L80,78 L112,78 L138,80 M72,54 L80,78 L96,134 L112,78 L120,54 M72,54 L96,78 L120,54 M96,78 L96,134" fill="none" stroke="#F4F1FF" stroke-width="0.9" stroke-linejoin="round" opacity="0.92"/>
+
+      <!-- 左上白亮边 -->
+      <path d="M56.5,79.5 L73,56 H114 L112,58.2 H74.2 L59,80 Z" fill="#F4F1FF"/>
+
+      <!-- 待机扫光与星芒 facet_glint -->
+      <g id="facet_glint" opacity="0.65">
+        <polygon points="74,56 96,56 86,96 68,84" fill="#F4F1FF" opacity="0.68"/>
+        <path d="M78,58 Q79.5,66.5 88,68 Q79.5,69.5 78,78 Q76.5,69.5 68,68 Q76.5,66.5 78,58 Z" fill="#F4F1FF"/>
+        <circle cx="78" cy="68" r="2.2" fill="#F4F1FF"/>
+      </g>
+
+      <!-- 托爪尖压在腰棱上的两处小接触加深 -->
+      <ellipse cx="59" cy="81" rx="7" ry="3.5" fill="#3B2B14" opacity="0.5"/>
+      <ellipse cx="133" cy="81" rx="7" ry="3.5" fill="#3B2B14" opacity="0.55"/>
+    </g>
+  </g>
+
+  <!-- 3. 旧铜爪托底座 claw_base（托爪与爪尖连成同一条连续弯钩轮廓压在腰棱上，底座用错位法做弧形明暗，去掉一刀切竖直线） -->
+  <g id="claw_base">
+    <!-- 左托爪：从底座后方连续弯上来，顶端弯钩形尖头绕过并压在钻石左腰棱上（同一条轮廓，无贴片梯形） -->
+    <path d="M68,136 C51,123 46,98 51.5,77.5 C53,73.5 58.5,73.5 64.5,77.5 C66.5,79 65.5,82.5 62,83 C59,83.4 56.5,82.8 55,84.5 C52.5,100 57.5,117 75.5,128 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <path d="M68,136 C51,123 46,98 51.5,77.5 C53,73.5 58.5,73.5 64.5,77.5 C66.5,79 65.5,82.5 62,83 C59,83.4 56.5,82.8 55,84.5 C52.5,100 57.5,117 75.5,128 Z" fill="#6E542B"/>
+    <g clip-path="url(#card_art_diamond-cclawl)">
+      <path d="M68,136 C51,123 46,98 51.5,77.5 C53,73.5 58.5,73.5 64.5,77.5 C66.5,79 65.5,82.5 62,83 C59,83.4 56.5,82.8 55,84.5 C52.5,100 57.5,117 75.5,128 Z" transform="translate(-2.2 -2)" fill="#9A7B46"/>
+      <path d="M55,84.5 C52.5,100 57.5,117 75.5,128 L68,136 C56,125 51,106 53,84 Z" fill="#3B2B14" opacity="0.68"/>
+      <path d="M52,118 C49.5,103 50.5,87 53,77 C54.5,75.2 58,75.5 62.5,78.2 C58,77.5 55,77.8 54,80.5 C52,92 52,106 55,118 Z" fill="#C2A670"/>
+      <circle cx="55.5" cy="77.5" r="1.3" fill="#DDCB9A"/>
+    </g>
+
+    <!-- 右托爪：从底座后方连续弯上来，顶端弯钩形尖头绕过并压在钻石右腰棱上（同一条轮廓） -->
+    <path d="M124,136 C141,123 146,98 140.5,77.5 C139,73.5 133.5,73.5 127.5,77.5 C125.5,79 126.5,82.5 130,83 C133,83.4 135.5,82.8 137,84.5 C139.5,100 134.5,117 116.5,128 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+    <path d="M124,136 C141,123 146,98 140.5,77.5 C139,73.5 133.5,73.5 127.5,77.5 C125.5,79 126.5,82.5 130,83 C133,83.4 135.5,82.8 137,84.5 C139.5,100 134.5,117 116.5,128 Z" fill="#6E542B"/>
+    <g clip-path="url(#card_art_diamond-cclawr)">
+      <path d="M124,136 C141,123 146,98 140.5,77.5 C139,73.5 133.5,73.5 127.5,77.5 C125.5,79 126.5,82.5 130,83 C133,83.4 135.5,82.8 137,84.5 C139.5,100 134.5,117 116.5,128 Z" transform="translate(-2.4 -2)" fill="#9A7B46"/>
+      <path d="M140.5,77.5 C146,98 141,123 124,136 L118,131 C134,120 140,99 138,80 Z" fill="#3B2B14" opacity="0.72"/>
+      <path d="M128.5,78.2 C132.5,75.5 136.5,75.5 138.5,77.5 C135.5,77.5 132,78.5 128.5,80.2 Z" fill="#C2A670"/>
+      <path d="M140.5,88 C142,102 138.5,118 126.5,130" fill="none" stroke="#8CAAB5" stroke-width="1.4" stroke-linecap="round" opacity="0.8"/>
+    </g>
+
+    <!-- 底座下盘（后画盖住左右托爪根部，用错位法做弧形明暗，彻底消除中间竖直一刀切线） -->
+    <path d="M63,141.5 C85,139.8 107,139.8 129,141.5 C133,148.5 136.5,155.5 138.5,162 C110,164.2 82,164.2 53.5,162 C55.5,155.5 59,148.5 63,141.5 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M63,141.5 C85,139.8 107,139.8 129,141.5 C133,148.5 136.5,155.5 138.5,162 C110,164.2 82,164.2 53.5,162 C55.5,155.5 59,148.5 63,141.5 Z" fill="#6E542B"/>
+    <g clip-path="url(#card_art_diamond-cbase)">
+      <!-- 第 3 层：错位亮面 -->
+      <path d="M63,141.5 C85,139.8 107,139.8 129,141.5 C133,148.5 136.5,155.5 138.5,162 C110,164.2 82,164.2 53.5,162 C55.5,155.5 59,148.5 63,141.5 Z" transform="translate(-5.5 -4)" fill="#9A7B46"/>
+      <!-- 第 4 层：右下弧形转折暗面（边顺着底座弧形走，不用竖直直线切开） -->
+      <path d="M112,140 C118,148 115,156 102,163.5 H139 L130,140 Z" fill="#3B2B14" opacity="0.78"/>
+      <!-- 第 5 层：左上受光边与右下冷轮廓光 -->
+      <path d="M56.5,159 C58.5,153 61.5,147 64.5,143.2 C82,141.8 100,141.8 116,142.8 C98,143.8 80,144.2 66,145.5 C63,149.5 60,154.5 58.5,159.5 Z" fill="#C2A670"/>
+      <path d="M131,146 Q134,153 136,160 Q124,161.5 110,161.8" fill="none" stroke="#8CAAB5" stroke-width="1.4" stroke-linecap="round" opacity="0.8"/>
+      <!-- 第 6 层：铜绿污渍 -->
+      <path d="M114,155 C119,155 123,152 125,148" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity="0.55"/>
+    </g>
+    <!-- 底座上沿一串立体旧铜珠边 -->
+    <path d="M68,141.2 Q96,139.6 124,141.2" fill="none" stroke="#3B2B14" stroke-width="3.2" stroke-dasharray="0.1 6.5" stroke-linecap="round"/>
+    <path d="M67.5,140.6 Q96,139 123.5,140.6" fill="none" stroke="#C2A670" stroke-width="2.2" stroke-dasharray="0.1 6.5" stroke-linecap="round"/>
+  </g>
+</g>
+</svg>

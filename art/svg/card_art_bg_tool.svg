@@ -1,19 +1,85 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_bg_tool" viewBox="0 0 176 188" width="176" height="188">
-<title>额外牌原画窗底</title>
+<title>原画窗底 · 旧皮革</title>
+<style>
+.svg-card_art_bg_tool g { transform-box: view-box; }
+.svg-card_art_bg_tool #sheen { opacity: 0; }
+
+/* 待机 3000：0 静止 → 1500 皮革上的暗泽最亮 → 3000 回到静止。只动一层 opacity */
+@keyframes svg-card_art_bg_tool-idle-1 {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 1; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-card_art_bg_tool:not([data-anim]) #sheen,
+.svg-card_art_bg_tool[data-anim="idle"] #sheen { animation: svg-card_art_bg_tool-idle-1 3s infinite; }
+</style>
 <defs>
-  <radialGradient id="card_art_bg_tool-leather" cx="54%" cy="52%" r="68%">
-    <stop offset="0%" stop-color="#3D2212"/>
-    <stop offset="68%" stop-color="#2E2C28"/>
-    <stop offset="100%" stop-color="#1C1412"/>
-  </radialGradient>
+<radialGradient id="card_art_bg_tool-vig" cx="92" cy="96" r="128" gradientUnits="userSpaceOnUse">
+  <stop offset="0.4" stop-color="#120B08" stop-opacity="0"/>
+  <stop offset="1" stop-color="#120B08" stop-opacity="0.9"/>
+</radialGradient>
+<radialGradient id="card_art_bg_tool-dent" cx="94" cy="98" r="58" gradientUnits="userSpaceOnUse">
+  <stop offset="0" stop-color="#140C08" stop-opacity="0.72"/>
+  <stop offset="0.8" stop-color="#140C08" stop-opacity="0.32"/>
+  <stop offset="1" stop-color="#140C08" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="card_art_bg_tool-sheen" x1="36" y1="24" x2="162" y2="170" gradientUnits="userSpaceOnUse">
+  <stop offset="0.2" stop-color="#9A8968" stop-opacity="0"/>
+  <stop offset="0.48" stop-color="#9A8968" stop-opacity="0.28"/>
+  <stop offset="0.75" stop-color="#9A8968" stop-opacity="0"/>
+</linearGradient>
+<pattern id="card_art_bg_tool-pores" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+  <circle cx="2.5" cy="3" r="0.65" fill="#120B08"/>
+  <circle cx="8.5" cy="7.5" r="0.55" fill="#120B08"/>
+  <circle cx="5.5" cy="10.5" r="0.5" fill="#524531"/>
+  <path d="M9,2 Q10.2,3 11,2.2" stroke="#524531" stroke-width="0.5" fill="none" stroke-linecap="round"/>
+</pattern>
+<pattern id="card_art_bg_tool-grain" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(-28 94 98)">
+  <path d="M0,6 Q12,4 24,6 M0,18 Q12,20 24,18" stroke="#120B08" stroke-width="0.7" fill="none"/>
+  <path d="M6,0 Q4,12 6,24" stroke="#524531" stroke-width="0.55" fill="none"/>
+</pattern>
+<!-- 挖空左上角 x 0–34, y 0–94（叠小宝石图标处特别平）与中间凹窝 -->
+<clipPath id="card_art_bg_tool-safe">
+  <path d="M34,0 H176 V188 H0 V94 H34 Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="card_art_bg_tool-outer">
+  <path d="M34,0 H176 V188 H0 V94 H34 Z M94,36 C126,36 150,62 150,98 C150,134 126,160 94,160 C62,160 38,134 38,98 C38,62 62,36 94,36 Z" clip-rule="evenodd"/>
+</clipPath>
 </defs>
+
 <g id="root">
-  <!-- 暗色平整旧皮革衬底（与基础牌暗紫丝绒明显区分，左上角 x0..34, y0..94 保持完全干净平整） -->
-  <path d="M0,0 H176 V188 H0 Z" fill="url(#card_art_bg_tool-leather)"/>
-  <!-- 旧皮压印单线与细缝线（避开左上角 x0..36, y0..96 宝石小图标区） -->
-  <path d="M40,12 H164 V176 H12 V100" fill="none" stroke="#524531" stroke-width="1.2" opacity="0.45"/>
-  <path d="M44,16 H160 V172 H16 V104" fill="none" stroke="#704122" stroke-width="1" stroke-dasharray="5 4" opacity="0.38"/>
-  <!-- 右下与左下极轻的旧皮暗部斜排线 -->
-  <path d="M144,178 L168,154 M152,180 L170,162 M160,182 L172,170 M18,176 L32,162 M24,180 L38,166" stroke="#1C1412" stroke-width="1" opacity="0.35"/>
+  <!-- 旧皮革底色：暗、平；左上角 x 0–34, y 0–94 保持最干净平整 -->
+  <rect x="0" y="0" width="176" height="188" fill="#231710"/>
+
+  <!-- 皮革细毛孔与纹理（裁除左上角 x 0–34, y 0–94） -->
+  <g clip-path="url(#card_art_bg_tool-safe)">
+    <rect x="0" y="0" width="176" height="188" fill="url(#card_art_bg_tool-pores)" opacity="0.28"/>
+  </g>
+  <g clip-path="url(#card_art_bg_tool-outer)">
+    <rect x="0" y="0" width="176" height="188" fill="url(#card_art_bg_tool-grain)" opacity="0.18"/>
+  </g>
+
+  <!-- 中间的浅凹窝：左上压一道暗，右下托一道极淡的旧皮亮边 -->
+  <ellipse cx="94" cy="98" rx="56" ry="62" fill="url(#card_art_bg_tool-dent)"/>
+  <path d="M40,86 C44,56 66,36 94,36 C110,36 124,42 134,52 C121,44 108,42 94,43 C68,45 48,64 40,86 Z" fill="#120B08" opacity="0.45"/>
+  <path d="M148,110 C144,138 122,160 94,160 C78,160 64,154 54,144 C66,151 80,154 94,153 C120,151 140,132 148,110 Z" fill="#524531" opacity="0.16"/>
+
+  <!-- 皮革折痕（收尖线，避开左上角）与两处磨损斑 -->
+  <path d="M126,28 Q138,40 154,48 Q139,37 126,28 Z M136,42 Q146,48 158,52 Q147,45 136,42 Z M42,148 Q56,160 74,166 Q58,157 42,148 Z M62,122 Q74,132 90,134 Q75,129 62,122 Z M108,60 Q118,65 126,74 Q119,63 108,60 Z" fill="#120B08" opacity="0.52"/>
+  <path d="M127,29.2 Q139,41 154,48.8 Q138.5,39.5 127,29.2 Z M43,149.2 Q57,161 74,166.8 Q56.5,159.5 43,149.2 Z" fill="#524531" opacity="0.22"/>
+  <path d="M138,152 C142,149 147,150 149,154 C146,158 140,158 138,152 Z M144,24 C147,22 151,23 152,26 C149,29 145,28 144,24 Z" fill="#3D2212" opacity="0.55"/>
+
+  <!-- 四周暗角 -->
+  <rect x="0" y="0" width="176" height="188" fill="url(#card_art_bg_tool-vig)"/>
+
+  <!-- 一圈压线与缝线（左上角 x 0–34, y 0–94 处断开不画，保证叠小宝石图标处完全平坦） -->
+  <path d="M36,11.6 H157 A7,7 0 0 1 164,18.6 V169.6 A7,7 0 0 1 157,176.6 H18.6 A7,7 0 0 1 11.6,169.6 V96" fill="none" stroke="#120B08" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+  <path d="M36,14.2 H155 A5,5 0 0 1 160,19.2 V167.2 A5,5 0 0 1 155,172.2 H19.2 A5,5 0 0 1 14.2,167.2 V96" fill="none" stroke="#120B08" stroke-width="1.5" opacity="0.75"/>
+  <path d="M36,13.4 H155 A5,5 0 0 1 160,18.4 V166.4 A5,5 0 0 1 155,171.4 H19.2 A5,5 0 0 1 14.2,166.4 V96" fill="none" stroke="#704122" stroke-width="1.1" stroke-dasharray="4.2 3.4" stroke-linecap="round" opacity="0.72"/>
+
+  <!-- 待机才亮的光泽 -->
+  <g id="sheen">
+    <rect x="0" y="0" width="176" height="188" fill="url(#card_art_bg_tool-sheen)"/>
+  </g>
 </g>
 </svg>

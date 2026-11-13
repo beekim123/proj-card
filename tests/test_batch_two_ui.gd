@@ -50,8 +50,8 @@ func run() -> Dictionary:
 		check(app.scene.find_child("ResultBanner",true,false) != null,direction+" retreat result")
 		app.go_home(); check(app.modal == null and app.drag.is_empty(),direction+" home cleanup")
 	for id: String in ["mon_box","mon_portrait","mon_lock","rule_duck","rule_picky","rule_six","card_art_palette","card_art_potion","card_art_diamond","relic_red","relic_green","relic_blue","relic_shun","relic_same4","bg_tile_hall","prop_frame","prop_curtain"]:
-		check(app.art.assets.has(id) and app.art.assets[id].definition.get("nativePlaceholder",false),"explicit native placeholder " + id)
-		var view: Control = app.art.create(id); check(view != null,"placeholder creates " + id)
+		check(app.art.assets.has(id) and app.art.assets[id].definition.get("artStyle", "") == "fable-carbon-remake" and not app.art.assets[id].definition.get("nativePlaceholder",false),"delivered new artwork " + id)
+		var view: Control = app.art.create(id); check(view != null,"new artwork creates " + id)
 		if view != null: view.free()
 	await app.shutdown_presentation(); app.queue_free(); await tree.process_frame
 	OS.set_environment("GEMCARD_SAVE_DIR",previous_dir)

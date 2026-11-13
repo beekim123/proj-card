@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-rule_cap" viewBox="0 0 64 64" width="64" height="64">
+<title>规矩图标 · 压倍率</title>
+<style>
+.svg-rule_cap g { transform-box: view-box; }
+.svg-rule_cap #iron_gauntlet { transform-origin: 32px 20px; }
+.svg-rule_cap #white_gem_half { transform-origin: 32px 44px; }
+@keyframes svg-rule_cap-idle-g {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,1.8px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-rule_cap-idle-w {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0.8px) rotate(0deg) scale(1.02,0.97); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-rule_cap:not([data-anim]) #iron_gauntlet,
+.svg-rule_cap[data-anim="idle"] #iron_gauntlet { animation: svg-rule_cap-idle-g 3s infinite; }
+.svg-rule_cap:not([data-anim]) #white_gem_half,
+.svg-rule_cap[data-anim="idle"] #white_gem_half { animation: svg-rule_cap-idle-w 3s infinite; }
+</style>
+<defs>
+  <clipPath id="rule_cap-cwgem">
+    <polygon points="13,30 51,30 55,41 32,58 9,41"/>
+  </clipPath>
+</defs>
+<g id="root">
+  <!-- 下半部：被铁护手扣住、露出较大下半部分的白色大宝石 -->
+  <g id="white_gem_half">
+    <polygon points="13,30 51,30 55,41 32,58 9,41" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <polygon points="13,30 51,30 55,41 32,58 9,41" fill="#F4F1FF"/>
+    <g clip-path="url(#rule_cap-cwgem)">
+      <polygon points="9,41 21,42 32,58" fill="#FFA3AB" opacity=".88"/>
+      <polygon points="55,41 43,42 32,58" fill="#B4C8FF" opacity=".88"/>
+      <polygon points="21,42 43,42 32,58" fill="#A6F5C6" opacity=".85"/>
+      <polygon points="17,30 47,30 43,43 21,43" fill="#FFFFFF"/>
+      <path d="M9,41 L21,43 L32,58 L43,43 L55,41 M21,43 L17,30 M43,43 L47,30" fill="none" stroke="#B4C8FF" stroke-width="0.9"/>
+      <!-- 被护手压住的上沿接触加深阴影 -->
+      <rect x="9" y="29" width="46" height="5" fill="#161221" opacity=".45"/>
+    </g>
+    <circle cx="25" cy="38" r="2.2" fill="#FFFFFF"/>
+  </g>
+
+  <!-- 上半部：铁护手掌心朝下，四根分明的铁手套手指朝下扣住白宝石（绝不像帽子） -->
+  <g id="iron_gauntlet">
+    <!-- 护手腕甲与手背甲 -->
+    <path d="M20,6 H44 L47,14 L53,20 L51,28 H13 L11,20 L17,14 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M20,6 H44 L47,14 L53,20 L51,28 H13 L11,20 L17,14 Z" fill="#4A4742"/>
+    <path d="M20,6 H34 L36,14 L42,20 L40,28 H13 L11,20 L17,14 Z" fill="#6E6A63"/>
+    <path d="M14,20 L19,14 L21,8 H32" fill="none" stroke="#948F86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 侧伸拇指（左下扣住宝石左肩，强化“手掌/手套”剪影，打破帽子对称感） -->
+    <path d="M12,19 C6,21 5,28 8,35 C10,38 14,37 15,33 L15,24 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+    <path d="M12,19 C6,21 5,28 8,35 C10,38 14,37 15,33 L15,24 Z" fill="#6E6A63"/>
+    <path d="M8,24 C7,27 8,31 10,34" fill="none" stroke="#948F86" stroke-width="1.6" stroke-linecap="round"/>
+
+    <!-- 四根朝下弯曲扣住宝石的独立铁手指（指节分明、高低错落） -->
+    <!-- 食指 -->
+    <rect x="14" y="22" width="8.5" height="16" rx="3.8" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6"/>
+    <rect x="14" y="22" width="8.5" height="16" rx="3.8" fill="#6E6A63" stroke="#1C1412" stroke-width="2.2"/>
+    <rect x="15.5" y="23.5" width="3" height="11" rx="1.5" fill="#948F86"/>
+    <!-- 中指（略长） -->
+    <rect x="23.2" y="22" width="8.5" height="18" rx="3.8" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6"/>
+    <rect x="23.2" y="22" width="8.5" height="18" rx="3.8" fill="#6E6A63" stroke="#1C1412" stroke-width="2.2"/>
+    <rect x="24.7" y="23.5" width="3" height="13" rx="1.5" fill="#948F86"/>
+    <!-- 无名指 -->
+    <rect x="32.4" y="22" width="8.5" height="17" rx="3.8" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6"/>
+    <rect x="32.4" y="22" width="8.5" height="17" rx="3.8" fill="#4A4742" stroke="#1C1412" stroke-width="2.2"/>
+    <rect x="33.8" y="23.5" width="2.8" height="11" rx="1.4" fill="#6E6A63"/>
+    <!-- 小指 -->
+    <rect x="41.6" y="22" width="8.5" height="14.5" rx="3.8" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6"/>
+    <rect x="41.6" y="22" width="8.5" height="14.5" rx="3.8" fill="#2E2C28" stroke="#1C1412" stroke-width="2.2"/>
+    <path d="M48.5,25 V33.5" stroke="#8CAAB5" stroke-width="1.4" stroke-linecap="round" opacity=".82"/>
+
+    <!-- 指节横纹（收尖线）与手背铆钉、铁锈记号 -->
+    <path d="M15,29.5 H21.5 M24.2,30.5 H30.7 M33.4,30 H39.9 M42.6,29 H49" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="22" cy="16" r="1.8" fill="#1C1412"/><circle cx="21.8" cy="15.8" r="1.1" fill="#948F86"/>
+    <circle cx="32" cy="16" r="1.8" fill="#1C1412"/><circle cx="31.8" cy="15.8" r="1.1" fill="#948F86"/>
+    <circle cx="42" cy="16" r="1.8" fill="#1C1412"/><circle cx="41.8" cy="15.8" r="1.1" fill="#6E6A63"/>
+    <path d="M41,18 C43,17 46,18 47,20 C45,21.5 42,21 41,18 Z" fill="#7A4A2E" opacity=".6"/>
+  </g>
+</g>
+</svg>

@@ -1,0 +1,252 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-prop_coins" viewBox="0 0 120 240" width="120" height="240">
+<title>宝库摆件 · 金币堆与高脚杯</title>
+<style>
+.svg-prop_coins g { transform-box: view-box; }
+.svg-prop_coins #tilted_goblet { transform-origin: 66px 162px; }
+.svg-prop_coins #sheen { opacity: 0; }
+
+/* 待机 3000：0 静止 → 1500 斜插的高脚杯极轻微晃动（-2.2°）及金币磨亮边微泽 → 3000 回到静止 */
+@keyframes svg-prop_coins-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-2.2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_coins:not([data-anim]) #tilted_goblet,
+.svg-prop_coins[data-anim="idle"] #tilted_goblet { animation: svg-prop_coins-idle-1 3s infinite; }
+
+@keyframes svg-prop_coins-idle-2 {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 1; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-prop_coins:not([data-anim]) #sheen,
+.svg-prop_coins[data-anim="idle"] #sheen { animation: svg-prop_coins-idle-2 3s infinite; }
+</style>
+<defs>
+  <pattern id="prop_coins-h" width="4.4" height="4.4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="4.4" stroke="#1C1412" stroke-width="0.9"/>
+  </pattern>
+  <!-- 堆的外轮廓边上露出一圈圈金币边，不要一整条光滑的弧线 -->
+  <clipPath id="prop_coins-cmound">
+    <path d="M10,229 C8.2,223 9.5,216.5 13.5,213 C11.2,206.5 13.5,199.5 18.2,196 C16.5,189.5 19.8,182.5 25.5,179 C24.8,173.5 29.5,167.5 36.5,165 C41,161.2 48,160 57,160 C65,160 72,162 77.5,165.5 C84.5,168 89.2,174 88.5,179.5 C95.2,182.5 99.2,189.5 97.5,196 C103.5,199.5 106.5,206.5 104.5,213 C109.5,216.8 111.2,223.2 110,229 C78,233 42,233 10,229 Z"/>
+  </clipPath>
+  <!-- 三摞金币与斜靠金币的埋入裁切：只露出上半截，下半截自然埋进堆里，不贴异色补丁 -->
+  <clipPath id="prop_coins-cstack-l">
+    <path d="M16,188 H48 V217.2 Q31,211.8 16,217.2 Z"/>
+  </clipPath>
+  <clipPath id="prop_coins-cstack-m">
+    <path d="M40,204 H74 V224.2 Q56.5,219 40,224.2 Z"/>
+  </clipPath>
+  <clipPath id="prop_coins-cstack-r">
+    <path d="M66,200 H100 V219.2 Q84,213.8 66,219.2 Z"/>
+  </clipPath>
+  <clipPath id="prop_coins-cmid-l">
+    <path d="M31,176 H59 V189.2 Q44.5,185.8 31,189.2 Z"/>
+  </clipPath>
+  <clipPath id="prop_coins-cmid-r">
+    <path d="M59,181 H87 V194.8 Q73,190.2 59,192.2 Z"/>
+  </clipPath>
+  <clipPath id="prop_coins-cbowl">
+    <path d="M48,148 L66,129 C79,136 88,149 86,164 L64,178 C53,172 48,160 48,148 Z"/>
+  </clipPath>
+  <!-- 高脚杯下侧埋入金币堆的裁切：左下侧杯沿埋入堆内 -->
+  <clipPath id="prop_coins-cgob-bury">
+    <path d="M15,115 H98 V186 H68 C61,172 52,165.5 44,167.5 L15,168 Z"/>
+  </clipPath>
+</defs>
+<g id="root">
+  <!-- 落地接触阴影（anchor: 60,240；上半截 y: 0..116 完全透明留空） -->
+  <ellipse cx="60" cy="234.5" rx="51" ry="4.2" fill="#0D111C" opacity="0.65"/>
+
+  <!-- 1. 下半截：压暗的旧金币小山堆 (#coin_mound，压暗旧金，不提亮、不发光) -->
+  <g id="coin_mound">
+    <!-- 第 1 层：墨色错位垫底（外轮廓带一圈圈金币边弧凸） -->
+    <path d="M10,229 C8.2,223 9.5,216.5 13.5,213 C11.2,206.5 13.5,199.5 18.2,196 C16.5,189.5 19.8,182.5 25.5,179 C24.8,173.5 29.5,167.5 36.5,165 C41,161.2 48,160 57,160 C65,160 72,162 77.5,165.5 C84.5,168 89.2,174 88.5,179.5 C95.2,182.5 99.2,189.5 97.5,196 C103.5,199.5 106.5,206.5 104.5,213 C109.5,216.8 111.2,223.2 110,229 C78,233 42,233 10,229 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <!-- 第 2 层：铺旧金最暗档 #3B2B14 -->
+    <path d="M10,229 C8.2,223 9.5,216.5 13.5,213 C11.2,206.5 13.5,199.5 18.2,196 C16.5,189.5 19.8,182.5 25.5,179 C24.8,173.5 29.5,167.5 36.5,165 C41,161.2 48,160 57,160 C65,160 72,162 77.5,165.5 C84.5,168 89.2,174 88.5,179.5 C95.2,182.5 99.2,189.5 97.5,196 C103.5,199.5 106.5,206.5 104.5,213 C109.5,216.8 111.2,223.2 110,229 C78,233 42,233 10,229 Z" fill="#3B2B14"/>
+    <g clip-path="url(#prop_coins-cmound)">
+      <!-- 第 3 层：错位亮面（旧金暗档 #6E542B 作主色） -->
+      <path d="M10,229 C8.2,223 9.5,216.5 13.5,213 C11.2,206.5 13.5,199.5 18.2,196 C16.5,189.5 19.8,182.5 25.5,179 C24.8,173.5 29.5,167.5 36.5,165 C41,161.2 48,160 57,160 C65,160 72,162 77.5,165.5 C84.5,168 89.2,174 88.5,179.5 C95.2,182.5 99.2,189.5 97.5,196 C103.5,199.5 106.5,206.5 104.5,213 C109.5,216.8 111.2,223.2 110,229 C78,233 42,233 10,229 Z" transform="translate(-4.5 -3.5)" fill="#6E542B"/>
+      <!-- 左上受光坡面（底色 #9A7B46，与A完全一致透明度 0.72） -->
+      <path d="M11,226 C13,198 26,174 46,164 C54,160 61,161 66,164 C54,174 44,196 42,228 Z" fill="#9A7B46" opacity="0.72"/>
+      <!-- 第 4 层：右下背光弧面加深与 45° 排线 -->
+      <path d="M62,162 C86,168 105,196 110,229 H56 C62,208 64,184 62,162 Z" fill="#3B2B14" opacity="0.86"/>
+      <path d="M68,174 C90,182 105,204 110,229 H64 Z" fill="url(#prop_coins-h)" opacity="0.4"/>
+      <!-- 凹处铜绿污渍 -->
+      <ellipse cx="70" cy="216" rx="6" ry="2.6" fill="#5F8272" opacity="0.52"/>
+      <ellipse cx="44" cy="222" rx="5" ry="2" fill="#5F8272" opacity="0.48"/>
+      <!-- 外沿一圈圈金币叠边的内部收尖结构线 -->
+      <path d="M13.5,213 Q19,215.5 24,212.5 Q18.5,213.8 13.5,213 Z M18.2,196 Q24,198.5 29.5,195.2 Q23.8,196.8 18.2,196 Z M25.5,179 Q31.5,181.2 37,178.2 Q31.2,179.6 25.5,179 Z M36.5,165 Q42,167.2 47.5,164.8 Q41.8,165.8 36.5,165 Z M88.5,179.5 Q83,181.8 78,178.8 Q83.2,180.2 88.5,179.5 Z M97.5,196 Q91.5,198.5 86,195.5 Q91.8,196.8 97.5,196 Z M104.5,213 Q98.5,215.5 93,212.5 Q98.8,213.8 104.5,213 Z" fill="#1C1412"/>
+      <!-- 第 5 层：左上受光边与右下两段冷色轮廓光 -->
+      <path d="M12.2,211 C11,205.5 13.2,199.8 17.5,196.8 C15,200.8 13.5,206 14.2,211 Z M18.5,194 C17.5,188.8 20.2,183.2 25,179.8 C22,183.8 20.2,189 20.5,194 Z M27,177.2 C26.8,172.8 30.8,168 36.5,165.8 C32.8,169 29.5,173.2 29,177.2 Z" fill="#C2A670" opacity="0.88"/>
+      <path d="M90.5,181.5 Q96.8,187 95.8,194.5 Q94.5,187.5 90.5,181.5 Z M99.5,198 Q104.8,204 103.2,211.5 Q102,204.5 99.5,198 Z M106.2,215 Q109.5,221 108.5,227.2 Q107.2,221 106.2,215 Z" fill="#8CAAB5" opacity="0.8"/>
+
+      <!-- 堆腰斜靠的两枚无孔圆金币（下半截裁切埋进堆里 + 接触处加深） -->
+      <g clip-path="url(#prop_coins-cmid-l)">
+        <g transform="rotate(-14 45 186)">
+          <ellipse cx="45" cy="187.5" rx="11" ry="4.6" fill="#1C1412"/>
+          <ellipse cx="45" cy="186" rx="10.5" ry="4.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8"/>
+          <path d="M36.5,185 A9,3.2 0 0,1 51,183" fill="none" stroke="#C2A670" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="41" cy="184.5" r="0.9" fill="#DDCB9A"/>
+        </g>
+      </g>
+      <path d="M33.5,189.2 C40,186.5 49,186.5 55.5,189.2 C49,191.2 40,191.2 33.5,189.2 Z" fill="#3B2B14" opacity="0.82"/>
+      <path d="M33.5,189.2 Q44.5,185.8 55.5,189.2 Q44.5,188 33.5,189.2 Z" fill="#1C1412"/>
+
+      <g clip-path="url(#prop_coins-cmid-r)">
+        <g transform="rotate(16 73 191)">
+          <ellipse cx="73" cy="192.5" rx="11" ry="4.6" fill="#1C1412"/>
+          <ellipse cx="73" cy="191" rx="10.5" ry="4.2" fill="#3B2B14" stroke="#1C1412" stroke-width="1.8"/>
+          <path d="M64.5,190 A9,3.2 0 0,1 78,188" fill="none" stroke="#6E542B" stroke-width="1.2" stroke-linecap="round"/>
+        </g>
+      </g>
+      <path d="M61.5,192.2 Q73,190.2 83.5,195 Q72.5,192.4 61.5,192.2 Z" fill="#1C1412"/>
+
+      <!-- 左下金币摞（下半截埋进堆里 + 接触处加深） -->
+      <g clip-path="url(#prop_coins-cstack-l)">
+        <ellipse cx="32" cy="215" rx="13" ry="5.5" fill="#1C1412" stroke="#1C1412" stroke-width="2.4"/>
+        <ellipse cx="32" cy="213" rx="12.5" ry="5" fill="#6E542B" stroke="#1C1412" stroke-width="1.8"/>
+        <path d="M21,212 A11,4.2 0 0,1 38,209" fill="none" stroke="#9A7B46" stroke-width="1.3" stroke-linecap="round"/>
+
+        <ellipse cx="30" cy="207" rx="12" ry="5" fill="#1C1412" stroke="#1C1412" stroke-width="2.2"/>
+        <ellipse cx="30" cy="205.2" rx="11.5" ry="4.6" fill="#6E542B" stroke="#1C1412" stroke-width="1.8"/>
+        <path d="M20,204.5 A10,3.8 0 0,1 36,201.8" fill="none" stroke="#9A7B46" stroke-width="1.3" stroke-linecap="round"/>
+
+        <ellipse cx="33" cy="199.5" rx="11.2" ry="4.6" fill="#1C1412" stroke="#1C1412" stroke-width="2.2"/>
+        <ellipse cx="33" cy="197.8" rx="10.8" ry="4.2" fill="#9A7B46" stroke="#1C1412" stroke-width="1.8"/>
+        <path d="M24,197 A9.5,3.5 0 0,1 39,194.6" fill="none" stroke="#C2A670" stroke-width="1.3" stroke-linecap="round"/>
+      </g>
+      <path d="M17.5,217.2 C24,212.5 37,212.5 44.5,217.2 C37,215.5 24,215.5 17.5,217.2 Z" fill="#3B2B14" opacity="0.85"/>
+      <path d="M17,217.2 Q31,211.8 45,217.2 Q31,214 17,217.2 Z" fill="#1C1412"/>
+
+      <!-- 右下背光金币摞（下半截埋进堆里 + 接触处加深） -->
+      <g clip-path="url(#prop_coins-cstack-r)">
+        <ellipse cx="84" cy="218" rx="12.5" ry="5.2" fill="#1C1412" stroke="#1C1412" stroke-width="2.2"/>
+        <ellipse cx="84" cy="216.2" rx="12" ry="4.8" fill="#3B2B14" stroke="#1C1412" stroke-width="1.8"/>
+        <ellipse cx="81" cy="209.5" rx="11.5" ry="4.8" fill="#1C1412" stroke="#1C1412" stroke-width="2.2"/>
+        <ellipse cx="81" cy="207.8" rx="11" ry="4.4" fill="#6E542B" stroke="#1C1412" stroke-width="1.8"/>
+      </g>
+      <path d="M70,219.2 Q84,213.8 98,219.2 Q84,216 70,219.2 Z" fill="#1C1412"/>
+      <path d="M73,217.4 Q84,214.5 94,217.4" fill="none" stroke="#6E542B" stroke-width="1" stroke-linecap="round"/>
+
+      <!-- 中前散落金币摞（下半截埋进堆里 + 接触处加深） -->
+      <g clip-path="url(#prop_coins-cstack-m)">
+        <ellipse cx="56" cy="222" rx="13.5" ry="5.6" fill="#1C1412" stroke="#1C1412" stroke-width="2.4"/>
+        <ellipse cx="56" cy="220" rx="13" ry="5.2" fill="#6E542B" stroke="#1C1412" stroke-width="1.8"/>
+        <path d="M45,219 A11.5,4.2 0 0,1 62,216.2" fill="none" stroke="#9A7B46" stroke-width="1.3" stroke-linecap="round"/>
+
+        <ellipse cx="58" cy="214.5" rx="12.5" ry="5.2" fill="#1C1412" stroke="#1C1412" stroke-width="2.2"/>
+        <ellipse cx="58" cy="212.8" rx="12" ry="4.8" fill="#3B2B14" stroke="#1C1412" stroke-width="1.8"/>
+        <path d="M48,212 A10.5,3.8 0 0,1 63,209.5" fill="none" stroke="#6E542B" stroke-width="1.2" stroke-linecap="round"/>
+      </g>
+      <path d="M41.5,224.2 C49,219.8 63,219.8 71,224.2 C63,222.2 49,222.2 41.5,224.2 Z" fill="#3B2B14" opacity="0.88"/>
+      <path d="M41,224.2 Q56.5,219 71.5,224.2 Q56.5,221.2 41,224.2 Z" fill="#1C1412"/>
+    </g>
+  </g>
+
+  <!-- 2. 斜插在金币堆顶上的倒置旧金高脚杯 (#tilted_goblet，保持A的大小、位置、角度完全不变) -->
+  <g id="tilted_goblet">
+    <!-- 高脚杯埋入金币堆处的深接触压暗影 -->
+    <ellipse cx="66" cy="172" rx="22" ry="8" fill="#1C1412" opacity="0.62"/>
+
+    <!-- 高脚杯主体（通过 cgob-bury 将杯口左下侧自然埋入金币堆内，不在堆面上画异色补丁） -->
+    <g clip-path="url(#prop_coins-cgob-bury)">
+      <!-- 高脚杯底座圆盘与结柄（朝左上翘起，完全保持A原样） -->
+      <g transform="rotate(-38 35 130)">
+        <ellipse cx="35.5" cy="130.8" rx="13" ry="5" fill="#1C1412" stroke="#1C1412" stroke-width="4.4"/>
+        <ellipse cx="35" cy="130" rx="13" ry="5" fill="#6E542B" stroke="#1C1412" stroke-width="2"/>
+        <path d="M24,129 A11,3.8 0 0,1 43,127.5" fill="none" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
+      </g>
+      <path d="M36,133 L41,128 L57,145 L51,150 Z" fill="#1C1412" stroke="#1C1412" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M36,133 L41,128 L57,145 L51,150 Z" fill="#3B2B14"/>
+      <path d="M37,132 L41,128.5 L55,143.5 L52,146.5 Z" fill="#9A7B46"/>
+      <!-- 杯柄圆结 -->
+      <circle cx="46.4" cy="139.6" r="5.2" fill="#1C1412"/>
+      <circle cx="46" cy="139" r="4" fill="#6E542B" stroke="#1C1412" stroke-width="1.6"/>
+      <circle cx="44.6" cy="137.6" r="1.2" fill="#DDCB9A"/>
+
+      <!-- 倒斜杯身七层（大小、角度保持A原样） -->
+      <path d="M48,148 L66,129 C79,136 88,149 86,164 L64,178 C53,172 48,160 48,148 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M48,148 L66,129 C79,136 88,149 86,164 L64,178 C53,172 48,160 48,148 Z" fill="#3B2B14"/>
+      <g clip-path="url(#prop_coins-cbowl)">
+        <path d="M48,148 L66,129 C79,136 88,149 86,164 L64,178 C53,172 48,160 48,148 Z" transform="translate(-3.5 -3)" fill="#6E542B"/>
+        <!-- 杯身左上受光面 -->
+        <path d="M48,148 L66,129 C73,133 78,139 81,146 L56,168 C51,162 48,155 48,148 Z" fill="#9A7B46" opacity="0.82"/>
+        <path d="M51,148 Q58,139 66,131.5 Q60,141 53,150 Z" fill="#C2A670"/>
+        <circle cx="61" cy="141" r="1.6" fill="#DDCB9A"/>
+        <!-- 杯腹铜绿与珠边铸纹 -->
+        <path d="M62,158 C65,157 68,155 70,152" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity="0.55"/>
+        <path d="M53,154 Q63,144 74,137" fill="none" stroke="#3B2B14" stroke-width="2.6" stroke-dasharray="0.1 5" stroke-linecap="round"/>
+        <path d="M52.5,153.5 Q62.5,143.5 73.5,136.5" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-dasharray="0.1 5" stroke-linecap="round"/>
+      </g>
+
+      <!-- 倾斜杯口深暗内腔 -->
+      <g transform="rotate(-32 75 169)">
+        <ellipse cx="75" cy="169" rx="14.5" ry="6.8" fill="#1C1412" stroke="#1C1412" stroke-width="3.2"/>
+        <ellipse cx="75" cy="169" rx="13" ry="5.5" fill="#161221"/>
+        <path d="M63,168 A12,4.8 0 0,1 87,168 A12,3.5 0 0,0 63,168 Z" fill="#0D111C"/>
+      </g>
+    </g>
+
+    <!-- 杯口左下侧埋进堆里的弧形接触暗影与收尖脊线 -->
+    <path d="M45,167.2 C52,165.5 60,168.5 67.5,174.5 C59.5,171.5 51.5,169 45,167.2 Z" fill="#3B2B14" opacity="0.88"/>
+    <path d="M44.5,167.5 Q56.5,165.2 68,174.8 Q56,167.8 44.5,167.5 Z" fill="#1C1412"/>
+
+    <!-- 从杯口深暗内腔里往外滑出的三枚旧金币（3.9节：从洞里伸出来，根部藏在杯口暗腔内） -->
+    <!-- 滑出金币 1：半截还在杯口黑腔内 -->
+    <g transform="rotate(-12 75 168)">
+      <ellipse cx="75" cy="169.2" rx="8.4" ry="3.6" fill="#1C1412"/>
+      <ellipse cx="75" cy="168" rx="8" ry="3.3" fill="#6E542B" stroke="#1C1412" stroke-width="1.6"/>
+      <path d="M68.5,167.3 A6.5,2.4 0 0,1 79.5,166" fill="none" stroke="#9A7B46" stroke-width="1.1" stroke-linecap="round"/>
+    </g>
+    <!-- 杯口上沿弧边后画，盖住第1枚滑出金币的左上根部，使其真正从杯口洞内滑出 -->
+    <g transform="rotate(-32 75 169)">
+      <path d="M61,168.5 A14.2,6.5 0 0,1 89,168.5" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M63,167.8 A12.5,5.5 0 0,1 86,167.2" fill="none" stroke="#6E542B" stroke-width="1.4" stroke-linecap="round"/>
+    </g>
+    <!-- 滑出金币 2：正滑过杯口右下沿 -->
+    <g transform="rotate(15 80 173.5)">
+      <ellipse cx="80" cy="174.7" rx="8.8" ry="3.8" fill="#1C1412"/>
+      <ellipse cx="80" cy="173.5" rx="8.4" ry="3.5" fill="#6E542B" stroke="#1C1412" stroke-width="1.6"/>
+      <path d="M73,172.7 A6.8,2.5 0 0,1 85,171.5" fill="none" stroke="#9A7B46" stroke-width="1.1" stroke-linecap="round"/>
+    </g>
+    <!-- 滑出金币 3：落到杯口外下方 -->
+    <g transform="rotate(8 75 179.5)">
+      <ellipse cx="75" cy="180.7" rx="9" ry="4" fill="#1C1412"/>
+      <ellipse cx="75" cy="179.5" rx="8.6" ry="3.6" fill="#6E542B" stroke="#1C1412" stroke-width="1.6"/>
+      <path d="M68,178.7 A7,2.6 0 0,1 80,177.3" fill="none" stroke="#9A7B46" stroke-width="1.1" stroke-linecap="round"/>
+    </g>
+
+    <!-- 压在杯沿上的金币 1（直接压住杯口下侧边沿） -->
+    <g transform="rotate(-10 58 174)">
+      <ellipse cx="58" cy="175.3" rx="9.4" ry="4.1" fill="#1C1412"/>
+      <ellipse cx="58" cy="174" rx="9" ry="3.7" fill="#9A7B46" stroke="#1C1412" stroke-width="1.7"/>
+      <path d="M50.8,173.2 A7.2,2.7 0 0,1 63.5,171.8" fill="none" stroke="#C2A670" stroke-width="1.2" stroke-linecap="round"/>
+    </g>
+    <!-- 压在杯沿上的金币 2（叠压在杯沿与滑出金币交界处） -->
+    <g transform="rotate(-4 65 180.5)">
+      <ellipse cx="65" cy="181.7" rx="9.2" ry="4" fill="#1C1412"/>
+      <ellipse cx="65" cy="180.5" rx="8.8" ry="3.6" fill="#9A7B46" stroke="#1C1412" stroke-width="1.7"/>
+      <path d="M58,179.7 A7,2.6 0 0,1 70,178.3" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- 3. 堆底两侧散落的无孔旧金币 -->
+  <g>
+    <ellipse cx="18" cy="229.2" rx="9.2" ry="4" fill="#1C1412"/>
+    <ellipse cx="18" cy="228" rx="8.8" ry="3.6" fill="#6E542B" stroke="#1C1412" stroke-width="1.8"/>
+    <path d="M11,227.2 A7,2.6 0 0,1 23,225.8" fill="none" stroke="#C2A670" stroke-width="1.1" stroke-linecap="round"/>
+
+    <ellipse cx="101" cy="229.2" rx="9.2" ry="4" fill="#1C1412"/>
+    <ellipse cx="101" cy="228" rx="8.8" ry="3.6" fill="#3B2B14" stroke="#1C1412" stroke-width="1.8"/>
+    <path d="M94,227.2 A7,2.6 0 0,1 106,225.8" fill="none" stroke="#6E542B" stroke-width="1.1" stroke-linecap="round"/>
+  </g>
+
+  <!-- 3000ms 轻待机磨亮处微光层（静止时 opacity: 0，保留A原样） -->
+  <g id="sheen" opacity="0">
+    <circle cx="41" cy="184.5" r="1.4" fill="#DDCB9A" opacity="0.65"/>
+    <circle cx="29" cy="196.2" r="1.3" fill="#DDCB9A" opacity="0.55"/>
+    <circle cx="51" cy="218" r="1.3" fill="#DDCB9A" opacity="0.5"/>
+  </g>
+</g>
+</svg>

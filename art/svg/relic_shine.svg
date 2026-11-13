@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_shine" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 闪光 300</title>
+<style>
+.svg-relic_shine g { transform-box: view-box; }
+.svg-relic_shine .wheel-disc { transform-origin: 34px 56px; }
+.svg-relic_shine #four_point_star { transform-origin: 74px 23px; }
+@keyframes svg-relic_shine-idle-w {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-3.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_shine-idle-s {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1px) rotate(3.5deg) scale(1.08,1.08); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_shine:not([data-anim]) .wheel-disc,
+.svg-relic_shine[data-anim="idle"] .wheel-disc { animation: svg-relic_shine-idle-w 3s infinite; }
+.svg-relic_shine:not([data-anim]) #four_point_star,
+.svg-relic_shine[data-anim="idle"] #four_point_star { animation: svg-relic_shine-idle-s 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_shine-cwheel"><circle cx="34" cy="56" r="22.5"/></clipPath>
+</defs>
+<g id="root">
+  <!-- 左下：小铜磨轮与木支座（七层画法） -->
+  <g id="brass_wheel">
+    <!-- 磨轮底座斜撑木架 -->
+    <polygon points="11,81 26,56 38,62 24,85" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <polygon points="11,81 26,56 38,62 24,85" fill="#704122"/>
+    <polygon points="11,81 26,56 31,58.5 16,83" fill="#9E6238"/>
+    <!-- 铜磨轮圆盘 -->
+    <g class="wheel-disc">
+      <circle cx="34.6" cy="56.9" r="25.4" fill="#1C1412"/>
+      <circle cx="34" cy="56" r="22.5" fill="#6E542B"/>
+      <g clip-path="url(#relic_shine-cwheel)">
+        <circle cx="30.5" cy="52.5" r="22.5" fill="#9A7B46"/>
+        <path d="M56.5,48 C56.5,65 44,78.5 27,78.5 C41,75 51,64 56.5,48 Z" fill="#3B2B14" opacity=".75"/>
+        <path d="M14,50 Q17,37 31,35 Q20,39 16,50.5 Z" fill="#C2A670"/>
+        <path d="M54.5,62 Q51,73 40,76.8 Q49.5,72 52.8,62 Z" fill="#8CAAB5" opacity=".8"/>
+      </g>
+      <circle cx="34" cy="56" r="14.5" fill="#6E542B" stroke="#1C1412" stroke-width="2.4"/>
+      <!-- 磨轮放射齿纹（收尖线） -->
+      <path d="M34,33.5 V41.5 M34,70.5 V78.5 M11.5,56 H19.5 M48.5,56 H56.5 M18,40 L23.5,45.5 M44.5,66.5 L50,72 M50,40 L44.5,45.5 M23.5,66.5 L18,72" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="34" cy="56" r="6.5" fill="#C2A670" stroke="#1C1412" stroke-width="2.6"/>
+      <circle cx="34" cy="56" r="2.4" fill="#1C1412"/>
+    </g>
+  </g>
+
+  <!-- 右上：轮边抵着的切好蓝宝石 -->
+  <g id="cut_blue_gem">
+    
+      <clipPath id="relic_shine-cgem"><polygon points="63.0,14.0 86.0,56.0 40.0,56.0"/></clipPath>
+      <polygon points="63.0,14.0 86.0,56.0 40.0,56.0" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="63.0,14.0 86.0,56.0 40.0,56.0" fill="#1D45B8"/>
+      <g clip-path="url(#relic_shine-cgem)">
+        <!-- 左侧受光亮刻面 -->
+        <polygon points="63.0,14.0 40.0,56.0 51.0,50.1 63.0,26.6" fill="#6A93F8"/>
+        <!-- 右侧背光最暗刻面与底边内反光 -->
+        <polygon points="63.0,14.0 86.0,56.0 75.0,50.1 63.0,26.6" fill="#122A78"/>
+        <polygon points="40.0,56.0 86.0,56.0 75.0,50.1 51.0,50.1" fill="#1D45B8"/>
+        <polygon points="63.0,50.1 75.0,50.1 78.0,56.0 60.7,56.0" fill="#2E66F0"/>
+        <!-- 中央三角台面 -->
+        <polygon points="63.0,26.6 75.0,50.1 51.0,50.1" fill="#2E66F0"/>
+        <polygon points="63.0,26.6 67.2,48.1 51.0,50.1" fill="#6A93F8" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M63.0,14.0 L63.0,26.6 M40.0,56.0 L51.0,50.1 M86.0,56.0 L75.0,50.1" stroke="#B4C8FF" stroke-width="0.75" opacity=".8"/>
+        <polygon points="63.0,26.6 75.0,50.1 51.0,50.1" fill="none" stroke="#B4C8FF" stroke-width="0.75" opacity=".85"/>
+        <!-- 左上白亮边 -->
+        <path d="M61.8,16.5 L42.8,53.5" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" opacity=".9"/>
+      </g>
+      <circle cx="59.2" cy="36.5" r="2.3" fill="#F4F1FF"/>
+    
+  </g>
+
+  <!-- 宝石角上的四角小星芒 -->
+  <g id="four_point_star">
+    <polygon points="74,8 77.8,19.2 89,23 77.8,26.8 74,38 70.2,26.8 59,23 70.2,19.2" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+    <polygon points="74,8 77.8,19.2 89,23 77.8,26.8 74,38 70.2,26.8 59,23 70.2,19.2" fill="#F4F1FF"/>
+    <polygon points="74,13 76.2,20.8 84,23 76.2,25.2 74,33 71.8,25.2 64,23 71.8,20.8" fill="#B4C8FF"/>
+    <circle cx="74" cy="23" r="3.2" fill="#FFFFFF"/>
+  </g>
+</g>
+</svg>

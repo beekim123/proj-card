@@ -1,10 +1,50 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-gem_icon_green" viewBox="0 0 32 32" width="32" height="32">
 <title>绿宝石小图标</title>
+<style>
+.svg-gem_icon_green g { transform-box: view-box; }
+.svg-gem_icon_green #glint { transform-origin: 16px 16px; opacity: 0; }
+
+/* 待机 3000ms：0 静止/低位 → 1500 轻变化最大/高位 → 3000 与0帧一致 */
+@keyframes svg-gem_icon_green-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 0.9; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
+}
+.svg-gem_icon_green:not([data-anim]) #glint,
+.svg-gem_icon_green[data-anim="idle"] #glint { animation: svg-gem_icon_green-idle-1 3s infinite; }
+</style>
+<defs>
+  <clipPath id="gem_icon_green-c">
+    <path d="M8.5,5 H23.5 L27,8.5 V23.5 L23.5,27 H8.5 L5,23.5 V8.5 Z"/>
+  </clipPath>
+</defs>
+
 <g id="root">
-<rect x="4" y="4" width="24" height="24" rx="2.5" fill="#1DBF5E"/>
-      <polygon points="28,4 28,28 4,28 10,22 22,22 22,10" fill="#117A3B"/>
-      <rect x="9.5" y="9.5" width="13" height="13" rx="1" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.2"/>
-      <polygon points="11,11 18,11 14,16 11,16" fill="#FFFFFF" opacity="0.92"/>
-      <rect x="4" y="4" width="24" height="24" rx="2.5" fill="none" stroke="#1C1412" stroke-width="2.6"/>
+  <!-- 32x32 小图标适配：切角方形，可见外轮廓约 1.4px -->
+  <path d="M8.5,5 H23.5 L27,8.5 V23.5 L23.5,27 H8.5 L5,23.5 V8.5 Z" transform="translate(.35 .45)" fill="#1C1412" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M8.5,5 H23.5 L27,8.5 V23.5 L23.5,27 H8.5 L5,23.5 V8.5 Z" fill="#128A43"/>
+  <g clip-path="url(#gem_icon_green-c)">
+    <!-- 阶梯亮面与暗面分区 -->
+    <polygon points="8.5,5 23.5,5 20.5,10.5 11.5,10.5" fill="#A6F5C6"/>
+    <polygon points="5,8.5 8.5,5 11.5,10.5 10.5,20.5 5,23.5" fill="#4FDB85"/>
+    <polygon points="23.5,5 27,8.5 27,23.5 21.5,20.5 20.5,10.5" fill="#128A43"/>
+    <polygon points="5,23.5 10.5,20.5 21.5,20.5 27,23.5 23.5,27 8.5,27" fill="#0A5A2B"/>
+    <!-- 背光内反光刻面 -->
+    <polygon points="14,21.5 21.5,20.5 23.5,27 15,27" fill="#4FDB85" opacity="0.68"/>
+    <!-- 中央方形台面 -->
+    <rect x="10.5" y="10.5" width="11" height="11" rx="1" fill="#1DBF5E"/>
+    <polygon points="10.5,10.5 21.5,10.5 16,16 10.5,18" fill="#A6F5C6" opacity="0.62"/>
+    <!-- 细亮棱线 -->
+    <path d="M10.5,10.5 H21.5 V21.5 H10.5 Z M8.5,5 L10.5,10.5 M23.5,5 L21.5,10.5 M27,23.5 L21.5,21.5 M5,23.5 L10.5,21.5" fill="none" stroke="#A6F5C6" stroke-width="0.55" opacity="0.65"/>
+    <!-- 左上白亮边 -->
+    <path d="M6,20 V9 L9,6 H20 L19,7.2 H9.6 L7.2,9.6 V19 Z" fill="#F4F1FF" opacity="0.92"/>
+    <!-- 高光点 -->
+    <circle cx="11.5" cy="11" r="1.7" fill="#F4F1FF"/>
+    <!-- 待机轻反光层 -->
+    <g id="glint" opacity="0">
+      <polygon points="10.5,10.5 21.5,10.5 18,17 10.5,17" fill="#F4F1FF" opacity="0.55"/>
+      <circle cx="20" cy="11.5" r="1.3" fill="#F4F1FF"/>
+    </g>
+  </g>
 </g>
 </svg>

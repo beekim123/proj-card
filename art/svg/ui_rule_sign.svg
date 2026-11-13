@@ -2,92 +2,111 @@
 <title>规矩牌子</title>
 <style>
 .svg-ui_rule_sign g { transform-box: view-box; }
-
 .svg-ui_rule_sign #root { transform-origin: 140px 0px; }
 .svg-ui_rule_sign #rope { transform-origin: 140px 44px; }
 .svg-ui_rule_sign #board { transform-origin: 140px 48px; }
+.svg-ui_rule_sign .tail-a { transform-origin: 80px 15px; }
+.svg-ui_rule_sign .tail-b { transform-origin: 200px 15px; }
 
-/* ==========================================================================
-   1. 待机 idle（3000ms 循环）
-   关键时间点：0ms(0%) 往左歪 -1.5°（内层静态已偏 -1.5°，故 0% 为 rotate(0deg)）
-               → 1500ms(50%) 往右 +1.5°（相对转 +3deg）
-               → 3000ms(100%) 回到左 -1.5°（rotate(0deg)）
-   转轴在两根绳的顶上 (140,0)，绳跟着动
-   ========================================================================== */
-@keyframes svg-ui_rule_sign-idle-root {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(3deg); }
+/* 待机 3000：0 木板往左歪 -1.5°（静止姿势）→ 1500 往右 +1.5° → 3000 回到左。转轴在绳顶 (140,0)，绳头多晃一下 */
+@keyframes svg-ui_rule_sign-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 .svg-ui_rule_sign:not([data-anim]) #root,
-.svg-ui_rule_sign[data-anim="idle"] #root {
-  animation: svg-ui_rule_sign-idle-root 3s ease-in-out infinite;
+.svg-ui_rule_sign[data-anim="idle"] #root { animation: svg-ui_rule_sign-idle-1 3s infinite; }
+@keyframes svg-ui_rule_sign-idle-2 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-7deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
+.svg-ui_rule_sign:not([data-anim]) .tail-a,
+.svg-ui_rule_sign[data-anim="idle"] .tail-a { animation: svg-ui_rule_sign-idle-2 3s infinite; }
+@keyframes svg-ui_rule_sign-idle-3 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-ui_rule_sign:not([data-anim]) .tail-b,
+.svg-ui_rule_sign[data-anim="idle"] .tail-b { animation: svg-ui_rule_sign-idle-3 3s infinite; }
 
-/* ==========================================================================
-   2. 翻面 flip（400ms）
-   关键时间点：0ms(0%) 正面 → 200ms(50%) 木板横向压成一条线 scaleX(0) → 400ms(100%) 转回正面
-   转轴在木板中线 x=140
-   ========================================================================== */
-@keyframes svg-ui_rule_sign-flip-board {
-  0% { transform: scaleX(1); animation-timing-function: ease-in-out; }
-  50% { transform: scaleX(0); animation-timing-function: ease-in-out; }
-  100% { transform: scaleX(1); }
+/* flip 400：0 正面 → 200 木板横向压成一条线（代码这一刻换字）→ 400 转回正面。转轴在木板中线 x=140 */
+@keyframes svg-ui_rule_sign-flip-4 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: linear; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(0,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-ui_rule_sign-flip-rope {
-  0% { transform: scaleX(1); animation-timing-function: ease-in-out; }
-  50% { transform: scaleX(0.08); animation-timing-function: ease-in-out; }
-  100% { transform: scaleX(1); }
+.svg-ui_rule_sign[data-anim="flip"] #board { animation: svg-ui_rule_sign-flip-4 0.4s both; }
+@keyframes svg-ui_rule_sign-flip-5 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: linear; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(0.08,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-.svg-ui_rule_sign[data-anim="flip"] #board {
-  animation: svg-ui_rule_sign-flip-board 0.4s both;
-}
-.svg-ui_rule_sign[data-anim="flip"] #rope {
-  animation: svg-ui_rule_sign-flip-rope 0.4s both;
-}
+.svg-ui_rule_sign[data-anim="flip"] #rope { animation: svg-ui_rule_sign-flip-5 0.4s both; }
 </style>
+<defs>
+<clipPath id="ui_rule_sign-cb"><path d="M12,15 L60,14 L118,15.2 L190,14 L262,15 L268,14.6 L272,19 L271,48 L272,77.5 L268,82 L214,81.4 L208.5,83 L203,81.2 L120,82 L64,81.2 L12,82 L8,78 L9,50 L8,19 Z"/></clipPath>
+</defs>
 
 <g id="root">
-  <!-- pivot: 140,0 -->
+  <!-- 转轴 (140,0)；静止姿势往左歪 -1.5° -->
   <g transform="rotate(-1.5 140 0)">
-    <!-- 两根麻绳 rope（从画框上沿 y=0 垂下来） -->
-    <g id="rope">
-      <!-- pivot: 140,44 -->
-      <line x1="68" y1="2" x2="68" y2="22" stroke="#1C1412" stroke-width="7.5" stroke-linecap="round"/>
-      <line x1="68" y1="2" x2="68" y2="22" stroke="#9A8968" stroke-width="3.4" stroke-dasharray="4 3" stroke-linecap="round"/>
-      <line x1="212" y1="2" x2="212" y2="22" stroke="#1C1412" stroke-width="7.5" stroke-linecap="round"/>
-      <line x1="212" y1="2" x2="212" y2="22" stroke="#9A8968" stroke-width="3.4" stroke-dasharray="4 3" stroke-linecap="round"/>
-    </g>
+    <!-- 两根绳，从画框上沿垂下来 -->
+    <g id="rope"><path d="M80,2.2 V12" stroke="#1C1412" stroke-width="7.4" fill="none"/><path d="M80,2.2 V12" stroke="#9A8968" stroke-width="4.4" fill="none"/><path d="M78.6,2.6 V12" stroke="#C8B894" stroke-width="1.2" fill="none"/><path d="M77.8,5.6 L82.2,3.4 M77.8,9 L82.2,6.8 M77.8,12.2 L82.2,10.2" stroke="#1C1412" stroke-width="1" fill="none"/><path d="M200,2.2 V12" stroke="#1C1412" stroke-width="7.4" fill="none"/><path d="M200,2.2 V12" stroke="#9A8968" stroke-width="4.4" fill="none"/><path d="M198.6,2.6 V12" stroke="#C8B894" stroke-width="1.2" fill="none"/><path d="M197.8,5.6 L202.2,3.4 M197.8,9 L202.2,6.8 M197.8,12.2 L202.2,10.2" stroke="#1C1412" stroke-width="1" fill="none"/></g>
 
-    <!-- 旧木牌主体 board（照 card_art_seal.svg 的哥特切角铁包角木匾，占 x:10..270, y:14..83） -->
     <g id="board">
-      <!-- pivot: 140,48 -->
-      <polygon points="18,14 262,14 270,22 270,75 262,83 18,83 10,75 10,22" fill="#704122" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
-      <polygon points="18,75 262,75 270,67 270,75 262,83 18,83 10,75" fill="#3D2212" opacity="0.82"/>
-      <polyline points="14,72 14,24 20,18 258,18" fill="none" stroke="#C48A5C" stroke-width="2.4" stroke-linecap="round" opacity="0.88"/>
-
-      <!-- 右侧写字区平整浅色底板（x:82..262, y:20..76，无压字纹路或钉子） -->
-      <rect x="82" y="20" width="178" height="56" rx="4" fill="#C8B894" stroke="#1C1412" stroke-width="2.4"/>
-      <path d="M85,73 H257 V23" fill="none" stroke="#9A8968" stroke-width="2.2" stroke-linecap="round"/>
-      <path d="M85,23 H255" fill="none" stroke="#E2D6BA" stroke-width="1.8" stroke-linecap="round"/>
-
-      <!-- 左侧图标凹槽暗色方框（x:20..76, y:16..72，正合 56×56 图标） -->
-      <rect x="20" y="16" width="56" height="56" rx="5" fill="#161221" stroke="#1C1412" stroke-width="2.8"/>
-      <path d="M23,69 V19 H73" fill="none" stroke="#0D111C" stroke-width="2.6" stroke-linecap="round"/>
-      <path d="M23,70 H73 V20" fill="none" stroke="#6E542B" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
-
-      <!-- 四角灰铁包角与两颗顶部吊环铜铆钉 -->
-      <g fill="#3B515C" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round">
-        <polygon points="10,22 18,14 30,14 18,26 10,34"/>
-        <polygon points="270,22 262,14 250,14 262,26 270,34"/>
-        <polygon points="10,75 18,83 30,83 18,71 10,63"/>
-        <polygon points="270,75 262,83 250,83 262,71 270,63"/>
-        <circle cx="68" cy="18" r="4.2" fill="#9A7B46"/>
-        <circle cx="212" cy="18" r="4.2" fill="#9A7B46"/>
+      <path d="M12,15 L60,14 L118,15.2 L190,14 L262,15 L268,14.6 L272,19 L271,48 L272,77.5 L268,82 L214,81.4 L208.5,83 L203,81.2 L120,82 L64,81.2 L12,82 L8,78 L9,50 L8,19 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="M12,15 L60,14 L118,15.2 L190,14 L262,15 L268,14.6 L272,19 L271,48 L272,77.5 L268,82 L214,81.4 L208.5,83 L203,81.2 L120,82 L64,81.2 L12,82 L8,78 L9,50 L8,19 Z" fill="#C8B894"/>
+      <g clip-path="url(#ui_rule_sign-cb)">
+        <!-- 写字的那一段（x 84–264）保持平整浅色；木纹只走上下两条边 -->
+        <path d="M84,14.6 H271 V17.4 H84Z" fill="#E2D6BA"/>
+        <path d="M84,75.4 H271 V81.6 H84Z" fill="#9A8968"/>
+        <path d="M84,79 H271 V81.6 H84Z" fill="#524531" opacity=".55"/>
+        <path d="M88,20.6Q130,20.1 176,20.8Q130,17.9 88,20.6ZM184,20.4Q224,22.6 262,19.8Q224,20.6 184,20.4ZM100,23.4Q140,25 170,23Q140,23.4 100,23.4ZM214,24Q236,24 258,24.2Q236,22.4 214,24ZM90,73Q140,75.3 196,72.8Q140,73.1 90,73ZM204,73.4Q232,73.4 262,73.6Q232,71.4 204,73.4ZM120,77.6Q170,79.5 220,77.4Q170,77.7 120,77.6Z" fill="#9A8968"/>
+        <!-- 右下角一个木节 -->
+        <ellipse cx="250" cy="76.4" rx="5.4" ry="2.6" fill="#524531" opacity=".7"/><ellipse cx="250" cy="76.4" rx="2.6" ry="1.1" fill="#1C1412" opacity=".7"/>
+        <!-- 左头包的旧铁皮：图标槽开在上面 -->
+        <path d="M9,15 H84 V81.6 H9Z" fill="#4A4742"/>
+        <path d="M9,15 H84 V16 H19 V74 H9Z" fill="#6E6A63"/>
+        <path d="M9,76 H84 V81.6 H9Z" fill="#2E2C28"/>
+        <path d="M9.4,20 V74" stroke="#948F86" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+        <path d="M11,60 C13,56 17,58 18,63 C19,68 16,73 12,72Z M40,75 C46,73 54,74 60,76.6 C54,79 44,79 40,75Z M77,40 C80,38 83,41 82,46 C81,50 78,50 77,46Z" fill="#7A4A2E" opacity=".6"/>
+        <path d="M84,15 H88 V81.6 H84Z" fill="#1C1412" opacity=".28"/>
+        <!-- 右头一条窄铁皮 -->
+        <path d="M264.6,15 H271 V81.6 H264.6Z" fill="#4A4742"/>
+        <path d="M266,34 C268,32 270,35 269.4,39 C268.6,42 266.4,41 266,38Z" fill="#7A4A2E" opacity=".6"/>
+        <path d="M270.6,31.9L270.4,35.1L270.3,38.3L270.2,41.5L270.1,44.7L270,48L270.1,51.3L270.2,54.6L270.3,57.9L270.4,61.1L270.6,64.4L270.7,67.7L270.8,71L270.9,74.3L271.1,77.2L269.3,79.1L267.6,81.1L264.6,81L261.3,80.9L257.9,80.9L254.5,80.9L251.1,80.8L247.8,80.8L244.4,80.7L241,80.7L241,80.7L244.4,80.2L247.8,80.1L251.1,79.9L254.5,79.8L257.9,79.7L261.3,79.7L264.7,79.6L267.1,79.8L268.2,78.1L269.7,76.7L269.4,74.3L269.3,71L269.2,67.8L269.1,64.5L269,61.2L269,57.9L268.9,54.6L268.9,51.4L268.9,48L269.1,44.7L269.3,41.5L269.6,38.3L270,35.1L270.6,31.9Z" fill="#8CAAB5" opacity=".7"/>
       </g>
-
-      <polygon points="18,14 262,14 270,22 270,75 262,83 18,83 10,75 10,22" fill="none" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
-
-      <!-- 空的图标槽与文字槽（放在 board 里跟着木板动） -->
+      <path d="M84,14.6 V81.6 M264.6,15 V81.8" stroke="#1C1412" stroke-width="1.7" fill="none"/>
+      <!-- 图标槽：凹进去的暗方框，代码把 56×56 的图标放在 x 20–76、y 16–72 -->
+      <rect x="20" y="16" width="56" height="56" rx="3" fill="#161221" stroke="#1C1412" stroke-width="2.2"/>
+      <path d="M21.2,70.6 V17.2 H74.8 V21 H25 V70.6Z" fill="#1C1412" opacity=".6"/>
+      <path d="M23,70.9 H74.9 V20" fill="none" stroke="#948F86" stroke-width="1" opacity=".65"/>
+      <circle cx="13.9" cy="24.5" r="3.3" fill="#1C1412"/><circle cx="13.6" cy="24" r="2.3" fill="#6E6A63"/><circle cx="12.9" cy="23.2" r="0.83" fill="#948F86"/><circle cx="13.9" cy="66.5" r="3.3" fill="#1C1412"/><circle cx="13.6" cy="66" r="2.3" fill="#6E6A63"/><circle cx="12.9" cy="65.2" r="0.83" fill="#948F86"/><circle cx="30.3" cy="77.7" r="3.3" fill="#1C1412"/><circle cx="30" cy="77.2" r="2.3" fill="#6E6A63"/><circle cx="29.3" cy="76.4" r="0.83" fill="#948F86"/><circle cx="68.3" cy="77.7" r="3.3" fill="#1C1412"/><circle cx="68" cy="77.2" r="2.3" fill="#6E6A63"/><circle cx="67.3" cy="76.4" r="0.83" fill="#948F86"/><circle cx="268.7" cy="25.5" r="2.9" fill="#1C1412"/><circle cx="268.4" cy="25" r="1.9" fill="#6E6A63"/><circle cx="267.7" cy="24.2" r="0.68" fill="#948F86"/><circle cx="268.7" cy="71.5" r="2.9" fill="#1C1412"/><circle cx="268.4" cy="71" r="1.9" fill="#6E6A63"/><circle cx="267.7" cy="70.2" r="0.68" fill="#948F86"/>
+      <!-- 裂缝、磕掉的边 -->
+      <path d="M271,22.6Q256.1,20.7 240,20.6Q255.9,23.3 271,22.6ZM150,14.4Q151.9,18 156,15Q152.1,15.2 150,14.4ZM101,81.8Q103.1,81 106,81.6Q102.9,78.2 101,81.8ZM236,14.6Q237.3,17.6 240,14.8Q237.5,15.2 236,14.6Z" fill="#1C1412"/>
+      <!-- 绳在木板上沿打的结，绳头垂下来 -->
+      
+      <g class="tail-a"><g transform="rotate(2 80 15)">
+        <path d="M78.4,15 C77.6,22.5 79,27 78.2,30 L82.4,30 C83,27 81.6,22.5 82.2,15 Z" fill="#9A8968" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M78.4,30 l-.8,2.6 M80.2,30 l.2,3 M82,30 l1,2.4" stroke="#1C1412" stroke-width=".9" stroke-linecap="round" fill="none"/>
+        <path d="M78.2,21.75 l3.6,-1.8" stroke="#1C1412" stroke-width=".9" fill="none"/>
+      </g></g>
+      <ellipse cx="80.4" cy="13.4" rx="6.6" ry="5" fill="#1C1412"/>
+      <ellipse cx="80" cy="12.8" rx="5.2" ry="3.7" fill="#9A8968"/>
+      <path d="M76,11.6 C78,10 81,9.8 83,10.8" fill="none" stroke="#E2D6BA" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M76.6,14.2Q80.1,13.1 83.6,13.6Q79.9,10.9 76.6,14.2Z" fill="#1C1412"/>
+      <g class="tail-b"><g transform="rotate(2 200 15)">
+        <path d="M198.4,15 C197.6,19.5 199,22.2 198.2,24 L202.4,24 C203,22.2 201.6,19.5 202.2,15 Z" fill="#9A8968" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M198.4,24 l-.8,2.6 M200.2,24 l.2,3 M202,24 l1,2.4" stroke="#1C1412" stroke-width=".9" stroke-linecap="round" fill="none"/>
+        <path d="M198.2,19.05 l3.6,-1.8" stroke="#1C1412" stroke-width=".9" fill="none"/>
+      </g></g>
+      <ellipse cx="200.4" cy="13.4" rx="6.6" ry="5" fill="#1C1412"/>
+      <ellipse cx="200" cy="12.8" rx="5.2" ry="3.7" fill="#9A8968"/>
+      <path d="M196,11.6 C198,10 201,9.8 203,10.8" fill="none" stroke="#E2D6BA" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M196.6,14.2Q200.1,13.1 203.6,13.6Q199.9,10.9 196.6,14.2Z" fill="#1C1412"/>
+      <!-- 空槽：代码往里放图标、写字（跟着木板动） -->
       <g id="icon_slot"></g>
       <g id="rule_text"></g>
     </g>

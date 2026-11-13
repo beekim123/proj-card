@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_biggem" viewBox="0 0 192 192" width="192" height="192">
+<title>大宝石</title>
+<style>
+.svg-relic_biggem g { transform-box: view-box; }
+.svg-relic_biggem #root { transform-origin: 96px 96px; }
+.svg-relic_biggem #great_white_gem { transform-origin: 96px 92px; }
+.svg-relic_biggem #front_gold_claws { transform-origin: 96px 92px; }
+.svg-relic_biggem #gem_glint { transform-origin: 96px 92px; opacity: 0; }
+
+/* idle 3000ms: 0 -> 1500 (50%) -> 3000 (100%) */
+@keyframes svg-relic_biggem-idle-gem {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.8px) rotate(0deg) scale(1.012,1.012); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_biggem-idle-claws {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.8px) rotate(0deg) scale(1.012,1.012); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_biggem-idle-glint {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.75,0.75); opacity: 0; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1.05,1.05); opacity: 0.95; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.75,0.75); opacity: 0; }
+}
+.svg-relic_biggem:not([data-anim]) #great_white_gem,
+.svg-relic_biggem[data-anim="idle"] #great_white_gem {
+  animation: svg-relic_biggem-idle-gem 3s infinite;
+}
+.svg-relic_biggem:not([data-anim]) #front_gold_claws,
+.svg-relic_biggem[data-anim="idle"] #front_gold_claws {
+  animation: svg-relic_biggem-idle-claws 3s infinite;
+}
+.svg-relic_biggem:not([data-anim]) #gem_glint,
+.svg-relic_biggem[data-anim="idle"] #gem_glint {
+  animation: svg-relic_biggem-idle-glint 3s infinite;
+}
+</style>
+<defs>
+  <clipPath id="relic_biggem-cgem">
+    <path d="M96,22 C116,24 134,32 148,46 C160,60 166,76 166,94 C166,112 158,130 144,144 C130,156 114,162 96,162 C78,162 62,156 48,144 C34,130 26,112 26,94 C26,76 32,60 44,46 C58,32 76,24 96,22 Z"/>
+  </clipPath>
+</defs>
+<g id="root">
+  <!-- 底部接触阴影 -->
+  <ellipse cx="96" cy="178" rx="62" ry="7" fill="#0D111C" opacity="0.62"/>
+
+  <!-- 1. 旧金皇家镶托底座与从宝石背后伸出的八只细托爪根部 gold_claw_mount -->
+  <g id="gold_claw_mount">
+    <!-- 第1层：底座墨色垫底 -->
+    <path d="M56,144 H136 L152,164 L128,178 H64 L40,164 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <!-- 背后托爪根墨色垫底 -->
+    <path d="M45.9,66.1 L32.7,61.3 C28.7,61.1 26.6,66.3 29.6,68.9 L42.2,74.9 Z M70.2,42.3 L65.5,29.1 C65.3,25.1 70.4,23.0 73.1,26.0 L79.1,38.6 Z M112.9,38.6 L118.9,26.0 C121.6,23.0 126.7,25.1 126.5,29.1 L121.8,42.3 Z M146.1,66.1 L159.3,61.3 C163.3,61.1 165.4,66.3 162.4,68.9 L149.8,74.9 Z M149.8,109.1 L162.4,115.1 C165.4,117.7 163.3,122.9 159.3,122.7 L146.1,117.9 Z M112.9,145.4 L118.9,158.0 C121.6,161.0 126.7,158.9 126.5,154.9 L121.8,141.7 Z M70.2,141.7 L65.5,154.9 C65.3,158.9 70.4,161.0 73.1,158.0 L79.1,145.4 Z M42.2,109.1 L29.6,115.1 C26.6,117.7 28.7,122.9 32.7,122.7 L45.9,117.9 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.2" stroke-linejoin="round"/>
+    <!-- 底部八角王冠式旧金托座（保持原样不动） -->
+    <polygon points="56,144 136,144 152,164 128,178 64,178 40,164" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="96,144 136,144 152,164 128,178 96,178" fill="#3B2B14" opacity="0.85"/>
+    <polygon points="62,150 130,150 140,163 122,171 70,171 52,163" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="96,150 130,150 140,163 122,171 96,171" fill="#6E542B"/>
+    <line x1="56" y1="153.5" x2="112" y2="153.5" stroke="#DDCB9A" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M148,164 L126,176 H98" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round" opacity="0.82"/>
+    <path d="M108,168 C116,169 124,167 130,163" fill="none" stroke="#5F8272" stroke-width="2" stroke-linecap="round" opacity="0.52"/>
+
+    <!-- 从宝石后面伸出的 8 只细金属托爪背根（子件先画，根部伸入宝石轮廓内 14px 被宝石盖住切口） -->
+    <path d="M45.9,66.1 L32.7,61.3 C28.7,61.1 26.6,66.3 29.6,68.9 L42.2,74.9 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M70.2,42.3 L65.5,29.1 C65.3,25.1 70.4,23.0 73.1,26.0 L79.1,38.6 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M112.9,38.6 L118.9,26.0 C121.6,23.0 126.7,25.1 126.5,29.1 L121.8,42.3 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M146.1,66.1 L159.3,61.3 C163.3,61.1 165.4,66.3 162.4,68.9 L149.8,74.9 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M149.8,109.1 L162.4,115.1 C165.4,117.7 163.3,122.9 159.3,122.7 L146.1,117.9 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M112.9,145.4 L118.9,158.0 C121.6,161.0 126.7,158.9 126.5,154.9 L121.8,141.7 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M70.2,141.7 L65.5,154.9 C65.3,158.9 70.4,161.0 73.1,158.0 L79.1,145.4 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M42.2,109.1 L29.6,115.1 C26.6,117.7 28.7,122.9 32.7,122.7 L45.9,117.9 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 2. 多切面大白宝石本体 great_white_gem（切面、颜色、高光完全保持原样不动） -->
+  <g id="great_white_gem">
+    <!-- 第1层：宝石外轮廓墨色垫底 -->
+    <path d="M96,22 C116,24 134,32 148,46 C160,60 166,76 166,94 C166,112 158,130 144,144 C130,156 114,162 96,162 C78,162 62,156 48,144 C34,130 26,112 26,94 C26,76 32,60 44,46 C58,32 76,24 96,22 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6" stroke-linejoin="round"/>
+    <!-- 宝石底色 -->
+    <path d="M96,22 C116,24 134,32 148,46 C160,60 166,76 166,94 C166,112 158,130 144,144 C130,156 114,162 96,162 C78,162 62,156 48,144 C34,130 26,112 26,94 C26,76 32,60 44,46 C58,32 76,24 96,22 Z" fill="#F4F1FF"/>
+
+    <g clip-path="url(#relic_biggem-cgem)">
+      <!-- 1. 左上与左侧红宝石折射切面 -->
+      <polygon points="30,58 58,28 72,54 48,74" fill="#FFA3AB"/>
+      <polygon points="24,94 30,58 48,74 44,98" fill="#F4566A"/>
+      <polygon points="36,132 24,94 44,98 56,120" fill="#E3263A"/>
+
+      <!-- 2. 顶部正中绿宝石折射切面 -->
+      <polygon points="58,28 96,20 96,46 72,54" fill="#A6F5C6"/>
+      <polygon points="96,20 134,28 120,54 96,46" fill="#4FDB85"/>
+      <polygon points="134,28 150,44 132,62 120,54" fill="#1DBF5E"/>
+
+      <!-- 3. 右侧蓝宝石折射切面 -->
+      <polygon points="150,44 164,62 144,74 120,54" fill="#6A93F8"/>
+      <polygon points="164,62 168,94 148,98 144,74" fill="#2E66F0"/>
+      <polygon points="168,94 156,132 136,120 148,98" fill="#1D45B8"/>
+
+      <!-- 4. 下半圈亭部切面与背光内反光 -->
+      <polygon points="36,132 56,120 74,136 64,158" fill="#FFD84A" opacity="0.82"/>
+      <polygon points="64,158 74,136 96,142 96,164" fill="#E94FD8" opacity="0.78"/>
+      <polygon points="96,164 96,142 118,136 128,158" fill="#3FE3F0" opacity="0.85"/>
+      <polygon points="128,158 118,136 136,120 156,132" fill="#6A93F8" opacity="0.88"/>
+      <polygon points="118,136 136,120 146,136 126,152" fill="#B4C8FF" opacity="0.72"/>
+
+      <!-- 中圈星冠刻面 -->
+      <polygon points="96,46 120,54 144,74 148,98 136,120 118,136 96,142 74,136 56,120 44,98 48,74 72,54" fill="#F4F1FF" opacity="0.88"/>
+      <polygon points="48,74 72,54 64,90 44,98" fill="#F4566A" opacity="0.52"/>
+      <polygon points="72,54 96,46 120,54 96,62" fill="#4FDB85" opacity="0.55"/>
+      <polygon points="120,54 144,74 148,98 128,90" fill="#6A93F8" opacity="0.52"/>
+      <polygon points="56,120 74,136 96,124 64,90" fill="#FFA3AB" opacity="0.42"/>
+      <polygon points="136,120 118,136 96,124 128,90" fill="#B4C8FF" opacity="0.48"/>
+
+      <!-- 正中心大八角混白主台面 -->
+      <polygon points="96,60 118,68 128,90 120,114 96,124 72,114 64,90 74,68" fill="#F4F1FF"/>
+      <polygon points="96,60 118,68 102,94 64,90 74,68" fill="#FFFFFF" opacity="0.85"/>
+
+      <!-- 刻面之间的棱 -->
+      <g fill="none" stroke="#F4F1FF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.88">
+        <polygon points="96,46 120,54 144,74 148,98 136,120 118,136 96,142 74,136 56,120 44,98 48,74 72,54"/>
+        <polygon points="96,60 118,68 128,90 120,114 96,124 72,114 64,90 74,68" stroke-width="1.5"/>
+        <line x1="96" y1="22" x2="96" y2="60"/>
+        <line x1="58" y1="30" x2="74" y2="68"/>
+        <line x1="134" y1="30" x2="118" y2="68"/>
+        <line x1="32" y1="60" x2="64" y2="90"/>
+        <line x1="160" y1="60" x2="128" y2="90"/>
+        <line x1="26" y1="96" x2="64" y2="90"/>
+        <line x1="166" y1="96" x2="128" y2="90"/>
+        <line x1="38" y1="132" x2="72" y2="114"/>
+        <line x1="154" y1="132" x2="120" y2="114"/>
+        <line x1="66" y1="156" x2="72" y2="114"/>
+        <line x1="126" y1="156" x2="120" y2="114"/>
+        <line x1="96" y1="162" x2="96" y2="124"/>
+      </g>
+
+      <!-- 左上沿白亮边与常驻四角星高光点 -->
+      <path d="M29,88 C30,68 38,52 52,40 C66,28 80,25 94,24.5" fill="none" stroke="#F4F1FF" stroke-width="3.2" stroke-linecap="round"/>
+      <circle cx="64" cy="54" r="4.5" fill="#F4F1FF"/>
+      <circle cx="76" cy="74" r="3.2" fill="#F4F1FF"/>
+      <path d="M78,52 L81.5,62 L91.5,65.5 L81.5,69 L78,79 L74.5,69 L64.5,65.5 L74.5,62 Z" fill="#F4F1FF"/>
+    </g>
+
+    <!-- 宝石最外圈墨色轮廓线 -->
+    <path d="M96,22 C116,24 134,32 148,46 C160,60 166,76 166,94 C166,112 158,130 144,144 C130,156 114,162 96,162 C78,162 62,156 48,144 C34,130 26,112 26,94 C26,76 32,60 44,46 C58,32 76,24 96,22 Z" fill="none" stroke="#1C1412" stroke-width="3.6" stroke-linejoin="round"/>
+
+    <!-- 待机宝石内部三色星芒轻闪层（平时 opacity: 0） -->
+    <g id="gem_glint" opacity="0">
+      <path d="M116,94 L119,102 L127,105 L119,108 L116,116 L113,108 L105,105 L113,102 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1"/>
+      <path d="M52,92 L54.2,98 L60,100 L54.2,102 L52,108 L49.8,102 L44,100 L49.8,98 Z" fill="#FFA3AB"/>
+      <path d="M96,34 L98.2,40 L104,42 L98.2,44 L96,50 L93.8,44 L88,42 L93.8,40 Z" fill="#A6F5C6"/>
+      <path d="M140,86 L142.2,92 L148,94 L142.2,96 L140,102 L137.8,96 L132,94 L137.8,92 Z" fill="#B4C8FF"/>
+    </g>
+  </g>
+
+  <!-- 3. 弯过宝石腰棱、压在宝石边缘上的八只收尖小爪头 front_gold_claws -->
+  <g id="front_gold_claws">
+    <!-- 爪尖压在宝石边上的接触加深阴影 -->
+    <path d="M34.4,61.5 C38.3,66.4 44.1,71.2 44.1,71.2 C44.1,71.2 36.5,70.7 30.3,71.4 Z M65.5,31.0 C70.4,34.9 75.1,40.7 75.1,40.7 C75.1,40.7 74.7,33.1 75.4,26.9 Z M118.5,27.0 C119.2,33.2 118.5,40.7 118.5,40.7 C118.5,40.7 123.5,35.0 128.4,31.1 Z M159.2,61.5 C155.3,66.4 149.5,71.2 149.5,71.2 C149.5,71.2 157.1,70.7 163.3,71.4 Z M163.2,114.9 C157.0,115.5 149.5,114.8 149.5,114.8 C149.5,114.8 155.2,119.9 159.1,124.8 Z M118.5,159.0 C119.2,152.8 118.5,145.3 118.5,145.3 C118.5,145.3 123.5,151.0 128.4,154.9 Z M65.5,155.0 C70.4,151.1 75.1,145.3 75.1,145.3 C75.1,145.3 74.7,152.9 75.4,159.1 Z M30.4,114.9 C36.6,115.5 44.1,114.8 44.1,114.8 C44.1,114.8 38.4,119.9 34.5,124.8 Z" fill="#1C1412" opacity="0.46"/>
+    <!-- 托爪尖 1 (-157.5°) -->
+    <path d="M32.1,61.2 C27.9,61.0 25.9,65.8 29.0,68.6 C34.4,68.9 39.5,69.4 41.5,69.4 C40.1,68.0 36.1,64.8 32.1,61.2 Z" fill="#6E542B"/>
+    <path d="M32.1,61.2 Q27.3,62.3 27.8,63.8 L41.5,69.4 C40.1,68.0 36.1,64.8 32.1,61.2 Z" fill="#9A7B46"/>
+    <path d="M31.3,62.2 Q35.6,65.3 39.2,67.9" fill="none" stroke="#C2A670" stroke-width="1.25" stroke-linecap="round"/>
+    <circle cx="32.4" cy="64.1" r="1.05" fill="#DDCB9A"/>
+    <path d="M29.1,64.3 Q34.6,65.8 39.6,68.7 Q34.1,67.1 29.1,64.3 Z" fill="#1C1412" opacity="0.82"/>
+    <path d="M32.1,61.2 C36.1,64.8 40.1,68.0 41.5,69.4 C39.5,69.4 34.4,68.9 29.0,68.6" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 托爪尖 2 (-112.5°) -->
+    <path d="M65.4,28.5 C65.1,24.3 69.9,22.3 72.8,25.4 C73.0,30.8 73.6,35.9 73.6,37.9 C72.2,36.5 69.0,32.5 65.4,28.5 Z" fill="#6E542B"/>
+    <path d="M65.4,28.5 Q66.4,23.7 67.9,24.2 L73.6,37.9 C72.2,36.5 69.0,32.5 65.4,28.5 Z" fill="#9A7B46"/>
+    <path d="M66.3,27.7 Q69.4,32.0 72.0,35.6" fill="none" stroke="#C2A670" stroke-width="1.25" stroke-linecap="round"/>
+    <circle cx="68.3" cy="28.8" r="1.05" fill="#DDCB9A"/>
+    <path d="M68.5,25.5 Q70.0,31.0 72.8,36.0 Q71.3,30.5 68.5,25.5 Z" fill="#1C1412" opacity="0.82"/>
+    <path d="M65.4,28.5 C69.0,32.5 72.2,36.5 73.6,37.9 C73.6,35.9 73.0,30.8 72.8,25.4" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 托爪尖 3 (-67.5°) -->
+    <path d="M119.2,25.4 C122.1,22.3 126.9,24.3 126.6,28.5 C123.0,32.5 119.8,36.5 118.4,37.9 C118.4,35.9 119.0,30.8 119.2,25.4 Z" fill="#6E542B"/>
+    <path d="M119.2,25.4 Q123.4,22.8 124.1,24.2 L118.4,37.9 C118.4,35.9 119.0,30.8 119.2,25.4 Z" fill="#9A7B46"/>
+    <path d="M120.5,25.5 Q119.6,30.8 118.9,35.2" fill="none" stroke="#C2A670" stroke-width="1.25" stroke-linecap="round"/>
+    <circle cx="121.1" cy="27.7" r="1.05" fill="#DDCB9A"/>
+    <path d="M123.5,25.5 Q120.7,30.5 119.2,36.0 Q122.0,31.0 123.5,25.5 Z" fill="#1C1412" opacity="0.82"/>
+    <path d="M119.2,25.4 C119.0,30.8 118.4,35.9 118.4,37.9 C119.8,36.5 123.0,32.5 126.6,28.5" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 托爪尖 4 (-22.5°) -->
+    <path d="M159.9,61.2 C164.1,61.0 166.1,65.8 163.0,68.6 C157.6,68.9 152.5,69.4 150.5,69.4 C151.9,68.0 155.9,64.8 159.9,61.2 Z" fill="#3B2B14"/>
+    <path d="M159.9,61.2 Q164.7,62.3 164.2,63.8 L150.5,69.4 C151.9,68.0 155.9,64.8 159.9,61.2 Z" fill="#6E542B"/>
+    <path d="M160.7,62.2 Q156.4,65.3 152.8,67.9" fill="none" stroke="#9A7B46" stroke-width="1.25" stroke-linecap="round"/>
+    <circle cx="159.6" cy="64.1" r="1.05" fill="#C2A670"/>
+    <path d="M162.9,64.3 Q157.4,65.8 152.4,68.7 Q157.9,67.1 162.9,64.3 Z" fill="#1C1412" opacity="0.82"/>
+    <path d="M159.9,61.2 C155.9,64.8 151.9,68.0 150.5,69.4 C152.5,69.4 157.6,68.9 163.0,68.6" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 托爪尖 5 (22.5°) -->
+    <path d="M163.0,115.4 C166.1,118.2 164.1,123.0 159.9,122.8 C155.9,119.2 151.9,116.0 150.5,114.6 C152.5,114.6 157.6,115.1 163.0,115.4 Z" fill="#3B2B14"/>
+    <path d="M163.0,115.4 Q165.6,119.5 164.2,120.2 L150.5,114.6 C152.5,114.6 157.6,115.1 163.0,115.4 Z" fill="#6E542B"/>
+    <path d="M162.9,116.7 Q157.6,115.8 153.2,115.1" fill="none" stroke="#9A7B46" stroke-width="1.25" stroke-linecap="round"/>
+    <circle cx="160.7" cy="117.3" r="1.05" fill="#C2A670"/>
+    <path d="M162.9,119.7 Q157.9,116.9 152.4,115.3 Q157.4,118.2 162.9,119.7 Z" fill="#1C1412" opacity="0.82"/>
+    <path d="M163.0,115.4 C157.6,115.1 152.5,114.6 150.5,114.6 C151.9,116.0 155.9,119.2 159.9,122.8" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 托爪尖 6 (67.5°) -->
+    <path d="M119.2,158.6 C122.1,161.7 126.9,159.7 126.6,155.5 C123.0,151.5 119.8,147.5 118.4,146.1 C118.4,148.1 119.0,153.2 119.2,158.6 Z" fill="#3B2B14"/>
+    <path d="M119.2,158.6 Q123.4,161.2 124.1,159.8 L118.4,146.1 C118.4,148.1 119.0,153.2 119.2,158.6 Z" fill="#6E542B"/>
+    <path d="M120.5,158.5 Q119.6,153.2 118.9,148.8" fill="none" stroke="#9A7B46" stroke-width="1.25" stroke-linecap="round"/>
+    <circle cx="121.1" cy="156.3" r="1.05" fill="#C2A670"/>
+    <path d="M123.5,158.5 Q120.7,153.5 119.2,148.0 Q122.0,153.0 123.5,158.5 Z" fill="#1C1412" opacity="0.82"/>
+    <path d="M119.2,158.6 C119.0,153.2 118.4,148.1 118.4,146.1 C119.8,147.5 123.0,151.5 126.6,155.5" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 托爪尖 7 (112.5°) -->
+    <path d="M65.4,155.5 C65.1,159.7 69.9,161.7 72.8,158.6 C73.0,153.2 73.6,148.1 73.6,146.1 C72.2,147.5 69.0,151.5 65.4,155.5 Z" fill="#3B2B14"/>
+    <path d="M65.4,155.5 Q66.4,160.3 67.9,159.8 L73.6,146.1 C72.2,147.5 69.0,151.5 65.4,155.5 Z" fill="#6E542B"/>
+    <path d="M66.3,156.3 Q69.4,152.0 72.0,148.4" fill="none" stroke="#9A7B46" stroke-width="1.25" stroke-linecap="round"/>
+    <circle cx="68.3" cy="155.2" r="1.05" fill="#C2A670"/>
+    <path d="M68.5,158.5 Q70.0,153.0 72.8,148.0 Q71.3,153.5 68.5,158.5 Z" fill="#1C1412" opacity="0.82"/>
+    <path d="M65.4,155.5 C69.0,151.5 72.2,147.5 73.6,146.1 C73.6,148.1 73.0,153.2 72.8,158.6" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 托爪尖 8 (157.5°) -->
+    <path d="M29.0,115.4 C25.9,118.2 27.9,123.0 32.1,122.8 C36.1,119.2 40.1,116.0 41.5,114.6 C39.5,114.6 34.4,115.1 29.0,115.4 Z" fill="#6E542B"/>
+    <path d="M29.0,115.4 Q26.4,119.5 27.8,120.2 L41.5,114.6 C39.5,114.6 34.4,115.1 29.0,115.4 Z" fill="#9A7B46"/>
+    <path d="M29.1,116.7 Q34.4,115.8 38.8,115.1" fill="none" stroke="#C2A670" stroke-width="1.25" stroke-linecap="round"/>
+    <circle cx="31.3" cy="117.3" r="1.05" fill="#DDCB9A"/>
+    <path d="M29.1,119.7 Q34.1,116.9 39.6,115.3 Q34.6,118.2 29.1,119.7 Z" fill="#1C1412" opacity="0.82"/>
+    <path d="M29.0,115.4 C34.4,115.1 39.5,114.6 41.5,114.6 C40.1,116.0 36.1,119.2 32.1,122.8" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

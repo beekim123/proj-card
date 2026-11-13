@@ -1,27 +1,144 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_empty" viewBox="0 0 176 188" width="176" height="188">
 <title>空托</title>
+<style>
+.svg-card_art_empty g { transform-box: view-box; }
+.svg-card_art_empty #metal_sheen { transform-origin: 94px 102px; opacity: 0; }
+
+/* 待机 3000ms：0 静止/低位 → 1500 轻变化最大/高位 → 3000 与0帧一致（仅旧铜边与爪尖微弱冷金属反光，空凹坑内绝不发光） */
+@keyframes svg-card_art_empty-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.78; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
+}
+.svg-card_art_empty:not([data-anim]) #metal_sheen,
+.svg-card_art_empty[data-anim="idle"] #metal_sheen { animation: svg-card_art_empty-idle-1 3s infinite; }
+</style>
+<defs>
+  <clipPath id="card_art_empty-cbase">
+    <path d="M74,56 C86,53 102,53 114,56 C125,63 133,71 138,82 C141,94 141,110 138,122 C133,133 125,141 114,148 C102,151 86,151 74,148 C63,141 55,133 50,122 C47,110 47,94 50,82 C55,71 63,63 74,56 Z"/>
+  </clipPath>
+  <clipPath id="card_art_empty-cclaw1">
+    <path d="M88.2,52.6 C90.4,45.6 97.6,45.6 99.8,52.6 C96.6,64.5 94.5,75.2 94.0,77.2 C93.5,75.2 91.4,64.5 88.2,52.6 Z"/>
+  </clipPath>
+  <clipPath id="card_art_empty-cclaw2">
+    <path d="M46.3,118.8 C41.0,123.8 44.2,130.3 51.4,129.2 C61.4,120.7 70.2,114.2 71.7,112.9 C69.7,113.3 59.2,116.1 46.3,118.8 Z"/>
+  </clipPath>
+  <clipPath id="card_art_empty-cclaw3">
+    <path d="M142.4,119.1 C147.7,124.2 144.6,130.7 137.3,129.6 C126.6,120.7 117.8,114.2 116.3,112.9 C118.3,113.3 128.8,116.1 142.4,119.1 Z"/>
+  </clipPath>
+</defs>
+
 <g id="root">
-<!-- 底座暗影 -->
-    <ellipse cx="88" cy="102" rx="44" ry="42" fill="#0D111C" opacity="0.55"/>
-    <!-- 外圈八角旧铜底盘 -->
-    <polygon points="68,54 108,54 130,76 130,116 108,138 68,138 46,116 46,76" fill="#3B2B14" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <polygon points="71,59 105,59 124,78 124,114 105,133 71,133 52,114 52,78" fill="#6E542B" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <!-- 中央空凹坑（无宝石） -->
-    <circle cx="88" cy="96" r="27" fill="#0D111C" stroke="#1C1412" stroke-width="2.2"/>
-    <path d="M65,86 A25,25 0 0,1 111,86 A25,23 0 0,0 65,86 Z" fill="#1C1412" opacity="0.7"/>
-    <path d="M68,108 A24,24 0 0,0 108,108" fill="none" stroke="#9A7B46" stroke-width="1.4" opacity="0.6"/>
-    <!-- 凹坑内细排线与空托刻痕 -->
-    <path d="M74,90 L86,102 M82,86 L98,102 M92,88 L102,98 M78,100 L86,108" stroke="#4A4742" stroke-width="1.1" stroke-linecap="round" opacity="0.45"/>
-    <!-- 三个空着的哥特金属弯爪（上、左下、右下） -->
-    <g fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round">
-      <!-- 上爪 -->
-      <path d="M81,48 L95,48 L92,72 L88,77 L84,72 Z"/>
-      <!-- 左下爪 -->
-      <path d="M44,114 L52,126 L71,110 L72,104 L66,103 Z"/>
-      <!-- 右下爪 -->
-      <path d="M132,114 L124,126 L105,110 L104,104 L110,103 Z"/>
+  <!-- 左上角 x:0..30, y:0..90 严格留空；主体范围 x:36..152, y:42..156 -->
+  <!-- 底座接触阴影 -->
+  <ellipse cx="95" cy="106" rx="48" ry="46" fill="#0D111C" opacity="0.6"/>
+
+  <!-- 1. 三只爪在圈外沿后面的爪根（爪先画，圈后画，圈的外沿盖住爪根） -->
+  <g id="claws_root_behind">
+    <!-- 爪 1 背根（在圈外沿后面，爪先画、圈后画，圈的外沿盖住爪根） -->
+    <path d="M84.8,68.0 L86.2,52.3 Q87.8,48.8 94.0,46.8 Q100.2,48.8 101.8,52.3 L103.2,68.0 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+    <path d="M84.8,68.0 L86.2,52.3 Q87.8,48.8 94.0,46.8 Q100.2,48.8 101.8,52.3 L103.2,68.0 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M84.8,68.0 L86.2,52.3 Q87.8,48.8 94.0,46.8 L94.0,68.0 Z" fill="#6E542B"/>
+    <!-- 爪 2 背根（在圈外沿后面，爪先画、圈后画，圈的外沿盖住爪根） -->
+    <path d="M59.4,108.6 L45.2,117.1 Q42.7,120.1 43.7,126.5 Q48.2,131.2 52.0,131.1 L67.5,125.2 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+    <path d="M59.4,108.6 L45.2,117.1 Q42.7,120.1 43.7,126.5 Q48.2,131.2 52.0,131.1 L67.5,125.2 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M59.4,108.6 L45.2,117.1 Q42.7,120.1 43.7,126.5 L63.4,116.9 Z" fill="#6E542B"/>
+    <!-- 爪 3 背根（在圈外沿后面，爪先画、圈后画，圈的外沿盖住爪根） -->
+    <path d="M128.6,108.6 L143.5,117.5 Q146.0,120.5 145.1,126.9 Q140.5,131.6 136.7,131.5 L120.5,125.2 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+    <path d="M128.6,108.6 L143.5,117.5 Q146.0,120.5 145.1,126.9 Q140.5,131.6 136.7,131.5 L120.5,125.2 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M128.6,108.6 L143.5,117.5 Q146.0,120.5 145.1,126.9 L124.6,116.9 Z" fill="#6E542B"/>
+  </g>
+
+  <!-- 2. 外圈八角弧边旧铜托座 bezel（圈后画，盖住三只爪的后方爪根；圈与铆钉保持原样不动） -->
+  <g id="bezel">
+    <!-- 1 墨色垫底 -->
+    <path d="M74,56 C86,53 102,53 114,56 C125,63 133,71 138,82 C141,94 141,110 138,122 C133,133 125,141 114,148 C102,151 86,151 74,148 C63,141 55,133 50,122 C47,110 47,94 50,82 C55,71 63,63 74,56 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <!-- 2 暗色全形 -->
+    <path d="M74,56 C86,53 102,53 114,56 C125,63 133,71 138,82 C141,94 141,110 138,122 C133,133 125,141 114,148 C102,151 86,151 74,148 C63,141 55,133 50,122 C47,110 47,94 50,82 C55,71 63,63 74,56 Z" fill="#6E542B"/>
+    <g clip-path="url(#card_art_empty-cbase)">
+      <!-- 3 错位亮面与右下转折弧面 -->
+      <path d="M74,56 C86,53 102,53 114,56 C125,63 133,71 138,82 C141,94 141,110 138,122 C133,133 125,141 114,148 C102,151 86,151 74,148 C63,141 55,133 50,122 C47,110 47,94 50,82 C55,71 63,63 74,56 Z" transform="translate(-4.2 -4.2)" fill="#9A7B46"/>
+      <path d="M116,58 C126,82 122,112 102,130 C84,144 64,146 52,136 L74,152 L142,144 L142,74 Z" fill="#6E542B" opacity="0.86"/>
+      <!-- 4 加深 -->
+      <path d="M140,96 C140,126 126,146 94,150 L74,149 C110,145 130,130 136,96 Z" fill="#3B2B14" opacity="0.82"/>
+      <!-- 5 左上受光边与右下断续冷轮廓光 -->
+      <path d="M50.5,104 Q49.5,86 53,80 Q61,67 75,58.5 Q92,55 108,57 Q92,57.8 76.5,61 Q63.5,69 55.5,81.5 Q52,88 52.5,104 Z" fill="#C2A670"/>
+      <path d="M137.5,96 Q138,112 135,122 Q129,133 120,140 Q127.5,131.5 133,121 Q136,111 135.8,96.5 Z M111,146.2 Q96,149 80,147.5 Q96,146.8 110.2,144.5 Z" fill="#8CAAB5" opacity="0.82"/>
+      <!-- 6 铜绿污渍与旧磕痕 -->
+      <path d="M118,128 C123,126 128,121 130,116" fill="none" stroke="#5F8272" stroke-width="2.6" stroke-linecap="round" opacity="0.55"/>
+      <path d="M62,132 C66,136 72,139 78,140" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity="0.5"/>
     </g>
-    <!-- 爪尖冷高光 -->
-    <path d="M84,50 L86,70 M47,116 L66,105 M128,116 L109,105" stroke="#C2A670" stroke-width="1.2" stroke-linecap="round" opacity="0.75"/>
+
+    <!-- 内层八角凹阶与一圈珠边 -->
+    <path d="M77,63 H111 L131,83 V121 L111,141 H77 L57,121 V83 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="2"/>
+    <circle cx="94.6" cy="102.8" r="35" fill="none" stroke="#3B2B14" stroke-width="4.8" stroke-dasharray="0.1 6.0086" stroke-linecap="round"/>
+    <circle cx="94" cy="102" r="35" fill="none" stroke="#9A7B46" stroke-width="3.6" stroke-dasharray="0.1 6.0086" stroke-linecap="round"/>
+    <circle cx="93.4" cy="101.3" r="35" fill="none" stroke="#C2A670" stroke-width="1.3" stroke-dasharray="0.1 6.0086" stroke-linecap="round"/>
+
+    <!-- 四角小铆钉 -->
+    <circle cx="67.5" cy="75.5" r="2.5" fill="#1C1412"/><circle cx="67" cy="75" r="2.1" fill="#9A7B46"/><circle cx="66.3" cy="74.3" r="0.8" fill="#DDCB9A"/>
+    <circle cx="121.5" cy="75.5" r="2.5" fill="#1C1412"/><circle cx="121" cy="75" r="2.1" fill="#6E542B"/><circle cx="120.3" cy="74.3" r="0.8" fill="#C2A670"/>
+    <circle cx="67.5" cy="129.5" r="2.5" fill="#1C1412"/><circle cx="67" cy="129" r="2.1" fill="#6E542B"/><circle cx="66.3" cy="128.3" r="0.8" fill="#C2A670"/>
+    <circle cx="121.5" cy="129.5" r="2.5" fill="#1C1412"/><circle cx="121" cy="129" r="2.1" fill="#3B2B14"/><circle cx="120.3" cy="128.3" r="0.8" fill="#9A7B46"/>
+
+    <!-- 7 盘面卷草刻纹与磕痕（收尖线） -->
+    <path d="M56,92 Q60,102 56,112 Q58.2,102 56,92 Z M132,92 Q128,102 132,112 Q129.8,102 132,92 Z M82,143 Q94,140 106,143 Q94,141.8 82,143 Z M49,95 L53,96.5 L49.2,98 Z M136,78 L132.5,80.2 L136.8,81 Z" fill="#1C1412"/>
+  </g>
+
+  <!-- 3. 中央空凹坑 socket（保持原样不动） -->
+  <g id="socket">
+    <circle cx="94" cy="102" r="28" fill="#161221" stroke="#1C1412" stroke-width="2.6"/>
+    <circle cx="94" cy="102" r="24" fill="#0D111C"/>
+    <!-- 凹坑左上内壁压暗影 -->
+    <path d="M68,102 A26,26 0 0 1 116,88 A25,24 0 0 0 71,108 Z" fill="#1C1412" opacity="0.85"/>
+    <!-- 凹坑右下内壁微弱旧铜反光（非宝石光） -->
+    <path d="M76,119 A25,25 0 0 0 116,112 A26,26 0 0 1 74,116 Z" fill="#6E542B" opacity="0.65"/>
+    <!-- 空托底部残留的三道空槽压痕与旧划痕 -->
+    <circle cx="94" cy="102" r="14" fill="none" stroke="#262036" stroke-width="1.4" stroke-dasharray="6 4"/>
+    <path d="M81,95 Q94,101 105,107 Q94,103 81,95 Z M86,109 Q95,102 103,94 Q95,104 86,109 Z M78,102 Q84,105 90,104 Q84,106.5 78,102 Z" fill="#3B515C" opacity="0.45"/>
+  </g>
+
+  <!-- 4. 露在圈上弯过来、收尖的爪尖 claws（压在圈内沿上，压住的地方在圈上加深） -->
+  <g id="claws">
+    <!-- 爪尖压在圈内沿和盘面上的接触加深 -->
+    <path d="M87.5,54.1 C90.9,66.5 94.8,80.2 94.8,80.2 C94.8,80.2 99.1,66.5 102.6,54.1 Z" fill="#3B2B14" opacity="0.84"/>
+    <path d="M46.9,118.2 C60.3,115.5 74.3,113.0 74.3,113.0 C74.3,113.0 63.9,122.8 53.5,131.8 Z" fill="#3B2B14" opacity="0.84"/>
+    <path d="M143.4,118.6 C129.3,115.5 115.3,113.0 115.3,113.0 C115.3,113.0 125.7,122.8 136.8,132.1 Z" fill="#3B2B14" opacity="0.84"/>
+    <!-- 爪尖 1 (-90.0°) -->
+    <path d="M88.2,52.6 C90.4,45.6 97.6,45.6 99.8,52.6 C96.6,64.5 94.5,75.2 94.0,77.2 C93.5,75.2 91.4,64.5 88.2,52.6 Z" fill="#6E542B"/>
+    <g clip-path="url(#card_art_empty-cclaw1)">
+      <path d="M88.2,52.6 C90.4,45.6 97.6,45.6 99.8,52.6 C96.6,64.5 94.5,75.2 94.0,77.2 C93.5,75.2 91.4,64.5 88.2,52.6 Z" transform="translate(-1.80 -1.20)" fill="#9A7B46"/>
+      <path d="M94.0,45.8 L99.8,52.6 C96.6,64.5 94.5,75.2 94.0,77.2 Z" fill="#3B2B14" opacity="0.72"/>
+      <path d="M90.1,52.1 Q91.9,64.5 93.8,75.8 Q93.3,64.5 92.6,52.1 Z" fill="#C2A670"/>
+    </g>
+    <circle cx="92.7" cy="67.0" r="1.1" fill="#DDCB9A"/>
+    <path d="M94.0,51.6 Q93.2,64.5 94.0,75.0 Q94.8,64.5 94.0,51.6 Z" fill="#1C1412"/>
+    <path d="M88.2,52.6 C91.4,64.5 93.5,75.2 94.0,77.2 C94.5,75.2 96.6,64.5 99.8,52.6" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 爪尖 2 (154.0°) -->
+    <path d="M46.3,118.8 C41.0,123.8 44.2,130.3 51.4,129.2 C61.4,120.7 70.2,114.2 71.7,112.9 C69.7,113.3 59.2,116.1 46.3,118.8 Z" fill="#6E542B"/>
+    <g clip-path="url(#card_art_empty-cclaw2)">
+      <path d="M46.3,118.8 C41.0,123.8 44.2,130.3 51.4,129.2 C61.4,120.7 70.2,114.2 71.7,112.9 C69.7,113.3 59.2,116.1 46.3,118.8 Z" transform="translate(-1.87 -1.09)" fill="#9A7B46"/>
+      <path d="M42.8,127.0 L51.4,129.2 C61.4,120.7 70.2,114.2 71.7,112.9 Z" fill="#3B2B14" opacity="0.72"/>
+      <path d="M46.7,120.7 Q59.4,116.6 70.3,113.3 Q60.0,117.8 47.8,123.0 Z" fill="#C2A670"/>
+    </g>
+    <circle cx="62.0" cy="116.2" r="1.1" fill="#DDCB9A"/>
+    <path d="M48.0,124.4 Q59.9,117.7 69.7,113.8 Q60.6,119.2 48.0,124.4 Z" fill="#1C1412"/>
+    <path d="M46.3,118.8 C59.2,116.1 69.7,113.3 71.7,112.9 C70.2,114.2 61.4,120.7 51.4,129.2" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 爪尖 3 (26.0°) -->
+    <path d="M142.4,119.1 C147.7,124.2 144.6,130.7 137.3,129.6 C126.6,120.7 117.8,114.2 116.3,112.9 C118.3,113.3 128.8,116.1 142.4,119.1 Z" fill="#6E542B"/>
+    <g clip-path="url(#card_art_empty-cclaw3)">
+      <path d="M142.4,119.1 C147.7,124.2 144.6,130.7 137.3,129.6 C126.6,120.7 117.8,114.2 116.3,112.9 C118.3,113.3 128.8,116.1 142.4,119.1 Z" transform="translate(1.87 -1.09)" fill="#9A7B46"/>
+      <path d="M146.0,127.3 L137.3,129.6 C126.6,120.7 117.8,114.2 116.3,112.9 Z" fill="#3B2B14" opacity="0.72"/>
+      <path d="M142.0,121.0 Q128.6,116.6 117.7,113.3 Q128.0,117.8 140.9,123.3 Z" fill="#C2A670"/>
+    </g>
+    <circle cx="126.0" cy="116.2" r="1.1" fill="#DDCB9A"/>
+    <path d="M140.7,124.8 Q128.1,117.7 118.3,113.8 Q127.4,119.2 140.7,124.8 Z" fill="#1C1412"/>
+    <path d="M142.4,119.1 C128.8,116.1 118.3,113.3 116.3,112.9 C117.8,114.2 126.6,120.7 137.3,129.6" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 待机轻金属边光泽（仅在铜边与爪尖，不在空槽内） -->
+  <g id="metal_sheen" opacity="0">
+    <path d="M53,82 Q62,68 76,60 M91,54 L93.5,73 M53,119 L70,111 M118,111 L135,119" fill="none" stroke="#DDCB9A" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+  </g>
 </g>
 </svg>

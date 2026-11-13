@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-rule_regrow" viewBox="0 0 64 64" width="64" height="64">
+<title>规矩图标 · 长回去</title>
+<style>
+.svg-rule_regrow g { transform-box: view-box; }
+.svg-rule_regrow #coin_leaf { transform-origin: 29px 33px; }
+.svg-rule_regrow #coin_sprout { transform-origin: 29px 33px; }
+@keyframes svg-rule_regrow-idle-c {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.4px) rotate(2.8deg) scale(1.03,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-rule_regrow-idle-s {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-0.8px) rotate(-2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-rule_regrow:not([data-anim]) #coin_leaf,
+.svg-rule_regrow[data-anim="idle"] #coin_leaf { animation: svg-rule_regrow-idle-c 3s infinite; }
+.svg-rule_regrow:not([data-anim]) #coin_sprout,
+.svg-rule_regrow[data-anim="idle"] #coin_sprout { animation: svg-rule_regrow-idle-s 3s infinite; }
+</style>
+<defs>
+  <clipPath id="rule_regrow-ccoin"><circle cx="39" cy="25" r="15.8"/></clipPath>
+</defs>
+<g id="root">
+  <!-- 枝头冒出的无孔欧式圆金币叶（严格去掉方孔，七层旧金画法） -->
+  <g id="coin_leaf">
+    <!-- 萌发弧线 -->
+    <path d="M24,12 Q34,6 45,9 M52,16 Q58,26 54,36" fill="none" stroke="#1C1412" stroke-width="4.8" stroke-linecap="round"/>
+    <path d="M24,12 Q34,6 45,9 M52,16 Q58,26 54,36" fill="none" stroke="#E2D6BA" stroke-width="2.2" stroke-linecap="round"/>
+
+    <!-- 无孔圆金币主体 -->
+    <circle cx="39.5" cy="25.7" r="18.5" fill="#1C1412"/>
+    <circle cx="39" cy="25" r="15.8" fill="#6E542B"/>
+    <g clip-path="url(#rule_regrow-ccoin)">
+      <circle cx="36.2" cy="22.4" r="15.8" fill="#9A7B46"/>
+      <path d="M55,20 C55,32 45,41 33,41 C43,38 51,30 55,20 Z" fill="#3B2B14" opacity=".75"/>
+      <path d="M25,21 Q28,12 38,10.5 Q30,13.5 26.8,21.5 Z" fill="#C2A670"/>
+      <path d="M53,29 Q50,37 42,39.5 Q48.5,36 51.5,29 Z" fill="#8CAAB5" opacity=".82"/>
+    </g>
+    <!-- 欧式圆金币内圈压纹与中央无孔叶脉菱纹浮雕 -->
+    <circle cx="39" cy="25" r="11.2" fill="#9A7B46" stroke="#1C1412" stroke-width="2"/>
+    <path d="M31,21 A10,10 0 0,1 43,15.5" fill="none" stroke="#DDCB9A" stroke-width="1.8" stroke-linecap="round"/>
+    <polygon points="39,17.5 44.5,25 39,32.5 33.5,25" fill="#C2A670" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="37.8" cy="23.2" r="1.5" fill="#DDCB9A"/>
+  </g>
+
+  <!-- 枝头两片新旧金小托叶芽 -->
+  <g id="coin_sprout">
+    <path d="M25,33 C17,28 16,19 25,18 C28,23 28,29 25,33 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+    <path d="M25,33 C17,28 16,19 25,18 C28,23 28,29 25,33 Z" fill="#C2A670"/>
+    <path d="M22.5,28 C20,25 20,21 24,20" fill="none" stroke="#DDCB9A" stroke-width="1.8" stroke-linecap="round"/>
+
+    <path d="M31,39 C38,44 46,42 45,34 C40,33 34,35 31,39 Z" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+    <path d="M31,39 C38,44 46,42 45,34 C40,33 34,35 31,39 Z" fill="#9A7B46"/>
+    <path d="M35,38 C39,40 42,39 43,36" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+
+  <!-- 左下伸出的旧铜小树枝 -->
+  <g id="copper_branch">
+    <path d="M7.5,54 C12,46 18,41 25,35 L29,31 C31,29 34,31 32,34 L27,40 C22,45 18,51 14,57 C11,58.5 6.5,56.8 7.5,54 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M7.5,54 C12,46 18,41 25,35 L29,31 C31,29 34,31 32,34 L27,40 C22,45 18,51 14,57 C11,58.5 6.5,56.8 7.5,54 Z" fill="#6E542B"/>
+    <path d="M7.5,54 C12,46 18,41 25,35 L29,31 L30.5,32 L11,56 Z" fill="#9A7B46"/>
+    <path d="M16,45 L9.5,41 L12,37.5 L20,41" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M9.5,53 C14,47 19,42 26,35" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+</g>
+</svg>

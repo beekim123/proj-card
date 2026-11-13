@@ -9,72 +9,81 @@
   transform-origin: 80px 78px;
 }
 
-/* play（700ms）：一小股红色碎光从下往上旋，最后收进正中心里（全程在 160×160 内） */
-@keyframes svg-fx_heal-swirl-out {
-  0%, 100% { opacity: 0; transform: translateY(22px) scale(0.95) rotate(-55deg); }
-  18% { opacity: 1; transform: translateY(12px) scale(1.02) rotate(-25deg); }
-  48% { opacity: 1; transform: translateY(0px) scale(0.82) rotate(25deg); }
-  74% { opacity: 0.85; transform: translateY(-6px) scale(0.42) rotate(75deg); }
-  90% { opacity: 0; transform: translateY(-8px) scale(0.18) rotate(95deg); }
+/* play 700ms：0(0%) 全透明 → 80(11.43%) 红光向上旋起 → 200(28.57%) 旋聚心核峰值 → 400(57.14%) 收进心里衰减 → 700(100%) 全透明 */
+@keyframes svg-fx_heal-play-outer {
+  0% { transform: translate(0px,18px) rotate(-48deg) scale(0.92,0.92); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  11.43% { transform: translate(0px,8px) rotate(-18deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  28.57% { transform: translate(0px,0px) rotate(16deg) scale(0.92,0.92); opacity: 1; animation-timing-function: ease-in-out; }
+  57.14% { transform: translate(0px,-5px) rotate(58deg) scale(0.54,0.54); opacity: 0.78; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,-8px) rotate(92deg) scale(0.2,0.2); opacity: 0; }
 }
-@keyframes svg-fx_heal-swirl-in {
-  0%, 10%, 100% { opacity: 0; transform: translateY(18px) scale(1.04) rotate(45deg); }
-  28% { opacity: 1; transform: translateY(6px) scale(0.92) rotate(10deg); }
-  58% { opacity: 1; transform: translateY(-2px) scale(0.62) rotate(-40deg); }
-  84% { opacity: 0; transform: translateY(-6px) scale(0.22) rotate(-80deg); }
+.svg-fx_heal[data-anim="play"] #swirl_outer { animation: svg-fx_heal-play-outer 0.7s both; }
+
+@keyframes svg-fx_heal-play-inner {
+  0% { transform: translate(0px,14px) rotate(42deg) scale(0.95,0.95); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  11.43% { transform: translate(0px,6px) rotate(15deg) scale(0.98,0.98); opacity: 0.92; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  28.57% { transform: translate(0px,0px) rotate(-14deg) scale(0.9,0.9); opacity: 1; animation-timing-function: ease-in-out; }
+  57.14% { transform: translate(0px,-4px) rotate(-52deg) scale(0.5,0.5); opacity: 0.75; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,-7px) rotate(-85deg) scale(0.2,0.2); opacity: 0; }
 }
-@keyframes svg-fx_heal-core {
-  0%, 42%, 100% { opacity: 0; transform: scale(0.35); }
-  62% { opacity: 1; transform: scale(1.08); }
-  80% { opacity: 0.9; transform: scale(0.88); }
-  96% { opacity: 0; transform: scale(0.25); }
+.svg-fx_heal[data-anim="play"] #swirl_inner { animation: svg-fx_heal-play-inner 0.7s both; }
+
+@keyframes svg-fx_heal-play-core {
+  0% { transform: translate(0px,8px) rotate(0deg) scale(0.28,0.28); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  11.43% { transform: translate(0px,2px) rotate(0deg) scale(0.76,0.76); opacity: 0.85; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  28.57% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 1; animation-timing-function: ease-in-out; }
+  57.14% { transform: translate(0px,-2px) rotate(0deg) scale(0.82,0.82); opacity: 0.88; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,-4px) rotate(0deg) scale(0.22,0.22); opacity: 0; }
 }
-.svg-fx_heal[data-anim="play"] #swirl_outer {
-  animation: svg-fx_heal-swirl-out 0.7s steps(9, end) both;
-}
-.svg-fx_heal[data-anim="play"] #swirl_inner {
-  animation: svg-fx_heal-swirl-in 0.7s steps(9, end) both;
-}
-.svg-fx_heal[data-anim="play"] #core_heart {
-  animation: svg-fx_heal-core 0.7s steps(8, end) both;
-}
+.svg-fx_heal[data-anim="play"] #core_heart { animation: svg-fx_heal-play-core 0.7s both; }
 </style>
 <g id="root">
-  <!-- pivot: 80,78 -->
+  <!-- 1. 外层向上旋聚的哥特红宝石刀锋光带与刻面碎晶 (#swirl_outer，严格在 x:26..134, y:24..130 内) -->
+  <g id="swirl_outer">
+    <!-- 左下旋向右上收拢的收尖红宝石光刃 -->
+    <path d="M36,116 C25,94 31,64 56,44 C62,39 69,36 75,35 C56,48 43,72 45,98 C46,105 49,112 36,116 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <path d="M36,116 C25,94 31,64 56,44 C62,39 69,36 75,35 C56,48 43,72 45,98 C46,105 49,112 36,116 Z" fill="#E3263A"/>
+    <path d="M35,104 C29,85 36,61 57,45 C44,61 38,82 39,102 Z" fill="#F4566A"/>
 
-  <!-- 外层向上旋聚的哥特红宝石碎光带与晶粒（x:24..136, y:24..132） -->
-  <g id="swirl_outer" opacity="0">
-    <!-- pivot: 80,78 -->
-    <!-- 左下旋向右上收拢的折角红光丝带 -->
-    <polygon points="34,116 26,92 42,62 68,42 54,68 42,92" fill="#E3263A" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <!-- 右下旋向左上收拢的折角浅红丝带 -->
-    <polygon points="126,112 134,86 118,56 92,38 106,64 118,88" fill="#FF5C6E" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <!-- 右下旋向左上收拢的收尖红宝石光刃 -->
+    <path d="M124,112 C135,90 129,60 104,40 C98,35 91,32 85,31 C104,44 117,68 115,94 C114,101 111,108 124,112 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <path d="M124,112 C135,90 129,60 104,40 C98,35 91,32 85,31 C104,44 117,68 115,94 C114,101 111,108 124,112 Z" fill="#A8172A"/>
+    <path d="M122,98 C126,80 119,58 100,42 C112,56 118,76 117,96 Z" fill="#F4566A"/>
 
-    <!-- 随气流旋上的红宝石切面碎块 -->
-    <polygon points="44,122 58,114 54,130 40,128" fill="#E3263A" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-    <polygon points="116,120 102,112 106,128 120,126" fill="#9E1424" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-    <polygon points="28,74 42,68 38,84" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <polygon points="132,72 118,66 122,82" fill="#E3263A" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <polygon points="74,26 88,22 82,36" fill="#FFD6DC" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <!-- 随气流旋上的圆形/多刻面红宝石碎粒 -->
+    <circle cx="48" cy="122" r="7.5" fill="#1C1412"/><circle cx="48" cy="122" r="5.8" fill="#E3263A"/><path d="M44,118 A5,5 0 0,1 52,118 L48,122 Z" fill="#FFA3AB"/>
+    <circle cx="112" cy="120" r="7" fill="#1C1412"/><circle cx="112" cy="120" r="5.4" fill="#A8172A"/><path d="M108,116 A4.5,4.5 0 0,1 115,116 L112,120 Z" fill="#E3263A"/>
+    <polygon points="28,74 42,68 38,84" fill="#F4566A" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="132,72 118,66 122,82" fill="#E3263A" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="74,26 88,22 82,36" fill="#FFA3AB" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
   </g>
 
-  <!-- 内层反向旋入中心的四角星光与红晶碎光 -->
-  <g id="swirl_inner" opacity="0">
-    <!-- pivot: 80,78 -->
-    <path d="M52,44 L55.5,52.5 L64,56 L55.5,59.5 L52,68 L48.5,59.5 L40,56 L48.5,52.5 Z" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
-    <path d="M108,46 L111.5,54.5 L120,58 L111.5,61.5 L108,70 L104.5,61.5 L96,58 L104.5,54.5 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
-    <path d="M54,96 L57,103 L64,106 L57,109 L54,116 L51,109 L44,106 L51,103 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
-    <path d="M106,94 L109,101 L116,104 L109,107 L106,114 L103,107 L96,104 L103,101 Z" fill="#E3263A" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
-    <polygon points="80,108 90,118 80,128 70,118" fill="#FF5C6E" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+  <!-- 2. 内层反向旋入中心的四角星光与红晶碎光 (#swirl_inner) -->
+  <g id="swirl_inner">
+    <path d="M52,44 L55.5,52.5 L64,56 L55.5,59.5 L52,68 L48.5,59.5 L40,56 L48.5,52.5 Z" fill="#F4566A" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M108,46 L111.5,54.5 L120,58 L111.5,61.5 L108,70 L104.5,61.5 L96,58 L104.5,54.5 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M54,96 L57,103 L64,106 L57,109 L54,116 L51,109 L44,106 L51,103 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M106,94 L109,101 L116,104 L109,107 L106,114 L103,107 L96,104 L103,101 Z" fill="#E3263A" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <polygon points="80,106 90,116 80,126 70,116" fill="#F4566A" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="80,106 80,116 70,116" fill="#FFA3AB"/>
   </g>
 
-  <!-- 收进正中心里时的心形红宝石共鸣闪光 -->
-  <g id="core_heart" opacity="0">
-    <!-- pivot: 80,78 -->
-    <polygon points="80,44 90,62 112,56 98,74 116,88 94,92 80,112 66,92 44,88 62,74 48,56 70,62" fill="#FF5C6E" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <!-- 中心哥特折角红心亮核 -->
-    <polygon points="80,62 72,56 62,60 58,70 62,82 80,98 98,82 102,70 98,60 88,56" fill="#E3263A" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="80,68 74,64 67,67 65,73 80,88 95,73 93,67 86,64" fill="#FFFFFF" opacity="0.92"/>
+  <!-- 3. 收进正中心里时的刻面红宝石心核闪光 (#core_heart) -->
+  <g id="core_heart">
+    <!-- 外围放射尖星衬底 -->
+    <polygon points="80,44 90,62 112,56 98,74 116,88 94,92 80,112 66,92 44,88 62,74 48,56 70,62" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <polygon points="80,44 90,62 112,56 98,74 116,88 94,92 80,112 66,92 44,88 62,74 48,56 70,62" fill="#F4566A"/>
+    <!-- 中心哥特切面红宝石心核（按朝向分五档红宝石色 + 高光棱线） -->
+    <polygon points="80,62 71,55 60,60 56,71 61,83 80,100 99,83 104,71 100,60 89,55" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <polygon points="80,62 71,55 60,60 56,71 61,83 80,100 99,83 104,71 100,60 89,55" fill="#E3263A"/>
+    <!-- 左上亮刻面 -->
+    <polygon points="80,62 71,55 60,60 56,71 68,76 80,76" fill="#F4566A"/>
+    <!-- 右下暗刻面与内反光 -->
+    <polygon points="80,76 92,76 104,71 99,83 80,100" fill="#A8172A"/>
+    <polygon points="80,62 89,55 100,60 104,71 92,76 80,76" fill="#6B0E1C"/>
+    <!-- 台面与左上白亮高光点 -->
+    <polygon points="80,67 73,62 65,66 64,74 80,89 96,74 95,66 87,62" fill="#FFA3AB" stroke="#F4F1FF" stroke-width="0.8"/>
+    <circle cx="68" cy="65" r="2.2" fill="#F4F1FF"/>
   </g>
 </g>
 </svg>

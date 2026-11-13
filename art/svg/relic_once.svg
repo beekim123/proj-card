@@ -1,52 +1,129 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_once" viewBox="0 0 96 96" width="96" height="96">
 <title>宝物 · 断一次不算</title>
+<style>
+.svg-relic_once g { transform-box: view-box; }
+.svg-relic_once #brass_clasp { transform-origin: 48px 22px; }
+.svg-relic_once #pendant_gem { transform-origin: 48px 62px; }
+.svg-relic_once .glint { opacity: 0; }
+@keyframes svg-relic_once-idle-c {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.2px) rotate(1.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_once-idle-p {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.4px) rotate(-2.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_once-idle-g {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 0.85; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-relic_once:not([data-anim]) #brass_clasp,
+.svg-relic_once[data-anim="idle"] #brass_clasp { animation: svg-relic_once-idle-c 3s infinite; }
+.svg-relic_once:not([data-anim]) #pendant_gem,
+.svg-relic_once[data-anim="idle"] #pendant_gem { animation: svg-relic_once-idle-p 3s infinite; }
+.svg-relic_once:not([data-anim]) .glint,
+.svg-relic_once[data-anim="idle"] .glint { animation: svg-relic_once-idle-g 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_once-cclasp">
+    <path d="M34,13 C42,12 54,12 62,13 C65.5,13.5 67,16 67,22 C67,28 65.5,30.5 62,31 C54,32 42,32 34,31 C30.5,30.5 29,28 29,22 C29,16 30.5,13.5 34,13 Z"/>
+  </clipPath>
+</defs>
 <g id="root">
-  <!-- 旧银灰铁项链链身（左右两段弧形粗链环，在正上方断开并由醒目小铜扣重新接上） -->
-  <g id="chain_links" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round">
-    <!-- 左半圈旧银铁链环 -->
-    <ellipse cx="26" cy="28" rx="9" ry="5.5" transform="rotate(-38 26 28)" fill="#5A7682"/>
-    <ellipse cx="17" cy="42" rx="9" ry="5.5" transform="rotate(-76 17 42)" fill="#3B515C"/>
-    <ellipse cx="20" cy="57" rx="9" ry="5.5" transform="rotate(52 20 57)" fill="#5A7682"/>
-    <ellipse cx="33" cy="67" rx="9" ry="5.5" transform="rotate(22 33 67)" fill="#3B515C"/>
-
-    <!-- 右半圈旧银铁链环 -->
-    <ellipse cx="70" cy="28" rx="9" ry="5.5" transform="rotate(38 70 28)" fill="#3B515C"/>
-    <ellipse cx="79" cy="42" rx="9" ry="5.5" transform="rotate(76 79 42)" fill="#1E2C33"/>
-    <ellipse cx="76" cy="57" rx="9" ry="5.5" transform="rotate(-52 76 57)" fill="#3B515C"/>
-    <ellipse cx="63" cy="67" rx="9" ry="5.5" transform="rotate(-22 63 67)" fill="#1E2C33"/>
+  <!-- 左右两段旧银铁链环（圆管错位明暗） -->
+  <g id="chain_links">
+    <!-- 左段链环 -->
+    <g transform="translate(24 29) rotate(-36)">
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" fill="#3B515C" fill-rule="evenodd"/>
+      <path d="M-7,-2.2 A7,4 0 0,1 5,-2.6" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(16 43) rotate(-74)">
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" fill="#5A7682" fill-rule="evenodd"/>
+      <path d="M-7,-2.2 A7,4 0 0,1 5,-2.6" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(21 57) rotate(50)">
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" fill="#3B515C" fill-rule="evenodd"/>
+      <path d="M-7,-2.2 A7,4 0 0,1 5,-2.6" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(34 66) rotate(22)">
+      <path d="M-8.5,0 A8.5,5 0 1,1 8.5,0 A8.5,5 0 1,1 -8.5,0 Z M-4,0 A4,2 0 1,0 4,0 A4,2 0 1,0 -4,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M-8.5,0 A8.5,5 0 1,1 8.5,0 A8.5,5 0 1,1 -8.5,0 Z M-4,0 A4,2 0 1,0 4,0 A4,2 0 1,0 -4,0 Z" fill="#3B515C" fill-rule="evenodd"/>
+    </g>
+    <!-- 右段链环 -->
+    <g transform="translate(72 29) rotate(36)">
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" fill="#3B515C" fill-rule="evenodd"/>
+    </g>
+    <g transform="translate(80 43) rotate(74)">
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" fill="#1E2C33" fill-rule="evenodd"/>
+      <path d="M6,-2 A7,4 0 0,1 -5,3" fill="none" stroke="#8CAAB5" stroke-width="1.4" stroke-linecap="round" opacity=".8"/>
+    </g>
+    <g transform="translate(75 57) rotate(-50)">
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M-9,0 A9,5.4 0 1,1 9,0 A9,5.4 0 1,1 -9,0 Z M-4.5,0 A4.5,2.2 0 1,0 4.5,0 A4.5,2.2 0 1,0 -4.5,0 Z" fill="#3B515C" fill-rule="evenodd"/>
+    </g>
+    <g transform="translate(62 66) rotate(-22)">
+      <path d="M-8.5,0 A8.5,5 0 1,1 8.5,0 A8.5,5 0 1,1 -8.5,0 Z M-4,0 A4,2 0 1,0 4,0 A4,2 0 1,0 -4,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M-8.5,0 A8.5,5 0 1,1 8.5,0 A8.5,5 0 1,1 -8.5,0 Z M-4,0 A4,2 0 1,0 4,0 A4,2 0 1,0 -4,0 Z" fill="#1E2C33" fill-rule="evenodd"/>
+    </g>
   </g>
-  <!-- 链环内孔挖暗增强小图识别度 -->
-  <g fill="#0D111C">
-    <circle cx="17" cy="42" r="2.6"/>
-    <circle cx="20" cy="57" r="2.6"/>
-    <circle cx="79" cy="42" r="2.6"/>
-    <circle cx="76" cy="57" r="2.6"/>
-  </g>
 
-  <!-- 顶部断口接缝处的醒目旧铜锁扣（把断掉的左右两头牢牢扣在一起） -->
+  <!-- 顶部断口接缝处的七层旧铜锁扣 -->
   <g id="brass_clasp">
-    <!-- 左右两个断链端环 -->
-    <circle cx="34" cy="22" r="6" fill="#8CAAB5" stroke="#1C1412" stroke-width="3"/>
-    <circle cx="62" cy="22" r="6" fill="#5A7682" stroke="#1C1412" stroke-width="3"/>
-    <!-- 中央横跨断口的厚重旧铜修补搭扣 -->
-    <rect x="33" y="13" width="30" height="18" rx="5" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2"/>
-    <rect x="48" y="13" width="15" height="18" rx="4" fill="#6E542B"/>
-    <path d="M36,16 H58" stroke="#E2D6BA" stroke-width="2" stroke-linecap="round"/>
-    <rect x="33" y="13" width="30" height="18" rx="5" fill="none" stroke="#1C1412" stroke-width="3.2"/>
-    <!-- 铜扣中間接缝齿线与两颗铆钉（一眼看出“断了又接上”） -->
-    <path d="M48,13 L45,19 L51,25 L48,31" fill="none" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <circle cx="39" cy="22" r="2.8" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.6"/>
-    <circle cx="57" cy="22" r="2.8" fill="#C2A670" stroke="#1C1412" stroke-width="1.6"/>
+    <!-- 两侧断链端环 -->
+    <circle cx="30" cy="22" r="6.5" fill="#1C1412"/><circle cx="29.5" cy="21.5" r="4.5" fill="#5A7682"/>
+    <circle cx="66" cy="22" r="6.5" fill="#1C1412"/><circle cx="65.5" cy="21.5" r="4.5" fill="#3B515C"/>
+    <!-- 铜扣主体（七层画法） -->
+    <path d="M34,13 C42,12 54,12 62,13 C65.5,13.5 67,16 67,22 C67,28 65.5,30.5 62,31 C54,32 42,32 34,31 C30.5,30.5 29,28 29,22 C29,16 30.5,13.5 34,13 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M34,13 C42,12 54,12 62,13 C65.5,13.5 67,16 67,22 C67,28 65.5,30.5 62,31 C54,32 42,32 34,31 C30.5,30.5 29,28 29,22 C29,16 30.5,13.5 34,13 Z" fill="#6E542B"/>
+    <g clip-path="url(#relic_once-cclasp)">
+      <path d="M34,13 C42,12 54,12 62,13 C65.5,13.5 67,16 67,22 C67,28 65.5,30.5 62,31 C54,32 42,32 34,31 C30.5,30.5 29,28 29,22 C29,16 30.5,13.5 34,13 Z" transform="translate(-3.4 -2.8)" fill="#9A7B46"/>
+      <path d="M52,12 H67 V32 H46 C53,28 55,20 52,12 Z" fill="#3B2B14" opacity=".7"/>
+      <path d="M31,20 Q32,14.5 48,14 Q35,16 32.5,21 Z" fill="#C2A670"/>
+      <path d="M65.2,20 Q65,28.5 59,29.8 Q63.5,27.5 63.8,20 Z" fill="#8CAAB5" opacity=".82"/>
+      <path d="M52,27 C55,27 58,25 60,23" fill="none" stroke="#5F8272" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+    </g>
+    <!-- 断口咬合折线（收尖柳叶线）與两颗铆钉 -->
+    <path d="M48,12.5 L44.5,19 L51,24.5 L47.5,31.5 L49.5,31.5 L53,24.5 L46.5,19 L49.8,12.5 Z" fill="#1C1412"/>
+    <circle cx="38.5" cy="22.5" r="3.4" fill="#1C1412"/><circle cx="38" cy="22" r="2.3" fill="#C2A670"/><circle cx="37.2" cy="21.2" r="0.9" fill="#DDCB9A"/>
+    <circle cx="58.5" cy="22.5" r="3.4" fill="#1C1412"/><circle cx="58" cy="22" r="2.3" fill="#9A7B46"/><circle cx="57.2" cy="21.2" r="0.9" fill="#DDCB9A"/>
   </g>
 
-  <!-- 项链底端悬挂的鲜艳蓝色三角宝石坠子（唯一鲜艳处） -->
+  <!-- 底部悬挂的蓝色三角宝石坠子 -->
   <g id="pendant_gem">
-    <circle cx="48" cy="69" r="4.5" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6"/>
-    <polygon points="48,58 65,86 31,86" fill="#2E66F0" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-    <polygon points="48,58 65,86 48,86" fill="#193D9E"/>
-    <polygon points="48,66 57,82 39,82" fill="#6B9BFF" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <polygon points="47,68 51,76 43,77" fill="#FFFFFF" opacity="0.95"/>
-    <polygon points="48,58 65,86 31,86" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <circle cx="48.5" cy="64.5" r="5.6" fill="#1C1412"/>
+    <circle cx="48" cy="64" r="3.8" fill="#9A7B46"/>
+    <polygon points="48,55 67,86 29,86" fill="#3B2B14" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    
+      <clipPath id="relic_once-cgem"><polygon points="48.0,57.0 65.0,85.0 31.0,85.0"/></clipPath>
+      <polygon points="48.0,57.0 65.0,85.0 31.0,85.0" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="48.0,57.0 65.0,85.0 31.0,85.0" fill="#1D45B8"/>
+      <g clip-path="url(#relic_once-cgem)">
+        <!-- 左侧受光亮刻面 -->
+        <polygon points="48.0,57.0 31.0,85.0 39.2,81.1 48.0,65.4" fill="#6A93F8"/>
+        <!-- 右侧背光最暗刻面与底边内反光 -->
+        <polygon points="48.0,57.0 65.0,85.0 56.8,81.1 48.0,65.4" fill="#122A78"/>
+        <polygon points="31.0,85.0 65.0,85.0 56.8,81.1 39.2,81.1" fill="#1D45B8"/>
+        <polygon points="48.0,81.1 56.8,81.1 59.0,85.0 46.3,85.0" fill="#2E66F0"/>
+        <!-- 中央三角台面 -->
+        <polygon points="48.0,65.4 56.8,81.1 39.2,81.1" fill="#2E66F0"/>
+        <polygon points="48.0,65.4 51.1,79.1 39.2,81.1" fill="#6A93F8" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M48.0,57.0 L48.0,65.4 M31.0,85.0 L39.2,81.1 M65.0,85.0 L56.8,81.1" stroke="#B4C8FF" stroke-width="0.75" opacity=".8"/>
+        <polygon points="48.0,65.4 56.8,81.1 39.2,81.1" fill="none" stroke="#B4C8FF" stroke-width="0.75" opacity=".85"/>
+        <!-- 左上白亮边 -->
+        <path d="M46.8,59.5 L33.8,82.5" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" opacity=".9"/>
+      </g>
+      <circle cx="45.2" cy="72.0" r="1.7" fill="#F4F1FF"/>
+    
+    <path class="glint" opacity="0" d="M48,65 L49.8,72.2 L57,74 L49.8,75.8 L48,83 L46.2,75.8 L39,74 L46.2,72.2 Z" fill="#F4F1FF"/>
   </g>
 </g>
 </svg>

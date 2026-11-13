@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_start2" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 倍率从 2 起</title>
+<style>
+.svg-relic_start2 g { transform-box: view-box; }
+.svg-relic_start2 .weight-all { transform-origin: 48px 82px; }
+.svg-relic_start2 #white_gem { transform-origin: 48px 28px; }
+@keyframes svg-relic_start2-idle-w {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-0.8px) rotate(1.2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_start2-idle-g {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.2px) rotate(0deg) scale(1.04,1.04); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_start2:not([data-anim]) .weight-all,
+.svg-relic_start2[data-anim="idle"] .weight-all { animation: svg-relic_start2-idle-w 3s infinite; }
+.svg-relic_start2:not([data-anim]) #white_gem,
+.svg-relic_start2[data-anim="idle"] #white_gem { animation: svg-relic_start2-idle-g 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_start2-cbody">
+    <path d="M24,35 C38,34 58,34 72,35 C71,40 69,44 68,46 C73,49 77,52 78,56 L80,80 C80,82 78,83 74,83 H22 C18,83 16,82 16,80 L18,56 C19,52 23,49 28,46 C27,44 25,40 24,35 Z"/>
+  </clipPath>
+  <clipPath id="relic_start2-cwgem">
+    <polygon points="48,14 62,24 57,39 39,39 34,24"/>
+  </clipPath>
+</defs>
+<g id="root">
+  <!-- 落地接触阴影 -->
+  <ellipse cx="48" cy="85" rx="33" ry="4.5" fill="#0D111C" opacity=".6"/>
+
+  <g class="weight-all">
+    <!-- 顶部旧铜提环 -->
+    <path d="M35,28 C35,13 61,13 61,28" transform="translate(.5 .7)" fill="none" stroke="#1C1412" stroke-width="8.4" stroke-linecap="round"/>
+    <path d="M35,28 C35,13 61,13 61,28" fill="none" stroke="#6E542B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M37,22 C39,16 47,14.5 53,16" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+
+    <!-- 旧铜砝码束腰台体（七层画法） -->
+    <path d="M24,35 C38,34 58,34 72,35 C71,40 69,44 68,46 C73,49 77,52 78,56 L80,80 C80,82 78,83 74,83 H22 C18,83 16,82 16,80 L18,56 C19,52 23,49 28,46 C27,44 25,40 24,35 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M24,35 C38,34 58,34 72,35 C71,40 69,44 68,46 C73,49 77,52 78,56 L80,80 C80,82 78,83 74,83 H22 C18,83 16,82 16,80 L18,56 C19,52 23,49 28,46 C27,44 25,40 24,35 Z" fill="#6E542B"/>
+    <g clip-path="url(#relic_start2-cbody)">
+      <path d="M24,35 C38,34 58,34 72,35 C71,40 69,44 68,46 C73,49 77,52 78,56 L80,80 C80,82 78,83 74,83 H22 C18,83 16,82 16,80 L18,56 C19,52 23,49 28,46 C27,44 25,40 24,35 Z" transform="translate(-4.5 -3.2)" fill="#9A7B46"/>
+      <path d="M58,35 H72 L68,46 L78,56 L80,83 H52 C59,72 60,52 58,35 Z" fill="#3B2B14" opacity=".72"/>
+      <!-- 左上受光亮边 -->
+      <path d="M19.5,77 L21,56 C22,52 26,49 30,46 L27,37.5 H46 Q32,39 30,41 L32,46.5 C27,50 24,53 23,57 L21.5,77 Z" fill="#C2A670"/>
+      <!-- 右下外缘冷光 -->
+      <path d="M76.5,58 L78,79.5 Q77,81.5 72,81.8 H58 Q69,80.8 74.5,79 L74.8,58 Z" fill="#8CAAB5" opacity=".82"/>
+      <!-- 铜绿记号 -->
+      <path d="M62,75 C66,74 70,71 72,67" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity=".55"/>
+    </g>
+    <!-- 束腰收尖结构线与磕痕 -->
+    <path d="M28,46 Q48,48.5 68,46 Q48,46.8 28,46 Z M19,55 Q48,57.8 77,55 Q48,56 19,55 Z" fill="#1C1412"/>
+    <circle cx="25" cy="54" r="1.6" fill="#DDCB9A"/>
+    <path d="M16.5,68 L19.8,69.2 L16.5,70.6 Z" fill="#1C1412"/>
+
+    <!-- 正面凹槽铭牌与两道醒目竖杠（表示 2，不写文字） -->
+    <rect x="27" y="57.5" width="42" height="17" rx="3" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6"/>
+    <g fill="#E2D6BA" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round">
+      <rect x="36.5" y="55.5" width="7.5" height="20" rx="2"/>
+      <rect x="52" y="55.5" width="7.5" height="20" rx="2"/>
+    </g>
+    <rect x="38" y="65" width="4.5" height="9" rx="1" fill="#C8B894"/>
+    <rect x="53.5" y="65" width="4.5" height="9" rx="1" fill="#C8B894"/>
+
+    <!-- 砝码顶上嵌着的小白宝石（带三色微折射切面） -->
+    <g id="white_gem">
+      <polygon points="48,14 62,24 57,39 39,39 34,24" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="48,14 62,24 57,39 39,39 34,24" fill="#F4F1FF"/>
+      <g clip-path="url(#relic_start2-cwgem)">
+        <polygon points="48,14 34,24 42,29 48,21" fill="#FFA3AB" opacity=".85"/>
+        <polygon points="34,24 39,39 46,33 42,29" fill="#A6F5C6" opacity=".85"/>
+        <polygon points="48,14 62,24 57,39 48,39 48,21" fill="#B4C8FF" opacity=".85"/>
+        <polygon points="48,20 55,25 52,34 44,34 41,25" fill="#F4F1FF"/>
+        <polygon points="48,20 55,25 52,34 44,34 41,25" fill="none" stroke="#FFFFFF" stroke-width="0.9"/>
+      </g>
+      <circle cx="45" cy="24" r="2.2" fill="#FFFFFF"/>
+    </g>
+  </g>
+</g>
+</svg>

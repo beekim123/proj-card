@@ -1,44 +1,107 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_white" viewBox="0 0 96 96" width="96" height="96">
 <title>宝物 · 凑白 ×8</title>
+<style>
+.svg-relic_white g { transform-box: view-box; }
+.svg-relic_white .lantern { transform-origin: 48px 12px; }
+.svg-relic_white #tri_light_mix { transform-origin: 48px 53px; }
+.svg-relic_white .white-core { transform-origin: 48px 53px; }
+@keyframes svg-relic_white-idle-l {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1px) rotate(1.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_white-idle-m {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.92; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-0.8px) rotate(0deg) scale(1.05,1.05); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.92; }
+}
+.svg-relic_white:not([data-anim]) .lantern,
+.svg-relic_white[data-anim="idle"] .lantern { animation: svg-relic_white-idle-l 3s infinite; }
+.svg-relic_white:not([data-anim]) #tri_light_mix,
+.svg-relic_white[data-anim="idle"] #tri_light_mix { animation: svg-relic_white-idle-m 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_white-croof">
+    <path d="M48,14 C56,18 65,22 72,27 C69,30 62,31 48,31 C34,31 27,30 24,27 C31,22 40,18 48,14 Z"/>
+  </clipPath>
+  <clipPath id="relic_white-cglass">
+    <path d="M26,30 H70 L65,75 H31 Z"/>
+  </clipPath>
+  <clipPath id="relic_white-cbase">
+    <path d="M25,74 H71 C74,76 75,80 73,84 H23 C21,80 22,76 25,74 Z"/>
+  </clipPath>
+</defs>
 <g id="root">
-  <!-- 顶部提环与尖顶铜盖 -->
-  <circle cx="48" cy="11" r="5" fill="none" stroke="#1C1412" stroke-width="5.6"/>
-  <circle cx="48" cy="11" r="5" fill="none" stroke="#9A7B46" stroke-width="2.6"/>
-  <polygon points="48,14 68,26 28,26" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-  <polygon points="48,14 68,26 48,26" fill="#6E542B"/>
-  <polygon points="48,14 68,26 28,26" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-  <rect x="22" y="25" width="52" height="6" rx="2" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
+  <!-- 底部接触暗影 -->
+  <ellipse cx="48" cy="86" rx="26" ry="4" fill="#0D111C" opacity=".6"/>
+  <g class="lantern"><g transform="rotate(-1.5 48 48)">
+    <!-- 顶部提环 -->
+    <path d="M41.5,13.5 A6.5,5.5 0 1,1 54.5,13.5 A6.5,5.5 0 1,1 41.5,13.5 Z M44.8,13.5 A3.2,2.5 0 1,0 51.2,13.5 A3.2,2.5 0 1,0 44.8,13.5 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="4.8"/>
+    <path d="M41.5,13.5 A6.5,5.5 0 1,1 54.5,13.5 A6.5,5.5 0 1,1 41.5,13.5 Z M44.8,13.5 A3.2,2.5 0 1,0 51.2,13.5 A3.2,2.5 0 1,0 44.8,13.5 Z" fill="#6E542B" fill-rule="evenodd"/>
+    <path d="M43.5,10.2 A5,4 0 0,1 50,9.5" fill="none" stroke="#C2A670" stroke-width="1.4" stroke-linecap="round"/>
 
-  <!-- 灯笼暗色玻璃腔底（衬托里面三色光混成白光） -->
-  <polygon points="25,31 71,31 66,75 30,75" fill="#161221" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 灯笼暗紫夜色玻璃腔（衬托三色混白光） -->
+    <path d="M26,30 H70 L65,75 H31 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M26,30 H70 L65,75 H31 Z" fill="#161221"/>
+    <g clip-path="url(#relic_white-cglass)">
+      <path d="M52,30 H70 L65,75 H46 C51,60 52,44 52,30 Z" fill="#262036" opacity=".65"/>
+      <!-- 玻璃斜向冷反光带 -->
+      <polygon points="27,44 43,30 49,30 29,49" fill="#8CAAB5" opacity=".2"/>
+    </g>
 
-  <!-- 灯笼内：红、绿、蓝三色宝石光束交汇混成中心耀眼白光 -->
-  <g id="tri_light_mix">
-    <!-- 上：绿光团 (#1DBF5E) -->
-    <circle cx="48" cy="43" r="13" fill="#1DBF5E" stroke="#1C1412" stroke-width="2.2"/>
-    <circle cx="48" cy="43" r="9" fill="#5CE892"/>
-    <!-- 左下：红光团 (#E3263A) -->
-    <circle cx="38" cy="59" r="13" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
-    <circle cx="38" cy="59" r="9" fill="#FF5C6E"/>
-    <!-- 右下：蓝光团 (#2E66F0) -->
-    <circle cx="58" cy="59" r="13" fill="#2E66F0" stroke="#1C1412" stroke-width="2.2"/>
-    <circle cx="58" cy="59" r="9" fill="#6B9BFF"/>
+    <!-- 灯笼内：三色宝石能量交汇混成中心白光（禁止琥珀暖火光） -->
+    <g id="tri_light_mix" opacity="0.92">
+      <!-- 上方绿宝石能量团 -->
+      <circle cx="48" cy="42" r="12.5" fill="#128A43" stroke="#1C1412" stroke-width="2.4"/>
+      <circle cx="47.2" cy="41.2" r="9.5" fill="#1DBF5E"/>
+      <circle cx="45.8" cy="39.8" r="5.5" fill="#4FDB85"/>
+      <!-- 左下红宝石能量团 -->
+      <circle cx="38.5" cy="58" r="12.5" fill="#A8172A" stroke="#1C1412" stroke-width="2.4"/>
+      <circle cx="37.8" cy="57.2" r="9.5" fill="#E3263A"/>
+      <circle cx="36.2" cy="55.8" r="5.5" fill="#F4566A"/>
+      <!-- 右下蓝宝石能量团 -->
+      <circle cx="57.5" cy="58" r="12.5" fill="#1D45B8" stroke="#1C1412" stroke-width="2.4"/>
+      <circle cx="56.8" cy="57.2" r="9.5" fill="#2E66F0"/>
+      <circle cx="55.5" cy="55.8" r="5.5" fill="#6A93F8"/>
+      <!-- 中心三色交汇混出的纯白宝石光核与四角星芒 -->
+      <g class="white-core">
+        <circle cx="48" cy="52.5" r="10.8" fill="#F4F1FF" stroke="#1C1412" stroke-width="2.4"/>
+        <polygon points="48,34.5 51.6,48.9 66,52.5 51.6,56.1 48,70.5 44.4,56.1 30,52.5 44.4,48.9" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+        <circle cx="48" cy="52.5" r="5.5" fill="#FFFFFF"/>
+      </g>
+    </g>
 
-    <!-- 正中心三色交汇混出的耀眼纯白光核与四角白星芒 (#F4F1FF / #FFFFFF) -->
-    <circle cx="48" cy="53" r="11" fill="#F4F1FF" stroke="#1C1412" stroke-width="2.4"/>
-    <polygon points="48,34 52,49 67,53 52,57 48,72 44,57 29,53 44,49" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-    <circle cx="48" cy="53" r="6" fill="#FFFFFF"/>
-  </g>
+    <!-- 灯笼外侧旧铜立柱 -->
+    <path d="M26.5,31 L31,74" stroke="#1C1412" stroke-width="6.2" stroke-linecap="round"/>
+    <path d="M26.5,31 L31,74" stroke="#9A7B46" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M25.8,35 L28.5,60" stroke="#C2A670" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M69.5,31 L65,74" stroke="#1C1412" stroke-width="6.2" stroke-linecap="round"/>
+    <path d="M69.5,31 L65,74" stroke="#6E542B" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M70.2,40 L67.2,68" stroke="#8CAAB5" stroke-width="1.3" stroke-linecap="round" opacity=".8"/>
 
-  <!-- 灯笼外框旧铜立柱与底座 -->
-  <path d="M25,31 L30,75 M71,31 L66,75" stroke="#1C1412" stroke-width="6.4" stroke-linecap="round"/>
-  <path d="M25,31 L30,75" stroke="#9A7B46" stroke-width="3" stroke-linecap="round"/>
-  <path d="M71,31 L66,75" stroke="#6E542B" stroke-width="3" stroke-linecap="round"/>
+    <!-- 灯笼尖拱旧铜顶盖（压暗旧铜七层） -->
+    <path d="M48,14 C56,18 65,22 72,27 C69,30 62,31 48,31 C34,31 27,30 24,27 C31,22 40,18 48,14 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M48,14 C56,18 65,22 72,27 C69,30 62,31 48,31 C34,31 27,30 24,27 C31,22 40,18 48,14 Z" fill="#3B2B14"/>
+    <g clip-path="url(#relic_white-croof)">
+      <path d="M48,14 C56,18 65,22 72,27 C69,30 62,31 48,31 C34,31 27,30 24,27 C31,22 40,18 48,14 Z" transform="translate(-3.5 -2.2)" fill="#6E542B"/>
+      <path d="M26,26.5 Q37,20 47,15.5 Q38,21.5 28,27.5 Z" fill="#9A7B46"/>
+      <circle cx="38" cy="21" r="1.5" fill="#C2A670"/>
+      <path d="M56,28 C60,28 64,27 67,26" fill="none" stroke="#5F8272" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+    </g>
+    <path d="M28,27.5 Q48,30.5 68,27.5 Q48,29 28,27.5 Z" fill="#1C1412"/>
 
-  <!-- 旧铜底座 -->
-  <polygon points="26,74 70,74 74,84 22,84" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-  <polygon points="48,74 70,74 74,84 48,84" fill="#6E542B"/>
-  <path d="M26,77 H68" stroke="#E2D6BA" stroke-width="1.8" stroke-linecap="round"/>
-  <polygon points="26,74 70,74 74,84 22,84" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- 旧铜底座（压暗旧铜七层） -->
+    <path d="M25,74 H71 C74,76 75,80 73,84 H23 C21,80 22,76 25,74 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <path d="M25,74 H71 C74,76 75,80 73,84 H23 C21,80 22,76 25,74 Z" fill="#3B2B14"/>
+    <g clip-path="url(#relic_white-cbase)">
+      <path d="M25,74 H71 C74,76 75,80 73,84 H23 C21,80 22,76 25,74 Z" transform="translate(-3.6 -2)" fill="#6E542B"/>
+      <path d="M24,76 H52 Q36,78 24,78.5 Z" fill="#9A7B46"/>
+      <path d="M72,76 Q73,80 71,82.8 Q58,83.2 50,83 Q64,82 70.5,81.2 Z" fill="#8CAAB5" opacity=".8"/>
+      <path d="M55,79 C59,79 63,78 66,77" fill="none" stroke="#5F8272" stroke-width="1.8" stroke-linecap="round" opacity=".55"/>
+    </g>
+    <!-- 底座铆钉 -->
+    <circle cx="32" cy="79" r="2.2" fill="#1C1412"/><circle cx="31.7" cy="78.7" r="1.4" fill="#9A7B46"/>
+    <circle cx="64" cy="79" r="2.2" fill="#1C1412"/><circle cx="63.7" cy="78.7" r="1.4" fill="#6E542B"/>
+  </g></g>
 </g>
 </svg>

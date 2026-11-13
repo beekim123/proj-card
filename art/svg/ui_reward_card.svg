@@ -1,46 +1,66 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_reward_card" viewBox="0 0 64 64" width="64" height="64">
 <title>奖励图标 · 额外牌</title>
+<style>
+.svg-ui_reward_card g { transform-box: view-box; }
+.svg-ui_reward_card .tool-card { transform-origin: 28px 34px; }
+.svg-ui_reward_card #plus_badge { transform-origin: 49px 17px; }
+@keyframes svg-ui_reward_card-idle-c {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.2px) rotate(-1.8deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-ui_reward_card-idle-p {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.4px) rotate(0deg) scale(1.06,1.06); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-ui_reward_card:not([data-anim]) .tool-card,
+.svg-ui_reward_card[data-anim="idle"] .tool-card { animation: svg-ui_reward_card-idle-c 3s infinite; }
+.svg-ui_reward_card:not([data-anim]) #plus_badge,
+.svg-ui_reward_card[data-anim="idle"] #plus_badge { animation: svg-ui_reward_card-idle-p 3s infinite; }
+</style>
+<defs>
+  <clipPath id="ui_reward_card-ccard"><rect x="10" y="9" width="36" height="49" rx="4.5"/></clipPath>
+</defs>
 <g id="root">
-  <!-- 斜放的额外牌牌背（照 card_back 简化，配色跟额外牌框 card_frame_tool 的冷铁灰青 + 骨白/旧银边走） -->
-  <g transform="rotate(-11 28 34)">
-    <!-- 牌身外底板（冷铁灰青 #3B515C + 右侧暗面 #1E2C33） -->
-    <rect x="10" y="9" width="36" height="50" rx="4.5" fill="#3B515C" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M28,9 H41.5 A4.5,4.5 0 0,1 46,13.5 V54.5 A4.5,4.5 0 0,1 41.5,59 H28 Z" fill="#1E2C33" opacity="0.82"/>
-
-    <!-- 额外牌标志性的骨白/旧银内框与尖刺角花（一眼与基础牌铜框区分） -->
-    <rect x="13.5" y="12.5" width="29" height="43" rx="2.5" fill="#0D111C" stroke="#C8B894" stroke-width="2"/>
-    <!-- 左上冷月青/骨白高光边 -->
-    <path d="M12,52 V13 A2.5,2.5 0 0,1 14.5,10.5 H40" fill="none" stroke="#E2D6BA" stroke-width="1.5" stroke-linecap="round"/>
-
-    <!-- 四角骨白折线角花 -->
-    <g fill="#E2D6BA" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round">
-      <polygon points="12,11 20,11 17,15 15,15 15,17 12,20"/>
-      <polygon points="44,11 36,11 39,15 41,15 41,17 44,20"/>
-      <polygon points="12,57 20,57 17,53 15,53 15,51 12,48"/>
-      <polygon points="44,57 36,57 39,53 41,53 41,51 44,48"/>
+  <!-- 斜放的额外牌牌背（严格对照 card_frame_tool 的冷铁灰青 #1E2C33/#3B515C/#5A7682 与浅木骨白线脚 #9A8968/#C8B894/#E2D6BA） -->
+  <g class="tool-card"><g transform="rotate(-10 28 34)">
+    <rect x="10" y="9" width="36" height="49" rx="4.5" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <rect x="10" y="9" width="36" height="49" rx="4.5" fill="#1E2C33"/>
+    <g clip-path="url(#ui_reward_card-ccard)">
+      <rect x="7.5" y="6.5" width="36" height="49" rx="4.5" fill="#3B515C"/>
+      <path d="M12,48 V12.5 H38 Q22,14.5 16,17.5 Z" fill="#5A7682"/>
+      <path d="M44.2,20 V54 A3,3 0 0,1 41,56.5 H28" fill="none" stroke="#8CAAB5" stroke-width="1.5" stroke-linecap="round" opacity=".82"/>
     </g>
 
-    <!-- 牌背正中简化八角盾纹章与三色宝石（上红圆、左下绿方、右下蓝三角） -->
-    <polygon points="28,18 39,25 39,42 28,49 17,42 17,25" fill="#1E2C33" stroke="#C8B894" stroke-width="1.6" stroke-linejoin="round"/>
-    <!-- 上：红圆宝石 -->
-    <circle cx="28" cy="27" r="4.8" fill="#E3263A" stroke="#1C1412" stroke-width="1.8"/>
-    <circle cx="26.5" cy="25.5" r="1.4" fill="#FFFFFF"/>
-    <!-- 左下：绿方宝石 -->
-    <rect x="19" y="34" width="8.5" height="8.5" rx="1.2" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8"/>
-    <rect x="20.8" y="35.8" width="2.5" height="2.5" fill="#FFFFFF"/>
-    <!-- 右下：蓝三角宝石 -->
-    <polygon points="33.5,33.5 38.5,42.5 28.5,42.5" fill="#2E66F0" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-    <circle cx="33" cy="39" r="1.2" fill="#FFFFFF"/>
+    <!-- 额外牌标志性的骨白/浅木色内框与四角尖花（一眼与基础牌区分） -->
+    <rect x="13.5" y="12.5" width="29" height="42" rx="2.5" fill="#0D111C" stroke="#C8B894" stroke-width="2"/>
+    <g fill="#E2D6BA" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round">
+      <polygon points="12,11 19.5,11 16.8,14.8 14.8,14.8 14.8,16.8 12,19.5"/>
+      <polygon points="44,11 36.5,11 39.2,14.8 41.2,14.8 41.2,16.8 44,19.5"/>
+      <polygon points="12,56 19.5,56 16.8,52.2 14.8,52.2 14.8,50.2 12,47.5"/>
+      <polygon points="44,56 36.5,56 39.2,52.2 41.2,52.2 41.2,50.2 44,47.5"/>
+    </g>
 
-    <!-- 最外层粗墨线重描保证轮廓干净 -->
-    <rect x="10" y="9" width="36" height="50" rx="4.5" fill="none" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-  </g>
+    <!-- 牌背正中八角盾纹章与红圆、绿方、蓝三角三颗小宝石 -->
+    <polygon points="28,18 38.5,24.5 38.5,41.5 28,48 17.5,41.5 17.5,24.5" fill="#1E2C33" stroke="#9A8968" stroke-width="1.6" stroke-linejoin="round"/>
+    <!-- 红圆宝石 -->
+    <circle cx="28" cy="26.5" r="4.6" fill="#E3263A" stroke="#1C1412" stroke-width="1.8"/>
+    <circle cx="26.6" cy="25.2" r="1.3" fill="#F4F1FF"/>
+    <!-- 绿方宝石 -->
+    <rect x="19.2" y="33.5" width="8" height="8" rx="1.2" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8"/>
+    <circle cx="21.5" cy="35.8" r="1.2" fill="#F4F1FF"/>
+    <!-- 蓝三角宝石 -->
+    <polygon points="33.5,33 38.5,41.8 28.5,41.8" fill="#2E66F0" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="33" cy="38.5" r="1.1" fill="#F4F1FF"/>
+  </g></g>
 
-  <!-- 右上角醒目小加号（与 ui_reward_heal 成套，骨白亮面 + 旧铜暗面 + 粗外框） -->
+  <!-- 右上角七层骨白/旧铜小加号 -->
   <g id="plus_badge">
-    <path d="M46,8 H52 V14 H58 V20 H52 V26 H46 V20 H40 V14 H46 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <path d="M49,8 H52 V14 H58 V20 H52 V26 H49 V17 H40 V14 H49 Z" fill="#C2A670" opacity="0.75"/>
-    <path d="M46,8 H52 V14 H58 V20 H52 V26 H46 V20 H40 V14 H46 Z" fill="none" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M46,8 H52 V14 H58 V20 H52 V26 H46 V20 H40 V14 H46 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M46,8 H52 V14 H58 V20 H52 V26 H46 V20 H40 V14 H46 Z" fill="#9A8968"/>
+    <path d="M46,8 H50.5 V15.5 H58 V18.5 H50.5 V26 H46 V20 H40 V14 H46 Z" fill="#E2D6BA"/>
+    <circle cx="47.8" cy="11" r="1.2" fill="#FFFFFF"/>
   </g>
 </g>
 </svg>

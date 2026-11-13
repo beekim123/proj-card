@@ -57,17 +57,6 @@ func _init(shared_clock: RefCounted = null) -> void:
 	font = _load_font("res://fonts/NotoSansCJKsc-Regular.otf")
 	bold_font = _load_font("res://fonts/NotoSansCJKsc-Bold.otf")
 	if bold_font == null: bold_font = font
-	# Explicit native-only aliases, separate from delivered art and fingerprints.
-	var placeholders: Dictionary = _read_json("res://data/body-batch-2-placeholders.json")
-	placeholders.merge(_read_json("res://data/body-batch-3-placeholders.json"))
-	for id: String in placeholders:
-		var source: String = placeholders[id][0]
-		if not assets.has(source): push_error("占位来源缺失："+source); continue
-		assets[id] = assets[source].duplicate(true)
-		assets[id].definition.id = id
-		assets[id].definition.nativePlaceholder = true
-		assets[id].definition.placeholderLabel = placeholders[id][1]
-		assets[id].definition.desc = "原生占位："+str(placeholders[id][1])
 
 
 static func _load_font(font_path: String) -> Font:
@@ -127,15 +116,6 @@ func create(id: String, options: Variant = {}) -> Control:
 	var still: bool = bool(options.get("static", false)) if options is Dictionary else bool(options)
 	var element: Control = SpriteArtScript.new()
 	element.initialize(self, id, assets[id], clock, still)
-	if assets[id].definition.get("nativePlaceholder",false) and not id.begins_with("bg_"):
-		var label: Label = Label.new(); label.name = "NativePlaceholderLabel"
-		label.text = assets[id].definition.placeholderLabel; label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		label.add_theme_font_override("font",font); label.add_theme_font_size_override("font_size",24)
-		label.add_theme_color_override("font_color",Color.WHITE)
-		label.add_theme_color_override("font_outline_color",Color.BLACK); label.add_theme_constant_override("outline_size",5)
-		element.add_child(label)
 	return element
 
 func create_image(id: String, options: Variant = {}) -> Control:

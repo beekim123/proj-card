@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_twice" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 头一张打两次</title>
+<style>
+.svg-relic_twice g { transform-box: view-box; }
+.svg-relic_twice .bell-main { transform-origin: 25px 20px; }
+.svg-relic_twice .bell-echo { transform-origin: 72px 20px; opacity: .5; }
+.svg-relic_twice .clap { transform-origin: 34px 40px; }
+.svg-relic_twice .waves { transform-origin: 30px 45px; }
+
+/* 待机 3000：0 静止 → 1500 铃摆到最大（3°），回声铃亮一下 → 3000 回到静止 */
+@keyframes svg-relic_twice-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_twice:not([data-anim]) .bell-main,
+.svg-relic_twice[data-anim="idle"] .bell-main { animation: svg-relic_twice-idle-1 3s infinite; }
+@keyframes svg-relic_twice-idle-2 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.5; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-3deg) scale(1,1); opacity: 0.8; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0.5; }
+}
+.svg-relic_twice:not([data-anim]) .bell-echo,
+.svg-relic_twice[data-anim="idle"] .bell-echo { animation: svg-relic_twice-idle-2 3s infinite; }
+@keyframes svg-relic_twice-idle-3 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(3.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_twice:not([data-anim]) .clap,
+.svg-relic_twice[data-anim="idle"] .clap { animation: svg-relic_twice-idle-3 3s infinite; }
+@keyframes svg-relic_twice-idle-4 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  50% { transform: translate(1.6px,0px) rotate(0deg) scale(1,1); opacity: 0.65; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
+}
+.svg-relic_twice:not([data-anim]) .waves,
+.svg-relic_twice[data-anim="idle"] .waves { animation: svg-relic_twice-idle-4 3s infinite; }
+</style>
+<defs>
+<clipPath id="relic_twice-ca"><path d="M28,27 C20,30 17,40 16,52 C15.4,60 12,66 8.6,70.5 C8,74 10,76 14,76 L54,76 C58,76 60,74 59.4,70.5 C56,66 52.6,60 52,52 C51,40 48,30 40,27 Z"/></clipPath><clipPath id="relic_twice-cb"><path d="M28,27 C20,30 17,40 16,52 C15.4,60 12,66 8.6,70.5 C8,74 10,76 14,76 L54,76 C58,76 60,74 59.4,70.5 C56,66 52.6,60 52,52 C51,40 48,30 40,27 Z"/></clipPath>
+</defs>
+
+<g id="root">
+  <!-- 回声铃：一模一样，淡一半 -->
+  <g class="bell-echo"><g transform="translate(72 20) rotate(7) scale(.79) translate(-34 -16.5)">
+      <!-- 铃舌（跟在铃身后面，多晃一点） -->
+      <g class="clap">
+        <path d="M34,66 V79" stroke="#1C1412" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="34.5" cy="81.8" r="6.7" fill="#1C1412"/><circle cx="34" cy="81" r="5.2" fill="#9A7B46"/>
+        <path d="M38.4,78.2 A5.2,5.2 0 0 1 31,85.4 A6.6,6.6 0 0 0 38.4,78.2Z" fill="#3B2B14" opacity=".8"/><circle cx="32.2" cy="79.2" r="1.5" fill="#DDCB9A"/>
+      </g>
+      <!-- 提环、铃冠 -->
+      <path d="M27.8,16.5 A6.2,6.2 0 1 1 40.2,16.5 A6.2,6.2 0 1 1 27.8,16.5 Z M31.4,16.5 A2.6,2.6 0 1 0 36.6,16.5 A2.6,2.6 0 1 0 31.4,16.5 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M27.8,16.5 A6.2,6.2 0 1 1 40.2,16.5 A6.2,6.2 0 1 1 27.8,16.5 Z M31.4,16.5 A2.6,2.6 0 1 0 36.6,16.5 A2.6,2.6 0 1 0 31.4,16.5 Z" fill="#9A7B46" fill-rule="evenodd"/>
+      <path d="M29.6,13.4 A5,5 0 0 1 35.4,11.6" fill="none" stroke="#DDCB9A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28.5,21.6 H39.5 L41,28.4 H27 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M29.6,23 H33 L32.2,27 H28.6Z" fill="#C2A670"/>
+      <!-- 铃身：一层暗面 + 一道磨亮的边 -->
+      <path d="M28,27 C20,30 17,40 16,52 C15.4,60 12,66 8.6,70.5 C8,74 10,76 14,76 L54,76 C58,76 60,74 59.4,70.5 C56,66 52.6,60 52,52 C51,40 48,30 40,27 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.4" stroke-linejoin="round"/>
+      <path d="M28,27 C20,30 17,40 16,52 C15.4,60 12,66 8.6,70.5 C8,74 10,76 14,76 L54,76 C58,76 60,74 59.4,70.5 C56,66 52.6,60 52,52 C51,40 48,30 40,27 Z" fill="#6E542B"/>
+      <g clip-path="url(#relic_twice-cb)">
+        <path d="M28,27 C20,30 17,40 16,52 C15.4,60 12,66 8.6,70.5 C8,74 10,76 14,76 L54,76 C58,76 60,74 59.4,70.5 C56,66 52.6,60 52,52 C51,40 48,30 40,27 Z" transform="translate(-4.6 -2)" fill="#9A7B46"/>
+        <path d="M6,70.6 Q34,74.6 62,70.6 V78 H6Z" fill="#C2A670"/>
+        <path d="M40,71.6 Q52,71.6 62,70 V78 H44Z" fill="#6E542B"/>
+        <path d="M11,73.6Q21.9,77.2 34,74.6Q22.1,73.6 11,73.6Z" fill="#DDCB9A"/>
+        <path d="M23.4,33.5Q15.7,42.2 19.4,54Q23.5,43.8 23.4,33.5Z" fill="#C2A670"/>
+        <circle cx="24.6" cy="32.6" r="1.7" fill="#DDCB9A"/>
+        <path d="M55.1,66.1L53.6,63L52.3,59.7L51.3,56.1L50.8,52.1L50.4,48.2L49.8,44.6L49.1,41.2L48.1,38L46.9,35.3L46.9,35.3L47.3,38.3L47.8,41.5L48.3,44.9L48.7,48.5L49.1,52.3L49.8,56.4L51.1,60.1L52.7,63.4L55.1,66.1Z" fill="#8CAAB5" opacity=".8"/>
+      </g>
+      <!-- 铸纹：腰上一圈双线带三颗珠 -->
+      <path d="M9.4,70.6Q34,77 58.6,70.6Q34,73 9.4,70.6ZM15.6,56.6Q34,62.4 52.4,56.6Q34,59.6 15.6,56.6ZM14.6,62.6Q34,68.8 53.4,62.6Q34,66 14.6,62.6Z" fill="#1C1412"/>
+      <circle cx="24" cy="61.4" r="1.25" fill="#1C1412"/><circle cx="34" cy="62.4" r="1.25" fill="#1C1412"/><circle cx="44" cy="61.4" r="1.25" fill="#1C1412"/>
+  </g></g>
+  <!-- 主铃 -->
+  <g class="bell-main"><g transform="translate(25 20) rotate(-7) scale(.79) translate(-34 -16.5)">
+      <!-- 铃舌（跟在铃身后面，多晃一点） -->
+      <g class="clap">
+        <path d="M34,66 V79" stroke="#1C1412" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="34.5" cy="81.8" r="6.7" fill="#1C1412"/><circle cx="34" cy="81" r="5.2" fill="#9A7B46"/>
+        <path d="M38.4,78.2 A5.2,5.2 0 0 1 31,85.4 A6.6,6.6 0 0 0 38.4,78.2Z" fill="#3B2B14" opacity=".8"/><circle cx="32.2" cy="79.2" r="1.5" fill="#DDCB9A"/>
+      </g>
+      <!-- 提环、铃冠 -->
+      <path d="M27.8,16.5 A6.2,6.2 0 1 1 40.2,16.5 A6.2,6.2 0 1 1 27.8,16.5 Z M31.4,16.5 A2.6,2.6 0 1 0 36.6,16.5 A2.6,2.6 0 1 0 31.4,16.5 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2"/>
+      <path d="M27.8,16.5 A6.2,6.2 0 1 1 40.2,16.5 A6.2,6.2 0 1 1 27.8,16.5 Z M31.4,16.5 A2.6,2.6 0 1 0 36.6,16.5 A2.6,2.6 0 1 0 31.4,16.5 Z" fill="#9A7B46" fill-rule="evenodd"/>
+      <path d="M29.6,13.4 A5,5 0 0 1 35.4,11.6" fill="none" stroke="#DDCB9A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28.5,21.6 H39.5 L41,28.4 H27 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M29.6,23 H33 L32.2,27 H28.6Z" fill="#C2A670"/>
+      <!-- 铃身：一层暗面 + 一道磨亮的边 -->
+      <path d="M28,27 C20,30 17,40 16,52 C15.4,60 12,66 8.6,70.5 C8,74 10,76 14,76 L54,76 C58,76 60,74 59.4,70.5 C56,66 52.6,60 52,52 C51,40 48,30 40,27 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.4" stroke-linejoin="round"/>
+      <path d="M28,27 C20,30 17,40 16,52 C15.4,60 12,66 8.6,70.5 C8,74 10,76 14,76 L54,76 C58,76 60,74 59.4,70.5 C56,66 52.6,60 52,52 C51,40 48,30 40,27 Z" fill="#6E542B"/>
+      <g clip-path="url(#relic_twice-ca)">
+        <path d="M28,27 C20,30 17,40 16,52 C15.4,60 12,66 8.6,70.5 C8,74 10,76 14,76 L54,76 C58,76 60,74 59.4,70.5 C56,66 52.6,60 52,52 C51,40 48,30 40,27 Z" transform="translate(-4.6 -2)" fill="#9A7B46"/>
+        <path d="M6,70.6 Q34,74.6 62,70.6 V78 H6Z" fill="#C2A670"/>
+        <path d="M40,71.6 Q52,71.6 62,70 V78 H44Z" fill="#6E542B"/>
+        <path d="M11,73.6Q21.9,77.2 34,74.6Q22.1,73.6 11,73.6Z" fill="#DDCB9A"/>
+        <path d="M23.4,33.5Q15.7,42.2 19.4,54Q23.5,43.8 23.4,33.5Z" fill="#C2A670"/>
+        <circle cx="24.6" cy="32.6" r="1.7" fill="#DDCB9A"/>
+        <path d="M55.1,66.1L53.6,63L52.3,59.7L51.3,56.1L50.8,52.1L50.4,48.2L49.8,44.6L49.1,41.2L48.1,38L46.9,35.3L46.9,35.3L47.3,38.3L47.8,41.5L48.3,44.9L48.7,48.5L49.1,52.3L49.8,56.4L51.1,60.1L52.7,63.4L55.1,66.1Z" fill="#8CAAB5" opacity=".8"/>
+      </g>
+      <!-- 铸纹：腰上一圈双线带三颗珠 -->
+      <path d="M9.4,70.6Q34,77 58.6,70.6Q34,73 9.4,70.6ZM15.6,56.6Q34,62.4 52.4,56.6Q34,59.6 15.6,56.6ZM14.6,62.6Q34,68.8 53.4,62.6Q34,66 14.6,62.6Z" fill="#1C1412"/>
+      <circle cx="24" cy="61.4" r="1.25" fill="#1C1412"/><circle cx="34" cy="62.4" r="1.25" fill="#1C1412"/><circle cx="44" cy="61.4" r="1.25" fill="#1C1412"/>
+  </g></g>
+  <!-- 中间两道声波 -->
+  <g class="waves">
+    <path d="M46.6,38.5 Q50.4,46 46.8,53.5M52,34.5 Q57.6,46 52.2,57.5" fill="none" stroke="#1C1412" stroke-width="6" stroke-linecap="round"/>
+    <path d="M46.6,38.5 Q50.4,46 46.8,53.5M52,34.5 Q57.6,46 52.2,57.5" fill="none" stroke="#E6DEC8" stroke-width="2.6" stroke-linecap="round"/>
+  </g>
+</g>
+</svg>

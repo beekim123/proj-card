@@ -1,5 +1,13 @@
 # 美术源文件（art-source）
 
+## 当前运行版本：2026-11-11 新画法全量接入
+
+当前原生游戏使用 `art/svg/` 的118份新画法SVG及其逐帧导出的 `art/sprites/`，完整清单为 `art/art-manifest.json` v5。来源为设计画风库Fable/Carbon和03–07包，逐ID来源及SHA-256记在 `art/new-art-provenance.json`。本目录下旧交付属于历史记录，不参与当前原生打包。
+
+接收更新：`node tools/receive-new-art.mjs /绝对路径/design`；随后依次运行 `npm run export:sprites`、`npm run import:sprites`、`node tools/check-new-art.mjs`、`bash tools/import.sh`、`bash tools/check.sh`。事件30fps、循环15fps，单worker顺序运行；禁止用旧占位图补齐缺稿。技术检查和用户视觉验收分开记录。
+
+以下为旧美术的历史交接，路径和数量不代表当前运行版本。
+
 这个游戏的美术存档和参考，从设计目录的画风库（`design/style-lab/`）同步过来，2026-11-10。
 
 - **游戏实际用的是 `public/art/`**（SVG + `public/art-manifest.json`，素材清单第 4 版，89 个）。这里不参与打包。

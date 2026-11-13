@@ -1,124 +1,255 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_mirror" viewBox="0 0 176 188" width="176" height="188" style="color: #E6DEC8;">
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_mirror" viewBox="0 0 176 188" width="176" height="188" style="color:#E6DEC8">
 <title>额外牌原画 · 镜子</title>
 <style>
 .svg-card_art_mirror g { transform-box: view-box; }
-.svg-card_art_mirror #root { transform-origin: 96px 94px; }
-.svg-card_art_mirror #mirror_body { transform-origin: 96px 96px; }
-.svg-card_art_mirror #reflection { transform-origin: 96px 76px; }
-.svg-card_art_mirror #flash_white { transform-origin: 96px 76px; opacity: 0; }
-.svg-card_art_mirror #ripple_tint { transform-origin: 96px 76px; opacity: 0; }
+.svg-card_art_mirror .mirror { transform-origin: 90px 80px; }
+.svg-card_art_mirror .tail { transform-origin: 87px 143px; }
+.svg-card_art_mirror #bloom { transform-origin: 92px 70px; }
+.svg-card_art_mirror #reflection { transform-origin: 92px 70px; }
+.svg-card_art_mirror .arch { transform-origin: 92px 70px; }
+.svg-card_art_mirror #flash, .svg-card_art_mirror #tint_fill, .svg-card_art_mirror #bloom { opacity: 0; }
 
-/* 待机（3.2s 循环）：镜面上的浅白倒影慢慢荡动 */
-@keyframes svg-card_art_mirror-idle-refl {
-  0%, 100% { transform: translate(-4px, -2px) rotate(-2deg); opacity: 0.78; }
-  50% { transform: translate(5px, 3px) rotate(2.5deg); opacity: 0.98; }
-}
-@keyframes svg-card_art_mirror-idle-sway {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(1.8deg) translateY(-1.5px); }
+/* 待机 3000：0 → 1500 倒影荡到最远 → 3000。镜子本身只轻轻晃一点，皮绳头多晃一下 */
+@keyframes svg-card_art_mirror-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,3.6px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 .svg-card_art_mirror:not([data-anim]) #reflection,
-.svg-card_art_mirror[data-anim="idle"] #reflection {
-  animation: svg-card_art_mirror-idle-refl 3.2s ease-in-out infinite;
+.svg-card_art_mirror[data-anim="idle"] #reflection { animation: svg-card_art_mirror-idle-1 3s infinite; }
+@keyframes svg-card_art_mirror-idle-2 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(-3.4px,-2.2px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-.svg-card_art_mirror:not([data-anim]) #mirror_body,
-.svg-card_art_mirror[data-anim="idle"] #mirror_body {
-  animation: svg-card_art_mirror-idle-sway 3.2s steps(8, end) infinite;
+.svg-card_art_mirror:not([data-anim]) .arch,
+.svg-card_art_mirror[data-anim="idle"] .arch { animation: svg-card_art_mirror-idle-2 3s infinite; }
+@keyframes svg-card_art_mirror-idle-3 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(1.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
+.svg-card_art_mirror:not([data-anim]) .mirror,
+.svg-card_art_mirror[data-anim="idle"] .mirror { animation: svg-card_art_mirror-idle-3 3s infinite; }
+@keyframes svg-card_art_mirror-idle-4 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-card_art_mirror:not([data-anim]) .tail,
+.svg-card_art_mirror[data-anim="idle"] .tail { animation: svg-card_art_mirror-idle-4 3s infinite; }
 
-/* play（600ms）：镜身一震放大，镜面先一闪白，随后带 currentColor 的波纹大幅荡开 */
-@keyframes svg-card_art_mirror-play-body {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  18% { transform: scale(0.92) rotate(-4deg); }
-  40% { transform: scale(1.14) rotate(3deg); }
-  70% { transform: scale(0.98) rotate(-1deg); }
+/* play 600：0 静止 → 100 起手到位，镜面一闪白 → 250 白光荡开成新颜色（currentColor 那层最亮）→ 400 停住 → 600 回到静止 */
+@keyframes svg-card_art_mirror-play-5 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(-7deg) scale(0.93,0.93); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(0px,0px) rotate(4deg) scale(1.05,1.05); animation-timing-function: linear; }
+  66.67% { transform: translate(0px,0px) rotate(4deg) scale(1.05,1.05); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-card_art_mirror-play-flash {
-  0%, 10%, 72%, 100% { opacity: 0; transform: scale(0.85); }
-  26% { opacity: 1; transform: scale(1.04); }
-  48% { opacity: 0.65; transform: scale(1); }
+.svg-card_art_mirror[data-anim="play"] .mirror { animation: svg-card_art_mirror-play-5 0.6s both; }
+@keyframes svg-card_art_mirror-play-6 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(16deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(0px,0px) rotate(-20deg) scale(1,1); animation-timing-function: linear; }
+  66.67% { transform: translate(0px,0px) rotate(-14deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-card_art_mirror-play-ripple {
-  0%, 24%, 96%, 100% { opacity: 0; transform: scale(0.72); }
-  42% { opacity: 1; transform: scale(1.06); }
-  74% { opacity: 0.82; transform: scale(1.3); }
-  94% { opacity: 0; transform: scale(1.38); }
+.svg-card_art_mirror[data-anim="play"] .tail { animation: svg-card_art_mirror-play-6 0.6s both; }
+@keyframes svg-card_art_mirror-play-7 {
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { opacity: 0.3; animation-timing-function: linear; }
+  66.67% { opacity: 0; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
 }
-.svg-card_art_mirror[data-anim="play"] #mirror_body {
-  animation: svg-card_art_mirror-play-body 0.6s steps(8, end) both;
+.svg-card_art_mirror[data-anim="play"] #flash { animation: svg-card_art_mirror-play-7 0.6s both; }
+@keyframes svg-card_art_mirror-play-8 {
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { opacity: 1; animation-timing-function: linear; }
+  66.67% { opacity: 1; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
 }
-.svg-card_art_mirror[data-anim="play"] #flash_white {
-  animation: svg-card_art_mirror-play-flash 0.6s steps(6, end) both;
+.svg-card_art_mirror[data-anim="play"] #tint_fill { animation: svg-card_art_mirror-play-8 0.6s both; }
+@keyframes svg-card_art_mirror-play-9 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.55,0.55); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  66.67% { transform: translate(0px,0px) rotate(0deg) scale(1.03,1.03); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1.08,1.08); opacity: 0; }
 }
-.svg-card_art_mirror[data-anim="play"] #ripple_tint {
-  animation: svg-card_art_mirror-play-ripple 0.6s steps(8, end) both;
+.svg-card_art_mirror[data-anim="play"] #bloom { animation: svg-card_art_mirror-play-9 0.6s both; }
+@keyframes svg-card_art_mirror-play-10 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(8px,6px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: linear; }
+  66.67% { transform: translate(6px,4px) rotate(0deg) scale(1,1); opacity: 0.4; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
+.svg-card_art_mirror[data-anim="play"] #reflection { animation: svg-card_art_mirror-play-10 0.6s both; }
 </style>
 <defs>
-  <clipPath id="card_art_mirror-clip">
-    <ellipse cx="96" cy="76" rx="30" ry="38"/>
-  </clipPath>
+<clipPath id="card_art_mirror-cg"><ellipse cx="92" cy="70" rx="29" ry="37"/></clipPath>
+<clipPath id="card_art_mirror-cr"><path d="M54,70 A38,46 0 1 1 130,70 A38,46 0 1 1 54,70 Z M63,70 A29,37 0 1 0 121,70 A29,37 0 1 0 63,70 Z" clip-rule="evenodd"/></clipPath>
+<clipPath id="card_art_mirror-cc"><path d="M92,5 C96,14 103,20 111,24 C104,28 98,29 92,29 C86,29 80,28 73,24 C81,20 88,14 92,5 Z"/></clipPath>
+<clipPath id="card_art_mirror-ch"><path d="M86.2,119 C86.4,129 86.8,140 87.2,150 L96.8,150 C97.2,140 97.6,129 97.8,119 Z"/></clipPath>
+<clipPath id="card_art_mirror-cp"><path d="M85.2,149.5 C84.4,156.5 87.2,164.2 92,166.2 C96.8,164.2 99.6,156.5 98.8,149.5 Z"/></clipPath>
+<clipPath id="card_art_mirror-choop"><path d="M83.8,146.4 Q92,150.2 100.2,146.4 C100.8,148.4 100.8,150.6 100,152.4 Q92,156.2 84,152.4 C83.2,150.6 83.2,148.4 83.8,146.4 Z"/></clipPath>
+<clipPath id="card_art_mirror-cw1"><path d="M84.6,122.8 Q92,126.2 99.4,122.8 C99.9,124.8 99.9,126.8 99.3,128.4 Q92,131.8 84.7,128.4 C84.1,126.8 84.1,124.8 84.6,122.8 Z"/></clipPath>
+<clipPath id="card_art_mirror-cw2"><path d="M84.6,128.2 Q92,131.6 99.4,128.2 C99.9,130.2 99.9,132.2 99.3,133.8 Q92,137.2 84.7,133.8 C84.1,132.2 84.1,130.2 84.6,128.2 Z"/></clipPath>
+<clipPath id="card_art_mirror-cw3"><path d="M84.7,133.6 Q92,137 99.3,133.6 C99.8,135.6 99.8,137.6 99.2,139.2 Q92,142.6 84.8,139.2 C84.2,137.6 84.2,135.6 84.7,133.6 Z"/></clipPath>
+<clipPath id="card_art_mirror-cw4"><path d="M84.8,139 Q92,142.4 99.2,139 C99.7,141 99.7,143 99.1,144.8 Q92,148.2 84.9,144.8 C84.3,143 84.3,141 84.8,139 Z"/></clipPath>
+<clipPath id="card_art_mirror-ctail"><path d="M89.2,140.5 C83.8,143 80.2,148.8 80.5,155.5 C80.7,158.6 79.8,161.2 78.2,163.4 L83.4,165.2 C85,162.2 85.6,158.5 85.2,154.6 C84.8,150.2 86.8,146.8 91,144.5 Z"/></clipPath>
 </defs>
+
 <g id="root">
-  <!-- pivot: 96,94 -->
-  <!-- 左上角 x:0..30, y:0..90 严格留空（镜体中心在 x=96，左缘 x>=52，波纹最大左缘 x>=38 > 30） -->
-  <g id="mirror_body">
-    <!-- pivot: 96,96 -->
-    <!-- 手镜长柄（x:86..106, y:118..168） -->
-    <polygon points="88,116 104,116 101,154 91,154" fill="#6E542B" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-    <polygon points="96,116 104,116 101,154 96,154" fill="#3B2B14" opacity="0.78"/>
-    <polygon points="84,122 108,122 105,129 87,129" fill="#9A7B46" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <!-- 柄尾哥特菱形雕花头 -->
-    <polygon points="96,148 106,158 96,168 86,158" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-    <polygon points="96,153 101,158 96,163 91,158" fill="#3B515C" stroke="#1C1412" stroke-width="1.4"/>
-
-    <!-- 哥特椭圆手镜外框（中心 96,76，外径 rx=40, ry=48，范围 x:54..138, y:22..126） -->
-    <!-- 镜框四角哥特尖刺雕花翼 -->
-    <polygon points="96,18 105,30 87,30" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="50,76 62,68 62,84" fill="#C2A670" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="142,76 130,68 130,84" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="62,42 74,44 68,54" fill="#C2A670" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <polygon points="130,42 118,44 124,54" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-
-    <!-- 旧铜椭圆主镜框 -->
-    <ellipse cx="96" cy="76" rx="38" ry="46" fill="#6E542B" stroke="#1C1412" stroke-width="3"/>
-    <path d="M96,30 A38,46 0 0,1 96,122 Z" fill="#3B2B14" opacity="0.75"/>
-    <path d="M64,98 A35,43 0 0,1 92,33" fill="none" stroke="#C2A670" stroke-width="2.2" stroke-linecap="round"/>
-    <ellipse cx="96" cy="76" rx="33" ry="41" fill="none" stroke="#9A7B46" stroke-width="1.6"/>
-
-    <!-- 镜面：严格用 currentColor 绘制，适配红/黄/青/白/浅灰任意染色 -->
-    <ellipse cx="96" cy="76" rx="30" ry="38" fill="currentColor" stroke="#1C1412" stroke-width="2.4"/>
-    <!-- 镜面边缘微压暗环（用 #1C1412 低透明度，让浅白或鲜艳色都有哥特深邃立体感） -->
-    <ellipse cx="96" cy="76" rx="28" ry="36" fill="none" stroke="#1C1412" stroke-width="4" opacity="0.22"/>
-    <path d="M96,38 A30,38 0 0,1 96,114 A22,36 0 0,0 96,38 Z" fill="#1C1412" opacity="0.18"/>
-
-    <!-- 镜面上的固定浅白倒影高光（裁剪在镜面内，待机时缓慢荡动） -->
-    <g clip-path="url(#card_art_mirror-clip)">
-      <g id="reflection">
-        <!-- pivot: 96,76 -->
-        <polygon points="62,92 114,40 126,50 74,104" fill="#FFFFFF" opacity="0.38"/>
-        <polygon points="74,108 124,58 130,64 80,114" fill="#FFFFFF" opacity="0.24"/>
-        <ellipse cx="84" cy="58" rx="8" ry="14" fill="#FFFFFF" opacity="0.32" transform="rotate(28 84 58)"/>
+  <!-- 左上角 x 0–30、y 0–90 留空 -->
+  <g transform="translate(-6 8) rotate(12 92 88) translate(92 88) scale(1.04) translate(-92 -88)">
+    <!-- play 时从镜子后面荡开的一圈（染色） -->
+    <g id="bloom">
+      <ellipse cx="92" cy="70" rx="45" ry="53" fill="none" stroke="currentColor" stroke-width="3.4"/>
+      <ellipse cx="92" cy="70" rx="51" ry="59" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="14 9"/>
+      <path d="M42,39.8Q42.84,43.16 46.2,44Q42.84,44.84 42,48.2Q41.16,44.84 37.8,44Q41.16,43.16 42,39.8ZM148,48.4Q148.72,51.28 151.6,52Q148.72,52.72 148,55.6Q147.28,52.72 144.4,52Q147.28,151.28 148,48.4ZM38,94.8Q38.64,97.36 41.2,98Q38.64,98.64 38,101.2Q37.36,98.64 34.8,98Q37.36,97.36 38,94.8ZM144,101.6Q144.88,105.12 148.4,106Q144.88,106.88 144,110.4Q143.12,106.88 139.6,106Q143.12,105.12 144,101.6ZM120,10.8Q120.64,13.36 123.2,14Q120.64,14.64 120,17.2Q119.36,14.64 116.8,14Q119.36,13.36 120,10.8ZM60,125Q60.6,127.4 63,128Q60.6,128.6 60,131Q59.4,128.6 57,128Q59.4,127.4 60,125Z" fill="currentColor"/>
+    </g>
+    <g class="mirror">
+      <!-- 1. 手柄主体（圆管错位法做左亮右暗，不用直边半透明块，上下端分别被镜框箍与柄尾箍盖住） -->
+      <path d="M86.2,119 C86.4,129 86.8,140 87.2,150 L96.8,150 C97.2,140 97.6,129 97.8,119 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+      <path d="M86.2,119 C86.4,129 86.8,140 87.2,150 L96.8,150 C97.2,140 97.6,129 97.8,119 Z" fill="#3B2B14"/>
+      <g clip-path="url(#card_art_mirror-ch)">
+        <path d="M86.2,119 C86.4,129 86.8,140 87.2,150 L96.8,150 C97.2,140 97.6,129 97.8,119 Z" transform="translate(-3.2 -1.6)" fill="#6E542B"/>
+        <path d="M86.2,119 C86.4,129 86.8,140 87.2,150 L93.2,150 C92.8,140 92.6,129 92.4,119 Z" transform="translate(-1.2 -1)" fill="#9A7B46"/>
       </g>
+
+      <!-- 2. 圆钮柄尾（收成饱满圆锥圆钮，错位法做明暗，不用直边半透明块） -->
+      <path d="M85.2,149.5 C84.4,156.5 87.2,164.2 92,166.2 C96.8,164.2 99.6,156.5 98.8,149.5 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/>
+      <path d="M85.2,149.5 C84.4,156.5 87.2,164.2 92,166.2 C96.8,164.2 99.6,156.5 98.8,149.5 Z" fill="#6E542B"/>
+      <g clip-path="url(#card_art_mirror-cp)">
+        <path d="M85.2,149.5 C84.4,156.5 87.2,164.2 92,166.2 C96.8,164.2 99.6,156.5 98.8,149.5 Z" transform="translate(-2.6 -2.2)" fill="#9A7B46"/>
+        <path d="M98.8,151 C99.2,158 96.6,164.2 91.5,166.2 C95.6,162.5 97.2,156.8 97.2,151 Z" fill="#3B2B14" opacity="0.78"/>
+        <path d="M87.4,152.8 Q86.2,157.8 90.2,162.6 Q88.8,157.4 88.6,152.8 Z" fill="#C2A670"/>
+        <circle cx="88.5" cy="155" r="1.2" fill="#DDCB9A"/>
+      </g>
+
+      <!-- 3. 柄尾和手柄之间的旧铜箍（上下沿往下弓，两头比手柄宽，错位法明暗，盖住柄尾直口） -->
+      <path d="M83.8,146.4 Q92,150.2 100.2,146.4 C100.8,148.4 100.8,150.6 100,152.4 Q92,156.2 84,152.4 C83.2,150.6 83.2,148.4 83.8,146.4 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+      <path d="M83.8,146.4 Q92,150.2 100.2,146.4 C100.8,148.4 100.8,150.6 100,152.4 Q92,156.2 84,152.4 C83.2,150.6 83.2,148.4 83.8,146.4 Z" fill="#6E542B"/>
+      <g clip-path="url(#card_art_mirror-choop)">
+        <path d="M83.8,146.4 Q92,150.2 100.2,146.4 C100.8,148.4 100.8,150.6 100,152.4 Q92,156.2 84,152.4 C83.2,150.6 83.2,148.4 83.8,146.4 Z" transform="translate(-2.8 -1.6)" fill="#9A7B46"/>
+        <path d="M95,147 L101,146.4 L100.5,153 L93.5,155 C95.2,152.2 95.6,149.5 95,147 Z" fill="#3B2B14" opacity="0.72"/>
+      </g>
+      <path d="M85.4,148.2 Q89.2,149.8 93,150" fill="none" stroke="#C2A670" stroke-width="1.2" stroke-linecap="round"/>
+
+      <!-- 4. 松开的皮绳头：先于第 4 圈缠绳绘制，根部深藏在第 4 圈缠绳底下，末端收成斜切口+亮一档切面，无黑刺 -->
+      <g class="tail">
+        <path d="M89.2,140.5 C83.8,143 80.2,148.8 80.5,155.5 C80.7,158.6 79.8,161.2 78.2,163.4 L83.4,165.2 C85,162.2 85.6,158.5 85.2,154.6 C84.8,150.2 86.8,146.8 91,144.5 Z" transform="translate(.4 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M89.2,140.5 C83.8,143 80.2,148.8 80.5,155.5 C80.7,158.6 79.8,161.2 78.2,163.4 L83.4,165.2 C85,162.2 85.6,158.5 85.2,154.6 C84.8,150.2 86.8,146.8 91,144.5 Z" fill="#3D2212"/>
+        <g clip-path="url(#card_art_mirror-ctail)">
+          <path d="M89.2,140.5 C83.8,143 80.2,148.8 80.5,155.5 C80.7,158.6 79.8,161.2 78.2,163.4 L83.4,165.2 C85,162.2 85.6,158.5 85.2,154.6 C84.8,150.2 86.8,146.8 91,144.5 Z" transform="translate(-1.6 -1.2)" fill="#704122"/>
+          <path d="M87.5,141.5 C83,144 80.6,149.2 80.8,155 C81,158 80.2,160.6 78.8,162.8 L81.2,163.6 C82.5,161 83,158 82.7,154.5 C82.4,149.5 84.5,145.5 88.5,143 Z" fill="#9E6238"/>
+          <!-- 伸进第 4 圈缠绳底下的根部最暗加深 -->
+          <path d="M84,139.5 H92 V146.5 C89,147 86,146.5 84,145.5 Z" fill="#3D2212" opacity="0.9"/>
+        </g>
+        <!-- 末端斜切口亮一档切面 -->
+        <path d="M78.5,163.1 L83.3,164.8 L82.7,165.8 L77.9,164.1 Z" fill="#C48A5C"/>
+      </g>
+
+      <!-- 5. 四圈往下弓的旧皮缠绳（照 3.9 节示范代码③：上下沿往下弓，两头比手柄宽出一点，错位左亮右暗，圈间缝用最暗） -->
+      <!-- 第 1 圈 -->
+      <path d="M84.6,122.8 Q92,126.2 99.4,122.8 C99.9,124.8 99.9,126.8 99.3,128.4 Q92,131.8 84.7,128.4 C84.1,126.8 84.1,124.8 84.6,122.8 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.2" stroke-linejoin="round"/>
+      <path d="M84.6,122.8 Q92,126.2 99.4,122.8 C99.9,124.8 99.9,126.8 99.3,128.4 Q92,131.8 84.7,128.4 C84.1,126.8 84.1,124.8 84.6,122.8 Z" fill="#3D2212"/>
+      <g clip-path="url(#card_art_mirror-cw1)">
+        <path d="M84.6,122.8 Q92,126.2 99.4,122.8 C99.9,124.8 99.9,126.8 99.3,128.4 Q92,131.8 84.7,128.4 C84.1,126.8 84.1,124.8 84.6,122.8 Z" transform="translate(-3 -1.4)" fill="#704122"/>
+        <path d="M84.6,122.8 Q90,125.4 94.5,124.8 L94,129.5 Q89,129.8 84.7,128.4 Z" transform="translate(-1.2 -0.8)" fill="#9E6238"/>
+      </g>
+      <path d="M86,124.5 Q89.5,125.9 92.8,126.1" fill="none" stroke="#C48A5C" stroke-width="1.1" stroke-linecap="round"/>
+
+      <!-- 第 2 圈 -->
+      <path d="M84.6,128.2 Q92,131.6 99.4,128.2 C99.9,130.2 99.9,132.2 99.3,133.8 Q92,137.2 84.7,133.8 C84.1,132.2 84.1,130.2 84.6,128.2 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.2" stroke-linejoin="round"/>
+      <path d="M84.6,128.2 Q92,131.6 99.4,128.2 C99.9,130.2 99.9,132.2 99.3,133.8 Q92,137.2 84.7,133.8 C84.1,132.2 84.1,130.2 84.6,128.2 Z" fill="#3D2212"/>
+      <g clip-path="url(#card_art_mirror-cw2)">
+        <path d="M84.6,128.2 Q92,131.6 99.4,128.2 C99.9,130.2 99.9,132.2 99.3,133.8 Q92,137.2 84.7,133.8 C84.1,132.2 84.1,130.2 84.6,128.2 Z" transform="translate(-3 -1.4)" fill="#704122"/>
+        <path d="M84.6,128.2 Q90,130.8 94.5,130.2 L94,134.9 Q89,135.2 84.7,133.8 Z" transform="translate(-1.2 -0.8)" fill="#9E6238"/>
+      </g>
+      <path d="M86,129.9 Q89.5,131.3 92.8,131.5" fill="none" stroke="#C48A5C" stroke-width="1.1" stroke-linecap="round"/>
+
+      <!-- 第 3 圈 -->
+      <path d="M84.7,133.6 Q92,137 99.3,133.6 C99.8,135.6 99.8,137.6 99.2,139.2 Q92,142.6 84.8,139.2 C84.2,137.6 84.2,135.6 84.7,133.6 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.2" stroke-linejoin="round"/>
+      <path d="M84.7,133.6 Q92,137 99.3,133.6 C99.8,135.6 99.8,137.6 99.2,139.2 Q92,142.6 84.8,139.2 C84.2,137.6 84.2,135.6 84.7,133.6 Z" fill="#3D2212"/>
+      <g clip-path="url(#card_art_mirror-cw3)">
+        <path d="M84.7,133.6 Q92,137 99.3,133.6 C99.8,135.6 99.8,137.6 99.2,139.2 Q92,142.6 84.8,139.2 C84.2,137.6 84.2,135.6 84.7,133.6 Z" transform="translate(-3 -1.4)" fill="#704122"/>
+        <path d="M84.7,133.6 Q90,136.2 94.5,135.6 L94,140.3 Q89,140.6 84.8,139.2 Z" transform="translate(-1.2 -0.8)" fill="#9E6238"/>
+      </g>
+      <path d="M86.1,135.3 Q89.5,136.7 92.8,136.9" fill="none" stroke="#C48A5C" stroke-width="1.1" stroke-linecap="round"/>
+
+      <!-- 第 4 圈（后画，压住皮绳头 .tail 的根部） -->
+      <path d="M84.8,139 Q92,142.4 99.2,139 C99.7,141 99.7,143 99.1,144.8 Q92,148.2 84.9,144.8 C84.3,143 84.3,141 84.8,139 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.2" stroke-linejoin="round"/>
+      <path d="M84.8,139 Q92,142.4 99.2,139 C99.7,141 99.7,143 99.1,144.8 Q92,148.2 84.9,144.8 C84.3,143 84.3,141 84.8,139 Z" fill="#3D2212"/>
+      <g clip-path="url(#card_art_mirror-cw4)">
+        <path d="M84.8,139 Q92,142.4 99.2,139 C99.7,141 99.7,143 99.1,144.8 Q92,148.2 84.9,144.8 C84.3,143 84.3,141 84.8,139 Z" transform="translate(-3 -1.4)" fill="#704122"/>
+        <path d="M84.8,139 Q90,141.6 94.5,141 L94,145.7 Q89,146 84.9,144.8 Z" transform="translate(-1.2 -0.8)" fill="#9E6238"/>
+      </g>
+      <path d="M86.2,140.7 Q89.5,142.1 92.8,142.3" fill="none" stroke="#C48A5C" stroke-width="1.1" stroke-linecap="round"/>
+
+      <!-- 圈和圈之间的最暗夹缝收尖线 -->
+      <path d="M85,128.3 Q92,131.7 99,128.3 Q92,130.5 85,128.3 Z M85,133.7 Q92,137.1 99,133.7 Q92,135.9 85,133.7 Z M85.1,139.1 Q92,142.5 98.9,139.1 Q92,141.3 85.1,139.1 Z" fill="#1C1412"/>
+
+      <!-- 顶上的尖拱顶饰 -->
+      <path d="M92,5 C96,14 103,20 111,24 C104,28 98,29 92,29 C86,29 80,28 73,24 C81,20 88,14 92,5 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/><path d="M92,5 C96,14 103,20 111,24 C104,28 98,29 92,29 C86,29 80,28 73,24 C81,20 88,14 92,5 Z" fill="#6E542B"/><g clip-path="url(#card_art_mirror-cc)"><path d="M92,5 C96,14 103,20 111,24 C104,28 98,29 92,29 C86,29 80,28 73,24 C81,20 88,14 92,5 Z" transform="translate(-2 -2.6)" fill="#9A7B46"/><path d="M74,23.8L76.1,23.5L78.7,21.9L81.2,20.1L83.6,18.1L85.8,16L87.9,13.7L89.7,11.1L91.4,8.4L92.9,5.4L92.9,5.4L92.4,8.9L91.1,12L89.3,14.8L87.2,17.4L84.9,19.6L82.3,21.5L79.6,23.2L76.7,24.4L74,23.8Z" fill="#C2A670"/><path d="M92,12 C94,17 97,20.6 100.6,23 C97.6,24 94.6,24.4 92,24.4 C89.4,24.4 86.4,24 83.4,23 C87,20.6 90,17 92,12Z" fill="#1C1412" opacity=".85"/></g>
+      <!-- 两侧的小卷、底下两片托叶 -->
+      <g fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round">
+        <circle cx="51" cy="70" r="5.4"/><circle cx="133" cy="70" r="5.4"/>
+        <circle cx="78.6" cy="117" r="4"/><circle cx="105.4" cy="117" r="4"/>
+      </g>
+      <path d="M48.4,67.6 A3.6,3.6 0 0 1 53,66.6 M130.4,67.6 A3.6,3.6 0 0 1 135,66.6" fill="none" stroke="#DDCB9A" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="51.4" cy="70.6" r="1.5" fill="#1C1412"/><circle cx="133.4" cy="70.6" r="1.5" fill="#1C1412"/>
+      <circle cx="78.9" cy="117.4" r="1.2" fill="#1C1412"/><circle cx="105.7" cy="117.4" r="1.2" fill="#1C1412"/>
+      <!-- 镜面：整块 currentColor（代码染色），上面压固定颜色的明暗 -->
+      <ellipse cx="92" cy="70" rx="29.6" ry="37.6" fill="currentColor"/>
+      <g clip-path="url(#card_art_mirror-cg)">
+        <ellipse cx="92" cy="70" rx="30" ry="38" fill="#1C1412" opacity=".36"/>
+        <ellipse cx="87.6" cy="64.6" rx="29" ry="37" fill="currentColor"/>
+        <!-- 淡淡的倒影：两道斜光，待机时慢慢荡 -->
+        <g id="reflection">
+          <path d="M56,62 L104,26 L113,33 L58,78Z" fill="#F4F1FF" opacity=".42"/>
+          <path d="M62,92 L120,46 L122,53 L66,98Z" fill="#F4F1FF" opacity=".24"/>
+        </g>
+        <!-- 倒影里一扇尖拱窗的影子 -->
+        <g class="arch">
+          <path d="M94,104 V84 C94,75 99,69 104,66 C109,69 114,75 114,84 V104 Z" fill="#1C1412" opacity=".16"/>
+          <path d="M104,68 V104 M94.6,88 H113.4" stroke="#F4F1FF" stroke-width=".9" opacity=".3" fill="none"/>
+        </g>
+        <!-- 镜框压在镜面上的一道暗 -->
+        <path d="M66.9,51.5 A29,37 0 0 1 97,33.6" fill="none" stroke="#1C1412" stroke-width="5" opacity=".3"/>
+        <!-- 划痕、崩角 -->
+        <path d="M72,50Q78.6,53.7 86,59Q79.4,52.3 72,50ZM97,90Q103.3,87.2 108,84.6Q102.7,86 97,90Z" fill="#F4F1FF" opacity=".7"/>
+        <path d="M72.6,51Q79.2,54.6 86.6,60Q80,53.4 72.6,51Z" fill="#1C1412" opacity=".45"/>
+        <path d="M113,92 L118.6,88.6 L119,96 Z" fill="#1C1412"/>
+        <path d="M113.4,92Q107.6,91.7 104,96Q108.4,93.5 113.4,92ZM114,93Q110.2,97.3 110.6,101.6Q111.8,97.9 114,93Z" fill="#1C1412" opacity=".8"/>
+        <!-- play：一闪白，再整块亮成新颜色 -->
+        <ellipse id="flash" cx="92" cy="70" rx="30" ry="38" fill="#F4F1FF"/>
+        <g id="tint_fill"><ellipse cx="92" cy="70" rx="30" ry="38" fill="currentColor"/><path d="M66,58 C70,44 80,36 92,35 C82,40 74,48 70,60Z" fill="#F4F1FF" opacity=".7"/></g>
+      </g>
+      <circle cx="73" cy="46.6" r="2" fill="#F4F1FF" opacity=".85"/>
+      <!-- 镜框：铸铜卷草，凸处磨亮，里圈一串小珠 -->
+      <path d="M54,70 A38,46 0 1 1 130,70 A38,46 0 1 1 54,70 Z M63,70 A29,37 0 1 0 121,70 A29,37 0 1 0 63,70 Z" transform="translate(.6 .9)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+      <path d="M54,70 A38,46 0 1 1 130,70 A38,46 0 1 1 54,70 Z M63,70 A29,37 0 1 0 121,70 A29,37 0 1 0 63,70 Z" fill="#6E542B" fill-rule="evenodd"/>
+      <g clip-path="url(#card_art_mirror-cr)">
+        <path d="M54,70 A38,46 0 1 1 130,70 A38,46 0 1 1 54,70 Z M63,70 A29,37 0 1 0 121,70 A29,37 0 1 0 63,70 Z" transform="translate(-2.6 -3.2)" fill="#9A7B46" fill-rule="evenodd"/>
+        <path d="M56,80L55.5,76.7L55.2,73.4L55.1,70L55.1,70L55.2,66.6L55.5,63.3L56,60L56.8,56.7L57.7,53.5L58.8,50.4L60.1,47.5L61.6,44.6L63.2,41.9L65,39.4L67,37L69.1,34.8L71.3,32.8L73.6,31.1L76.1,29.5L78.6,28.2L81.2,27.1L83.8,26.2L86.5,25.6L89.3,25.2L92,25.1L94.7,25.2L97.5,25.6L100.2,26.2L100.2,26.2L97.4,26.2L94.7,26.2L92,26.3L89.4,26.6L86.8,27.1L84.3,27.8L81.8,28.7L79.4,29.9L77.1,31.2L74.8,32.7L72.6,34.5L70.6,36.4L68.6,38.5L66.8,40.7L65,43.1L63.5,45.7L62,48.4L60.7,51.2L59.6,54.2L58.6,57.2L57.8,60.3L57.2,63.5L56.7,66.7L56.4,70.1L56.4,69.9L56.2,73.3L56.2,76.6L56,80Z" fill="#C2A670"/>
+        <path d="M125.1,50.5L126.2,53.6L127.1,56.7L127.9,60L128.4,63.3L128.7,66.6L128.8,70L128.7,73.4L128.4,76.7L127.9,80L127.1,83.3L126.2,86.4L125.1,89.5L125.1,89.5L125.5,86.2L126,83L126.5,79.8L126.8,76.5L127,73.3L127.1,70L127,66.7L126.8,63.5L126.5,60.2L126,57L125.5,53.8L125.1,50.5ZM120.7,98L118.9,100.6L117,102.9L114.9,105.1L112.6,107.1L110.3,108.9L107.9,110.4L105.4,111.7L102.8,112.8L100.1,113.7L97.4,114.3L97.4,114.3L99.9,112.9L102.3,111.7L104.7,110.4L107.1,109L109.3,107.5L111.6,105.8L113.8,104L116,102.1L118.2,100L120.7,98Z" fill="#8CAAB5" opacity=".85"/>
+        <path d="M113,100 C108,106 101,110 94,111.6 M71,100 C74,104 78,107 82,109" fill="none" stroke="#5F8272" stroke-width="2.4" stroke-linecap="round" opacity=".5"/>
+        <path d="M61,48 C63,42 66,37 70,33" fill="none" stroke="#DDCB9A" stroke-width="2.2" stroke-linecap="round"/>
+      </g>
+      <path d="M60.5,70 A31.5,39.5 0 1 1 123.5,70 A31.5,39.5 0 1 1 60.5,70 Z" pathLength="44" fill="none" stroke="#3B2B14" stroke-width="2.6" stroke-dasharray="0.02 0.98" stroke-linecap="round" transform="translate(.4 .5)"/>
+      <path d="M60.5,70 A31.5,39.5 0 1 1 123.5,70 A31.5,39.5 0 1 1 60.5,70 Z" pathLength="44" fill="none" stroke="#C2A670" stroke-width="1.9" stroke-dasharray="0.02 0.98" stroke-linecap="round"/>
+      <!-- 镜框上的卷草刻纹 -->
+      <path d="M57.6,86Q59.6,92.8 66,97Q61.6,91.2 57.6,86ZM126.4,86Q122.4,91.2 118,97Q124.4,92.8 126.4,86ZM57.4,54Q61.1,47.7 65,42Q58.9,46.3 57.4,54ZM126.6,54Q125.1,46.3 119,42Q122.9,47.7 126.6,54ZM80,27.4Q86.2,26.6 92,25Q85.8,24.2 80,27.4ZM104,27.4Q98.2,24.2 92,25Q97.8,26.6 104,27.4Z" fill="#1C1412"/>
+      <!-- 镜框和手柄之间的箍 -->
+      <path d="M81,111 C84,117 100,117 103,111 L105,121 C99,125.5 85,125.5 79,121 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.6" stroke-linejoin="round"/><path d="M81,111 C84,117 100,117 103,111 L105,121 C99,125.5 85,125.5 79,121 Z" fill="#6E542B"/><g ><path d="M81,111 C84,117 100,117 103,111 L105,121 C99,125.5 85,125.5 79,121 Z" transform="translate(-2 -2.6)" fill="#9A7B46"/></g>
+      <path d="M82,119.4Q92,123.8 102,119.4Q92,121.4 82,119.4Z" fill="#1C1412"/>
+      <path d="M83.6,113.6 C86,116 90,117 93,117" fill="none" stroke="#DDCB9A" stroke-width="1.4" stroke-linecap="round"/>
     </g>
-
-    <!-- 镜面左上固定小高光点与内框墨线 -->
-    <circle cx="78" cy="50" r="2.6" fill="#FFFFFF" opacity="0.88"/>
-    <ellipse cx="96" cy="76" rx="30" ry="38" fill="none" stroke="#1C1412" stroke-width="2.4"/>
-
-    <!-- play 状态：镜面瞬间闪白层（平时 opacity="0"） -->
-    <g id="flash_white" opacity="0">
-      <!-- pivot: 96,76 -->
-      <ellipse cx="96" cy="76" rx="30" ry="38" fill="#FFFFFF" opacity="0.92"/>
-      <path d="M96,30 L100,68 L130,76 L100,84 L96,122 L92,84 L62,76 L92,68 Z" fill="#FFFFFF"/>
-    </g>
-  </g>
-
-  <!-- play 状态：向外荡开的 currentColor 染色波纹环（平时 opacity="0"，缩放 1.38 后左缘 x=96-39*1.38=42.2 > 30） -->
-  <g id="ripple_tint" opacity="0">
-    <!-- pivot: 96,76 -->
-    <ellipse cx="96" cy="76" rx="38" ry="46" fill="none" stroke="currentColor" stroke-width="3.6" stroke-dasharray="20 6"/>
-    <ellipse cx="96" cy="76" rx="34" ry="42" fill="none" stroke="#FFFFFF" stroke-width="1.8" opacity="0.85"/>
   </g>
 </g>
 </svg>

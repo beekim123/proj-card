@@ -2,88 +2,128 @@
 <title>红宝石 · 切好</title>
 <style>
 .svg-gem_red_cut g { transform-box: view-box; }
-.svg-gem_red_cut #root { transform-origin: 50px 50px; }
-.svg-gem_red_cut #sweep_wrap { opacity: 0; }
+.svg-gem_red_cut #sweep_wrap { transform-origin: 50px 50px; opacity: 0; }
 .svg-gem_red_cut #sweep_band { transform-origin: 50px 50px; }
 .svg-gem_red_cut #glint_star { transform-origin: 65px 28px; opacity: 0; }
 
-/* 待机（3.4s 循环）：一道光从刻面上斜着扫过，同时一颗小四角星闪一下；动画关闭时保持原貌 */
-@keyframes svg-gem_red_cut-sweep-wrap {
-  0%, 10%, 42%, 100% { opacity: 0; }
-  16%, 34% { opacity: 1; }
+/* 待机 3000ms：0 → 1200 反光开始 → 1400 反光峰值 → 1600 反光消失 → 3000 与0帧一致 */
+@keyframes svg-gem_red_cut-idle-wrap {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: linear; }
+  40% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: ease-in-out; }
+  46.67% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  53.33% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
 }
-@keyframes svg-gem_red_cut-sweep-band {
-  0%, 10% { transform: translate(-54px, -54px); }
-  40%, 100% { transform: translate(54px, 54px); }
+@keyframes svg-gem_red_cut-idle-band {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: linear; }
+  40% { transform: translate(-12px,-12px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  46.67% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  53.33% { transform: translate(12px,12px) rotate(0deg) scale(1,1); animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-gem_red_cut-glint-star {
-  0%, 18%, 46%, 100% { opacity: 0; transform: scale(0.35) rotate(-15deg); }
-  26% { opacity: 1; transform: scale(1.08) rotate(0deg); }
-  34% { opacity: 0.92; transform: scale(0.95) rotate(8deg); }
+@keyframes svg-gem_red_cut-idle-star {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: linear; }
+  40% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: ease-in-out; }
+  46.67% { transform: translate(0px,0px) rotate(0deg) scale(1.08,1.08); opacity: 1; animation-timing-function: ease-in-out; }
+  53.33% { transform: translate(0px,0px) rotate(10deg) scale(0.5,0.5); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
 }
 .svg-gem_red_cut:not([data-anim]) #sweep_wrap,
-.svg-gem_red_cut[data-anim="idle"] #sweep_wrap {
-  animation: svg-gem_red_cut-sweep-wrap 3.4s linear infinite;
-}
+.svg-gem_red_cut[data-anim="idle"] #sweep_wrap { animation: svg-gem_red_cut-idle-wrap 3s infinite; }
 .svg-gem_red_cut:not([data-anim]) #sweep_band,
-.svg-gem_red_cut[data-anim="idle"] #sweep_band {
-  animation: svg-gem_red_cut-sweep-band 3.4s steps(10, end) infinite;
-}
+.svg-gem_red_cut[data-anim="idle"] #sweep_band { animation: svg-gem_red_cut-idle-band 3s infinite; }
 .svg-gem_red_cut:not([data-anim]) #glint_star,
-.svg-gem_red_cut[data-anim="idle"] #glint_star {
-  animation: svg-gem_red_cut-glint-star 3.4s steps(8, end) infinite;
-}
+.svg-gem_red_cut[data-anim="idle"] #glint_star { animation: svg-gem_red_cut-idle-star 3s infinite; }
 </style>
 <defs>
-  <linearGradient id="gem_red_cut-base" x1="15%" y1="10%" x2="85%" y2="90%">
-    <stop offset="0%" stop-color="#E3263A"/>
-    <stop offset="55%" stop-color="#E3263A"/>
-    <stop offset="100%" stop-color="#9E1424"/>
-  </linearGradient>
   <clipPath id="gem_red_cut-clip">
-    <path d="M50,12 L69,16 L83,30 L88,50 L83,70 L69,84 L50,88 L31,84 L17,70 L12,50 L17,30 L31,16 Z"/>
+    <circle cx="50" cy="50" r="32"/>
   </clipPath>
+  <radialGradient id="gem_red_cut-sg" cx="65" cy="28" r="10" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#FFA3AB" stop-opacity="0.88"/>
+    <stop offset="1" stop-color="#F4566A" stop-opacity="0"/>
+  </radialGradient>
 </defs>
+
 <g id="root">
-  <!-- pivot: 50,50 -->
-  <!-- 宝石底色 -->
-  <path d="M50,12 L69,16 L83,30 L88,50 L83,70 L69,84 L50,88 L31,84 L17,70 L12,50 L17,30 L31,16 Z" fill="url(#gem_red_cut-base)"/>
-  <!-- 左上冠部受光刻面 -->
-  <polygon points="50,12 69,16 59,28 41,28 31,16" fill="#FF5C6E"/>
-  <polygon points="31,16 41,28 28,41 17,30" fill="#FF5C6E"/>
-  <polygon points="17,30 28,41 28,59 12,50" fill="#E3263A"/>
-  <!-- 右下冠部背光暗刻面 -->
-  <polygon points="69,16 83,30 72,41 59,28" fill="#E3263A"/>
-  <polygon points="83,30 88,50 72,59 72,41" fill="#9E1424"/>
-  <polygon points="88,50 83,70 69,84 59,72 72,59" fill="#5C0A14"/>
-  <polygon points="59,72 69,84 50,88 31,84 41,72" fill="#9E1424"/>
-  <polygon points="31,84 17,70 12,50 28,59 41,72" fill="#9E1424" opacity="0.85"/>
-  <!-- 中央八角台面 -->
-  <path d="M41,28 L59,28 L72,41 L72,59 L59,72 L41,72 L28,59 L28,41 Z" fill="#E3263A"/>
+  <g id="gem">
+    <!-- 第 1 层：墨色垫底（往右下错开 0.6, 0.8，带三处极细腰棱旧磕痕） -->
+    <circle cx="50.6" cy="50.8" r="35" fill="#1C1412"/>
+    <circle cx="50" cy="50" r="32" fill="#E3263A"/>
+    <g clip-path="url(#gem_red_cut-clip)">
+      <!-- 冠部与腰部 32 片平色刻面（按左上受光、右下背光与相邻错半档取色） -->
+      <path d="M62.87,55.34L65.69,65.69L80.51,62.65L72.19,50Z" fill="#6B0E1C"/>
+      <path d="M62.87,55.34L55.34,62.87L65.69,65.69Z" fill="#6B0E1C"/>
+      <path d="M65.69,65.69L80.51,62.65L73.36,73.36Z" fill="#6B0E1C"/>
+      <path d="M65.69,65.69L73.36,73.36L62.65,80.51Z" fill="#A8172A"/>
+      <path d="M55.34,62.87L50,72.19L62.65,80.51L65.69,65.69Z" fill="#6B0E1C"/>
+      <path d="M55.34,62.87L44.66,62.87L50,72.19Z" fill="#A8172A"/>
+      <path d="M50,72.19L62.65,80.51L50,83Z" fill="#E3263A"/>
+      <path d="M50,72.19L50,83L37.35,80.51Z" fill="#6B0E1C"/>
+      <path d="M44.66,62.87L34.31,65.69L37.35,80.51L50,72.19Z" fill="#A8172A"/>
+      <path d="M44.66,62.87L37.13,55.34L34.31,65.69Z" fill="#E3263A"/>
+      <path d="M34.31,65.69L37.35,80.51L26.64,73.36Z" fill="#A8172A"/>
+      <path d="M34.31,65.69L26.64,73.36L19.49,62.65Z" fill="#E3263A"/>
+      <path d="M37.13,55.34L27.81,50L19.49,62.65L34.31,65.69Z" fill="#E3263A"/>
+      <path d="M37.13,55.34L37.13,44.66L27.81,50Z" fill="#FFA3AB"/>
+      <path d="M27.81,50L19.49,62.65L17,50Z" fill="#FFA3AB"/>
+      <path d="M27.81,50L17,50L19.49,37.35Z" fill="#F4566A"/>
+      <path d="M37.13,44.66L34.31,34.31L19.49,37.35L27.81,50Z" fill="#FFA3AB"/>
+      <path d="M37.13,44.66L44.66,37.13L34.31,34.31Z" fill="#FFA3AB"/>
+      <path d="M34.31,34.31L19.49,37.35L26.64,26.64Z" fill="#F4566A"/>
+      <path d="M34.31,34.31L26.64,26.64L37.35,19.49Z" fill="#F4566A"/>
+      <path d="M44.66,37.13L50,27.81L37.35,19.49L34.31,34.31Z" fill="#F4566A"/>
+      <path d="M44.66,37.13L55.34,37.13L50,27.81Z" fill="#FFA3AB"/>
+      <path d="M50,27.81L37.35,19.49L50,17Z" fill="#F4566A"/>
+      <path d="M50,27.81L50,17L62.65,19.49Z" fill="#F4566A"/>
+      <path d="M55.34,37.13L65.69,34.31L62.65,19.49L50,27.81Z" fill="#F4566A"/>
+      <path d="M55.34,37.13L62.87,44.66L65.69,34.31Z" fill="#E3263A"/>
+      <path d="M65.69,34.31L62.65,19.49L73.36,26.64Z" fill="#E3263A"/>
+      <path d="M65.69,34.31L73.36,26.64L80.51,37.35Z" fill="#E3263A"/>
+      <path d="M62.87,44.66L72.19,50L80.51,37.35L65.69,34.31Z" fill="#A8172A"/>
+      <path d="M62.87,44.66L62.87,55.34L72.19,50Z" fill="#E3263A"/>
+      <path d="M72.19,50L80.51,37.35L83,50Z" fill="#6B0E1C"/>
+      <path d="M72.19,50L83,50L80.51,62.65Z" fill="#6B0E1C"/>
 
-  <!-- 内部亭部折射折线 -->
-  <path d="M41,28 L59,72 M59,28 L41,72 M28,41 L72,59 M28,59 L72,41" stroke="#9E1424" stroke-width="1.1" opacity="0.35"/>
+      <!-- 中央八边形台面及底下透出的亭部刻面 -->
+      <path d="M62.87,55.34L55.34,62.87L44.66,62.87L37.13,55.34L37.13,44.66L44.66,37.13L55.34,37.13L62.87,44.66Z" fill="#E3263A"/>
+      <path d="M51,51.2L55.34,62.87L44.66,62.87Z" fill="#A8172A" opacity="0.72"/>
+      <path d="M51,51.2L37.13,55.34L37.13,44.66Z" fill="#A8172A" opacity="0.38"/>
+      <path d="M51,51.2L44.66,37.13L55.34,37.13Z" fill="#A8172A" opacity="0.38"/>
+      <path d="M51,51.2L62.87,44.66L62.87,55.34Z" fill="#A8172A" opacity="0.72"/>
+      <path d="M37.13,55.34L37.13,44.66L44.66,37.13L48.5,46.2L44.2,51Z" fill="#FFA3AB" opacity="0.58"/>
 
-  <!-- 斜向刻面扫光（平时 opacity="0"，裁剪在宝石轮廓内） -->
-  <g id="sweep_wrap" clip-path="url(#gem_red_cut-clip)" opacity="0">
-    <g id="sweep_band"><!-- pivot: 50,50 -->
-      <polygon points="10,74 74,10 88,24 24,88" fill="#FFD6DC" opacity="0.42"/>
-      <polygon points="16,78 78,16 84,22 22,84" fill="#FFFFFF" opacity="0.82"/>
+      <!-- 刻面之间的高光细棱线（#FFA3AB，不用墨线） -->
+      <path d="M62.87,55.34L65.69,65.69L80.51,62.65L72.19,50ZM55.34,62.87L50,72.19L62.65,80.51L65.69,65.69ZM44.66,62.87L34.31,65.69L37.35,80.51L50,72.19ZM37.13,55.34L27.81,50L19.49,62.65L34.31,65.69ZM37.13,44.66L34.31,34.31L19.49,37.35L27.81,50ZM44.66,37.13L50,27.81L37.35,19.49L34.31,34.31ZM55.34,37.13L65.69,34.31L62.65,19.49L50,27.81ZM62.87,44.66L72.19,50L80.51,37.35L65.69,34.31ZM62.87,55.34L55.34,62.87L44.66,62.87L37.13,55.34L37.13,44.66L44.66,37.13L55.34,37.13L62.87,44.66Z" fill="none" stroke="#FFA3AB" stroke-width="0.55" stroke-linejoin="round" opacity="0.58"/>
+
+      <!-- 右下加深与内反光亮弧 -->
+      <path d="M82,50 A32,32 0 0 1 50,82 A37,37 0 0 0 82,50Z" fill="#6B0E1C" opacity="0.72"/>
+      <!-- 左上受光亮边（#F4F1FF） -->
+      <path d="M19.5,52 Q19,35 30,24.5 Q41,17.5 57,19.8 Q42,20.2 31.8,27.2 Q21.5,37 21.2,52 Z" fill="#F4F1FF" opacity="0.92"/>
+      <!-- 右下内反光与外缘冷光（#FFA3AB + #8CAAB5 断成两截） -->
+      <path d="M78.5,56 Q75,69 63,76.5 Q52,81 40,79.5 Q53,79 62.2,74.2 Q73,67.2 76.8,55.5 Z" fill="#FFA3AB" opacity="0.52"/>
+      <path d="M80.5,55 Q78,66 70,73.5 Q76.5,65.5 79,54.8 Z M64,77.5 Q55,81.5 45,81 Q55,79.8 63.2,76.2 Z" fill="#8CAAB5" opacity="0.78"/>
+      <!-- 腰棱三处微细旧崩口 -->
+      <path d="M18,46 L20.5,47.2 L18.2,48.5 Z M76,28 L73.8,30.2 L77.2,30.8 Z M66,78.5 L64.5,76.2 L67.8,77.2 Z" fill="#1C1412" opacity="0.7"/>
+      <!-- 高光点 -->
+      <circle cx="38" cy="31" r="2.8" fill="#F4F1FF"/>
+      <circle cx="33.5" cy="35.5" r="1.3" fill="#F4F1FF" opacity="0.9"/>
+
+      <!-- 待机扫光带（几何坐标完全收在 30..70 之间，平移 ±14px 后仍在 16..84 画框内） -->
+      <g id="sweep_wrap" opacity="0">
+        <g id="sweep_band">
+          <polygon points="30,62 62,30 70,38 38,70" fill="#FFA3AB" opacity="0.45"/>
+          <polygon points="33,65 65,33 68,36 36,68" fill="#F4F1FF" opacity="0.88"/>
+        </g>
+      </g>
     </g>
   </g>
 
-  <!-- 刻面分界线 -->
-  <path d="M41,28 L59,28 L72,41 L72,59 L59,72 L41,72 L28,59 L28,41 Z M50,12 L50,28 M69,16 L59,28 M83,30 L72,41 M88,50 L72,50 M83,70 L72,59 M69,84 L59,72 M50,88 L50,72 M31,84 L41,72 M17,70 L28,59 M12,50 L28,50 M17,30 L28,41 M31,16 L41,28" fill="none" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
-  <!-- 台面高光 -->
-  <polygon points="34,39 43,31 55,31 41,47" fill="#E6DEC8" opacity="0.92"/>
-  <circle cx="33" cy="27" r="2.6" fill="#FFFFFF" opacity="0.95"/>
-  <!-- 手绘双层哥特外框 -->
-  <path d="M50,12 L69,16 L83,30 L88,50 L83,70 L69,84 L50,88 L31,84 L17,70 L12,50 L17,30 L31,16 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-  <path d="M50,11.5 L69.5,16.5 L83.5,30.5 L88.5,50 L82.5,69.5 L68.5,84.5 L50,88.5 L30.5,83.5 L16.5,69.5 L11.5,50 L16.5,29.5 L31.5,15.5 Z" fill="none" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round" opacity="0.65"/>
-
-  <!-- 扫光时闪一下的小四角星（平时 opacity="0"，动画关闭时不显示） -->
-  <g id="glint_star" opacity="0"><!-- pivot: 65,28 -->
-    <path d="M65,19 L67.4,25.6 L74,28 L67.4,30.4 L65,37 L62.6,30.4 L56,28 L62.6,25.6 Z" fill="#FFFFFF" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+  <!-- 扫光时闪一下的小四角星（平时 opacity: 0） -->
+  <g id="glint_star" opacity="0">
+    <circle cx="65" cy="28" r="9" fill="url(#gem_red_cut-sg)"/>
+    <path d="M65,19 Q66.2,26.8 74,28 Q66.2,29.2 65,37 Q63.8,29.2 56,28 Q63.8,26.8 65,19 Z" fill="#F4F1FF"/>
+    <circle cx="65" cy="28" r="1.8" fill="#F4F1FF"/>
   </g>
 </g>
 </svg>

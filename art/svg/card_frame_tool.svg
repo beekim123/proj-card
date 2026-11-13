@@ -1,48 +1,151 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-card_frame_tool" viewBox="0 0 200 300" width="200" height="300">
-<title>额外牌框</title>
+<title>额外牌牌框</title>
+<style>
+.svg-card_frame_tool g { transform-box: view-box; }
+.svg-card_frame_tool #sheen { opacity: 0; }
+
+/* 待机 3000：0 静止 → 1500 银边上的冷色亮光最亮 → 3000 回到静止。只动一层 opacity，原画窗洞和文字框不动 */
+@keyframes svg-card_frame_tool-idle-1 {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 1; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-card_frame_tool:not([data-anim]) #sheen,
+.svg-card_frame_tool[data-anim="idle"] #sheen { animation: svg-card_frame_tool-idle-1 3s infinite; }
+</style>
 <defs>
-  <linearGradient id="card_frame_tool-body" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#3B515C"/>
-    <stop offset="52%" stop-color="#1E2C33"/>
-    <stop offset="100%" stop-color="#0D111C"/>
-  </linearGradient>
+<linearGradient id="card_frame_tool-board" x1="0" y1="0" x2="200" y2="300" gradientUnits="userSpaceOnUse">
+  <stop offset="0" stop-color="#2E414B"/>
+  <stop offset="0.5" stop-color="#1E2C33"/>
+  <stop offset="1" stop-color="#11191E"/>
+</linearGradient>
+<linearGradient id="card_frame_tool-sheen" x1="6" y1="6" x2="170" y2="170" gradientUnits="userSpaceOnUse">
+  <stop offset="0" stop-color="#F4F1FF" stop-opacity="0"/>
+  <stop offset="0.25" stop-color="#E2D6BA" stop-opacity="0.95"/>
+  <stop offset="0.6" stop-color="#8CAAB5" stop-opacity="0"/>
+</linearGradient>
+<pattern id="card_frame_tool-grain" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-36)">
+  <line x1="0" y1="0" x2="0" y2="5" stroke="#8CAAB5" stroke-width="0.5"/>
+  <line x1="0" y1="2.5" x2="5" y2="2.5" stroke="#0D111C" stroke-width="0.6"/>
+</pattern>
 </defs>
+
 <g id="root">
-  <!-- 牌身底板（冷铁灰青配旧骨白/冷银镶边，与基础牌暗紫铜框一眼区分；evenodd 挖空原画窗 x12 y12 176×188） -->
-  <path d="M12,2 H188 A10,10 0 0,1 198,12 V288 A10,10 0 0,1 188,298 H12 A10,10 0 0,1 2,288 V12 A10,10 0 0,1 12,2 Z M20,14 H180 A6,6 0 0,1 186,20 V192 A6,6 0 0,1 180,198 H20 A6,6 0 0,1 14,192 V20 A6,6 0 0,1 20,14 Z" fill="url(#card_frame_tool-body)" fill-rule="evenodd"/>
-  <!-- 牌身左上冷月青受光轮廓线 -->
-  <path d="M4,280 V13 A9,9 0 0,1 13,4 H184" fill="none" stroke="#8CAAB5" stroke-width="2" opacity="0.82"/>
-  <!-- 下半截文字框暗底（y222..290，平整深暗，绝不放花纹） -->
-  <rect x="12" y="222" width="176" height="68" rx="6" fill="#0D111C" stroke="#1C1412" stroke-width="2"/>
-  <rect x="14" y="224" width="172" height="64" rx="4.5" fill="none" stroke="#9A8968" stroke-width="1.1" opacity="0.78"/>
-  <!-- 骨白/旧银双线外框与侧翼铆钉 -->
-  <rect x="6" y="6" width="188" height="288" rx="8" fill="none" stroke="#C8B894" stroke-width="1.6"/>
-  <!-- 原画窗骨白/冷银双层镶边（压住窗边） -->
-  <rect x="12" y="12" width="176" height="188" rx="8" fill="none" stroke="#1C1412" stroke-width="3.2"/>
-  <rect x="13.5" y="13.5" width="173" height="185" rx="7" fill="none" stroke="#C8B894" stroke-width="2.2"/>
-  <path d="M15,190 V20 A5,5 0 0,1 20,15 H178" fill="none" stroke="#E2D6BA" stroke-width="1.2" opacity="0.9"/>
-  <!-- 额外牌专属：哥特尖刺铆钉骨白/旧银角花（与基础牌阶梯铜角花明显区分） -->
-  <g fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round">
-    <!-- 左上角花：双尖翼折角 + 铆钉 -->
-    <polygon points="6,6 32,6 25,12 16,12 12,16 12,25 6,32"/>
-    <circle cx="13" cy="13" r="2" fill="#8CAAB5"/>
-    <!-- 右上角花 -->
-    <polygon points="194,6 168,6 175,12 184,12 188,16 188,25 194,32"/>
-    <circle cx="187" cy="13" r="2" fill="#8CAAB5"/>
-    <!-- 左下窗角花 -->
-    <polygon points="6,206 30,206 24,200 16,200 12,196 12,186 6,180"/>
-    <circle cx="13" cy="199" r="1.8" fill="#8CAAB5"/>
-    <!-- 右下窗角花 -->
-    <polygon points="194,206 170,206 176,200 184,200 188,196 188,186 194,180"/>
-    <circle cx="187" cy="199" r="1.8" fill="#8CAAB5"/>
-    <!-- 牌底左右两角骨白尖角包边 -->
-    <polygon points="6,294 26,294 21,288 12,288 12,279 6,274"/>
-    <polygon points="194,294 174,294 179,288 188,288 188,279 194,274"/>
+  <!-- 底板：偏冷的深灰蓝，带细腻皮纹。原画窗（x16..184, y16..196，框压窗边 4px）是透明的洞 -->
+  <path d="M12,2 H188 A10,10 0 0 1 198,12 V288 A10,10 0 0 1 188,298 H12 A10,10 0 0 1 2,288 V12 A10,10 0 0 1 12,2 Z M21,16 H179 A5,5 0 0 1 184,21 V191 A5,5 0 0 1 179,196 H21 A5,5 0 0 1 16,191 V21 A5,5 0 0 1 21,16 Z" fill="url(#card_frame_tool-board)" fill-rule="evenodd"/>
+  <path d="M12,2 H188 A10,10 0 0 1 198,12 V288 A10,10 0 0 1 188,298 H12 A10,10 0 0 1 2,288 V12 A10,10 0 0 1 12,2 Z M21,16 H179 A5,5 0 0 1 184,21 V191 A5,5 0 0 1 179,196 H21 A5,5 0 0 1 16,191 V21 A5,5 0 0 1 21,16 Z" fill="url(#card_frame_tool-grain)" fill-rule="evenodd" opacity="0.18"/>
+
+  <!-- 边角磨亮、右下压暗、几道旧划痕 -->
+  <path d="M3.4,24 C3.4,10 10,3.4 24,3.4 L32,3.6 C16,5 6,14 4.4,32 Z M168,3.4 L186,3.4 C192,3.6 196,8 196.6,14 L196.4,22 C194,10 186,5 168,3.4 Z M3.4,268 L3.6,286 C4,292 8,296 14,296.6 L20,296.4 C10,294 5,286 3.4,268 Z" fill="#5A7682" opacity="0.55"/>
+  <path d="M196.6,226 V288 C196.6,293 193,296.6 188,296.6 H118 C158,294 192,286 196.6,226 Z" fill="#0D111C" opacity="0.75"/>
+  <path d="M4.6,124 Q5.8,136 5.2,150 Q7.1,136 4.6,124 Z M194.2,64 Q195,78 194.4,94 Q196.2,78 194.2,64 Z M64,4.4 Q78,6.1 94,4.6 Q78,5 64,4.4 Z M148,213 Q156,212.2 162,214 Q156,211 148,213 Z" fill="#8CAAB5" opacity="0.6"/>
+
+  <!-- 最外一圈骨白/旧银细线：亮边在左上，暗边在右下，磨断几处 -->
+  <rect x="5.6" y="5.6" width="188.8" height="288.8" rx="7.4" fill="none" stroke="#2E2C28" stroke-width="2"/>
+  <rect x="5.6" y="5.6" width="188.8" height="288.8" rx="7.4" fill="none" stroke="#9A8968" stroke-width="1.2" stroke-dasharray="68 3 116 2 48 5 144 3 92 2 180 4"/>
+  <path d="M5.2,248 V13 A7.8,7.8 0 0 1 13,5.2 H158" fill="none" stroke="#E2D6BA" stroke-width="0.85" stroke-dasharray="58 6 88 4 200" opacity="0.92"/>
+
+  <!-- 文字框：平而暗，不画花纹 -->
+  <rect x="10" y="224" width="180" height="66" rx="4" fill="#0E151B" stroke="#1C1412" stroke-width="2"/>
+  <path d="M11.2,226 H188.8 V229.4 H11.2 Z" fill="#1C1412" opacity="0.6"/>
+  <path d="M16,227.4 H184 L186.6,230 V284 L184,286.6 H16 L13.4,284 V230 Z" fill="none" stroke="#6E6A63" stroke-width="0.9" opacity="0.85"/>
+  <!-- 文字框四角小骨钉 -->
+  <g fill="#C8B894" stroke="#1C1412" stroke-width="0.85">
+    <circle cx="14" cy="228" r="1.8"/><circle cx="186" cy="228" r="1.8"/>
+    <circle cx="14" cy="286" r="1.8"/><circle cx="186" cy="286" r="1.8"/>
   </g>
-  <!-- 左右边框中段小菱形银钉装饰 -->
-  <polygon points="6,102 10,106 6,110 2,106" fill="#C8B894" stroke="#1C1412" stroke-width="1.2"/>
-  <polygon points="194,102 198,106 194,110 190,106" fill="#C8B894" stroke="#1C1412" stroke-width="1.2"/>
-  <!-- 牌身手绘粗外框 -->
-  <path d="M12,2 H188 A10,10 0 0,1 198,12 V288 A10,10 0 0,1 188,298 H12 A10,10 0 0,1 2,288 V12 A10,10 0 0,1 12,2 Z" fill="none" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+
+  <!-- 窗和文字框之间两侧的骨雕双尖花饰（中间空给宝石栏） -->
+  <g fill="#C8B894" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round">
+    <path d="M14,213.6 L21,208.5 L28,213.6 L21,218.7 Z"/>
+    <path d="M172,213.6 L179,208.5 L186,213.6 L179,218.7 Z"/>
+  </g>
+  <path d="M15.5,213.2 L21,209.5 L25,212.2 L21,211.2 Z M173.5,213.2 L179,209.5 L183,212.2 L179,211.2 Z" fill="#E2D6BA"/>
+  <circle cx="21" cy="213.6" r="1.5" fill="#1C1412"/><circle cx="179" cy="213.6" r="1.5" fill="#1C1412"/>
+  <circle cx="11.5" cy="213.6" r="1.2" fill="#9A8968"/><circle cx="188.5" cy="213.6" r="1.2" fill="#9A8968"/>
+
+  <!-- 原画窗的线脚：外一道凸的骨白/旧银棱（凸处磨亮、凹处发黑），里一道凹槽嵌骨珠 -->
+  <rect x="9" y="9" width="182" height="194" rx="8" fill="none" stroke="#1C1412" stroke-width="2.4"/>
+  <rect x="10.8" y="10.8" width="178.4" height="190.4" rx="7.2" fill="none" stroke="#9A8968" stroke-width="3.4"/>
+  <path d="M10.2,197 V17.4 A7.2,7.2 0 0 1 17.4,10.2 H186" fill="none" stroke="#C8B894" stroke-width="1.4"/>
+  <path d="M189.9,15 V194.6 A7.2,7.2 0 0 1 182.6,201.9 H14" fill="none" stroke="#2E2C28" stroke-width="1.5"/>
+  <!-- 凸处磨亮 -->
+  <path d="M10.2,197 V17.4 A7.2,7.2 0 0 1 17.4,10.2 H186" fill="none" stroke="#E2D6BA" stroke-width="1.3" stroke-dasharray="0 30 12 54 6 42 14 52 5 38 9 400"/>
+  <rect x="12.6" y="12.6" width="174.8" height="186.8" rx="6.4" fill="none" stroke="#1C1412" stroke-width="0.9"/>
+  <!-- 凹处发黑的暗槽与骨珠链 -->
+  <rect x="14.3" y="14.3" width="171.4" height="183.4" rx="5.8" fill="none" stroke="#141B20" stroke-width="3.2"/>
+  <path d="M185.6,22 V192 A5.6,5.6 0 0 1 180,197.6 H22" fill="none" stroke="#5A7682" stroke-width="1" opacity="0.7"/>
+  <rect x="14.3" y="14.3" width="171.4" height="183.4" rx="5.8" fill="none" stroke="#C8B894" stroke-width="1.9" stroke-dasharray="0.1 5.732" stroke-linecap="round"/>
+  <path d="M21,16 H179 A5,5 0 0 1 184,21 V191 A5,5 0 0 1 179,196 H21 A5,5 0 0 1 16,191 V21 A5,5 0 0 1 21,16 Z" fill="none" stroke="#1C1412" stroke-width="1.8"/>
+  <!-- 线脚上的磕痕 -->
+  <path d="M74,9.4 Q74.3,11.2 74.6,12.6 Q76.5,10.8 74,9.4 Z M189.6,128 Q186.9,129.3 189.2,131.4 Q189.1,129.5 189.6,128 Z M10,76 Q10.6,77.3 10.8,79 Q12.6,76.7 10,76 Z" fill="#1C1412"/>
+
+  <!-- 上沿正中的骨雕三叶尖拱顶饰、两侧中点的骨雕菱花 -->
+  <path d="M84,10.6 C90,10.2 94,8.6 96.5,6.2 C97.8,8.2 99,6 100,3.2 C101,6 102.2,8.2 103.5,6.2 C106,8.6 110,10.2 116,10.6 C109,12.2 104,14.2 100,17.8 C96,14.2 91,12.2 84,10.6 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.4" stroke-linejoin="round"/>
+  <path d="M87,10.4 C92,9.8 96,7.8 99.6,4.8" fill="none" stroke="#E2D6BA" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M103,14 C107,12.2 110,11.4 114,10.8 C109,12.8 105,14.4 101.5,16.4 Z" fill="#524531" opacity="0.82"/>
+  <circle cx="100" cy="10.8" r="1.8" fill="#1C1412"/>
+  <!-- 左右边中点骨雕尖铆 -->
+  <path d="M11,100 L14.8,106 L11,112 L7.2,106 Z M189,100 L192.8,106 L189,112 L185.2,106 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+  <circle cx="11" cy="106" r="1.3" fill="#1C1412"/><circle cx="189" cy="106" r="1.3" fill="#1C1412"/>
+
+  <!-- 四个窗角的骨雕/旧银錾刻尖翼角花（与基础牌阶梯铜角花明显区分，明暗统一左上受光） -->
+  <!-- 1. 左上窗角花 -->
+  <g>
+    <path d="M4,10 C4,6.2 6.2,4 10,4 L39,4 L32.5,8.8 L22,8.8 C18.5,8.8 16.5,10 15.2,12.5 L18.5,15.2 L14.5,14.2 C11.5,15.5 9.8,18 9.8,22 L9.8,32.5 L4,39 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M37,4.8 L32,8.2 H21.5 C17.8,8.2 15.5,9.6 14,12.2 L12.2,14 C9.6,15.5 8.2,17.8 8.2,21.5 V32 L4.8,37 L5.8,34 L7.2,31.5 V21 C7.2,17 8.8,14.5 11.8,12.8 C13.5,9.8 16.5,7.2 21,7.2 H31.5 L35,5.4 Z" fill="#524531" opacity="0.82"/>
+    <path d="M5,36 V10.2 C5,7.2 7.2,5 10.2,5 H36 L33.5,6.4 H10.5 C8,6.4 6.4,8 6.4,10.5 V33.5 Z" fill="#E2D6BA"/>
+    <circle cx="10.5" cy="10.5" r="2.2" fill="#1C1412"/><circle cx="10.3" cy="10.3" r="1.3" fill="#8CAAB5"/><circle cx="9.8" cy="9.8" r="0.55" fill="#F4F1FF"/>
+    <path d="M15,6.6 Q21,5.8 27,6.8 Q21,7.6 15,6.6 Z M6.6,15 Q5.8,21 6.8,27 Q7.6,21 6.6,15 Z" fill="#1C1412"/>
+  </g>
+
+  <!-- 2. 右上窗角花 -->
+  <g>
+    <path d="M196,10 C196,6.2 193.8,4 190,4 L161,4 L167.5,8.8 L178,8.8 C181.5,8.8 183.5,10 184.8,12.5 L181.5,15.2 L185.5,14.2 C188.5,15.5 190.2,18 190.2,22 L190.2,32.5 L196,39 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M195,10.5 V37.5 L191,32.5 V21.5 C191,17.5 189,14.8 185.5,13.2 L193.6,10.5 Z M168,8.2 H178.5 C181.5,8.2 183.8,9.2 185.2,11.2 C183.2,8.4 180.5,7.2 177.5,7.2 H166.5 Z" fill="#524531" opacity="0.85"/>
+    <path d="M163,5 H189.5 C192.2,5 194,6.6 194.5,9 C193,7 191,6.4 188.5,6.4 H165.5 Z M191,19 V30.5 L192.4,28.5 V20.5 Z" fill="#E2D6BA"/>
+    <circle cx="189.5" cy="10.5" r="2.2" fill="#1C1412"/><circle cx="189.3" cy="10.3" r="1.3" fill="#8CAAB5"/><circle cx="188.8" cy="9.8" r="0.55" fill="#F4F1FF"/>
+    <path d="M185,6.6 Q179,5.8 173,6.8 Q179,7.6 185,6.6 Z M193.4,15 Q194.2,21 193.2,27 Q192.4,21 193.4,15 Z" fill="#1C1412"/>
+  </g>
+
+  <!-- 3. 左下窗角花 -->
+  <g>
+    <path d="M4,202 C4,205.8 6.2,208 10,208 L39,208 L32.5,203.2 L22,203.2 C18.5,203.2 16.5,202 15.2,199.5 L18.5,196.8 L14.5,197.8 C11.5,196.5 9.8,194 9.8,190 L9.8,179.5 L4,173 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M5.5,206.8 H37 L32.5,203.8 H21.5 C18,203.8 15.5,202.5 14,199.8 C15.8,203.5 18.5,205.2 22.5,205.2 H34.5 Z M9,192 V180.5 L7.4,182.5 V191 Z" fill="#524531" opacity="0.85"/>
+    <path d="M5,175.5 V201.5 C5,204.2 6.6,206 9,206.5 C7,205 6.4,203 6.4,200.5 V178 Z M20,203.8 H30.5 L28.5,202.4 H21.5 Z" fill="#E2D6BA"/>
+    <circle cx="10.5" cy="201.5" r="2.2" fill="#1C1412"/><circle cx="10.3" cy="201.3" r="1.3" fill="#8CAAB5"/><circle cx="9.8" cy="200.8" r="0.55" fill="#F4F1FF"/>
+    <path d="M15,205.4 Q21,206.2 27,205.2 Q21,204.4 15,205.4 Z M6.6,197 Q5.8,191 6.8,185 Q7.6,191 6.6,197 Z" fill="#1C1412"/>
+  </g>
+
+  <!-- 4. 右下窗角花 -->
+  <g>
+    <path d="M196,202 C196,205.8 193.8,208 190,208 L161,208 L167.5,203.2 L178,203.2 C181.5,203.2 183.5,202 184.8,199.5 L181.5,196.8 L185.5,197.8 C188.5,196.5 190.2,194 190.2,190 L190.2,179.5 L196,173 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M195,175.5 V201.5 C195,204.8 193.2,206.8 189.8,206.8 H163.5 L166,205.2 H189 C191.8,205.2 193.4,203.6 193.4,200.8 V178 Z" fill="#524531" opacity="0.88"/>
+    <path d="M164,206.2 L168,203.8 H178.5 C182,203.8 184.2,202.5 185.5,200 C184,201.8 181.8,202.5 178.5,202.5 H167.5 Z M190.8,191 V180 L192.2,178 V190 Z" fill="#E2D6BA"/>
+    <circle cx="189.5" cy="201.5" r="2.2" fill="#1C1412"/><circle cx="189.3" cy="201.3" r="1.3" fill="#8CAAB5"/><circle cx="188.8" cy="200.8" r="0.55" fill="#F4F1FF"/>
+    <path d="M185,205.4 Q179,206.2 173,205.2 Q179,204.4 185,205.4 Z M193.4,197 Q194.2,191 193.2,185 Q192.4,191 193.4,197 Z" fill="#1C1412"/>
+  </g>
+
+  <!-- 5. 牌底左右两角的小骨雕包角 -->
+  <g>
+    <path d="M4.5,295.5 L25,295.5 L20.5,291.2 L13,291.2 C10.5,291.2 8.8,289.5 8.8,287 L8.8,279.5 L4.5,275 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M6,294.6 H23 L20.5,293.2 H12 C9.5,293.2 7.5,291.5 7.5,288.5 V281 L6.2,282.5 V289 C6.2,292 8,294 11,294.6 Z" fill="#524531" opacity="0.82"/>
+    <path d="M5.3,277.5 V293.5 L6.5,292 V279.5 Z" fill="#E2D6BA"/>
+  </g>
+  <g>
+    <path d="M195.5,295.5 L175,295.5 L179.5,291.2 L187,291.2 C189.5,291.2 191.2,289.5 191.2,287 L191.2,279.5 L195.5,275 Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M194.6,277.5 V294.6 H177.5 L180,293.2 H193.2 V279.5 Z" fill="#524531" opacity="0.85"/>
+    <path d="M177,294.2 L180,291.8 H187.5 C190,291.8 191.8,290 191.8,287.5 V281 L193,279.5 V288 C193,291.2 190.8,293.4 187.5,293.4 H179.5 Z" fill="#E2D6BA"/>
+  </g>
+
+  <!-- 牌身外轮廓粗墨线 -->
+  <path d="M12,2 H188 A10,10 0 0 1 198,12 V288 A10,10 0 0 1 188,298 H12 A10,10 0 0 1 2,288 V12 A10,10 0 0 1 12,2 Z" fill="none" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- 待机才亮的那一层：银边上一道很淡的冷光（静止时 opacity: 0） -->
+  <g id="sheen">
+    <path d="M10.4,152 V17.4 A7,7 0 0 1 17.4,10.4 H152" fill="none" stroke="url(#card_frame_tool-sheen)" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M5.4,122 V13 A7.6,7.6 0 0 1 13,5.4 H122" fill="none" stroke="url(#card_frame_tool-sheen)" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M14,8.6 Q14.8,12.8 19,13.6 Q14.8,14.4 14,18.6 Q13.2,14.4 9,13.6 Q13.2,12.8 14,8.6 Z M100,4 Q100.6,7 103.6,7.6 Q100.6,8.2 100,11.2 Q99.4,8.2 96.4,7.6 Q99.4,7 100,4 Z" fill="#F4F1FF" opacity="0.9"/>
+  </g>
 </g>
 </svg>

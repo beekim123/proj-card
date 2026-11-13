@@ -2,331 +2,280 @@
 <title>老门环</title>
 <style>
 .svg-npc_knocker g { transform-box: view-box; }
-.svg-npc_knocker #root { transform-origin: 120px 120px; }
-.svg-npc_knocker #plate { transform-origin: 120px 112px; }
-.svg-npc_knocker #face { transform-origin: 120px 104px; }
-.svg-npc_knocker #brows { transform-origin: 120px 72px; }
-.svg-npc_knocker #eyes { transform-origin: 120px 88px; }
-.svg-npc_knocker #mouth { transform-origin: 120px 134px; }
-.svg-npc_knocker #ring { transform-origin: 120px 132px; }
+.svg-npc_knocker #ring { transform-origin: 120px 148px; }
+.svg-npc_knocker #mouth { transform-origin: 120px 160px; }
+.svg-npc_knocker #eyes { transform-origin: 120px 97px; }
+.svg-npc_knocker .brow-l { transform-origin: 88px 80px; }
+.svg-npc_knocker .brow-r { transform-origin: 152px 77px; }
 
-/* 待机 idle（两轮 3000ms 合成 6000ms 循环）：
-   0ms(0%) 铜环在左 -4° -> 1500ms(25%) 铜环在右 +4° 且眨一次眼 -> 3000ms(50%) 回到左 -4° -> 4500ms(75%) 铜环在右 +4°（不眨眼） -> 6000ms(100%) 回到左 -4°
-   同一动作所有部件（#ring 与 #eyes）严格共用同一组百分比：0%, 22.5%, 25%, 27.5%, 50%, 75%, 100% */
-@keyframes svg-npc_knocker-idle-ring {
-  0% {
-    transform: rotate(-4deg);
-    animation-timing-function: ease-in-out;
-  }
-  22.5% {
-    transform: rotate(3.7deg);
-    animation-timing-function: ease-in-out;
-  }
-  25% {
-    transform: rotate(4deg);
-    animation-timing-function: ease-in-out;
-  }
-  27.5% {
-    transform: rotate(3.7deg);
-    animation-timing-function: ease-in-out;
-  }
-  50% {
-    transform: rotate(-4deg);
-    animation-timing-function: ease-in-out;
-  }
-  75% {
-    transform: rotate(4deg);
-    animation-timing-function: ease-in-out;
-  }
-  100% {
-    transform: rotate(-4deg);
-  }
-}
-@keyframes svg-npc_knocker-idle-eyes {
-  0% {
-    transform: scaleY(1);
-    animation-timing-function: linear;
-  }
-  22.5% {
-    transform: scaleY(1);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  25% {
-    transform: scaleY(0.08);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  27.5% {
-    transform: scaleY(1);
-    animation-timing-function: linear;
-  }
-  50% {
-    transform: scaleY(1);
-    animation-timing-function: linear;
-  }
-  75% {
-    transform: scaleY(1);
-    animation-timing-function: linear;
-  }
-  100% {
-    transform: scaleY(1);
-  }
+/* 待机 3000：0 铜环 -3°（静止）→ 1500 +3°，眨眼落在这里 → 3000 回到 -3° */
+@keyframes svg-npc_knocker-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 .svg-npc_knocker:not([data-anim]) #ring,
-.svg-npc_knocker[data-anim="idle"] #ring {
-  animation: svg-npc_knocker-idle-ring 6s infinite;
+.svg-npc_knocker[data-anim="idle"] #ring { animation: svg-npc_knocker-idle-1 3s infinite; }
+@keyframes svg-npc_knocker-idle-2 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,44px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-.svg-npc_knocker:not([data-anim]) #eyes,
-.svg-npc_knocker[data-anim="idle"] #eyes {
-  animation: svg-npc_knocker-idle-eyes 6s infinite;
-}
+.svg-npc_knocker:not([data-anim]) .blink,
+.svg-npc_knocker[data-anim="idle"] .blink { animation: svg-npc_knocker-idle-2 3s infinite; }
 
-/* talk（1200ms）：
-   0ms(0%) 待机 -> 150ms(12.5%) 嘴张开(下巴下移16px>=14px)、铜环被带起来(上移12px>=10px)、眉毛挑起
-   -> 300ms(25%) 合上 -> 450ms(37.5%) 张 -> 600ms(50%) 合 -> 750ms(62.5%) 张 -> 900ms(75%) 合 -> 1050ms(87.5%) 小张 -> 1200ms(100%) 回到待机 */
-@keyframes svg-npc_knocker-talk-mouth {
-  0% {
-    transform: translateY(0px);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  12.5% {
-    transform: translateY(16px);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  25% {
-    transform: translateY(0px);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  37.5% {
-    transform: translateY(15px);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  50% {
-    transform: translateY(0px);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  62.5% {
-    transform: translateY(16px);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  75% {
-    transform: translateY(0px);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  87.5% {
-    transform: translateY(10px);
-    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+/* talk 1200：150 张 → 300 合 → 450 张 → 600 合 → 750 张 → 900 合（眉毛落回）→ 1050 张 → 1200 合 */
+@keyframes svg-npc_knocker-talk-3 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,8px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  25% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  37.5% { transform: translate(0px,5px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  62.5% { transform: translate(0px,9px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  75% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  87.5% { transform: translate(0px,6px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-npc_knocker-talk-ring {
-  0% {
-    transform: translateY(0px) rotate(-4deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  12.5% {
-    transform: translateY(-12px) rotate(2deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  25% {
-    transform: translateY(1px) rotate(-2deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  37.5% {
-    transform: translateY(-11px) rotate(-3deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  50% {
-    transform: translateY(1px) rotate(1deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  62.5% {
-    transform: translateY(-12px) rotate(3deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  75% {
-    transform: translateY(1px) rotate(-1deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  87.5% {
-    transform: translateY(-8px) rotate(1.5deg);
-    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
-  }
-  100% {
-    transform: translateY(0px) rotate(-4deg);
-  }
+.svg-npc_knocker[data-anim="talk"] #mouth { animation: svg-npc_knocker-talk-3 1.2s both; }
+@keyframes svg-npc_knocker-talk-4 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,7px) rotate(1.6deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  25% { transform: translate(0px,0px) rotate(-0.8deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  37.5% { transform: translate(0px,4.5px) rotate(1deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  50% { transform: translate(0px,0px) rotate(-0.6deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  62.5% { transform: translate(0px,8px) rotate(1.8deg) scale(1,1); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  75% { transform: translate(0px,0px) rotate(-0.8deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  87.5% { transform: translate(0px,5.5px) rotate(1.2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-@keyframes svg-npc_knocker-talk-brows {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  12.5% {
-    transform: translateY(-7px) rotate(-2.5deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  25% {
-    transform: translateY(-1px) rotate(0deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  37.5% {
-    transform: translateY(-6px) rotate(2deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  50% {
-    transform: translateY(-1px) rotate(0deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  62.5% {
-    transform: translateY(-7px) rotate(-2deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  75% {
-    transform: translateY(0px) rotate(0deg);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  87.5% {
-    transform: translateY(-4px) rotate(-1deg);
-    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
-  }
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
+.svg-npc_knocker[data-anim="talk"] #ring { animation: svg-npc_knocker-talk-4 1.2s both; }
+@keyframes svg-npc_knocker-talk-5 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,-4px) rotate(-5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  25% { transform: translate(0px,-3px) rotate(-4deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  37.5% { transform: translate(0px,-4px) rotate(-5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-3px) rotate(-4deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  62.5% { transform: translate(0px,-4.5px) rotate(-6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  75% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  87.5% { transform: translate(0px,-1.5px) rotate(-2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-.svg-npc_knocker[data-anim="talk"] #mouth {
-  animation: svg-npc_knocker-talk-mouth 1.2s both;
+.svg-npc_knocker[data-anim="talk"] .brow-l { animation: svg-npc_knocker-talk-5 1.2s both; }
+@keyframes svg-npc_knocker-talk-6 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,-5px) rotate(6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  25% { transform: translate(0px,-4px) rotate(5deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  37.5% { transform: translate(0px,-5px) rotate(6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-4px) rotate(5deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  62.5% { transform: translate(0px,-6px) rotate(7deg) scale(1,1); animation-timing-function: ease-in-out; }
+  75% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  87.5% { transform: translate(0px,-2px) rotate(2.5deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-.svg-npc_knocker[data-anim="talk"] #ring {
-  animation: svg-npc_knocker-talk-ring 1.2s both;
+.svg-npc_knocker[data-anim="talk"] .brow-r { animation: svg-npc_knocker-talk-6 1.2s both; }
+@keyframes svg-npc_knocker-talk-7 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(0px,0px) rotate(0deg) scale(1.07,1.07); animation-timing-function: ease-in-out; }
+  25% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  37.5% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  62.5% { transform: translate(0px,0px) rotate(0deg) scale(1.08,1.08); animation-timing-function: ease-in-out; }
+  75% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  87.5% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
-.svg-npc_knocker[data-anim="talk"] #brows {
-  animation: svg-npc_knocker-talk-brows 1.2s both;
-}
+.svg-npc_knocker[data-anim="talk"] #eyes { animation: svg-npc_knocker-talk-7 1.2s both; }
 </style>
+<defs>
+
+<pattern id="npc_knocker-h" width="4.6" height="4.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="4.6" stroke="#1C1412" stroke-width="0.9"/></pattern>
+<clipPath id="npc_knocker-cplate"><circle cx="120" cy="106" r="92"/></clipPath>
+<clipPath id="npc_knocker-chead"><path d="M66,62 C61,52 69,41 80,44 C80,34 93,28 102,35 C107,26 123,24 129,32 C137,26 151,30 151,41 C162,37 174,46 171,58 C180,72 186,94 184,112 C182,132 172,150 154,160 C142,167 130,170 120,170 C108,170 96,166 86,159 C68,148 57,130 56,110 C55,92 59,76 66,62 Z"/></clipPath>
+<clipPath id="npc_knocker-cjaw"><path d="M93,151 C100,147 110,148 120,149 C130,148 140,147 147,151 C151,159 147,168 139,173 C133,177 129,182 126,187 C124,191 122,193 120,194 C118,193 116,191 114,187 C111,182 107,177 101,173 C93,168 89,159 93,151 Z"/></clipPath>
+<clipPath id="npc_knocker-cring"><path d="M78,183 A42,40 0 1 1 162,183 A42,40 0 1 1 78,183 Z M90,180.5 A30,27 0 1 0 150,180.5 A30,27 0 1 0 90,180.5 Z" clip-rule="evenodd"/></clipPath>
+<clipPath id="npc_knocker-cst"><path d="M120,128 C108,124 96,128 86,135 C76,142 66,142 57,131 C54,144 62,156 76,158 C92,160 106,151 114,143 C117,140 119,139 120,139 C121,139 123,140 126,143 C134,151 148,160 164,158 C178,156 186,144 183,130 C174,142 164,142 154,135 C144,128 132,124 120,128 Z"/></clipPath>
+<clipPath id="npc_knocker-cnose"><path d="M116.5,84 C116.5,80 123.5,80 123.5,84 C124,92 127,97 131,100 C138,103 142,110 141,117 C140,124 134,127 129,125 C126,129 114,129 111,125 C106,127 100,124 99,117 C98,110 102,103 109,100 C113,97 116,92 116.5,84 Z"/></clipPath>
+<clipPath id="npc_knocker-cbl"><path d="M114,85 C108,76 96,70 82,71 C70,72 61,79 56,90 C62,87 67,86 71,87 C69,90 70,92 72,93 C80,86 92,82 102,83 C107,84 111,87 114,85 Z"/></clipPath>
+<clipPath id="npc_knocker-cbr"><path d="M126,80 C132,70 146,62 160,63 C171,64 180,71 185,82 C179,79 174,78 170,79 C172,82 171,84 169,85 C161,78 149,75 139,77 C134,78 130,81 126,80 Z"/></clipPath>
+<clipPath id="npc_knocker-csl"><ellipse cx="92" cy="98" rx="14" ry="11"/></clipPath>
+<clipPath id="npc_knocker-csr"><ellipse cx="148" cy="95.5" rx="13.4" ry="11.4"/></clipPath>
+</defs>
+
 <g id="root">
-  <!-- 中心 anchor: 120,120 -->
-  <!-- 1. 圆形旧铜底板 plate（略带哥特十二边形折角与铆钉，范围 x:22..218, y:14..210） -->
+  <!-- 落在门板上的影子 -->
+  <circle cx="126" cy="114" r="93" fill="#0D111C" opacity=".45"/>
+
+  <!-- ===== 底板 plate：铸铜圆盘，珠边、四颗钉 ===== -->
   <g id="plate">
-    <!-- 底板背影 -->
-    <circle cx="122" cy="116" r="94" fill="#0D111C" opacity="0.65"/>
-    <!-- 外层折角铜圆盘（压暗旧古铜 #6E542B + 右下深暗部 #3B2B14） -->
-    <polygon points="120,16 168,28 202,62 214,110 202,158 168,192 120,204 72,192 38,158 26,110 38,62 72,28" fill="#6E542B" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
-    <!-- 右下背光暗面 -->
-    <polygon points="120,16 168,28 202,62 214,110 202,158 168,192 120,204 120,110" fill="#3B2B14" opacity="0.72"/>
-    <!-- 左上受光冷铜边高光 -->
-    <polyline points="42,152 30,110 42,64 74,32 120,20 162,31" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>
-
-    <!-- 内层凹陷铜盘与交叉排线暗影 -->
-    <circle cx="120" cy="110" r="76" fill="#3B2B14" stroke="#1C1412" stroke-width="2.8"/>
-    <path d="M58,154 L84,180 M72,164 L98,190 M152,160 L180,188 M164,148 L190,174 M172,134 L196,158" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
-
-    <!-- 底板四周 6 颗粗铆钉 -->
-    <g fill="#9A7B46" stroke="#1C1412" stroke-width="2">
-      <circle cx="120" cy="27" r="4.5" fill="#C2A670"/>
-      <circle cx="48" cy="68" r="4.5" fill="#C2A670"/>
-      <circle cx="192" cy="68" r="4.5"/>
-      <circle cx="48" cy="152" r="4.5"/>
-      <circle cx="192" cy="152" r="4.5" fill="#3B2B14"/>
-      <circle cx="120" cy="193" r="4.5" fill="#3B2B14"/>
+    <circle cx="120.8" cy="107.1" r="95.2" fill="#1C1412"/>
+    <circle cx="120" cy="106" r="92" fill="#6E542B"/>
+    <g clip-path="url(#npc_knocker-cplate)">
+      <!-- 暗面：右下一弯 -->
+      <circle cx="120" cy="106" r="92" fill="#3B2B14"/>
+      <circle cx="111" cy="96" r="91" fill="#6E542B"/>
+      <!-- 受光边：左上 -->
+      <path d="M33.3,90.7 A88,88 0 0 1 104.7,19.3" fill="none" stroke="#9A7B46" stroke-width="5" stroke-linecap="round"/>
+      <path d="M40,74 A86,86 0 0 1 84,29" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
+      <!-- 凹下去的盘心 -->
+      <circle cx="120" cy="106" r="78" fill="#3B2B14"/>
+      <circle cx="123.5" cy="110" r="76" fill="#4E3A1E"/>
+      <path d="M120,184 A78,78 0 0 0 198,106 A70,72 0 0 1 120,178Z" fill="url(#npc_knocker-h)" opacity=".4"/>
+      <path d="M196,118 A77,77 0 0 1 132,182" fill="none" stroke="#9A7B46" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
+      <!-- 头压在盘心上的影子 -->
+      <path d="M66,62 C61,52 69,41 80,44 C80,34 93,28 102,35 C107,26 123,24 129,32 C137,26 151,30 151,41 C162,37 174,46 171,58 C180,72 186,94 184,112 C182,132 172,150 154,160 C142,167 130,170 120,170 C108,170 96,166 86,159 C68,148 57,130 56,110 C55,92 59,76 66,62 Z" transform="translate(5 6)" fill="#1C1412" opacity=".45"/>
+      <!-- 盘心旧划痕 -->
+      <path d="M42,118Q46.1,131.5 56,143Q47.9,130.5 42,118ZM188,62Q192.1,70.4 195,80Q193.9,69.6 188,62ZM46,96Q44.2,104.1 48,110Q45.8,103.9 46,96Z" fill="#9A7B46" opacity=".55"/>
+      <!-- 珠边 -->
+      <circle cx="120.7" cy="106.9" r="85" fill="none" stroke="#3B2B14" stroke-width="6.4" stroke-dasharray="0.1 11.027" stroke-linecap="round"/>
+      <circle cx="120" cy="106" r="85" fill="none" stroke="#9A7B46" stroke-width="5" stroke-dasharray="0.1 11.027" stroke-linecap="round"/>
+      <circle cx="119.2" cy="105.1" r="85" fill="none" stroke="#C2A670" stroke-width="1.7" stroke-dasharray="0.1 11.027" stroke-linecap="round"/>
+      <!-- 凹处的铜绿 -->
+      <path d="M188,146 A80,80 0 0 1 150,180" fill="none" stroke="#5F8272" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 5 3 7" opacity=".55"/>
+      <path d="M52,150 A80,80 0 0 0 70,170" fill="none" stroke="#5F8272" stroke-width="2.6" stroke-linecap="round" opacity=".45"/>
+      <path d="M58,172 C57,178 59,183 58,189 C61,184 62,178 62,172Z" fill="#5F8272" opacity=".5"/>
+      <!-- 冷色轮廓光：背光的右下边 -->
+      <path d="M208.6,121.6 A90,90 0 0 1 152,190" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
     </g>
+    <circle cx="120" cy="106" r="78" fill="none" stroke="#1C1412" stroke-width="1.6"/>
+    <!-- 磕掉的边、裂纹 -->
+    <path d="M28.6,93Q30.8,96.4 30,100Q34.4,95.6 28.6,93ZM150,15.6Q151.4,21.9 156.4,18Q152.6,18.9 150,15.6Z" fill="#1C1412"/>
+    <path d="M190,44Q182.7,48.2 181,58Q185.3,49.8 190,44ZM181,58Q183,61.2 183,66Q185,60.8 181,58Z" fill="#1C1412"/>
+    <g transform="translate(59.9 45.9)"><circle cx=".5" cy=".8" r="7.6" fill="#1C1412"/><circle r="6" fill="#9A7B46"/><path d="M5.2,-3 A6,6 0 0 1 -3,5.2 A7.5,7.5 0 0 0 5.2,-3Z" fill="#3B2B14" opacity=".75"/><circle cx="-1.9" cy="-2.1" r="1.9" fill="#DDCB9A"/></g><g transform="translate(180.1 45.9)"><circle cx=".5" cy=".8" r="7.6" fill="#1C1412"/><circle r="6" fill="#9A7B46"/><path d="M5.2,-3 A6,6 0 0 1 -3,5.2 A7.5,7.5 0 0 0 5.2,-3Z" fill="#3B2B14" opacity=".75"/><circle cx="-1.9" cy="-2.1" r="1.9" fill="#DDCB9A"/></g><g transform="translate(59.9 166.1)"><circle cx=".5" cy=".8" r="7.6" fill="#1C1412"/><circle r="6" fill="#9A7B46"/><path d="M5.2,-3 A6,6 0 0 1 -3,5.2 A7.5,7.5 0 0 0 5.2,-3Z" fill="#3B2B14" opacity=".75"/><circle cx="-1.9" cy="-2.1" r="1.9" fill="#DDCB9A"/></g><g transform="translate(180.1 166.1)"><circle cx=".5" cy=".8" r="7.6" fill="#1C1412"/><circle r="6" fill="#9A7B46"/><path d="M5.2,-3 A6,6 0 0 1 -3,5.2 A7.5,7.5 0 0 0 5.2,-3Z" fill="#3B2B14" opacity=".75"/><circle cx="-1.9" cy="-2.1" r="1.9" fill="#DDCB9A"/></g>
   </g>
 
-  <!-- 2. 嘴里叼着的大铜环 ring（放在下巴后方、底板前方，上沿深入嘴腔 y=126，张嘴与晃动绝不露缝） -->
-  <g id="ring">
-    <!-- 铜环投在底板与下巴下的暗影 -->
-    <ellipse cx="120" cy="222" rx="52" ry="8" fill="#0D111C" opacity="0.55"/>
-    <!-- 大铜环主体（粗壮微不对称哥特古铜环，垂在下巴下面，底沿到 y=224，严格在 240 画框内） -->
-    <path d="M76,128 C52,142 48,184 74,208 C96,226 144,226 166,208 C192,184 188,142 164,128 L148,136 C166,148 168,178 150,194 C134,208 106,208 90,194 C72,178 74,148 92,136 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
-    <!-- 铜环右侧与内沿背光暗面 -->
-    <path d="M120,221 C140,221 156,216 166,208 C192,184 188,142 164,128 L148,136 C166,148 168,178 150,194 C142,201 131,205 120,205 Z" fill="#6E542B" opacity="0.85"/>
-    <!-- 铜环底部最厚处卡箍浮雕 -->
-    <polygon points="106,201 134,201 138,224 102,224" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <polygon points="120,201 134,201 138,224 120,224" fill="#3B2B14" opacity="0.75"/>
-    <line x1="106" y1="205" x2="132" y2="205" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
-    <!-- 铜环左上冷受光高光弧 -->
-    <path d="M74,134 C58,148 56,178 74,198" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round" opacity="0.88"/>
-    <!-- 铜环穿过嘴腔的上沿横梁（嘴张开时完整露出） -->
-    <rect x="78" y="122" width="84" height="14" rx="5" fill="#6E542B" stroke="#1C1412" stroke-width="2.8"/>
-    <line x1="84" y1="126" x2="154" y2="126" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
-  </g>
-
-  <!-- 3. 嘴部组件 mouth（含嘴腔深暗底与可大幅张合的下巴，张开 >=16px 时内部完整不露缝） -->
-  <!-- 注意：固定嘴腔深底放在 face 下沿，活动下颚放在 #mouth 内，或将加高上延的深色嘴腔放在 #mouth 顶部随下巴移动 -->
-  <g id="mouth">
-    <!-- 随下颚一起移动的深渊嘴腔背景（向上延伸至 y=104，平时被上唇盖住，下移 16px 时完整露出暗色嘴腔与上牙、铜环上沿） -->
-    <path d="M78,106 H162 V144 Q120,158 78,144 Z" fill="#0D111C" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-    <!-- 嘴腔内含着的铜环横杆与暗红舌影（增加张嘴细节层次） -->
-    <rect x="86" y="116" width="68" height="10" rx="4" fill="#3B2B14" stroke="#1C1412" stroke-width="2"/>
-    <line x1="92" y1="119" x2="148" y2="119" stroke="#9A7B46" stroke-width="1.5" stroke-linecap="round"/>
-    <!-- 下牙（两颗歪斜旧铜门牙） -->
-    <polygon points="94,136 106,136 104,126 96,126" fill="#C8B894" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <polygon points="134,136 146,136 144,126 136,126" fill="#9A8968" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-
-    <!-- 厚重铜下巴与翘山羊胡主体 -->
-    <path d="M72,132 Q120,142 168,132 L162,158 Q144,174 120,176 Q96,174 78,158 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-    <!-- 下巴右侧暗面 -->
-    <path d="M120,137 Q144,137 168,132 L162,158 Q144,174 120,176 Z" fill="#6E542B" opacity="0.82"/>
-    <!-- 下唇受光高光边 -->
-    <path d="M76,135 Q120,144 162,135" fill="none" stroke="#C2A670" stroke-width="2.2" stroke-linecap="round"/>
-    <!-- 铜雕山羊胡纹理 -->
-    <path d="M104,152 L100,172 M120,154 L120,175 M136,152 L140,172" stroke="#1C1412" stroke-width="2.2" stroke-linecap="round"/>
-  </g>
-
-  <!-- 4. 老头脸主体 face（宽大铜脸、高颧骨、八字胡、大圆鼻、粗眉毛） -->
+  <!-- ===== 脸 face ===== -->
   <g id="face">
-    <!-- 脸颊与额头主体（微不对称诡萌老头轮廓，五官粗大） -->
-    <path d="M64,58 L88,42 L152,44 L176,60 L184,96 L176,130 L152,138 L88,138 L64,128 L56,94 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
-    <!-- 右半脸背光暗面 -->
-    <path d="M120,43 L152,44 L176,60 L184,96 L176,130 L152,138 L120,138 Z" fill="#6E542B" opacity="0.78"/>
-    <!-- 左额与左颧骨受光亮边 -->
-    <polyline points="62,122 59,94 67,60 90,46 126,46" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M66,62 C61,52 69,41 80,44 C80,34 93,28 102,35 C107,26 123,24 129,32 C137,26 151,30 151,41 C162,37 174,46 171,58 C180,72 186,94 184,112 C182,132 172,150 154,160 C142,167 130,170 120,170 C108,170 96,166 86,159 C68,148 57,130 56,110 C55,92 59,76 66,62 Z" transform="translate(.7 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.4" stroke-linejoin="round"/>
+    <path d="M66,62 C61,52 69,41 80,44 C80,34 93,28 102,35 C107,26 123,24 129,32 C137,26 151,30 151,41 C162,37 174,46 171,58 C180,72 186,94 184,112 C182,132 172,150 154,160 C142,167 130,170 120,170 C108,170 96,166 86,159 C68,148 57,130 56,110 C55,92 59,76 66,62 Z" fill="#6E542B"/>
+    <g clip-path="url(#npc_knocker-chead)">
+      <!-- 错位法：亮面整块往左上挪，右下自然留出跟着轮廓走的暗面 -->
+      <path d="M66,62 C61,52 69,41 80,44 C80,34 93,28 102,35 C107,26 123,24 129,32 C137,26 151,30 151,41 C162,37 174,46 171,58 C180,72 186,94 184,112 C182,132 172,150 154,160 C142,167 130,170 120,170 C108,170 96,166 86,159 C68,148 57,130 56,110 C55,92 59,76 66,62 Z" transform="translate(-6 -6.5)" fill="#9A7B46"/>
+      <!-- 右脸颊往后转的一块暗面，边是弧的 -->
+      <path d="M150,70 C164,84 170,108 164,130 C160,146 150,158 136,166 L176,170 L190,120 L182,70Z" fill="#6E542B" opacity=".85"/>
+      <path d="M160,84 C170,104 168,134 150,158 L186,162 L188,84Z" fill="url(#npc_knocker-h)" opacity=".34"/>
+      <!-- 受光面：额头、左颧骨 -->
+      <path d="M70,60 C80,49 98,43 116,43 C104,49 92,57 85,70 C78,68 73,65 70,60Z" fill="#C2A670" opacity=".8"/>
+      <path d="M61,116 C63,108 72,104 82,107 C74,109 68,114 66,124 C63,122 61,119 61,116Z" fill="#C2A670" opacity=".75"/>
+      <circle cx="68" cy="111.5" r="1.9" fill="#DDCB9A"/>
+      <path d="M158,112 C163,108 170,110 172,116 C170,122 164,126 158,124 C155,120 155,115 158,112Z" fill="#9A7B46" opacity=".75"/>
+      <!-- 眉骨下的积灰 -->
+      <path d="M72,94 C82,84 104,84 112,94 C104,108 80,110 72,94Z M130,92 C138,80 160,80 168,90 C162,106 136,108 130,92Z" fill="#3B2B14" opacity=".6"/>
+      <!-- 沿轮廓的受光边和冷色轮廓光 -->
+      <path d="M66.1,58.9L65.7,56.5L65.8,54.1L66.4,51.8L67.3,49.8L68.7,48L70.4,46.5L72.3,45.5L74.6,44.8L77,44.7L80.7,45L81.5,41.7L82.3,39.5L83.5,37.6L85.1,36L87,34.7L89.2,33.8L91.6,33.3L94,33.2L96.5,33.6L96.5,33.6L94,34.2L91.7,34.7L89.8,35.5L88,36.5L86.5,37.7L85.3,39.1L84.5,40.6L84,42.2L82.1,47.2L76.9,47.3L75,47.4L73.2,47.8L71.7,48.5L70.3,49.5L69,50.8L68,52.4L67.2,54.3L66.7,56.4L66.1,58.9ZM102.2,36.2L104.5,33.5L106.4,31.8L108.7,30.3L111.2,29.2L113.9,28.5L116.6,28.2L119.4,28.3L122,28.8L122,28.8L119.2,29.8L116.7,30.3L114.4,31L112,31.7L109.8,32.5L107.7,33.4L105.7,34.5L102.2,36.2ZM128.8,33.2L131.8,31.7L134.1,30.9L136.6,30.5L139,30.5L141.4,30.9L141.4,30.9L138.9,32.4L136.8,33L134.8,33.3L132.7,33.5L128.8,33.2ZM59.3,122.7L58.5,119.6L57.9,116.4L57.5,113.2L57.2,109.9L57.1,106.4L57.1,102.9L57.2,99.5L57.4,96.1L57.8,92.8L58.3,89.6L58.8,86.3L59.5,83.2L60.3,80.1L61.2,77L62.2,74L63.3,71.1L64.5,68.2L65.7,65.3L67.1,62.5L67.1,62.5L66.6,65.7L65.7,68.7L64.9,71.7L64,74.7L63.3,77.7L62.6,80.7L61.9,83.7L61.3,86.8L60.8,90L60.4,93.1L60,96.4L59.7,99.6L59.4,103L59.3,106.4L59.2,109.8L59.2,113L59.3,116.2L59.4,119.3L59.3,122.7Z" fill="#C2A670"/>
+      <path d="M178,75.7L179,78.9L179.9,82.2L180.8,85.5L181.5,88.8L182.1,92.2L182.5,95.5L182.9,98.9L183,102.2L183.1,105.5L183,108.7L182.7,111.9L182.3,115.1L181.8,118.3L181.1,121.5L180.2,124.6L179.3,127.6L178.1,130.6L176.9,133.5L176.9,133.5L177.5,130.4L178.3,127.3L179.1,124.3L179.7,121.2L180.3,118L180.7,114.9L181,111.7L181.2,108.6L181.3,105.5L181.3,102.3L181.1,99L180.9,95.7L180.5,92.4L180.1,89.1L179.6,85.8L179,82.4L178.3,79.1L178,75.7ZM172.2,141.7L170.3,144.3L168.3,146.7L166.2,149L163.9,151.3L161.5,153.4L158.9,155.3L156.2,157.2L153.4,158.9L150.1,160.7L146.9,162.3L143.7,163.7L140.6,164.9L137.4,165.9L134.4,166.8L131.3,167.5L131.3,167.5L134.2,166.1L137.1,164.9L140.1,163.6L143.1,162.3L146.2,160.7L149.3,159.1L152.5,157.3L155.3,155.7L157.9,153.9L160.5,152.1L162.9,150.1L165.3,148.1L167.5,146L169.8,143.8L172.2,141.7Z" fill="#8CAAB5" opacity=".7"/>
+    </g>
+    <!-- 发卷、额纹、鱼尾纹、法令纹 -->
+    <path d="M80,44Q81.9,52.5 91,52Q84.1,49.5 80,44ZM102,35Q101.7,43.2 110,44Q104.3,40.8 102,35ZM129,32Q126.4,40.7 134,43Q129.6,39.3 129,32ZM151,41Q147.3,48.5 154,52Q150.7,47.5 151,41ZM72,53Q76.9,50.2 80,54Q77.1,47.8 72,53ZM90,42Q95.6,40.1 98,45Q96.4,37.9 90,42ZM113,34Q118.5,33.1 121,38Q119.5,30.9 113,34ZM138,36Q143.2,35.9 144,41Q144.8,34.1 138,36ZM159,46Q164,47.6 163,53Q166,46.4 159,46ZM84,60Q100.1,55.5 114,58Q99.9,52.5 84,60ZM94,66Q104.1,64.1 112,65Q103.9,61.9 94,66ZM128,56Q142,52.4 156,56Q142,49.6 128,56ZM61,97Q64.5,102 71,102Q65.5,100 61,97ZM60,104Q64.8,107 70,106Q65.2,105 60,104ZM179,92Q174.5,95 170,97Q175.5,97 179,92ZM180,99Q175.8,100 171,101Q176.2,102 180,99ZM101,119Q92.2,121 88,129Q93.8,123 101,119ZM139,119Q146.2,123 152,129Q147.8,121 139,119Z" fill="#1C1412"/>
 
-    <!-- 左右高颧骨涡卷与法令纹 -->
-    <path d="M64,104 Q74,96 84,106 Q80,118 68,116" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M176,104 Q166,96 156,106 Q160,118 172,116" fill="none" stroke="#1C1412" stroke-width="2.4" stroke-linecap="round"/>
+    <!-- 嘴里：暗洞和两颗旧牙（张嘴才看得见） -->
+    <path d="M94,142 C104,138 136,138 146,142 C148,152 144,162 136,167 L104,167 C96,162 92,152 94,142Z" fill="#1C1412"/>
+    <path d="M107,139 L117.5,139.5 L117,150.5 L108.5,149.5Z M122.5,139.5 L132,139 L131,148.5 L123.5,150Z" fill="#C8B894" stroke="#1C1412" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M107.5,139.5 L117.5,140 L117.3,143 L107.8,142.6Z M122.6,140 L132,139.6 L131.7,142.6 L122.8,143Z" fill="#9A8968"/>
 
-    <!-- 上唇翘八字铜胡子（盖住嘴腔上沿，带一点欠欠的坏笑弧度） -->
-    <path d="M58,132 Q84,114 120,126 Q156,114 182,132 Q164,144 138,136 Q120,132 102,136 Q76,144 58,132 Z" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M64,130 Q86,119 116,127" fill="none" stroke="#C2A670" stroke-width="2" stroke-linecap="round"/>
-    <path d="M120,126 Q156,114 182,132 Q164,144 138,136 Q128,133 120,133 Z" fill="#3B2B14" opacity="0.75"/>
+    <!-- 下巴 mouth：张嘴时往下掉 -->
+    <g id="mouth">
+      <path d="M93,151 C100,147 110,148 120,149 C130,148 140,147 147,151 C151,159 147,168 139,173 C133,177 129,182 126,187 C124,191 122,193 120,194 C118,193 116,191 114,187 C111,182 107,177 101,173 C93,168 89,159 93,151 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+      <path d="M93,151 C100,147 110,148 120,149 C130,148 140,147 147,151 C151,159 147,168 139,173 C133,177 129,182 126,187 C124,191 122,193 120,194 C118,193 116,191 114,187 C111,182 107,177 101,173 C93,168 89,159 93,151 Z" fill="#6E542B"/>
+      <g clip-path="url(#npc_knocker-cjaw)">
+        <path d="M93,151 C100,147 110,148 120,149 C130,148 140,147 147,151 C151,159 147,168 139,173 C133,177 129,182 126,187 C124,191 122,193 120,194 C118,193 116,191 114,187 C111,182 107,177 101,173 C93,168 89,159 93,151 Z" transform="translate(-4 -4)" fill="#9A7B46"/>
+        <path d="M88,146 H152 V157 C140,161 100,161 88,157Z" fill="#3B2B14" opacity=".75"/>
+        <path d="M97,161 C101,158 108,158 112,161 C108,165 101,165 97,161Z" fill="#C2A670" opacity=".7"/>
+      </g>
+      <path d="M106,166Q110.7,178.7 118.5,191Q113.3,177.3 106,166ZM120,163Q119.1,176 120,190Q121.7,176 120,163ZM134,166Q126.7,177.3 121.5,191Q129.3,178.7 134,166ZM99,163Q103.9,167.1 110,164Q104.1,164.9 99,163Z" fill="#1C1412"/>
+    </g>
 
-    <!-- 5. 两只小眼睛 eyes（深陷眼窝 + 羊皮纸眼白 + 全图唯一鲜艳的绿宝石亮瞳） -->
+    <!-- 铜环 ring：转轴在嘴里 (120,148)，静止时往左 -3° -->
+    <g id="ring">
+      <g transform="rotate(-3 120 148)">
+        <path d="M78,183 A42,40 0 1 1 162,183 A42,40 0 1 1 78,183 Z M90,180.5 A30,27 0 1 0 150,180.5 A30,27 0 1 0 90,180.5 Z" transform="translate(4 5.5)" fill="#1C1412" fill-rule="evenodd" opacity=".4"/>
+        <path d="M78,183 A42,40 0 1 1 162,183 A42,40 0 1 1 78,183 Z M90,180.5 A30,27 0 1 0 150,180.5 A30,27 0 1 0 90,180.5 Z" transform="translate(.6 .9)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="6.2" stroke-linejoin="round"/>
+        <path d="M78,183 A42,40 0 1 1 162,183 A42,40 0 1 1 78,183 Z M90,180.5 A30,27 0 1 0 150,180.5 A30,27 0 1 0 90,180.5 Z" fill="#6E542B" fill-rule="evenodd"/>
+        <g clip-path="url(#npc_knocker-cring)">
+          <!-- 圆管的明暗：亮面整体往左上错开，右下留出一道暗面 -->
+          <path d="M78,183 A42,40 0 1 1 162,183 A42,40 0 1 1 78,183 Z M90,180.5 A30,27 0 1 0 150,180.5 A30,27 0 1 0 90,180.5 Z" transform="translate(-3.4 -4.2)" fill="#9A7B46" fill-rule="evenodd"/>
+          <path d="M84.6,166 A40,38 0 0 1 128,145.6" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M152,187 A32.5,29.5 0 0 1 113,209.4" fill="none" stroke="#C2A670" stroke-width="2" stroke-linecap="round" opacity=".85"/>
+          <!-- 嘴边蹭的黑垢 -->
+          <path d="M92,140 H148 V158 C138,153 102,153 92,158Z" fill="#3B2B14" opacity=".7"/>
+          <!-- 两道箍 -->
+          <path d="M97,197.9 L87.8,208.7 M143,197.9 L152.2,208.7" stroke="#1C1412" stroke-width="8" fill="none"/>
+          <path d="M97,197.9 L87.8,208.7 M143,197.9 L152.2,208.7" stroke="#C2A670" stroke-width="4.8" fill="none"/>
+          <path d="M98.6,199.3 L89.4,210.1 M144.6,199.3 L153.8,210.1" stroke="#6E542B" stroke-width="1.8" fill="none"/>
+          <path d="M100,205 C101,209 99,212 96,214 M140,205 C139,209 141,212 144,214" fill="none" stroke="#5F8272" stroke-width="2.4" stroke-linecap="round" opacity=".6"/>
+          <!-- 环底被摸亮的那一块 -->
+          <ellipse cx="117" cy="213.5" rx="13" ry="3.6" fill="#DDCB9A" opacity=".9"/>
+          <path d="M103,216Q109.8,219.4 118,219Q110.2,217.6 103,216ZM122,216.6Q128.2,217.3 133,214.6Q127.8,215.5 122,216.6Z" fill="#C2A670"/>
+          <path d="M157.6,196 A40.5,38.5 0 0 1 130,220.4" fill="none" stroke="#8CAAB5" stroke-width="1.5" stroke-linecap="round" opacity=".8"/>
+        </g>
+        <path d="M79,171Q80.9,174 80.4,177Q84.1,173.2 79,171ZM160.4,195Q155.7,196.6 158.6,200.6Q158.3,197.4 160.4,195Z" fill="#1C1412"/>
+      </g>
+    </g>
+
+    <!-- 八字胡（压在铜环上面），两头往上翘 -->
+    <path d="M120,128 C108,124 96,128 86,135 C76,142 66,142 57,131 C54,144 62,156 76,158 C92,160 106,151 114,143 C117,140 119,139 120,139 C121,139 123,140 126,143 C134,151 148,160 164,158 C178,156 186,144 183,130 C174,142 164,142 154,135 C144,128 132,124 120,128 Z" transform="translate(.6 1)" fill="#1C1412" stroke="#1C1412" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M120,128 C108,124 96,128 86,135 C76,142 66,142 57,131 C54,144 62,156 76,158 C92,160 106,151 114,143 C117,140 119,139 120,139 C121,139 123,140 126,143 C134,151 148,160 164,158 C178,156 186,144 183,130 C174,142 164,142 154,135 C144,128 132,124 120,128 Z" fill="#6E542B"/>
+    <g clip-path="url(#npc_knocker-cst)">
+      <path d="M120,128 C108,124 96,128 86,135 C76,142 66,142 57,131 C54,144 62,156 76,158 C92,160 106,151 114,143 C117,140 119,139 120,139 C121,139 123,140 126,143 C134,151 148,160 164,158 C178,156 186,144 183,130 C174,142 164,142 154,135 C144,128 132,124 120,128 Z" transform="translate(-2 -5.5)" fill="#9A7B46"/>
+      <path d="M150,128 C158,140 172,144 186,132 L186,160 C170,162 156,156 146,146Z" fill="#6E542B" opacity=".7"/>
+      <path d="M104,122 C110,135 130,135 136,122Z" fill="#3B2B14" opacity=".8"/>
+      <path d="M182.9,131.3L181.5,133.9L178.8,136.4L176.1,138.3L173.3,139.8L170.5,140.7L167.6,141L164.7,140.9L161.8,140.3L161.8,140.3L164.5,142.2L167.7,142.9L171,142.8L174.2,142L177.4,140.4L180.2,138L182.6,135L182.9,131.3ZM139,129L135.9,128.3L132.9,127.9L129.8,127.7L126.7,127.9L123.5,128.4L120.3,129.3L119.7,129.3L116.5,128.4L113.3,127.9L110.2,127.7L107.1,127.9L104.1,128.3L101,129L98.1,130L95.1,131.2L92.3,132.7L89.5,134.3L86.7,136.1L83.9,137.9L81.1,139.3L78.2,140.3L75.3,141L72.4,141.1L69.6,140.8L69.6,140.8L72.4,141.9L75.5,142L78.6,141.6L81.7,140.7L84.8,139.4L87.8,137.7L90.6,136L93.3,134.6L96.1,133.3L98.9,132.2L101.7,131.3L104.5,130.7L107.4,130.2L110.2,130.1L113.1,130.1L116,130.5L119.1,131.2L120.9,131.2L123.9,130.2L126.8,129.6L129.8,129.2L132.8,129L135.8,129.1L139,129Z" fill="#C2A670"/>
+      <path d="M160.3,157L163.8,156.7L166.8,156.1L169.5,155.2L172,154L174.3,152.5L176.3,150.8L178,148.8L179.5,146.7L180.7,144.3L181.5,141.8L182.1,139.1L182.3,136.3L182.2,133.3L182.2,133.3L181.6,136.3L181,138.9L180.3,141.4L179.3,143.8L178.2,145.9L176.8,147.9L175.2,149.6L173.4,151.3L171.3,152.7L169,154L166.5,155L163.7,155.9L160.3,157Z" fill="#8CAAB5" opacity=".75"/>
+    </g>
+    <path d="M111,134Q97.4,135.5 84,146Q98.6,138.5 111,134ZM109,140Q97.5,145.8 82,152Q98.5,148.2 109,140ZM97,132Q85.5,138.9 70,145Q86.5,141.1 97,132ZM129,134Q141.4,138.5 156,146Q142.6,135.5 129,134ZM131,140Q141.5,148.2 158,152Q142.5,145.8 131,140ZM143,132Q153.5,141.1 170,145Q154.5,138.9 143,132ZM121.3,140.5Q121.3,136 120,131Q118.7,136 118.7,140.5Z" fill="#1C1412"/>
+
+    <!-- 圆鼻头：最鼓、磨得最亮 -->
+    <path d="M127.4,96.6 C128.4,98.4 129.6,99.4 131,100 C138,103 142,110 141,117 C140,124 134,127 129,125 C126,129 114,129 111,125 C106,127 100,124 99,117 C98,110 102,103 109,100 C110.4,99.4 111.6,98.4 112.6,96.6" transform="translate(.6 .9)" fill="none" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M116.5,84 C116.5,80 123.5,80 123.5,84 C124,92 127,97 131,100 C138,103 142,110 141,117 C140,124 134,127 129,125 C126,129 114,129 111,125 C106,127 100,124 99,117 C98,110 102,103 109,100 C113,97 116,92 116.5,84 Z" fill="#9A7B46"/>
+    <path d="M114.3,97.8Q116.9,92.3 116.6,84Q114.3,91.7 111.7,97.2ZM128.3,97.2Q125.7,91.7 123.4,84Q123.1,92.3 125.7,97.8Z" fill="#1C1412"/>
+    <g clip-path="url(#npc_knocker-cnose)">
+      <path d="M121,88 C123,95 127,100 132,104 C136,110 136,120 128,127 L144,128 L144,100 L124,88Z" fill="#6E542B"/>
+      <path d="M100,122 C108,128 132,129 142,121 L142,132 H98Z" fill="#3B2B14" opacity=".6"/>
+      <path d="M103,113 C103,105 110,101 118,102 C124,104 126,110 124,115 C120,109 110,108 103,113Z" fill="#C2A670"/>
+      <circle cx="110.6" cy="106.8" r="2.6" fill="#DDCB9A"/>
+      <path d="M119,84Q116.5,90.6 116,97Q120.3,91.4 119,84Z" fill="#C2A670"/>
+      <ellipse cx="109.4" cy="121.6" rx="3.3" ry="2.1" transform="rotate(-22 109.4 121.6)" fill="#1C1412"/>
+      <ellipse cx="130.6" cy="121.6" rx="3.3" ry="2.1" transform="rotate(22 130.6 121.6)" fill="#1C1412"/>
+    </g>
+    <path d="M105.5,112Q102.5,117.1 106.6,121.6Q104.7,116.9 105.5,112ZM134.5,112Q135.3,116.9 133.4,121.6Q137.5,117.1 134.5,112Z" fill="#1C1412"/>
+
+    <!-- 眼睛 eyes：一只半耷、一只睁圆；瞳孔一点绿宝石色 -->
     <g id="eyes">
-      <!-- 左眼（略大，透着精明算计） -->
-      <ellipse cx="90" cy="88" rx="16" ry="13" fill="#161221" stroke="#1C1412" stroke-width="2.8"/>
-      <ellipse cx="90" cy="88" rx="12" ry="9.5" fill="#C8B894" stroke="#1C1412" stroke-width="2"/>
-      <!-- 左眼绿宝石瞳孔（唯一鲜艳色 #1DBF5E + #5CE892） -->
-      <circle cx="92" cy="88" r="5.5" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8"/>
-      <circle cx="90.5" cy="86.5" r="2" fill="#5CE892"/>
-      <circle cx="89.5" cy="85.5" r="1" fill="#FFFFFF"/>
-
-      <!-- 右眼（半眯略小，不对称诡萌感） -->
-      <ellipse cx="150" cy="89" rx="15" ry="11.5" fill="#161221" stroke="#1C1412" stroke-width="2.8"/>
-      <ellipse cx="150" cy="89" rx="11" ry="8" fill="#9A8968" stroke="#1C1412" stroke-width="2"/>
-      <!-- 右眼绿宝石瞳孔（唯一鲜艳色 #1DBF5E + #5CE892） -->
-      <circle cx="148" cy="89" r="5.2" fill="#1DBF5E" stroke="#1C1412" stroke-width="1.8"/>
-      <circle cx="146.5" cy="87.5" r="1.9" fill="#5CE892"/>
-      <circle cx="145.5" cy="86.5" r="0.9" fill="#FFFFFF"/>
+      <ellipse cx="92" cy="98" rx="14" ry="11" fill="#3B2B14"/>
+      <ellipse cx="148" cy="95.5" rx="13.4" ry="11.4" fill="#3B2B14"/>
+      <circle cx="93" cy="99.6" r="9.4" fill="#1C1412"/><circle cx="93" cy="99.6" r="8" fill="#C8B894"/>
+      <path d="M85,99.6 A8,8 0 0 1 101,99.6 C96.6,96.4 89.4,96.4 85,99.6Z" fill="#9A8968"/>
+      <circle cx="94.4" cy="100.6" r="4.1" fill="#1C1412"/><circle cx="94.4" cy="100.6" r="2.8" fill="#1DBF5E"/><circle cx="93.5" cy="99.7" r="1" fill="#A6F5C6"/>
+      <circle cx="147.6" cy="96.4" r="9" fill="#1C1412"/><circle cx="147.6" cy="96.4" r="7.6" fill="#C8B894"/>
+      <path d="M140,96.4 A7.6,7.6 0 0 1 155.2,96.4 C151,92.4 144.2,92.4 140,96.4Z" fill="#9A8968"/>
+      <circle cx="146.4" cy="97.2" r="3.9" fill="#1C1412"/><circle cx="146.4" cy="97.2" r="2.6" fill="#1DBF5E"/><circle cx="145.5" cy="96.3" r=".95" fill="#A6F5C6"/>
+      <!-- 上眼皮（静止姿势就有）：左眼耷下来四成，右眼只压一点 -->
+      <g clip-path="url(#npc_knocker-csl)"><path d="M76,100 Q92,93 108,100.6 L108,84 H76Z" fill="#6E542B"/><path d="M78,100Q92,94.9 107,100.6Q92,91.1 78,100Z" fill="#1C1412"/></g>
+      <g clip-path="url(#npc_knocker-csr)"><path d="M134,92 Q148,85.6 162,92.6 L162,82 H134Z" fill="#6E542B"/><path d="M135,92Q148,87.3 161,92.6Q148,83.9 135,92Z" fill="#1C1412"/></g>
+      <!-- 眨眼用的眼皮：平时藏在眼窝上面，1500 那一下才滑下来 -->
+      <g clip-path="url(#npc_knocker-csl)"><g class="blink"><path d="M76,38 H108 V62 Q92,74 76,62Z" fill="#9A7B46"/><path d="M76,38 H108 V56 Q92,62 76,56Z" fill="#6E542B"/><path d="M77,62.5Q92,76 107,62.5Q92,72 77,62.5Z" fill="#1C1412"/></g></g>
+      <g clip-path="url(#npc_knocker-csr)"><g class="blink"><path d="M134,36 H162 V58 Q148,70 134,58Z" fill="#9A7B46"/><path d="M134,36 H162 V52 Q148,58 134,52Z" fill="#6E542B"/><path d="M135,58.5Q148,72 161,58.5Q148,68 135,58.5Z" fill="#1C1412"/></g></g>
+      <path d="M80,109.5Q92,115.2 105,108.6Q92,112.8 80,109.5ZM137,107.6Q148,112.7 160,106.6Q148,110.5 137,107.6Z" fill="#1C1412"/>
     </g>
 
-    <!-- 正中大圆铜鼻子（压在眼间与上唇之间，立体饱满） -->
-    <g id="nose">
-      <path d="M110,78 L100,104 C98,116 108,124 120,124 C132,124 142,116 140,104 L130,78 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-      <path d="M120,78 L130,78 L140,104 C142,116 132,124 120,124 Z" fill="#6E542B" opacity="0.8"/>
-      <!-- 鼻梁与圆鼻头高光 -->
-      <path d="M113,82 L105,104 C104,111 110,117 117,117" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round"/>
-      <circle cx="113" cy="108" r="4.5" fill="#C2A670" opacity="0.85"/>
+    <!-- 粗眉毛：一高一低 -->
+    <g class="brow-l">
+      <path d="M114,85 C108,76 96,70 82,71 C70,72 61,79 56,90 C62,87 67,86 71,87 C69,90 70,92 72,93 C80,86 92,82 102,83 C107,84 111,87 114,85 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+      <path d="M114,85 C108,76 96,70 82,71 C70,72 61,79 56,90 C62,87 67,86 71,87 C69,90 70,92 72,93 C80,86 92,82 102,83 C107,84 111,87 114,85 Z" fill="#6E542B"/>
+      <g clip-path="url(#npc_knocker-cbl)">
+        <path d="M114,85 C108,76 96,70 82,71 C70,72 61,79 56,90 C62,87 67,86 71,87 C69,90 70,92 72,93 C80,86 92,82 102,83 C107,84 111,87 114,85 Z" transform="translate(-1.5 -4)" fill="#9A7B46"/>
+        <path d="M92.7,72.8L89.3,72.3L85.7,72.1L82.1,72.2L79,72.6L76.1,73.3L73.3,74.2L70.7,75.4L68.3,76.9L66,78.6L63.8,80.5L61.9,82.7L60.1,85.1L58.5,87.7L58.5,87.7L61,85.7L63.1,83.7L65.2,81.9L67.3,80.2L69.5,78.8L71.8,77.5L74.2,76.5L76.7,75.5L79.4,74.8L82.2,74.2L85.7,73.8L89.2,73.5L92.7,72.8Z" fill="#C2A670"/>
+      </g>
+      <path d="M105,80Q93.1,73.7 79,77Q92.9,76.3 105,80ZM97,81Q84.9,76.9 70,83Q85.1,79.1 97,81Z" fill="#1C1412"/>
     </g>
-
-    <!-- 粗眉毛 brows（一高一低，爱打赌的狡黠神态，talk 时一起挑眉） -->
-    <g id="brows">
-      <!-- 左粗眉（高挑） -->
-      <polygon points="62,74 74,58 112,68 108,79 74,72" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-      <polyline points="66,71 75,61 108,69" fill="none" stroke="#C2A670" stroke-width="2" stroke-linecap="round"/>
-      <!-- 右粗眉（微压带折角） -->
-      <polygon points="128,70 166,62 178,76 166,75 132,80" fill="#3B2B14" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-      <polyline points="131,72 165,65 174,73" fill="none" stroke="#9A7B46" stroke-width="1.8" stroke-linecap="round"/>
+    <g class="brow-r">
+      <path d="M126,80 C132,70 146,62 160,63 C171,64 180,71 185,82 C179,79 174,78 170,79 C172,82 171,84 169,85 C161,78 149,75 139,77 C134,78 130,81 126,80 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+      <path d="M126,80 C132,70 146,62 160,63 C171,64 180,71 185,82 C179,79 174,78 170,79 C172,82 171,84 169,85 C161,78 149,75 139,77 C134,78 130,81 126,80 Z" fill="#6E542B"/>
+      <g clip-path="url(#npc_knocker-cbr)">
+        <path d="M126,80 C132,70 146,62 160,63 C171,64 180,71 185,82 C179,79 174,78 170,79 C172,82 171,84 169,85 C161,78 149,75 139,77 C134,78 130,81 126,80 Z" transform="translate(-2.5 -4)" fill="#9A7B46"/>
+        <path d="M127,80.7L128.6,78.3L130.5,76L132.7,73.9L135.1,71.9L137.7,70.1L140.6,68.4L143.5,67L146.7,65.9L149.9,65L153.2,64.4L156.5,64.1L159.9,64.2L163,64.7L163,64.7L159.8,65.2L156.6,65.6L153.4,66.2L150.3,67L147.3,67.9L144.4,69.1L141.6,70.4L138.8,71.8L136.3,73.4L133.8,75.1L131.5,76.9L129.4,78.8L127,80.7Z" fill="#C2A670" opacity=".9"/>
+        
+      </g>
+      <path d="M136,74Q148.2,69.3 162,70Q147.8,66.7 136,74ZM144,75Q156,73.1 170,76Q156,70.9 144,75Z" fill="#1C1412"/>
     </g>
   </g>
 </g>

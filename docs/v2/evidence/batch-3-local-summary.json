@@ -1,0 +1,330 @@
+{
+  "date": "2026-11-11T22:22:41-05:00",
+  "stage": "local-candidate-technical-and-listed-visual-checks-complete",
+  "branch": "codex/body-batch-3-new-art",
+  "cloud_commit": "a66b9ce1f524a17a669c78afc64523192a0a7289",
+  "formal_git": {
+    "committed": false,
+    "pushed": false,
+    "merged_main": false
+  },
+  "user_acceptance": false,
+  "full_check": {
+    "command": "bash tools/check.sh",
+    "exit_code": 0,
+    "passed": 6129,
+    "failed": 0,
+    "report": "artifacts/batch-3/local-final-report.json",
+    "report_sha256": "f6e295c50d2e708b9f295a87e61cdf04110465ea436b6f98b9e436e43be1944c",
+    "runtime_frozen_inputs_unchanged": true,
+    "suites": {
+      "test_core": {
+        "passed": 91,
+        "failed": 0
+      },
+      "test_oracle_remaining": {
+        "passed": 117,
+        "failed": 0
+      },
+      "test_run": {
+        "passed": 263,
+        "failed": 0
+      },
+      "test_save": {
+        "passed": 26,
+        "failed": 0
+      },
+      "test_layout": {
+        "passed": 90,
+        "failed": 0
+      },
+      "test_art": {
+        "passed": 386,
+        "failed": 0
+      },
+      "test_persistence": {
+        "passed": 17,
+        "failed": 0
+      },
+      "test_golden": {
+        "passed": 312,
+        "failed": 0
+      },
+      "test_historical": {
+        "passed": 400,
+        "failed": 0
+      },
+      "precision": {
+        "passed": 3015,
+        "failed": 0
+      },
+      "batch_two_cards": {
+        "passed": 104,
+        "failed": 0
+      },
+      "batch_two_run": {
+        "passed": 61,
+        "failed": 0
+      },
+      "batch_two_profile": {
+        "passed": 4,
+        "failed": 0
+      },
+      "batch_two_save": {
+        "passed": 80,
+        "failed": 0
+      },
+      "batch_two_ui": {
+        "passed": 59,
+        "failed": 0
+      },
+      "batch_two_replay": {
+        "passed": 100,
+        "failed": 0
+      },
+      "batch_three_preflight": {
+        "passed": 125,
+        "failed": 0
+      },
+      "batch_three_effects": {
+        "passed": 35,
+        "failed": 0
+      },
+      "batch_three_run": {
+        "passed": 21,
+        "failed": 0
+      },
+      "batch_three_progression": {
+        "passed": 21,
+        "failed": 0
+      },
+      "batch_three_save": {
+        "passed": 109,
+        "failed": 0
+      },
+      "batch_three_ui": {
+        "passed": 163,
+        "failed": 0
+      },
+      "batch_three_replay": {
+        "passed": 100,
+        "failed": 0
+      },
+      "ui_smoke": {
+        "passed": 120,
+        "failed": 0
+      },
+      "inspector": {
+        "passed": 241,
+        "failed": 0
+      },
+      "new_art_feedback": {
+        "passed": 69,
+        "failed": 0
+      }
+    }
+  },
+  "art": {
+    "assets": 118,
+    "sets": 182,
+    "actions": 365,
+    "frames": 9002,
+    "slotFrames": 257,
+    "pngs": 496,
+    "sourceFps": {
+      "event": 30,
+      "loop": 15
+    }
+  },
+  "h5": {
+    "frozen_files": 1044,
+    "unchanged": true
+  },
+  "natural_replay": {
+    "seeds": 100,
+    "commands": 9840,
+    "outcomes": {
+      "defeat-act1": 96,
+      "defeat-act2": 4
+    },
+    "natural_full_clears": 0,
+    "staged_final_dragon_cases_separate": 6
+  },
+  "gpu": {
+    "count": 40,
+    "third_batch_main": 20,
+    "old_issue_pages": 14,
+    "supplemental": 6,
+    "index": "artifacts/batch-3/index.html",
+    "supplemental_checks": [
+      {
+        "file": "resumed-countdown-fixed.png",
+        "sha256": "d12d34c0d1f485b4d14f3ff1c805d225a7e39d61736aedf4d9682e39f0b3b047",
+        "checks": {
+          "resumedBattle": true,
+          "badgeIsInteger3": true,
+          "businessStateUnchanged": true,
+          "countdownTypeUnchanged": true,
+          "saveBytesUnchanged": true
+        }
+      },
+      {
+        "file": "six-card-limit-landscape.png",
+        "sha256": "963bf74a87375d11a20be7c81b019cf60dfc4e1896dad22398a5f1944569d62a",
+        "checks": {
+          "resumedBattle": true,
+          "badgeIsInteger3": true,
+          "businessStateUnchanged": true,
+          "countdownTypeUnchanged": true,
+          "saveBytesUnchanged": true,
+          "sixSavedCards": true,
+          "sixHintVisible": true,
+          "sixHintAvoidsRemainingHand": true
+        }
+      },
+      {
+        "file": "six-card-limit-portrait.png",
+        "sha256": "6c72d38186ea77347e54dbc0ededbadeff8eeb808e7621a952c7d2cb3d7b3d31",
+        "checks": {
+          "resumedBattle": true,
+          "badgeIsInteger3": true,
+          "businessStateUnchanged": true,
+          "countdownTypeUnchanged": true,
+          "saveBytesUnchanged": true,
+          "sixSavedCards": true,
+          "sixHintVisible": true,
+          "sixHintAvoidsRemainingHand": true
+        }
+      },
+      {
+        "file": "victory-bottom-landscape.png",
+        "sha256": "73af579fafb75e084dc2ecd1cf828806130874513b1496e31d2e2b486c7e312c",
+        "checks": {
+          "victoryWithSixRelics": true,
+          "recordsApplied": true,
+          "animationsFinished": true,
+          "scrolledToBottom": true,
+          "bigGemLabelVisible": true,
+          "bigGemSpriteVisible": true,
+          "businessStateUnchanged": true,
+          "stillOnBuiltinScreen": true
+        }
+      },
+      {
+        "file": "victory-bottom-portrait.png",
+        "sha256": "326aceeffd0eb7af9f4abf6247fbc38d8c174754a349a5b392506a3ab466802d",
+        "checks": {
+          "victoryWithSixRelics": true,
+          "recordsApplied": true,
+          "animationsFinished": true,
+          "scrolledToBottom": true,
+          "bigGemLabelVisible": true,
+          "bigGemSpriteVisible": true,
+          "businessStateUnchanged": true,
+          "stillOnBuiltinScreen": true
+        }
+      },
+      {
+        "file": "packaged-app-smoke/package-smoke.png",
+        "sha256": "81ea64c70b75de21c08569e4c95ddba85624736e277a887e73414c26b158e8a7",
+        "checks": {}
+      }
+    ],
+    "method": "real GPU, dynamically identified Mac built-in display; debug checkpoints not natural wins"
+  },
+  "actual_input": {
+    "date": "2026-11-11",
+    "method": "CUA actual Mac app input and real v6 files",
+    "directory": "artifacts/batch-3/manual-new-art",
+    "verified": {
+      "tab_enter_selects_tier_without_starting": true,
+      "mouse_start_uses_selected_tier": 1,
+      "selected_relic_full_description_visible": true,
+      "six_card_persistent_hint_visible": true,
+      "keyboard_rejects_seventh": true,
+      "rejected_input_keeps_identical_save_bytes": true,
+      "undo_restores_five_row_two_hand": true,
+      "new_tools": {
+        "cards": 33,
+        "nextCardId": 34,
+        "ids": [
+          31,
+          32,
+          33
+        ],
+        "types": [
+          "potion",
+          "palette",
+          "diamond"
+        ]
+      },
+      "quit_restart_resume_full_state_equal": true,
+      "potion_spent_at_full_hearts": true,
+      "potion_undo_restores_hand": true
+    },
+    "not_fully_verified": [
+      "CUA legal drag attempt triggered preview and did not commit; no claim of complete real drag UX",
+      "real touchscreen hardware",
+      "all phases abandon and all IO faults by actual OS input",
+      "subjective audio and feel",
+      "Windows OS and Android"
+    ],
+    "countdown_display_fix": {
+      "headless_ui": {
+        "passed": 163,
+        "failed": 0
+      },
+      "gpu": {
+        "resumedBattle": true,
+        "badgeIsInteger3": true,
+        "businessStateUnchanged": true,
+        "countdownTypeUnchanged": true,
+        "saveBytesUnchanged": true
+      },
+      "evidence": "artifacts/batch-3/resumed-countdown-fixed.png"
+    }
+  },
+  "packages": {
+    "macos_app": "/Users/key_/Desktop/CURRGO/game/gemcard-demo/exports/macos/新卡牌.app",
+    "macos_zip": {
+      "path": "/Users/key_/Desktop/CURRGO/game/gemcard-demo/exports/macos/新卡牌.zip",
+      "bytes": 154703039,
+      "sha256": "beafa42b365a9bcef5f2885c68193ec0eb6b765ff308c6d8648f2c894c1a757a"
+    },
+    "macos_signature_verified": true,
+    "macos_launcher": "GemcardLauncher",
+    "macos_native_engine": "新卡牌",
+    "macos_pack": "/Users/key_/Desktop/CURRGO/game/gemcard-demo/exports/macos/新卡牌.app/Contents/Resources/新卡牌.pck",
+    "windows": {
+      "path": "/Users/key_/Desktop/CURRGO/game/gemcard-demo/exports/windows/新卡牌.exe",
+      "architecture": "x86_64",
+      "embedded_pck_verified": true,
+      "bytes": 552068712,
+      "sha256": "6c8e5c884cbf4b8e0614633b38092c1048e56f9fb63cb99e2edda22d7727912c"
+    },
+    "windows_os_runtime_tested": false
+  },
+  "package_probes": {
+    "macos_pck_on_mac_host": true,
+    "windows_pck_on_mac_host": true,
+    "mac_app_actual_gpu_launch": true,
+    "raw_svg_in_pck": false,
+    "fingerprint_identity_via_native_resources_and_sprite_registry": true,
+    "source_svg_full_sha256_verified_in_workspace": true
+  },
+  "verification_tool_sha256": "7e752047f3404cb3d5458747dbbaeed88803d2b475e4ff3742d363067c9f2b12",
+  "boundaries": [
+    "user visual/subjective acceptance pending",
+    "complete real drag UX not verified",
+    "real touchscreen/Windows OS/Android not tested",
+    "9002 frames not individually reviewed",
+    "all phase-abandon and all IO faults not exhaustively exercised by actual OS input"
+  ],
+  "prior_failed_evidence": [
+    "artifacts/logs/batch-3-local-baseline-check.log: interrupted 143",
+    "artifacts/batch-3/local-check-before-idle-assertions.json: 5984 passed, 2 failed",
+    "artifacts/batch-3/screens-20261111-203344/INCOMPLETE.txt",
+    "artifacts/batch-3/screens-20261111-203612/REVIEW-ISSUES.md",
+    "artifacts/logs/batch-3-macos-pack-probe-source-assumption-failed.log"
+  ]
+}

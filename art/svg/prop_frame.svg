@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-prop_frame" viewBox="0 0 120 240" width="120" height="240">
+<title>长廊摆件 · 空画框</title>
+<style>
+.svg-prop_frame g { transform-box: view-box; }
+.svg-prop_frame .ribbon { transform-origin: 22px 118px; }
+
+/* 待机 3000：0 静止 → 1500 那截断丝带极慢地摆一下（不超过 3 像素）→ 3000 回到静止。其余不动 */
+@keyframes svg-prop_frame-idle-1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-2.6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-prop_frame:not([data-anim]) .ribbon,
+.svg-prop_frame[data-anim="idle"] .ribbon { animation: svg-prop_frame-idle-1 3s infinite; }
+</style>
+<defs>
+<pattern id="prop_frame-h" width="4.4" height="4.4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+  <line x1="0" y1="0" x2="0" y2="4.4" stroke="#1C1412" stroke-width="0.9"/>
+</pattern>
+<!-- 空画框外轮廓（右上角崩掉一块，正中 x38..82, y78..166 完全挖空透明） -->
+<clipPath id="prop_frame-cframe">
+  <path d="M22,60 H84 L89,65 L93,63 L98,69 V182 H22 Z M38,78 V166 H82 V78 Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="prop_frame-cshelf">
+  <path d="M12,174 L62,175.5 L108,177.5 L106,188 L58,186.5 L14,184.5 Z"/>
+</clipPath>
+<clipPath id="prop_frame-cribbon">
+  <path d="M18,118 C14,130 13,144 15,158 L19.5,153 L23.5,159 C23,145 23.5,131 25,118 Z"/>
+</clipPath>
+</defs>
+
+<g id="root">
+  <!-- 落地接触阴影 -->
+  <ellipse cx="60" cy="235.5" rx="49" ry="3.6" fill="#0D111C" opacity="0.62"/>
+
+  <!-- 矮木画架后方支撑立柱（只在画框上方 y:38..62 与画框下方 y:184..234 露出，绝不穿过透明画框洞） -->
+  <path d="M54,39 L63,39.5 L61.5,63 L52.5,63 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M54,39 L63,39.5 L61.5,63 L52.5,63 Z" fill="#3D2212"/>
+  <path d="M54,39 L57.5,39.2 L56,63 L52.5,63 Z" fill="#704122"/>
+  <path d="M54.8,41 L53.5,60" stroke="#9E6238" stroke-width="1.1" stroke-linecap="round"/>
+
+  <path d="M56,184 L65,184 L71,233 L62,233.5 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M56,184 L65,184 L71,233 L62,233.5 Z" fill="#3D2212"/>
+  <path d="M56,184 L59.5,184 L65,233.2 L62,233.5 Z" fill="#704122"/>
+
+  <!-- 矮木画架左右两条前腿（带木纹、接缝与铆钉） -->
+  <!-- 左前腿 -->
+  <path d="M33,180 L43,180.5 L28,234.5 L18,233.5 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+  <path d="M33,180 L43,180.5 L28,234.5 L18,233.5 Z" fill="#3D2212"/>
+  <path d="M33,180 L38.5,180.2 L23.5,234 L18,233.5 Z" fill="#704122"/>
+  <path d="M34.2,183 L20,231.5" stroke="#9E6238" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M36,196 Q31.5,212 27,226 Q33,212 36,196 Z" fill="#1C1412" opacity="0.7"/>
+  <!-- 右前腿 -->
+  <path d="M77,181.5 L87,182 L102,234 L92,234.5 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+  <path d="M77,181.5 L87,182 L102,234 L92,234.5 Z" fill="#3D2212"/>
+  <path d="M77,181.5 L81.5,181.7 L96,234.2 L92,234.5 Z" fill="#704122"/>
+  <path d="M86,185 Q92.5,208 99.5,231.5" stroke="#8CAAB5" stroke-width="1.2" stroke-linecap="round" opacity="0.75"/>
+  <path d="M83,198 Q87.5,214 92,228 Q86,214 83,198 Z" fill="#1C1412" opacity="0.7"/>
+
+  <!-- 斜靠在矮木架上的空画框（整体微斜 -3.5°，压暗的旧金，框内透明） -->
+  <g transform="rotate(-3.5 60 124)">
+    <!-- 第 1 层：墨色垫底（evenodd 挖空画框内洞） -->
+    <path d="M22,60 H84 L89,65 L93,63 L98,69 V182 H22 Z M38,78 V166 H82 V78 Z" transform="translate(.6 .8)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <!-- 第 2 层：铺旧金“最暗”一档 #3B2B14（摆件比怪暗） -->
+    <path d="M22,60 H84 L89,65 L93,63 L98,69 V182 H22 Z M38,78 V166 H82 V78 Z" fill="#3B2B14" fill-rule="evenodd"/>
+
+    <g clip-path="url(#prop_frame-cframe)">
+      <!-- 第 3 层：错位亮面（用旧金“暗”一档 #6E542B 当主色，压暗不抢戏） -->
+      <path d="M22,60 H84 L89,65 L93,63 L98,69 V182 H22 Z M38,78 V166 H82 V78 Z" transform="translate(-3 -3)" fill="#6E542B" fill-rule="evenodd"/>
+      <!-- 左上受光面（用底色 #9A7B46） -->
+      <path d="M23.5,168 V61.5 H82 L79,65.5 H27.5 V162 Z" fill="#9A7B46" opacity="0.82"/>
+      <!-- 右下背光暗面与 45° 排线、凹处积灰 -->
+      <path d="M82,78 L98,69 V182 H22 L38,166 H82 Z" fill="#3B2B14" opacity="0.82"/>
+      <path d="M82,108 H98 V182 H48 L62,166 H82 Z" fill="url(#prop_frame-h)" opacity="0.4"/>
+      <!-- 线脚凹槽与暗珠边 -->
+      <path d="M32,71 H88 V173 H32 Z M38,78 V166 H82 V78 Z" fill="#1C1412" fill-rule="evenodd" opacity="0.55"/>
+      <rect x="33.5" y="72.5" width="53" height="99" fill="none" stroke="#6E542B" stroke-width="1.8" stroke-dasharray="0.1 4.8" stroke-linecap="round"/>
+      <!-- 凹处两处铜绿积灰 -->
+      <path d="M84,142 V168 M44,174 H68" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity="0.5"/>
+      <!-- 右下冷色轮廓光（断成两截） -->
+      <path d="M96.4,84 V128 M96.4,142 V176" fill="none" stroke="#8CAAB5" stroke-width="1.4" stroke-linecap="round" opacity="0.72"/>
+    </g>
+
+    <!-- 内框台阶墨线与线脚刻纹 -->
+    <rect x="31.5" y="70.5" width="57" height="103" fill="none" stroke="#1C1412" stroke-width="1.6"/>
+    <path d="M22,60 L38,78 M22,182 L38,166 M98,182 L82,166" stroke="#1C1412" stroke-width="1.6"/>
+
+    <!-- 右上角崩掉一块的断口细节与裂纹 -->
+    <path d="M83,60 L88.5,65.5 L92.8,63.2 L98,69.5 L89.5,73.5 L82,78 L84.5,68.5 Z" fill="#3B2B14" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M89.5,73.5 Q86,82 88,91 Q84.5,82 87.5,73.5 Z M22,116 Q29,119.5 38,117 Q29,121.5 22,116 Z M56,166 Q58.5,174 56.5,182 Q60.5,174 56,166 Z" fill="#1C1412"/>
+
+    <!-- 其余三个完好角的压暗旧金雕花角饰（左上、左下、右下） -->
+    <g stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round">
+      <!-- 左上角花 -->
+      <path d="M20,58 H40 L35,64 H27 V72 L20,77 Z" fill="#9A7B46"/>
+      <path d="M21.5,59.5 H37 L34.5,61.5 H23.5 V73 L21.5,74.5 Z" fill="#C2A670"/>
+      <!-- 左下角花 -->
+      <path d="M20,184 H40 L35,178 H27 V170 L20,165 Z" fill="#6E542B"/>
+      <!-- 右下角花 -->
+      <path d="M100,184 H80 L85,178 H93 V170 L100,165 Z" fill="#3B2B14"/>
+    </g>
+
+    <!-- 框左腰挂着的一截断了的旧丝带（待机时极慢摆动不超过 3px） -->
+    <g class="ribbon">
+      <!-- 垂下的分叉断丝带 -->
+      <path d="M18,118 C14,130 13,144 15,158 L19.5,153 L23.5,159 C23,145 23.5,131 25,118 Z" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="4.4" stroke-linejoin="round"/>
+      <path d="M18,118 C14,130 13,144 15,158 L19.5,153 L23.5,159 C23,145 23.5,131 25,118 Z" fill="#5E242C"/>
+      <g clip-path="url(#prop_frame-cribbon)">
+        <path d="M18,118 C14,130 13,144 15,158 L19.5,153 L23.5,159 C23,145 23.5,131 25,118 Z" transform="translate(-1.8 -1)" fill="#8C3B45"/>
+        <path d="M19.5,120 Q17.5,136 18.5,152 Q20.5,136 19.5,120 Z" fill="#381318"/>
+      </g>
+      <!-- 断口处的细线头 -->
+      <path d="M15,158 L14.2,161.5 M17.2,155.5 L16.8,159 M23.5,159 L24.2,162.5" stroke="#1C1412" stroke-width="1" stroke-linecap="round"/>
+    </g>
+    <!-- 绑在左框上的旧丝带结 -->
+    <path d="M19,113 C25,111.5 33,112 39,114 L38.5,120 C32.5,118.5 25,118.5 18.5,119.5 Z" fill="#5E242C" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M20,114.2 C25,113 32,113.2 37.5,114.8" fill="none" stroke="#8C3B45" stroke-width="1.3" stroke-linecap="round"/>
+    <ellipse cx="21.5" cy="117" rx="4.5" ry="3.6" fill="#5E242C" stroke="#1C1412" stroke-width="2.2"/>
+    <path d="M19.5,115.5 A3,2.5 0 0 1 23,115" fill="none" stroke="#B5626C" stroke-width="1.1" stroke-linecap="round"/>
+  </g>
+
+  <!-- 矮木架前横托木条（压在画框下沿前面，有木纹、接缝与铁铆钉） -->
+  <path d="M12,174 L62,175.5 L108,177.5 L106,188 L58,186.5 L14,184.5 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+  <path d="M12,174 L62,175.5 L108,177.5 L106,188 L58,186.5 L14,184.5 Z" fill="#3D2212"/>
+  <g clip-path="url(#prop_frame-cshelf)">
+    <path d="M12,174 L62,175.5 L108,177.5 L106,188 L58,186.5 L14,184.5 Z" transform="translate(-3 -2.5)" fill="#704122"/>
+    <path d="M13,175.2 L86,177.5 L84,179.5 L13.5,177.2 Z" fill="#9E6238"/>
+    <path d="M22,181 Q44,183 68,182 Q44,180.5 22,181 Z" fill="#3D2212"/>
+    <ellipse cx="92" cy="183.5" rx="3.8" ry="1.8" fill="#1C1412" opacity="0.65"/>
+  </g>
+  <!-- 木条中间接缝与两头固定铁铆钉 -->
+  <path d="M61,175.5 L59.5,186.5" stroke="#1C1412" stroke-width="1.8"/>
+  <circle cx="37" cy="180.5" r="2.6" fill="#1C1412"/><circle cx="36.8" cy="180.2" r="1.7" fill="#6E6A63"/><circle cx="36.3" cy="179.7" r="0.65" fill="#948F86"/>
+  <circle cx="83" cy="182" r="2.6" fill="#1C1412"/><circle cx="82.8" cy="181.7" r="1.7" fill="#6E6A63"/><circle cx="82.3" cy="181.2" r="0.65" fill="#948F86"/>
+</g>
+</svg>

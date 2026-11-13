@@ -2,319 +2,174 @@
 <title>额外牌原画 · 沙漏</title>
 <style>
 .svg-card_art_hourglass g { transform-box: view-box; }
-.svg-card_art_hourglass #root { transform-origin: 102px 98px; }
 .svg-card_art_hourglass #hourglass_unit { transform-origin: 102px 98px; }
 .svg-card_art_hourglass #sand_top { transform-origin: 102px 90px; }
-.svg-card_art_hourglass #sand_bottom { transform-origin: 102px 146px; }
-.svg-card_art_hourglass #stream_idle { transform-origin: 102px 116px; }
-.svg-card_art_hourglass #gems_rewind { transform-origin: 102px 104px; opacity: 0; }
-.svg-card_art_hourglass #cyan_flash { transform-origin: 102px 68px; opacity: 0; }
+.svg-card_art_hourglass #sand_bottom { transform-origin: 102px 150px; }
+.svg-card_art_hourglass #stream_idle { transform-origin: 102px 114px; }
+.svg-card_art_hourglass #gems_rewind { transform-origin: 102px 110px; opacity: 0; }
+.svg-card_art_hourglass #cyan_flash { transform-origin: 102px 66px; opacity: 0; }
 
-/* 待机 idle（2.5s 循环）：青色宝石碎粒一粒一粒顺滑往下掉，上下两堆高度不变 */
+/* 待机 3000ms：0(0%) 静止/低位 → 1500(50%) 轻变化最大/高位 → 3000(100%) 与0帧一致（上下两堆总高度不变，仅碎粒流轻落） */
 @keyframes svg-card_art_hourglass-idle-stream {
-  0% {
-    transform: translateY(-7px);
-    opacity: 0.25;
-    animation-timing-function: linear;
-  }
-  20% {
-    transform: translateY(-4px);
-    opacity: 1;
-    animation-timing-function: linear;
-  }
-  80% {
-    transform: translateY(5px);
-    opacity: 1;
-    animation-timing-function: linear;
-  }
-  100% {
-    transform: translateY(8px);
-    opacity: 0.25;
-  }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,4px) rotate(0deg) scale(1,1); opacity: 0.75; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 .svg-card_art_hourglass:not([data-anim]) #stream_idle,
-.svg-card_art_hourglass[data-anim="idle"] #stream_idle {
-  animation: svg-card_art_hourglass-idle-stream 2.5s infinite;
-}
+.svg-card_art_hourglass[data-anim="idle"] #stream_idle { animation: svg-card_art_hourglass-idle-stream 3s infinite; }
 
-/* play（600ms）：
-   0ms(0%) 待机 -> 150ms(25%) 整只一震、停流 -> 450ms(75%) 一串碎粒(8粒)从下半截倒着飞回上半截，上面那堆长高 16px(>=12px)，闪一下青光
-   -> 520ms(86.67%) 停住 -> 600ms(100%) 回到待机的高度。
-   所有部件严格共用同一组百分比：0%, 25%, 75%, 86.67%, 100% */
+/* play 600ms：0(0%) 静止 → 150(25%) 一震并停流 → 450(75%) 青碎粒倒流，上堆变高 → 520(86.67%) 保持 → 600(100%) 恢复原堆高度 */
 @keyframes svg-card_art_hourglass-play-unit {
-  0% {
-    transform: translate(0px, 0px) rotate(0deg) scale(1, 1);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  25% {
-    transform: translate(0px, 5px) rotate(-3.5deg) scale(1.04, 0.95);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  75% {
-    transform: translate(0px, -4px) rotate(1.8deg) scale(0.98, 1.03);
-    animation-timing-function: linear;
-  }
-  86.67% {
-    transform: translate(0px, -4px) rotate(1.8deg) scale(0.98, 1.03);
-    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
-  }
-  100% {
-    transform: translate(0px, 0px) rotate(0deg) scale(1, 1);
-  }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px,4px) rotate(-3deg) scale(1.03,0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  75% { transform: translate(0px,-3px) rotate(1.5deg) scale(0.98,1.02); animation-timing-function: linear; }
+  86.67% { transform: translate(0px,-3px) rotate(1.5deg) scale(0.98,1.02); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-card_art_hourglass-play-top {
-  0% {
-    transform: translateY(0px) scaleY(1);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  25% {
-    transform: translateY(1px) scaleY(0.96);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  75% {
-    transform: translateY(-4px) scaleY(1.42);
-    animation-timing-function: linear;
-  }
-  86.67% {
-    transform: translateY(-4px) scaleY(1.42);
-    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
-  }
-  100% {
-    transform: translateY(0px) scaleY(1);
-  }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px,1px) rotate(0deg) scale(1,0.96); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  75% { transform: translate(0px,-3px) rotate(0deg) scale(1,1.38); animation-timing-function: linear; }
+  86.67% { transform: translate(0px,-3px) rotate(0deg) scale(1,1.38); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-card_art_hourglass-play-bottom {
-  0% {
-    transform: scaleY(1);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  25% {
-    transform: scaleY(1.05);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  75% {
-    transform: scaleY(0.48);
-    animation-timing-function: linear;
-  }
-  86.67% {
-    transform: scaleY(0.48);
-    animation-timing-function: cubic-bezier(.34,1.56,.64,1);
-  }
-  100% {
-    transform: scaleY(1);
-  }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px,0px) rotate(0deg) scale(1,1.04); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  75% { transform: translate(0px,0px) rotate(0deg) scale(1,0.52); animation-timing-function: linear; }
+  86.67% { transform: translate(0px,0px) rotate(0deg) scale(1,0.52); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
 }
 @keyframes svg-card_art_hourglass-play-stream {
-  0% {
-    opacity: 1;
-    transform: translateY(0px);
-    animation-timing-function: linear;
-  }
-  25% {
-    opacity: 0;
-    transform: translateY(2px);
-    animation-timing-function: linear;
-  }
-  75% {
-    opacity: 0;
-    transform: translateY(-8px);
-    animation-timing-function: linear;
-  }
-  86.67% {
-    opacity: 0;
-    transform: translateY(-8px);
-    animation-timing-function: linear;
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  25% { transform: translate(0px,2px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: linear; }
+  75% { transform: translate(0px,-6px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: linear; }
+  86.67% { transform: translate(0px,-6px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
 }
 @keyframes svg-card_art_hourglass-play-rewind {
-  0% {
-    opacity: 0;
-    transform: translateY(14px) scale(0.75);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  25% {
-    opacity: 1;
-    transform: translateY(12px) scale(0.95);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  75% {
-    opacity: 1;
-    transform: translateY(-28px) scale(1.06);
-    animation-timing-function: linear;
-  }
-  86.67% {
-    opacity: 0.9;
-    transform: translateY(-28px) scale(1.04);
-    animation-timing-function: linear;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-32px) scale(0.7);
-  }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px,8px) rotate(0deg) scale(0.95,0.95); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  75% { transform: translate(0px,-22px) rotate(0deg) scale(1.04,1.04); opacity: 1; animation-timing-function: linear; }
+  86.67% { transform: translate(0px,-22px) rotate(0deg) scale(1.04,1.04); opacity: 0.9; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
 }
 @keyframes svg-card_art_hourglass-play-flash {
-  0% {
-    opacity: 0;
-    transform: scale(0.65);
-    animation-timing-function: linear;
-  }
-  25% {
-    opacity: 0.1;
-    transform: scale(0.75);
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  75% {
-    opacity: 1;
-    transform: scale(1.1);
-    animation-timing-function: linear;
-  }
-  86.67% {
-    opacity: 0.85;
-    transform: scale(1.05);
-    animation-timing-function: linear;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.7);
-  }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; animation-timing-function: linear; }
+  25% { transform: translate(0px,0px) rotate(0deg) scale(0.75,0.75); opacity: 0.1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  75% { transform: translate(0px,0px) rotate(0deg) scale(1.08,1.08); opacity: 1; animation-timing-function: linear; }
+  86.67% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 0.88; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
 }
-.svg-card_art_hourglass[data-anim="play"] #hourglass_unit {
-  animation: svg-card_art_hourglass-play-unit 0.6s both;
-}
-.svg-card_art_hourglass[data-anim="play"] #sand_top {
-  animation: svg-card_art_hourglass-play-top 0.6s both;
-}
-.svg-card_art_hourglass[data-anim="play"] #sand_bottom {
-  animation: svg-card_art_hourglass-play-bottom 0.6s both;
-}
-.svg-card_art_hourglass[data-anim="play"] #stream_idle {
-  animation: svg-card_art_hourglass-play-stream 0.6s both;
-}
-.svg-card_art_hourglass[data-anim="play"] #gems_rewind {
-  animation: svg-card_art_hourglass-play-rewind 0.6s both;
-}
-.svg-card_art_hourglass[data-anim="play"] #cyan_flash {
-  animation: svg-card_art_hourglass-play-flash 0.6s both;
-}
+.svg-card_art_hourglass[data-anim="play"] #hourglass_unit { animation: svg-card_art_hourglass-play-unit 0.6s both; }
+.svg-card_art_hourglass[data-anim="play"] #sand_top { animation: svg-card_art_hourglass-play-top 0.6s both; }
+.svg-card_art_hourglass[data-anim="play"] #sand_bottom { animation: svg-card_art_hourglass-play-bottom 0.6s both; }
+.svg-card_art_hourglass[data-anim="play"] #stream_idle { animation: svg-card_art_hourglass-play-stream 0.6s both; }
+.svg-card_art_hourglass[data-anim="play"] #gems_rewind { animation: svg-card_art_hourglass-play-rewind 0.6s both; }
+.svg-card_art_hourglass[data-anim="play"] #cyan_flash { animation: svg-card_art_hourglass-play-flash 0.6s both; }
 </style>
 <defs>
-  <radialGradient id="card_art_hourglass-glow" cx="50%" cy="50%" r="50%">
-    <stop offset="0%" stop-color="#A6F9FF" stop-opacity="0.75"/>
-    <stop offset="55%" stop-color="#3FE3F0" stop-opacity="0.35"/>
-    <stop offset="100%" stop-color="#3FE3F0" stop-opacity="0"/>
+  <radialGradient id="card_art_hourglass-glow" cx="102" cy="64" r="34" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#A6F5C6" stop-opacity="0.72"/>
+    <stop offset="0.55" stop-color="#3FE3F0" stop-opacity="0.35"/>
+    <stop offset="1" stop-color="#3FE3F0" stop-opacity="0"/>
   </radialGradient>
 </defs>
+
 <g id="root">
-  <!-- 左上角 x:0..30, y:0..90 严格留空（主体范围 x:44..160, y:20..172） -->
-  <!-- 落地暗影 -->
-  <ellipse cx="102" cy="166" rx="48" ry="8" fill="#0D111C" opacity="0.6"/>
+  <!-- 左上角 x:0..30, y:0..90 严格留空（主体范围 x:48..156, y:20..172） -->
+  <ellipse cx="102" cy="168" rx="48" ry="8" fill="#0D111C" opacity="0.6"/>
 
   <g id="hourglass_unit">
-    <!-- 1. 玻璃沙漏腔体底层（冷灰蓝暗玻璃 #1E2C33 + #161221） -->
-    <!-- 上玻璃泡 -->
-    <path d="M66,34 H138 L134,64 C132,78 116,88 108,94 H96 C88,88 72,78 70,64 Z" fill="#161221" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <!-- 下玻璃泡 -->
-    <path d="M96,98 H108 C116,104 132,114 134,128 L138,154 H66 L70,128 C72,114 88,104 96,98 Z" fill="#161221" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+    <!-- 上下玻璃泡腔体（冷灰暗玻璃 #161221 + #1E2C33） -->
+    <path d="M68,34 H136 L132,64 C130,78 115,88 107,94 H97 C89,88 74,78 72,64 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M68,34 H136 L132,64 C130,78 115,88 107,94 H97 C89,88 74,78 72,64 Z" fill="#161221"/>
+    <path d="M97,98 H107 C115,104 130,114 132,128 L136,154 H68 L72,128 C74,114 89,104 97,98 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M97,98 H107 C115,104 130,114 132,128 L136,154 H68 L72,128 C74,114 89,104 97,98 Z" fill="#161221"/>
 
-    <!-- 2. 上半截青色宝石碎粒堆 sand_top（原本剩一大半 y:56..92，高36px；play 时 scaleY(1.42) + translateY(-4px) 长高约 19px >= 12px 下限） -->
+    <!-- 上半截青色宝石碎粒堆 sand_top（青 = 绿 + 蓝，#3FE3F0 带晶体切面，非普通黄沙） -->
     <g id="sand_top">
-      <!-- 青色碎粒主堆体 -->
-      <path d="M72,58 Q88,53 102,56 Q116,53 132,58 L130,68 C126,80 114,87 106,92 H98 C90,87 78,80 74,68 Z" fill="#3FE3F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-      <!-- 右侧背光深青暗面 -->
-      <path d="M102,56 Q116,53 132,58 L130,68 C126,80 114,87 106,92 H102 Z" fill="#1794A3" opacity="0.82"/>
-      <!-- 顶部与左侧晶体切面亮块（体现是宝石碎粒而非普通沙子） -->
-      <polygon points="75,59 89,55 95,62 82,66" fill="#A6F9FF"/>
-      <polygon points="94,57 108,55 104,64 92,63" fill="#A6F9FF" opacity="0.9"/>
-      <polygon points="82,67 94,65 98,75 85,76" fill="#72F2FC"/>
-      <polygon points="106,64 118,61 122,71 110,73" fill="#1794A3"/>
-      <!-- 碎粒堆表面分界折线 -->
-      <path d="M74,59 L88,65 L102,58 L116,64 L130,59 M85,74 L98,70 L112,76" fill="none" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M74,58 Q88,54 102,56 Q116,54 130,58 L128,68 C124,79 113,86 106,91 H98 C91,86 80,79 76,68 Z" fill="#3FE3F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M102,56 Q116,54 130,58 L128,68 C124,79 113,86 106,91 H102 Z" fill="#128A43" opacity="0.65"/>
+      <polygon points="76,59 90,55 96,62 82,66" fill="#A6F5C6"/>
+      <polygon points="94,57 108,55 104,64 92,63" fill="#F4F1FF" opacity="0.88"/>
+      <polygon points="82,67 94,65 98,75 85,76" fill="#6A93F8" opacity="0.75"/>
+      <polygon points="106,64 118,61 122,71 110,73" fill="#1D45B8" opacity="0.72"/>
+      <path d="M76,59 L88,65 L102,58 L116,64 L128,59 M85,74 L98,70 L112,76" fill="none" stroke="#F4F1FF" stroke-width="0.9" opacity="0.75"/>
     </g>
 
-    <!-- 3. 下半截底部青色宝石碎粒堆 sand_bottom -->
+    <!-- 下半截青色宝石碎粒堆 sand_bottom -->
     <g id="sand_bottom">
-      <path d="M70,152 L78,138 L94,132 L102,129 L110,132 L126,138 L134,152 Z" fill="#3FE3F0" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-      <path d="M102,129 L110,132 L126,138 L134,152 H102 Z" fill="#1794A3" opacity="0.82"/>
-      <polygon points="80,140 94,133 100,141 84,147" fill="#A6F9FF"/>
-      <polygon points="96,133 104,130 106,139 98,141" fill="#FFFFFF" opacity="0.85"/>
-      <path d="M80,142 L94,137 L106,143 L122,140" fill="none" stroke="#1C1412" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M72,152 L80,138 L94,132 L102,129 L110,132 L124,138 L132,152 Z" fill="#3FE3F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M102,129 L110,132 L124,138 L132,152 H102 Z" fill="#1D45B8" opacity="0.65"/>
+      <polygon points="81,140 94,133 100,141 84,147" fill="#A6F5C6"/>
+      <polygon points="96,133 104,130 106,139 98,141" fill="#F4F1FF" opacity="0.88"/>
+      <path d="M81,142 L94,137 L106,143 L120,140" fill="none" stroke="#F4F1FF" stroke-width="0.9" opacity="0.75"/>
     </g>
 
-    <!-- 4. 待机往下掉的宝石碎粒流 stream_idle（4 颗清晰分明的青色小晶体） -->
+    <!-- 待机往下掉的青色宝石碎粒流 stream_idle -->
     <g id="stream_idle">
-      <polygon points="102,97 105,101 102,105 99,101" fill="#A6F9FF" stroke="#1C1412" stroke-width="1.4"/>
-      <rect x="99.5" y="108" width="5" height="5" rx="1" transform="rotate(20 102 110.5)" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.4"/>
-      <polygon points="102,117 105.5,122 98.5,122" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.4"/>
-      <polygon points="102,125 104.5,128 102,131 99.5,128" fill="#A6F9FF" stroke="#1C1412" stroke-width="1.3"/>
+      <polygon points="102,98 105,102 102,106 99,102" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.2"/>
+      <rect x="99.5" y="109" width="5" height="5" rx="1" transform="rotate(20 102 111.5)" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.2"/>
+      <polygon points="102,118 105.5,123 98.5,123" fill="#4FDB85" stroke="#1C1412" stroke-width="1.2"/>
+      <polygon points="102,125 104.5,128 102,131 99.5,128" fill="#6A93F8" stroke="#1C1412" stroke-width="1.2"/>
     </g>
 
-    <!-- 5. play 时从下半截倒着飞回上半截的碎粒群 gems_rewind（共 8 粒 >= 6 粒下限，带上升轨迹残影线） -->
-    <g id="gems_rewind">
-      <!-- 倒飞上升流光细线 -->
-      <path d="M90,132 V108 M102,136 V104 M114,132 V108 M84,120 V102 M120,120 V102" stroke="#A6F9FF" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
-      <!-- 粒 1（中上菱形晶粒） -->
-      <polygon points="102,88 107,94 102,100 97,94" fill="#A6F9FF" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <!-- 粒 2（左上方块晶粒） -->
-      <rect x="84" y="96" width="8" height="8" rx="1" transform="rotate(-18 88 100)" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.8"/>
-      <!-- 粒 3（右上三角晶粒） -->
-      <polygon points="116,94 122,104 110,104" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <!-- 粒 4（中腰大菱形晶粒） -->
-      <polygon points="101,105 106,111 101,117 96,111" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <!-- 粒 5（左中多边晶粒） -->
-      <polygon points="88,112 94,115 92,122 85,119" fill="#A6F9FF" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <!-- 粒 6（右中方块晶粒） -->
-      <rect x="109" y="112" width="7.5" height="7.5" rx="1" transform="rotate(22 112.7 115.7)" fill="#A6F9FF" stroke="#1C1412" stroke-width="1.8"/>
-      <!-- 粒 7（左下三角晶粒） -->
-      <polygon points="93,124 98,133 88,133" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
-      <!-- 粒 8（右下菱形晶粒） -->
-      <polygon points="110,123 115,128 110,134 105,128" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <!-- play 时从下半截倒着飞回上半截的青色碎粒串 gems_rewind -->
+    <g id="gems_rewind" opacity="0">
+      <path d="M92,132 V106 M102,136 V102 M112,132 V106" stroke="#A6F5C6" stroke-width="1.8" stroke-linecap="round" opacity="0.88"/>
+      <polygon points="102,90 107,96 102,102 97,96" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.5"/>
+      <rect x="86" y="98" width="7" height="7" rx="1" transform="rotate(-16 89.5 101.5)" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.5"/>
+      <polygon points="115,96 120,105 110,105" fill="#6A93F8" stroke="#1C1412" stroke-width="1.5"/>
+      <polygon points="102,106 107,112 102,118 97,112" fill="#4FDB85" stroke="#1C1412" stroke-width="1.5"/>
+      <polygon points="90,114 95,117 93,123 87,120" fill="#F4F1FF" stroke="#1C1412" stroke-width="1.5"/>
+      <rect x="108" y="114" width="6.5" height="6.5" rx="1" transform="rotate(18 111.2 117.2)" fill="#3FE3F0" stroke="#1C1412" stroke-width="1.5"/>
+      <polygon points="95,125 100,133 90,133" fill="#4FDB85" stroke="#1C1412" stroke-width="1.5"/>
+      <polygon points="109,124 114,129 109,134 104,129" fill="#6A93F8" stroke="#1C1412" stroke-width="1.5"/>
     </g>
 
-    <!-- 6. play 时上半截闪一下青光 cyan_flash -->
-    <g id="cyan_flash">
+    <!-- play 上堆变高时闪出的青光 cyan_flash -->
+    <g id="cyan_flash" opacity="0">
       <circle cx="102" cy="64" r="34" fill="url(#card_art_hourglass-glow)"/>
-      <!-- 青色四角星芒与逆时针回溯光弧 -->
-      <path d="M64,62 C68,40 136,40 140,62" fill="none" stroke="#A6F9FF" stroke-width="2.6" stroke-linecap="round"/>
-      <polygon points="64,66 58,56 69,58" fill="#A6F9FF" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round"/>
-      <polygon points="102,36 105,45 114,48 105,51 102,60 99,51 90,48 99,45" fill="#FFFFFF" stroke="#3FE3F0" stroke-width="1.2" stroke-linejoin="round"/>
-      <polygon points="78,46 80,51 85,53 80,55 78,60 76,55 71,53 76,51" fill="#A6F9FF"/>
-      <polygon points="126,48 128,53 133,55 128,57 126,62 124,57 119,55 124,53" fill="#A6F9FF"/>
+      <path d="M102,42 Q104,62 124,64 Q104,66 102,86 Q100,66 80,64 Q100,62 102,42 Z" fill="#F4F1FF"/>
     </g>
 
-    <!-- 7. 玻璃泡表面冷色高光弧与重描外框 -->
-    <path d="M72,40 L74,62 C75,73 86,82 94,88 M74,148 L74,128 C75,117 86,108 94,102" fill="none" stroke="#8CAAB5" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <!-- 玻璃表面斜反光带与划痕（压在碎粒上方） -->
+    <path d="M74,42 L77,64 C78,72 86,80 92,85 M75,146 L78,128 C79,120 86,112 92,107" fill="none" stroke="#8CAAB5" stroke-width="2.4" stroke-linecap="round" opacity="0.65"/>
+    <path d="M128,46 L126,64 M128,144 L126,128" fill="none" stroke="#5A7682" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
 
-    <!-- 8. 哥特旧铜沙漏外架（顶座、底座、左右弯柱、中腰铜箍，压暗旧铜色不抢青宝石光彩） -->
-    <!-- 中腰旧铜束环 -->
-    <polygon points="88,91 116,91 120,96 116,101 88,101 84,96" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
-    <polygon points="102,91 116,91 120,96 116,101 102,101" fill="#6E542B"/>
-    <circle cx="92" cy="96" r="1.8" fill="#C2A670"/>
-    <circle cx="112" cy="96" r="1.8" fill="#3B2B14"/>
+    <!-- 旧铜沙漏外架（七层旧铜：上下顶底盘、中腰铜箍、左右双立柱、铜绿与铆钉） -->
+    <!-- 上顶盖 -->
+    <polygon points="56,22 148,22 152,34 52,34" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+    <polygon points="56,22 148,22 152,34 52,34" fill="#6E542B"/>
+    <polygon points="56,22 142,22 144,28 54,28" fill="#9A7B46"/>
+    <polygon points="106,22 148,22 152,34 106,34" fill="#3B2B14" opacity="0.72"/>
+    <path d="M57,24.5 H138" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- 下底座 -->
+    <polygon points="52,154 152,154 156,166 48,166" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="4.8" stroke-linejoin="round"/>
+    <polygon points="52,154 152,154 156,166 48,166" fill="#6E542B"/>
+    <polygon points="52,154 146,154 148,160 50,160" fill="#9A7B46"/>
+    <polygon points="106,154 152,154 156,166 106,166" fill="#3B2B14" opacity="0.75"/>
+    <path d="M53,156.5 H140" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
 
-    <!-- 左右对称折角哥特铜立柱 -->
-    <!-- 左立柱 -->
-    <path d="M56,34 L64,34 L60,88 L66,96 L60,104 L64,154 L56,154 L52,104 L46,96 L52,88 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <polyline points="54,150 50,104 45,96 50,88 54,38" fill="none" stroke="#C2A670" stroke-width="1.5" stroke-linecap="round"/>
-    <!-- 右立柱 -->
-    <path d="M140,34 L148,34 L152,88 L158,96 L152,104 L148,154 L140,154 L144,104 L138,96 L144,88 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
-    <path d="M144,34 L148,34 L152,88 L158,96 L152,104 L148,154 L144,154 Z" fill="#3B2B14" opacity="0.7"/>
+    <!-- 左右旧铜立柱與中腰铜束环 -->
+    <rect x="57" y="34" width="8" height="120" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.6"/>
+    <rect x="57" y="34" width="8" height="120" fill="#6E542B"/>
+    <rect x="57" y="34" width="4" height="120" fill="#9A7B46"/>
+    <path d="M58.5,38 V148" stroke="#C2A670" stroke-width="1.2" stroke-linecap="round"/>
 
-    <!-- 顶部旧铜冠座 -->
-    <polygon points="48,24 156,24 150,36 54,36" fill="#9A7B46" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <polygon points="102,24 156,24 150,36 102,36" fill="#6E542B" opacity="0.8"/>
-    <line x1="52" y1="27" x2="148" y2="27" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
-    <!-- 顶座两端小铜尖饰 -->
-    <polygon points="56,18 62,24 50,24" fill="#C2A670" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <polygon points="148,18 154,24 142,24" fill="#6E542B" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="139" y="34" width="8" height="120" transform="translate(.4 .6)" fill="#1C1412" stroke="#1C1412" stroke-width="3.6"/>
+    <rect x="139" y="34" width="8" height="120" fill="#3B2B14"/>
+    <rect x="139" y="34" width="4" height="120" fill="#6E542B"/>
+    <path d="M146,42 V146" stroke="#8CAAB5" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
 
-    <!-- 底部旧铜台座 -->
-    <polygon points="54,152 150,152 156,164 48,164" fill="#9A7B46" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <polygon points="102,152 150,152 156,164 102,164" fill="#3B2B14" opacity="0.8"/>
-    <line x1="56" y1="155" x2="146" y2="155" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- 中腰束环与立柱节箍 -->
+    <polygon points="90,91 114,91 117,96 114,101 90,101 87,96" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="102" cy="96" r="2.2" fill="#DDCB9A"/>
+    <rect x="54" y="91" width="14" height="10" rx="2" fill="#9A7B46" stroke="#1C1412" stroke-width="2"/>
+    <rect x="136" y="91" width="14" height="10" rx="2" fill="#6E542B" stroke="#1C1412" stroke-width="2"/>
+    <!-- 铜绿污渍 -->
+    <path d="M136,150 C140,151 143,148 144,144 M64,36 C68,37 71,36 73,34" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity="0.55"/>
   </g>
 </g>
 </svg>

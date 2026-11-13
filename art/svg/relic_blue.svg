@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_blue" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 蓝宝石加倍</title>
+<style>
+.svg-relic_blue g { transform-box: view-box; }
+.svg-relic_blue #root { transform-origin: 48px 56px; }
+.svg-relic_blue #gem_left { transform-origin: 28px 28px; }
+.svg-relic_blue #gem_right { transform-origin: 68px 28px; }
+.svg-relic_blue .glint { opacity: 0; }
+@keyframes svg-relic_blue-idle-r {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.2px) rotate(1.4deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_blue-idle-g {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 0.88; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-relic_blue:not([data-anim]) #root,
+.svg-relic_blue[data-anim="idle"] #root { animation: svg-relic_blue-idle-r 3s infinite; }
+.svg-relic_blue:not([data-anim]) .glint,
+.svg-relic_blue[data-anim="idle"] .glint { animation: svg-relic_blue-idle-g 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_blue-cmount">
+    <path d="M29,44 C14,44 9,55 9,66.5 C9,78.5 17.5,86 29,86 C38.5,86 45.5,80.5 48,72 C50.5,80.5 57.5,86 67,86 C78.5,86 87,78.5 87,66.5 C87,55 82,44 67,44 H29 Z M29,54 C35.5,54 39.5,59 39.5,66.5 C39.5,73.5 35,77.5 29,77.5 C22.5,77.5 18,73.5 18,66.5 C18,59 22,54 29,54 Z M67,54 C74,54 78,59 78,66.5 C78,73.5 73.5,77.5 67,77.5 C61,77.5 56.5,73.5 56.5,66.5 C56.5,59 60.5,54 67,54 Z" clip-rule="evenodd"/>
+  </clipPath>
+</defs>
+<g id="root">
+  <!-- 旧银双联戒托（与 relic_red / relic_green / relic_blue 100% 共用同一个七层银托） -->
+  <g id="silver_twin_mount">
+    <!-- 第1层：墨色垫底 -->
+    <path d="M29,44 C14,44 9,55 9,66.5 C9,78.5 17.5,86 29,86 C38.5,86 45.5,80.5 48,72 C50.5,80.5 57.5,86 67,86 C78.5,86 87,78.5 87,66.5 C87,55 82,44 67,44 H29 Z M29,54 C35.5,54 39.5,59 39.5,66.5 C39.5,73.5 35,77.5 29,77.5 C22.5,77.5 18,73.5 18,66.5 C18,59 22,54 29,54 Z M67,54 C74,54 78,59 78,66.5 C78,73.5 73.5,77.5 67,77.5 C61,77.5 56.5,73.5 56.5,66.5 C56.5,59 60.5,54 67,54 Z" transform="translate(.6 .9)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <!-- 第2层：冷色旧银暗部 -->
+    <path d="M29,44 C14,44 9,55 9,66.5 C9,78.5 17.5,86 29,86 C38.5,86 45.5,80.5 48,72 C50.5,80.5 57.5,86 67,86 C78.5,86 87,78.5 87,66.5 C87,55 82,44 67,44 H29 Z M29,54 C35.5,54 39.5,59 39.5,66.5 C39.5,73.5 35,77.5 29,77.5 C22.5,77.5 18,73.5 18,66.5 C18,59 22,54 29,54 Z M67,54 C74,54 78,59 78,66.5 C78,73.5 73.5,77.5 67,77.5 C61,77.5 56.5,73.5 56.5,66.5 C56.5,59 60.5,54 67,54 Z" fill="#3B515C" fill-rule="evenodd"/>
+    <!-- 第3–5层：错位亮面、加深与受光边/冷光 -->
+    <g clip-path="url(#relic_blue-cmount)">
+      <path d="M29,44 C14,44 9,55 9,66.5 C9,78.5 17.5,86 29,86 C38.5,86 45.5,80.5 48,72 C50.5,80.5 57.5,86 67,86 C78.5,86 87,78.5 87,66.5 C87,55 82,44 67,44 H29 Z M29,54 C35.5,54 39.5,59 39.5,66.5 C39.5,73.5 35,77.5 29,77.5 C22.5,77.5 18,73.5 18,66.5 C18,59 22,54 29,54 Z M67,54 C74,54 78,59 78,66.5 C78,73.5 73.5,77.5 67,77.5 C61,77.5 56.5,73.5 56.5,66.5 C56.5,59 60.5,54 67,54 Z" transform="translate(-3.2 -2.8)" fill="#5A7682" fill-rule="evenodd"/>
+      <path d="M56,44 H87 V86 H52 C58,76 60,58 56,44 Z" fill="#1E2C33" opacity=".68"/>
+      <path d="M11,64 Q12,51 26,46.5 Q15,52 13,64.5 Z" fill="#8CAAB5"/>
+      <path d="M84.8,63 Q83.5,77 70,83.5 Q80.5,76.5 83,63 Z" fill="#8CAAB5" opacity=".85"/>
+    </g>
+
+    <!-- 顶部两只碗状旧银宝石镶座 -->
+    <polygon points="11,40 45,40 41,50 15,50" fill="#1E2C33" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <polygon points="11,40 45,40 41,50 15,50" fill="#5A7682"/>
+    <polygon points="28,40 45,40 41,50 28,50" fill="#3B515C"/>
+    <polygon points="51,40 85,40 81,50 55,50" fill="#1E2C33" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <polygon points="51,40 85,40 81,50 55,50" fill="#5A7682"/>
+    <polygon points="68,40 85,40 81,50 68,50" fill="#1E2C33" opacity=".82"/>
+
+    <!-- 正中双联银桥锁扣与两颗铆钉 -->
+    <rect x="42" y="42" width="12" height="24" rx="3" fill="#1C1412" stroke="#1C1412" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="42" y="42" width="12" height="24" rx="3" fill="#5A7682"/>
+    <rect x="48" y="42" width="6" height="24" rx="2" fill="#3B515C"/>
+    <path d="M43.8,62 V44.5 H50" fill="none" stroke="#8CAAB5" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="48" cy="49" r="2.5" fill="#1C1412"/><circle cx="47.7" cy="48.7" r="1.6" fill="#E2D6BA"/>
+    <circle cx="48" cy="59" r="2.5" fill="#1C1412"/><circle cx="47.7" cy="58.7" r="1.6" fill="#C8B894"/>
+  </g>
+
+  <!-- 两颗一模一样的同色宝石 -->
+  <g id="twin_gems">
+    <g id="gem_left">
+      
+      <clipPath id="relic_blue-cgl"><polygon points="28.0,10.0 44.5,41.5 11.5,41.5"/></clipPath>
+      <polygon points="28.0,10.0 44.5,41.5 11.5,41.5" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="28.0,10.0 44.5,41.5 11.5,41.5" fill="#1D45B8"/>
+      <g clip-path="url(#relic_blue-cgl)">
+        <!-- 左侧受光亮刻面 -->
+        <polygon points="28.0,10.0 11.5,41.5 19.4,37.1 28.0,19.4" fill="#6A93F8"/>
+        <!-- 右侧背光最暗刻面与底边内反光 -->
+        <polygon points="28.0,10.0 44.5,41.5 36.6,37.1 28.0,19.4" fill="#122A78"/>
+        <polygon points="11.5,41.5 44.5,41.5 36.6,37.1 19.4,37.1" fill="#1D45B8"/>
+        <polygon points="28.0,37.1 36.6,37.1 38.7,41.5 26.4,41.5" fill="#2E66F0"/>
+        <!-- 中央三角台面 -->
+        <polygon points="28.0,19.4 36.6,37.1 19.4,37.1" fill="#2E66F0"/>
+        <polygon points="28.0,19.4 31.0,35.1 19.4,37.1" fill="#6A93F8" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M28.0,10.0 L28.0,19.4 M11.5,41.5 L19.4,37.1 M44.5,41.5 L36.6,37.1" stroke="#B4C8FF" stroke-width="0.75" opacity=".8"/>
+        <polygon points="28.0,19.4 36.6,37.1 19.4,37.1" fill="none" stroke="#B4C8FF" stroke-width="0.75" opacity=".85"/>
+        <!-- 左上白亮边 -->
+        <path d="M26.8,12.5 L14.3,39.0" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" opacity=".9"/>
+      </g>
+      <circle cx="25.3" cy="26.9" r="1.7" fill="#F4F1FF"/>
+    
+      <path class="glint" opacity="0" d="M28,17 L29.8,24.2 L37,26 L29.8,27.8 L28,35 L26.2,27.8 L19,26 L26.2,24.2 Z" fill="#F4F1FF"/>
+    </g>
+    <g id="gem_right">
+      
+      <clipPath id="relic_blue-cgr"><polygon points="68.0,10.0 84.5,41.5 51.5,41.5"/></clipPath>
+      <polygon points="68.0,10.0 84.5,41.5 51.5,41.5" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="68.0,10.0 84.5,41.5 51.5,41.5" fill="#1D45B8"/>
+      <g clip-path="url(#relic_blue-cgr)">
+        <!-- 左侧受光亮刻面 -->
+        <polygon points="68.0,10.0 51.5,41.5 59.4,37.1 68.0,19.4" fill="#6A93F8"/>
+        <!-- 右侧背光最暗刻面与底边内反光 -->
+        <polygon points="68.0,10.0 84.5,41.5 76.6,37.1 68.0,19.4" fill="#122A78"/>
+        <polygon points="51.5,41.5 84.5,41.5 76.6,37.1 59.4,37.1" fill="#1D45B8"/>
+        <polygon points="68.0,37.1 76.6,37.1 78.7,41.5 66.3,41.5" fill="#2E66F0"/>
+        <!-- 中央三角台面 -->
+        <polygon points="68.0,19.4 76.6,37.1 59.4,37.1" fill="#2E66F0"/>
+        <polygon points="68.0,19.4 71.0,35.1 59.4,37.1" fill="#6A93F8" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M68.0,10.0 L68.0,19.4 M51.5,41.5 L59.4,37.1 M84.5,41.5 L76.6,37.1" stroke="#B4C8FF" stroke-width="0.75" opacity=".8"/>
+        <polygon points="68.0,19.4 76.6,37.1 59.4,37.1" fill="none" stroke="#B4C8FF" stroke-width="0.75" opacity=".85"/>
+        <!-- 左上白亮边 -->
+        <path d="M66.8,12.5 L54.3,39.0" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" opacity=".9"/>
+      </g>
+      <circle cx="65.3" cy="26.9" r="1.7" fill="#F4F1FF"/>
+    
+      <path class="glint" opacity="0" d="M68,17 L69.8,24.2 L77,26 L69.8,27.8 L68,35 L66.2,27.8 L59,26 L66.2,24.2 Z" fill="#F4F1FF"/>
+    </g>
+  </g>
+
+  <!-- 前景四只银包爪尖 -->
+  <g id="silver_prongs">
+    <polygon points="11.5,42 16,33.5 20.5,42" fill="#8CAAB5" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="35.5,42 40,33.5 44.5,42" fill="#5A7682" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="51.5,42 56,33.5 60.5,42" fill="#8CAAB5" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="75.5,42 80,33.5 84.5,42" fill="#3B515C" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+  </g>
+</g>
+</svg>

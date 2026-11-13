@@ -1,0 +1,686 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-mon_tree" viewBox="0 0 320 400" width="320" height="400">
+<title>摇钱树</title>
+<style>
+.svg-mon_tree g { transform-box: view-box; }
+.svg-mon_tree #root { transform-origin: 160px 400px; }
+.svg-mon_tree #shadow { transform-origin: 160px 390px; }
+.svg-mon_tree #pot { transform-origin: 160px 388px; }
+.svg-mon_tree .pot-l { transform-origin: 116px 386px; }
+.svg-mon_tree .pot-r { transform-origin: 204px 386px; }
+.svg-mon_tree #trunk { transform-origin: 160px 312px; }
+/* 枝条与金币叶和树干统一使用 160px 312px 转轴并同向运动，彻底杜绝受击/出手时枝根错开悬空 */
+.svg-mon_tree #branches { transform-origin: 160px 312px; }
+.svg-mon_tree #coins { transform-origin: 160px 312px; }
+.svg-mon_tree .bud-1 { transform-origin: 84px 118px; opacity: 0; }
+.svg-mon_tree .bud-2 { transform-origin: 160px 72px; opacity: 0; }
+.svg-mon_tree .bud-3 { transform-origin: 236px 118px; opacity: 0; }
+.svg-mon_tree .regrow-glint { transform-origin: 160px 124px; opacity: 0; }
+.svg-mon_tree #eyes { transform-origin: 160px 236px; }
+.svg-mon_tree #face_hurt { transform-origin: 160px 236px; opacity: 0; }
+.svg-mon_tree #face_daze { transform-origin: 160px 236px; opacity: 0; }
+.svg-mon_tree .daze-swirl-l { transform-origin: 142px 234px; }
+.svg-mon_tree .daze-swirl-r { transform-origin: 180px 238px; }
+.svg-mon_tree .daze-stars { transform-origin: 160px 42px; }
+.svg-mon_tree #coins_fall { transform-origin: 160px 190px; opacity: 0; }
+
+/* ==========================================================================
+   1. 待机 idle（3000ms 循环）：0(0%) 低 → 1500(50%) 高 → 3000(100%) 低
+   ========================================================================== */
+@keyframes svg-mon_tree-idle-trunk {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-6px) rotate(-1.5deg) scale(0.99,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-idle-branches {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-6px) rotate(-2.2deg) scale(0.99,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-idle-coins {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-6px) rotate(-2.5deg) scale(0.99,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-idle-shadow {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(0deg) scale(0.95,0.95); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_tree:not([data-anim]) #trunk,
+.svg-mon_tree[data-anim="idle"] #trunk,
+.svg-mon_tree:not([data-anim]) #eyes,
+.svg-mon_tree[data-anim="idle"] #eyes { animation: svg-mon_tree-idle-trunk 3s infinite; }
+.svg-mon_tree:not([data-anim]) #branches,
+.svg-mon_tree[data-anim="idle"] #branches { animation: svg-mon_tree-idle-branches 3s infinite; }
+.svg-mon_tree:not([data-anim]) #coins,
+.svg-mon_tree[data-anim="idle"] #coins { animation: svg-mon_tree-idle-coins 3s infinite; }
+.svg-mon_tree:not([data-anim]) #shadow,
+.svg-mon_tree[data-anim="idle"] #shadow { animation: svg-mon_tree-idle-shadow 3s infinite; }
+
+/* ==========================================================================
+   2. 轻击 hit（400ms）：0(0%) → 50(12.5%) → 130(32.5%) → 330(82.5%) → 400(100%)
+   树冠组与树干组同向同轴运动，枝根严密藏在树干圆冠后方
+   ========================================================================== */
+@keyframes svg-mon_tree-hit-trunk {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-8px,-4px) rotate(7.5deg) scale(1.05,0.91); animation-timing-function: linear; }
+  32.5% { transform: translate(-8px,-4px) rotate(7.5deg) scale(1.05,0.91); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(2px,-1px) rotate(-2deg) scale(0.98,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-hit-crown {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12.5% { transform: translate(-8px,-4px) rotate(8.5deg) scale(1.05,0.91); animation-timing-function: linear; }
+  32.5% { transform: translate(-8px,-4px) rotate(8.5deg) scale(1.05,0.91); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  82.5% { transform: translate(2px,-1px) rotate(-2.5deg) scale(0.98,1.02); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_tree[data-anim="hit"] #trunk,
+.svg-mon_tree[data-anim="hit"] #eyes { animation: svg-mon_tree-hit-trunk 0.4s both; }
+.svg-mon_tree[data-anim="hit"] #branches,
+.svg-mon_tree[data-anim="hit"] #coins { animation: svg-mon_tree-hit-crown 0.4s both; }
+
+/* ==========================================================================
+   3. 重击 hit_big（700ms）：0(0%) → 60(8.57%) → 200(28.57%) → 500(71.43%) → 700(100%)
+   ========================================================================== */
+@keyframes svg-mon_tree-hitbig-trunk {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-12px,-8px) rotate(11.5deg) scale(1.08,0.84); animation-timing-function: linear; }
+  28.57% { transform: translate(-12px,-8px) rotate(11.5deg) scale(1.08,0.84); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(3px,-2px) rotate(-3deg) scale(0.97,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-hitbig-crown {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-12px,-8px) rotate(12.5deg) scale(1.08,0.84); animation-timing-function: linear; }
+  28.57% { transform: translate(-12px,-8px) rotate(12.5deg) scale(1.08,0.84); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(3px,-2px) rotate(-3.5deg) scale(0.97,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-hitbig-eyes {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-12px,-8px) rotate(11.5deg) scale(0.85,0.2); opacity: 0; animation-timing-function: linear; }
+  28.57% { transform: translate(-12px,-8px) rotate(11.5deg) scale(0.85,0.2); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  71.43% { transform: translate(3px,-2px) rotate(-3deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; }
+}
+@keyframes svg-mon_tree-hitbig-hurt {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.85); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(-12px,-8px) rotate(11.5deg) scale(1.04,1.04); opacity: 1; animation-timing-function: linear; }
+  28.57% { transform: translate(-12px,-8px) rotate(11.5deg) scale(1.04,1.04); opacity: 1; animation-timing-function: ease-in-out; }
+  71.43% { transform: translate(3px,-2px) rotate(-3deg) scale(0.9,0.9); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.85,0.85); opacity: 0; }
+}
+@keyframes svg-mon_tree-hitbig-fall {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  8.57% { transform: translate(8px,-12px) rotate(14deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  28.57% { transform: translate(16px,-22px) rotate(28deg) scale(1.06,1.06); opacity: 1; animation-timing-function: ease-in-out; }
+  71.43% { transform: translate(22px,64px) rotate(65deg) scale(0.85,0.85); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; }
+}
+.svg-mon_tree[data-anim="hit_big"] #trunk { animation: svg-mon_tree-hitbig-trunk 0.7s both; }
+.svg-mon_tree[data-anim="hit_big"] #branches,
+.svg-mon_tree[data-anim="hit_big"] #coins { animation: svg-mon_tree-hitbig-crown 0.7s both; }
+.svg-mon_tree[data-anim="hit_big"] #eyes { animation: svg-mon_tree-hitbig-eyes 0.7s both; }
+.svg-mon_tree[data-anim="hit_big"] #face_hurt { animation: svg-mon_tree-hitbig-hurt 0.7s both; }
+.svg-mon_tree[data-anim="hit_big"] #coins_fall { animation: svg-mon_tree-hitbig-fall 0.7s both; }
+
+/* ==========================================================================
+   4. 出手 attack（800ms）：0(0%) → 250(31.25%) → 330(41.25%) → 450(56.25%) → 800(100%)
+   ========================================================================== */
+@keyframes svg-mon_tree-attack-trunk {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(4px,10px) rotate(4deg) scale(1.06,0.89); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-10px,-8px) rotate(-6deg) scale(0.96,1.05); animation-timing-function: linear; }
+  56.25% { transform: translate(-10px,-8px) rotate(-6deg) scale(0.96,1.05); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-attack-crown {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  31.25% { transform: translate(4px,10px) rotate(5deg) scale(1.06,0.89); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.25% { transform: translate(-10px,-8px) rotate(-7deg) scale(0.96,1.05); animation-timing-function: linear; }
+  56.25% { transform: translate(-10px,-8px) rotate(-7deg) scale(0.96,1.05); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_tree[data-anim="attack"] #trunk,
+.svg-mon_tree[data-anim="attack"] #eyes { animation: svg-mon_tree-attack-trunk 0.8s both; }
+.svg-mon_tree[data-anim="attack"] #branches,
+.svg-mon_tree[data-anim="attack"] #coins { animation: svg-mon_tree-attack-crown 0.8s both; }
+
+/* ==========================================================================
+   5. 长回去 regrow（800ms）：0(0%) → 200(25%) → 300(37.5%) → 400(50%) → 500(62.5%) → 600(75%) → 800(100%)
+   ========================================================================== */
+@keyframes svg-mon_tree-regrow-trunk {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  25% { transform: translate(0px,-6px) rotate(0deg) scale(0.98,1.04); animation-timing-function: linear; }
+  37.5% { transform: translate(0px,-6px) rotate(-1deg) scale(0.98,1.04); animation-timing-function: linear; }
+  50% { transform: translate(0px,-7px) rotate(0deg) scale(0.98,1.05); animation-timing-function: linear; }
+  62.5% { transform: translate(0px,-6px) rotate(1deg) scale(0.98,1.04); animation-timing-function: linear; }
+  75% { transform: translate(0px,-6px) rotate(0deg) scale(0.99,1.03); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-regrow-bud1 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.2,0.2); opacity: 0; animation-timing-function: linear; }
+  25% { transform: translate(0px,-4px) rotate(0deg) scale(0.3,0.3); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  37.5% { transform: translate(0px,-6px) rotate(0deg) scale(1.12,1.12); opacity: 1; animation-timing-function: linear; }
+  50% { transform: translate(0px,-6px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  62.5% { transform: translate(0px,-6px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  75% { transform: translate(0px,-6px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.2,0.2); opacity: 0; }
+}
+@keyframes svg-mon_tree-regrow-bud2 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.2,0.2); opacity: 0; animation-timing-function: linear; }
+  25% { transform: translate(0px,-4px) rotate(0deg) scale(0.2,0.2); opacity: 0; animation-timing-function: linear; }
+  37.5% { transform: translate(0px,-6px) rotate(0deg) scale(0.3,0.3); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  50% { transform: translate(0px,-6px) rotate(0deg) scale(1.12,1.12); opacity: 1; animation-timing-function: linear; }
+  62.5% { transform: translate(0px,-6px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  75% { transform: translate(0px,-6px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.2,0.2); opacity: 0; }
+}
+@keyframes svg-mon_tree-regrow-bud3 {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.2,0.2); opacity: 0; animation-timing-function: linear; }
+  25% { transform: translate(0px,-4px) rotate(0deg) scale(0.2,0.2); opacity: 0; animation-timing-function: linear; }
+  37.5% { transform: translate(0px,-6px) rotate(0deg) scale(0.2,0.2); opacity: 0; animation-timing-function: linear; }
+  50% { transform: translate(0px,-6px) rotate(0deg) scale(0.3,0.3); opacity: 0; animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  62.5% { transform: translate(0px,-6px) rotate(0deg) scale(1.12,1.12); opacity: 1; animation-timing-function: linear; }
+  75% { transform: translate(0px,-6px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.2,0.2); opacity: 0; }
+}
+@keyframes svg-mon_tree-regrow-glint {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.5,0.5); opacity: 0; animation-timing-function: linear; }
+  25% { transform: translate(0px,-6px) rotate(0deg) scale(0.6,0.6); opacity: 0; animation-timing-function: linear; }
+  37.5% { transform: translate(0px,-6px) rotate(0deg) scale(0.8,0.8); opacity: 0.3; animation-timing-function: linear; }
+  50% { transform: translate(0px,-6px) rotate(0deg) scale(0.9,0.9); opacity: 0.5; animation-timing-function: linear; }
+  62.5% { transform: translate(0px,-6px) rotate(0deg) scale(1,1); opacity: 0.85; animation-timing-function: linear; }
+  75% { transform: translate(0px,-6px) rotate(15deg) scale(1.08,1.08); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.5,0.5); opacity: 0; }
+}
+.svg-mon_tree[data-anim="regrow"] #trunk,
+.svg-mon_tree[data-anim="regrow"] #eyes,
+.svg-mon_tree[data-anim="regrow"] #branches,
+.svg-mon_tree[data-anim="regrow"] #coins { animation: svg-mon_tree-regrow-trunk 0.8s both; }
+.svg-mon_tree[data-anim="regrow"] .bud-1 { animation: svg-mon_tree-regrow-bud1 0.8s both; }
+.svg-mon_tree[data-anim="regrow"] .bud-2 { animation: svg-mon_tree-regrow-bud2 0.8s both; }
+.svg-mon_tree[data-anim="regrow"] .bud-3 { animation: svg-mon_tree-regrow-bud3 0.8s both; }
+.svg-mon_tree[data-anim="regrow"] .regrow-glint { animation: svg-mon_tree-regrow-glint 0.8s both; }
+
+/* ==========================================================================
+   6. 眩晕 daze（600ms 进场 + 2000ms 循环，stay）
+   ========================================================================== */
+@keyframes svg-mon_tree-daze-in-trunk {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,0.97); }
+}
+@keyframes svg-mon_tree-daze-loop-trunk {
+  0% { transform: translate(-5px,4px) rotate(-6deg) scale(1,0.97); animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,4px) rotate(6deg) scale(1,0.97); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,0.97); }
+}
+@keyframes svg-mon_tree-daze-in-eyes {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(0.85,0.2); opacity: 0; }
+}
+@keyframes svg-mon_tree-daze-loop-eyes {
+  0% { transform: translate(-5px,4px) rotate(-6deg) scale(0.85,0.2); opacity: 0; animation-timing-function: linear; }
+  50% { transform: translate(5px,4px) rotate(6deg) scale(0.85,0.2); opacity: 0; animation-timing-function: linear; }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(0.85,0.2); opacity: 0; }
+}
+@keyframes svg-mon_tree-daze-in-face {
+  0% { transform: translate(0px,4px) rotate(0deg) scale(0.88,0.88); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,1); opacity: 1; }
+}
+@keyframes svg-mon_tree-daze-loop-face {
+  0% { transform: translate(-5px,4px) rotate(-6deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,4px) rotate(6deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: translate(-5px,4px) rotate(-6deg) scale(1,1); opacity: 1; }
+}
+@keyframes svg-mon_tree-daze-in-swirl {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(0px,0px) rotate(120deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-daze-loop-swirl {
+  0% { transform: translate(0px,0px) rotate(120deg) scale(1,1); animation-timing-function: linear; }
+  50% { transform: translate(0px,0px) rotate(300deg) scale(1,1); animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(480deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-daze-in-stars {
+  0% { transform: translate(-5px,2px) rotate(0deg) scale(0.85,0.85); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  100% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-mon_tree-daze-loop-stars {
+  0% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(5px,-2px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(-5px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-mon_tree[data-anim="daze"] #trunk,
+.svg-mon_tree[data-anim="daze"] #branches,
+.svg-mon_tree[data-anim="daze"] #coins { animation: svg-mon_tree-daze-in-trunk 0.6s forwards, svg-mon_tree-daze-loop-trunk 2s 0.6s infinite; }
+.svg-mon_tree[data-anim="daze"] #eyes { animation: svg-mon_tree-daze-in-eyes 0.6s forwards, svg-mon_tree-daze-loop-eyes 2s 0.6s infinite; }
+.svg-mon_tree[data-anim="daze"] #face_daze { animation: svg-mon_tree-daze-in-face 0.6s forwards, svg-mon_tree-daze-loop-face 2s 0.6s infinite; }
+.svg-mon_tree[data-anim="daze"] .daze-swirl-l,
+.svg-mon_tree[data-anim="daze"] .daze-swirl-r { animation: svg-mon_tree-daze-in-swirl 0.6s forwards, svg-mon_tree-daze-loop-swirl 2s 0.6s infinite; }
+.svg-mon_tree[data-anim="daze"] .daze-stars { animation: svg-mon_tree-daze-in-stars 0.6s forwards, svg-mon_tree-daze-loop-stars 2s 0.6s infinite; }
+
+/* ==========================================================================
+   7. 死亡 die（1000ms）：0(0%) → 150(15%) → 300(30%) → 600(60%) → 1000(100%)
+   ========================================================================== */
+@keyframes svg-mon_tree-die-root {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-2px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(2px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 0; }
+}
+@keyframes svg-mon_tree-die-potl {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-2px,0px) rotate(-2deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(-8px,0px) rotate(-6deg) scale(1,0.96); animation-timing-function: ease-in-out; }
+  60% { transform: translate(-10px,0px) rotate(-8deg) scale(1,0.95); animation-timing-function: linear; }
+  100% { transform: translate(-10px,0px) rotate(-8deg) scale(1,0.95); }
+}
+@keyframes svg-mon_tree-die-potr {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(2px,0px) rotate(2deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(8px,0px) rotate(6deg) scale(1,0.96); animation-timing-function: ease-in-out; }
+  60% { transform: translate(10px,0px) rotate(8deg) scale(1,0.95); animation-timing-function: linear; }
+  100% { transform: translate(10px,0px) rotate(8deg) scale(1,0.95); }
+}
+@keyframes svg-mon_tree-die-trunk {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(-3px,4px) rotate(-4deg) scale(1.03,0.94); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(8px,18px) rotate(12deg) scale(1,0.84); animation-timing-function: ease-in-out; }
+  60% { transform: translate(12px,26px) rotate(16deg) scale(1,0.8); animation-timing-function: linear; }
+  100% { transform: translate(12px,26px) rotate(16deg) scale(1,0.8); }
+}
+@keyframes svg-mon_tree-die-fall {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.6,0.6); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  15% { transform: translate(0px,-10px) rotate(6deg) scale(0.95,0.95); opacity: 0.9; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  30% { transform: translate(0px,42px) rotate(12deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(0px,174px) rotate(16deg) scale(1,1); opacity: 1; animation-timing-function: linear; }
+  100% { transform: translate(0px,174px) rotate(16deg) scale(1,1); opacity: 0; }
+}
+.svg-mon_tree[data-anim="die"] #root { animation: svg-mon_tree-die-root 1s both; }
+.svg-mon_tree[data-anim="die"] .pot-l { animation: svg-mon_tree-die-potl 1s both; }
+.svg-mon_tree[data-anim="die"] .pot-r { animation: svg-mon_tree-die-potr 1s both; }
+.svg-mon_tree[data-anim="die"] #trunk,
+.svg-mon_tree[data-anim="die"] #branches,
+.svg-mon_tree[data-anim="die"] #coins,
+.svg-mon_tree[data-anim="die"] #eyes { animation: svg-mon_tree-die-trunk 1s both; }
+.svg-mon_tree[data-anim="die"] #coins_fall { animation: svg-mon_tree-die-fall 1s both; }
+</style>
+
+<defs>
+  <pattern id="mon_tree-h" width="4.8" height="4.8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="4.8" stroke="#1C1412" stroke-width="0.95"/>
+  </pattern>
+  <!-- 树干顶部改为圆鼓的树冠口，盖住全部枝根 -->
+  <clipPath id="mon_tree-ctrunk">
+    <path d="M126,316 C120,280 114,252 124,216 C131,188 128,166 121,148 C117,138 131,129 146,133 C154,128 166,128 174,133 C189,129 203,138 199,148 C192,166 189,188 198,218 C208,254 198,282 194,316 Z"/>
+  </clipPath>
+  <!-- 七根圆管枝条各自独立的 clipPath（用于做挪管粗 1/3 的圆管错位明暗） -->
+  <clipPath id="mon_tree-cb1">
+    <path d="M142,174 C108,180 76,175 58,162 C52,156 58,147 66,152 C82,163 108,167 142,160 Z"/>
+  </clipPath>
+  <clipPath id="mon_tree-cb2">
+    <path d="M146,168 C112,158 80,138 58,112 C52,104 58,96 66,102 C86,118 114,136 148,148 Z"/>
+  </clipPath>
+  <clipPath id="mon_tree-cb3">
+    <path d="M144,162 C112,134 92,100 94,70 C96,60 106,62 106,72 C104,98 120,126 152,150 Z"/>
+  </clipPath>
+  <clipPath id="mon_tree-cb4">
+    <path d="M148,176 C146,130 150,82 158,56 C160,48 170,50 168,60 C162,84 164,130 172,176 Z"/>
+  </clipPath>
+  <clipPath id="mon_tree-cb5">
+    <path d="M176,162 C208,134 228,100 226,70 C224,60 214,62 214,72 C216,98 200,126 168,150 Z"/>
+  </clipPath>
+  <clipPath id="mon_tree-cb6">
+    <path d="M174,168 C208,158 240,138 262,112 C268,104 262,96 254,102 C234,118 206,136 172,148 Z"/>
+  </clipPath>
+  <clipPath id="mon_tree-cb7">
+    <path d="M178,174 C212,180 244,175 262,162 C268,156 262,147 254,152 C238,163 212,167 178,160 Z"/>
+  </clipPath>
+  <!-- 陶盆全形与顺着裂纹走的折线拆缝（左半向右多叠 1.2px，静止时完全看不出拆缝） -->
+  <clipPath id="mon_tree-cpot-full">
+    <path d="M84,298 H236 V316 H230 L218,388 H102 L90,316 H84 Z"/>
+  </clipPath>
+  <clipPath id="mon_tree-cpot-l">
+    <path d="M76,290 H152 L144,324 L156,354 L148,396 H76 Z"/>
+  </clipPath>
+  <clipPath id="mon_tree-cpot-r">
+    <path d="M148,290 H244 V396 H144 L152,354 L140,324 Z"/>
+  </clipPath>
+</defs>
+
+<g id="root">
+  <!-- 1. 落地接触阴影 shadow -->
+  <g id="shadow">
+    <ellipse cx="160" cy="390" rx="90" ry="8.5" fill="#0D111C" opacity="0.62"/>
+    <path d="M90,392 l12,-4 M132,394 l14,-5 M176,394 l14,-5 M216,392 l12,-4" stroke="#1C1412" stroke-width="1.1" opacity="0.5" fill="none"/>
+  </g>
+
+  <!-- 2. ①② 向四周伸展的旧铜枝条 branches（放在 #trunk 后面先画，根部深入树干内部被圆冠盖住；每根均照指南 3.2 节圆管挪管粗 1/3 做左上亮、右下暗 + 夹角加深） -->
+  <g id="branches">
+    <!-- 左下枝 b1 -->
+    <path d="M142,174 C108,180 76,175 58,162 C52,156 58,147 66,152 C82,163 108,167 142,160 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M142,174 C108,180 76,175 58,162 C52,156 58,147 66,152 C82,163 108,167 142,160 Z" fill="#6E542B"/>
+    <g clip-path="url(#mon_tree-cb1)">
+      <path d="M142,174 C108,180 76,175 58,162 C52,156 58,147 66,152 C82,163 108,167 142,160 Z" transform="translate(-3.2 -3.2)" fill="#9A7B46"/>
+      <path d="M62,152 C78,163 104,167 132,162" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- 挨着树干的一圈弧形加深（3.9 节代码①） -->
+      <path d="M120,154 C116,162 117,172 122,178 L145,178 L145,154 Z" fill="#3B2B14" opacity="0.78"/>
+    </g>
+
+    <!-- 左中枝 b2 -->
+    <path d="M146,168 C112,158 80,138 58,112 C52,104 58,96 66,102 C86,118 114,136 148,148 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <path d="M146,168 C112,158 80,138 58,112 C52,104 58,96 66,102 C86,118 114,136 148,148 Z" fill="#6E542B"/>
+    <g clip-path="url(#mon_tree-cb2)">
+      <path d="M146,168 C112,158 80,138 58,112 C52,104 58,96 66,102 C86,118 114,136 148,148 Z" transform="translate(-3.2 -3.2)" fill="#9A7B46"/>
+      <path d="M63,103 C84,119 110,135 136,146" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M118,136 C114,146 116,158 122,168 L150,170 L150,136 Z" fill="#3B2B14" opacity="0.78"/>
+    </g>
+
+    <!-- 左上枝 b3 -->
+    <path d="M144,162 C112,134 92,100 94,70 C96,60 106,62 106,72 C104,98 120,126 152,150 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M144,162 C112,134 92,100 94,70 C96,60 106,62 106,72 C104,98 120,126 152,150 Z" fill="#6E542B"/>
+    <g clip-path="url(#mon_tree-cb3)">
+      <path d="M144,162 C112,134 92,100 94,70 C96,60 106,62 106,72 C104,98 120,126 152,150 Z" transform="translate(-3.2 -3)" fill="#9A7B46"/>
+      <path d="M97,72 C96,98 110,124 134,146" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M122,126 C126,136 134,144 146,148 L154,164 L118,164 Z" fill="#3B2B14" opacity="0.78"/>
+    </g>
+
+    <!-- 正中主枝 b4 -->
+    <path d="M148,176 C146,130 150,82 158,56 C160,48 170,50 168,60 C162,84 164,130 172,176 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <path d="M148,176 C146,130 150,82 158,56 C160,48 170,50 168,60 C162,84 164,130 172,176 Z" fill="#6E542B"/>
+    <g clip-path="url(#mon_tree-cb4)">
+      <path d="M148,176 C146,130 150,82 158,56 C160,48 170,50 168,60 C162,84 164,130 172,176 Z" transform="translate(-3.6 -2.5)" fill="#9A7B46"/>
+      <path d="M158,60 C152,86 150,120 151,148" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M146,126 Q160,122 174,126 L174,178 L146,178 Z" fill="#3B2B14" opacity="0.78"/>
+    </g>
+
+    <!-- 右上枝 b5（同样照 3.2 节圆管挪管粗 1/3 做左上亮、右下暗，不再整根平涂暗色） -->
+    <path d="M176,162 C208,134 228,100 226,70 C224,60 214,62 214,72 C216,98 200,126 168,150 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M176,162 C208,134 228,100 226,70 C224,60 214,62 214,72 C216,98 200,126 168,150 Z" fill="#6E542B"/>
+    <g clip-path="url(#mon_tree-cb5)">
+      <path d="M176,162 C208,134 228,100 226,70 C224,60 214,62 214,72 C216,98 200,126 168,150 Z" transform="translate(-3.2 -3)" fill="#9A7B46"/>
+      <path d="M216,74 C217,98 202,122 180,142" fill="none" stroke="#C2A670" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M198,126 C194,136 186,144 174,148 L166,164 L202,164 Z" fill="#3B2B14" opacity="0.8"/>
+    </g>
+
+    <!-- 右中枝 b6（圆管挪管粗 1/3 做左上亮、右下暗） -->
+    <path d="M174,168 C208,158 240,138 262,112 C268,104 262,96 254,102 C234,118 206,136 172,148 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.4" stroke-linejoin="round"/>
+    <path d="M174,168 C208,158 240,138 262,112 C268,104 262,96 254,102 C234,118 206,136 172,148 Z" fill="#6E542B"/>
+    <g clip-path="url(#mon_tree-cb6)">
+      <path d="M174,168 C208,158 240,138 262,112 C268,104 262,96 254,102 C234,118 206,136 172,148 Z" transform="translate(-3.2 -3.2)" fill="#9A7B46"/>
+      <path d="M254,104 C234,120 208,136 184,146" fill="none" stroke="#C2A670" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M202,136 C206,146 204,158 198,168 L170,170 L170,136 Z" fill="#3B2B14" opacity="0.8"/>
+    </g>
+
+    <!-- 右下枝 b7（圆管挪管粗 1/3 做左上亮、右下暗） -->
+    <path d="M178,174 C212,180 244,175 262,162 C268,156 262,147 254,152 C238,163 212,167 178,160 Z" transform="translate(.6 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M178,174 C212,180 244,175 262,162 C268,156 262,147 254,152 C238,163 212,167 178,160 Z" fill="#6E542B"/>
+    <g clip-path="url(#mon_tree-cb7)">
+      <path d="M178,174 C212,180 244,175 262,162 C268,156 262,147 254,152 C238,163 212,167 178,160 Z" transform="translate(-3.2 -3.2)" fill="#9A7B46"/>
+      <path d="M254,154 C238,164 214,167 188,162" fill="none" stroke="#C2A670" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M200,154 C204,162 203,172 198,178 L175,178 L175,154 Z" fill="#3B2B14" opacity="0.82"/>
+    </g>
+  </g>
+
+  <!-- 3. ① 扭着长的旧铜树干 trunk（后于 #branches 绘制，顶部重画成圆鼓的树冠口，严密盖住全部枝根） -->
+  <g id="trunk">
+    <path d="M126,316 C120,280 114,252 124,216 C131,188 128,166 121,148 C117,138 131,129 146,133 C154,128 166,128 174,133 C189,129 203,138 199,148 C192,166 189,188 198,218 C208,254 198,282 194,316 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="6.2" stroke-linejoin="round"/>
+    <path d="M126,316 C120,280 114,252 124,216 C131,188 128,166 121,148 C117,138 131,129 146,133 C154,128 166,128 174,133 C189,129 203,138 199,148 C192,166 189,188 198,218 C208,254 198,282 194,316 Z" fill="#6E542B"/>
+    <g clip-path="url(#mon_tree-ctrunk)">
+      <path d="M126,316 C120,280 114,252 124,216 C131,188 128,166 121,148 C117,138 131,129 146,133 C154,128 166,128 174,133 C189,129 203,138 199,148 C192,166 189,188 198,218 C208,254 198,282 194,316 Z" transform="translate(-7 -5)" fill="#9A7B46"/>
+      <path d="M164,128 C178,182 182,248 172,316 H206 V128 Z" fill="#3B2B14" opacity="0.8"/>
+      <path d="M174,134 C186,186 190,250 182,314 H204 V134 Z" fill="url(#mon_tree-h)" opacity="0.36"/>
+      <!-- 树干左上受光边与圆冠口受光弧 -->
+      <path d="M130,304 C124,274 119,248 127,218 C134,190 131,166 124,147 C122,140 133,133 145,136 C134,136 125,141 127,148 C134,168 136,192 124,218 C116,248 121,274 127,304 Z" fill="#C2A670"/>
+      <!-- 铜绿旧痕 -->
+      <path d="M174,268 C182,266 188,272 186,282 C182,288 174,284 174,268 Z" fill="#5F8272" opacity="0.55"/>
+      <!-- 树干扭转收尖结构线与树冠瘤节褶纹 -->
+      <path d="M144,296 Q140,256 154,210 Q144,256 144,296 Z M176,294 Q182,256 172,202 Q178,256 176,294 Z M132,148 Q146,156 160,152 Q146,152 132,148 Z M162,152 Q176,156 188,148 Q176,152 162,152 Z" fill="#1C1412"/>
+    </g>
+  </g>
+
+  <!-- 4. 树干上两个树洞眼睛 eyes -->
+  <g id="eyes">
+    <ellipse cx="142" cy="234" rx="11" ry="13.5" transform="rotate(-6 142 234)" fill="#161221" stroke="#1C1412" stroke-width="3"/>
+    <circle cx="143" cy="234" r="5" fill="#C2A670" stroke="#1C1412" stroke-width="1.5"/>
+    <circle cx="143" cy="234" r="2.2" fill="#1C1412"/>
+    <circle cx="141" cy="231.5" r="1.6" fill="#DDCB9A"/>
+
+    <ellipse cx="180" cy="238" rx="10" ry="12.5" transform="rotate(8 180 238)" fill="#161221" stroke="#1C1412" stroke-width="3"/>
+    <circle cx="179" cy="238" r="4.5" fill="#C2A670" stroke="#1C1412" stroke-width="1.5"/>
+    <circle cx="179" cy="238" r="2" fill="#1C1412"/>
+    <circle cx="177" cy="235.5" r="1.5" fill="#DDCB9A"/>
+
+    <path d="M149,264 Q160,257 173,265 Q160,261 149,264 Z" fill="#1C1412"/>
+  </g>
+
+  <!-- 5. 重击表情 face_hurt -->
+  <g id="face_hurt" opacity="0">
+    <path d="M130,226 L152,234 L130,242 M192,228 L170,237 L192,246" fill="none" stroke="#1C1412" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M130,226 L152,234 L130,242 M192,228 L170,237 L192,246" fill="none" stroke="#DDCB9A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 6. 眩晕表情 face_daze -->
+  <g id="face_daze" opacity="0">
+    <g class="daze-swirl-l">
+      <circle cx="142" cy="234" r="10" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.4"/>
+      <path d="M142,234 m-2,0 a2,2 0 1,0 4,0 a4.5,4.5 0 1,0 -9,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g class="daze-swirl-r">
+      <circle cx="180" cy="238" r="9.5" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.4"/>
+      <path d="M180,238 m-2,0 a2,2 0 1,0 4,0 a4,4 0 1,0 -8,0" fill="none" stroke="#1C1412" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g class="daze-stars">
+      <polygon points="116,40 119,34 122,40 128,42 122,45 119,51 116,45 110,42" fill="#DDCB9A" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="204,40 207,34 210,40 216,42 210,45 207,51 204,45 198,42" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.5" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- 7. ④ 多样化旧金币叶与三颗小宝石 coins（4 种不同造型：正面大圆带缺口、侧转扁椭圆带厚度边、小号划痕铜绿圆币、双枚前后叠压且部分被枝条压住） -->
+  <g id="coins">
+    <!-- (1) 内侧左衬底金币 (116, 166)：侧转扁椭圆币，且上半部被左中枝压住一部分（压住处加深 + 枝段压在上面） -->
+    <g transform="translate(116 166) rotate(-18)">
+      <ellipse cx="1" cy="1.8" rx="15.5" ry="12" fill="#1C1412"/>
+      <ellipse cx="0" cy="0" rx="15" ry="11.5" fill="#6E542B" stroke="#1C1412" stroke-width="2.6"/>
+      <ellipse cx="-2.5" cy="-2" rx="11.5" ry="8.5" fill="#9A7B46"/>
+      <ellipse cx="0" cy="0" rx="10.5" ry="7.8" fill="none" stroke="#C2A670" stroke-width="1.7" stroke-dasharray="0.05 0.95" pathLength="12" stroke-linecap="round"/>
+      <!-- 被枝条压住的上沿接触加深 -->
+      <path d="M-14,-4 A15,11.5 0 0,1 14,-4 Q0,2 -14,-4 Z" fill="#3B2B14" opacity="0.85"/>
+      <circle cx="-6" cy="2" r="1.6" fill="#DDCB9A"/>
+    </g>
+    <!-- 压在 (116,166) 金币上方的分叉小铜枝尖（体现“有两三枚被枝或别的金币压住一部分”） -->
+    <path d="M126,155 C118,154 111,156 107,160 C105,162 108,165 111,163 C115,160 120,159 126,160 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+
+    <!-- (2) 内侧右衬底金币 (204, 166)：侧转扁椭圆币，被右枝与相邻小金币压住一部分 -->
+    <g transform="translate(204 166) rotate(22)">
+      <ellipse cx="1" cy="1.8" rx="15" ry="11.5" fill="#1C1412"/>
+      <ellipse cx="0" cy="0" rx="14.5" ry="11" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6"/>
+      <ellipse cx="-2.5" cy="-2" rx="11" ry="8" fill="#6E542B"/>
+      <ellipse cx="0" cy="0" rx="10" ry="7.2" fill="none" stroke="#9A7B46" stroke-width="1.6" stroke-dasharray="0.05 0.95" pathLength="12" stroke-linecap="round"/>
+      <path d="M-13,-3 A14.5,11 0 0,1 13,-3 Q0,3 -13,-3 Z" fill="#1C1412" opacity="0.65"/>
+      <circle cx="-5" cy="2" r="1.5" fill="#C2A670"/>
+    </g>
+    <path d="M194,155 C202,154 209,156 213,160 C215,162 212,165 209,163 C205,160 200,159 194,160 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+
+    <!-- (3) 左下金币 (58, 156)：造型 B（侧转 28° 的扁椭圆金币 + 3D 侧边厚度 + 右下缺口） -->
+    <g transform="translate(58 156) rotate(-28)">
+      <ellipse cx="0.6" cy="2.6" rx="17.5" ry="12.5" fill="#1C1412" stroke="#1C1412" stroke-width="2.6"/>
+      <ellipse cx="0.4" cy="2" rx="17" ry="12" fill="#3B2B14" stroke="#1C1412" stroke-width="2"/>
+      <ellipse cx="0" cy="0" rx="17" ry="12" fill="#6E542B" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M-14,-6 A17,12 0 0,1 13,6 A15,10 0 0,1 -14,-6 Z" fill="#9A7B46"/>
+      <ellipse cx="0" cy="0" rx="12" ry="8.2" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-dasharray="0.04 0.96" pathLength="14" stroke-linecap="round"/>
+      <polygon points="14,4 18,6 15,9" fill="#1C1412"/>
+      <circle cx="-6" cy="-3.5" r="2" fill="#DDCB9A"/>
+    </g>
+
+    <!-- (4) 左上金币 (56, 102)：造型 A（正面圆金币 + 左上边口磕痕缺口 + 盘面划痕） -->
+    <g transform="translate(56 102)">
+      <path d="M0,-17.5 C9.7,-17.5 17.5,-9.7 17.5,0 C17.5,9.7 9.7,17.5 0,17.5 C-9.7,17.5 -17.5,9.7 -17.5,0 C-17.5,-4 -16,-7.8 -13.5,-10.8 L-10.5,-8.5 L-11.2,-12.8 C-8.2,-15.8 -4.2,-17.5 0,-17.5 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M0,-17.5 C9.7,-17.5 17.5,-9.7 17.5,0 C17.5,9.7 9.7,17.5 0,17.5 C-9.7,17.5 -17.5,9.7 -17.5,0 C-17.5,-4 -16,-7.8 -13.5,-10.8 L-10.5,-8.5 L-11.2,-12.8 C-8.2,-15.8 -4.2,-17.5 0,-17.5 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M-11,-11 A16,16 0 0,1 11,11 A16,13 0 0,1 -11,-11 Z" fill="#9A7B46"/>
+      <circle cx="0" cy="0" r="12" fill="none" stroke="#C2A670" stroke-width="1.9" stroke-dasharray="0.04 0.96" pathLength="15" stroke-linecap="round"/>
+      <path d="M-4,2 Q3,6 8,4 Q2,8 -4,2 Z" fill="#3B2B14"/>
+      <circle cx="-3.5" cy="-6.5" r="2.2" fill="#DDCB9A"/>
+    </g>
+
+    <!-- (5) 左顶金币 (98, 64)：造型 B（侧转 +20° 扁椭圆大金币 + 铜绿污渍） -->
+    <g transform="translate(98 64) rotate(20)">
+      <ellipse cx="0.6" cy="2.6" rx="19" ry="14" fill="#1C1412" stroke="#1C1412" stroke-width="2.6"/>
+      <ellipse cx="0.4" cy="2" rx="18.5" ry="13.5" fill="#3B2B14" stroke="#1C1412" stroke-width="2"/>
+      <ellipse cx="0" cy="0" rx="18.5" ry="13.5" fill="#6E542B" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M-15,-7 A18.5,13.5 0 0,1 14,7 A17,11 0 0,1 -15,-7 Z" fill="#9A7B46"/>
+      <ellipse cx="0" cy="0" rx="13" ry="9.2" fill="none" stroke="#C2A670" stroke-width="1.9" stroke-dasharray="0.04 0.96" pathLength="16" stroke-linecap="round"/>
+      <ellipse cx="6" cy="5" rx="4" ry="2.2" fill="#5F8272" opacity="0.55"/>
+      <circle cx="-7" cy="-4" r="2.3" fill="#DDCB9A"/>
+    </g>
+
+    <!-- (6) 正顶大金币 (160, 50)：造型 A（最大号王冠顶圆金币 r=20 + 右上与左下双缺口 + 中心菱形古纹） -->
+    <g transform="translate(160 50)">
+      <path d="M0,-19.5 C4.5,-19.5 8.8,-18 12.2,-15.2 L10.2,-11.5 L14.5,-12.8 C17.6,-9.4 19.5,-4.9 19.5,0 C19.5,10.8 10.8,19.5 0,19.5 C-10.8,19.5 -19.5,10.8 -19.5,0 C-19.5,-10.8 -10.8,-19.5 0,-19.5 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M0,-19.5 C4.5,-19.5 8.8,-18 12.2,-15.2 L10.2,-11.5 L14.5,-12.8 C17.6,-9.4 19.5,-4.9 19.5,0 C19.5,10.8 10.8,19.5 0,19.5 C-10.8,19.5 -19.5,10.8 -19.5,0 C-19.5,-10.8 -10.8,-19.5 0,-19.5 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M-13,-13 A19,19 0 0,1 13,13 A19,15 0 0,1 -13,-13 Z" fill="#9A7B46"/>
+      <circle cx="0" cy="0" r="13.8" fill="none" stroke="#C2A670" stroke-width="2" stroke-dasharray="0.04 0.96" pathLength="18" stroke-linecap="round"/>
+      <polygon points="0,-5 5,0 0,5 -5,0" fill="#6E542B" stroke="#3B2B14" stroke-width="1.2" stroke-linejoin="round"/>
+      <circle cx="-7" cy="-6" r="2.5" fill="#DDCB9A"/>
+    </g>
+
+    <!-- (7) 中心叠压双金币 (160, 118)：后方压着一枚侧偏小金币 (172, 123)，前方主币压住它并带接触阴影 -->
+    <g transform="translate(172 123) rotate(25)">
+      <ellipse cx="0" cy="0" rx="13" ry="10" fill="#3B2B14" stroke="#1C1412" stroke-width="2.4"/>
+      <ellipse cx="-2" cy="-1.5" rx="9.5" ry="7" fill="#6E542B"/>
+    </g>
+    <g transform="translate(158 118) rotate(-10)">
+      <ellipse cx="1.5" cy="2" rx="17" ry="15" fill="#3B2B14" opacity="0.7"/>
+      <ellipse cx="0" cy="0" rx="16.5" ry="14.5" fill="#6E542B" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M-12,-9 A16.5,14.5 0 0,1 12,9 A15,12 0 0,1 -12,-9 Z" fill="#9A7B46"/>
+      <ellipse cx="0" cy="0" rx="11.5" ry="10" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-dasharray="0.04 0.96" pathLength="15" stroke-linecap="round"/>
+      <circle cx="-5" cy="-4.5" r="2.1" fill="#DDCB9A"/>
+    </g>
+
+    <!-- (8) 右顶金币 (222, 64)：造型 B（侧转 -24° 扁椭圆币 + 侧边厚度 + 边口缺口） -->
+    <g transform="translate(222 64) rotate(-24)">
+      <ellipse cx="0.6" cy="2.6" rx="18" ry="13" fill="#1C1412" stroke="#1C1412" stroke-width="2.6"/>
+      <ellipse cx="0.4" cy="2" rx="17.5" ry="12.5" fill="#3B2B14" stroke="#1C1412" stroke-width="2"/>
+      <ellipse cx="0" cy="0" rx="17.5" ry="12.5" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M-14,-6 A17.5,12.5 0 0,1 13,6 A16,10 0 0,1 -14,-6 Z" fill="#6E542B"/>
+      <ellipse cx="0" cy="0" rx="12.2" ry="8.5" fill="none" stroke="#9A7B46" stroke-width="1.8" stroke-dasharray="0.04 0.96" pathLength="15" stroke-linecap="round"/>
+      <polygon points="-16,2 -12,4 -15,7" fill="#1C1412"/>
+      <circle cx="-4" cy="-5" r="2" fill="#C2A670"/>
+    </g>
+
+    <!-- (9) 右上金币 (264, 102)：造型 C（小号微扁磨损金币 r=15.5 + 划痕与缺口） -->
+    <g transform="translate(264 102) rotate(15)">
+      <ellipse cx="0.5" cy="0.8" rx="16" ry="14.5" fill="#1C1412"/>
+      <ellipse cx="0" cy="0" rx="15.5" ry="14" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M-11,-9 A15.5,14 0 0,1 11,9 A14,11 0 0,1 -11,-9 Z" fill="#6E542B"/>
+      <ellipse cx="0" cy="0" rx="10.8" ry="9.5" fill="none" stroke="#9A7B46" stroke-width="1.8" stroke-dasharray="0.05 0.95" pathLength="14" stroke-linecap="round"/>
+      <path d="M-5,-2 Q2,3 7,1 Q1,5 -5,-2 Z" fill="#1C1412"/>
+      <circle cx="-3" cy="-5.5" r="1.9" fill="#C2A670"/>
+    </g>
+
+    <!-- (10) 右下金币 (262, 156)：造型 B（侧转 +32° 扁椭圆金币 + 冷色轮廓光） -->
+    <g transform="translate(262 156) rotate(32)">
+      <ellipse cx="0.6" cy="2.4" rx="17.5" ry="12" fill="#1C1412" stroke="#1C1412" stroke-width="2.6"/>
+      <ellipse cx="0" cy="0" rx="17" ry="11.5" fill="#3B2B14" stroke="#1C1412" stroke-width="2.6"/>
+      <path d="M-13,-6 A17,11.5 0 0,1 13,6 A15,9.5 0 0,1 -13,-6 Z" fill="#6E542B"/>
+      <ellipse cx="0" cy="0" rx="11.8" ry="7.8" fill="none" stroke="#9A7B46" stroke-width="1.8" stroke-dasharray="0.04 0.96" pathLength="14" stroke-linecap="round"/>
+      <path d="M10,-6 A14,9.5 0 0,1 12,7" fill="none" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+      <circle cx="-6" cy="-3" r="1.8" fill="#C2A670"/>
+    </g>
+
+    <!-- 枝叶间夹着的三颗鲜艳小宝石（红圆、绿切角方、蓝三角） -->
+    <circle cx="104" cy="128" r="13.5" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2"/>
+    <circle cx="104" cy="128" r="11" fill="#E3263A" stroke="#1C1412" stroke-width="2.2"/>
+    <path d="M95,122 A11,11 0 0,1 111,120 L104,128 Z" fill="#F4566A"/>
+    <path d="M111,120 A11,11 0 0,1 100,138 L104,128 Z" fill="#A8172A"/>
+    <circle cx="100.5" cy="124.5" r="2" fill="#F4F1FF"/>
+
+    <rect x="148" y="72" width="24" height="24" rx="4" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2"/>
+    <polygon points="153,75 167,75 169,77 169,91 167,93 153,93 151,91 151,77" fill="#1DBF5E" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="153,75 167,75 164,80 156,80" fill="#A6F5C6"/>
+    <polygon points="169,77 169,91 164,88 164,80" fill="#128A43"/>
+    <circle cx="156.5" cy="80.5" r="1.6" fill="#F4F1FF"/>
+
+    <polygon points="216,113 231,139 201,139" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="216,116 228,137 204,137" fill="#2E66F0" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="216,116 216,131 204,137" fill="#6A93F8"/>
+    <polygon points="216,116 228,137 216,131" fill="#1D45B8"/>
+    <circle cx="213.5" cy="126" r="1.6" fill="#F4F1FF"/>
+
+    <!-- regrow 事件依次长出的三枚新无孔圆金币叶 -->
+    <g class="bud-1" opacity="0">
+      <circle cx="84" cy="118" r="14" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6"/>
+      <circle cx="84" cy="118" r="10" fill="#C2A670"/>
+      <circle cx="80" cy="114" r="2.2" fill="#DDCB9A"/>
+    </g>
+    <g class="bud-2" opacity="0">
+      <circle cx="160" cy="72" r="14" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6"/>
+      <circle cx="160" cy="72" r="10" fill="#C2A670"/>
+      <circle cx="156" cy="68" r="2.2" fill="#DDCB9A"/>
+    </g>
+    <g class="bud-3" opacity="0">
+      <circle cx="236" cy="118" r="14" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6"/>
+      <circle cx="236" cy="118" r="10" fill="#C2A670"/>
+      <circle cx="232" cy="114" r="2.2" fill="#DDCB9A"/>
+    </g>
+    <g class="regrow-glint" opacity="0">
+      <polygon points="160,34 163,42 171,45 163,48 160,56 157,48 149,45 157,42" fill="#DDCB9A" stroke="#1C1412" stroke-width="1.4"/>
+    </g>
+  </g>
+
+  <!-- 8. ③ 旧陶盆 pot（顺着盆上裂纹走折线拆给两半，交界处不描线，整盆一次错位法明暗连成一体，静止时看不出拆缝） -->
+  <g id="pot">
+    <!-- 右半陶盆 .pot-r（先画右半，再画左半叠合 1.2px 消除抗锯齿白缝） -->
+    <g class="pot-r">
+      <path d="M148,298 H236 V316 H230 L218,388 H144" transform="translate(.6 .9)" fill="none" stroke="#1C1412" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <g clip-path="url(#mon_tree-cpot-r)">
+        <!-- 整盆统一的暗色底 -->
+        <path d="M84,298 H236 V316 H230 L218,388 H102 L90,316 H84 Z" fill="#704122"/>
+        <g clip-path="url(#mon_tree-cpot-full)">
+          <!-- 整盆统一的一次错位亮面 -->
+          <path d="M84,298 H236 V316 H230 L218,388 H102 L90,316 H84 Z" transform="translate(-8 -5)" fill="#9E6238"/>
+          <!-- 右侧弧形背光暗面（不是正中一刀切！） -->
+          <path d="M188,298 H236 V316 H230 L218,388 H172 C188,358 192,326 188,298 Z" fill="#3D2212" opacity="0.88"/>
+          <!-- 盆沿下压暗阴影 -->
+          <path d="M90,316 H230 L228,323 H92 Z" fill="#3D2212" opacity="0.65"/>
+          <path d="M88,303 H180" stroke="#C48A5C" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M226,324 L216,382" stroke="#8CAAB5" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+          <!-- 顺着折线裂口走的收尖裂纹旧痕 -->
+          <path d="M142,318 L140,324 L152,354 L146,374 L155,353 L143,324 Z" fill="#1C1412"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- 左半陶盆 .pot-l -->
+    <g class="pot-l">
+      <!-- 外轮廓墨色垫底（仅走外缘，折线中缝处不描线） -->
+      <path d="M148,298 H84 V316 H90 L102,388 H145" fill="none" transform="translate(.6 .9)" stroke="#1C1412" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <g clip-path="url(#mon_tree-cpot-l)">
+        <g clip-path="url(#mon_tree-cpot-full)">
+          <path d="M84,298 H236 V316 H230 L218,388 H102 L90,316 H84 Z" fill="#9E6238"/>
+          <path d="M100,382 H220 L218,388 H102 Z" fill="#704122"/>
+          <path d="M188,298 H236 V316 H230 L218,388 H172 C188,358 192,326 188,298 Z" fill="#3D2212" opacity="0.88"/>
+          <path d="M90,316 H230 L228,323 H92 Z" fill="#3D2212" opacity="0.65"/>
+          <path d="M88,303 H180" stroke="#C48A5C" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M96,322 L104,378" stroke="#C48A5C" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- 陶盆左侧裂纹与顺着中缝折线走的表面裂纹（收尖线） -->
+          <path d="M120,316 L114,344 L126,364 L118,344 Z M142,318 L140,324 L152,354 L146,374 L155,353 L143,324 Z" fill="#1C1412"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- 9. 重击与死亡落下的无孔圆金币 coins_fall -->
+  <g id="coins_fall" opacity="0">
+    <circle cx="112" cy="186" r="11" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4"/>
+    <circle cx="109" cy="183" r="2" fill="#DDCB9A"/>
+    <circle cx="160" cy="192" r="12" fill="#C2A670" stroke="#1C1412" stroke-width="2.4"/>
+    <circle cx="157" cy="189" r="2" fill="#DDCB9A"/>
+    <circle cx="208" cy="188" r="11" fill="#6E542B" stroke="#1C1412" stroke-width="2.4"/>
+    <circle cx="205" cy="185" r="2" fill="#C2A670"/>
+  </g>
+</g>
+</svg>

@@ -9,10 +9,19 @@ const sprites = path.join(art, 'sprites');
 const out = path.join(art, 'resources');
 const manifest = JSON.parse(fs.readFileSync(path.join(art, 'art-manifest.json'), 'utf8'));
 const data = JSON.parse(fs.readFileSync(path.join(sprites, 'sprites.json'), 'utf8'));
+if (manifest.artStyle === 'fable-carbon-remake') {
+  // The two reference packs added idle motion to previously static v5 assets.
+  for (const definition of manifest.assets) definition.idle = Object.entries(data.assets).some(([name, entry]) => name.split('@')[0] === definition.id && entry.actions.idle.frames.length > 1);
+  fs.writeFileSync(path.join(art, 'art-manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+}
 const lossless = manifest.assets.filter(d => d.id.startsWith('gem_icon_') || d.id.startsWith('rule_') || d.id.startsWith('relic_') || d.id.startsWith('ui_icon_') || d.id.startsWith('ui_node_') || d.id.startsWith('ui_reward_') || ['ui_panel', 'ui_btn', 'ui_btn_primary', 'ui_mult_badge', 'ui_heart', 'ui_heart_empty', 'ui_countdown', 'ui_hp_frame', 'ui_rule_sign', 'ui_rainbow_slot', 'card_gem_bar', 'bg_tile'].includes(d.id)).map(d => d.id);
 fs.mkdirSync(out, { recursive: true });
 const str = value => JSON.stringify(value);
-const write = (file, content) => fs.writeFileSync(file, content);
+const generated = new Set();
+const write = (file, content) => {
+  fs.writeFileSync(file, content);
+  if(path.dirname(file)===out)generated.add(path.basename(file));
+};
 const hash = text => crypto.createHash('sha256').update(text).digest('hex').slice(0, 16);
 let actions = 0, sets = 0;
 
@@ -63,4 +72,5 @@ for (const filename of fs.readdirSync(sprites).filter(f => f.endsWith('.png'))) 
   write(path.join(sprites, `${filename}.import`), `[remap]\n\nimporter="texture"\ntype="CompressedTexture2D"\n${remapPath}\nmetadata={\n"vram_texture": ${mode === 2}\n}\n\n[deps]\n\nsource_file=${str(source)}\ndest_files=[${str(dest)}]\n\n[params]\n\ncompress/mode=${mode}\ncompress/high_quality=false\ncompress/lossy_quality=0.7\ncompress/uastc_level=0\ncompress/rdo_quality_loss=0.0\ncompress/hdr_compression=1\ncompress/normal_map=0\ncompress/channel_pack=0\nmipmaps/generate=false\nmipmaps/limit=-1\nroughness/mode=0\nroughness/src_normal=""\nprocess/fix_alpha_border=true\nprocess/premult_alpha=false\nprocess/normal_map_invert_y=false\nprocess/hdr_as_srgb=false\nprocess/hdr_clamp_exposure=false\nprocess/size_limit=0\ndetect_3d/compress_to=0\n`);
 }
 write(path.join(out, 'lossless-assets.json'), JSON.stringify({ reason: '文字/细线界面与小图标保留无损；其他牌面、怪、特效大图VRAM压缩；全部无mipmap。', ids: lossless }, null, 2) + '\n');
+for(const file of fs.readdirSync(out))if(file.endsWith('.tres')&&!generated.has(file))fs.rmSync(path.join(out,file));
 console.log(`已生成 ${manifest.assets.length} 个ArtResource、${sets} 套、${actions} 个原生SpriteFrames资源；${lossless.length} 个素材无损，其余VRAM压缩；mipmap关闭。`);

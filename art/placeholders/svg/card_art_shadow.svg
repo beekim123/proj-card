@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="176" height="188" viewBox="0 0 176 188" class="svg-card_art_shadow"><style>.svg-card_art_shadow #tool { transform-origin:88px 94px; }
-.svg-card_art_shadow:not([data-anim]) #tool { animation:svg-card_art_shadow-idle 3200ms ease-in-out infinite; }
-.svg-card_art_shadow[data-anim="play"] #tool { animation:svg-card_art_shadow-play 600ms ease-out; }
-@keyframes svg-card_art_shadow-idle { 0%,100% { transform:rotate(-3deg); } 50% { transform:rotate(3deg); } }
-@keyframes svg-card_art_shadow-play { 40% { transform:scale(1.2); } 100% { transform:scale(1); } }
-</style><g id="tool"><circle cx="88" cy="94" r="56" fill="#9A8968" stroke="#1C1412" stroke-width="6"/><text x="88" y="94" text-anchor="middle" dominant-baseline="central" fill="#1C1412" font-size="48" font-family="sans-serif">影子</text></g></svg>

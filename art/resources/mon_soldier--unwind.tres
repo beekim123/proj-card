@@ -4,51 +4,51 @@
 
 [sub_resource type="AtlasTexture" id="f0"]
 atlas = ExtResource("t0")
-region = Rect2(259, 0, 254, 376)
-margin = Rect2(23, 24, 66, 24)
+region = Rect2(469, 0, 233, 379)
+margin = Rect2(34, 20, 87, 21)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f1"]
 atlas = ExtResource("t0")
-region = Rect2(519, 377, 267, 359)
-margin = Rect2(2, 41, 53, 41)
+region = Rect2(466, 381, 246, 357)
+margin = Rect2(19, 42, 74, 43)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f2"]
 atlas = ExtResource("t0")
-region = Rect2(0, 753, 268, 359)
-margin = Rect2(1, 41, 52, 41)
+region = Rect2(0, 760, 246, 356)
+margin = Rect2(19, 43, 74, 44)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f3"]
 atlas = ExtResource("t0")
-region = Rect2(254, 377, 265, 368)
-margin = Rect2(4, 32, 55, 32)
+region = Rect2(233, 381, 233, 371)
+margin = Rect2(32, 28, 87, 29)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f4"]
 atlas = ExtResource("t0")
-region = Rect2(513, 0, 257, 376)
-margin = Rect2(22, 24, 63, 24)
+region = Rect2(0, 381, 233, 379)
+margin = Rect2(34, 20, 87, 21)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f5"]
 atlas = ExtResource("t0")
-region = Rect2(0, 0, 259, 377)
-margin = Rect2(21, 23, 61, 23)
+region = Rect2(0, 0, 235, 381)
+margin = Rect2(36, 18, 85, 19)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="f6"]
 atlas = ExtResource("t0")
-region = Rect2(0, 377, 254, 376)
-margin = Rect2(23, 24, 66, 24)
+region = Rect2(235, 0, 234, 380)
+margin = Rect2(35, 19, 86, 20)
 filter_clip = true
 
 [resource]
-animations = [{ "frames": [{ "duration": 41.67, "texture": SubResource("f0") },
-{ "duration": 41.67, "texture": SubResource("f1") },
-{ "duration": 83.33, "texture": SubResource("f2") },
-{ "duration": 41.67, "texture": SubResource("f3") },
-{ "duration": 41.67, "texture": SubResource("f4") },
-{ "duration": 41.67, "texture": SubResource("f5") },
-{ "duration": 8.33, "texture": SubResource("f6") }], "loop": false, "name": &"unwind", "speed": 1000.0 }]
+animations = [{ "frames": [{ "duration": 33.33, "texture": SubResource("f0") },
+{ "duration": 33.33, "texture": SubResource("f1") },
+{ "duration": 100, "texture": SubResource("f2") },
+{ "duration": 33.33, "texture": SubResource("f3") },
+{ "duration": 33.33, "texture": SubResource("f4") },
+{ "duration": 33.33, "texture": SubResource("f5") },
+{ "duration": 33.33, "texture": SubResource("f6") }], "loop": false, "name": &"unwind", "speed": 1000.0 }]

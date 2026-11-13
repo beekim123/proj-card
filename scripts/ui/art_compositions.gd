@@ -3,7 +3,6 @@ extends VBoxContainer
 const Card = preload("res://scripts/ui/card_view.gd")
 const Layout = preload("res://scripts/ui/layout.gd")
 const Config = preload("res://rules/config.gd")
-const Sprite = preload("res://scripts/art/sprite_art.gd")
 const MASKS: Array = [1,2,4,3,6,5,7,0]
 const SCALES: Array = [0.75,1.4,2.0]
 const FORMS: Array = [[0,0,0],[15,15,15],[45,45,45],[15,0,45]]
@@ -154,10 +153,6 @@ func _anchored(parent: Control, id: String, point: Dictionary, factor: float, no
 
 func _build_doors() -> void:
 	_label(self,"两扇门 · 关门 / 开门",32)
-	var placeholder_data: Dictionary = {}
-	if FileAccess.file_exists("res://art/inspector/sprites.json"):
-		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://art/inspector/sprites.json"))
-		if parsed is Dictionary: placeholder_data = parsed.get("assets",{})
 	for key: String in ["portrait","landscape"]:
 		var layout: Dictionary = Layout.base(key)
 		_label(self,key+" · 游戏布局坐标",26)
@@ -169,14 +164,8 @@ func _build_doors() -> void:
 			var door: Control = _anchored(stage,"ui_door",point,layout.doors.scale); data.doors.append(door)
 			if index == 1: store.set_stay(door,"open")
 			var id: String = "mon_chest" if index == 0 else "mon_bear"
-			if placeholder_data.has(id):
-				var monster: Control = Sprite.new(); monster.initialize(store,id,{"definition":store.assets[id].definition,"entries":{"":placeholder_data[id]}},store.clock,false)
-				monster.set_meta("inspector_placeholder",true)
-				_anchored(stage,id,point,layout.doors.monsterScale,monster); data.monsters.append(monster)
-			else:
-				var warning: String = "缺少 H5 原示例占位动画："+id
-				if not issues.has(warning): issues.append(warning)
-				var message: Label = _label(stage,warning,22); message.position = Vector2(point.x-140,point.y-230); message.size = Vector2(280,100)
+			var monster: Control = _anchored(stage,id,point,layout.doors.monsterScale)
+			data.monsters.append(monster)
 			var reward: Control = store.create("ui_rule_sign")
 			var reward_text: String = "额外牌" if index == 0 else "回一颗心"
 			store.set_slot_text(reward,"rule_text",reward_text); store.set_slot_icon(reward,"icon_slot","ui_reward_card" if index == 0 else "ui_reward_heal")

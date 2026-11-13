@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_slow" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 慢一拍</title>
+<style>
+.svg-relic_slow g { transform-box: view-box; }
+.svg-relic_slow #open_lid { transform-origin: 36px 36px; }
+.svg-relic_slow #watch_chain { transform-origin: 70px 62px; }
+.svg-relic_slow .bent-hand { transform-origin: 52px 54px; }
+@keyframes svg-relic_slow-idle-lid {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(-2.2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_slow-idle-chain {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,1px) rotate(3deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_slow-idle-hand {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(3.2deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_slow:not([data-anim]) #open_lid,
+.svg-relic_slow[data-anim="idle"] #open_lid { animation: svg-relic_slow-idle-lid 3s infinite; }
+.svg-relic_slow:not([data-anim]) #watch_chain,
+.svg-relic_slow[data-anim="idle"] #watch_chain { animation: svg-relic_slow-idle-chain 3s infinite; }
+.svg-relic_slow:not([data-anim]) .bent-hand,
+.svg-relic_slow[data-anim="idle"] .bent-hand { animation: svg-relic_slow-idle-hand 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_slow-cbody"><circle cx="52" cy="54" r="29"/></clipPath>
+  <clipPath id="relic_slow-cdial"><circle cx="52" cy="54" r="22"/></clipPath>
+</defs>
+<g id="root">
+  <!-- 右下垂下的旧铜表链 -->
+  <g id="watch_chain">
+    <g transform="translate(72 64) rotate(34)">
+      <path d="M-7,0 A7,4.2 0 1,1 7,0 A7,4.2 0 1,1 -7,0 Z M-3.2,0 A3.2,1.8 0 1,0 3.2,0 A3.2,1.8 0 1,0 -3.2,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="4.8"/>
+      <path d="M-7,0 A7,4.2 0 1,1 7,0 A7,4.2 0 1,1 -7,0 Z M-3.2,0 A3.2,1.8 0 1,0 3.2,0 A3.2,1.8 0 1,0 -3.2,0 Z" fill="#6E542B" fill-rule="evenodd"/>
+    </g>
+    <g transform="translate(78 73) rotate(68)">
+      <path d="M-7,0 A7,4.2 0 1,1 7,0 A7,4.2 0 1,1 -7,0 Z M-3.2,0 A3.2,1.8 0 1,0 3.2,0 A3.2,1.8 0 1,0 -3.2,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="4.8"/>
+      <path d="M-7,0 A7,4.2 0 1,1 7,0 A7,4.2 0 1,1 -7,0 Z M-3.2,0 A3.2,1.8 0 1,0 3.2,0 A3.2,1.8 0 1,0 -3.2,0 Z" fill="#9A7B46" fill-rule="evenodd"/>
+    </g>
+    <g transform="translate(74 82) rotate(14)">
+      <path d="M-7,0 A7,4.2 0 1,1 7,0 A7,4.2 0 1,1 -7,0 Z M-3.2,0 A3.2,1.8 0 1,0 3.2,0 A3.2,1.8 0 1,0 -3.2,0 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="4.8"/>
+      <path d="M-7,0 A7,4.2 0 1,1 7,0 A7,4.2 0 1,1 -7,0 Z M-3.2,0 A3.2,1.8 0 1,0 3.2,0 A3.2,1.8 0 1,0 -3.2,0 Z" fill="#6E542B" fill-rule="evenodd"/>
+    </g>
+    <circle cx="66.5" cy="84.5" r="5" fill="#1C1412"/><circle cx="66" cy="84" r="3.4" fill="#C2A670"/><circle cx="65" cy="83" r="1.1" fill="#DDCB9A"/>
+  </g>
+
+  <!-- 左上打开的怀表旧铜表盖 -->
+  <g id="open_lid">
+    <g transform="translate(26 26) rotate(-42)">
+      <ellipse cx="0.6" cy="0.9" rx="17.5" ry="10.5" fill="#1C1412" stroke="#1C1412" stroke-width="5.6"/>
+      <ellipse cx="0" cy="0" rx="17.5" ry="10.5" fill="#6E542B"/>
+      <ellipse cx="-2" cy="-1.5" rx="15" ry="8.5" fill="#9A7B46"/>
+      <ellipse cx="1" cy="1" rx="12" ry="6.8" fill="#3B2B14" stroke="#1C1412" stroke-width="2"/>
+      <path d="M-13,-3 A14,8 0 0,1 8,-6" fill="none" stroke="#C2A670" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="-8" cy="-4" r="1.5" fill="#DDCB9A"/>
+    </g>
+    <!-- 铰链 -->
+    <polygon points="32,34 39,28 43,34 36,40" fill="#9A7B46" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 怀表顶部表冠与提环 -->
+  <path d="M50,15 A6,5 0 1,1 62,15 A6,5 0 1,1 50,15 Z M53,15 A3,2.2 0 1,0 59,15 A3,2.2 0 1,0 53,15 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="4.6"/>
+  <path d="M50,15 A6,5 0 1,1 62,15 A6,5 0 1,1 50,15 Z M53,15 A3,2.2 0 1,0 59,15 A3,2.2 0 1,0 53,15 Z" fill="#9A7B46" fill-rule="evenodd"/>
+  <rect x="51" y="18.5" width="10" height="7" rx="2" fill="#6E542B" stroke="#1C1412" stroke-width="2.8"/>
+
+  <!-- 怀表旧铜表壳主体（七层画法） -->
+  <circle cx="52.6" cy="54.9" r="31.9" fill="#1C1412"/>
+  <circle cx="52" cy="54" r="29" fill="#6E542B"/>
+  <g clip-path="url(#relic_slow-cbody)">
+    <circle cx="48" cy="50" r="29" fill="#9A7B46"/>
+    <path d="M81,46 C81,66 66,83 46,83 C62,79 74,66 81,46 Z" fill="#3B2B14" opacity=".75"/>
+    <path d="M25.5,48 Q29,31 46,27 Q32,33 27.8,48.5 Z" fill="#C2A670"/>
+    <path d="M78.5,60 Q74,74 60,80 Q72,73 76.8,60 Z" fill="#8CAAB5" opacity=".82"/>
+    <path d="M64,74 C68,72 72,68 74,64" fill="none" stroke="#5F8272" stroke-width="2.2" stroke-linecap="round" opacity=".55"/>
+  </g>
+  <circle cx="34" cy="34" r="1.8" fill="#DDCB9A"/>
+
+  <!-- 旧纸表盘 -->
+  <circle cx="52" cy="54" r="22" fill="#C8B894" stroke="#1C1412" stroke-width="3"/>
+  <g clip-path="url(#relic_slow-cdial)">
+    <path d="M74,36 A22,22 0 0,1 34,72 A21,21 0 0,0 74,36 Z" fill="#9A8968"/>
+    <circle cx="45" cy="46" r="14" fill="#E2D6BA" opacity=".55"/>
+    <!-- 表盘裂纹 -->
+    <path d="M62,69 Q58,64 56,61 Q59,64 63.5,68 Z" fill="#1C1412"/>
+  </g>
+  <!-- 四正刻度（收尖柳叶线） -->
+  <path d="M52,33.5 Q53.4,36.5 52,39.5 Q50.6,36.5 52,33.5 Z M52,68.5 Q53.4,71.5 52,74.5 Q50.6,71.5 52,68.5 Z M31.5,54 Q34.5,52.6 37.5,54 Q34.5,55.4 31.5,54 Z M66.5,54 Q69.5,52.6 72.5,54 Q69.5,55.4 66.5,54 Z" fill="#1C1412"/>
+
+  <!-- 短时针 -->
+  <polygon points="52,54 39,60 41.5,64 54,56.5" fill="#3B2B14" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- 弯折的长分针（点明“表针弯了一根”） -->
+  <g class="bent-hand">
+    <path d="M52,54 L56,38 L68,46" fill="none" stroke="#1C1412" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M52,54 L56,38 L68,46" fill="none" stroke="#8CAAB5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 中心蓝宝石轴心 -->
+    <circle cx="52" cy="54" r="4.6" fill="#2E66F0" stroke="#1C1412" stroke-width="2.4"/>
+    <circle cx="50.8" cy="52.8" r="1.5" fill="#F4F1FF"/>
+  </g>
+</g>
+</svg>

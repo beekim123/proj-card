@@ -2,106 +2,186 @@
 <title>倍率牌子</title>
 <style>
 .svg-ui_mult_badge g { transform-box: view-box; }
+.svg-ui_mult_badge #root { transform-origin: 110px 50px; }
+.svg-ui_mult_badge #sheen { opacity: 0; }
 .svg-ui_mult_badge #sweep_group { opacity: 0; }
 .svg-ui_mult_badge #sweep_bar { transform-origin: 110px 50px; }
 .svg-ui_mult_badge #sparks_group { opacity: 0; transform-origin: 110px 50px; }
-.svg-ui_mult_badge .sp-l { transform-origin: 24px 50px; }
-.svg-ui_mult_badge .sp-r { transform-origin: 196px 50px; }
-.svg-ui_mult_badge .sp-t { transform-origin: 110px 14px; }
-.svg-ui_mult_badge .sp-b { transform-origin: 110px 86px; }
+.svg-ui_mult_badge .sp-l { transform-origin: 22px 50px; }
+.svg-ui_mult_badge .sp-r { transform-origin: 198px 50px; }
+.svg-ui_mult_badge .sp-t { transform-origin: 110px 12px; }
+.svg-ui_mult_badge .sp-b { transform-origin: 110px 88px; }
 
-/* up (300ms): 一道光从左往右扫过牌面 */
+/* idle 3000ms: 0 -> 1500 -> 3000 */
+@keyframes svg-ui_mult_badge-idle-sheen {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 0.85; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-ui_mult_badge:not([data-anim]) #sheen,
+.svg-ui_mult_badge[data-anim="idle"] #sheen {
+  animation: svg-ui_mult_badge-idle-sheen 3s infinite;
+}
+
+/* up 300ms: 0 -> 60 (20%) -> 160 (53.33%) -> 300 (100%) */
 @keyframes svg-ui_mult_badge-up-group {
-  0%, 100% { opacity: 0; }
-  10%, 85% { opacity: 1; }
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  20% { opacity: 1; animation-timing-function: linear; }
+  53.33% { opacity: 0.85; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
 }
 @keyframes svg-ui_mult_badge-up-bar {
-  0% { transform: translateX(-180px); }
-  100% { transform: translateX(180px); }
+  0% { transform: translate(-58px,0px) rotate(0deg) scale(0.85,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  20% { transform: translate(-22px,0px) rotate(0deg) scale(1,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  53.33% { transform: translate(28px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(58px,0px) rotate(0deg) scale(0.85,1); }
 }
-.svg-ui_mult_badge[data-anim="up"] #sweep_group { animation: svg-ui_mult_badge-up-group 0.3s linear both; }
-.svg-ui_mult_badge[data-anim="up"] #sweep_bar { animation: svg-ui_mult_badge-up-bar 0.3s ease-out both; }
+.svg-ui_mult_badge[data-anim="up"] #sweep_group { animation: svg-ui_mult_badge-up-group 0.3s both; }
+.svg-ui_mult_badge[data-anim="up"] #sweep_bar { animation: svg-ui_mult_badge-up-bar 0.3s both; }
 
-/* double (600ms): 扫光 + 边上迸出几颗哥特火星（严格在 220×100 画框内） */
+/* double 600ms: 0 -> 100 (16.67%) -> 250 (41.67%) -> 400 (66.67%) -> 600 (100%) */
+@keyframes svg-ui_mult_badge-double-sweep-group {
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { opacity: 1; animation-timing-function: linear; }
+  41.67% { opacity: 0.9; animation-timing-function: ease-in-out; }
+  66.67% { opacity: 0.25; animation-timing-function: linear; }
+  100% { opacity: 0; }
+}
+@keyframes svg-ui_mult_badge-double-sweep-bar {
+  0% { transform: translate(-58px,0px) rotate(0deg) scale(0.85,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(-20px,0px) rotate(0deg) scale(1.04,1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { transform: translate(24px,0px) rotate(0deg) scale(1.04,1); animation-timing-function: ease-in-out; }
+  66.67% { transform: translate(50px,0px) rotate(0deg) scale(0.95,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(58px,0px) rotate(0deg) scale(0.85,1); }
+}
 @keyframes svg-ui_mult_badge-double-sparks {
-  0%, 100% { opacity: 0; }
-  8%, 75% { opacity: 1; }
+  0% { opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { opacity: 0.9; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  41.67% { opacity: 1; animation-timing-function: ease-in-out; }
+  66.67% { opacity: 0.45; animation-timing-function: linear; }
+  100% { opacity: 0; }
 }
 @keyframes svg-ui_mult_badge-double-l {
-  0% { transform: translate(0px, 0px) scale(0.4); }
-  45% { transform: translate(-12px, -4px) scale(1.1); }
-  100% { transform: translate(-16px, 2px) scale(0.3); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.45,0.45); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(-2.5px,-0.5px) rotate(-4deg) scale(0.88,0.88); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  41.67% { transform: translate(-5px,-1px) rotate(-7deg) scale(1.04,1.04); animation-timing-function: ease-in-out; }
+  66.67% { transform: translate(-5.5px,0.5px) rotate(-9deg) scale(0.72,0.72); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.45,0.45); }
 }
 @keyframes svg-ui_mult_badge-double-r {
-  0% { transform: translate(0px, 0px) scale(0.4); }
-  45% { transform: translate(12px, -4px) scale(1.1); }
-  100% { transform: translate(16px, 2px) scale(0.3); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.45,0.45); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(2.5px,-0.5px) rotate(4deg) scale(0.88,0.88); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  41.67% { transform: translate(5px,-1px) rotate(7deg) scale(1.04,1.04); animation-timing-function: ease-in-out; }
+  66.67% { transform: translate(5.5px,0.5px) rotate(9deg) scale(0.72,0.72); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.45,0.45); }
 }
 @keyframes svg-ui_mult_badge-double-t {
-  0% { transform: translate(0px, 0px) scale(0.4); }
-  45% { transform: translate(0px, -8px) scale(1.1); }
-  100% { transform: translate(0px, -10px) scale(0.3); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.45,0.45); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,-1.5px) rotate(2deg) scale(0.88,0.88); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  41.67% { transform: translate(0px,-3px) rotate(4deg) scale(1.02,1.02); animation-timing-function: ease-in-out; }
+  66.67% { transform: translate(0px,-3.5px) rotate(5deg) scale(0.72,0.72); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.45,0.45); }
 }
 @keyframes svg-ui_mult_badge-double-b {
-  0% { transform: translate(0px, 0px) scale(0.4); }
-  45% { transform: translate(0px, 8px) scale(1.1); }
-  100% { transform: translate(0px, 10px) scale(0.3); }
+  0% { transform: translate(0px,0px) rotate(0deg) scale(0.45,0.45); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  16.67% { transform: translate(0px,1.5px) rotate(-2deg) scale(0.88,0.88); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  41.67% { transform: translate(0px,3px) rotate(-4deg) scale(1.02,1.02); animation-timing-function: ease-in-out; }
+  66.67% { transform: translate(0px,3.5px) rotate(-5deg) scale(0.72,0.72); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(0.45,0.45); }
 }
-.svg-ui_mult_badge[data-anim="double"] #sweep_group { animation: svg-ui_mult_badge-up-group 0.45s linear both; }
-.svg-ui_mult_badge[data-anim="double"] #sweep_bar { animation: svg-ui_mult_badge-up-bar 0.45s ease-out both; }
-.svg-ui_mult_badge[data-anim="double"] #sparks_group { animation: svg-ui_mult_badge-double-sparks 0.6s linear both; }
-.svg-ui_mult_badge[data-anim="double"] .sp-l { animation: svg-ui_mult_badge-double-l 0.6s steps(6, end) both; }
-.svg-ui_mult_badge[data-anim="double"] .sp-r { animation: svg-ui_mult_badge-double-r 0.6s steps(6, end) both; }
-.svg-ui_mult_badge[data-anim="double"] .sp-t { animation: svg-ui_mult_badge-double-t 0.6s steps(6, end) both; }
-.svg-ui_mult_badge[data-anim="double"] .sp-b { animation: svg-ui_mult_badge-double-b 0.6s steps(6, end) both; }
+.svg-ui_mult_badge[data-anim="double"] #sweep_group { animation: svg-ui_mult_badge-double-sweep-group 0.6s both; }
+.svg-ui_mult_badge[data-anim="double"] #sweep_bar { animation: svg-ui_mult_badge-double-sweep-bar 0.6s both; }
+.svg-ui_mult_badge[data-anim="double"] #sparks_group { animation: svg-ui_mult_badge-double-sparks 0.6s both; }
+.svg-ui_mult_badge[data-anim="double"] .sp-l { animation: svg-ui_mult_badge-double-l 0.6s both; }
+.svg-ui_mult_badge[data-anim="double"] .sp-r { animation: svg-ui_mult_badge-double-r 0.6s both; }
+.svg-ui_mult_badge[data-anim="double"] .sp-t { animation: svg-ui_mult_badge-double-t 0.6s both; }
+.svg-ui_mult_badge[data-anim="double"] .sp-b { animation: svg-ui_mult_badge-double-b 0.6s both; }
 </style>
 <defs>
-<clipPath id="ui_mult_badge-clip">
-      <path d="M32,16 H188 L198,26 V74 L188,84 H32 L22,74 V26 Z"/>
-    </clipPath>
+  <clipPath id="ui_mult_badge-cframe">
+    <path d="M28,10 C64,9.2 156,9.2 192,10 C198,15 202,19 206,24 C206.8,42 206.8,58 206,76 C202,81 198,85 192,90 C156,90.8 64,90.8 28,90 C22,85 18,81 14,76 C13.2,58 13.2,42 14,24 C18,19 22,15 28,10 Z"/>
+  </clipPath>
+  <clipPath id="ui_mult_badge-clip">
+    <path d="M32,17 H188 L197,26 V74 L188,83 H32 L23,74 V26 Z"/>
+  </clipPath>
+  <linearGradient id="ui_mult_badge-sheen-grad" x1="18" y1="10" x2="195" y2="88" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#DDCB9A" stop-opacity="0"/>
+    <stop offset="0.28" stop-color="#DDCB9A" stop-opacity="0.78"/>
+    <stop offset="0.62" stop-color="#8CAAB5" stop-opacity="0"/>
+  </linearGradient>
 </defs>
 <g id="root">
-<!-- pivot: 110,50 -->
-    <!-- 铜牌外框 -->
-    <path d="M28,10 H192 L206,24 V76 L192,90 H28 L14,76 V24 Z" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M29,13 H191 L203,25" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
-    <!-- 中间深暗平板区（给 52 号浅铜色粗字留白） -->
-    <path d="M32,16 H188 L198,26 V74 L188,84 H32 L22,74 V26 Z" fill="#161221" stroke="#9A7B46" stroke-width="1.6" stroke-linejoin="round"/>
-    <!-- 四角铆钉 -->
-    <circle cx="26" cy="24" r="2.6" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="194" cy="24" r="2.6" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="26" cy="76" r="2.6" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
-    <circle cx="194" cy="76" r="2.6" fill="#C2A670" stroke="#1C1412" stroke-width="1.2"/>
+  <!-- 第1层：墨色垫底 -->
+  <path d="M28,10 C64,9.2 156,9.2 192,10 C198,15 202,19 206,24 C206.8,42 206.8,58 206,76 C202,81 198,85 192,90 C156,90.8 64,90.8 28,90 C22,85 18,81 14,76 C13.2,58 13.2,42 14,24 C18,19 22,15 28,10 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+  <!-- 第2层：旧铜暗色全形 -->
+  <path d="M28,10 C64,9.2 156,9.2 192,10 C198,15 202,19 206,24 C206.8,42 206.8,58 206,76 C202,81 198,85 192,90 C156,90.8 64,90.8 28,90 C22,85 18,81 14,76 C13.2,58 13.2,42 14,24 C18,19 22,15 28,10 Z" fill="#6E542B"/>
+  <g clip-path="url(#ui_mult_badge-cframe)">
+    <!-- 第3层：错位亮面与右下弧形转折暗面 -->
+    <path d="M28,10 C64,9.2 156,9.2 192,10 C198,15 202,19 206,24 C206.8,42 206.8,58 206,76 C202,81 198,85 192,90 C156,90.8 64,90.8 28,90 C22,85 18,81 14,76 C13.2,58 13.2,42 14,24 C18,19 22,15 28,10 Z" transform="translate(-5 -4)" fill="#9A7B46"/>
+    <!-- 第4层：右下加深 -->
+    <path d="M206,36 C206,56 206,76 192,90 L88,90 C142,86 188,74 206,36 Z" fill="#3B2B14" opacity="0.75"/>
+    <!-- 第5层：左上受光边与右下断续冷轮廓光 -->
+    <path d="M16,64 C15.2,46 15.4,32 16.5,25.5 C20.2,20.8 24.5,16.5 29.5,12.5 C68,11.5 118,11.6 154,12.4 C116,13.6 68,13.8 30.5,14.6 C26,18 22,22 18.8,26.5 C17.6,34 17.2,48 16,64 Z" fill="#C2A670"/>
+    <path d="M204,34 C204.2,50 204,64 203.2,74.5 C199.6,79.2 195.8,83.2 190.5,87.4 C174,88 154,88.2 134,88 C154,86.6 173,86.2 189.5,85.6 C194,81.8 197.8,78.2 201.2,73.5 C202.2,63 202.6,49 204,34 Z M116,88 C94,88.2 72,88 54,87.4 C72,86.2 94,86.2 116,88 Z" fill="#8CAAB5" opacity="0.82"/>
+    <!-- 第6层：铜绿污渍与高光点 -->
+    <path d="M178,84 C184,83 190,79 194,74 M34,83 C42,84.5 52,84.2 58,82.5" fill="none" stroke="#5F8272" stroke-width="2.4" stroke-linecap="round" opacity="0.52"/>
+    <circle cx="29" cy="14" r="1.8" fill="#DDCB9A"/>
+    <!-- 珠边铸纹 -->
+    <path d="M30,13.6 H190 L202.4,26 V74 L190,86.4 H30 L17.6,74 V26 Z" pathLength="64" fill="none" stroke="#3B2B14" stroke-width="2.4" stroke-dasharray="0.02 0.98" stroke-linecap="round"/>
+    <path d="M29.6,13 H189.6 L202,25.4 V73.4 L189.6,85.8 H29.6 L17.2,73.4 V25.4 Z" pathLength="64" fill="none" stroke="#C2A670" stroke-width="1.5" stroke-dasharray="0.02 0.98" stroke-linecap="round"/>
+  </g>
+  <!-- 第7层：外沿磕痕与内部收尖结构线 -->
+  <path d="M74,9.6 Q75.5,13.2 77.4,9.8 Q75.5,11 74,9.6 Z M162,90.2 Q163.8,86.8 165.6,90 Q163.8,88.8 162,90.2 Z M13.8,48 Q17.2,49.4 14,51.2 Q15,49.5 13.8,48 Z" fill="#1C1412"/>
 
-    <!-- up / double 扫光层（裁剪在铜牌内） -->
-    <g id="sweep_group" opacity="0" clip-path="url(#ui_mult_badge-clip)">
-      <g id="sweep_bar"><!-- pivot: 110,50 -->
-        <polygon points="85,10 120,10 95,90 60,90" fill="#C2A670" opacity="0.45"/>
-        <polygon points="98,10 112,10 87,90 73,90" fill="#E6DEC8" opacity="0.85"/>
-      </g>
-    </g>
+  <!-- 中间平整深暗写字槽（给代码写 ×48，留白干净无杂纹） -->
+  <path d="M32,17 H188 L197,26 V74 L188,83 H32 L23,74 V26 Z" fill="#161221" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M24.5,72 V27 L33,18.5 H187 L191,22.5 H34.5 L28,29 V72 Z" fill="#0D111C" opacity="0.78"/>
+  <path d="M33,81.5 H187 L195.5,73 V28" fill="none" stroke="#6E542B" stroke-width="1.1" opacity="0.75"/>
 
-    <!-- double 火星迸散层（严格控制在 220×100 内） -->
-    <g id="sparks_group" opacity="0"><!-- pivot: 110,50 -->
-      <path d="M28,10 H192 L206,24 V76 L192,90 H28 L14,76 V24 Z" fill="none" stroke="#F2C166" stroke-width="2.2"/>
-      <g class="sp-l"><!-- pivot: 24,50 -->
-        <path d="M20,27 L22,32 L27,34 L22,36 L20,41 L18,36 L13,34 L18,32 Z" fill="#F2C166" stroke="#1C1412" stroke-width="1"/>
-        <polygon points="18,54 25,50 22,58" fill="#D98E32" stroke="#1C1412" stroke-width="1"/>
-        <path d="M22,62.5 L23.8,66.2 L27.5,68 L23.8,69.8 L22,73.5 L20.2,69.8 L16.5,68 L20.2,66.2 Z" fill="#E6DEC8" stroke="#1C1412" stroke-width="1"/>
-      </g>
-      <g class="sp-r"><!-- pivot: 196,50 -->
-        <path d="M200,25 L202,30 L207,32 L202,34 L200,39 L198,34 L193,32 L198,30 Z" fill="#F2C166" stroke="#1C1412" stroke-width="1"/>
-        <polygon points="202,52 195,48 198,56" fill="#D98E32" stroke="#1C1412" stroke-width="1"/>
-        <path d="M198,62 L199.8,66.2 L204,68 L199.8,69.8 L198,74 L196.2,69.8 L192,68 L196.2,66.2 Z" fill="#E6DEC8" stroke="#1C1412" stroke-width="1"/>
-      </g>
-      <g class="sp-t"><!-- pivot: 110,14 -->
-        <path d="M78,6 L79.8,10.2 L84,12 L79.8,13.8 L78,18 L76.2,13.8 L72,12 L76.2,10.2 Z" fill="#F2C166" stroke="#1C1412" stroke-width="1"/>
-        <path d="M142,5.5 L143.8,10.2 L148.5,12 L143.8,13.8 L142,18.5 L140.2,13.8 L135.5,12 L140.2,10.2 Z" fill="#E6DEC8" stroke="#1C1412" stroke-width="1"/>
-      </g>
-      <g class="sp-b"><!-- pivot: 110,86 -->
-        <path d="M84,82.5 L85.6,86.4 L89.5,88 L85.6,89.6 L84,93.5 L82.4,89.6 L78.5,88 L82.4,86.4 Z" fill="#D98E32" stroke="#1C1412" stroke-width="1"/>
-        <path d="M138,82 L139.8,86.2 L144,88 L139.8,89.8 L138,94 L136.2,89.8 L132,88 L136.2,86.2 Z" fill="#F2C166" stroke="#1C1412" stroke-width="1"/>
-      </g>
+  <!-- 四角铆钉與两侧小菱钉 -->
+  <g>
+    <circle cx="23.6" cy="24.6" r="3.4" fill="#1C1412"/><circle cx="23" cy="24" r="2.4" fill="#9A7B46"/><circle cx="22.2" cy="23.2" r="0.9" fill="#DDCB9A"/>
+    <circle cx="196.6" cy="24.6" r="3.4" fill="#1C1412"/><circle cx="196" cy="24" r="2.4" fill="#9A7B46"/><circle cx="195.2" cy="23.2" r="0.9" fill="#DDCB9A"/>
+    <circle cx="23.6" cy="76.6" r="3.4" fill="#1C1412"/><circle cx="23" cy="76" r="2.4" fill="#6E542B"/><circle cx="22.2" cy="75.2" r="0.8" fill="#C2A670"/>
+    <circle cx="196.6" cy="76.6" r="3.4" fill="#1C1412"/><circle cx="196" cy="76" r="2.4" fill="#6E542B"/><circle cx="195.2" cy="75.2" r="0.8" fill="#C2A670"/>
+    <path d="M18.5,46.5 L22,50 L18.5,53.5 L15,50 Z M201.5,46.5 L205,50 L201.5,53.5 L198,50 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 待机独立材质冷亮反光层 -->
+  <path id="sheen" opacity="0" d="M29,12.5 H191 L203.5,25 V75 L191,87.5 H29 L16.5,75 V25 Z" fill="none" stroke="url(#ui_mult_badge-sheen-grad)" stroke-width="2.2" stroke-linejoin="round"/>
+
+  <!-- up / double 扫光层（裁剪在铜牌内，材质冷高光反射，不画暖金发光） -->
+  <g id="sweep_group" opacity="0" clip-path="url(#ui_mult_badge-clip)">
+    <g id="sweep_bar">
+      <polygon points="96,18 128,18 108,82 76,82" fill="#8CAAB5" opacity="0.35"/>
+      <polygon points="106,18 120,18 100,82 86,82" fill="#DDCB9A" opacity="0.68"/>
+      <polygon points="112,18 117,18 97,82 92,82" fill="#F4F1FF" opacity="0.85"/>
     </g>
+  </g>
+
+  <!-- double 冷色宝石碎光迸散层（严格控制在 220×100 画框内，距离四边 >= 5px） -->
+  <g id="sparks_group" opacity="0">
+    <path d="M28,10 H192 L206,24 V76 L192,90 H28 L14,76 V24 Z" fill="none" stroke="#B4C8FF" stroke-width="1.8" opacity="0.8"/>
+    <g class="sp-l">
+      <path d="M20,28 L22,33 L27,35 L22,37 L20,42 L18,37 L13,35 L18,33 Z" fill="#6A93F8" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+      <polygon points="17,52 24,48 22,56" fill="#4FDB85" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+      <path d="M21,62 L22.8,65.8 L26.5,67.5 L22.8,69.2 L21,73 L19.2,69.2 L15.5,67.5 L19.2,65.8 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+    </g>
+    <g class="sp-r">
+      <path d="M200,28 L202,33 L207,35 L202,37 L200,42 L198,37 L193,35 L198,33 Z" fill="#4FDB85" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+      <polygon points="203,52 196,48 198,56" fill="#6A93F8" stroke="#1C1412" stroke-width="1.1" stroke-linejoin="round"/>
+      <path d="M199,62 L200.8,65.8 L204.5,67.5 L200.8,69.2 L199,73 L197.2,69.2 L193.5,67.5 L197.2,65.8 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+    </g>
+    <g class="sp-t">
+      <path d="M82,8 L83.6,11.4 L87,13 L83.6,14.6 L82,18 L80.4,14.6 L77,13 L80.4,11.4 Z" fill="#B4C8FF" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+      <polygon points="110,7 115,13 105,13" fill="#4FDB85" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+      <path d="M138,8 L139.6,11.4 L143,13 L139.6,14.6 L138,18 L136.4,14.6 L133,13 L136.4,11.4 Z" fill="#F4566A" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+    </g>
+    <g class="sp-b">
+      <path d="M84,82 L85.6,85.4 L89,87 L85.6,88.6 L84,92 L82.4,88.6 L79,87 L82.4,85.4 Z" fill="#4FDB85" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+      <polygon points="110,93 115,87 105,87" fill="#6A93F8" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+      <path d="M136,82 L137.6,85.4 L141,87 L137.6,88.6 L136,92 L134.4,88.6 L131,87 L134.4,85.4 Z" fill="#F4F1FF" stroke="#1C1412" stroke-width="1" stroke-linejoin="round"/>
+    </g>
+  </g>
 </g>
 </svg>

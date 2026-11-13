@@ -1,17 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-card_art_bg" viewBox="0 0 176 188" width="176" height="188">
-<title>原画窗底</title>
+<title>原画窗底 · 旧丝绒</title>
+<style>
+.svg-card_art_bg g { transform-box: view-box; }
+.svg-card_art_bg #sheen { opacity: 0; }
+
+/* 待机 3000：0 静止 → 1500 丝绒上的光泽最亮 → 3000 回到静止。只动一层 opacity */
+@keyframes svg-card_art_bg-idle-1 {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 1; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-card_art_bg:not([data-anim]) #sheen,
+.svg-card_art_bg[data-anim="idle"] #sheen { animation: svg-card_art_bg-idle-1 3s infinite; }
+</style>
 <defs>
-<radialGradient id="card_art_bg-velvet" cx="52%" cy="52%" r="65%">
-      <stop offset="0%" stop-color="#262036"/>
-      <stop offset="70%" stop-color="#161221"/>
-      <stop offset="100%" stop-color="#0D111C"/>
-    </radialGradient>
+
+<radialGradient id="card_art_bg-vig" cx="88" cy="96" r="128" gradientUnits="userSpaceOnUse"><stop offset=".42" stop-color="#0E0A17" stop-opacity="0"/><stop offset="1" stop-color="#0E0A17" stop-opacity=".9"/></radialGradient>
+<radialGradient id="card_art_bg-dent" cx="88" cy="96" r="60" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#120E1C" stop-opacity=".75"/><stop offset=".8" stop-color="#120E1C" stop-opacity=".35"/><stop offset="1" stop-color="#120E1C" stop-opacity="0"/></radialGradient>
+<linearGradient id="card_art_bg-sheen" x1="20" y1="20" x2="160" y2="170" gradientUnits="userSpaceOnUse"><stop offset=".2" stop-color="#8C82A6" stop-opacity="0"/><stop offset=".45" stop-color="#8C82A6" stop-opacity=".34"/><stop offset=".7" stop-color="#8C82A6" stop-opacity="0"/></linearGradient>
+<pattern id="card_art_bg-nap" width="9" height="11" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><path d="M1,2 L2.2,5 M5.6,7 L6.8,10 M7.4,1 L8,2.6" stroke="#62577D" stroke-width=".6" stroke-linecap="round" fill="none"/></pattern>
+<pattern id="card_art_bg-quilt" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(45 88 96)"><path d="M0,0 H26 M0,0 V26" stroke="#62577D" stroke-width=".8" fill="none"/><path d="M0,1.2 H26 M1.2,0 V26" stroke="#0E0A17" stroke-width=".9" fill="none"/></pattern>
+<clipPath id="card_art_bg-out"><path d="M0,0 H176 V188 H0 Z M88,32 C122,32 148,60 148,96 C148,132 122,160 88,160 C54,160 28,132 28,96 C28,60 54,32 88,32 Z" clip-rule="evenodd"/></clipPath>
 </defs>
+
 <g id="root">
-<path d="M0,0 H176 V188 H0 Z" fill="url(#card_art_bg-velvet)"/>
-    <!-- 首饰盒内衬暗凹槽边缘（避开左上角 x0..34, y0..94 图标区） -->
-    <path d="M38,14 H162 V174 H14 V98" fill="none" stroke="#3A324D" stroke-width="1" stroke-dasharray="4 3" opacity="0.38"/>
-    <!-- 极淡的右下角背光斜排线 -->
-    <path d="M142,178 L168,152 M150,180 L170,160 M158,182 L172,168" stroke="#1C1412" stroke-width="1" opacity="0.35"/>
+  <!-- 旧丝绒内衬：暗、平，中间略凹，空出来给宝石 -->
+  <rect x="0" y="0" width="176" height="188" fill="#201A2E"/>
+  <rect x="0" y="0" width="176" height="188" fill="url(#card_art_bg-nap)" opacity=".22"/>
+  <!-- 四周压出来的菱格（中间不压） -->
+  <g clip-path="url(#card_art_bg-out)"><rect x="0" y="0" width="176" height="188" fill="url(#card_art_bg-quilt)" opacity=".22"/></g>
+  <!-- 中间的凹窝：左上沿压一道暗，右下沿托一道亮 -->
+  <ellipse cx="88" cy="96" rx="60" ry="64" fill="url(#card_art_bg-dent)"/>
+  <path d="M30,84 C34,54 58,32 88,32 C104,32 119,39 130,50 C116,42 102,39 88,40 C60,42 38,62 30,84Z" fill="#0E0A17" opacity=".45"/>
+  <path d="M147,108 C143,138 118,160 88,160 C72,160 58,154 47,144 C60,151 74,154 88,153 C116,151 139,132 147,108Z" fill="#62577D" opacity=".13"/>
+  <!-- 旧压痕、掉毛的几处 -->
+  <path d="M58,118Q69.4,129.3 86,131Q70.6,126.7 58,118ZM104,62Q113.2,66.9 121,76Q114.8,65.1 104,62ZM70,70Q76.3,67 84,66Q75.7,65 70,70Z" fill="#0E0A17" opacity=".5"/>
+  <path d="M132,150 C136,147 141,148 143,152 C140,156 134,156 132,150Z M40,36 C43,34 47,35 48,38 C45,41 41,40 40,36Z" fill="#3A324D" opacity=".7"/>
+  <rect x="0" y="0" width="176" height="188" fill="url(#card_art_bg-vig)"/>
+  <!-- 一圈缝线 -->
+  <rect x="11.6" y="12.6" width="153" height="165" rx="7" fill="none" stroke="#0E0A17" stroke-width="1.6" opacity=".8"/>
+  <rect x="11" y="11.6" width="153" height="165" rx="7" fill="none" stroke="#62577D" stroke-width="1.1" stroke-dasharray="4.2 3.4" stroke-linecap="round" opacity=".75"/>
+  <!-- 待机才亮的光泽 -->
+  <g id="sheen"><rect x="0" y="0" width="176" height="188" fill="url(#card_art_bg-sheen)"/></g>
 </g>
 </svg>

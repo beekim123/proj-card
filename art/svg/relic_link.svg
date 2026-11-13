@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-relic_link" viewBox="0 0 96 96" width="96" height="96">
+<title>宝物 · 凑白也接链</title>
+<style>
+.svg-relic_link g { transform-box: view-box; }
+.svg-relic_link #root { transform-origin: 48px 48px; }
+.svg-relic_link #gem_white_center { transform-origin: 48px 59px; }
+@keyframes svg-relic_link-idle-r {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-1.2px) rotate(1.4deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-relic_link-idle-w {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,-0.6px) rotate(0deg) scale(1.04,1.04); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-relic_link:not([data-anim]) #root,
+.svg-relic_link[data-anim="idle"] #root { animation: svg-relic_link-idle-r 3s infinite; }
+.svg-relic_link:not([data-anim]) #gem_white_center,
+.svg-relic_link[data-anim="idle"] #gem_white_center { animation: svg-relic_link-idle-w 3s infinite; }
+</style>
+<defs>
+  <clipPath id="relic_link-cwring"><circle cx="48" cy="59" r="21"/></clipPath>
+  <clipPath id="relic_link-cwgem">
+    <polygon points="48,41 61,46.5 66,59 61,71.5 48,77 35,71.5 30,59 35,46.5"/>
+  </clipPath>
+</defs>
+<g id="root">
+  <!-- 完好连成一体的项链与三向锁链桥 -->
+  <g id="unbroken_chain">
+    <g transform="translate(27 24) rotate(-36)">
+      <ellipse cx="0.5" cy="0.7" rx="8" ry="4.5" fill="#1C1412" stroke="#1C1412" stroke-width="4.8"/>
+      <ellipse cx="0" cy="0" rx="8" ry="4.5" fill="#9A7B46"/><ellipse cx="0" cy="0" rx="3.6" ry="1.8" fill="#1C1412"/>
+    </g>
+    <g transform="translate(17 37) rotate(-72)">
+      <ellipse cx="0.5" cy="0.7" rx="8" ry="4.5" fill="#1C1412" stroke="#1C1412" stroke-width="4.8"/>
+      <ellipse cx="0" cy="0" rx="8" ry="4.5" fill="#6E542B"/><ellipse cx="0" cy="0" rx="3.6" ry="1.8" fill="#1C1412"/>
+    </g>
+    <g transform="translate(69 24) rotate(36)">
+      <ellipse cx="0.5" cy="0.7" rx="8" ry="4.5" fill="#1C1412" stroke="#1C1412" stroke-width="4.8"/>
+      <ellipse cx="0" cy="0" rx="8" ry="4.5" fill="#6E542B"/><ellipse cx="0" cy="0" rx="3.6" ry="1.8" fill="#1C1412"/>
+    </g>
+    <g transform="translate(79 37) rotate(72)">
+      <ellipse cx="0.5" cy="0.7" rx="8" ry="4.5" fill="#1C1412" stroke="#1C1412" stroke-width="4.8"/>
+      <ellipse cx="0" cy="0" rx="8" ry="4.5" fill="#3B2B14"/><ellipse cx="0" cy="0" rx="3.6" ry="1.8" fill="#1C1412"/>
+    </g>
+    <!-- 把红、绿、蓝三颗宝石与中心白宝石牢牢接通的旧银锁链桥 -->
+    <rect x="23" y="54" width="50" height="10" rx="4" fill="#1C1412" stroke="#1C1412" stroke-width="5.2"/>
+    <rect x="23" y="54" width="50" height="10" rx="4" fill="#5A7682"/>
+    <rect x="43" y="27" width="10" height="32" rx="4" fill="#1C1412" stroke="#1C1412" stroke-width="5.2"/>
+    <rect x="43" y="27" width="10" height="32" rx="4" fill="#5A7682"/>
+    <line x1="26" y1="57" x2="70" y2="57" stroke="#8CAAB5" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- 上：绿方宝石 (48, 19) -->
+  <g id="gem_green_top">
+    
+      <clipPath id="relic_link-cgg"><polygon points="40.9,9.2 55.1,9.2 57.8,11.9 57.8,26.1 55.1,28.8 40.9,28.8 38.2,26.1 38.2,11.9"/></clipPath>
+      <polygon points="40.9,9.2 55.1,9.2 57.8,11.9 57.8,26.1 55.1,28.8 40.9,28.8 38.2,26.1 38.2,11.9" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="40.9,9.2 55.1,9.2 57.8,11.9 57.8,26.1 55.1,28.8 40.9,28.8 38.2,26.1 38.2,11.9" fill="#128A43"/>
+      <g clip-path="url(#relic_link-cgg)">
+        <!-- 左上亮梯形刻面 -->
+        <polygon points="38.2,26.1 38.2,11.9 40.9,9.2 55.1,9.2 51.9,13.9 44.1,13.9 42.9,15.1 42.9,22.9" fill="#4FDB85"/>
+        <!-- 右下最暗刻面与内反光 -->
+        <polygon points="55.1,9.2 57.8,11.9 57.8,26.1 55.1,28.8 40.9,28.8 44.1,24.1 51.9,24.1 53.1,22.9 53.1,15.1" fill="#0A5A2B"/>
+        <polygon points="44.1,24.1 51.9,24.1 55.1,28.8 40.9,28.8" fill="#1DBF5E" opacity=".75"/>
+        <!-- 中央切角方台面 -->
+        <polygon points="44.1,13.9 51.9,13.9 53.1,15.1 53.1,22.9 51.9,24.1 44.1,24.1 42.9,22.9 42.9,15.1" fill="#1DBF5E"/>
+        <polygon points="44.1,13.9 51.9,13.9 50.0,19.5 42.9,20.5 42.9,15.1" fill="#4FDB85" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M44.1,13.9 L40.9,9.2 M51.9,13.9 L55.1,9.2 M53.1,22.9 L57.8,26.1 M42.9,22.9 L38.2,26.1" stroke="#A6F5C6" stroke-width="0.75" opacity=".75"/>
+        <polygon points="44.1,13.9 51.9,13.9 53.1,15.1 53.1,22.9 51.9,24.1 44.1,24.1 42.9,22.9 42.9,15.1" fill="none" stroke="#A6F5C6" stroke-width="0.75" opacity=".8"/>
+        <!-- 左上白亮边 -->
+        <polyline points="39.6,21.9 39.6,12.5 41.5,10.6 51.4,10.6" fill="none" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+      </g>
+      <circle cx="45.7" cy="16.7" r="1.5" fill="#F4F1FF"/>
+    
+  </g>
+  <!-- 左：红圆宝石 (18, 58) -->
+  <g id="gem_red_left">
+    
+      <clipPath id="relic_link-cgr"><circle cx="18" cy="58" r="10.8"/></clipPath>
+      <circle cx="18.5" cy="58.7" r="13.4" fill="#1C1412"/>
+      <circle cx="18" cy="58" r="10.8" fill="#A8172A"/>
+      <g clip-path="url(#relic_link-cgr)">
+        <circle cx="16.1" cy="56.1" r="10.8" fill="#E3263A"/>
+        <!-- 背光最暗与右下内反光刻面 -->
+        <path d="M19.1,60.2 L28.8,55.8 L28.8,68.8 L14.8,68.8 Z" fill="#6B0E1C"/>
+        <polygon points="19.6,63.9 25.8,60.4 23.2,66.9" fill="#E3263A"/>
+        <!-- 左上受光亮刻面 -->
+        <polygon points="8.1,59.1 11.3,50.7 18.0,47.7 23.6,50.7 18.0,53.9 13.1,56.1" fill="#F4566A"/>
+        <!-- 中央八角台面 -->
+        <polygon points="12.8,55.8 18.0,53.1 23.2,55.8 23.6,61.0 18.0,63.6 12.8,61.0" fill="#E3263A"/>
+        <polygon points="12.8,55.8 18.0,53.1 21.8,55.2 16.7,59.6" fill="#F4566A" opacity=".65"/>
+        <!-- 刻面高光色细棱线（不用墨线） -->
+        <path d="M12.8,55.8 L18.0,53.1 L23.2,55.8 L23.6,61.0 L18.0,63.6 L12.8,61.0 Z M18.0,53.1 L18.0,47.7 M23.2,55.8 L27.7,54.2 M12.8,55.8 L8.3,55.3 M18.0,63.6 L18.0,68.3" fill="none" stroke="#FFA3AB" stroke-width="0.75" stroke-linecap="round" opacity=".75"/>
+        <!-- 左上白亮边 -->
+        <path d="M8.8,57.5 Q9.9,49.6 20.7,48.7 Q11.7,51.3 8.8,57.5 Z" fill="#F4F1FF" opacity=".9"/>
+      </g>
+      <circle cx="14.2" cy="53.5" r="1.6" fill="#F4F1FF"/>
+    
+  </g>
+  <!-- 右：蓝三角宝石 (78, 43..68) -->
+  <g id="gem_blue_right">
+    
+      <clipPath id="relic_link-cgb"><polygon points="78.0,43.0 90.2,68.0 65.8,68.0"/></clipPath>
+      <polygon points="78.0,43.0 90.2,68.0 65.8,68.0" transform="translate(.5 .7)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+      <polygon points="78.0,43.0 90.2,68.0 65.8,68.0" fill="#1D45B8"/>
+      <g clip-path="url(#relic_link-cgb)">
+        <!-- 左侧受光亮刻面 -->
+        <polygon points="78.0,43.0 65.8,68.0 71.7,64.5 78.0,50.5" fill="#6A93F8"/>
+        <!-- 右侧背光最暗刻面与底边内反光 -->
+        <polygon points="78.0,43.0 90.2,68.0 84.3,64.5 78.0,50.5" fill="#122A78"/>
+        <polygon points="65.8,68.0 90.2,68.0 84.3,64.5 71.7,64.5" fill="#1D45B8"/>
+        <polygon points="78.0,64.5 84.3,64.5 85.9,68.0 76.8,68.0" fill="#2E66F0"/>
+        <!-- 中央三角台面 -->
+        <polygon points="78.0,50.5 84.3,64.5 71.7,64.5" fill="#2E66F0"/>
+        <polygon points="78.0,50.5 80.2,62.5 71.7,64.5" fill="#6A93F8" opacity=".65"/>
+        <!-- 刻面高光色细棱线 -->
+        <path d="M78.0,43.0 L78.0,50.5 M65.8,68.0 L71.7,64.5 M90.2,68.0 L84.3,64.5" stroke="#B4C8FF" stroke-width="0.75" opacity=".8"/>
+        <polygon points="78.0,50.5 84.3,64.5 71.7,64.5" fill="none" stroke="#B4C8FF" stroke-width="0.75" opacity=".85"/>
+        <!-- 左上白亮边 -->
+        <path d="M76.8,45.5 L68.6,65.5" stroke="#F4F1FF" stroke-width="1.3" stroke-linecap="round" opacity=".9"/>
+      </g>
+      <circle cx="76.0" cy="56.4" r="1.5" fill="#F4F1FF"/>
+    
+  </g>
+
+  <!-- 正中：夹在中间的白宝石与旧铜接链圆环座 -->
+  <g id="gem_white_center">
+    <circle cx="48.6" cy="59.9" r="23.8" fill="#1C1412"/>
+    <circle cx="48" cy="59" r="21" fill="#6E542B"/>
+    <g clip-path="url(#relic_link-cwring)">
+      <circle cx="45" cy="56" r="21" fill="#9A7B46"/>
+      <path d="M69,52 C69,67 57,80 42,80 C55,77 64,66 69,52 Z" fill="#3B2B14" opacity=".75"/>
+      <path d="M29,53 Q33,41 45,39.5 Q35,43 31,53.5 Z" fill="#C2A670"/>
+      <path d="M67,64 Q63,75 52,78.5 Q61,74 65.2,64 Z" fill="#8CAAB5" opacity=".82"/>
+    </g>
+    <!-- 八角切面大白宝石 -->
+    <polygon points="48,41 61,46.5 66,59 61,71.5 48,77 35,71.5 30,59 35,46.5" fill="#F4F1FF" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
+    <g clip-path="url(#relic_link-cwgem)">
+      <polygon points="30,59 35,46.5 41,53 37,59" fill="#FFA3AB" opacity=".82"/>
+      <polygon points="35,46.5 48,41 61,46.5 54,52 42,52" fill="#A6F5C6" opacity=".82"/>
+      <polygon points="61,46.5 66,59 58,59 54,52" fill="#B4C8FF" opacity=".82"/>
+      <polygon points="48,47 57,51.5 59,59 57,66.5 48,71 39,66.5 37,59 39,51.5" fill="#FFFFFF" stroke="#B4C8FF" stroke-width="0.9"/>
+      <polygon points="48,49 50.8,56.2 58,59 50.8,61.8 48,69 45.2,61.8 38,59 45.2,56.2" fill="#F4F1FF"/>
+    </g>
+    <circle cx="43" cy="53" r="2.2" fill="#FFFFFF"/>
+  </g>
+</g>
+</svg>

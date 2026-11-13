@@ -72,6 +72,10 @@ func _run() -> void:
 		report.suites["inspector"] = inspector_result
 		total += int(inspector_result.get("passed",0))
 		for failure: Variant in inspector_result.get("failed",[]): failures.append("inspector: "+str(failure))
+	var feedback: Dictionary = await preload("res://tests/test_new_art_feedback.gd").new().run()
+	report.suites["new_art_feedback"] = feedback; total += int(feedback.passed)
+	for failure: String in feedback.failures: failures.append("new_art_feedback: "+failure)
+	print("SUITE new_art_feedback: ",feedback.passed," passed, ",feedback.failed," failed")
 	report.passed = total; report.failed = failures.size(); report.failures = failures
 	var file: FileAccess = FileAccess.open("res://artifacts/test-report.json",FileAccess.WRITE)
 	if file != null: file.store_string(JSON.stringify(report,"\t",false,true))

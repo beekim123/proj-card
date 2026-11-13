@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-fx_attack" viewBox="0 0 320 320" width="320" height="320">
-<title>特效 · 怪打到你</title>
+<title>特效 · 怪出手打到你</title>
 <style>
 .svg-fx_attack g { transform-box: view-box; }
 .svg-fx_attack #claw_1 { transform-origin: 140px 120px; opacity: 0; }
@@ -7,69 +7,76 @@
 .svg-fx_attack #claw_3 { transform-origin: 180px 200px; opacity: 0; }
 .svg-fx_attack #slash_sparks { transform-origin: 160px 160px; opacity: 0; }
 
-/* play（500ms）：三道哥特折角爪痕依次横扫而过，墨色主体带羊皮纸浅边与冷灰青高光，无血无红；平时全透明 */
-@keyframes svg-fx_attack-claw1 {
-  0%, 100% { opacity: 0; transform: translate(28px, -24px) scale(0.65); }
-  12% { opacity: 1; transform: translate(0px, 0px) scale(1.04); }
-  58% { opacity: 0.95; transform: translate(-6px, 5px) scale(1); }
-  88% { opacity: 0; transform: translate(-12px, 10px) scale(0.94); }
+/* play 500ms：0(0%) 全透明 → 60(12%) 快速横扫显形 → 160(32%) 三爪峰值到位 → 300(60%) 划痕拉伸衰减 → 500(100%) 全透明 */
+@keyframes svg-fx_attack-play-c1 {
+  0% { transform: translate(24px,-20px) rotate(-3deg) scale(0.68,0.68); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(2px,-2px) rotate(0deg) scale(1.03,1.03); opacity: 1; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  32% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(-6px,5px) rotate(1deg) scale(0.97,0.97); opacity: 0.78; animation-timing-function: linear; }
+  100% { transform: translate(-12px,10px) rotate(2deg) scale(0.92,0.92); opacity: 0; }
 }
-@keyframes svg-fx_attack-claw2 {
-  0%, 8%, 100% { opacity: 0; transform: translate(32px, -26px) scale(0.65); }
-  22% { opacity: 1; transform: translate(0px, 0px) scale(1.06); }
-  66% { opacity: 0.95; transform: translate(-8px, 6px) scale(1); }
-  94% { opacity: 0; transform: translate(-14px, 12px) scale(0.94); }
+.svg-fx_attack[data-anim="play"] #claw_1 { animation: svg-fx_attack-play-c1 0.5s both; }
+
+@keyframes svg-fx_attack-play-c2 {
+  0% { transform: translate(28px,-24px) rotate(-4deg) scale(0.65,0.65); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(4px,-3px) rotate(0deg) scale(0.96,0.96); opacity: 0.95; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  32% { transform: translate(0px,0px) rotate(0deg) scale(1.04,1.04); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(-8px,6px) rotate(1deg) scale(0.98,0.98); opacity: 0.82; animation-timing-function: linear; }
+  100% { transform: translate(-14px,12px) rotate(2deg) scale(0.92,0.92); opacity: 0; }
 }
-@keyframes svg-fx_attack-claw3 {
-  0%, 16%, 100% { opacity: 0; transform: translate(28px, -24px) scale(0.65); }
-  32% { opacity: 1; transform: translate(0px, 0px) scale(1.04); }
-  74% { opacity: 0.92; transform: translate(-6px, 5px) scale(1); }
-  98% { opacity: 0; transform: translate(-12px, 10px) scale(0.94); }
+.svg-fx_attack[data-anim="play"] #claw_2 { animation: svg-fx_attack-play-c2 0.5s both; }
+
+@keyframes svg-fx_attack-play-c3 {
+  0% { transform: translate(24px,-20px) rotate(-3deg) scale(0.68,0.68); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(6px,-5px) rotate(0deg) scale(0.92,0.92); opacity: 0.88; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  32% { transform: translate(0px,0px) rotate(0deg) scale(1.02,1.02); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(-6px,5px) rotate(1deg) scale(0.97,0.97); opacity: 0.8; animation-timing-function: linear; }
+  100% { transform: translate(-12px,10px) rotate(2deg) scale(0.92,0.92); opacity: 0; }
 }
-@keyframes svg-fx_attack-sparks {
-  0%, 14%, 92%, 100% { opacity: 0; transform: scale(0.6); }
-  30% { opacity: 1; transform: scale(1.02); }
-  64% { opacity: 0.85; transform: scale(1.12); }
+.svg-fx_attack[data-anim="play"] #claw_3 { animation: svg-fx_attack-play-c3 0.5s both; }
+
+@keyframes svg-fx_attack-play-sparks {
+  0% { transform: translate(12px,-10px) rotate(0deg) scale(0.55,0.55); opacity: 0; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  12% { transform: translate(3px,-2px) rotate(0deg) scale(0.92,0.92); opacity: 0.9; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  32% { transform: translate(0px,0px) rotate(0deg) scale(1,1); opacity: 1; animation-timing-function: ease-in-out; }
+  60% { transform: translate(-6px,5px) rotate(0deg) scale(1.06,1.06); opacity: 0.72; animation-timing-function: linear; }
+  100% { transform: translate(-10px,8px) rotate(0deg) scale(1.1,1.1); opacity: 0; }
 }
-.svg-fx_attack[data-anim="play"] #claw_1 { animation: svg-fx_attack-claw1 0.5s steps(7, end) both; }
-.svg-fx_attack[data-anim="play"] #claw_2 { animation: svg-fx_attack-claw2 0.5s steps(7, end) both; }
-.svg-fx_attack[data-anim="play"] #claw_3 { animation: svg-fx_attack-claw3 0.5s steps(7, end) both; }
-.svg-fx_attack[data-anim="play"] #slash_sparks { animation: svg-fx_attack-sparks 0.5s steps(6, end) both; }
+.svg-fx_attack[data-anim="play"] #slash_sparks { animation: svg-fx_attack-play-sparks 0.5s both; }
 </style>
 <g id="root">
-  <!-- pivot: 160,160 -->
-  <!-- 第 1 道爪痕（左上侧，墨色内核 + 羊皮纸浅亮边，带手绘折角锯齿） -->
-  <g id="claw_1" opacity="0">
-    <!-- pivot: 140,120 -->
-    <polygon points="236,34 196,62 152,96 108,136 68,176 34,218 60,196 102,158 146,120 192,80" fill="#E2D6BA" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <polygon points="228,40 184,72 138,112 92,154 44,204 72,182 118,140 166,98" fill="#1C1412"/>
-    <path d="M214,48 L150,98 L82,162" fill="none" stroke="#8CAAB5" stroke-width="2" stroke-linecap="round"/>
+  <!-- 第 1 道爪痕 (#claw_1，左上侧：曲线收尖柳叶形 + 旧纸浅边 + 冷光棱，无血无红) -->
+  <g id="claw_1">
+    <!-- 浅色外薄边 (#E2D6BA) 与墨色轮廓 -->
+    <path d="M236,36 C192,62 142,102 98,144 L92,139 L78,159 C62,175 47,194 34,214 C56,198 80,178 104,156 L111,161 L126,141 C166,104 204,68 236,36 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <!-- 焦茶近黑核心深爪痕（两头收尖） -->
+    <path d="M230,41 C188,68 140,108 98,148 L93,144 L81,161 C66,176 52,193 41,208 C61,192 84,172 105,152 L110,156 L123,139 C162,103 198,70 230,41 Z" fill="#1C1412"/>
+    <!-- 左上冷灰青锋利刮痕亮线 -->
+    <path d="M216,49 Q152,98 84,162 Q150,95 216,49 Z" fill="#8CAAB5" opacity="0.85"/>
   </g>
 
-  <!-- 第 2 道主爪痕（正中，最粗最长，带哥特断刺缺口） -->
-  <g id="claw_2" opacity="0">
-    <!-- pivot: 160,160 -->
-    <polygon points="278,42 228,80 176,124 148,142 122,172 72,218 28,268 62,240 116,194 156,162 184,142 234,98" fill="#E6DEC8" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
-    <polygon points="268,50 214,94 162,138 110,186 42,254 78,224 134,176 190,128 242,82" fill="#1C1412"/>
-    <path d="M250,62 L172,128 L92,202" fill="none" stroke="#8CAAB5" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- 第 2 道主爪痕 (#claw_2，正中最长最猛：带两处撕裂缺口与分层浅边) -->
+  <g id="claw_2">
+    <path d="M276,44 C228,78 182,118 146,148 L138,142 L120,168 C90,196 58,228 30,264 C62,238 98,208 134,176 L142,182 L162,156 C204,120 244,82 276,44 Z" fill="#E6DEC8" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M268,51 C222,85 178,123 144,152 L137,147 L121,170 C93,196 64,225 39,255 C69,230 102,202 135,172 L142,177 L159,153 C199,119 238,84 268,51 Z" fill="#1C1412"/>
+    <path d="M252,61 Q174,126 90,204 Q171,123 252,61 Z" fill="#8CAAB5" opacity="0.88"/>
   </g>
 
-  <!-- 第 3 道爪痕（右下侧） -->
-  <g id="claw_3" opacity="0">
-    <!-- pivot: 180,200 -->
-    <polygon points="286,98 244,132 198,170 152,212 112,252 78,288 108,266 152,228 198,188 246,146" fill="#E2D6BA" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <polygon points="276,106 230,144 182,186 134,232 90,276 122,252 170,210 220,166" fill="#1C1412"/>
-    <path d="M262,116 L192,176 L124,240" fill="none" stroke="#8CAAB5" stroke-width="2" stroke-linecap="round"/>
+  <!-- 第 3 道爪痕 (#claw_3，右下侧) -->
+  <g id="claw_3">
+    <path d="M284,100 C244,132 198,170 154,210 L148,205 L134,224 C114,244 95,264 78,284 C102,266 128,244 156,220 L162,225 L177,206 C216,171 254,136 284,100 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M276,107 C238,138 194,175 153,213 L148,209 L136,225 C118,243 101,260 86,277 C108,259 132,239 157,217 L162,221 L175,204 C212,171 248,138 276,107 Z" fill="#1C1412"/>
+    <path d="M262,117 Q194,175 124,240 Q191,172 262,117 Z" fill="#8CAAB5" opacity="0.85"/>
   </g>
 
-  <!-- 撕裂迸出的碎墨刺与浅色刮痕闪星（不要血、不要红） -->
-  <g id="slash_sparks" opacity="0">
-    <!-- pivot: 160,160 -->
-    <polygon points="154,142 132,126 144,152" fill="#E6DEC8" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <polygon points="178,168 202,182 188,158" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <polygon points="116,188 94,176 106,200" fill="#1C1412" stroke="#E2D6BA" stroke-width="1.4" stroke-linejoin="round"/>
-    <polygon points="208,118 228,130 218,108" fill="#1C1412" stroke="#E2D6BA" stroke-width="1.4" stroke-linejoin="round"/>
-    <path d="M98,118 L76,104 M224,198 L246,212 M136,228 L122,250 M192,86 L206,66" stroke="#E2D6BA" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- 划击迸出的墨色尖刺与浅木/旧纸刮屑 (#slash_sparks，无星爆、无红血) -->
+  <g id="slash_sparks">
+    <polygon points="154,142 130,125 143,152" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="178,168 203,183 189,157" fill="#8CAAB5" stroke="#1C1412" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="114,188 91,175 104,200" fill="#1C1412" stroke="#E2D6BA" stroke-width="1.5" stroke-linejoin="round"/>
+    <polygon points="208,118 229,131 218,107" fill="#1C1412" stroke="#E2D6BA" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- 四道收尖飞溅划丝 -->
+    <path d="M102,120 Q88,110 74,102 Q89,114 102,120 Z M222,196 Q236,206 250,214 Q235,202 222,196 Z M138,226 Q128,240 120,254 Q132,240 138,226 Z M190,88 Q200,74 208,62 Q196,74 190,88 Z" fill="#E2D6BA" stroke="#1C1412" stroke-width="1.2" stroke-linejoin="round"/>
   </g>
 </g>
 </svg>

@@ -1,13 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_icon_settings" viewBox="0 0 64 64" width="64" height="64">
 <title>设置 · 齿轮</title>
+<style>
+.svg-ui_icon_settings g { transform-box: view-box; }
+.svg-ui_icon_settings .gear { transform-origin: 32px 32px; }
+@keyframes svg-ui_icon_settings-idle-g {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,0px) rotate(3.6deg) scale(1,1); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+.svg-ui_icon_settings:not([data-anim]) .gear,
+.svg-ui_icon_settings[data-anim="idle"] .gear { animation: svg-ui_icon_settings-idle-g 3s infinite; }
+</style>
+<defs>
+  <clipPath id="ui_icon_settings-cgear">
+    <path d="M28.5,6.5 H35.5 L37.2,12.8 L43.5,15.4 L48.8,11 L53.8,16 L49.4,21.3 L52,27.6 L58.3,29.3 V36.3 L52,38 L49.4,44.3 L53.8,49.6 L48.8,54.6 L43.5,50.2 L37.2,52.8 L35.5,58.5 H28.5 L26.8,52.8 L20.5,50.2 L15.2,54.6 L10.2,49.6 L14.6,44.3 L12,38 L5.7,36.3 V29.3 L12,27.6 L14.6,21.3 L10.2,16 L15.2,11 L20.5,15.4 L26.8,12.8 Z M32,24 A8.5,8.5 0 1,0 32,41 A8.5,8.5 0 1,0 32,24 Z" clip-rule="evenodd"/>
+  </clipPath>
+</defs>
 <g id="root">
-<g transform="translate(32,32) scale(0.88) translate(-32,-34)">
-      <path d="M28,6 H36 L38,13 L45,16 L51,11 L57,17 L52,23 L55,30 L62,32 V40 L55,42 L52,49 L57,55 L51,61 L45,56 L38,59 L36,62 H28 L26,55 L19,52 L13,57 L7,51 L12,45 L9,38 L2,36 V28 L9,26 L12,19 L7,13 L13,7 L19,12 L26,9 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-      <path d="M32,14 A20,20 0 1,1 14,44 L32,34 Z" fill="#6E542B"/>
-      <circle cx="32" cy="34" r="14" fill="#6E542B" stroke="#1C1412" stroke-width="2.6"/>
-      <circle cx="32" cy="34" r="7" fill="#0D111C" stroke="#1C1412" stroke-width="2.4"/>
-      <path d="M20,22 A16,16 0 0,1 42,20" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round"/>
-      <circle cx="24" cy="24" r="2.4" fill="#E6DEC8"/>
+  <g class="gear">
+    <!-- 第1层：墨色垫底 -->
+    <path d="M28.5,6.5 H35.5 L37.2,12.8 L43.5,15.4 L48.8,11 L53.8,16 L49.4,21.3 L52,27.6 L58.3,29.3 V36.3 L52,38 L49.4,44.3 L53.8,49.6 L48.8,54.6 L43.5,50.2 L37.2,52.8 L35.5,58.5 H28.5 L26.8,52.8 L20.5,50.2 L15.2,54.6 L10.2,49.6 L14.6,44.3 L12,38 L5.7,36.3 V29.3 L12,27.6 L14.6,21.3 L10.2,16 L15.2,11 L20.5,15.4 L26.8,12.8 Z M32,24 A8.5,8.5 0 1,0 32,41 A8.5,8.5 0 1,0 32,24 Z" transform="translate(.5 .7)" fill="#1C1412" fill-rule="evenodd" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <!-- 第2层：旧铜暗部 -->
+    <path d="M28.5,6.5 H35.5 L37.2,12.8 L43.5,15.4 L48.8,11 L53.8,16 L49.4,21.3 L52,27.6 L58.3,29.3 V36.3 L52,38 L49.4,44.3 L53.8,49.6 L48.8,54.6 L43.5,50.2 L37.2,52.8 L35.5,58.5 H28.5 L26.8,52.8 L20.5,50.2 L15.2,54.6 L10.2,49.6 L14.6,44.3 L12,38 L5.7,36.3 V29.3 L12,27.6 L14.6,21.3 L10.2,16 L15.2,11 L20.5,15.4 L26.8,12.8 Z M32,24 A8.5,8.5 0 1,0 32,41 A8.5,8.5 0 1,0 32,24 Z" fill="#6E542B" fill-rule="evenodd"/>
+    <!-- 第3–6层：错位亮面、加深、受光边、冷光、铜绿 -->
+    <g clip-path="url(#ui_icon_settings-cgear)">
+      <path d="M28.5,6.5 H35.5 L37.2,12.8 L43.5,15.4 L48.8,11 L53.8,16 L49.4,21.3 L52,27.6 L58.3,29.3 V36.3 L52,38 L49.4,44.3 L53.8,49.6 L48.8,54.6 L43.5,50.2 L37.2,52.8 L35.5,58.5 H28.5 L26.8,52.8 L20.5,50.2 L15.2,54.6 L10.2,49.6 L14.6,44.3 L12,38 L5.7,36.3 V29.3 L12,27.6 L14.6,21.3 L10.2,16 L15.2,11 L20.5,15.4 L26.8,12.8 Z M32,24 A8.5,8.5 0 1,0 32,41 A8.5,8.5 0 1,0 32,24 Z" transform="translate(-2.4 -2.2)" fill="#9A7B46" fill-rule="evenodd"/>
+      <path d="M40,6 H59 V59 H34 C42,46 44,24 40,6 Z" fill="#3B2B14" opacity=".68"/>
+      <path d="M14,26 A18,18 0 0,1 38,15" fill="none" stroke="#C2A670" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M49,38 A18,18 0 0,1 36,51" fill="none" stroke="#8CAAB5" stroke-width="1.8" stroke-linecap="round" opacity=".82"/>
+      <path d="M39,45 C42,44 45,41 46,38" fill="none" stroke="#5F8272" stroke-width="2" stroke-linecap="round" opacity=".55"/>
     </g>
+    <!-- 内圈铜环与四颗铆钉 -->
+    <circle cx="32" cy="32.5" r="13.5" fill="none" stroke="#1C1412" stroke-width="2.4"/>
+    <circle cx="23" cy="23.5" r="2" fill="#DDCB9A"/>
+    <circle cx="32" cy="17" r="1.5" fill="#1C1412"/><circle cx="32" cy="48" r="1.5" fill="#1C1412"/>
+    <circle cx="16.5" cy="32.5" r="1.5" fill="#1C1412"/><circle cx="47.5" cy="32.5" r="1.5" fill="#1C1412"/>
+  </g>
 </g>
 </svg>

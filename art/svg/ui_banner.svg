@@ -1,67 +1,120 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-ui_banner" viewBox="0 0 600 140" width="600" height="140">
 <title>横幅</title>
+<style>
+.svg-ui_banner g { transform-box: view-box; }
+.svg-ui_banner #root { transform-origin: 300px 70px; }
+.svg-ui_banner #ribbon_tails { transform-origin: 300px 70px; }
+.svg-ui_banner #sheen { opacity: 0; }
+
+/* idle 3000ms: 0 -> 1500 -> 3000 (中间文字牌匾完全固定，仅两端燕尾极轻呼吸、铜饰反光轻变化) */
+@keyframes svg-ui_banner-idle-tails {
+  0% { transform: translate(0px,0px) rotate(0deg) scale(1,1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(0px,1px) rotate(0deg) scale(1.004,0.992); animation-timing-function: ease-in-out; }
+  100% { transform: translate(0px,0px) rotate(0deg) scale(1,1); }
+}
+@keyframes svg-ui_banner-idle-sheen {
+  0% { opacity: 0; animation-timing-function: ease-in-out; }
+  50% { opacity: 0.85; animation-timing-function: ease-in-out; }
+  100% { opacity: 0; }
+}
+.svg-ui_banner:not([data-anim]) #ribbon_tails,
+.svg-ui_banner[data-anim="idle"] #ribbon_tails {
+  animation: svg-ui_banner-idle-tails 3s infinite;
+}
+.svg-ui_banner:not([data-anim]) #sheen,
+.svg-ui_banner[data-anim="idle"] #sheen {
+  animation: svg-ui_banner-idle-sheen 3s infinite;
+}
+</style>
 <defs>
-  <linearGradient id="ui_banner-center" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#262036"/>
-    <stop offset="18%" stop-color="#161221"/>
-    <stop offset="82%" stop-color="#161221"/>
-    <stop offset="100%" stop-color="#0D111C"/>
+  <clipPath id="ui_banner-cplaque">
+    <path d="M74,16 L218,15 L224,20 L230,15 L412,16 L418,21 L424,16 L526,17 L544,36 L544,104 L526,124 L362,124 L356,119 L350,124 L166,123 L160,118 L154,123 L74,124 L56,104 L56,36 Z"/>
+  </clipPath>
+  <linearGradient id="ui_banner-sheen-grad" x1="45" y1="16" x2="555" y2="124" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#DDCB9A" stop-opacity="0.85"/>
+    <stop offset="0.2" stop-color="#C2A670" stop-opacity="0.25"/>
+    <stop offset="0.8" stop-color="#C2A670" stop-opacity="0.25"/>
+    <stop offset="1" stop-color="#DDCB9A" stop-opacity="0.85"/>
   </linearGradient>
 </defs>
 <g id="root">
   <!-- 横幅底部暗影 -->
-  <polygon points="56,30 544,30 584,76 544,128 56,128 16,76" fill="#0D111C" opacity="0.62"/>
+  <path d="M56,30 L544,30 L584,76 L544,128 L56,128 L16,76 Z" fill="#0D111C" opacity="0.6"/>
 
-  <!-- 左右两头破旧暗色燕尾绶带尾翼（酒红与暗紫交叠，微歪做旧缺口） -->
+  <!-- 左右两头破旧暗色燕尾绶带尾翼（酒红与暗紫交叠，带真实褶谷/褶脊收尖线与缺口） -->
   <g id="ribbon_tails">
-    <!-- 左燕尾 -->
-    <polygon points="10,34 86,28 86,112 14,108 34,74 18,58 26,52" fill="#262036" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-    <polygon points="24,42 82,36 82,104 26,100 42,74" fill="#5E242C" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M14,36 L80,31" stroke="#62577D" stroke-width="1.8" stroke-linecap="round"/>
-    <!-- 左燕尾背光排线 -->
-    <path d="M36,86 L52,102 M48,84 L64,100 M60,84 L76,100" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+    <!-- 左燕尾（墨色垫底 + 暗紫/酒红七层） -->
+    <path d="M10,34 L86,28 V112 L14,108 L34,74 L18,58 L26,52 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <path d="M10,34 L86,28 V112 L14,108 L34,74 L18,58 L26,52 Z" fill="#262036" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M23,42 L82,36 V104 L25,100 L42,74 Z" fill="#5E242C" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <!-- 左燕尾褶谷暗楔形与褶脊亮线 -->
+    <path d="M36,54 Q58,61 78,62 Q58,66 36,54 Z M32,88 Q56,83 78,80 Q56,88 32,88 Z" fill="#381318" opacity="0.88"/>
+    <path d="M38,51 Q58,58 76,59 Q58,56 38,51 Z M35,84 Q56,80 76,77 Q56,78 35,84 Z" fill="#8C3B45" opacity="0.82"/>
+    <path d="M14,36.5 L80,31.2" stroke="#62577D" stroke-width="1.8" stroke-linecap="round"/>
 
-    <!-- 右燕尾 -->
-    <polygon points="590,36 514,28 514,112 586,106 566,72 582,56 574,50" fill="#161221" stroke="#1C1412" stroke-width="3.2" stroke-linejoin="round"/>
-    <polygon points="576,44 518,36 518,104 574,98 558,72" fill="#381318" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M524,86 L540,102 M538,84 L554,100 M552,84 L568,100" stroke="#1C1412" stroke-width="1.4" stroke-linecap="round" opacity="0.65"/>
+    <!-- 右燕尾（背光偏暗 + 冷轮廓光） -->
+    <path d="M590,36 L514,28 V112 L586,106 L566,72 L582,56 L574,50 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.6" stroke-linejoin="round"/>
+    <path d="M590,36 L514,28 V112 L586,106 L566,72 L582,56 L574,50 Z" fill="#161221" stroke="#1C1412" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M577,44 L518,36 V104 L575,98 L558,72 Z" fill="#381318" stroke="#1C1412" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M564,54 Q542,61 522,62 Q542,66 564,54 Z M568,88 Q544,83 522,80 Q544,88 568,88 Z" fill="#161221" opacity="0.85"/>
+    <path d="M562,51 Q542,58 524,59 Q542,56 562,51 Z" fill="#5E242C" opacity="0.8"/>
+    <path d="M568,75 L583,103 L524,109" fill="none" stroke="#62577D" stroke-width="1.5" stroke-linecap="round" opacity="0.78"/>
   </g>
 
-  <!-- 中央主牌匾 / 绶带主体（x:58..542, y:14..126，中间 400×80 即 x:100..500, y:30..110 完全平整深暗供写 56 号大字） -->
+  <!-- 中央主牌匾 / 绶带主体（x:56..544, y:15..124；中间 x:100..500, y:30..110 完全平整深暗供写 56 号大字） -->
   <g id="main_plaque">
-    <!-- 外层暗色哥特折角牌匾底（边沿带两处小崩口，中间保持平直宽敞） -->
-    <polygon points="74,16 218,15 224,20 230,15 412,16 418,21 424,16 526,17 544,36 544,104 526,124 362,124 356,119 350,124 166,123 160,118 154,123 74,124 56,104 56,36" fill="url(#ui_banner-center)" stroke="#1C1412" stroke-width="3.4" stroke-linejoin="round"/>
+    <!-- 第1层：墨色垫底 -->
+    <path d="M74,16 L218,15 L224,20 L230,15 L412,16 L418,21 L424,16 L526,17 L544,36 L544,104 L526,124 L362,124 L356,119 L350,124 L166,123 L160,118 L154,123 L74,124 L56,104 L56,36 Z" transform="translate(.6 .9)" fill="#1C1412" stroke="#1C1412" stroke-width="5.8" stroke-linejoin="round"/>
+    <!-- 第2层：暗紫底板 -->
+    <path d="M74,16 L218,15 L224,20 L230,15 L412,16 L418,21 L424,16 L526,17 L544,36 L544,104 L526,124 L362,124 L356,119 L350,124 L166,123 L160,118 L154,123 L74,124 L56,104 L56,36 Z" fill="#262036"/>
+    <g clip-path="url(#ui_banner-cplaque)">
+      <!-- 第3、4层：边缘亮阶与底部暗阶（仅在边缘 12px 内，绝不进入中央文字区） -->
+      <path d="M56,15 H544 V26 H56 Z" fill="#3A324D"/>
+      <path d="M56,112 H544 V125 H56 Z" fill="#161221"/>
+      <!-- 第5层：左上受光边与右下断续冷轮廓光 -->
+      <path d="M59,96 V37 L75,18.5 H216" fill="none" stroke="#62577D" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M234,18.5 H408" fill="none" stroke="#62577D" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+      <path d="M541,44 V102 L524,121 H368 M342,121 H174" fill="none" stroke="#62577D" stroke-width="1.5" stroke-linecap="round" opacity="0.72"/>
+    </g>
 
-    <!-- 牌匾左上与顶部冷灰紫轮廓光 -->
-    <polyline points="60,98 60,38 76,20 216,19" fill="none" stroke="#62577D" stroke-width="2" stroke-linecap="round"/>
-    <line x1="234" y1="19" x2="408" y2="20" stroke="#62577D" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/>
-
-    <!-- 旧古铜双线内镶框（严格环绕在 x:86..514, y:24..116 外围，保证中心 400×80 纯净深暗无干扰） -->
-    <polygon points="84,24 516,24 528,36 528,104 516,116 84,116 72,104 72,36" fill="#161221" stroke="#6E542B" stroke-width="2" stroke-linejoin="round"/>
-    <rect x="92" y="28" width="416" height="84" rx="3" fill="#161221" stroke="#3A324D" stroke-width="1.2"/>
+    <!-- 旧铜双线内镶框与完全平整深暗的中央写字区（x:92..508, y:26..114 纯平 #161221） -->
+    <polygon points="84,23 516,23 528,36 528,104 516,117 84,117 72,104 72,36" fill="#161221" stroke="#6E542B" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M85,25 H514" stroke="#C2A670" stroke-width="1" opacity="0.75"/>
+    <rect x="92" y="27" width="416" height="86" rx="3" fill="#161221" stroke="#3A324D" stroke-width="1.2"/>
   </g>
 
-  <!-- 两头厚重维多利亚旧铜端饰（x:46..98 与 x:502..554，不侵入中间 x:100..500 写字区） -->
+  <!-- 两头厚重维多利亚旧铜端饰（x:44..96 与 x:504..556，不侵入中间 x:100..500 写字区） -->
   <g id="brass_caps">
-    <!-- 左端铜饰 -->
-    <polygon points="52,22 96,18 90,34 78,36 78,104 90,106 96,122 52,118 44,70" fill="#9A7B46" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <polygon points="52,70 78,70 78,104 90,106 96,122 52,118 44,70" fill="#6E542B"/>
-    <polyline points="48,68 54,25 91,22" fill="none" stroke="#C2A670" stroke-width="2" stroke-linecap="round"/>
+    <!-- 左端铜饰（七层画法） -->
+    <path d="M52,22 L96,18 L90,34 L78,36 V104 L90,106 L96,122 L52,118 L44,70 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M52,22 L96,18 L90,34 L78,36 V104 L90,106 L96,122 L52,118 L44,70 Z" fill="#9A7B46" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M44,70 L78,70 V104 L90,106 L96,122 L52,118 Z" fill="#6E542B"/>
+    <path d="M52,106 L78,104 L90,106 L96,122 L52,118 Z" fill="#3B2B14" opacity="0.8"/>
+    <path d="M47.5,68 L53.8,24.5 L91,21" fill="none" stroke="#DDCB9A" stroke-width="2" stroke-linecap="round"/>
+    <path d="M74,114 C79,115 84,114 88,111" fill="none" stroke="#5F8272" stroke-width="2" stroke-linecap="round" opacity="0.52"/>
     <!-- 左端铜饰中心哥特尖菱浮雕与铆钉 -->
-    <polygon points="66,48 82,70 66,92 50,70" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="66,55 76,70 66,85 56,70" fill="#C2A670" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <circle cx="62" cy="30" r="2.6" fill="#C2A670" stroke="#1C1412" stroke-width="1.3"/>
-    <circle cx="62" cy="110" r="2.6" fill="#9A7B46" stroke="#1C1412" stroke-width="1.3"/>
+    <polygon points="66,47 82,70 66,93 50,70" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="66,54 76,70 66,86 56,70" fill="#C2A670" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="64" cy="66" r="1.6" fill="#DDCB9A"/>
+    <circle cx="62.4" cy="30.4" r="3" fill="#1C1412"/><circle cx="62" cy="30" r="2.1" fill="#C2A670"/><circle cx="61.3" cy="29.3" r="0.8" fill="#DDCB9A"/>
+    <circle cx="62.4" cy="110.4" r="3" fill="#1C1412"/><circle cx="62" cy="110" r="2.1" fill="#9A7B46"/>
 
-    <!-- 右端铜饰 -->
-    <polygon points="548,22 504,18 510,34 522,36 522,104 510,106 504,122 548,118 556,70" fill="#6E542B" stroke="#1C1412" stroke-width="3" stroke-linejoin="round"/>
-    <polygon points="548,70 522,70 522,104 510,106 504,122 548,118 556,70" fill="#3B2B14" opacity="0.85"/>
-    <polyline points="508,22 545,25 552,66" fill="none" stroke="#C2A670" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- 右端铜饰（七层画法，左上受光、右下加深与冷轮廓光） -->
+    <path d="M548,22 L504,18 L510,34 L522,36 V104 L510,106 L504,122 L548,118 L556,70 Z" transform="translate(.5 .8)" fill="#1C1412" stroke="#1C1412" stroke-width="5.2" stroke-linejoin="round"/>
+    <path d="M548,22 L504,18 L510,34 L522,36 V104 L510,106 L504,122 L548,118 L556,70 Z" fill="#6E542B" stroke="#1C1412" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M504,18 L548,22 L556,70 H522 V36 L510,34 Z" fill="#9A7B46"/>
+    <path d="M548,70 H522 V104 L510,106 L504,122 L548,118 L556,70 Z" fill="#3B2B14" opacity="0.85"/>
+    <path d="M508,21 L545,24.5 L552,65" fill="none" stroke="#C2A670" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M553.5,74 L546.5,116 L512,119.5" fill="none" stroke="#8CAAB5" stroke-width="1.4" stroke-linecap="round" opacity="0.8"/>
     <!-- 右端铜饰中心哥特尖菱浮雕与铆钉 -->
-    <polygon points="534,48 550,70 534,92 518,70" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
-    <polygon points="534,55 544,70 534,85 524,70" fill="#9A7B46" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
-    <circle cx="538" cy="30" r="2.6" fill="#C2A670" stroke="#1C1412" stroke-width="1.3"/>
-    <circle cx="538" cy="110" r="2.6" fill="#6E542B" stroke="#1C1412" stroke-width="1.3"/>
+    <polygon points="534,47 550,70 534,93 518,70" fill="#3B2B14" stroke="#1C1412" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="534,54 544,70 534,86 524,70" fill="#9A7B46" stroke="#1C1412" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="532" cy="66" r="1.5" fill="#DDCB9A"/>
+    <circle cx="538.4" cy="30.4" r="3" fill="#1C1412"/><circle cx="538" cy="30" r="2.1" fill="#C2A670"/><circle cx="537.3" cy="29.3" r="0.8" fill="#DDCB9A"/>
+    <circle cx="538.4" cy="110.4" r="3" fill="#1C1412"/><circle cx="538" cy="110" r="2.1" fill="#6E542B"/>
   </g>
+
+  <!-- 待机独立铜饰反光层 -->
+  <path id="sheen" opacity="0" d="M48,68 L54,24.5 L91,21 M508,21 L545,24.5 L552,65" fill="none" stroke="url(#ui_banner-sheen-grad)" stroke-width="2.4" stroke-linecap="round"/>
 </g>
 </svg>

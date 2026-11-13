@@ -234,7 +234,14 @@ func _resize() -> void:
 	var base: Dictionary = L.base(name_choice)
 	var factor: float = minf(virtual_size.x/float(base.width),virtual_size.y/float(base.height))
 	var extra: float = virtual_size.y/factor-base.height if name_choice == "portrait" else virtual_size.x/factor-base.width
-	layout = L.fit_layout(base,extra)
+	layout = L.fit_layout(base,extra).duplicate(true)
+	if RC.is_current():
+		var relic_space: float = float(layout.actLabel.x)-float(layout.relics.x)-16.0-5.0*float(layout.relics.gap)
+		layout.relics.size = minf(float(layout.relics.size),relic_space/6.0)
+		if layout.name == "landscape":
+			layout.actLabel.x = float(layout.progress.x)+float(layout.progress.w)+24.0
+			layout.actLabel.y = maxf(0.0,float(layout.turn.y)-12.0)
+			layout.actLabel.h = 44.0
 	stage.size = Vector2(layout.width,layout.height); stage.scale = Vector2.ONE*factor
 	stage.position = (virtual_size-stage.size*factor)/2.0
 	for layer: Control in [scene,fx,overlay]: layer.size = stage.size
@@ -598,8 +605,8 @@ func _battle() -> void:
 			if _click(event): _show_monster())
 		_hp()
 		countdown_art = _art("ui_countdown",{"x":layout.countdown.x-layout.countdown.size/2.0,"y":layout.countdown.y-layout.countdown.size/2.0,"w":layout.countdown.size,"h":layout.countdown.size})
-		countdown_text = _label(str(0 if attacking else run_state.monster.countdown),{"x":layout.countdown.x-layout.countdown.size/2.0,"y":layout.countdown.y-layout.countdown.size/2.0,"w":layout.countdown.size,"h":layout.countdown.size},44,null,true)
-		if run_state.monster.key == "clock": art.set_slot_text(monster,"countdown_slot",str(run_state.monster.countdown))
+		countdown_text = _label(str(0 if attacking else int(run_state.monster.countdown)),{"x":layout.countdown.x-layout.countdown.size/2.0,"y":layout.countdown.y-layout.countdown.size/2.0,"w":layout.countdown.size,"h":layout.countdown.size},44,null,true)
+		if run_state.monster.key == "clock": art.set_slot_text(monster,"countdown_slot",str(int(run_state.monster.countdown)))
 		if _hp_info().shownBroken: art.set_stay(monster,"daze")
 		elif run_state.monster.woundDown: art.set_stay(monster,"wound_down")
 		if int(run_state.monster.countdown) <= 1 and not run_state.monster.broken: art.set_stay(countdown_art,"warn")
@@ -1126,7 +1133,10 @@ func _input(event: InputEvent) -> void:
 		if event.keycode >= KEY_0 and event.keycode <= KEY_5:
 			var tier: int = int(event.keycode-KEY_0)
 			if Progression.can_start_tier(records,tier).ok: selected_tier = tier; _render()
-		elif event.keycode in [KEY_ENTER,KEY_SPACE]: _confirm_difficulty()
+			get_viewport().set_input_as_handled()
+		elif event.keycode in [KEY_ENTER,KEY_SPACE]:
+			if focus is BaseButton: return
+			_confirm_difficulty(); get_viewport().set_input_as_handled()
 		return
 	var phase: String = str(run_state.get("phase", ""))
 	if screen == "adventure" and phase == "act_choice":
@@ -1227,7 +1237,9 @@ func play_card(index: int, from: Variant = null) -> void:
 	var guard_before: bool = bool(run_state.get("guardUsedThisAct",false))
 	var entry: Dictionary = R.play_run_card(run_state,index) if not run_state.is_empty() else C.play_card(game_state,index)
 	if entry.is_empty():
-		if not run_state.is_empty(): _toast(R.last_error)
+		if not run_state.is_empty():
+			if R.current_rule(run_state) == "six" and game_state.row.size() >= 6: _play_monster_event("shut")
+			_toast(R.last_error)
 		return
 	var drawn: Array=_new_cards(prior.hand)
 	for added: Dictionary in drawn: pending_draw_ids[added.id]=true
@@ -1331,7 +1343,9 @@ func _present_effects(entry: Dictionary, countdown_before: int, old_rule: Varian
 	for effect: Dictionary in entry.get("effects", []):
 		var id: String = effect.id
 		if id in ["potion","rbheal"]: sound.heal()
-		elif id in ["duck","picky"]: _toast(RC.RULES[id].name)
+		elif id in ["duck","picky"]:
+			_toast(RC.RULES[id].name)
+			_play_monster_event("duck" if id == "duck" else "refuse")
 		elif id == "hourglass": sound.hourglass()
 		elif id == "seal": sound.seal()
 		elif id == "whistle": sound.whistle()
@@ -1363,7 +1377,12 @@ func _present_effects(entry: Dictionary, countdown_before: int, old_rule: Varian
 			wound_down = effect.get("text", "") == "发条松完"
 			art.play(monster, "unwind"); sound.rule("wound_down" if wound_down else "unwind")
 			if wound_down: art.set_stay(monster, "wound_down")
+	if old_rule == "six": _play_monster_event("click" if R.can_play_run_card(run_state).ok else "shut")
+	elif old_rule == "cap" and float(entry.m2) == 32.0: _play_monster_event("cap")
 	if wound_down or hastened or countdown_before != int(run_state.monster.countdown): _update_countdown(int(run_state.monster.countdown), true)
+
+func _play_monster_event(event: String) -> void:
+	if is_instance_valid(monster) and monster.definition.get("events",{}).has(event): art.play(monster,event)
 
 func undo_card() -> void:
 	var painted: float=display_score
@@ -1638,6 +1657,7 @@ func _settle_turn() -> void:
 		attacking = true; losing_heart = old_hearts - 1
 		transition = run_state.get("result") != null
 		_render(); _update_countdown(0)
+		if RC.is_current() and float(run_state.monster.hp) > hp_before: _toast("长回去：恢复 "+C.format_full(run_state.monster.hp-hp_before))
 		if is_instance_valid(monster): art.play(monster,"attack")
 		var motion: Control = monster_motion
 		var origin: Vector2 = motion.position if motion != null else Vector2.ZERO
@@ -1661,7 +1681,9 @@ func _settle_turn() -> void:
 		_render(); _draw_animation(_new_cards(old_hand))
 		if not run_state.is_empty() and countdown_before != int(run_state.monster.countdown): _update_countdown(int(run_state.monster.countdown), true)
 		if not run_state.is_empty() and RC.is_current():
-			if float(run_state.monster.hp) > hp_before: _toast("长回去：恢复 "+C.format_full(run_state.monster.hp-hp_before))
+			if float(run_state.monster.hp) > hp_before:
+				_toast("长回去：恢复 "+C.format_full(run_state.monster.hp-hp_before))
+				_play_monster_event("regrow")
 			if not guard_before and run_state.guardUsedThisAct: _toast("挡一次：挡住了这次攻击")
 
 func _death_transition(old_hearts: int) -> void:
@@ -1997,6 +2019,11 @@ func _result() -> void:
 	content.alignment=BoxContainer.ALIGNMENT_CENTER
 	content.add_theme_constant_override("separation",24 if layout.name=="portrait" else 8)
 	scroll.add_child(content)
+	if not result.recordsApplied:
+		var warning: Label = _result_label(content,"本次结算尚未保存，请重试保存。",30,Color(art.manifest.palette.accent),true)
+		warning.name = "SettlementWarning"
+		var retry: Button = _modal_action(content,"重试保存",func() -> void: _settle_records(); _render())
+		retry.name = "RetrySettlement"
 	var knocker: Label=_result_label(content,"老门环：这回，最大的那颗也归你了。" if result.outcome=="victory" else "老门环：门给你留着，下回再来。" if result.outcome=="retreat" else "老门环：这回龙替你保管。人回来了，就还能再来。",26,Color.WHITE,true)
 	knocker.add_theme_constant_override("line_spacing",8)
 	var heading: String="带着宝物回家" if result.outcome=="retreat" else "倒在第 %d 仗 · %s" % [result.fight,RC.MONSTERS[result.monster].name] if result.outcome=="defeat" else "通关！ 新纪录" if result.newRecords.farthest else ""
@@ -2037,8 +2064,6 @@ func _result() -> void:
 		_result_label(content,_tier_text(int(run_state.difficulty.tier)),28)
 		if result.recordsApplied:
 			for tier: Variant in result.get("newUnlockedTiers",[]): _result_label(content,"新解锁："+_tier_text(int(tier)),28)
-	if not result.recordsApplied:
-		_modal_action(content,"重试保存",func() -> void: _settle_records(); _render())
 	_button("回首页",layout.result.home,go_home)
 	_button("再来一局",layout.result.again,start_adventure,true)
 	var banner: Control=Control.new(); banner.name="ResultBanner"; banner.z_index=20; banner.mouse_filter=Control.MOUSE_FILTER_IGNORE
@@ -2124,7 +2149,8 @@ func _show_growth(index: int) -> void:
 	var thresholds: Array = E.growth_thresholds(run_state if not run_state.is_empty() else game_state)
 	var form: int = C.gem_form(game_state,index)
 	var xp: float = game_state.xp[index]
-	var next: String = "已经是闪光" if xp >= thresholds[2] else "再用 %d 次变闪光（底数 200）" % (thresholds[2]-xp) if xp >= thresholds[1] else "再用 %d 次变切好（底数 150）" % (thresholds[1]-xp)
+	var shine_base: int = 300 if RC.is_current() and E.active_relics(game_state).has("shine") else int(C.CONFIG.gemValue[2])
+	var next: String = "已经是闪光" if xp >= thresholds[2] else "再用 %d 次变闪光（底数 %d）" % [thresholds[2]-xp,shine_base] if xp >= thresholds[1] else "再用 %d 次变切好（底数 150）" % (thresholds[1]-xp)
 	var paragraphs: Array = ["%s · %s · 底数 %d · 用了 %d 次 · %s" % [C.GEMS[index].name,C.FORMS[form],C.gem_value(game_state,index),xp,next]]
 	if not game_state.opts.grow: paragraphs.append("成长已关闭，当前按原石计算，使用次数继续记录。")
 	_text_modal(C.GEMS[index].name,paragraphs)
@@ -2532,6 +2558,9 @@ func _difficulty() -> void:
 	for tier: int in range(6):
 		var enabled: bool = Progression.can_start_tier(records,tier).ok
 		var button: Button = _button(("✓ " if selected_tier == tier else "")+_tier_text(tier)+" · 血量×"+str(RC.DIFFICULTY_TIERS[tier])+(" · 锁定" if not enabled else ""),{"x":32+(tier%2)*(panel.size.x/2.0),"y":24+int(tier/2)*104,"w":panel.size.x/2.0-48,"h":88},func() -> void: selected_tier = tier; _render(),false,"",panel)
+		if layout.name == "portrait":
+			button.add_theme_font_size_override("font_size",28)
+			button.size.x = panel.size.x/2.0-48.0
 		button.name = "Tier"+str(tier); button.disabled = not enabled
 	_label("通关基础档后解锁加码1、2" if not Progression.has_big_gem(records) else "通关可再开放后两档；只增加怪物血量。",{"x":32,"y":356,"w":panel.size.x-64,"h":96},26,panel,true)
 	_button("返回",{"x":panel.position.x,"y":layout.result.home.y,"w":320,"h":layout.result.home.h},go_home)
@@ -2550,7 +2579,7 @@ func _prepare_batch_three_capture(scenario: String) -> bool:
 	if scenario not in allowed: return false
 	if scenario.begins_with("difficulty-") or scenario.begins_with("collection-"):
 		var fixture: Dictionary = R.create_records()
-		if scenario != "difficulty-locked": fixture.merge({"played":3,"wins":3,"fullWins":3,"bestClearedTier":4})
+		if scenario != "difficulty-locked": fixture.merge({"played":3,"wins":3,"fullWins":3,"bestClearedTier":4},true)
 		if not storage.save_records(fixture): return false
 		if scenario.begins_with("collection-"):
 			var envelope: Dictionary = storage._read_records(); envelope.profile = Profile.apply_safe_exit(envelope.profile,RC.RELIC_IDS)
