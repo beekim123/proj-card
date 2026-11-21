@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="100" viewBox="0 0 72 100">
+  <defs>
+    <linearGradient id="red-7-face" gradientUnits="userSpaceOnUse" x1="25" y1="17" x2="47" y2="86">
+      <stop offset="0%" stop-color="#FFAE99" data-palette-stop-color="gemRed:2"/>
+      <stop offset="36%" stop-color="#FFAE99" data-palette-stop-color="gemRed:2"/>
+      <stop offset="36%" stop-color="#DC5B67" data-palette-stop-color="gemRed:1"/>
+      <stop offset="81%" stop-color="#DC5B67" data-palette-stop-color="gemRed:1"/>
+      <stop offset="100%" stop-color="#430F20" data-palette-stop-color="gemRed:0"/>
+    </linearGradient>
+    <linearGradient id="red-7-rim" gradientUnits="userSpaceOnUse" x1="36" y1="16" x2="36" y2="86">
+      <stop offset="0%" stop-color="#FFE1A2" data-palette-stop-color="gemRed:3"/>
+      <stop offset="30%" stop-color="#FFAE99" data-palette-stop-color="gemRed:2"/>
+      <stop offset="71%" stop-color="#DC5B67" data-palette-stop-color="gemRed:1"/>
+      <stop offset="95%" stop-color="#FFE1A2" data-palette-stop-color="gemRed:3"/>
+    </linearGradient>
+  </defs>
+  <path d="M14.5 16 L58.1 16 L58.1 24.8 L35 86 L24.5 86 L47.5 25.5 L14.5 25.5 Z" fill="url(#red-7-face)" stroke="url(#red-7-rim)" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="1.35" paint-order="stroke fill"/>
+</svg>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>异能卡牌 · 音效与背景音乐试听</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 28px 36px 56px;
+    background: #0d1318; color: #e6eef2;
+    font: 14px/1.6 "PingFang SC", -apple-system, sans-serif;
+  }
+  h1 { margin: 0 0 6px; font-size: 26px; color: #f7e6c4; }
+  .sub { color: #9db2bc; margin: 0 0 24px; }
+  h2 { margin: 28px 0 12px; font-size: 18px; color: #ffd98a; border-bottom: 1px solid #26343d; padding-bottom: 6px; }
+  .suite-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .card {
+    background: #172027; border: 1px solid #2e3e48; border-radius: 10px; padding: 14px 16px;
+  }
+  .card.active { border-color: #d9a95c; box-shadow: 0 0 14px rgba(217,169,92,.22); }
+  .card h3 { margin: 0 0 4px; font-size: 16px; color: #fff0d0; }
+  .card p { margin: 0 0 10px; font-size: 12px; color: #9db2bc; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; }
+  button {
+    font: inherit; cursor: pointer;
+    padding: 6px 12px; border-radius: 6px;
+    border: 1px solid #3c505c; background: #22303a; color: #e8f1f5;
+    transition: background .12s, border-color .12s;
+  }
+  button:hover { background: #2e404d; border-color: #d9a95c; color: #fff4dc; }
+  button.on { background: #6b4b1e; border-color: #ffd98a; color: #fff6dc; font-weight: 600; }
+  .sfx-group { margin-bottom: 18px; }
+  .sfx-group h3 { margin: 12px 0 8px; font-size: 14px; color: #a8c0cc; }
+  .sfx-btn { display: inline-flex; flex-direction: column; align-items: flex-start; min-width: 170px; text-align: left; }
+  .sfx-btn small { font-size: 11px; color: #93a8b3; margin-top: 2px; }
+  .bar { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  #status { color: #ffd98a; font-size: 13px; }
+</style>
+</head>
+<body>
+  <h1>异能卡牌 · 音效与背景音乐试听页</h1>
+  <p class="sub">全部由 Web Audio 实时合成（石板、锻铁、水晶宝石、铃与冷雾混响）。点击任意按钮即可试听。</p>
+
+  <div class="bar">
+    <button id="stopMusic">停止背景音乐</button>
+    <button id="rainBurst">试听：高倍率 50 发晶雨（限流测试）</button>
+    <span id="status">未播放</span>
+  </div>
+
+  <h2>一、四套背景音乐（每套含 大厅 / 林子里走 / 战斗 / 精英战）</h2>
+  <div class="suite-grid" id="suites"></div>
+
+  <h2>二、全部音效（点击单次试听）</h2>
+  <div id="sfxRoot"></div>
+
+  <script type="module">
+    import * as audio from './forest.js';
+    const { MUSIC_SUITES, MUSIC_SCENES, SFX_CATALOG } = audio;
+
+    let playingMusic = false;
+    let curSuite = null;
+    let curScene = null;
+    const statusEl = document.getElementById('status');
+
+    function tickLoop() {
+      if (playingMusic) audio.environment(false, 18, 0, null, curScene);
+      requestAnimationFrame(tickLoop);
+    }
+    requestAnimationFrame(tickLoop);
+
+    function renderSuites() {
+      const root = document.getElementById('suites');
+      root.innerHTML = '';
+      for (const s of MUSIC_SUITES) {
+        const div = document.createElement('div');
+        div.className = 'card' + (playingMusic && curSuite === s.id ? ' active' : '');
+        div.innerHTML = `<h3>${s.name}</h3><p>${s.style}</p><div class="row"></div>`;
+        const row = div.querySelector('.row');
+        for (const sc of MUSIC_SCENES) {
+          const btn = document.createElement('button');
+          btn.textContent = sc.name;
+          if (playingMusic && curSuite === s.id && curScene === sc.id) btn.className = 'on';
+          btn.onclick = () => {
+            audio.unlock();
+            curSuite = s.id;
+            curScene = sc.id;
+            audio.setMusicSuite(s.id);
+            audio.setMusicPreview(sc.id);
+            playingMusic = true;
+            statusEl.textContent = `正在播放：${s.name} · ${sc.name}`;
+            renderSuites();
+          };
+          row.appendChild(btn);
+        }
+        root.appendChild(div);
+      }
+    }
+
+    document.getElementById('stopMusic').onclick = () => {
+      playingMusic = false;
+      statusEl.textContent = '背景音乐已暂停（音效仍可试听）';
+      renderSuites();
+    };
+
+    document.getElementById('rainBurst').onclick = () => {
+      audio.unlock();
+      statusEl.textContent = '试听：50 发密集晶雨（限流）';
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          audio.sound(i % 7 === 0 ? 'crit' : 'hit');
+        }, i * 10);
+      }
+    };
+
+    const sfxRoot = document.getElementById('sfxRoot');
+    const groups = new Map();
+    for (const item of SFX_CATALOG) {
+      if (!groups.has(item.group)) groups.set(item.group, []);
+      groups.get(item.group).push(item);
+    }
+    for (const [gName, list] of groups.entries()) {
+      const wrap = document.createElement('div');
+      wrap.className = 'sfx-group';
+      wrap.innerHTML = `<h3>${gName}</h3><div class="row"></div>`;
+      const row = wrap.querySelector('.row');
+      for (const item of list) {
+        const btn = document.createElement('button');
+        btn.className = 'sfx-btn';
+        btn.innerHTML = `<span>${item.name} <code>(${item.id})</code></span><small>${item.desc}</small>`;
+        btn.onclick = () => {
+          audio.unlock();
+          audio.sound(item.id);
+          statusEl.textContent = `试听音效：${item.name} (${item.id}) · 活跃声部 ${audio.audioStatus().voices}`;
+        };
+        row.appendChild(btn);
+      }
+      sfxRoot.appendChild(wrap);
+    }
+
+    renderSuites();
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="116" height="72" viewBox="0 0 116 72" data-ground-anchor="0.5 1">
+<defs>
+  <linearGradient id="leafTop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#796950" data-palette-stop-color="fall:2" />
+    <stop offset="0.48" stop-color="#3a3b32" data-palette-stop-color="fall:1" />
+    <stop offset="1" stop-color="#181c20" data-palette-stop-color="fall:0" />
+  </linearGradient>
+  <linearGradient id="leafUnder" x1="0" y1="1" x2="1" y2="0">
+    <stop offset="0" stop-color="#181c20" data-palette-stop-color="fall:0" />
+    <stop offset="0.65" stop-color="#3a3b32" data-palette-stop-color="fall:1" />
+    <stop offset="1" stop-color="#796950" data-palette-stop-color="fall:2" />
+  </linearGradient>
+</defs>
+<g id="base"><path d="M58 36h0M58 72h0" fill="none" /></g>
+<g id="sway">
+  <!-- 纤细曲柄叶蒂 -->
+  <path d="M12 60 Q18 52 25 46 L28 49 Q21 55 15 62 Z" fill="#181c20" data-palette-fill="fall:0" />
+  <!-- 叶片主体（优雅卷曲飘落剪影 + 左侧一处自然风蚀小缺口） -->
+  <path d="M23 48 C34 28 58 14 84 12 C96 11 104 14 107 19 C104 34 89 48 68 55 L63 52 L59 57 C45 60 32 56 23 48 Z" fill="url(#leafUnder)" />
+  <!-- 上卷受雾叶面（拉开立体翻卷层次） -->
+  <path d="M25 46 C37 28 60 15 84 13 C95 12 102 15 105 19 C92 22 72 28 52 38 C39 44 31 48 25 46 Z" fill="url(#leafTop)" />
+  <!-- 主叶脉与分支侧脉 -->
+  <path d="M24 47 Q54 33 103 19" fill="none" stroke="#181c20" stroke-width="1.6" stroke-linecap="round" opacity="0.72" data-palette-stroke="fall:0" />
+  <path d="M26 46 Q55 32 102 19" fill="none" stroke="#796950" stroke-width="0.95" stroke-linecap="round" opacity="0.68" data-palette-stroke="fall:2" />
+  <path d="M44 38 L52 27 M58 32 L68 20 M74 26 L84 16 M50 38 L62 46 M68 32 L81 38" fill="none" stroke="#796950" stroke-width="0.78" stroke-linecap="round" opacity="0.58" data-palette-stroke="fall:2" />
+  <!-- 朝天翻卷冷霜边缘高光 -->
+  <path d="M27 42 C41 25 65 14 91 13.5 C98 13.5 102 15.5 104 18" fill="none" stroke="#b3b2a1" stroke-width="1.6" stroke-linecap="round" opacity="0.82" data-palette-stroke="fall:3" />
+</g>
+</svg>

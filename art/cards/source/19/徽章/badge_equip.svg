@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<ellipse cx="16" cy="16" rx="15" ry="15" fill="#121b21" data-palette-fill="panel:0" opacity="1"/>
+<path d="M16 1A15 15 0 1 1 15.99 1Z" fill="none" stroke="#74949b" data-palette-stroke="cardFrame:2" stroke-width="1.3" opacity="1"/>
+<path d="M7 22L21 8 24 8 23 11 10 24Z M10 16L17 23" fill="none" stroke="#f5d59b" data-palette-stroke="thread:3" stroke-width="1.5" opacity="1"/>
+</svg>

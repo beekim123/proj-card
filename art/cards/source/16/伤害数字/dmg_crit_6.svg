@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="72" height="100" viewBox="0 0 72 100">
+  <defs>
+    <path id="crit-6-outline" d="M26.3 16 L48.2 16 L57.3 25.4 L57.3 32.5 L47.5 34.2 L47.5 29.3 L43.8 25.5 L30.5 25.5 L23.7 32.9 L23.7 46.1 L29 43.2 L48.1 43.2 L58.3 53.5 L58.3 75.4 L47.9 86 L24.2 86 L13.9 75.7 L13.9 29 Z" fill="none"/>
+    <linearGradient id="crit-6-rim" gradientUnits="userSpaceOnUse" x1="36" y1="16" x2="36" y2="86">
+      <stop offset="0%" stop-color="#F5FCFF" data-palette-stop-color="crit:3"/>
+      <stop offset="48%" stop-color="#BEDBE7" data-palette-stop-color="crit:2"/>
+      <stop offset="80%" stop-color="#BEDBE7" data-palette-stop-color="crit:2"/>
+      <stop offset="100%" stop-color="#F5FCFF" data-palette-stop-color="crit:3"/>
+    </linearGradient>
+  </defs>
+  <use href="#crit-6-outline" xlink:href="#crit-6-outline" fill="none" stroke="#304653" data-palette-stroke="crit:0" stroke-width="9.2" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  <use href="#crit-6-outline" xlink:href="#crit-6-outline" fill="none" stroke="url(#crit-6-rim)" stroke-width="7.6" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  <use href="#crit-6-outline" xlink:href="#crit-6-outline" fill="none" stroke="#7899AD" data-palette-stroke="crit:1" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+</svg>

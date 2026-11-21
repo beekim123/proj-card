@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="150" viewBox="0 0 176 150">
+<defs>
+<radialGradient id="mist" cx="53%" cy="40%" r="68%">
+<stop offset="0%" stop-color="#546e77" data-palette-stop-color="cavity:2" stop-opacity="0.9"/>
+<stop offset="53%" stop-color="#23353c" data-palette-stop-color="cavity:1" stop-opacity="1"/>
+<stop offset="100%" stop-color="#0d141a" data-palette-stop-color="cavity:0" stop-opacity="1"/>
+</radialGradient>
+</defs>
+<rect x="0" y="0" width="176" height="150" rx="0" fill="url(#mist)"/>
+<path d="M0 54 Q50 36 95 44T176 28 Q108 52 75 48T0 62Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 19 Q50 1 95 9T176 -7 Q108 17 75 13T0 27Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 14 Q50 -4 95 4T176 -12 Q108 12 75 8T0 22Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 48 Q50 30 95 38T176 22 Q108 46 75 42T0 56Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 22 Q50 4 95 12T176 -4 Q108 20 75 16T0 30Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 12 Q50 -6 95 2T176 -14 Q108 10 75 6T0 20Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<ellipse cx="131" cy="87" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.20924564664224304"/>
+<ellipse cx="170" cy="62" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.30922821347257434"/>
+<ellipse cx="141" cy="16" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.26051195341906824"/>
+<ellipse cx="128" cy="56" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.3720203442719011"/>
+<ellipse cx="104" cy="38" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.18365097075332948"/>
+<ellipse cx="134" cy="70" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.37468999672780845"/>
+<ellipse cx="137" cy="44" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2873506014477494"/>
+<ellipse cx="154" cy="48" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.4135969556552076"/>
+<ellipse cx="46" cy="7" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.4490601858746236"/>
+<ellipse cx="129" cy="24" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2636444089340281"/>
+<ellipse cx="98" cy="109" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.40769745467803925"/>
+<ellipse cx="68" cy="85" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2055495825451083"/>
+<ellipse cx="132" cy="66" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2924992663764052"/>
+<ellipse cx="118" cy="100" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.4007572441931484"/>
+<ellipse cx="80" cy="33" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.18361186069844035"/>
+<path d="M0 0l14 0 -4 81 -4 60 1 -73Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" opacity=".7"/>
+<path d="M13 0l4 0 -4 81 -4 60 1 -73Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" opacity=".7"/>
+<path d="M171 0l-8 0 -4 81 -4 60 1 -73Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" opacity=".7"/>
+<path d="M160 0l-2 0 -4 81 -4 60 1 -73Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" opacity=".7"/>
+<path d="M97 10Q133 59 70 139Q117 56 91 22Z" fill="#3B62AE" data-palette-fill="gemBlue:1" stroke-width="1" opacity=".56"/>
+<path d="M94 8Q133 63 68 144Q127 68 94 8Z" fill="#E3F3F5" data-palette-fill="white:2" stroke-width="1" />
+<path d="M0 44L107 69 55 64Z M4 61L108 73 54 72Z M15 76L106 76 52 80Z" fill="#DC5B67" data-palette-fill="gemRed:1" stroke-width="1" />
+<path d="M108 72L118 55 113 69 128 66 115 75 124 84 110 78 102 96 106 78 98 71Z" fill="#F6FFFF" data-palette-fill="white:3" stroke-width="1" />
+<path d="M111 47Q119 61 115 86 M120 61L130 57 M124 77L134 79" fill="none" stroke="#6EA0F5" data-palette-stroke="gemBlue:2" stroke-width="1" opacity="1"/>
+</svg>

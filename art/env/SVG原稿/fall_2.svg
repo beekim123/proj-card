@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="116" height="72" viewBox="0 0 116 72" data-ground-anchor="0.5 1">
+<defs>
+  <linearGradient id="oakTop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#b3b2a1" stop-opacity="0.92" data-palette-stop-color="fall:3" />
+    <stop offset="0.35" stop-color="#796950" data-palette-stop-color="fall:2" />
+    <stop offset="1" stop-color="#3a3b32" data-palette-stop-color="fall:1" />
+  </linearGradient>
+  <linearGradient id="oakShadow" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#3a3b32" data-palette-stop-color="fall:1" />
+    <stop offset="0.60" stop-color="#181c20" data-palette-stop-color="fall:0" />
+    <stop offset="1" stop-color="#181c20" data-palette-stop-color="fall:0" />
+  </linearGradient>
+</defs>
+<g id="base"><path d="M58 36h0M58 72h0" fill="none" /></g>
+<g id="sway">
+  <!-- 细曲叶柄 -->
+  <path d="M46 66 Q49 58 53 52 L56 54 Q52 60 49 67 Z" fill="#181c20" data-palette-fill="fall:0" />
+  <!-- 卷曲橡树落叶暗侧主体（多裂片有机剪影，侧身翻滚感） -->
+  <path d="M53 54 Q40 52 34 44 Q42 40 44 36 Q32 34 29 24 Q40 22 46 24 Q42 13 54 6 Q66 13 65 22 Q77 18 85 26 Q78 34 71 36 Q80 43 74 52 Q64 54 53 54 Z" fill="url(#oakShadow)" />
+  <!-- 受光反卷叶尖与上侧裂片（做出真正的落叶三维卷翘立体感！） -->
+  <path d="M46 24 Q42 13 54 6 Q66 13 65 22 Q76 19 84 26 Q70 28 57 32 Q42 29 31 24 Q40 22 46 24 Z" fill="url(#oakTop)" />
+  <path d="M55 32 Q67 34 74 48 Q64 50 56 46 Z" fill="#796950" opacity="0.62" data-palette-fill="fall:2" />
+  <!-- 清晰放射叶脉 -->
+  <path d="M54 53 Q56 32 54 10 M55 44 L38 44 M55 34 L34 26 M56 32 L78 27 M56 42 L72 46" fill="none" stroke="#181c20" stroke-width="1.2" stroke-linecap="round" opacity="0.78" data-palette-stroke="fall:0" />
+  <path d="M54 52 Q56 32 54 12" fill="none" stroke="#796950" stroke-width="0.72" stroke-linecap="round" opacity="0.66" data-palette-stroke="fall:2" />
+  <!-- 顶部卷边霜光 -->
+  <path d="M44 19 Q45 11 54 6.8 Q62 11 64 19 M32 24.2 Q40 22.5 46 24.2" fill="none" stroke="#b3b2a1" stroke-width="1.35" stroke-linecap="round" opacity="0.86" data-palette-stroke="fall:3" />
+</g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="100" viewBox="0 0 72 100">
+  <defs>
+    <linearGradient id="total-7-face" gradientUnits="userSpaceOnUse" x1="25" y1="17" x2="47" y2="86">
+      <stop offset="0%" stop-color="#FFF6CF" data-palette-stop-color="total:3"/>
+      <stop offset="30%" stop-color="#FFF6CF" data-palette-stop-color="total:3"/>
+      <stop offset="30%" stop-color="#FFE2AC" data-palette-stop-color="total:2"/>
+      <stop offset="82%" stop-color="#FFE2AC" data-palette-stop-color="total:2"/>
+      <stop offset="82%" stop-color="#BD875E" data-palette-stop-color="total:1"/>
+      <stop offset="100%" stop-color="#BD875E" data-palette-stop-color="total:1"/>
+    </linearGradient>
+    <linearGradient id="total-7-rim" gradientUnits="userSpaceOnUse" x1="36" y1="16" x2="36" y2="86">
+      <stop offset="0%" stop-color="#FFF6CF" data-palette-stop-color="total:3"/>
+      <stop offset="52%" stop-color="#FFE2AC" data-palette-stop-color="total:2"/>
+      <stop offset="100%" stop-color="#FFF6CF" data-palette-stop-color="total:3"/>
+    </linearGradient>
+  </defs>
+  <path d="M14.5 16 L58.1 16 L58.1 24.8 L35 86 L24.5 86 L47.5 25.5 L14.5 25.5 Z" fill="url(#total-7-face)" stroke="url(#total-7-rim)" stroke-width="4.1" stroke-linejoin="miter" stroke-miterlimit="1.35" paint-order="stroke fill"/>
+</svg>

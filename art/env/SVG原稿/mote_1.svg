@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" data-ground-anchor="0.5 1">
+<defs>
+  <radialGradient id="glowOuter" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#edf9e8" stop-opacity="0.68" data-palette-stop-color="mote:3" />
+    <stop offset="0.20" stop-color="#c0e1d8" stop-opacity="0.38" data-palette-stop-color="mote:2" />
+    <stop offset="0.50" stop-color="#83b8b9" stop-opacity="0.12" data-palette-stop-color="mote:1" />
+    <stop offset="1" stop-color="#3b6268" stop-opacity="0" data-palette-stop-color="mote:0" />
+  </radialGradient>
+  <radialGradient id="glowCore" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#edf9e8" stop-opacity="0.96" data-palette-stop-color="mote:3" />
+    <stop offset="0.52" stop-color="#c0e1d8" stop-opacity="0.54" data-palette-stop-color="mote:2" />
+    <stop offset="1" stop-color="#83b8b9" stop-opacity="0" data-palette-stop-color="mote:1" />
+  </radialGradient>
+</defs>
+<g id="base"><path d="M30 36h0M30 60h0" fill="none" /></g>
+<g id="sway">
+  <g transform="translate(30 34)">
+    <ellipse cx="0" cy="0" rx="22" ry="19" fill="url(#glowOuter)" />
+    <circle cx="0" cy="0" r="8.5" fill="url(#glowCore)" />
+    <!-- 纤细星芒十字微光 -->
+    <path d="M0 -9.5 Q0.8 -1.2 8.2 0 Q0.8 1.2 0 9.5 Q-0.8 1.2 -8.2 0 Q-0.8 -1.2 0 -9.5 Z" fill="#edf9e8" opacity="0.72" data-palette-fill="mote:3" />
+    <path d="M0 -4.8 Q2.8 -1.6 3.0 0.2 Q2.4 2.8 0 4.6 Q-2.6 2.6 -2.8 0 Q-2.4 -2.2 0 -4.8 Z" fill="#edf9e8" data-palette-fill="mote:3" />
+    <circle cx="0.2" cy="-0.4" r="1.4" fill="#c0e1d8" opacity="0.55" data-palette-fill="mote:2" />
+    <!-- 极细伴生孢子微尘 -->
+    <circle cx="9.2" cy="-5.8" r="0.9" fill="#c0e1d8" opacity="0.58" data-palette-fill="mote:2" />
+    <circle cx="-7.8" cy="5.4" r="0.7" fill="#83b8b9" opacity="0.48" data-palette-fill="mote:1" />
+  </g>
+</g>
+</svg>

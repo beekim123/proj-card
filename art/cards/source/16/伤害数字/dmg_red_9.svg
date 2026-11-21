@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="100" viewBox="0 0 72 100">
+  <defs>
+    <linearGradient id="red-9-face" gradientUnits="userSpaceOnUse" x1="25" y1="17" x2="47" y2="86">
+      <stop offset="0%" stop-color="#FFAE99" data-palette-stop-color="gemRed:2"/>
+      <stop offset="36%" stop-color="#FFAE99" data-palette-stop-color="gemRed:2"/>
+      <stop offset="36%" stop-color="#DC5B67" data-palette-stop-color="gemRed:1"/>
+      <stop offset="81%" stop-color="#DC5B67" data-palette-stop-color="gemRed:1"/>
+      <stop offset="100%" stop-color="#430F20" data-palette-stop-color="gemRed:0"/>
+    </linearGradient>
+    <linearGradient id="red-9-rim" gradientUnits="userSpaceOnUse" x1="36" y1="16" x2="36" y2="86">
+      <stop offset="0%" stop-color="#FFE1A2" data-palette-stop-color="gemRed:3"/>
+      <stop offset="30%" stop-color="#FFAE99" data-palette-stop-color="gemRed:2"/>
+      <stop offset="71%" stop-color="#DC5B67" data-palette-stop-color="gemRed:1"/>
+      <stop offset="95%" stop-color="#FFE1A2" data-palette-stop-color="gemRed:3"/>
+    </linearGradient>
+  </defs>
+  <path d="M24.3 16 L48 16 L58.1 26.4 L58.1 72.4 L45.8 86 L24 86 L14.9 76.7 L14.9 69.1 L24.7 67.3 L24.7 72.7 L28.3 76.5 L41.5 76.5 L48.3 68.9 L48.3 56.1 L42.9 58.9 L23.9 58.9 L13.7 48.5 L13.7 26.7 Z M23.5 30.6 L23.5 44.5 L28.3 49.4 L44 49.4 L48.3 45.5 L48.3 30.4 L43.7 25.5 L28.5 25.5 Z" fill="url(#red-9-face)" stroke="url(#red-9-rim)" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="1.35" paint-order="stroke fill"/>
+</svg>

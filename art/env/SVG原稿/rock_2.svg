@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73 59" width="73" height="59" data-ground-anchor="0.5 1">
+<defs>
+  <linearGradient id="rock_2_body" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0%" stop-color="#29363e" data-palette-stop-color="rock:1" />
+    <stop offset="52%" stop-color="#141c23" data-palette-stop-color="rock:0" />
+    <stop offset="100%" stop-color="#141c23" data-palette-stop-color="rock:0" />
+  </linearGradient>
+  <linearGradient id="rock_2_gold" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0%" stop-color="#845c39" stop-opacity="0.10" data-palette-stop-color="warm:1" />
+    <stop offset="58%" stop-color="#c58e58" stop-opacity="0.52" data-palette-stop-color="warm:2" />
+    <stop offset="100%" stop-color="#f4c789" stop-opacity="0.82" data-palette-stop-color="warm:3" />
+  </linearGradient>
+</defs>
+<g>
+  <!-- 竖石嶙峋主体剪影 -->
+  <path d="M1 53 L6 44 L10 32 L14 27 L13 19 L25 11 L34 3 L48 1 L55 7 L58 16 L65 22 L63 29 L69 34 L67 42 L72 52 L64 56 L51 55 L36 59 L25 56 L13 56 Z" fill="url(#rock_2_body)" />
+  <!-- 左侧受雾大斜面（清晰雕塑体块） -->
+  <path d="M13 19 L25 11 L34 3 L48 1 L53 6 L40 12 L31 19 L23 26 L15 28 Z" fill="#29363e" opacity="0.92" data-palette-fill="rock:1" />
+  <path d="M10 32 L22 25 L31 19 L34 29 L28 38 L22 46 L12 52 L6 48 Z" fill="#29363e" opacity="0.76" data-palette-fill="rock:1" />
+  <path d="M40 12 L53 6 L58 16 L46 18 L36 22 Z" fill="#29363e" opacity="0.62" data-palette-fill="rock:1" />
+  <!-- 中右侧深影断崖面 -->
+  <path d="M31 19 L43 13 L56 16 L63 23 L57 32 L46 39 L39 54 L26 53 L29 41 L35 30 Z" fill="#141c23" opacity="0.92" data-palette-fill="rock:0" />
+  <!-- 右下凸起石肩受微光面 -->
+  <path d="M49 35 L62 29 L68 35 L65 44 L54 49 L44 52 L45 43 Z" fill="#29363e" opacity="0.68" data-palette-fill="rock:1" />
+  <!-- 削切次高光棱面（彻底替代旧版僵硬粗灰贴条！） -->
+  <path d="M13 19 L25 11 L34 3 L48 1 L54 6 L47 4 L35 6 L26 13 L15 21 Z" fill="#566a72" opacity="0.78" data-palette-fill="rock:2" />
+  <path d="M11 33 L20 26 L30 19 L24 27 L14 35 L9 43 Z" fill="#566a72" opacity="0.66" data-palette-fill="rock:2" />
+  <path d="M54 16 L64 22 L62 26 L56 19 Z" fill="#566a72" opacity="0.54" data-palette-fill="rock:2" />
+  <!-- 精准冷雾石脊高光线 -->
+  <path d="M13.5 21 L13.5 19 L25 11.2 L34 3.4 L48 1.5 L54 6.2" fill="none" stroke="#a6bfc6" stroke-width="0.95" stroke-linecap="round" stroke-linejoin="round" opacity="0.88" data-palette-stroke="rock:3" />
+  <path d="M9.5 41 L12 33 L21 26 L30 19.5" fill="none" stroke="#a6bfc6" stroke-width="0.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.74" data-palette-stroke="rock:3" />
+  <path d="M57.5 16.5 L64.5 22 L63 26.5" fill="none" stroke="#a6bfc6" stroke-width="0.68" stroke-linecap="round" opacity="0.58" data-palette-stroke="rock:3" />
+  <!-- 深缝裂纹与细棱线 -->
+  <path d="M31 19 L34 31 L27 42 M46 18 L43 32 L49 38" fill="none" stroke="#141c23" stroke-width="0.85" stroke-linecap="round" opacity="0.92" data-palette-stroke="rock:0" />
+  <path d="M19 42 L26 39 L30 39 M34 34 L38 24 M45 45 L46 39 L52 36 M58 36 L64 35" fill="none" stroke="#566a72" stroke-width="0.62" stroke-linecap="round" stroke-linejoin="round" opacity="0.52" data-palette-stroke="rock:2" />
+</g>
+<g id="warm">
+  <path d="M6 53.5 L14 55.6 L26 55.6 L36 58.2 L51 54.6 L64 55.4 L70 52.2" fill="none" stroke="url(#rock_2_gold)" stroke-width="1.20" stroke-linecap="round" stroke-linejoin="round" opacity="0.80" />
+  <path d="M16 49.5 L26 51.5 M46 51.5 L58 49.0" fill="none" stroke="#c58e58" stroke-width="0.65" stroke-linecap="round" opacity="0.48" data-palette-stroke="warm:2" />
+</g>
+</svg>

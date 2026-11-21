@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="132" height="48" viewBox="0 0 132 48" data-ground-anchor="0.5 1">
+<defs>
+  <radialGradient id="eyeGlow" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#edfbf4" stop-opacity="0.34" data-palette-stop-color="eyes:3" />
+    <stop offset="0.30" stop-color="#a6d1d0" stop-opacity="0.19" data-palette-stop-color="eyes:2" />
+    <stop offset="0.62" stop-color="#547f86" stop-opacity="0.075" data-palette-stop-color="eyes:1" />
+    <stop offset="1" stop-color="#294951" stop-opacity="0" data-palette-stop-color="eyes:0" />
+  </radialGradient>
+  <radialGradient id="iris" cx="0.45" cy="0.42" r="0.62">
+    <stop offset="0" stop-color="#edfbf4" stop-opacity="1" data-palette-stop-color="eyes:3" />
+    <stop offset="0.52" stop-color="#a6d1d0" stop-opacity="1" data-palette-stop-color="eyes:2" />
+    <stop offset="0.88" stop-color="#547f86" stop-opacity="0.96" data-palette-stop-color="eyes:1" />
+    <stop offset="1" stop-color="#294951" stop-opacity="0.92" data-palette-stop-color="eyes:0" />
+  </radialGradient>
+</defs>
+<g id="base">
+  <ellipse cx="41" cy="24" rx="22" ry="13.5" fill="url(#eyeGlow)" opacity="0.58" />
+  <ellipse cx="91" cy="23" rx="24" ry="14.8" fill="url(#eyeGlow)" opacity="0.64" />
+</g>
+<g id="sway">
+  <g opacity="0.78" transform="translate(41 24) rotate(13) scale(1 0.56)">
+    <path d="M-7.6 0 Q-1.9 -6.4 7.6 -0.8 Q2.1 6.2 -7.6 0 Z" fill="url(#iris)" />
+    <path d="M-7.6 0 Q-1.9 -6.4 7.6 -0.8 Q2.1 6.2 -7.6 0 Z" fill="none" stroke="#294951" stroke-width="0.65" opacity="0.72" data-palette-stroke="eyes:0" />
+    <path d="M0.5 -4.5 Q1.9 0 0.5 4.5 Q-0.9 0 0.5 -4.5 Z" fill="#294951" opacity="0.88" data-palette-fill="eyes:0" />
+    <path d="M-8.1 -0.3 Q-1.5 -7.5 8 -1.1 Q1.1 -4.5 -8.1 -0.3 Z" fill="#294951" opacity="0.76" data-palette-fill="eyes:0" />
+    <circle cx="-1.8" cy="-1.4" r="0.92" fill="#edfbf4" data-palette-fill="eyes:3" />
+    <circle cx="1.7" cy="1.3" r="0.49" fill="#edfbf4" opacity="0.65" data-palette-fill="eyes:3" />
+  </g>
+  <g opacity="0.84" transform="translate(91 23) rotate(-12) scale(1 0.56)">
+    <path d="M-8.2 0 Q-2 -7 8.2 -0.8 Q2.3 6.8 -8.2 0 Z" fill="url(#iris)" />
+    <path d="M-8.2 0 Q-2 -7 8.2 -0.8 Q2.3 6.8 -8.2 0 Z" fill="none" stroke="#294951" stroke-width="0.71" opacity="0.72" data-palette-stroke="eyes:0" />
+    <path d="M-0.5 -5 Q1 0 -0.5 5 Q-2 0 -0.5 -5 Z" fill="#294951" opacity="0.88" data-palette-fill="eyes:0" />
+    <path d="M-8.7 -0.3 Q-1.6 -8.1 8.6 -1.2 Q1.2 -5 -8.7 -0.3 Z" fill="#294951" opacity="0.76" data-palette-fill="eyes:0" />
+    <circle cx="-2" cy="-1.5" r="1" fill="#edfbf4" data-palette-fill="eyes:3" />
+    <circle cx="1.8" cy="1.4" r="0.53" fill="#edfbf4" opacity="0.65" data-palette-fill="eyes:3" />
+  </g>
+</g>
+</svg>

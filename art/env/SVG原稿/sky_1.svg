@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" data-ground-anchor="0.5 1">
+<defs>
+  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#10171e" stop-opacity="1" data-palette-stop-color="sky:0" />
+    <stop offset="0.22" stop-color="#10171e" stop-opacity="1" data-palette-stop-color="sky:0" />
+    <stop offset="0.49" stop-color="#2b434c" stop-opacity="0.96" data-palette-stop-color="sky:1" />
+    <stop offset="0.62" stop-color="#2b434c" stop-opacity="1" data-palette-stop-color="sky:1" />
+    <stop offset="0.84" stop-color="#10171e" stop-opacity="0.96" data-palette-stop-color="sky:0" />
+    <stop offset="1" stop-color="#10171e" stop-opacity="1" data-palette-stop-color="sky:0" />
+  </linearGradient>
+  <radialGradient id="distance" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#5d828a" stop-opacity="0.80" data-palette-stop-color="sky:2" />
+    <stop offset="0.34" stop-color="#5d828a" stop-opacity="0.60" data-palette-stop-color="sky:2" />
+    <stop offset="0.68" stop-color="#2b434c" stop-opacity="0.32" data-palette-stop-color="sky:1" />
+    <stop offset="1" stop-color="#2b434c" stop-opacity="0" data-palette-stop-color="sky:1" />
+  </radialGradient>
+  <radialGradient id="horizonRibbon" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#5d828a" stop-opacity="0.46" data-palette-stop-color="sky:2" />
+    <stop offset="0.50" stop-color="#5d828a" stop-opacity="0.22" data-palette-stop-color="sky:2" />
+    <stop offset="1" stop-color="#2b434c" stop-opacity="0" data-palette-stop-color="sky:1" />
+  </radialGradient>
+  <radialGradient id="far" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#b5d3d1" stop-opacity="0.82" data-palette-stop-color="sky:3" />
+    <stop offset="0.26" stop-color="#b5d3d1" stop-opacity="0.54" data-palette-stop-color="sky:3" />
+    <stop offset="0.58" stop-color="#5d828a" stop-opacity="0.24" data-palette-stop-color="sky:2" />
+    <stop offset="1" stop-color="#5d828a" stop-opacity="0" data-palette-stop-color="sky:2" />
+  </radialGradient>
+  <radialGradient id="wisp" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#b5d3d1" stop-opacity="0.28" data-palette-stop-color="sky:3" />
+    <stop offset="0.42" stop-color="#5d828a" stop-opacity="0.16" data-palette-stop-color="sky:2" />
+    <stop offset="1" stop-color="#5d828a" stop-opacity="0" data-palette-stop-color="sky:2" />
+  </radialGradient>
+  <radialGradient id="softRay" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#b5d3d1" stop-opacity="0.22" data-palette-stop-color="sky:3" />
+    <stop offset="0.40" stop-color="#5d828a" stop-opacity="0.12" data-palette-stop-color="sky:2" />
+    <stop offset="0.78" stop-color="#5d828a" stop-opacity="0.04" data-palette-stop-color="sky:2" />
+    <stop offset="1" stop-color="#2b434c" stop-opacity="0" data-palette-stop-color="sky:1" />
+  </radialGradient>
+  <radialGradient id="cooldark" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#10171e" stop-opacity="0.90" data-palette-stop-color="sky:0" />
+    <stop offset="0.62" stop-color="#10171e" stop-opacity="0.48" data-palette-stop-color="sky:0" />
+    <stop offset="1" stop-color="#10171e" stop-opacity="0" data-palette-stop-color="sky:0" />
+  </radialGradient>
+</defs>
+<g id="base">
+  <rect width="1600" height="1000" fill="url(#night)" />
+  <ellipse cx="832" cy="548" rx="1080" ry="440" fill="url(#distance)" />
+  <ellipse cx="800" cy="560" rx="1240" ry="165" fill="url(#horizonRibbon)" />
+  <ellipse cx="640" cy="462" rx="640" ry="74" fill="url(#wisp)" transform="rotate(-6 640 462)" opacity="0.42" />
+  <ellipse cx="1040" cy="444" rx="580" ry="68" fill="url(#wisp)" transform="rotate(5 1040 444)" opacity="0.34" />
+  <ellipse cx="220" cy="240" rx="460" ry="360" fill="url(#cooldark)" />
+  <ellipse cx="1460" cy="255" rx="540" ry="370" fill="url(#cooldark)" />
+  <ellipse cx="860" cy="18" rx="880" ry="265" fill="url(#cooldark)" opacity="0.78" />
+</g>
+<g id="sway">
+  <!-- 核心呼吸冷雾光核（严格对齐 0.52 / 0.516） -->
+  <ellipse cx="832" cy="516" rx="465" ry="215" fill="url(#far)" />
+  <ellipse cx="832" cy="524" rx="260" ry="118" fill="url(#far)" opacity="0.58" />
+  <!-- 柔和横向浮雾层次 -->
+  <ellipse cx="818" cy="532" rx="600" ry="54" fill="url(#wisp)" transform="rotate(-2.5 818 532)" opacity="0.70" />
+  <ellipse cx="945" cy="468" rx="540" ry="72" fill="url(#wisp)" transform="rotate(-7 945 468)" opacity="0.46" />
+  <ellipse cx="705" cy="482" rx="460" ry="62" fill="url(#wisp)" transform="rotate(5 705 482)" opacity="0.40" />
+  <!-- 极柔和无硬边的斜向林间雾柱光晕（全径向羽化，彻底消除硬边多边形！） -->
+  <ellipse cx="670" cy="420" rx="95" ry="290" fill="url(#softRay)" transform="rotate(-14 670 420)" opacity="0.76" />
+  <ellipse cx="810" cy="410" rx="115" ry="320" fill="url(#softRay)" transform="rotate(-5 810 410)" opacity="0.88" />
+  <ellipse cx="945" cy="422" rx="102" ry="300" fill="url(#softRay)" transform="rotate(7 945 422)" opacity="0.78" />
+  <ellipse cx="1075" cy="442" rx="82" ry="255" fill="url(#softRay)" transform="rotate(14 1075 442)" opacity="0.58" />
+</g>
+</svg>

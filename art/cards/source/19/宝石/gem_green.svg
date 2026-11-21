@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+<path d="M7 5H56L59 8V57L55 60H6L4 56V9Z" fill="#12372A" data-palette-fill="gemGreen:0" stroke="#ACF194" data-palette-stroke="gemGreen:2" stroke-width="1.5" />
+<path d="M6 7L55 7 43 18 18 18Z" fill="#ACF194" data-palette-fill="gemGreen:2" stroke-width="1" opacity="1"/>
+<path d="M6 7L18 18 18 43 6 54Z" fill="#6AB785" data-palette-fill="gemGreen:1" stroke-width="1" opacity="0.8"/>
+<path d="M18 18L43 18 48 35 35 46 18 43Z" fill="#6AB785" data-palette-fill="gemGreen:1" stroke-width="1" opacity="1"/>
+<path d="M55 7L56 55 48 35 43 18Z" fill="#ACF194" data-palette-fill="gemGreen:2" stroke-width="1" opacity="0.55"/>
+<path d="M6 54L18 43 35 46 56 55Z" fill="#6AB785" data-palette-fill="gemGreen:1" stroke-width="1" opacity="0.65"/>
+<path d="M8 8H32" fill="none" stroke="#E4FFD1" data-palette-stroke="gemGreen:3" stroke-width="2" opacity="1"/>
+<path d="M18 41V18H36" fill="none" stroke="#E4FFD1" data-palette-stroke="gemGreen:3" stroke-width="1" opacity="0.8"/>
+</svg>

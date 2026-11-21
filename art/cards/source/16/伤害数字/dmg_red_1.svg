@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="100" viewBox="0 0 72 100">
+  <defs>
+    <linearGradient id="red-1-face" gradientUnits="userSpaceOnUse" x1="25" y1="17" x2="47" y2="86">
+      <stop offset="0%" stop-color="#FFAE99" data-palette-stop-color="gemRed:2"/>
+      <stop offset="36%" stop-color="#FFAE99" data-palette-stop-color="gemRed:2"/>
+      <stop offset="36%" stop-color="#DC5B67" data-palette-stop-color="gemRed:1"/>
+      <stop offset="81%" stop-color="#DC5B67" data-palette-stop-color="gemRed:1"/>
+      <stop offset="100%" stop-color="#430F20" data-palette-stop-color="gemRed:0"/>
+    </linearGradient>
+    <linearGradient id="red-1-rim" gradientUnits="userSpaceOnUse" x1="36" y1="16" x2="36" y2="86">
+      <stop offset="0%" stop-color="#FFE1A2" data-palette-stop-color="gemRed:3"/>
+      <stop offset="30%" stop-color="#FFAE99" data-palette-stop-color="gemRed:2"/>
+      <stop offset="71%" stop-color="#DC5B67" data-palette-stop-color="gemRed:1"/>
+      <stop offset="95%" stop-color="#FFE1A2" data-palette-stop-color="gemRed:3"/>
+    </linearGradient>
+  </defs>
+  <path d="M19.2 30 L32 16 L41.7 16 L41.7 76.6 L56 76.6 L53.5 86 L16.2 86 L18.5 76.6 L31.2 76.6 L31.2 29.7 L19.1 38.5 Z" fill="url(#red-1-face)" stroke="url(#red-1-rim)" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="1.35" paint-order="stroke fill"/>
+</svg>

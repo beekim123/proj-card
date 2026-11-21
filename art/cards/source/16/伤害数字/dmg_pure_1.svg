@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="100" viewBox="0 0 72 100">
+  <defs>
+    <linearGradient id="pure-1-face" gradientUnits="userSpaceOnUse" x1="20" y1="25" x2="53" y2="78">
+      <stop offset="0%" stop-color="#AF8DE4" data-palette-stop-color="pure:2"/>
+      <stop offset="35%" stop-color="#7656A4" data-palette-stop-color="pure:1"/>
+      <stop offset="45%" stop-color="#7656A4" data-palette-stop-color="pure:1"/>
+      <stop offset="45%" stop-color="#AF8DE4" data-palette-stop-color="pure:2"/>
+      <stop offset="48%" stop-color="#AF8DE4" data-palette-stop-color="pure:2"/>
+      <stop offset="48%" stop-color="#E7FFFF" data-palette-stop-color="pure:3"/>
+      <stop offset="61%" stop-color="#E7FFFF" data-palette-stop-color="pure:3"/>
+      <stop offset="61%" stop-color="#AF8DE4" data-palette-stop-color="pure:2"/>
+      <stop offset="64%" stop-color="#AF8DE4" data-palette-stop-color="pure:2"/>
+      <stop offset="64%" stop-color="#7656A4" data-palette-stop-color="pure:1"/>
+      <stop offset="100%" stop-color="#7656A4" data-palette-stop-color="pure:1"/>
+    </linearGradient>
+    <linearGradient id="pure-1-rim" gradientUnits="userSpaceOnUse" x1="20" y1="25" x2="53" y2="78">
+      <stop offset="0%" stop-color="#AF8DE4" data-palette-stop-color="pure:2"/>
+      <stop offset="45%" stop-color="#AF8DE4" data-palette-stop-color="pure:2"/>
+      <stop offset="45%" stop-color="#E7FFFF" data-palette-stop-color="pure:3"/>
+      <stop offset="64%" stop-color="#E7FFFF" data-palette-stop-color="pure:3"/>
+      <stop offset="64%" stop-color="#AF8DE4" data-palette-stop-color="pure:2"/>
+      <stop offset="100%" stop-color="#7656A4" data-palette-stop-color="pure:1"/>
+    </linearGradient>
+  </defs>
+  <path d="M19.2 30 L32 16 L41.7 16 L41.7 76.6 L56 76.6 L53.5 86 L16.2 86 L18.5 76.6 L31.2 76.6 L31.2 29.7 L19.1 38.5 Z" fill="url(#pure-1-face)" stroke="url(#pure-1-rim)" stroke-width="2.2" stroke-linejoin="miter" stroke-miterlimit="1.35" paint-order="stroke fill"/>
+</svg>

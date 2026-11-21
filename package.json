@@ -1,0 +1,16 @@
+{
+  "name": "card-web-greybox",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "main": "electron.cjs",
+  "scripts": {
+    "start": "env -u ELECTRON_RUN_AS_NODE nice -n 10 electron .",
+    "test": "node scripts/core-test.mjs",
+    "test:live": "node scripts/live-test.cjs",
+    "test:forest": "node scripts/forest-check.cjs"
+  },
+  "devDependencies": {
+    "electron": "41.7.1"
+  }
+}

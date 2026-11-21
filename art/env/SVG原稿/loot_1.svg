@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="264" height="316" viewBox="0 0 264 316" data-ground-anchor="0.5 1">
+<defs>
+  <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#ffe4a8" stop-opacity="0.72" data-palette-stop-color="loot:3" />
+    <stop offset="0.26" stop-color="#e2ad69" stop-opacity="0.44" data-palette-stop-color="loot:2" />
+    <stop offset="0.54" stop-color="#e2ad69" stop-opacity="0.16" data-palette-stop-color="loot:2" />
+    <stop offset="0.78" stop-color="#9b663e" stop-opacity="0.04" data-palette-stop-color="loot:1" />
+    <stop offset="1" stop-color="#493023" stop-opacity="0" data-palette-stop-color="loot:0" />
+  </radialGradient>
+  <radialGradient id="spill" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#e2ad69" stop-opacity="0.26" data-palette-stop-color="loot:2" />
+    <stop offset="0.38" stop-color="#9b663e" stop-opacity="0.12" data-palette-stop-color="loot:1" />
+    <stop offset="1" stop-color="#493023" stop-opacity="0" data-palette-stop-color="loot:0" />
+  </radialGradient>
+  <linearGradient id="back" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#493023" data-palette-stop-color="loot:0" />
+    <stop offset="0.44" stop-color="#9b663e" data-palette-stop-color="loot:1" />
+    <stop offset="0.82" stop-color="#493023" data-palette-stop-color="loot:0" />
+    <stop offset="1" stop-color="#493023" data-palette-stop-color="loot:0" />
+  </linearGradient>
+  <linearGradient id="bevel" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#e2ad69" data-palette-stop-color="loot:2" />
+    <stop offset="0.24" stop-color="#ffe4a8" data-palette-stop-color="loot:3" />
+    <stop offset="0.52" stop-color="#9b663e" data-palette-stop-color="loot:1" />
+    <stop offset="0.78" stop-color="#9b663e" data-palette-stop-color="loot:1" />
+    <stop offset="1" stop-color="#e2ad69" data-palette-stop-color="loot:2" />
+  </linearGradient>
+  <clipPath id="outside">
+    <path clip-rule="evenodd" d="M-40 -40H304V356H-40Z M82 62H182Q192 62 192 72V244Q192 254 182 254H82Q72 254 72 244V72Q72 62 82 62Z" transform="rotate(-8 132 158)" />
+  </clipPath>
+</defs>
+
+<g id="base">
+  <g transform="rotate(-8 132 158)">
+    <!-- 鎏金斜切卡框与深棕卡背 -->
+    <rect x="72" y="62" width="120" height="192" rx="10" fill="url(#bevel)" />
+    <rect x="77" y="67" width="110" height="182" rx="7" fill="url(#back)" />
+    <!-- 双层细刻雕花内框 -->
+    <rect x="82" y="72" width="100" height="172" rx="5" fill="none" stroke="#e2ad69" stroke-opacity="0.68" stroke-width="1.05" data-palette-stroke="loot:2" />
+    <rect x="86" y="76" width="92" height="164" rx="3.5" fill="none" stroke="#9b663e" stroke-opacity="0.75" stroke-width="0.8" data-palette-stroke="loot:1" />
+    <!-- 四角弧形卷草花饰 + 菱形铆钉 -->
+    <path d="M88 94 Q88 80 102 80 M176 94 Q176 80 162 80 M88 222 Q88 236 102 236 M176 222 Q176 236 162 236" fill="none" stroke="#e2ad69" stroke-width="1.1" stroke-linecap="round" opacity="0.65" data-palette-stroke="loot:2" />
+    <path d="M95 85 l3.2 4.8 -3.2 4.8 -3.2 -4.8 Z M169 85 l3.2 4.8 -3.2 4.8 -3.2 -4.8 Z M95 221 l3.2 4.8 -3.2 4.8 -3.2 -4.8 Z M169 221 l3.2 4.8 -3.2 4.8 -3.2 -4.8 Z" fill="#e2ad69" opacity="0.78" data-palette-fill="loot:2" />
+    <!-- 卡背中央神秘星阵纹章（对称双环 + 八芒星轨 + 菱眼核心） -->
+    <path d="M132 90 Q158 112 170 158 Q158 204 132 226 Q106 204 94 158 Q106 112 132 90 Z" fill="none" stroke="#9b663e" stroke-width="1.5" data-palette-stroke="loot:1" />
+    <path d="M132 98 Q152 118 162 158 Q152 198 132 218 Q112 198 102 158 Q112 118 132 98 Z" fill="none" stroke="#e2ad69" stroke-width="1.05" opacity="0.66" data-palette-stroke="loot:2" />
+    <circle cx="132" cy="158" r="24" fill="none" stroke="#e2ad69" stroke-width="0.95" opacity="0.58" data-palette-stroke="loot:2" />
+    <path d="M132 106 L132 128 M132 188 L132 210 M102 158 L114 158 M150 158 L162 158 M112 138 L120 146 M144 170 L152 178 M152 138 L144 146 M120 170 L112 178" fill="none" stroke="#e2ad69" stroke-width="0.95" stroke-linecap="round" opacity="0.60" data-palette-stroke="loot:2" />
+    <!-- 中心宝石棱盾 -->
+    <path d="M132 141 Q142 149 146 158 Q142 167 132 175 Q122 167 118 158 Q122 149 132 141 Z" fill="#9b663e" stroke="#e2ad69" stroke-width="1.15" data-palette-fill="loot:1" data-palette-stroke="loot:2" />
+    <circle cx="132" cy="100" r="2.2" fill="#e2ad69" opacity="0.72" data-palette-fill="loot:2" />
+    <circle cx="132" cy="216" r="2.2" fill="#e2ad69" opacity="0.72" data-palette-fill="loot:2" />
+  </g>
+</g>
+
+<g id="sway">
+  <g clip-path="url(#outside)">
+    <ellipse cx="132" cy="157" rx="128" ry="148" fill="url(#halo)" opacity="0.80" />
+    <ellipse cx="135" cy="268" rx="115" ry="44" fill="url(#spill)" opacity="0.78" />
+    <!-- 环绕卡牌飘散的细微金色光尘 -->
+    <path d="M52 108 l2.4 4.2 -2.4 4.2 -2.4 -4.2 Z M214 128 l2.0 3.5 -2.0 3.5 -2.0 -3.5 Z M62 224 l1.8 3.2 -1.8 3.2 -1.8 -3.2 Z" fill="#ffe4a8" opacity="0.72" data-palette-fill="loot:3" />
+    <circle cx="204" cy="206" r="1.8" fill="#ffe4a8" opacity="0.62" data-palette-fill="loot:3" />
+    <circle cx="46" cy="168" r="1.4" fill="#e2ad69" opacity="0.54" data-palette-fill="loot:2" />
+    <circle cx="196" cy="78" r="1.5" fill="#ffe4a8" opacity="0.58" data-palette-fill="loot:3" />
+  </g>
+  <g transform="rotate(-8 132 158)" opacity="0.84">
+    <!-- 卡框受光侧鎏金流光高光 -->
+    <path d="M77 242 Q75.5 237 75.5 225 V76 Q75.5 66 85 65 H182" fill="none" stroke="#ffe4a8" stroke-width="1.75" stroke-linecap="round" data-palette-stroke="loot:3" />
+    <path d="M181 249 H88 Q80 248 77 242" fill="none" stroke="#e2ad69" stroke-width="1.55" stroke-linecap="round" data-palette-stroke="loot:2" />
+    <!-- 中心发光星核 -->
+    <path d="M132 148 L139 158 L132 168 L125 158 Z" fill="#ffe4a8" opacity="0.78" data-palette-fill="loot:3" />
+    <path d="M132 142 Q133 156 144 158 Q133 160 132 174 Q131 160 120 158 Q131 156 132 142 Z" fill="#ffe4a8" opacity="0.48" data-palette-fill="loot:3" />
+  </g>
+</g>
+</svg>

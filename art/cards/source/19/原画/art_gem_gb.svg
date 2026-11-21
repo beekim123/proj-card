@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="150" viewBox="0 0 176 150">
+<defs>
+<radialGradient id="mist" cx="53%" cy="40%" r="68%">
+<stop offset="0%" stop-color="#546e77" data-palette-stop-color="cavity:2" stop-opacity="0.9"/>
+<stop offset="53%" stop-color="#23353c" data-palette-stop-color="cavity:1" stop-opacity="1"/>
+<stop offset="100%" stop-color="#0d141a" data-palette-stop-color="cavity:0" stop-opacity="1"/>
+</radialGradient>
+</defs>
+<rect x="0" y="0" width="176" height="150" rx="0" fill="url(#mist)"/>
+<path d="M0 42 Q50 24 95 32T176 16 Q108 40 75 36T0 50Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 50 Q50 32 95 40T176 24 Q108 48 75 44T0 58Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 25 Q50 7 95 15T176 -1 Q108 23 75 19T0 33Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 62 Q50 44 95 52T176 36 Q108 60 75 56T0 70Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 73 Q50 55 95 63T176 47 Q108 71 75 67T0 81Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 31 Q50 13 95 21T176 5 Q108 29 75 25T0 39Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<ellipse cx="26" cy="15" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.25850912463522396"/>
+<ellipse cx="77" cy="109" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.20101701622090165"/>
+<ellipse cx="140" cy="53" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.3795185760799993"/>
+<ellipse cx="30" cy="40" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.4317469952761546"/>
+<ellipse cx="9" cy="113" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.38812875094474353"/>
+<ellipse cx="72" cy="31" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.22915198633585138"/>
+<ellipse cx="163" cy="100" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.157749840843175"/>
+<ellipse cx="158" cy="50" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2541381919525952"/>
+<ellipse cx="66" cy="29" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2815481240272465"/>
+<ellipse cx="25" cy="111" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.39894805741368705"/>
+<ellipse cx="4" cy="44" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.3555702206666881"/>
+<ellipse cx="82" cy="115" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.19244005540358075"/>
+<ellipse cx="111" cy="83" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2679337655338583"/>
+<ellipse cx="44" cy="36" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.21308964684627607"/>
+<ellipse cx="14" cy="17" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2780543175371903"/>
+<defs>
+<radialGradient id="halog" cx="53%" cy="40%" r="68%">
+<stop offset="0%" stop-color="#6AB785" data-palette-stop-color="gemGreen:1" stop-opacity="0.5"/>
+<stop offset="72%" stop-color="#6AB785" data-palette-stop-color="gemGreen:1" stop-opacity="0.11"/>
+<stop offset="100%" stop-color="#6AB785" data-palette-stop-color="gemGreen:1" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<ellipse cx="54" cy="64" rx="40.32" ry="40.32" fill="url(#halog)" opacity="1"/>
+<g transform="translate(26.0 36.0) scale(0.875)">
+<path d="M7 5H56L59 8V57L55 60H6L4 56V9Z" fill="#12372A" data-palette-fill="gemGreen:0" stroke="#ACF194" data-palette-stroke="gemGreen:2" stroke-width="1.5" />
+<path d="M6 7L55 7 43 18 18 18Z" fill="#ACF194" data-palette-fill="gemGreen:2" stroke-width="1" opacity="1"/>
+<path d="M6 7L18 18 18 43 6 54Z" fill="#6AB785" data-palette-fill="gemGreen:1" stroke-width="1" opacity="0.8"/>
+<path d="M18 18L43 18 48 35 35 46 18 43Z" fill="#6AB785" data-palette-fill="gemGreen:1" stroke-width="1" opacity="1"/>
+<path d="M55 7L56 55 48 35 43 18Z" fill="#ACF194" data-palette-fill="gemGreen:2" stroke-width="1" opacity="0.55"/>
+<path d="M6 54L18 43 35 46 56 55Z" fill="#6AB785" data-palette-fill="gemGreen:1" stroke-width="1" opacity="0.65"/>
+<path d="M8 8H32" fill="none" stroke="#E4FFD1" data-palette-stroke="gemGreen:3" stroke-width="2" opacity="1"/>
+<path d="M18 41V18H36" fill="none" stroke="#E4FFD1" data-palette-stroke="gemGreen:3" stroke-width="1" opacity="0.8"/>
+</g>
+<ellipse cx="54" cy="100.625" rx="15.680000000000001" ry="1.5" fill="#6AB785" data-palette-fill="gemGreen:1" opacity="0.17"/>
+<defs>
+<radialGradient id="halob" cx="53%" cy="40%" r="68%">
+<stop offset="0%" stop-color="#3B62AE" data-palette-stop-color="gemBlue:1" stop-opacity="0.5"/>
+<stop offset="72%" stop-color="#3B62AE" data-palette-stop-color="gemBlue:1" stop-opacity="0.11"/>
+<stop offset="100%" stop-color="#3B62AE" data-palette-stop-color="gemBlue:1" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<ellipse cx="122" cy="64" rx="40.32" ry="40.32" fill="url(#halob)" opacity="1"/>
+<g transform="translate(94.0 36.0) scale(0.875)">
+<path d="M32 3L61 57 59 60H5L3 57Z" fill="#0D214A" data-palette-fill="gemBlue:0" stroke="#6EA0F5" data-palette-stroke="gemBlue:2" stroke-width="1.5" />
+<path d="M32 5L29 22 15 41 6 55Z" fill="#6EA0F5" data-palette-fill="gemBlue:2" stroke-width="1" opacity="1"/>
+<path d="M32 5L55 47 42 37 29 22Z" fill="#3B62AE" data-palette-fill="gemBlue:1" stroke-width="1" opacity="0.8"/>
+<path d="M29 22L42 37 33 48 15 41Z" fill="#3B62AE" data-palette-fill="gemBlue:1" stroke-width="1" opacity="1"/>
+<path d="M6 55L15 41 33 48 56 55Z" fill="#6EA0F5" data-palette-fill="gemBlue:2" stroke-width="1" opacity="0.55"/>
+<path d="M33 48L42 37 56 55Z" fill="#3B62AE" data-palette-fill="gemBlue:1" stroke-width="1" opacity="0.65"/>
+<path d="M13 41L29 12" fill="none" stroke="#A8DEFF" data-palette-stroke="gemBlue:3" stroke-width="2" opacity="1"/>
+<path d="M16 41L29 23 34 28" fill="none" stroke="#A8DEFF" data-palette-stroke="gemBlue:3" stroke-width="1" opacity="0.8"/>
+</g>
+<ellipse cx="122" cy="100.625" rx="15.680000000000001" ry="1.5" fill="#3B62AE" data-palette-fill="gemBlue:1" opacity="0.17"/>
+</svg>

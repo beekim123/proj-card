@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 42" width="265" height="42" data-ground-anchor="0.5 1">
+<defs>
+  <linearGradient id="log_1_body" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0%" stop-color="#2a2b29" data-palette-stop-color="log:1" />
+    <stop offset="48%" stop-color="#15191c" data-palette-stop-color="log:0" />
+    <stop offset="100%" stop-color="#15191c" data-palette-stop-color="log:0" />
+  </linearGradient>
+  <linearGradient id="log_1_gold" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0%" stop-color="#845c39" stop-opacity="0.10" data-palette-stop-color="warm:1" />
+    <stop offset="56%" stop-color="#c58e58" stop-opacity="0.52" data-palette-stop-color="warm:2" />
+    <stop offset="100%" stop-color="#f4c789" stop-opacity="0.84" data-palette-stop-color="warm:3" />
+  </linearGradient>
+</defs>
+<g>
+  <!-- 倒木主体剪影（左端尖锐撕裂木刺 + 中部断枝枯桩 + 右端斜切年轮截面） -->
+  <path d="M2 31 L14 26.5 L7 23.5 L22 22.5 L30 16.5 L25 14 L50 13.5 L68 15 L88 12 L111 11.5 L121 4.2 L134 1.2 L141 4.0 L134 9.2 L139 11.2 L166 10.5 L186 13.5 L206 12.2 L228 14.0 L246 16.5 L256 18.2 L262 23.0 L264 29.5 L260 35.0 L252 37.5 L236 37.2 L218 39.2 L195 38.0 L176 40.0 L152 38.5 L133 41.2 L112 39.6 L92 40.6 L76 38.2 L56 39.0 L42 36.2 L28 39.8 L30 34.8 L16 37.2 L18 33.2 L6 36.0 L11 31.8 Z" fill="url(#log_1_body)" />
+
+  <!-- 树皮顺纹立体棱带（深浅木纤维与剥落裂沟） -->
+  <path d="M24 23 L38 17.5 L64 17.0 L86 15.2 L116 14.5 L136 12.5 L164 14.2 L188 16.2 L214 15.6 L239 18.2 L242 22.5 L218 20.8 L192 22.5 L164 20.5 L136 22.2 L108 20.6 L82 22.4 L56 21.6 L36 25.0 Z" fill="#2a2b29" opacity="0.88" data-palette-fill="log:1" />
+  <path d="M26 30.5 L52 28.5 L80 29.8 L112 27.6 L142 29.5 L176 28.2 L208 26.8 L236 27.8 L240 31.8 L214 33.8 L184 32.8 L152 34.8 L120 33.4 L88 35.2 L58 33.6 L34 34.8 Z" fill="#2a2b29" opacity="0.72" data-palette-fill="log:1" />
+  <!-- 深度树皮裂沟暗影（拉开圆柱厚重感） -->
+  <path d="M36 25.5 L64 23.0 L98 24.4 L132 22.6 L168 24.8 L204 23.2 L234 25.0 L226 27.2 L194 25.6 L160 27.6 L124 25.6 L88 27.4 L54 26.2 Z" fill="#15191c" opacity="0.92" data-palette-fill="log:0" />
+  <path d="M112 11.5 L122 5.2 L133 2.5 L127 8.5 L118 12.5 Z" fill="#2a2b29" opacity="0.84" data-palette-fill="log:1" />
+  <!-- 中段小型树皮空洞裂疤 -->
+  <path d="M88 22.5 Q98 20.8 106 23.2 Q103 26.8 92 26.5 Q84 25.2 88 22.5 Z" fill="#15191c" data-palette-fill="log:0" />
+  <path d="M90 26.2 Q98 27.2 105 24.0" fill="none" stroke="#59554b" stroke-width="0.68" stroke-linecap="round" opacity="0.65" data-palette-stroke="log:2" />
+
+  <!-- 几片贴生在倒木暗侧的小木耳/菌盖（极低调生态细节！） -->
+  <path d="M156 26.5 Q162 23.8 168 25.8 Q163 28.0 156 26.5 Z M165 28.5 Q172 26.2 177 28.2 Q171 30.0 165 28.5 Z" fill="#59554b" opacity="0.68" data-palette-fill="log:2" />
+  <path d="M157 26.2 Q162 24.2 167 25.6 M166 28.2 Q171 26.6 176 28.0" fill="none" stroke="#95acae" stroke-width="0.45" stroke-linecap="round" opacity="0.58" data-palette-stroke="log:3" />
+
+  <!-- 右端木纹年轮截面（精细同心年轮 + 心材放射裂纹） -->
+  <path d="M242 18.2 Q251 16.8 259 21.5 Q265 27.5 260 34.2 Q252 38.0 242 35.8 Q235 32.0 237 24.8 Q238 20.0 242 18.2 Z" fill="#2a2b29" data-palette-fill="log:1" />
+  <path d="M243.5 20.5 Q250.5 19.0 257 22.8 Q262 27.5 258 32.8 Q251.5 35.8 244 33.8 Q239 30.8 240.2 25.2 Z" fill="#59554b" opacity="0.68" data-palette-fill="log:2" />
+  <path d="M245 24.5 Q250 21.5 255.5 24.2 Q259 28.2 255 31.8 Q249.5 33.5 245 31.0 Q242 28.0 245 24.5 Z M248 26.4 Q251 24.6 254 26.6 Q255 29.2 251.5 30.0 Q247.5 29.6 248 26.4 Z" fill="none" stroke="#15191c" stroke-width="0.80" stroke-linecap="round" opacity="0.88" data-palette-stroke="log:0" />
+  <path d="M251 27.6 L258 29.2 M251 27.6 L246 22.5 M251 27.6 L245 32.5" fill="none" stroke="#15191c" stroke-width="0.68" stroke-linecap="round" opacity="0.82" data-palette-stroke="log:0" />
+
+  <!-- 树皮细刻纹路与撕裂木刺纹 -->
+  <path d="M36 18.5 L54 17.5 L72 19.2 M94 15.8 L114 15.2 M56 29.2 L78 27.8 L96 28.4 M144 18.2 L166 19.6 L184 18.4 M176 31.8 L198 29.5 L218 30.6 M114 33.6 L136 34.4 L152 32.8 M16 25.8 L28 22.0 M14 31.2 L26 29.2" fill="none" stroke="#59554b" stroke-width="0.72" stroke-linecap="round" opacity="0.56" data-palette-stroke="log:2" />
+
+  <!-- 精致顶脊冷雾高光（克制纤细，告别旧版生硬厚灰条！） -->
+  <path d="M12 26.8 L22 22.8 L30 16.8 M27 14.4 L50 13.8 L68 15.2 L88 12.4 L111 11.8 L121 4.5 L134 1.6 L140 3.8 M142 11.4 L166 10.8 L186 13.8 L206 12.6 L228 14.4 L249 17.2" fill="none" stroke="#95acae" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round" opacity="0.86" data-palette-stroke="log:3" />
+  <path d="M243 19.2 Q251 17.8 258 21.8" fill="none" stroke="#95acae" stroke-width="0.78" stroke-linecap="round" opacity="0.70" data-palette-stroke="log:3" />
+</g>
+<g id="warm">
+  <path d="M18 35.8 L30 34.8 L44 35.8 L58 38.4 L76 37.6 L93 39.8 L112 38.8 L133 40.4 L152 37.8 L176 39.2 L195 37.2 L218 38.4 L236 36.4 L252 36.8 L260 34.2" fill="none" stroke="url(#log_1_gold)" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" opacity="0.82" />
+  <path d="M58 34.0 L86 35.4 M124 34.6 L154 35.2 M186 34.0 L214 34.6" fill="none" stroke="#c58e58" stroke-width="0.65" stroke-linecap="round" opacity="0.46" data-palette-stroke="warm:2" />
+</g>
+</svg>

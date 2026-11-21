@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="280" viewBox="0 0 200 280">
+<defs>
+<linearGradient id="f" x1="0" y1="0" x2=".3" y2="1">
+<stop offset="0%" stop-color="#3a303d" data-palette-stop-color="sealFrame:1" stop-opacity="1"/>
+<stop offset="64%" stop-color="#1c292e" data-palette-stop-color="panel:1" stop-opacity="1"/>
+<stop offset="100%" stop-color="#121b21" data-palette-stop-color="panel:0" stop-opacity="1"/>
+</linearGradient>
+</defs>
+<path d="M9 2H191Q198 2 198 10V270Q198 278 190 278H10Q2 278 2 270V10Q2 5 9 2Z M16 12H184Q188 12 188 16V158Q188 162 184 162H16Q12 162 12 158V16Q12 12 16 12Z" fill="url(#f)" stroke="#876e88" data-palette-stroke="sealFrame:2" stroke-width="1.1" fill-rule="evenodd"/>
+<path d="M4 117V11L11 4H121 M14 163H185" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1.2" opacity="0.8"/>
+<path d="M32 276H188L195 269V205" fill="none" stroke="#c89463" data-palette-stroke="thread:2" stroke-width="1.5" opacity="1"/>
+<path d="M13 198H143M151 198H186 M13 245H186" fill="none" stroke="#52696a" data-palette-stroke="panel:2" stroke-width="0.65" opacity="0.7"/>
+<path d="M145 198l2 -1.8 2 1.8-2 1.8Z" fill="#c89463" data-palette-fill="thread:2" stroke-width="1" />
+<path d="M9 173v17M191 168v19 M12 267h26 M161 267h27" fill="none" stroke="#796352" data-palette-stroke="thread:1" stroke-width="0.8" opacity="1"/>
+<g transform="translate(0 0)">
+<path d="M15 2Q8 14 2 19" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+<path d="M23 2Q12 14 2 27" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+<path d="M32 2Q17 14 2 36" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+</g>
+<g transform="translate(200 0) scale(-1 1)">
+<path d="M15 2Q8 14 2 19" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+<path d="M23 2Q12 14 2 27" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+<path d="M32 2Q17 14 2 36" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+</g>
+<g transform="translate(0 280) scale(1 -1)">
+<path d="M15 2Q8 14 2 19" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+<path d="M23 2Q12 14 2 27" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+<path d="M32 2Q17 14 2 36" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+</g>
+<g transform="translate(200 280) scale(-1 -1)">
+<path d="M15 2Q8 14 2 19" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+<path d="M23 2Q12 14 2 27" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+<path d="M32 2Q17 14 2 36" fill="none" stroke="#d8bfd4" data-palette-stroke="sealFrame:3" stroke-width="1" opacity="0.85"/>
+</g>
+</svg>

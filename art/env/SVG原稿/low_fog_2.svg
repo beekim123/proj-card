@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="180" viewBox="0 0 1200 180" data-ground-anchor="0.5 1">
+<defs>
+  <linearGradient id="band" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#496671" stop-opacity="0" data-palette-stop-color="low_fog:1" />
+    <stop offset="0.14" stop-color="#496671" stop-opacity="0" data-palette-stop-color="low_fog:1" />
+    <stop offset="0.36" stop-color="#496671" stop-opacity="0.08" data-palette-stop-color="low_fog:1" />
+    <stop offset="0.56" stop-color="#496671" stop-opacity="0.19" data-palette-stop-color="low_fog:1" />
+    <stop offset="0.76" stop-color="#496671" stop-opacity="0.11" data-palette-stop-color="low_fog:1" />
+    <stop offset="1" stop-color="#496671" stop-opacity="0" data-palette-stop-color="low_fog:1" />
+  </linearGradient>
+  <radialGradient id="vapor" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#769ba3" stop-opacity="0.21" data-palette-stop-color="low_fog:2" />
+    <stop offset="0.28" stop-color="#769ba3" stop-opacity="0.16" data-palette-stop-color="low_fog:2" />
+    <stop offset="0.62" stop-color="#769ba3" stop-opacity="0.06" data-palette-stop-color="low_fog:2" />
+    <stop offset="1" stop-color="#496671" stop-opacity="0" data-palette-stop-color="low_fog:1" />
+  </radialGradient>
+  <radialGradient id="wispBright" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#b2cecf" stop-opacity="0.18" data-palette-stop-color="low_fog:3" />
+    <stop offset="0.45" stop-color="#769ba3" stop-opacity="0.10" data-palette-stop-color="low_fog:2" />
+    <stop offset="1" stop-color="#496671" stop-opacity="0" data-palette-stop-color="low_fog:1" />
+  </radialGradient>
+</defs>
+<g id="base">
+  <rect width="1200" height="180" fill="url(#band)" />
+</g>
+<g id="sway">
+  <ellipse cx="55.8" cy="106.8" rx="245.9" ry="33.1" fill="url(#vapor)" opacity="0.81" transform="rotate(0.5 55.8 106.8)" />
+  <ellipse cx="1255.8" cy="106.8" rx="245.9" ry="33.1" fill="url(#vapor)" opacity="0.81" transform="rotate(0.5 1255.8 106.8)" />
+  <ellipse cx="165" cy="93.5" rx="235.2" ry="30.1" fill="url(#vapor)" opacity="0.87" transform="rotate(-0.7 165 93.5)" />
+  <ellipse cx="1365" cy="93.5" rx="235.2" ry="30.1" fill="url(#vapor)" opacity="0.87" transform="rotate(-0.7 1365 93.5)" />
+  <ellipse cx="308.7" cy="108.2" rx="248.2" ry="34.3" fill="url(#vapor)" opacity="0.82" transform="rotate(3.2 308.7 108.2)" />
+  <ellipse cx="420.9" cy="90.8" rx="213.1" ry="42" fill="url(#vapor)" opacity="0.85" transform="rotate(1.7 420.9 90.8)" />
+  <ellipse cx="591.9" cy="102.9" rx="189.7" ry="29.8" fill="url(#vapor)" opacity="0.8" transform="rotate(-3.4 591.9 102.9)" />
+  <ellipse cx="701" cy="106.9" rx="205.6" ry="35.3" fill="url(#vapor)" opacity="0.81" transform="rotate(0.9 701 106.9)" />
+  <ellipse cx="835.5" cy="81.7" rx="237.3" ry="40.2" fill="url(#vapor)" opacity="0.87" transform="rotate(-3.1 835.5 81.7)" />
+  <ellipse cx="987.5" cy="104" rx="176.5" ry="32.9" fill="url(#vapor)" opacity="0.97" transform="rotate(2.8 987.5 104)" />
+  <ellipse cx="1099" cy="84.4" rx="248.8" ry="34.6" fill="url(#vapor)" opacity="0.76" transform="rotate(1.1 1099 84.4)" />
+  <ellipse cx="-101" cy="84.4" rx="248.8" ry="34.6" fill="url(#vapor)" opacity="0.76" transform="rotate(1.1 -101 84.4)" />
+  <ellipse cx="52.5" cy="100.9" rx="147.2" ry="7.9" fill="url(#wispBright)" opacity="0.79" transform="rotate(-3.2 52.5 100.9)" />
+  <ellipse cx="1252.5" cy="100.9" rx="147.2" ry="7.9" fill="url(#wispBright)" opacity="0.79" transform="rotate(-3.2 1252.5 100.9)" />
+  <ellipse cx="211.2" cy="90.4" rx="98.2" ry="15.4" fill="url(#wispBright)" opacity="0.62" transform="rotate(2 211.2 90.4)" />
+  <ellipse cx="289.7" cy="79.3" rx="112.7" ry="8.3" fill="url(#wispBright)" opacity="0.7" transform="rotate(-3.3 289.7 79.3)" />
+  <ellipse cx="441.9" cy="70.4" rx="154.7" ry="7.5" fill="url(#wispBright)" opacity="0.79" transform="rotate(-2.9 441.9 70.4)" />
+  <ellipse cx="569.9" cy="88.9" rx="118.4" ry="9.6" fill="url(#wispBright)" opacity="0.53" transform="rotate(-3.3 569.9 88.9)" />
+  <ellipse cx="675.5" cy="90.3" rx="152.5" ry="11.4" fill="url(#wispBright)" opacity="0.72" transform="rotate(-2 675.5 90.3)" />
+  <ellipse cx="792.7" cy="76.1" rx="130.1" ry="10" fill="url(#wispBright)" opacity="0.53" transform="rotate(-1 792.7 76.1)" />
+  <ellipse cx="928.4" cy="96.9" rx="91.4" ry="13.9" fill="url(#wispBright)" opacity="0.54" transform="rotate(-4.3 928.4 96.9)" />
+  <ellipse cx="1034.6" cy="96.3" rx="141.3" ry="11.8" fill="url(#wispBright)" opacity="0.68" transform="rotate(-3.4 1034.6 96.3)" />
+  <ellipse cx="1153" cy="83.7" rx="152.8" ry="13.4" fill="url(#wispBright)" opacity="0.67" transform="rotate(-1.4 1153 83.7)" />
+  <ellipse cx="-47" cy="83.7" rx="152.8" ry="13.4" fill="url(#wispBright)" opacity="0.67" transform="rotate(-1.4 -47 83.7)" />
+</g>
+</svg>

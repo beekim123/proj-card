@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+<path d="M32 3L61 57 59 60H5L3 57Z" fill="#0D214A" data-palette-fill="gemBlue:0" stroke="#6EA0F5" data-palette-stroke="gemBlue:2" stroke-width="1.5" />
+<path d="M32 5L29 22 15 41 6 55Z" fill="#6EA0F5" data-palette-fill="gemBlue:2" stroke-width="1" opacity="1"/>
+<path d="M32 5L55 47 42 37 29 22Z" fill="#3B62AE" data-palette-fill="gemBlue:1" stroke-width="1" opacity="0.8"/>
+<path d="M29 22L42 37 33 48 15 41Z" fill="#3B62AE" data-palette-fill="gemBlue:1" stroke-width="1" opacity="1"/>
+<path d="M6 55L15 41 33 48 56 55Z" fill="#6EA0F5" data-palette-fill="gemBlue:2" stroke-width="1" opacity="0.55"/>
+<path d="M33 48L42 37 56 55Z" fill="#3B62AE" data-palette-fill="gemBlue:1" stroke-width="1" opacity="0.65"/>
+<path d="M13 41L29 12" fill="none" stroke="#A8DEFF" data-palette-stroke="gemBlue:3" stroke-width="2" opacity="1"/>
+<path d="M16 41L29 23 34 28" fill="none" stroke="#A8DEFF" data-palette-stroke="gemBlue:3" stroke-width="1" opacity="0.8"/>
+</svg>

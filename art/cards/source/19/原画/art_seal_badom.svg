@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="150" viewBox="0 0 176 150">
+<defs>
+<radialGradient id="mist" cx="53%" cy="40%" r="68%">
+<stop offset="0%" stop-color="#546e77" data-palette-stop-color="cavity:2" stop-opacity="0.9"/>
+<stop offset="53%" stop-color="#23353c" data-palette-stop-color="cavity:1" stop-opacity="1"/>
+<stop offset="100%" stop-color="#0d141a" data-palette-stop-color="cavity:0" stop-opacity="1"/>
+</radialGradient>
+</defs>
+<rect x="0" y="0" width="176" height="150" rx="0" fill="url(#mist)"/>
+<path d="M0 99 Q50 81 95 89T176 73 Q108 97 75 93T0 107Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 89 Q50 71 95 79T176 63 Q108 87 75 83T0 97Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 23 Q50 5 95 13T176 -3 Q108 21 75 17T0 31Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 91 Q50 73 95 81T176 65 Q108 89 75 85T0 99Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 97 Q50 79 95 87T176 71 Q108 95 75 91T0 105Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<path d="M0 93 Q50 75 95 83T176 67 Q108 91 75 87T0 101Z" fill="#b6d0ce" data-palette-fill="cavity:3" stroke-width="1" opacity=".03"/>
+<ellipse cx="134" cy="11" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.44479313938434084"/>
+<ellipse cx="115" cy="74" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.4444026295732258"/>
+<ellipse cx="119" cy="83" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.42608664364474497"/>
+<ellipse cx="111" cy="63" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.43707714033169626"/>
+<ellipse cx="15" cy="18" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.15404884229581106"/>
+<ellipse cx="76" cy="53" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.35558492525184493"/>
+<ellipse cx="153" cy="79" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.3345411412839471"/>
+<ellipse cx="149" cy="11" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.32820779612837747"/>
+<ellipse cx="132" cy="60" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.13281089307684535"/>
+<ellipse cx="170" cy="72" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.15195548941411335"/>
+<ellipse cx="151" cy="35" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2336489733502221"/>
+<ellipse cx="138" cy="27" rx="0.5" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.36296856883407824"/>
+<ellipse cx="58" cy="101" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.2297006218421388"/>
+<ellipse cx="61" cy="72" rx="0.9" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.42318202090672286"/>
+<ellipse cx="162" cy="12" rx="0.7" ry="0.65" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.21723408154748158"/>
+<path d="M0 0l14 0 -4 81 -4 60 1 -73Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" opacity=".7"/>
+<path d="M13 0l4 0 -4 81 -4 60 1 -73Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" opacity=".7"/>
+<path d="M171 0l-8 0 -4 81 -4 60 1 -73Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" opacity=".7"/>
+<path d="M160 0l-2 0 -4 81 -4 60 1 -73Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" opacity=".7"/>
+<ellipse cx="89" cy="75" rx="53" ry="57" fill="#b6d0ce" data-palette-fill="cavity:3" opacity="0.15"/>
+<path d="M65 61L72 61 65 111 59 121 59 95Z M109 59L115 61 121 111 116 101 114 119Z" fill="#430F20" data-palette-fill="gemRed:0" stroke-width="1" />
+<path d="M79 57Q91 53 107 59Q96 76 94 87Q92 95 98 109Q92 115 79 109Q85 93 81 83L70 61Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" />
+<path d="M98 106Q95 115 81 111" fill="none" stroke="#c89463" data-palette-stroke="thread:2" stroke-width="1.4" opacity="1"/>
+<path d="M76 16L86 31 90 11 94 30 108 18 99 38 97 53Q92 59 84 54L83 37Z" fill="#0d141a" data-palette-fill="cavity:0" stroke-width="1" />
+<path d="M77 17L86 31 90 13 M99 39L97 53 93 56" fill="none" stroke="#d7efed" data-palette-stroke="cardFrame:3" stroke-width="0.85" opacity="1"/>
+<path d="M88 36.0q2.1 1.0 4.5 0" fill="none" stroke="#74949b" data-palette-stroke="cardFrame:2" stroke-width="0.55" opacity="1"/>
+<path d="M88 39.1q2.1 1.0 4.5 0" fill="none" stroke="#74949b" data-palette-stroke="cardFrame:2" stroke-width="0.55" opacity="1"/>
+<path d="M87 42.2q3 -2.2 6 0 -3 1.6 -6 0Z" fill="#F6FFFF" data-palette-fill="white:3" stroke-width="1" />
+<path d="M88 45.3q2.1 1.0 4.5 0" fill="none" stroke="#74949b" data-palette-stroke="cardFrame:2" stroke-width="0.55" opacity="1"/>
+<path d="M88 48.4q2.1 1.0 4.5 0" fill="none" stroke="#74949b" data-palette-stroke="cardFrame:2" stroke-width="0.55" opacity="1"/>
+<path d="M88 51.5q2.1 1.0 4.5 0" fill="none" stroke="#74949b" data-palette-stroke="cardFrame:2" stroke-width="0.55" opacity="1"/>
+<path d="M72 61Q56 66 48 88L80 80" fill="none" stroke="#c89463" data-palette-stroke="thread:2" stroke-width="3.2" opacity="1"/>
+<path d="M72 61Q56 66 48 88L80 80" fill="none" stroke="#0d141a" data-palette-stroke="cavity:0" stroke-width="2.65" opacity="1"/>
+<path d="M105 60Q120 64 127 87L96 84" fill="none" stroke="#c89463" data-palette-stroke="thread:2" stroke-width="3.2" opacity="1"/>
+<path d="M105 60Q120 64 127 87L96 84" fill="none" stroke="#0d141a" data-palette-stroke="cavity:0" stroke-width="2.65" opacity="1"/>
+<path d="M83 108Q65 105 57 86Q59 115 85 125" fill="none" stroke="#c89463" data-palette-stroke="thread:2" stroke-width="3.2" opacity="1"/>
+<path d="M83 108Q65 105 57 86Q59 115 85 125" fill="none" stroke="#0d141a" data-palette-stroke="cavity:0" stroke-width="2.65" opacity="1"/>
+<path d="M94 108Q111 107 119 91Q118 116 96 128" fill="none" stroke="#c89463" data-palette-stroke="thread:2" stroke-width="3.2" opacity="1"/>
+<path d="M94 108Q111 107 119 91Q118 116 96 128" fill="none" stroke="#0d141a" data-palette-stroke="cavity:0" stroke-width="2.65" opacity="1"/>
+<path d="M0 5Q48 75 131 83T176 89 M176 9Q113 67 48 78T0 85 M5 138Q72 91 129 87T176 68 M11 17Q54 90 115 101T176 94" fill="none" stroke="#c89463" data-palette-stroke="thread:2" stroke-width="0.7" opacity="0.86"/>
+</svg>

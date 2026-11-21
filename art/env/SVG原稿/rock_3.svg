@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 27" width="42" height="27" data-ground-anchor="0.5 1">
+<defs>
+  <linearGradient id="rock_3_body" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0%" stop-color="#29363e" data-palette-stop-color="rock:1" />
+    <stop offset="56%" stop-color="#141c23" data-palette-stop-color="rock:0" />
+    <stop offset="100%" stop-color="#141c23" data-palette-stop-color="rock:0" />
+  </linearGradient>
+  <linearGradient id="rock_3_gold" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0%" stop-color="#845c39" stop-opacity="0.10" data-palette-stop-color="warm:1" />
+    <stop offset="60%" stop-color="#c58e58" stop-opacity="0.52" data-palette-stop-color="warm:2" />
+    <stop offset="100%" stop-color="#f4c789" stop-opacity="0.82" data-palette-stop-color="warm:3" />
+  </linearGradient>
+</defs>
+<g>
+  <path d="M1 22.5 L6 15 L9 9.5 L16 5.5 L21 1 L28 2 L33 6 L38 8 L38.5 13 L41.5 17.5 L39.5 22.5 L34.5 24.5 L28 23.5 L21 26.5 L15 24 L8 25.5 Z" fill="url(#rock_3_body)" />
+  <path d="M6 15 L9 9.5 L16 5.5 L21 1 L28 2 L32 6 L22 9.5 L14 14 L8 17.5 Z" fill="#29363e" opacity="0.90" data-palette-fill="rock:1" />
+  <path d="M16 14 L24 9.5 L33 7.5 L37.5 12.5 L29 14.5 L20 15.5 Z" fill="#141c23" opacity="0.88" data-palette-fill="rock:0" />
+  <path d="M9 21 L18 17.5 L28 16.5 L37 15 L40 19.5 L35 22.5 L24 22 L14 23 Z" fill="#29363e" opacity="0.68" data-palette-fill="rock:1" />
+  <path d="M6.5 15 L9 9.5 L16 5.5 L21 1 L28 2 L36 7.5 L28 4.2 L21 3.4 L15.5 7.2 L10.2 11 Z" fill="#566a72" opacity="0.78" data-palette-fill="rock:2" />
+  <path d="M15 12.5 L20.5 9.5 L25.5 9.0 L21 11.5 L16.5 13.5 Z" fill="#566a72" opacity="0.64" data-palette-fill="rock:2" />
+  <path d="M6.2 15.2 L9.2 9.6 L16 5.6 L21 1.4 L28 2.3 L36.5 7.6" fill="none" stroke="#a6bfc6" stroke-width="0.82" stroke-linecap="round" stroke-linejoin="round" opacity="0.88" data-palette-stroke="rock:3" />
+  <path d="M15.2 12.4 L20.5 9.6 L25 9.2" fill="none" stroke="#a6bfc6" stroke-width="0.62" stroke-linecap="round" opacity="0.66" data-palette-stroke="rock:3" />
+  <path d="M11 17 L15 16.5 M27 13 L30 15.5 L34 14.5" fill="none" stroke="#566a72" stroke-width="0.54" stroke-linecap="round" opacity="0.52" data-palette-stroke="rock:2" />
+</g>
+<g id="warm">
+  <path d="M4 23.2 L9 25.0 L15 23.8 L21 26.0 L28 23.2 L35 24.0 L39.5 22.2" fill="none" stroke="url(#rock_3_gold)" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round" opacity="0.80" />
+</g>
+</svg>

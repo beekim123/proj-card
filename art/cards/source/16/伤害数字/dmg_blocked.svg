@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="100" viewBox="0 0 120 100">
+  <defs>
+    <linearGradient id="blocked-face" gradientUnits="userSpaceOnUse" x1="47" y1="16" x2="72" y2="86">
+      <stop offset="0%" stop-color="#78858D" data-palette-stop-color="blocked:2"/>
+      <stop offset="43%" stop-color="#535F66" data-palette-stop-color="blocked:1"/>
+      <stop offset="100%" stop-color="#535F66" data-palette-stop-color="blocked:1"/>
+    </linearGradient>
+    <clipPath id="blocked-break"><polygon points="0,0 120,0 120,34 79,37 70,46 62,45 62,55 72,56 81,47 120,43 120,100 0,100"/></clipPath>
+  </defs>
+  <g clip-path="url(#blocked-break)">
+    <path d="M24 16 L48.7 16 L58.2 26 L58.2 75.2 L47.9 86 L23.4 86 L13.8 76.3 L13.8 27 Z M23.6 30.6 L23.6 59.5 L48.3 30.7 L44.3 25.5 L27.6 25.5 Z M23.7 72.1 L27.4 76.5 L44.3 76.5 L48.4 71.6 L48.4 42.3 Z" transform="translate(24 0)" fill="url(#blocked-face)" stroke="#242D34" data-palette-stroke="blocked:0" stroke-width="2.4" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  </g>
+  <path d="M83 39 L93 33 L90 42 L82 46 Z" fill="#78858D" data-palette-fill="blocked:2"/>
+  <path d="M95 48 L104 45 L101 52 L94 53 Z M92 24 L99 19 L98 26 Z" fill="#535F66" data-palette-fill="blocked:1"/>
+  <path d="M33 61 L26 67 L30 59 L25 52 Z" fill="#535F66" data-palette-fill="blocked:1"/>
+</svg>

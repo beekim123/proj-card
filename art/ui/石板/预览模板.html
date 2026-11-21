@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>石板风格整套 · 预览</title>
+<style>
+  html, body { margin: 0; background: #0b0f12; font-family: "PingFang SC", -apple-system, sans-serif; color: #cfe0e8; }
+  #wrap { width: 1440px; height: 810px; margin: 0 auto; position: relative; overflow: hidden; }
+  #nav { position: absolute; left: 12px; top: 8px; z-index: 10; display: flex; gap: 6px; align-items: center; }
+  #nav button { font: 600 13px "PingFang SC", sans-serif; color: #cfe0e8; background: rgba(12,17,21,.78); border: 1px solid #2c3a41; border-radius: 4px; padding: 5px 11px; cursor: pointer; }
+  #nav button:hover { border-color: #7fa0a8; color: #fff; }
+  #nav button.on { border-color: #a9b4ba; background: rgba(44,58,65,.88); color: #fff; }
+  #subnav { display: none; gap: 5px; margin-left: 10px; padding-left: 10px; border-left: 1px solid #2c3a41; }
+  #subnav.show { display: flex; }
+  #subnav button { font-size: 12px; padding: 4px 9px; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="nav">
+    <button data-v="cards" class="on">全部牌</button>
+    <button data-v="scene">整屏</button>
+    <button data-v="seals">封印牌近看</button>
+    <button data-v="modal">弹窗</button>
+    <button data-v="gems">宝石</button>
+    <div id="subnav">
+      <button data-m="victory" class="on">战斗胜利</button>
+      <button data-m="defeat">战败</button>
+      <button data-m="flee">逃跑确认</button>
+      <button data-m="pile">看牌堆</button>
+      <button data-m="discard">看弃牌堆</button>
+    </div>
+  </div>
+  <canvas id="cv"></canvas>
+</div>
+<!--P5-->
+<!--MODS-->
+<script>
+(function () {
+  const SVGS = /*SVGS*/{};
+  const W = 1440, H = 810, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const cv = document.getElementById('cv'), x = cv.getContext('2d');
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
+
+  const IMG = {};
+  const drawImg = (im, dx, dy, dw, dh) => { if (im) x.drawImage(im, dx, dy, dw, dh); };
+  const load = (src) => new Promise(r => {
+    const i = new Image();
+    i.onload = () => (i.decode ? i.decode().then(() => r(i), () => r(i)) : r(i));
+    i.onerror = () => r(null);
+    i.src = src;
+  });
+  const loadSvg = (raw) => new Promise(r => {
+    let s = raw;
+    // 兼容 Safari/Firefox：补齐 width/height 与 xlink:href，确保内嵌 PNG 的 SVG 稳定解码
+    if (!/\bwidth=/.test(s.slice(0, 120))) {
+      s = s.replace(/viewBox="0 0 (\d+) (\d+)"/, 'width="$1" height="$2" viewBox="0 0 $1 $2"');
+    }
+    if (s.includes('<image') && !s.includes('xmlns:xlink')) {
+      s = s.replace('<svg ', '<svg xmlns:xlink="http://www.w3.org/1999/xlink" ')
+           .replace(/ href="(data:image\/png;base64,[^"]+)"/g, ' href="$1" xlink:href="$1"');
+    }
+    const blobUrl = URL.createObjectURL(new Blob([s], { type: 'image/svg+xml;charset=utf-8' }));
+    const i = new Image();
+    const finish = () => (i.decode ? i.decode().then(() => r(i), () => r(i)) : r(i));
+    i.onload = finish;
+    i.onerror = () => {
+      URL.revokeObjectURL(blobUrl);
+      load('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s)).then(r);
+    };
+    i.src = blobUrl;
+  });
+
+  const NAME = { red: '红', yellow: '黄', green: '绿', cyan: '青', blue: '蓝', purple: '紫', white: '白' };
+  const LIGHTFLAG = { yellow: 1, white: 1 };
+  const GLOW = { red: '#ff4a3a', yellow: '#ffcf3a', green: '#3df06a', cyan: '#36e8e0', blue: '#3f86ff', purple: '#c35cff', white: '#ffffff' };
+  const WHEEL_COLS = ['red', 'yellow', 'green', 'cyan', 'blue', 'purple'];
+  const GEM_COL = { r: '#ff4a3a', g: '#3df06a', b: '#3f86ff' };
+
+  let BG = null, TIKO = null, BADOM = null;
+  let view = 'cards', modalKind = 'victory', zoomCard = null;
+
+  function monsterArt(mod, fit) {
+    const m = window.__MODS[mod], pal = window.__PALS[mod], S = 600;
+    return new Promise(res => new p5(q => {
+      q.setup = () => {
+        q.createCanvas(S, S); q.pixelDensity(1); q.noLoop();
+        const st = m.create(q, { palette: pal, seed: 7, elite: false });
+        for (let i = 0; i < 90; i++) m.update(st, 1 / 60, q);
+        q.clear(); q.push();
+        q.translate(S / 2 + fit.dx * S, S / 2 + fit.dy * S);
+        q.scale(fit.s * S / 100);
+        m.draw(q, st);
+        q.pop();
+        const c = q.drawingContext.canvas; c.style.display = 'none';
+        res(c);
+      };
+    }));
+  }
+
+  function text(t, cx, cy, size, fill, stroke, weight, align) {
+    x.font = `${weight || 600} ${size}px "PingFang SC", -apple-system, sans-serif`;
+    x.textAlign = align || 'center';
+    x.textBaseline = 'middle';
+    if (stroke) {
+      x.lineWidth = Math.max(2, size * 0.16);
+      x.strokeStyle = stroke;
+      x.lineJoin = 'round';
+      x.strokeText(t, cx, cy);
+    }
+    x.fillStyle = fill;
+    x.fillText(t, cx, cy);
+  }
+
+  function drawStateUnder(st) {
+    if (!st) return;
+    if (st.mode === 'hover') drawImg(IMG['状态-悬停光边.svg'], -20, -20, 440, 640);
+    else if (st.mode === 'same' || st.mode === 'adj') {
+      const k = `状态-色光边.svg@${st.color || '#ffcf3a'}`;
+      drawImg(IMG[k], -20, -20, 440, 640);
+    } else if (st.mode === 'comp') drawImg(IMG['状态-补色白光.svg'], -20, -20, 440, 640);
+    else if (st.mode === 'rainbow') drawImg(IMG['状态-彩虹光边.svg'], -20, -20, 440, 640);
+    else if (st.mode === 'settle') drawImg(IMG['状态-结算发亮.svg'], -20, -20, 440, 640);
+  }
+
+  function drawStateOver(st) {
+    if (!st) return;
+    if (st.mode === 'dim') drawImg(IMG['状态-断色压暗.svg'], -20, -20, 440, 640);
+    if (st.mode === 'adj') {
+      const k = `状态-邻色箭头.svg@${st.color || '#3df06a'}`;
+      drawImg(IMG[k], -20, -20, 440, 640);
+    }
+    if (st.mode === 'settle') drawImg(IMG['状态-结算发亮.svg'], -20, -20, 440, 640);
+    if (st.hint) {
+      drawImg(IMG['状态-提示字底.svg'], 90, -56, 220, 44);
+      const col = st.hintCol || (st.mode === 'dim' ? '#8c969c' : st.mode === 'comp' ? '#ffffff' : '#f7e6c4');
+      text(st.hint, 200, -34, 24, col, 'rgba(10,14,18,.8)', 600);
+    }
+    if (st.seqTop) text(st.seqTop, 200, -36, 46, '#cfe0e8', 'rgba(8,12,16,.88)', 600);
+    if (st.seqBot) text(st.seqBot, 200, 636, 48, '#f7c978', 'rgba(8,12,16,.88)', 700);
+  }
+
+  function drawCard(cx, cy, w, def, st, rot) {
+    x.save();
+    x.translate(cx, cy);
+    if (rot) x.rotate(rot);
+    const sc = (w / 400) * (st && st.scale ? st.scale : 1);
+    x.scale(sc, sc);
+    x.translate(-200, -300);
+
+    drawStateUnder(st);
+
+    if (def.kind === 'back') {
+      drawImg(IMG['牌背.svg'], 0, 0, 400, 600);
+    } else if (def.kind === 'color') {
+      drawImg(IMG[`色光-${def.key}-窗.svg`], 0, 0, 400, 600);
+      drawImg(IMG[`色光-${def.key}-牌身.svg`], 0, 0, 400, 600);
+      const light = LIGHTFLAG[def.key];
+      text(NAME[def.key], 58, 54, 30, light ? '#2a2016' : '#fff3dc', light ? 'rgba(255,240,200,.5)' : 'rgba(20,12,6,.75)');
+      text('色光牌', 200, 500, 28, '#efe4cc', 'rgba(0,0,0,.65)');
+    } else if (def.kind === 'ability') {
+      drawImg(IMG[`异能-${def.name}-窗.svg`], 0, 0, 400, 600);
+      drawImg(IMG[`异能-${def.name}-牌身.svg`], 0, 0, 400, 600);
+      const light = LIGHTFLAG[def.key];
+      text(NAME[def.key], 58, 54, 30, light ? '#2a2016' : '#fff3dc', light ? 'rgba(255,240,200,.5)' : 'rgba(20,12,6,.75)');
+      text(def.name, 200, 379, 26, '#efe4cc', 'rgba(0,0,0,.65)');
+      def.desc.forEach((l, i) => text(l, 200, 456 + i * 34, 22, '#2c2118', null, 500));
+    } else if (def.kind === 'seal') {
+      drawImg(IMG['封印-窗.svg'], 0, 0, 400, 600);
+      const monImg = def.mon === 'badom' ? BADOM : TIKO;
+      if (monImg) {
+        x.save();
+        x.beginPath(); x.arc(200, 206, 128, 0, Math.PI * 2); x.clip();
+        drawImg(monImg, 70, 76, 260, 260);
+        x.restore();
+      }
+      drawImg(IMG['封印-牌身.svg'], 0, 0, 400, 600);
+      text('无', 58, 40, 24, '#eef3f5', 'rgba(0,0,0,.7)');
+      text('色', 58, 70, 24, '#eef3f5', 'rgba(0,0,0,.7)');
+      text(def.name, 200, 384, 26, '#efe4cc', 'rgba(0,0,0,.65)');
+      def.desc.forEach((l, i) => text(l, 200, 456 + i * 34, 22, '#2c2118', null, 500));
+    }
+
+    drawStateOver(st);
+    x.restore();
+  }
+
+  const C = k => ({ kind: 'color', key: k });
+  const AMP = { kind: 'ability', key: 'blue', name: '增幅法阵', desc: ['倍率 ×2，后面的', '牌发数都翻倍'] };
+  const INSPIRE = { kind: 'ability', key: 'green', name: '灵感涌现', desc: ['马上抽 2 张，', '这回合就能打'] };
+  const TIKO_CARD = { kind: 'seal', mon: 'tiko', name: '封印·提可', desc: ['怕光的小飞怪，', '被折进了牌里'] };
+  const BADOM_CARD = { kind: 'seal', mon: 'badom', name: '封印·巴多姆', desc: ['提线木偶，', '被折进了牌里'] };
+  const BACK = { kind: 'back' };
+  const GEM_CARDS = [C('red'), C('yellow'), C('green'), C('cyan'), C('blue'), C('purple'), C('white'), AMP, INSPIRE];
+
+  function drawBg(dimAlpha) {
+    if (BG) x.drawImage(BG, 0, 0, W, H);
+    else { x.fillStyle = '#121a20'; x.fillRect(0, 0, W, H); }
+    if (dimAlpha) { x.fillStyle = `rgba(6,10,14,${dimAlpha})`; x.fillRect(0, 0, W, H); }
+  }
+
+  /* ---------- 画面 1：全部牌 + 9 种状态 + 徽记/按钮五态 ---------- */
+  function viewCards() {
+    drawBg(0.76);
+    text('色光牌（7 色）', 24, 58, 13, '#8fa6ad', null, 600, 'left');
+    ['red', 'yellow', 'green', 'cyan', 'blue', 'purple', 'white'].forEach((k, i) => {
+      drawCard(120 + i * 196, 166, 114, C(k));
+    });
+
+    text('异能牌 · 封印牌 · 牌背', 24, 280, 13, '#8fa6ad', null, 600, 'left');
+    [AMP, INSPIRE, TIKO_CARD, BADOM_CARD, BACK].forEach((d, i) => {
+      drawCard(124 + i * 158, 394, 118, d);
+    });
+
+    text('右下徽记（法术 / 封印 / 宝物）', 906, 280, 13, '#8fa6ad', null, 600, 'left');
+    [['徽记-法术.svg', '法术'], ['徽记-封印.svg', '封印'], ['徽记-宝物.svg', '宝物']].forEach(([fn, lb], i) => {
+      const bx = 946 + i * 104, by = 324;
+      drawImg(IMG[fn], bx - 26, by - 26, 52, 52);
+      text(lb, bx, by + 38, 12, '#cfe0e8', null, 500);
+    });
+
+    text('按钮五态（平时 / 悬停 / 按下 / 选中 / 禁用）', 906, 398, 13, '#8fa6ad', null, 600, 'left');
+    ['平时', '悬停', '按下', '选中', '禁用'].forEach((st, i) => {
+      const bx = 906 + i * 102, by = 418;
+      drawImg(IMG[`界面-小按钮-${st}.svg`], bx, by, 88, 38);
+      text(st, bx + 44, by + 19 + (st === '按下' ? 2 : 0), 13, st === '禁用' ? '#7a8288' : '#efe4cc', 'rgba(0,0,0,.6)', 600);
+    });
+
+    text('牌的 9 种状态（独立状态层 SVG，无 filter）', 24, 514, 13, '#8fa6ad', null, 600, 'left');
+    const states = [
+      ['平时', C('red'), null, 108],
+      ['悬停', C('yellow'), { mode: 'hover', scale: 1.05 }, 108],
+      ['提示·同色', C('yellow'), { mode: 'same', color: GLOW.yellow, hint: '×2 同色' }, 108],
+      ['提示·邻色', C('green'), { mode: 'adj', color: GLOW.green, hint: '×2 邻色' }, 108],
+      ['提示·补色', C('white'), { mode: 'comp', hint: '×2 补色' }, 108],
+      ['提示·断色', C('blue'), { mode: 'dim', hint: '断色' }, 108],
+      ['提示·出彩虹', C('cyan'), { mode: 'rainbow', hint: '出彩虹' }, 108],
+      ['在序列里', C('red'), { seqTop: '同色 ×2', seqBot: '480' }, 75],
+      ['正在结算', C('purple'), { mode: 'settle' }, 108],
+    ];
+    states.forEach(([lb, def, st, cw], i) => {
+      const cx = 88 + i * 156, cy = 656 - (st && (st.mode === 'hover' || st.mode === 'comp') ? 10 : st && (st.mode === 'same' || st.mode === 'adj' || st.mode === 'rainbow') ? 5 : 0);
+      drawCard(cx, cy, cw, def, st);
+      text(lb, cx, 774, 12, '#cfe0e8', null, 500);
+    });
+  }
+
+  /* ---------- 画面 2：整屏 ---------- */
+  function drawMonsterHud(cx, y, name, hp, maxHp, cd, traitIcon, traitName) {
+    text(name, cx - 86, y - 16, 15, '#eef5f8', 'rgba(6,10,14,.9)', 600, 'left');
+    drawImg(IMG[traitIcon], cx + 22, y - 28, 22, 22);
+    text(traitName, cx + 48, y - 16, 12, '#b9cdd4', 'rgba(6,10,14,.9)', 500, 'left');
+    const bx = cx - 90, by = y;
+    const ratio = Math.max(0, Math.min(1, hp / maxHp));
+    x.fillStyle = '#14191d'; x.fillRect(bx + 4, by + 3, 172, 8);
+    const g = x.createLinearGradient(bx, by, bx, by + 10);
+    g.addColorStop(0, '#e3564c'); g.addColorStop(1, '#8a1e22');
+    x.fillStyle = g; x.fillRect(bx + 4, by + 3, 172 * ratio, 8);
+    drawImg(IMG['界面-血条槽.svg'], bx, by, 180, 14);
+    const urgent = cd <= 1;
+    drawImg(IMG[urgent ? '界面-倒计时-紧急.svg' : '界面-倒计时.svg'], bx + 186, by - 11, 34, 34);
+    text(String(cd), bx + 203, by + 6, 15, urgent ? '#ffe2de' : '#e4edf0', 'rgba(0,0,0,.7)', 700);
+  }
+
+  function viewScene() {
+    drawBg(0);
+
+    ['界面-心-满.svg', '界面-心-满.svg', '界面-心-半.svg'].forEach((fn, i) => {
+      drawImg(IMG[fn], 20 + i * 40, 48, 36, 36);
+    });
+    drawImg(IMG['界面-护盾-亮.svg'], 146, 46, 34, 38);
+
+    drawImg(IMG['界面-总伤害牌.svg'], 540, 12, 360, 56);
+    text('45465432423512', 720, 40, 23, '#f2d394', 'rgba(0,0,0,.78)', 700);
+
+    drawImg(IMG['界面-回合牌.svg'], 1218, 16, 108, 38);
+    text('第 3 回合', 1272, 35, 14, '#e6eef2', 'rgba(0,0,0,.7)', 600);
+    drawImg(IMG['界面-小按钮-平时.svg'], 1334, 16, 88, 38);
+    text('逃跑', 1378, 35, 14, '#efe4cc', 'rgba(0,0,0,.7)', 600);
+
+    drawMonsterHud(512, 266, '提可', 1830, 3000, 1, '界面-状态标-躲光.svg', '躲光');
+
+    drawMonsterHud(888, 224, '巴多姆', 5200, 6000, 3, '界面-状态标-厚皮.svg', '厚皮');
+    drawImg(IMG['界面-怪详情框.svg'], 1020, 232, 230, 116);
+    text('巴多姆', 1038, 256, 16, '#261b12', null, 700, 'left');
+    text('5200 / 6000', 1232, 256, 13, '#4f3a26', null, 600, 'right');
+    text('厚皮：白光打它算 0', 1038, 288, 13, '#2c2118', null, 500, 'left');
+    text('倒计时：3 回合', 1038, 314, 13, '#4f3a26', null, 500, 'left');
+
+    const wx = 30, wy = 486, wcx = wx + 90, wcy = wy + 90;
+    drawImg(IMG['界面-色环盘.svg'], wx, wy, 180, 180);
+    const litSet = new Set(['red', 'yellow', 'green']);
+    WHEEL_COLS.forEach((col, i) => {
+      const a = (-90 + 60 * i) * Math.PI / 180;
+      const lx = wcx + Math.cos(a) * 60, ly = wcy + Math.sin(a) * 60;
+      if (litSet.has(col)) {
+        drawImg(IMG[`界面-色环灯-亮.svg@${GLOW[col]}`], lx - 14, ly - 14, 28, 28);
+      } else {
+        drawImg(IMG['界面-色环灯-灭.svg'], lx - 14, ly - 14, 28, 28);
+      }
+      if (col === 'yellow') drawImg(IMG['界面-色环当前圈.svg'], lx - 19, ly - 19, 38, 38);
+    });
+    text('×8', wcx, wcy + 1, 24, '#f7e6c4', 'rgba(0,0,0,.75)', 700);
+
+    [['r', '宝石-红.svg', 3, 0.70], ['g', '宝石-绿.svg', 2, 0.30], ['b', '宝石-蓝.svg', 2, 0.50]].forEach(([k, fn, lv, p], i) => {
+      const gx = 248, gy = 524 + i * 56;
+      drawImg(IMG['界面-宝石经验托.svg'], gx - 26, gy - 26, 52, 52);
+      x.save();
+      x.beginPath(); x.arc(gx, gy, 21, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * p);
+      x.strokeStyle = GEM_COL[k]; x.lineWidth = 3.5; x.lineCap = 'round'; x.stroke();
+      x.restore();
+      drawImg(IMG[fn], gx - 18, gy - 18, 36, 36);
+      text(`Lv ${lv}`, gx + 34, gy + 1, 14, '#e3eef2', 'rgba(0,0,0,.85)', 600, 'left');
+    });
+
+    text('保底 3400　暴击最高 5100', 706, 424, 15, '#e8dfd0', 'rgba(0,0,0,.85)', 600);
+    drawImg(IMG['界面-序列槽.svg'], 392, 456, 630, 124);
+    const seq = [
+      [C('red'), '起色 ×1', '120'],
+      [C('yellow'), '邻色 ×2', '480'],
+      [C('yellow'), '同色 ×4', '960'],
+      [C('green'), '邻色 ×8', '1840'],
+    ];
+    seq.forEach(([def, topT, botT], i) => {
+      drawCard(458 + i * 102, 518, 75, def, { seqTop: topT, seqBot: botT });
+    });
+
+    drawImg(IMG['界面-圆按钮-平时.svg'], 1036, 472, 40, 40);
+    drawImg(IMG['界面-图标-撤销一步.svg'], 1044, 480, 24, 24);
+    drawImg(IMG['界面-圆按钮-平时.svg'], 1036, 524, 40, 40);
+    drawImg(IMG['界面-图标-撤销全部.svg'], 1044, 532, 24, 24);
+
+    drawImg(IMG['界面-施法按钮-平时.svg'], 1216, 510, 126, 126);
+    text('施法', 1279, 574, 25, '#2b1806', 'rgba(255,244,210,.55)', 700);
+
+    const hand = [
+      [C('blue'), { mode: 'dim', hint: '断色' }],
+      [C('yellow'), { mode: 'same', color: GLOW.yellow, hint: '×2 同色' }],
+      [C('green'), { mode: 'adj', color: GLOW.green, hint: '×2 邻色' }],
+      [C('purple'), { mode: 'comp', hint: '×2 补色' }],
+      [AMP, { mode: 'hover', scale: 1.1 }],
+      [C('cyan'), { mode: 'rainbow', hint: '出彩虹' }],
+      [INSPIRE, { hint: '马上生效', hintCol: '#f7c978' }],
+      [TIKO_CARD, { mode: 'dim', hint: '断色' }],
+    ];
+    hand.forEach(([def, st], i) => {
+      if (st && st.mode === 'hover') return;
+      const t = i - 3.5;
+      const lift = st && (st.mode === 'comp' || st.mode === 'rainbow') ? 14 : st && (st.mode === 'same' || st.mode === 'adj') ? 9 : 0;
+      drawCard(720 + t * 98, 728 + t * t * 2.2 - lift, 120, def, st, t * 0.032);
+    });
+    {
+      const t = 4 - 3.5;
+      drawCard(720 + t * 98, 700, 120, hand[4][0], hand[4][1], 0);
+    }
+
+    drawImg(IMG['界面-牌堆叠.svg'], 18, 704, 70, 90);
+    drawImg(IMG['界面-计数牌.svg'], 80, 756, 52, 30);
+    text('6', 106, 771, 15, '#eef5f8', 'rgba(0,0,0,.7)', 700);
+    text('弃牌堆', 106, 742, 12, '#a8bcc4', 'rgba(0,0,0,.85)', 500);
+
+    drawImg(IMG['界面-牌堆叠.svg'], 1352, 704, 70, 90);
+    drawImg(IMG['界面-计数牌.svg'], 1308, 756, 52, 30);
+    text('21', 1334, 771, 15, '#eef5f8', 'rgba(0,0,0,.7)', 700);
+    text('牌堆', 1334, 742, 12, '#a8bcc4', 'rgba(0,0,0,.85)', 500);
+  }
+
+  /* ---------- 画面 3：封印牌近看（400 × 600 并排） ---------- */
+  function viewSeals() {
+    drawBg(0.68);
+    drawCard(460, 415, 400, TIKO_CARD);
+    drawCard(980, 415, 400, BADOM_CARD);
+  }
+
+  /* ---------- 画面 4：四个弹窗（后垫压暗整屏） ---------- */
+  function viewModal() {
+    viewScene();
+    x.fillStyle = 'rgba(5,8,12,0.72)';
+    x.fillRect(0, 0, W, H);
+
+    if (modalKind === 'victory') {
+      drawImg(IMG['弹窗-石板面板.svg'], 440, 240, 560, 360);
+      drawImg(IMG['弹窗-胜利挂旗.svg'], 550, 198, 340, 84);
+      text('胜利', 720, 236, 30, '#fff3dc', 'rgba(20,12,6,.85)', 700);
+      for (let i = 0; i < 3; i++) {
+        drawImg(IMG['弹窗-奖励空槽.svg'], 506 + i * 152, 316, 124, 156);
+      }
+      drawImg(IMG['弹窗-按钮-平时.svg'], 636, 514, 168, 48);
+      text('继续', 720, 538, 18, '#efe4cc', 'rgba(0,0,0,.7)', 600);
+    } else if (modalKind === 'defeat') {
+      drawImg(IMG['弹窗-战败暗雾.svg'], 490, 232, 460, 240);
+      text('战败', 720, 340, 68, '#d4e2e8', 'rgba(6,10,14,.92)', 700);
+      drawImg(IMG['弹窗-按钮-平时.svg'], 636, 486, 168, 48);
+      text('回大厅', 720, 510, 18, '#efe4cc', 'rgba(0,0,0,.7)', 600);
+    } else if (modalKind === 'flee') {
+      drawImg(IMG['弹窗-确认面板.svg'], 520, 290, 400, 220);
+      text('要逃跑吗？', 720, 362, 24, '#efe4cc', 'rgba(0,0,0,.75)', 600);
+      drawImg(IMG['弹窗-按钮-平时.svg'], 544, 424, 160, 46);
+      text('逃跑', 624, 447, 17, '#f09486', 'rgba(0,0,0,.7)', 600);
+      drawImg(IMG['弹窗-按钮-平时.svg'], 736, 424, 160, 46);
+      text('取消', 816, 447, 17, '#efe4cc', 'rgba(0,0,0,.7)', 600);
+    } else {
+      const isDisc = modalKind === 'discard';
+      drawImg(IMG['弹窗-牌堆大面板.svg'], 280, 124, 880, 560);
+      text(isDisc ? '弃牌堆 6 张' : '牌堆 21 张', 720, 168, 22, '#efe4cc', 'rgba(0,0,0,.75)', 600);
+      drawImg(IMG['弹窗-关闭按钮-平时.svg'], 1104, 144, 42, 42);
+      const deck = isDisc
+        ? [C('red'), C('yellow'), C('green'), AMP, INSPIRE, TIKO_CARD]
+        : [
+            C('red'), C('red'), C('yellow'), C('yellow'), C('green'), C('green'), C('cyan'),
+            C('cyan'), C('blue'), C('blue'), C('purple'), C('purple'), C('white'), AMP,
+            INSPIRE, TIKO_CARD, BADOM_CARD, C('red'), C('green'), C('blue'), C('yellow'),
+          ];
+      deck.forEach((def, i) => {
+        const col = i % 7, row = Math.floor(i / 7);
+        drawCard(388 + col * 110, 276 + row * 142, 75, def);
+      });
+    }
+  }
+
+  /* ---------- 画面 5：宝石（三颗宝石四尺寸 + 7 色光牌与 2 异能牌三尺寸排布） ---------- */
+  function viewGems() {
+    drawBg(0.76);
+    const gems = [
+      ['宝石-红.svg', '红宝石 · 圆润切面'],
+      ['宝石-绿.svg', '绿宝石 · 六边切面'],
+      ['宝石-蓝.svg', '蓝宝石 · 尖窄水晶'],
+    ];
+    gems.forEach(([fn, title], gi) => {
+      const bx = 30 + gi * 470;
+      drawImg(IMG[fn], bx, 36, 240, 240);
+      text(title, bx + 332, 92, 13, '#cfe0e8', 'rgba(0,0,0,.85)', 600);
+      text('240px', bx + 120, 268, 11, '#8fa6ad', 'rgba(0,0,0,.75)', 500);
+      const sizes = [[64, bx + 276], [28, bx + 344], [16, bx + 394]];
+      sizes.forEach(([sz, cx]) => {
+        const cy = 166;
+        drawImg(IMG[fn], cx - sz / 2, cy - sz / 2, sz, sz);
+        text(`${sz}px`, cx, cy + 52, 11, '#8fa6ad', null, 500);
+      });
+    });
+
+    text('7 色光牌 + 2 异能牌（大图一排 · 点击任一张看 400×600 原寸）', 24, 288, 12, '#8fa6ad', null, 600, 'left');
+    GEM_CARDS.forEach((def, i) => {
+      drawCard(104 + i * 154, 398, 128, def);
+    });
+
+    text('手牌尺寸', 24, 582, 13, '#8fa6ad', null, 600, 'left');
+    text('120 × 180', 24, 602, 12, '#cfe0e8', null, 500, 'left');
+    GEM_CARDS.forEach((def, i) => {
+      drawCard(232 + i * 136, 594, 120, def);
+    });
+
+    text('序列尺寸', 24, 738, 13, '#8fa6ad', null, 600, 'left');
+    text('75 × 112', 24, 758, 12, '#cfe0e8', null, 500, 'left');
+    GEM_CARDS.forEach((def, i) => {
+      drawCard(232 + i * 102, 748, 75, def);
+    });
+
+    if (zoomCard) {
+      x.fillStyle = 'rgba(5,8,12,0.82)';
+      x.fillRect(0, 0, W, H);
+      drawCard(720, 410, 400, zoomCard);
+      text('400 × 600 原寸（点击任意处关闭）', 720, 748, 14, '#cfe0e8', 'rgba(0,0,0,.85)', 600);
+    }
+  }
+
+  function render() {
+    x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    x.clearRect(0, 0, W, H);
+    if (view === 'cards') viewCards();
+    else if (view === 'scene') viewScene();
+    else if (view === 'seals') viewSeals();
+    else if (view === 'gems') viewGems();
+    else viewModal();
+  }
+
+  function setView(v, m) {
+    view = v;
+    zoomCard = null;
+    if (m) modalKind = m;
+    document.querySelectorAll('#nav > button').forEach(b => b.classList.toggle('on', b.dataset.v === view));
+    document.getElementById('subnav').classList.toggle('show', view === 'modal');
+    document.querySelectorAll('#subnav button').forEach(b => b.classList.toggle('on', b.dataset.m === modalKind));
+    render();
+  }
+  window.__setView = setView;
+
+  document.querySelectorAll('#nav > button').forEach(b => b.onclick = () => setView(b.dataset.v));
+  document.querySelectorAll('#subnav button').forEach(b => b.onclick = () => setView('modal', b.dataset.m));
+
+  cv.addEventListener('click', (e) => {
+    if (view !== 'gems') return;
+    if (zoomCard) { zoomCard = null; render(); return; }
+    const rect = cv.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) * (W / rect.width);
+    const my = (e.clientY - rect.top) * (H / rect.height);
+    if (my >= 300 && my <= 496) {
+      const idx = Math.round((mx - 104) / 154);
+      if (idx >= 0 && idx < GEM_CARDS.length) { zoomCard = GEM_CARDS[idx]; render(); }
+    }
+  });
+
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('v')) view = qs.get('v');
+  if (qs.get('m')) modalKind = qs.get('m');
+
+  const jobs = [
+    load('../参考-游戏现在的画风/画风-夜林和两只怪.png').then(i => { BG = i; }),
+    document.fonts ? document.fonts.ready : Promise.resolve(),
+    monsterArt('tiko', { s: 0.96, dx: 0, dy: -0.05 }).then(c => { TIKO = c; }),
+    monsterArt('badom', { s: 0.72, dx: 0, dy: 1.38 }).then(c => { BADOM = c; }),
+  ];
+  Object.entries(SVGS).forEach(([n, s]) => {
+    jobs.push(loadSvg(s).then(i => { IMG[n] = i; }));
+  });
+  Object.values(GLOW).forEach(hex => {
+    ['状态-色光边.svg', '状态-邻色箭头.svg', '界面-色环灯-亮.svg'].forEach(n => {
+      if (SVGS[n]) jobs.push(loadSvg(SVGS[n].replaceAll('#ff00ff', hex)).then(i => { IMG[`${n}@${hex}`] = i; }));
+    });
+  });
+
+  Promise.all(jobs).then(() => {
+    setView(view, modalKind);
+    // 二次重绘兜底：防止 Safari/WebKit 首帧绘制时内嵌 base64 PNG 尚未解码完毕
+    setTimeout(render, 80);
+    setTimeout(render, 260);
+    window.__ready = true;
+  });
+})();
+</script>
+</body>
+</html>

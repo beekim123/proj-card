@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="reduced-face" gradientUnits="userSpaceOnUse" x1="20" y1="8" x2="20" y2="31">
+      <stop offset="0%" stop-color="#FFD4CB" data-palette-stop-color="reduced:3"/>
+      <stop offset="60%" stop-color="#C78B98" data-palette-stop-color="reduced:2"/>
+      <stop offset="100%" stop-color="#5D465C" data-palette-stop-color="reduced:1"/>
+    </linearGradient>
+  </defs>
+  <path d="M5 8 L20 19 L35 8 L33 20 L20 32 L7 20 Z" fill="url(#reduced-face)" stroke="#282334" data-palette-stroke="reduced:0" stroke-width="2.6" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  <path d="M11 14 L20 22 L29 14 L27 19 L20 26 L13 19 Z" fill="#5D465C" data-palette-fill="reduced:1"/>
+</svg>

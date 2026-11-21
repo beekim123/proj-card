@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+<path d="M12 2L22 12 12 22 2 12Z" fill="#0d141a" data-palette-fill="cavity:0" stroke="#A4BBC7" data-palette-stroke="white:1" stroke-width="1" />
+<path d="M4 12L12 4V12Z" fill="#6EA0F5" data-palette-fill="gemBlue:2" stroke-width="1" />
+<path d="M12 4L20 12H12Z" fill="#FFAE99" data-palette-fill="gemRed:2" stroke-width="1" />
+<path d="M12 20L4 12H12Z" fill="#ACF194" data-palette-fill="gemGreen:2" stroke-width="1" />
+</svg>

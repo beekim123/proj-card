@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="72" height="100" viewBox="0 0 72 100">
+  <defs>
+    <path id="rainbow-9-outline" d="M24.3 16 L48 16 L58.1 26.4 L58.1 72.4 L45.8 86 L24 86 L14.9 76.7 L14.9 69.1 L24.7 67.3 L24.7 72.7 L28.3 76.5 L41.5 76.5 L48.3 68.9 L48.3 56.1 L42.9 58.9 L23.9 58.9 L13.7 48.5 L13.7 26.7 Z" fill="none"/>
+    <clipPath id="rainbow-9-sector-0"><polygon points="36,51 -41.031,-77.710 113.031,-77.710"/></clipPath>
+    <clipPath id="rainbow-9-sector-1"><polygon points="36,51 108.950,-80.066 185.981,53.356"/></clipPath>
+    <clipPath id="rainbow-9-sector-2"><polygon points="36,51 185.981,48.644 108.950,182.066"/></clipPath>
+    <clipPath id="rainbow-9-sector-3"><polygon points="36,51 113.031,179.710 -41.031,179.710"/></clipPath>
+    <clipPath id="rainbow-9-sector-4"><polygon points="36,51 -36.950,182.066 -113.981,48.644"/></clipPath>
+    <clipPath id="rainbow-9-sector-5"><polygon points="36,51 -113.981,53.356 -36.950,-80.066"/></clipPath>
+  </defs>
+  <g clip-path="url(#rainbow-9-sector-0)">
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#38111C" data-palette-stroke="rainbow0:0" stroke-width="14.6" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#FF627E" data-palette-stroke="rainbow0:2" stroke-width="12.9" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  </g>
+  <g clip-path="url(#rainbow-9-sector-1)">
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#432713" data-palette-stroke="rainbow1:0" stroke-width="14.6" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#F9BD54" data-palette-stroke="rainbow1:2" stroke-width="12.9" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  </g>
+  <g clip-path="url(#rainbow-9-sector-2)">
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#193820" data-palette-stroke="rainbow2:0" stroke-width="14.6" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#A1E878" data-palette-stroke="rainbow2:2" stroke-width="12.9" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  </g>
+  <g clip-path="url(#rainbow-9-sector-3)">
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#12353D" data-palette-stroke="rainbow3:0" stroke-width="14.6" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#67DCC9" data-palette-stroke="rainbow3:2" stroke-width="12.9" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  </g>
+  <g clip-path="url(#rainbow-9-sector-4)">
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#12254E" data-palette-stroke="rainbow4:0" stroke-width="14.6" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#72B3FF" data-palette-stroke="rainbow4:2" stroke-width="12.9" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  </g>
+  <g clip-path="url(#rainbow-9-sector-5)">
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#352044" data-palette-stroke="rainbow5:0" stroke-width="14.6" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+    <use href="#rainbow-9-outline" xlink:href="#rainbow-9-outline" fill="none" stroke="#D091F4" data-palette-stroke="rainbow5:2" stroke-width="12.9" stroke-linejoin="miter" stroke-miterlimit="1.35"/>
+  </g>
+</svg>

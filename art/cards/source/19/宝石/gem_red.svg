@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+<path d="M32 4C49 4 60 16 60 32S49 60 32 60 4 48 4 32 16 4 32 4Z" fill="#430F20" data-palette-fill="gemRed:0" stroke="#FFAE99" data-palette-stroke="gemRed:2" stroke-width="1.5" />
+<path d="M7 25L20 10 42 8 35 17 17 21Z" fill="#FFAE99" data-palette-fill="gemRed:2" stroke-width="1" opacity="1"/>
+<path d="M7 25L17 21 22 37 14 48Z" fill="#DC5B67" data-palette-fill="gemRed:1" stroke-width="1" opacity="0.8"/>
+<path d="M17 21L35 17 48 29 35 42 22 37Z" fill="#DC5B67" data-palette-fill="gemRed:1" stroke-width="1" opacity="1"/>
+<path d="M35 17L42 8 56 22 48 29Z" fill="#FFAE99" data-palette-fill="gemRed:2" stroke-width="1" opacity="0.55"/>
+<path d="M35 42L48 29 56 40 43 55Z" fill="#DC5B67" data-palette-fill="gemRed:1" stroke-width="1" opacity="0.65"/>
+<path d="M14 48L22 37 35 42 43 55 29 58Z" fill="#430F20" data-palette-fill="gemRed:0" stroke-width="1" opacity="0.7"/>
+<path d="M9 22Q15 9 29 7" fill="none" stroke="#FFE1A2" data-palette-stroke="gemRed:3" stroke-width="2" opacity="1"/>
+<path d="M18 21L34 17 39 21" fill="none" stroke="#FFE1A2" data-palette-stroke="gemRed:3" stroke-width="1" opacity="0.8"/>
+</svg>

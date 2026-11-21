@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 58" width="64" height="58" data-ground-anchor="0.5 1">
+<defs>
+  <linearGradient id="shrub_3_body" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0%" stop-color="#23332f" data-palette-stop-color="shrub:1" />
+    <stop offset="48%" stop-color="#10191a" data-palette-stop-color="shrub:0" />
+    <stop offset="100%" stop-color="#10191a" data-palette-stop-color="shrub:0" />
+  </linearGradient>
+</defs>
+<g id="base">
+  <path d="M19 55.8 Q26 53.2 33 52.4 Q40 53.2 46 55.8 Q39 57.4 33 57.8 Q26 57.3 19 55.8 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M23 55.2 Q28 53.5 32 53.2 Q29 55.0 25 55.8 Z" fill="#23332f" opacity="0.76" data-palette-fill="shrub:1" />
+  <path d="M23 55.0 Q29 53.5 33 53.0" fill="none" stroke="#45625a" stroke-width="0.55" stroke-linecap="round" opacity="0.48" data-palette-stroke="shrub:2" />
+</g>
+<g id="sway">
+  <path d="M27.1 38.7 L23.7 26.9 L22 17 L22.3 27.1 L24.9 39.3 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M45.9 35.2 L47.6 24.2 L50 15 L46.4 23.8 L44.1 34.8 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M31.9 31.7 L38.6 22.5 L44 13 L37.4 21.5 L30.1 30.3 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M30.4 43.1 Q24 34.1 19.2 30.2 L14.5 26.3 L4 22 L13.5 27.7 Q22 35.9 24.8 40.4 L27.6 44.9 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M36.5 55.6 Q41.1 43.6 44.4 38.6 Q47.7 33.7 52 30 L56.3 26.4 L61 23 L55.7 25.6 Q46.3 32.3 42.6 37.4 Q38.9 42.4 36.2 48.4 L33.5 54.4 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M33.2 54.8 Q31.7 42 32 35.1 Q32.3 28.1 33 21.1 L33.8 14.1 L35 3 L32.2 13.9 Q29.7 27.9 29 34.9 Q28.3 42 28.6 48.6 L28.8 55.2 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M30.5 52 Q29.8 36 33.5 9 M28 43 Q19 32 7 23 M36 53 Q42 39 56 26 M32 30 L42 16" fill="none" stroke="#45625a" stroke-width="0.62" stroke-linecap="round" opacity="0.58" data-palette-stroke="shrub:2" />
+  <path d="M27.4 44.2 Q23.3 37.6 15 40 Q20.8 43.6 26.6 45.8 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M38.7 46.2 Q43.1 40.1 51 43 Q45.1 46.2 39.3 47.8 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M24.1 33 Q17.2 27.8 9 33 Q16.7 34.9 23.9 35 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M46 34 Q52.2 29.4 59 35 Q52.2 36.3 46 36 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M20.2 31 Q14 24.7 5 29 Q12.6 31.8 19.8 33 Z" fill="url(#shrub_3_body)" />
+  <path d="M16.5 27.2 Q12.4 19.3 2.5 20 Q8.8 25.3 15.5 28.8 Z" fill="url(#shrub_3_body)" />
+  <path d="M19.8 29.6 Q20.9 21.4 13 16.5 Q14.9 24.1 18.2 30.4 Z" fill="url(#shrub_3_body)" />
+  <path d="M24.8 23.4 Q24.2 15.3 15.5 12.5 Q18.8 19.3 23.2 24.6 Z" fill="url(#shrub_3_body)" />
+  <path d="M23.2 25.9 Q20.4 19.1 26 13 Q26.2 19.9 24.8 26.1 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M33.7 14.4 Q33.1 6.6 24.5 4.5 Q27.8 10.9 32.3 15.6 Z" fill="url(#shrub_3_body)" />
+  <path d="M33.3 13.4 Q33.4 6 41.5 4 Q38.7 10 34.7 14.6 Z" fill="url(#shrub_3_body)" />
+  <path d="M36.2 23.4 Q37.1 14.6 46.5 11.5 Q42.7 18.9 37.8 24.6 Z" fill="url(#shrub_3_body)" />
+  <path d="M34.5 25.3 Q36.9 19 44.5 20 Q40.2 24.2 35.5 26.7 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M46.2 24.5 Q46 16.1 54.5 12 Q51.8 19.5 47.8 25.5 Z" fill="url(#shrub_3_body)" />
+  <path d="M48.5 30.1 Q52.9 22.6 62.5 24 Q56.1 28.8 49.5 31.9 Z" fill="url(#shrub_3_body)" />
+  <path d="M44.8 35.1 Q50.5 28.9 59.5 32 Q52.3 35.3 45.2 36.9 Z" fill="url(#shrub_3_body)" />
+  <path d="M40.7 43.2 Q44.9 37.5 52.5 40 Q46.9 43.2 41.3 44.8 Z" fill="url(#shrub_3_body)" />
+  <path d="M30.3 51.2 Q26.7 45.6 19.5 48 Q24.6 51.1 29.7 52.8 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M34.8 51.2 Q39.3 45.9 46.5 49 Q40.8 51.6 35.2 52.8 Z" fill="#10191a" data-palette-fill="shrub:0" />
+  <path d="M21.7 33.4 Q17.7 32.5 13.4 32.6" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M48 34.6 Q51.6 34 55.3 34.4" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M17.8 31.1 Q13.8 29.6 9.5 29.2" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M14.1 26.4 Q10.8 23.7 6.7 21.7" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M23 22 Q21.1 18.5 18.4 15.5" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M32 13.1 Q30.1 9.9 27.4 7.2" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M34.9 12.2 Q36.5 9.2 38.9 6.5" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M38.1 21.8 Q40.3 18.1 43.3 14.7" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M47.8 22.8 Q49.4 19 51.9 15.5" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M50.9 29.5 Q54.3 27.1 58.3 25.4" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M47.1 35 Q50.9 33.4 55.2 32.6" fill="none" stroke="#45625a" stroke-width="0.44" stroke-linecap="round" opacity="0.44" data-palette-stroke="shrub:2" />
+  <path d="M20.7 31.1 Q16 29.4 10.8 32" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.42" data-palette-stroke="shrub:3" />
+  <path d="M49 32.4 Q53.2 31 57.5 33.9" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.42" data-palette-stroke="shrub:3" />
+  <path d="M17.1 28.6 Q12.6 26.1 6.9 28.2" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.62" data-palette-stroke="shrub:3" />
+  <path d="M14.2 23.9 Q10.6 20.1 4.6 19.9" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.66" data-palette-stroke="shrub:3" />
+  <path d="M19.8 25.9 Q19.1 21 14.6 17.6" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.64" data-palette-stroke="shrub:3" />
+  <path d="M24 19.9 Q22.4 15.4 17.3 13.2" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.66" data-palette-stroke="shrub:3" />
+  <path d="M22.3 22.6 Q21.8 18.3 24.9 14.3" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.5" data-palette-stroke="shrub:3" />
+  <path d="M33 11 Q31.3 6.8 26.3 5" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.7" data-palette-stroke="shrub:3" />
+  <path d="M33.8 10.2 Q35.1 6.2 39.8 4.5" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.68" data-palette-stroke="shrub:3" />
+  <path d="M37.1 19.5 Q39 14.7 44.5 12.3" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.66" data-palette-stroke="shrub:3" />
+  <path d="M46.6 20.7 Q47.8 15.9 52.7 13" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.66" data-palette-stroke="shrub:3" />
+  <path d="M50.9 27 Q54.6 23.5 60.4 23.8" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.66" data-palette-stroke="shrub:3" />
+  <path d="M47.7 32.6 Q52 30.1 57.6 31.4" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.56" data-palette-stroke="shrub:3" />
+  <path d="M42.9 41 Q46.2 38.5 50.9 39.6" fill="none" stroke="#89a79e" stroke-width="0.58" stroke-linecap="round" opacity="0.5" data-palette-stroke="shrub:3" />
+  <g id="warm">
+    <path d="M24 56.2 Q30 55.8 33 57.0 Q37 55.8 42 56.2" fill="none" stroke="#c58e58" stroke-width="0.58" stroke-linecap="round" opacity="0.56" data-palette-stroke="warm:2" />
+    <path d="M29.5 46 L31 54 M36.5 48 L35 54.5" fill="none" stroke="#c58e58" stroke-width="0.65" stroke-linecap="round" opacity="0.55" data-palette-stroke="warm:2" />
+    <path d="M25 45.2 Q21.6 43.8 18.3 41.9" fill="none" stroke="#c58e58" stroke-width="0.54" stroke-linecap="round" opacity="0.52" data-palette-stroke="warm:2" />
+    <path d="M40.9 47.3 Q44.3 46.3 47.7 44.7" fill="none" stroke="#c58e58" stroke-width="0.54" stroke-linecap="round" opacity="0.52" data-palette-stroke="warm:2" />
+    <path d="M28.3 52.3 Q25.3 51.2 22.4 49.6" fill="none" stroke="#c58e58" stroke-width="0.54" stroke-linecap="round" opacity="0.52" data-palette-stroke="warm:2" />
+    <path d="M36.8 52.4 Q40 51.6 43.3 50.3" fill="none" stroke="#c58e58" stroke-width="0.54" stroke-linecap="round" opacity="0.52" data-palette-stroke="warm:2" />
+  </g>
+</g>
+</svg>
